@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <declare-styleable name="InputView">
+        <attr name="hint" format="reference|string" />
+        <attr name="editable" format="reference|boolean" />
+        <attr name="textType" format="reference|integer" >
+            <enum name="silent" value="0"/>
+            <enum name="normal" value="1" />
+            <enum name="password" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="BH_toolbar">
+        <attr name="centerTitle" format="reference|string" />
+    </declare-styleable>
+
+</resources>

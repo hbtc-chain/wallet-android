@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.fragment.SecureTipsFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:text="@string/tips_secure"
+        android:textColor="@color/main_text_black"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        android:paddingEnd="24dp"
+        android:src="@mipmap/ic_close"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_secure_tips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginTop="16dp"
+        android:gravity="left"
+        android:text="您的钱包助记词未备份，请务必备份助记词"
+        android:textColor="@color/main_text_black"
+        android:textSize="15sp"
+        />
+
+    <LinearLayout
+        android:id="@+id/layout_mid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        app:layout_constraintTop_toBottomOf="@+id/tv_secure_tips"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:background="@color/gray_f9f9fb"
+        android:padding="16dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textColor="@color/main_text_black"
+            android:textSize="15sp"
+            android:text="@string/tips_secure_index_1"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textColor="@color/dark_black"
+            android:textSize="14sp"
+            android:text="@string/tips_secure_index_2"
+            android:drawableLeft="@drawable/ic_dot_blue"
+            android:drawablePadding="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_black"
+            android:textSize="14sp"
+            android:text="@string/tips_secure_index_3"
+            android:drawableLeft="@drawable/ic_dot_blue"
+            android:drawablePadding="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_black"
+            android:textSize="14sp"
+            android:text="@string/tips_secure_index_4"
+            android:drawableLeft="@drawable/ic_dot_blue"
+            android:drawablePadding="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_black"
+            android:textSize="14sp"
+            android:text="@string/tips_secure_index_5"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            />
+
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_later"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/main_padding_left"
+        app:layout_constraintTop_toBottomOf="@+id/layout_mid"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/main_btn_gray_disable"
+        android:text="@string/later_backup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/btn_at_once"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_at_once"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_left"
+        app:layout_constraintTop_toBottomOf="@+id/layout_mid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_later"
+        style="@style/main_btn_blue_44"
+        android:text="@string/at_once_backup"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

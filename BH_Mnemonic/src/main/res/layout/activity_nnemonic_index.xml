@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MnemonicIndexActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_bluehelix"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="196dp"
+        />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:visibility="gone"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_generate_wallet"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_import_wallet"
+        android:layout_marginBottom="16dp"
+        android:text="@string/wallet_create_trusteeship"
+        android:background="@drawable/btn_bg_blue"
+        style="@style/main_text_white"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_import_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        android:text="@string/wallet_import_trusteeship"
+        style="@style/main_text_white"
+        android:background="@drawable/btn_drak_corner"
+        android:layout_marginTop="16dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

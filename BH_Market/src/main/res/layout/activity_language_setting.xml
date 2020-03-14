@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".language.ui.LanguageSettingActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="152.0dip"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:fitsSystemWindows="true"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/toolbar_layout_coll_title_style"
+            app:contentScrim="@color/white"
+            app:expandedTitleTextAppearance="@style/toolbar_layout_ex_title_style"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll"
+            app:title="@string/app_account_language"
+            app:toolbarId="@+id/toolbar"
+            >
+
+            <!--<androidx.appcompat.widget.Toolbar
+                android:id="@id/toolbar"
+                android:layout_width="fill_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+            <include
+                layout="@layout/toolbar"
+                />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:divider="@color/line_color"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:showDividers="end|middle"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_language_set"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

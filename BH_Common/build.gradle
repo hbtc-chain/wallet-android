@@ -1,0 +1,86 @@
+//apply plugin: 'com.android.application'
+apply from: "../module.build.gradle"
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+android {
+    /*compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+
+    defaultConfig {
+        applicationId "com.bhex.wallet.core"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }*/
+    defaultConfig {
+        //如果是独立模块，则使用当前组件的包名
+        if (isBuildModule.toBoolean()) {
+            applicationId "com.bhex.wallet.core"
+        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        /*javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
+            }
+        }*/
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    //annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.2.0'
+
+    implementation 'com.alibaba:arouter-api:1.4.1'
+    kapt 'com.alibaba:arouter-compiler:1.2.1'
+    //annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+    //implementation"androidx.room:room-runtime:$room_version"
+
+
+    //room数据库
+    implementation 'androidx.room:room-runtime:2.2.3'
+    // RxJava2
+    implementation 'androidx.room:room-rxjava2:2.2.3'
+    // For Kotlin use kapt instead of annotationProcessor
+    kapt 'androidx.room:room-compiler:2.2.3'
+
+    //annotationProcessor 'androidx.room:room-compiler:2.2.3'
+
+
+    api project(path: ':Lib_Network')
+    api project(path: ':Lib_Tools')
+    api project(path: ':UIKit')
+
+    implementation 'org.web3j:core:3.3.1-android'
+    implementation 'io.github.novacrypto:BIP39:0.1.9'//用于生成助记词
+    implementation 'org.bitcoinj:bitcoinj-core:0.15.8'
+
+}

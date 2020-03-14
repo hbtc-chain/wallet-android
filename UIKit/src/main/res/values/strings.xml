@@ -1,0 +1,83 @@
+<resources>
+    <string name="app_name">Bluehelix</string>
+    <string name="exit_app">再次点击退出应用</string>
+
+    <string name="action_done">完成</string>
+    <string name="auth_code">验证码</string>
+    <string name="get_auth_code">获取验证码</string>
+    <string name="import_auth_code">输入验证码</string>
+    <string name="resend">重新发送</string>
+
+    <string name="http_loading">数据加载中</string>
+
+    <string name="app_try_again">暂无数据，点击重试</string>
+    <string name="net_error_msg">网络异常</string>
+    <string name="app_net_error_msg">网络不给力</string>
+    <string name="app_net_error_msg_check">请检查你的手机是否联网</string>
+    <string name="auth_info_faild">当前登录信息过期,请重新登录</string>
+    <string name="error_network_later_try">网络异常，请稍后再试</string>
+    <string name="error_network_time_out">请求超时</string>
+    <string name="app_account_language">语言</string>
+    <string name="language_setting">语言设置</string>
+
+
+
+    <string name="wallet_create_trusteeship">创建托管单元</string>
+    <string name="wallet_import_trusteeship">导入托管单元</string>
+    <string name="wallet_create">开始创建</string>
+    <string name="at_once_backup">立即备份</string>
+    <string name="later_backup">稍后备份</string>
+    <string name="password_create_success">新钱包创建成功</string>
+    <string name="backup_nnemonic">备份助记词</string>
+    <string name="backup_nnemonic_tips">请务必牢记并妥善保管这12个单词,一旦遗失，您的资产将无法找回</string>
+    <string name="verify_nnemonic">验证助记词</string>
+    <string name="start_backup">开始备份</string>
+    <string name="tab_balance_title">资产</string>
+    <string name="tab_change_title">兑换</string>
+    <string name="tab_order_title">订单</string>
+    <string name="tab_my_title">我的</string>
+    <string name="service_agreement">服务协议</string>
+    <string name="agreement_index_1">您必须阅读并接受我们的隐私条款才能继续</string>
+    <string name="agreement_context">勿通过邮箱、通讯工具发送您的助记词记词轻易告知他人 请勿通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘通过邮箱、通讯工具发送您的助记词的助记词 易告知通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘中过邮箱、通讯工具发送您的助记将您的助记词轻易告知他通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘请勿通过邮箱、通讯工具发送您的助记勿将您的助记词轻易告知通过截屏、照相等方式保存于您的移动设备中请勿将助记词 勿通过邮箱、通讯工具发送您的助记词记词轻易告知他人 请勿通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘通过邮箱、通讯工具发送您的助记词的助记词轻易告知通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘中过邮箱、通讯工具发送您的助记将您的助记词轻易告知他通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘请 移动设备中请勿将助记词已文档的保存于您的硬盘、网盘中过邮箱、通讯工具发送您的助记将您的助记词轻易告知他通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘请</string>
+    <string name="confirm">确认</string>
+    <string name="import_mnemonic_tips">请输入12位助记词已恢复帐户</string>
+    <string name="import_mnemonic">导入助记词</string>
+    <string name="mnemonic_input_hint">输入助记词,用空格分隔</string>
+    <string name="verify">验证</string>
+    <string name="login">登录</string>
+    <string name="setting">设置</string>
+    <string name="next">下一步</string>
+    <string name="set_password">设置密码</string>
+    <string name="setup_1_to_3">(第1步，共3步)</string>
+    <string name="setup_2_to_3">(第2步，共3步)</string>
+    <string name="setup_3_to_3">(第3步，共3步)</string>
+    <string name="set_pwd_tip_1">安全密码是保护钱包私钥和操作资产的重要凭证</string>
+    <string name="set_pwd_tip_2">BlueHelix钱包不会缓存、上传、存储您的密码</string>
+    <string name="set_pwd_tip_3">请务必妥善保管密码</string>
+    <string name="wallet_password">钱包密码</string>
+    <string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>
+    <string name="pwd_index">%1$d个字符</string>
+    <string name="pwd_rule_tip">为了保证您的资产安全，密码请包括：</string>
+    <string name="pwd_rule_tip_1">1个大写字母</string>
+    <string name="pwd_rule_tip_2">1个小写字母</string>
+    <string name="pwd_rule_tip_3">1个数字</string>
+    <string name="pwd_rule_tip_4">至少8位字符</string>
+    <string name="set_username_tip">您正在创建BlueHelix钱包的托管单元，并将拥有一份跨链钱包</string>
+    <string name="tips_secure">安全提醒</string>
+    <string name="tips_secure_index_1">助记词可用于：</string>
+    <string name="tips_secure_index_2">恢复钱包下的钱包资产</string>
+    <string name="tips_secure_index_3">防止忘记密码</string>
+    <string name="tips_secure_index_4">应用删除、手机丢失</string>
+    <string name="tips_secure_index_5">等情况导致的资产损失</string>
+    <string name="confirm_password">重复密码</string>
+
+
+    <string-array name="my_list_item">
+        <item>备份助记词</item>
+        <item>修改安全密码</item>
+        <item>绑定通知</item>
+        <item>帮助中心</item>
+        <item>使用条款</item>
+        <item>关于我们</item>
+    </string-array>
+</resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="textColorPrimary">#616161</color>
+
+    <!--<color name="colorCustomHeaderLine">#A9A9A9</color>
+    <color name="colorCustomHeaderInner">#A9A9A9</color>-->
+    <color name="theme_color_bg">#ffffffff</color>
+
+    <color name="theme_content">#ff3a476b</color>
+    <color name="main_text_bright_gray">#BDC3C7</color>
+    <color name="main_text_black">#0A1825</color>
+    <!--<color name="main_title_bar_black">#0A1825</color>-->
+
+    <color name="viewBackground">@android:color/white</color>
+    <color name="trans">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="line_color">#fff0f0f2</color>
+
+    <color name="gray">#E5E5E5</color>
+    <color name="light_gray">#E5EDFE</color>
+
+    <color name="blue">#3375E0</color>
+    <color name="dark_blue">#6E8196</color>
+    <color name="light_blue">#E5EDFE</color>
+    <color name="dark">#242b32</color>
+    <color name="dark_black">#475563</color>
+    <color name="gray_f9f9fb">#f9f9fb</color>
+    <color name="gray_B0BFDB">#B0BFDB</color>
+    <color name="gray_E7ECF4">#E7ECF4</color>
+
+    <color name="tips_text_black">#0E1D2C</color>
+
+    <color name="blue5">#0c3375E0</color>
+
+    <color name="dark20">#202F44</color>
+    <color name="dark80">#cc242b32</color>
+    <color name="dark50">#80242b32</color>
+<!--
+    <color name="dark20">#33242b32</color>
+-->
+    <color name="dark10">#19242b32</color>
+    <color name="dark5">#0c242b32</color>
+    <color name="dark1">#03242b32</color>
+
+</resources>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.ImportMnemonicActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/import_mnemonic"
+            tools:text="@string/import_mnemonic" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/imprt_mnemonic_tips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:text="@string/import_mnemonic_tips"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginTop="16dp"
+        style="@style/main_text_tips_style"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imprt_mnemonic_tips"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="120dp"
+            android:orientation="vertical"
+            android:background="@color/gray_f9f9fb">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:textSize="15sp"
+                android:hint="@string/mnemonic_input_hint"
+                android:textColorHint="@color/dark_blue"
+                android:textColor="@color/tips_text_black"
+                android:padding="16dp"
+                android:inputType="text"
+                android:layout_marginBottom="30dp"
+                android:textCursorDrawable="@null">
+
+
+            </androidx.appcompat.widget.AppCompatEditText>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/dark_blue"
+            android:text="钱包(托管单元)密码"
+            />
+
+        <com.bhex.lib.uikit.widget.InputView
+            android:id="@+id/inp_wallet_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textType="2"
+            app:hint="请设置钱包密码(不少于6位)"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/dark_blue"
+            android:text="重复密码"
+            />
+
+        <com.bhex.lib.uikit.widget.InputView
+            android:id="@+id/inp_wallet_confirm_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            app:textType="2"
+            app:hint="重复密码"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_import_wallet"
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/main_btn_blue_44"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_left"
+        android:layout_marginBottom="40dp"
+        android:text="@string/wallet_create"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

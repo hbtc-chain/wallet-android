@@ -1,0 +1,89 @@
+package com.bhex.network.observer;
+
+import com.bhex.network.base.BaseResponse;
+import com.bhex.network.exception.ApiException;
+import com.bhex.network.exception.ExceptionEngin;
+import com.bhex.network.utils.ToastUtils;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
+/**
+ * created by gongdongyang
+ * on 2020/2/24
+ */
+public abstract class BaseObserver<T> implements Observer<T> {
+
+    private Disposable disposable;
+
+    public boolean isNeedShowtoast = true;
+
+    public BaseObserver(){}
+
+
+    public BaseObserver(boolean showToast){this.isNeedShowtoast = showToast;}
+
+    public void dispose() {
+        if (disposable != null && !disposable.isDisposed()){
+            disposable.dispose();
+        }
+    }
+
+    public boolean isDisposed() {
+        return (disposable != null && disposable.isDisposed());
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        this.disposable = d;
+    }
+
+    @Override
+    public void onNext(T t) {
+        //onSuccess(t);
+        if(t instanceof BaseResponse){
+            BaseResponse baseResponse = (BaseResponse)t;
+            if(baseResponse.code==0){
+                onSuccess(t);
+            }else{
+                onFailure(baseResponse.getCode(), baseResponse.getMessage());
+            }
+        }else{
+            onSuccess(t);
+            //return;
+        }
+        /*BaseResponse baseResponse = (BaseResponse)t;
+        onFailure(baseResponse.getCode(), baseResponse.getMessage());*/
+        //onSuccess(t);
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        //需要toast提示
+
+        ApiException apiException = ExceptionEngin.handleException(e);
+        onFailure(apiException.getCode(), apiException.getDisplayMessage());
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
+
+    public abstract void onSuccess(T t);
+
+    public void onFailure(int code, String errorMsg){
+        if (code == -1)
+            return;
+        if (code != 123 && (code == 401 || code == 2010 || code == 20051)) {
+            //AccountManger.getInstance().userAuthExpire();
+            //EventBus.getDefault().post(new LoginExpiresEvent());
+        }
+
+        //需要toast提示
+        if (this.isNeedShowtoast && code != 1000){
+            ToastUtils.showToast(errorMsg);
+        }
+
+    }
+}

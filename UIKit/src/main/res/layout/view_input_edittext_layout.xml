@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/input_edit"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginTop="0dp"
+        android:background="#F9F9FB"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:inputType="text"
+        android:hint="请输入用户名称"
+        android:paddingLeft="8dp"
+        android:paddingRight="60dp"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:textColor="@color/dark"
+        android:textColorHint="#B0BFDB"
+        android:textCursorDrawable="@null" />
+
+
+    <LinearLayout
+        android:id="@+id/input_action"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/input_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="4dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:src="@drawable/btn_clear"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/input_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:button="@drawable/btn_show"
+            android:checked="false"
+            android:gravity="center"
+            android:padding="6dp"
+            />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_edit"
+        android:layout_marginLeft="3dp"
+        android:text=""
+        android:textColor="#ff0000"
+        android:textSize="12sp"
+        android:visibility="gone" />
+</RelativeLayout>

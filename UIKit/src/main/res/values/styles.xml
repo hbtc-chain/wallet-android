@@ -1,0 +1,137 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="BaseTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <!--Appbar背景色-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--状态栏颜色-->
+        <item name="colorPrimaryDark">@color/dark</item>
+        <!--控制各个控件被选中时的颜色-->
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:windowBackground">@color/theme_color_bg</item>
+        <item name="android:textColor">@color/theme_content</item>
+        <!--<item name="colorControlActivated">@color/colorAccent</item>-->
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/BaseTheme">
+
+    </style>
+
+    <style name="AppTheme.Splash" parent="@style/AppTheme">
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--
+                <item name="android:windowTranslucentNavigation">true</item>
+        -->
+        <!--
+                <item name="android:windowFullscreen">true</item>
+        -->
+    </style>
+
+    <style name="text_flag_01">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@drawable/flag_01</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <!--<style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>-->
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="@style/ThemeOverlay.AppCompat.Light"/>
+
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Toolbar_textsize">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/main_text_black</item>
+    </style>
+
+    <style name="toolbar_layout_coll_title_style" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/main_text_black</item>
+    </style>
+
+    <style name="toolbar_layout_ex_title_style" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/main_text_black</item>
+    </style>
+
+    <style name="main_text_white">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="main_text_blue">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="toolbar_layout_title_style">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/main_text_black</item>
+    </style>
+
+
+    <style name="main_btn_blue_44">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/btn_bg_blue_6_corner</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <style name="main_btn_white_44">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="main_btn_gray_44">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/btn_gray_corner</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="main_btn_gray_disable">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/btn_gray_e7ecf4</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="main_text_tips_style">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/dark_black</item>
+    </style>
+
+
+    <style name="bottomDialogStyle">
+        <item name="android:windowEnterAnimation">@anim/anim_bottom_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_bottom_dialog_out</item>
+    </style>
+
+</resources>

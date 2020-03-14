@@ -1,0 +1,206 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+//apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        applicationId "com.bhex.wallet"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        flavorDimensions "bh_wallet"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                includeCompileClasspath = true
+            }
+        }
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            if (isBuildModule.toBoolean()) {
+                //独立运行
+                manifest.srcFile 'src/main/alone/AndroidManifest.xml'
+            } else {
+                //合并到宿主
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                resources {
+                    //正式版本时，排除debug文件夹下所有调试文件
+                    exclude 'src/debug/*'
+                }
+            }
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("${STORE_FILE}")
+            storePassword "${STORE_PWD}"
+            keyAlias "${KEY_ALIAS}"
+            keyPassword "${KEY_PWD}"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+
+        debug {
+            //不要忘了要在release的时候加入我么的签名配置信息
+            signingConfig signingConfigs.release
+            debuggable true
+            //buildConfigField("String", "API_HOST_URL", "\"${API_HOST_DEBUG_URL}\"")
+            //不显示Log　Zipalign优化
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources false
+            //启用混淆
+            minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                //这里要加上，否则debug包会出问题,后面两个为可选，x86建议加上不然部分模拟器回报错
+                abiFilters "armeabi-v7a", "x86"
+            }
+
+        }
+
+        release {
+            //不要忘了要在release的时候加入我么的签名配置信息
+            signingConfig signingConfigs.release
+            //buildConfigField("String", "API_HOST_URL", "\"${API_HOST_RELEASE_URL}\"")
+            //不显示Log　Zipalign优化
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources true
+            //启用混淆
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                //这里其实我觉可以直接是用"armeabi-v7a"，但国内大多使用的都是"armeabi"
+                abiFilters "armeabi-v7a"
+            }
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name == "release") {
+                outputFileName = "${variant.productFlavors[0].name}_Release_V${defaultConfig.versionName}_${releaseTime()}_build${defaultConfig.versionCode}_app.apk"
+            } else if (variant.buildType.name == "debug") {
+                outputFileName = "${variant.productFlavors[0].name}_Debug_V${defaultConfig.versionName}_${releaseTime()}_build${defaultConfig.versionCode}_app.apk"
+            }
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    /**
+     * 这前用上面multiDexEnabled true时，
+     * 突然在5.0以下的手机上跑不起来，
+     * 改成下面这种写法就可以了。
+     */
+    dexOptions {
+        jumboMode true
+    }
+
+    compileOptions {
+        encoding = "UTF-8"
+        incremental false
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    productFlavors {
+        bh_wallet {
+            applicationId "com.bhex.wallet"
+            //resConfigs("en","xxhdpi")
+        }
+    }
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
+    //leakcanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+
+    // 调试工具
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    //toast提示
+    //implementation 'com.hjq:toast:8.0'
+
+    implementation 'com.github.markzhai:blockcanary-android:1.5.0'
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
+    //blockcanary
+    implementation 'com.github.markzhai:blockcanary-android:1.5.0'
+
+    // this way you only enable BlockCanary in debug package
+    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+    releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
+
+    implementation 'com.alibaba:arouter-api:1.4.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+
+    //facebook android调试
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    /*implementation project(path: ':Lib_Network')
+    implementation project(path: ':Lib_Tools')
+    implementation project(path: ':UIKit')*/
+    implementation project(path: ':BH_Common')
+    implementation project(path: ':BH_Market')
+    implementation project(path: ':BH_Mnemonic')
+    implementation project(path: ':BH_Balance')
+    implementation project(path: ':BH_Main2')
+
+}

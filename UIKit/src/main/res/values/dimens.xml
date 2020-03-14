@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="dp_20">20dip</dimen>
+<!--
+    <dimen name="status_bar_height">0dp</dimen>
+-->
+    <dimen name="main_padding_left">16dip</dimen>
+    <dimen name="main_padding_right">16dip</dimen>
+    <dimen name="main_margin_left">16dip</dimen>
+    <dimen name="main_margin_right">16dip</dimen>
+
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">10sp</dimen><!--修改选中的文字大小 -->
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">10sp</dimen>
+    <dimen name="design_bottom_navigation_margin" tools:override="true">10dp</dimen>
+
+
+    <dimen name="recycler_item_default_height" tools:override="true">56dp</dimen>
+</resources>

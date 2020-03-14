@@ -1,0 +1,72 @@
+{
+  "variant": {
+    "module": {
+      "rootBuildGradleFolder": "D:\\bhex\\BHWallet",
+      "sdkFolder": "C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk",
+      "isNativeCompilerSettingsCacheEnabled": false,
+      "isBuildOnlyTargetAbiEnabled": true,
+      "splitsAbiFilterSet": [],
+      "intermediatesFolder": "D:\\bhex\\BHWallet\\app\\build\\intermediates",
+      "gradleModulePathName": ":app",
+      "moduleRootFolder": "D:\\bhex\\BHWallet\\app",
+      "makeFile": "D:\\bhex\\BHWallet\\app\\src\\main\\cpp\\CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "compilerSettingsCacheFolder": "D:\\bhex\\BHWallet\\.cxx",
+      "cxxFolder": "D:\\bhex\\BHWallet\\app\\.cxx",
+      "ndkFolder": "C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669",
+      "ndkVersion": "21.0.6113669",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "cmakeToolchainFile": "."
+    },
+    "buildSystemArgumentList": [],
+    "cFlagList": [],
+    "cppFlagsList": [
+      ""
+    ],
+    "variantName": "bh_walletDebug",
+    "soFolder": "D:\\bhex\\BHWallet\\app\\build\\intermediates\\cmake\\bh_walletDebug\\lib",
+    "objFolder": "D:\\bhex\\BHWallet\\app\\build\\intermediates\\cmake\\bh_walletDebug\\obj",
+    "jsonFolder": "D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug",
+    "gradleBuildOutputFolder": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug",
+    "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": []
+  },
+  "abi": "X86_64",
+  "abiPlatformVersion": 21,
+  "cxxBuildFolder": "D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\x86_64",
+  "jsonFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\x86_64\\android_gradle_build.json",
+  "gradleBuildOutputFolder": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug\\x86_64",
+  "objFolder": "D:\\bhex\\BHWallet\\app\\build\\intermediates\\cmake\\bh_walletDebug\\obj\\x86_64",
+  "buildCommandFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\x86_64\\build_command.txt",
+  "buildOutputFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\x86_64\\build_output.txt",
+  "modelOutputFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\x86_64\\build_model.json",
+  "cmake": {
+    "cmakeListsWrapperFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug\\x86_64\\CMakeLists.txt",
+    "toolchainWrapperFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug\\x86_64\\android_gradle_build.toolchain.cmake",
+    "buildGenerationStateFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug\\x86_64\\build_generation_state.json",
+    "cacheKeyFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug\\x86_64\\compiler_cache_key.json",
+    "compilerCacheUseFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug\\x86_64\\compiler_cache_use.json",
+    "compilerCacheWriteFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug\\x86_64\\compiler_cache_write.json",
+    "toolchainSettingsFromCacheFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug\\x86_64\\compiler_settings_cache.cmake",
+    "cmakeWrappingBaseFolder": "."
+  },
+  "jsonGenerationLoggingRecordFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\x86_64\\json_generation_record.json",
+  "compileCommandsJsonFile": "D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\x86_64\\compile_commands.json"
+}

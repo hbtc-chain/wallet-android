@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.BackupMnemonicActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/backup_nnemonic"
+            tools:text="@string/backup_nnemonic" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_tips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:text="@string/backup_nnemonic_tips"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        style="@style/main_text_tips_style"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_mnemonic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_tips"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="64dp"
+        android:overScrollMode="never"
+        >
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_start_verify"
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/main_btn_blue_44"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_left"
+        android:layout_marginBottom="40dp"
+        android:text="@string/start_backup"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

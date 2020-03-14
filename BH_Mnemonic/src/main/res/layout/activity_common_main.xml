@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainCommonActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_generate_wallet"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_left"
+        android:text="@string/wallet_create_trusteeship"
+        android:background="@drawable/btn_bg_blue"
+        style="@style/main_text_white"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_import_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_left"
+        android:text="@string/wallet_import_trusteeship"
+        style="@style/main_text_blue"
+        android:background="@drawable/btn_white_bg"
+        android:layout_marginTop="16dp"
+        />
+
+</LinearLayout>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.VerifyMnemonicActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/verify_nnemonic"
+            tools:text="@string/verify_nnemonic" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_tips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:paddingStart="@dimen/main_padding_left"
+        android:paddingEnd="@dimen/main_padding_right"
+        android:text="请按顺序点击助记词，填入下方表格中"
+        style="@style/main_text_tips_style"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_tips"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_start_bakcup"
+        android:orientation="vertical"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_mnemonic_above"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:minHeight="196dp"
+            android:overScrollMode="never"
+            android:background="@drawable/frame_light_gray_corner"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_mnemonic_under"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:layout_marginTop="20dp"
+            />
+
+    </LinearLayout>
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_start_bakcup"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/main_btn_gray_disable"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_left"
+        android:layout_marginBottom="16dp"
+        android:text="@string/start_backup"
+        />
+
+    <!--<RelativeLayout
+        android:id="@+id/btn_start_bakcup"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/blue">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/start_backup"
+            android:textColor="@color/white"
+            android:gravity="left|center"
+            android:textSize="19sp"
+            android:padding="20dp"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="15dp"
+            />
+
+    </RelativeLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
