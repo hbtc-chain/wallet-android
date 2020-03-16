@@ -8,9 +8,10 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavitateUtil;
-import com.bhex.wallet.common.db.entity.BHWalletExt;
+import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.mnemonic.R;
 
 /**
@@ -59,8 +60,10 @@ public class LoginPresenter extends BasePresenter {
     /**
      * 密码验证
      */
-    public void verifyPassword(String inputPwd, BHWalletExt bhWallet){
+    public void verifyPassword(String inputPwd, BHWallet bhWallet){
         String pwdMd5 = MD5.md5(inputPwd);
+        LogUtils.d("LoginPresenter","inputPwd=="+inputPwd);
+        LogUtils.d("LoginPresenter",pwdMd5+"==pwdMd5=="+bhWallet.getPassword());
         if(pwdMd5.equals(bhWallet.getPassword())){
             NavitateUtil.startMainActivity(getActivity());
             getActivity().finish();

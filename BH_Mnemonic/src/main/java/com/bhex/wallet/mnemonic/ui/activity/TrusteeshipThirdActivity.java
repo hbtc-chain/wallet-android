@@ -11,11 +11,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.mnemonic.R;
@@ -79,8 +81,6 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
         });
 
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
-        //walletViewModel.setmContext(this);
-
 
     }
 
@@ -89,10 +89,8 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_create){
             //设置密码
-            /*BHUserManager.getInstance().getBhWallet().setPassword(inp_wallet_pwd.getInputString());
-            NavitateUtil.startActivity(this,TrusteeshipThirdActivity.class);*/
             String userName = BHUserManager.getInstance().getBhWallet().getName();
-            generateMnemonic(mOldPwd,userName);
+            generateMnemonic(userName,mOldPwd);
         }else if(view.getId()==R.id.ck_agreement){
 
             ck_agreement.setChecked(!ck_agreement.isChecked());
@@ -107,11 +105,12 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     private void generateMnemonic(String name, String pwd) {
         walletViewModel.generateMnemonic(this,name, pwd);
 
-        walletViewModel.mutableLiveData.observe(this,status -> {
-            if ("1".equals(status)) {
+        walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
+            if (loadDataModel.loadingStatus== LoadingStatus.SUCCESS) {
                 NavitateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
-                MMKVManager.getInstance().mmkv().encode(Constants.FRIST_BOOT, true);
-            } else {
+                //MMKVManager.getInstance().mmkv().encode(Constants.FRIST_BOOT, true);
+                //BHUserManager.getInstance().getAllWallet().add(BHUserManager.getInstance().getBhWallet());
+            } else if(loadDataModel.loadingStatus== LoadingStatus.ERROR){
                 ToastUtils.showToast("创建失败");
             }
         });

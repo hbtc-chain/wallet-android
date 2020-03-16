@@ -3,6 +3,7 @@ package com.bhex.wallet.common.db.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -11,44 +12,37 @@ import androidx.room.PrimaryKey;
  * Date: 2020/3/4
  * Time: 23:12
  */
+//@Entity(tableName = "tab_wallet",indices = {@Index(value = {"mnemonic"},unique = true)})
 @Entity(tableName = "tab_wallet")
-public class BHWalletExt {
+public class BHWallet {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    private Long id;
+    public int id;
 
     @ColumnInfo(name = "address")
-    private String address;
+    public String address;
 
     @ColumnInfo(name = "name")
-    private String name;
+    public String name;
 
     @ColumnInfo(name = "password")
-    private String password;
+    public String password;
 
     @ColumnInfo(name = "keystorePath")
-    private String keystorePath;
+    public String keystorePath;
 
     @ColumnInfo(name = "mnemonic")
-    private String mnemonic;
+    public String mnemonic;
 
     @ColumnInfo(name = "isBackup")
-    private int isBackup; //1备份 2未备份
+    public int isBackup; //1备份 2未备份
 
     @ColumnInfo(name = "isDefault")
-    private int isDefault;//1默认 0默认
+    public int isDefault;//1默认 0默认
 
 
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getAddress() {
         return address;

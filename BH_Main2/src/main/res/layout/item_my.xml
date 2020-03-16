@@ -30,4 +30,16 @@
         android:src="@mipmap/ic_gray_arrow"
         />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_right_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/dark_blue"
+        android:textSize="15sp"
+        tools:text="v1.0.0"
+        android:visibility="invisible"
+        />
+
 </RelativeLayout>

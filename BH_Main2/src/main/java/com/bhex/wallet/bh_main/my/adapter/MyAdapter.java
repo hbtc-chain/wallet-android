@@ -1,5 +1,7 @@
 package com.bhex.wallet.bh_main.my.adapter;
 
+import android.view.View;
+
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,5 +28,16 @@ public class MyAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
     @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable MyItem myItem) {
         viewHolder.setText(R.id.tv_title,myItem.title);
+
+        if(myItem.isArrow){
+            viewHolder.getView(R.id.iv_arrow).setVisibility(View.VISIBLE);
+            viewHolder.getView(R.id.tv_right_txt).setVisibility(View.INVISIBLE);
+        }else{
+            viewHolder.getView(R.id.iv_arrow).setVisibility(View.INVISIBLE);
+
+            viewHolder.getView(R.id.tv_right_txt).setVisibility(View.VISIBLE);
+            viewHolder.setText(R.id.tv_right_txt,myItem.rightTxt);
+        }
+
     }
 }

@@ -3,10 +3,12 @@ package com.bhex.wallet.bh_main.ui.activity;
 import android.content.Intent;
 import android.view.WindowManager;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.market.language.event.LanguageEvent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,6 +23,8 @@ import butterknife.BindView;
  * created by gongdongyang
  * on 2020/2/24
  */
+
+@Route(path= ARouterConfig.APP_MAIN_PAGE)
 public class MainActivity extends BaseActivity<MainPresenter> {
 
     @BindView(R.id.main_bottom)

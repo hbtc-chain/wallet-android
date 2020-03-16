@@ -10,9 +10,11 @@ public class MyItem {
 
     public String title;
     public boolean isArrow;
+    public String rightTxt;//右边文字
 
-    public MyItem(String title, boolean isArrow) {
+    public MyItem(String title, boolean isArrow,String rightTxt) {
         this.title = title;
         this.isArrow = isArrow;
+        this.rightTxt = rightTxt;
     }
 }

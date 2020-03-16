@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.wallet.balance.R;
 
 /**
@@ -16,7 +17,7 @@ import com.bhex.wallet.balance.R;
  * @author  gdy
  * 2020-3-12
  */
-public class BalanceFragment extends Fragment {
+public class BalanceFragment extends BaseFragment {
 
 
     public BalanceFragment() {
@@ -25,10 +26,17 @@ public class BalanceFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_balance, container, false);
+    protected void addEvent() {
+
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_balance;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
 }

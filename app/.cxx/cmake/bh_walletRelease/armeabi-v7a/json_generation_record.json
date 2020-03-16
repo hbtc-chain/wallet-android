@@ -21,7 +21,15 @@
   },
   {
     "level": "INFO",
-    "message": "- force flag, will remove stale json folder"
+    "message": "- command changed from previous, will remove stale json folder"
+  },
+  {
+    "level": "INFO",
+    "message": "- a dependent build file changed"
+  },
+  {
+    "level": "INFO",
+    "message": "  - D:\\bhex\\BHWallet\\app\\src\\main\\cpp\\CMakeLists.txt"
   },
   {
     "level": "INFO",

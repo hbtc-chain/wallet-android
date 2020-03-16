@@ -1,3 +1,13 @@
 # ninja log v5
-0	1803	605816074	CMakeFiles/native-lib.dir/native-lib.cpp.o	f0c5072484d01257
-1804	2353	605816074	D:/bhex/BHWallet/app/build/intermediates/cmake/bh_walletDebug/obj/armeabi-v7a/libnative-lib.so	642e37a65960a017
+0	686	605892761	CMakeFiles/native-lib.dir/native-lib.cpp.o	f0c5072484d01257
+686	927	605892762	D:/bhex/BHWallet/app/build/intermediates/cmake/bh_walletDebug/obj/armeabi-v7a/libnative-lib.so	642e37a65960a017
+0	108	0	clean	81a0c8a35c45b8df
+1	173	0	clean	81a0c8a35c45b8df
+2	834	605900511	CMakeFiles/native-lib.dir/native-lib.cpp.o	f0c5072484d01257
+834	1096	605900511	D:/bhex/BHWallet/app/build/intermediates/cmake/bh_walletDebug/obj/armeabi-v7a/libnative-lib.so	642e37a65960a017
+0	105	0	clean	81a0c8a35c45b8df
+3	785	605904515	CMakeFiles/native-lib.dir/native-lib.cpp.o	f0c5072484d01257
+785	1051	605904515	D:/bhex/BHWallet/app/build/intermediates/cmake/bh_walletDebug/obj/armeabi-v7a/libnative-lib.so	642e37a65960a017
+0	93	0	clean	81a0c8a35c45b8df
+3	620	605944068	CMakeFiles/native-lib.dir/native-lib.cpp.o	f0c5072484d01257
+620	899	605944068	D:/bhex/BHWallet/app/build/intermediates/cmake/bh_walletDebug/obj/armeabi-v7a/libnative-lib.so	642e37a65960a017

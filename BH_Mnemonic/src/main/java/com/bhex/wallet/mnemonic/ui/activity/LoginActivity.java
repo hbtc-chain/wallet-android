@@ -1,6 +1,5 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 
@@ -10,14 +9,13 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.wallet.common.db.entity.BHWalletExt;
+import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.persenter.LoginPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -28,8 +26,8 @@ import butterknife.OnClick;
  */
 public class LoginActivity extends BaseActivity<LoginPresenter> {
 
-    @BindView(R2.id.tv_username)
-    AppCompatTextView tv_username;
+    @BindView(R2.id.tv_bh_address)
+    AppCompatTextView tv_bh_address;
 
     @BindView(R2.id.inp_wallet_pwd)
     InputView inp_wallet_pwd;
@@ -39,7 +37,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
 
 
     //当前钱包
-    private BHWalletExt mCurrentWallet;
+    private BHWallet mCurrentWallet;
 
     @Override
     protected int getLayoutId() {
@@ -54,8 +52,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     @Override
     protected void initView() {
         mCurrentWallet = BHUserManager.getInstance().getBhWallet();
-        tv_username.setText(mCurrentWallet.getAddress());
-        getPresenter().proccessAddress(tv_username, mCurrentWallet.getAddress());
+        tv_bh_address.setText(mCurrentWallet.getAddress());
+        getPresenter().proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
 
     }
 

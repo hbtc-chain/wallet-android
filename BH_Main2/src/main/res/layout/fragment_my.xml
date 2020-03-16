@@ -13,8 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/blue"
-        />
+        android:background="@color/blue"/>
 
 
     <RelativeLayout
@@ -22,21 +21,27 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minHeight="245dp"
+        android:paddingTop="@dimen/dp_20"
         app:layout_constraintTop_toBottomOf="@+id/status_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@color/blue"
         >
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_setting"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_setting"
+            android:drawableLeft="@mipmap/ic_setting"
+            android:text="@string/trusteeship_manger"
+            android:textSize="10sp"
+            android:textColor="@color/white"
             android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/main_padding_right"
             android:paddingEnd="@dimen/main_padding_right"
-            android:paddingTop="@dimen/main_padding_right"
-            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            android:drawablePadding="2dp"
+            android:background="@drawable/btn_bg_setting"
             />
         <RelativeLayout
             android:layout_width="match_parent"
@@ -53,26 +58,47 @@
                 android:src="@mipmap/ic_default_man"
                 android:layout_marginTop="@dimen/dp_10"
                 />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_username"
+            
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/iv_default_man"
-                android:layout_marginLeft="8dp"
-                tools:text="Username"
-                android:textStyle="bold"
-                />
+                android:layout_centerVertical="true">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:drawableRight="@mipmap/ic_edit"
+                    android:drawablePadding="8dp"
+                    tools:text="Username"
+                    android:textStyle="normal"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_username"
+                    android:layout_alignLeft="@+id/tv_username"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@mipmap/ic_paste"
+                    android:gravity="center"
+                    android:textColor="#BFFFFFFF"
+                    android:textSize="12sp"
+                    tools:text="2222" />
+            </RelativeLayout>
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="145dp"
+            android:layout_marginTop="130dp"
             android:layout_marginStart="@dimen/main_padding_left"
             android:layout_marginEnd="@dimen/main_padding_right"
             >
@@ -106,10 +132,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_my"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:overScrollMode="never"
         >
 
     </androidx.recyclerview.widget.RecyclerView>

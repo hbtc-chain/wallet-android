@@ -5,6 +5,7 @@
       "sdkFolder": "C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk",
       "isNativeCompilerSettingsCacheEnabled": false,
       "isBuildOnlyTargetAbiEnabled": true,
+      "ideBuildTargetAbi": "x86",
       "splitsAbiFilterSet": [],
       "intermediatesFolder": "D:\\bhex\\BHWallet\\app\\build\\intermediates",
       "gradleModulePathName": ":app",
@@ -41,7 +42,6 @@
     "gradleBuildOutputFolder": "D:\\bhex\\BHWallet\\app\\.cxx\\cxx\\bh_walletDebug",
     "isDebuggableEnabled": true,
     "validAbiList": [
-      "ARMEABI_V7A",
       "X86"
     ],
     "buildTargetSet": []

@@ -1,6 +1,5 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -8,28 +7,20 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.network.app.BaseApplication;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
-import com.bhex.wallet.common.db.AppDataBase;
-import com.bhex.wallet.common.db.dao.BHWalletDao;
-import com.bhex.wallet.common.db.entity.BHWalletExt;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.viewmodel.WalletViewModel;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -37,6 +28,7 @@ import butterknife.OnClick;
  * 2020-3-4 18:15:01
  * 创建托管单元`
  */
+@Route(path = ARouterConfig.TRUSTEESHIP_FRIST_PAGE)
 public class TrusteeshipActivity extends BaseCacheActivity {
 
     WalletViewModel walletViewModel;

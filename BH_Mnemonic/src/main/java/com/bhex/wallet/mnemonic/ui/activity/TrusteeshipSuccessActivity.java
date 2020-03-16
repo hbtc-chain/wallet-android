@@ -12,6 +12,9 @@ import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.ui.fragment.GlobalTipsFragment;
@@ -33,7 +36,6 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
     @BindView(R2.id.btn_later_backup)
     AppCompatTextView btn_later_backup;
 
-    WalletViewModel walletViewModel;
 
     @Override
     protected int getLayoutId() {
@@ -47,7 +49,7 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
 
     @Override
     protected void addEvent() {
-        //walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
+
     }
 
 
@@ -57,8 +59,13 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
             ScreenShotTipsFragment fragment = ScreenShotTipsFragment.showDialog(getSupportFragmentManager(),"");
             fragment.setIKnowListener(TrusteeshipSuccessActivity.this);
         }else if(view.getId()== R.id.btn_later_backup){
-            NavitateUtil.startMainActivity(this,
-                    new String[]{Constants.BACKUP_TEXT,Constants.LATER_BACKUP});
+            if(BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+                ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
+            }else{
+                NavitateUtil.startMainActivity(this,
+                        new String[]{Constants.BACKUP_TEXT,Constants.LATER_BACKUP});
+            }
+
             ActivityCache.getInstance().finishActivity();
         }
 

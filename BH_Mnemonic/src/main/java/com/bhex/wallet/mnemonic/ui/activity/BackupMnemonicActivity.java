@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.MnemonicAdapter;
@@ -26,6 +28,7 @@ import butterknife.OnClick;
  * gdy
  * 2020-3-4 21:09:06
  */
+@Route(path = ARouterConfig.MNEMONIC_BACKUP)
 public class BackupMnemonicActivity extends BaseCacheActivity {
 
     @BindView(R2.id.recycler_mnemonic)

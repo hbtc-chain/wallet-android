@@ -96,11 +96,11 @@
     </style>
 
 
-    <style name="main_btn_white_44">
+    <style name="main_btn_white_48">
         <item name="android:textSize">17sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/blue</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@drawable/btn_stroke_blue</item>
         <item name="android:layout_height">44dp</item>
         <item name="android:gravity">center</item>
     </style>

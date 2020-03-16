@@ -22,6 +22,6 @@ public class ColorUtil {
     }*/
 
     public static int getColor(Context context, int colorId){
-        return ContextCompat.getColor(context, R.color.dark);
+        return ContextCompat.getColor(context, colorId);
     }
 }

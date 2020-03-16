@@ -9,8 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.TrusteeshipThirdActivity"/>
-        <activity android:name=".ui.activity.TrusteeshipSecActivity"/>
+
+        <activity
+            android:name=".ui.activity.TrusteeshipManagerActivity"
+            android:launchMode="singleTask"/>
+
+        <activity android:name=".ui.activity.TrusteeshipThirdActivity" />
+        <activity android:name=".ui.activity.TrusteeshipSecActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.ImportMnemonicActivity" />
         <activity android:name=".ui.activity.VerifyMnemonicActivity" />

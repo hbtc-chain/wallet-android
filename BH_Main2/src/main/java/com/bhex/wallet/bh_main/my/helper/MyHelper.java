@@ -1,7 +1,11 @@
 package com.bhex.wallet.bh_main.my.helper;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
+import com.bhex.network.utils.PackageUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 
@@ -21,8 +25,40 @@ public class MyHelper {
         List<MyItem> myItems = new ArrayList<>();
 
         String [] res = context.getResources().getStringArray(R.array.my_list_item);
+        MyItem item = null;
         for (int i = 0; i < res.length; i++) {
-            MyItem item = new MyItem(res[i],true);
+            if (i == 6) {
+                item = new MyItem(res[i], false, PackageUtils.getVersionName(context));
+            } else {
+                item = new MyItem(res[i], true, "");
+            }
+            myItems.add(item);
+        }
+        return myItems;
+    }
+
+    /**
+     * 地址掩码
+     */
+    public static void proccessAddress(AppCompatTextView tv_address, String address){
+        StringBuffer buf = new StringBuffer("");
+        if(!TextUtils.isEmpty(address)){
+            buf.append(address.substring(0,15))
+                    .append("***")
+                    .append(address.substring(address.length()-8,address.length()));
+            tv_address.setText(buf.toString());
+        }
+
+    }
+
+
+    public static List<MyItem> getSettingItems(Context context){
+
+        List<MyItem> myItems = new ArrayList<>();
+
+        String [] res = context.getResources().getStringArray(R.array.set_list_item);
+        for (int i = 0; i < res.length; i++) {
+            MyItem item = new MyItem(res[i], true, "");
             myItems.add(item);
         }
         return myItems;

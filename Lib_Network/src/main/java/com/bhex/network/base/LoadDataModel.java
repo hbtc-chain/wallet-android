@@ -8,7 +8,8 @@ public class LoadDataModel<T> extends LoadingStatus {
 
     private T data;
 
-    public LoadDataModel() {}
+    public LoadDataModel() {
+    }
 
     public LoadDataModel(int code, String message) { super(code, message); }
 

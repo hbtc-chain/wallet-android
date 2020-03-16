@@ -1,7 +1,6 @@
 package com.bhex.wallet.common.manager;
 
-import com.bhex.wallet.common.db.entity.BHWalletExt;
-import com.tencent.mmkv.MMKV;
+import com.bhex.wallet.common.db.entity.BHWallet;
 
 import java.util.List;
 
@@ -13,14 +12,16 @@ import java.util.List;
  */
 public class BHUserManager {
 
-    private BHWalletExt bhWalletExt;
+    private BHWallet bhWalletExt;
 
-    private List<BHWalletExt> allWallet;
+    private List<BHWallet> allWallet;
+
+    private Class targetClass;
 
     private static volatile BHUserManager  _INSTANCE;
 
     private BHUserManager(){
-        bhWalletExt = new BHWalletExt();
+        bhWalletExt = new BHWallet();
     }
 
     public static BHUserManager getInstance(){
@@ -34,26 +35,34 @@ public class BHUserManager {
         return _INSTANCE;
     }
 
-    public BHWalletExt getBhWallet(){
+    public BHWallet getBhWallet(){
         return bhWalletExt;
     }
 
-    public void setBhWalletExt(BHWalletExt bhWalletExt) {
+    public void setBhWalletExt(BHWallet bhWalletExt) {
         this.bhWalletExt = bhWalletExt;
     }
 
-    public void setAllWallet(List<BHWalletExt> allWallet) {
+    public void setAllWallet(List<BHWallet> allWallet) {
         this.allWallet = allWallet;
     }
 
-    public List<BHWalletExt> getAllWallet() {
+    public List<BHWallet> getAllWallet() {
         return allWallet;
     }
 
     public boolean isHasWallet(){
-        if(bhWalletExt.getId()>0){
+        if(bhWalletExt.id>0){
             return true;
         }
         return false;
+    }
+
+    public Class getTargetClass() {
+        return targetClass;
+    }
+
+    public void setTargetClass(Class targetClass) {
+        this.targetClass = targetClass;
     }
 }

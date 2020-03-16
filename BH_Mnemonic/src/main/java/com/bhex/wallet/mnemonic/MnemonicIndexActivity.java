@@ -19,6 +19,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * @author gongdongyang
+ * 托管单元首页
+ */
 @Route(path= ARouterConfig.MNEMONIC_INDEX_PAGE)
 public class MnemonicIndexActivity extends BaseCacheActivity {
     @BindView(R2.id.btn_generate_wallet)

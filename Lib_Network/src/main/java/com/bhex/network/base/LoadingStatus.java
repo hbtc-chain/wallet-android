@@ -18,7 +18,7 @@ public class LoadingStatus {
 
     public String msg;
 
-    public LoadingStatus() { this.loadingStatus = 0; }
+    public LoadingStatus() { this.loadingStatus = LOADING; }
 
     public LoadingStatus(int status) { this.loadingStatus = status; }
 

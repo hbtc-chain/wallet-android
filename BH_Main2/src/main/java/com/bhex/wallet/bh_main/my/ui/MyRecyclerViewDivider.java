@@ -27,8 +27,6 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
     private int mDividerHeight = 2;//分割线高度，默认为1px
     private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
-    private Context mContext;
-    private int mOffset;
 
     /**
      * 默认分割线：高度为2px，颜色为灰色
@@ -41,7 +39,7 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
             throw new IllegalArgumentException("请输入正确的参数！");
         }
         mOrientation = orientation;
-        mContext = context;
+
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -56,7 +54,6 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
      */
     public MyRecyclerViewDivider(Context context, int orientation, int drawableId) {
         this(context, orientation);
-        mContext = context;
         mDivider = ContextCompat.getDrawable(context, drawableId);
         mDividerHeight = mDivider.getIntrinsicHeight();
     }
@@ -71,12 +68,10 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
      */
     public MyRecyclerViewDivider(Context context, int orientation, int dividerHeight, int dividerColor) {
         this(context, orientation);
-        mContext = context;
         mDividerHeight = dividerHeight;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(dividerColor);
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setDither(true);
     }
 
 
@@ -84,12 +79,17 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        int position = parent.getChildLayoutPosition(view);
-        LogUtils.d("MyRecyclerViewDivider","mDividerHeight==>:"+mDividerHeight);
+        if (mOrientation == LinearLayoutManager.VERTICAL) {
+            outRect.set(0, 0, 0, mDividerHeight);
+        } else {
+            outRect.set(0, 0, mDividerHeight, 0);
+        }
+        /*int position = parent.getChildLayoutPosition(view);
+        //LogUtils.d("MyRecyclerViewDivider","mDividerHeight==>:"+mDividerHeight);
         if(position==2){
             outRect.set(0, 0, 0, mDividerHeight);
-
         }
+        */
     }
 
     //绘制分割线
@@ -103,32 +103,48 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
         }
     }
 
-    //绘制横向 item 分割线
-    private void drawHorizontal(Canvas canvas, RecyclerView parent) {
+    /**
+     * 绘制纵向列表时的分隔线  这时分隔线是横着的
+     * 每次 left相同，top根据child变化，right相同，bottom也变化
+     * @param canvas
+     * @param parent
+     */
+    private void drawVertical(Canvas canvas, RecyclerView parent) {
         final int left = parent.getPaddingLeft();
         final int right = parent.getMeasuredWidth() - parent.getPaddingRight();
         final int childSize = parent.getChildCount();
-        for (int i = 0; i < childSize-1; i++) {
-            final View child = parent.getChildAt(i);
-            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-            final int top = child.getBottom() + layoutParams.bottomMargin;
-            final int bottom = top + mDividerHeight;
-            if (mDivider != null) {
-                mDivider.setBounds(mOffset+left, top, right, bottom);
-                mDivider.draw(canvas);
+        for (int i = 0; i < childSize; i++) {
+            if(i==2) {
+
+                final View child = parent.getChildAt(i);
+                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
+                final int top = child.getBottom() + layoutParams.bottomMargin;
+                final int bottom = top + mDividerHeight;
+                if (mDivider != null) {
+                    mDivider.setBounds(left, top, right, bottom);
+                    mDivider.draw(canvas);
+                }
+                if (mPaint != null) {
+                    canvas.drawRect(left, top, right, bottom, mPaint);
+                }
+
             }
-            if (mPaint != null) {
-                canvas.drawRect(mOffset+left, top, right, bottom, mPaint);
-            }
+
+
         }
     }
 
-    //绘制纵向 item 分割线
-    private void drawVertical(Canvas canvas, RecyclerView parent) {
+    /**
+     * 绘制横向列表时的分隔线  这时分隔线是竖着的
+     * l、r 变化； t、b 不变
+     * @param canvas
+     * @param parent
+     */
+    private void drawHorizontal(Canvas canvas, RecyclerView parent) {
         final int top = parent.getPaddingTop();
         final int bottom = parent.getMeasuredHeight() - parent.getPaddingBottom();
         final int childSize = parent.getChildCount();
-        for (int i = 0; i < childSize-1; i++) {
+        for (int i = 0; i < childSize; i++) {
             final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int left = child.getRight() + layoutParams.rightMargin;
@@ -141,9 +157,5 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
                 canvas.drawRect(left, top, right, bottom, mPaint);
             }
         }
-    }
-
-    public void setmOffset(int mOffset) {
-        this.mOffset = mOffset;
     }
 }

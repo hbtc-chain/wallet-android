@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.bhex.wallet.common.db.dao.BHWalletDao;
-import com.bhex.wallet.common.db.entity.BHWalletExt;
+import com.bhex.wallet.common.db.entity.BHWallet;
 
 /**
  * Created by BHEX.
@@ -17,7 +17,7 @@ import com.bhex.wallet.common.db.entity.BHWalletExt;
  * Date: 2020/3/4
  * Time: 22:22
  */
-@Database(entities = {BHWalletExt.class} , version = 1)
+@Database(entities = {BHWallet.class} , version = 2,exportSchema = false)
 public abstract  class AppDataBase extends RoomDatabase {
 
     private static final String DB_NAME ="bh_db";

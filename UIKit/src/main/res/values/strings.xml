@@ -70,14 +70,22 @@
     <string name="tips_secure_index_4">应用删除、手机丢失</string>
     <string name="tips_secure_index_5">等情况导致的资产损失</string>
     <string name="confirm_password">重复密码</string>
+    <string name="trusteeship_manger">管理托管单元</string>
+    <string name="str_default">默认</string>
 
 
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>
-        <item>绑定通知</item>
-        <item>帮助中心</item>
-        <item>使用条款</item>
-        <item>关于我们</item>
+        <item>导出私钥</item>
+        <item>导出KeyStore</item>
+        <item>设置</item>
+        <item>联系我们</item>
+        <item>版本号</item>
+    </string-array>
+
+    <string-array name="set_list_item">
+        <item>语言</item>
+        <item>计价货币</item>
     </string-array>
 </resources>

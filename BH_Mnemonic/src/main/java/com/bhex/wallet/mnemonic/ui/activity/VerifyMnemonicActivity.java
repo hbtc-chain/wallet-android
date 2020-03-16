@@ -12,9 +12,13 @@ import com.bhex.lib.uikit.widget.recyclerview.GridDividerItemDecoration;
 import com.bhex.lib.uikit.widget.recyclerview.GridLayoutItemDecoration;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.AboveMnemonicAdapter;
@@ -134,7 +138,13 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     @Override
     protected void addEvent() {
         btn_start_bakcup.setOnClickListener(v -> {
-            NavitateUtil.startMainActivity(VerifyMnemonicActivity.this);
+            if(BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+                ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
+            }else{
+                NavitateUtil.startMainActivity(this,
+                        new String[]{Constants.BACKUP_TEXT,Constants.LATER_BACKUP});
+            }
+            //NavitateUtil.startMainActivity(VerifyMnemonicActivity.this);
             finish();
         });
     }
