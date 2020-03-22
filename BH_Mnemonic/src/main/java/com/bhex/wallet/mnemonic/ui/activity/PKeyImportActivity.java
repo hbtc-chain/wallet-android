@@ -1,0 +1,93 @@
+package com.bhex.wallet.mnemonic.ui.activity;
+
+
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
+
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.mnemonic.R;
+import com.bhex.wallet.mnemonic.R2;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ *
+ * @author gongdongyang
+ * 私钥导入
+ * 2020-3-18 18:26:18
+ */
+@Route(path = ARouterConfig.TRUSTEESHIP_PRIVATEKEY_IMPORT)
+public class PKeyImportActivity extends BaseActivity {
+
+    @BindView(R2.id.tv_center_title)
+    AppCompatTextView tv_center_title;
+    @BindView(R2.id.et_private_key)
+    AppCompatEditText et_private_key;
+
+    @BindView(R2.id.btn_next)
+    AppCompatTextView btn_next;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_pkey_import;
+    }
+
+    @Override
+    protected void initView() {
+        tv_center_title.setText(getString(R.string.import_private_key));
+        et_private_key.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        et_private_key.setGravity(Gravity.TOP);
+        et_private_key.setSingleLine(false);
+        et_private_key.setHorizontallyScrolling(false);
+
+    }
+
+    @Override
+    protected void addEvent() {
+        et_private_key.addTextChangedListener(new SimpleTextWatcher(){
+            @Override
+            public void afterTextChanged(Editable s) {
+                super.afterTextChanged(s);
+                if(!TextUtils.isEmpty(et_private_key.getText())){
+                    btn_next.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);
+                    btn_next.setEnabled(true);
+                }else{
+                    btn_next.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
+                    btn_next.setEnabled(false);
+                }
+            }
+        });
+    }
+
+
+    @OnClick({R2.id.btn_next})
+    public void onViewClicked(View view) {
+        if(view.getId()==R.id.btn_next){
+            importPrivateKey();
+
+        }
+    }
+
+    /**
+     * 导入privateKey
+     */
+    private void importPrivateKey() {
+        String privateKey = et_private_key.getText().toString();
+        BHUserManager.getInstance().getTmpBhWallet().setWay(2);
+        BHUserManager.getInstance().getTmpBhWallet().setPrivateKey(privateKey.trim());
+        NavitateUtil.startActivity(this,TrusteeshipActivity.class);
+    }
+
+}

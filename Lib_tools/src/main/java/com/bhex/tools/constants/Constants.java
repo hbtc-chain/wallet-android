@@ -17,6 +17,8 @@ public class Constants {
 
     public static final int STATUS_COLOR_WHITE = 1;
     public static final int STATUS_COLOR_BLUE = 2;
+    public static final int STATUS_COLOR_TRANS = 3;
+    public static final int STATUS_COLOR_OTHER = -1;
 
     public static final String BACKUP_TEXT = "BACKUP_TEXT";
     public static final String BACKUP = "1";

@@ -5,16 +5,15 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
-import com.bhex.network.base.LoadingStatus;
 import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.tools.utils.StatusBarUtil;
 import com.bhex.wallet.R;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.MnemonicIndexActivity;
-import com.bhex.wallet.mnemonic.ui.activity.LoginActivity;
-import com.bhex.wallet.mnemonic.viewmodel.WalletViewModel;
+import com.bhex.wallet.mnemonic.ui.activity.LockActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
             if(!BHUserManager.getInstance().isHasWallet()){
                 NavitateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
             }else {
-                NavitateUtil.startActivity(SplashActivity.this, LoginActivity.class);
+                NavitateUtil.startActivity(SplashActivity.this, LockActivity.class);
             }
             finish();
         });

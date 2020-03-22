@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    app:cardForegroundColor="@color/trans"
+    app:strokeColor="@color/blue"
+    app:strokeWidth="2dp"
+    app:cardCornerRadius="@dimen/main_radius_conner">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/iv_import_bg"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="#143375E0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/main_margin_left"
+
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_import_ic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_import_pk"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_import_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_import_bg"
+            app:layout_constraintBottom_toTopOf="@+id/tv_import_hint"
+            android:layout_marginStart="@dimen/main_margin_left"
+            android:layout_marginBottom="3dp"
+            android:textColor="@color/main_text_black"
+            android:textSize="17sp"
+            android:text="@string/import_mnemonic"
+            app:layout_constraintVertical_chainStyle="packed"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_import_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_import_title"
+            app:layout_constraintStart_toEndOf="@+id/iv_import_bg"
+            android:layout_marginStart="@dimen/main_margin_left"
+            android:textColor="@color/gray_ACB5C3"
+            android:textSize="13sp"
+            android:text="请选择导入方式 "
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_gray_arrow"
+            android:paddingEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

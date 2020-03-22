@@ -7,6 +7,7 @@
     tools:context=".ui.activity.TrusteeshipSuccessActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:visibility="invisible"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -87,7 +88,7 @@
             android:textColor="@color/main_text_black"
             android:textSize="16sp"
             android:text="备份提示"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             />
@@ -101,7 +102,7 @@
             android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
-            android:lineSpacingExtra="5dp"
+            android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -113,7 +114,7 @@
             android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="5dp"
-            android:lineSpacingExtra="5dp"
+            android:lineSpacingExtra="3dp"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -126,7 +127,7 @@
             android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
-            android:lineSpacingExtra="5dp"
+            android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -138,32 +139,17 @@
             android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="5dp"
-            android:lineSpacingExtra="5dp"
-            />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@color/dark_blue"
-            android:textSize="14sp"
-            android:text="请务必牢记您的助记词"
-            android:drawableLeft="@drawable/ic_dot_blue"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="5dp"
-            android:lineSpacingExtra="5dp"
+            android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/main_text_black"
             android:textSize="14sp"
-            android:text="我们的建议:"
-            android:drawableLeft="@drawable/ic_dot_blue"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="5dp"
-            android:lineSpacingExtra="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="17dp"
+            android:text="我们建议"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -172,7 +158,7 @@
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
             android:text="请勿通过邮箱、通讯工具分享您的助记词"
-            android:lineSpacingExtra="5dp"
+            android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -181,7 +167,7 @@
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
             android:text="请勿将您的助记词轻易告知他人"
-            android:lineSpacingExtra="5dp"
+            android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -190,7 +176,7 @@
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
             android:text="请勿将助记词截屏、照相等方式保存于您的移动设备中"
-            android:lineSpacingExtra="5dp"
+            android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
         </LinearLayout>
     </LinearLayout>

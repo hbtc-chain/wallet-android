@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.LocaleList;
 import android.util.DisplayMetrics;
 
 import com.bhex.tools.utils.LogUtils;
@@ -26,35 +27,37 @@ public class LocalManageUtil {
      * @return
      */
     public static Context attachBaseContext(Context context, String language) {
-        Locale locale = getSetLanguageLocale(context);
+        /*Locale locale = getSetLanguageLocale(context);
         LogUtils.d("MainActivity","locale:"+locale.getLanguage());
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
 
             return createConfigurationResources(context, locale.getLanguage());
         }
         applyLanguage(context, locale.getLanguage());
-        return  context;
+        return  context;*/
+        Locale locale = getSetLanguageLocale(context);
+
+        return  createConfigurationResources(context,locale.getLanguage());
     }
 
     @TargetApi(Build.VERSION_CODES.N)
     private static Context createConfigurationResources(Context context, String language) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
-        Locale locale = null;
+        DisplayMetrics dm = resources.getDisplayMetrics();
 
-        if(language.startsWith("zh")){
+        Locale locale = new Locale(language);
 
-            locale = Locale.SIMPLIFIED_CHINESE;
-
-        }else if(language.startsWith("en")||language.toLowerCase().startsWith("english")){
-
-            locale = Locale.ENGLISH;
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            LocaleList localeList = new LocaleList(locale);
+            LocaleList.setDefault(localeList);
+            configuration.setLocales(localeList);
+        } else {
+            configuration.locale = locale;
         }
 
-        configuration.setLocale(locale);
-
-        return context.createConfigurationContext(configuration);
+        resources.updateConfiguration(configuration, dm);
+        return context;
     }
 
     public static void applyLanguage(Context context, String newLanguage) {
@@ -78,7 +81,9 @@ public class LocalManageUtil {
      * @return
      */
     public static Locale getSetLanguageLocale(Context context) {
-        switch (LocalSPUtil.getInstance(context).getSelectLanguage()) {
+        int selectIndex = LocalSPUtil.getInstance(context).getSelectLanguage();
+        LogUtils.d("LanguageSettingActivity==>:","selectIndex=="+selectIndex);
+        switch (selectIndex) {
             case 0:
                 Locale locale = getSystemLocale(context);
                 if (!locale.getLanguage().startsWith("zh") && !locale.getLanguage().startsWith("en")) {

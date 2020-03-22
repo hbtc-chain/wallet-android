@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="?android:selectableItemBackground"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="@color/main_text_black"
+        android:layout_toLeftOf="@+id/ck_ok"
+        android:gravity="center"
+        tools:text="BHTNBd37xZ6xA5LEYhwrbBpeeWPXVdZ7fhQ"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/ck_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:paddingEnd="@dimen/main_padding_left"
+        android:drawableRight="@drawable/checkbox_style"
+        android:selectableItemBackground="@null"
+        android:selectableItemBackgroundBorderless="@null"
+        />
+
+</RelativeLayout>

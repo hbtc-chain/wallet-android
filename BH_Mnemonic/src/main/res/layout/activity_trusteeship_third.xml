@@ -114,20 +114,36 @@
             android:layout_marginTop="3dp"
             android:layout_gravity="right"
             android:textColor="@color/dark_blue"
-            tools:text="@string/pwd_index"
-            />
+            tools:text="@string/pwd_index"/>
 
-        <CheckedTextView
-            android:id="@+id/ck_agreement"
-            android:layout_width="match_parent"
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/checkbox_style"
-            android:drawablePadding="4dp"
-            android:textSize="14sp"
-            android:textColor="@color/dark_blue"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="我已阅读并同意《Bluehelix服务协议》"
-            />
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/ck_agreement"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/checkbox_style"
+                android:button="@null"
+                android:colorControlHighlight="@color/white"
+                android:selectableItemBackground="@null"
+                android:selectableItemBackgroundBorderless="@null" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/ck_agreement"
+                android:text="我已阅读并同意《Bluehelix服务协议》"
+                android:textColor="@color/dark_blue"
+                android:textSize="14sp" />
+        </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_create"
@@ -136,9 +152,8 @@
             android:layout_marginTop="24dp"
             style="@style/main_btn_gray_disable"
             android:text="@string/wallet_create"
+            android:enabled="false"
             />
-
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

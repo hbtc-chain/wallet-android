@@ -25,6 +25,7 @@ public interface IPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     void onStop(@NotNull LifecycleOwner owner);
 
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     void onResume(@NotNull LifecycleOwner owner);
 

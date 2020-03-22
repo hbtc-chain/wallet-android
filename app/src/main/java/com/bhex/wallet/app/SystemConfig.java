@@ -45,7 +45,9 @@ public class SystemConfig  {
     private void syncInit(){
         arouterInit();
 
-        Stetho.initializeWithDefaults(BaseApplication.getInstance());
+        if(BuildConfig.DEBUG){
+            Stetho.initializeWithDefaults(BaseApplication.getInstance());
+        }
 
         /*Stetho.initialize(
                 Stetho.newInitializerBuilder(BaseApplication.getInstance())

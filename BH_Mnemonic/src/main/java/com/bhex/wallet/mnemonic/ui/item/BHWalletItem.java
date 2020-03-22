@@ -14,6 +14,10 @@ import com.bhex.wallet.common.db.entity.BHWallet;
  */
 public class BHWalletItem {
 
+    public static int SELECTED = 1;
+
+    public static int UNSELECTED = 0;
+
     public Integer id;
 
     public String address;
@@ -23,6 +27,8 @@ public class BHWalletItem {
     public int isBackup; //1备份 2未备份
 
     public int isDefault;//1默认 0默认
+
+    public boolean isSelect;
 
     public String headUrl;
 

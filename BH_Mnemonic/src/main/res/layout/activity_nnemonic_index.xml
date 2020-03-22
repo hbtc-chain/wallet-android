@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_bluehelix"
+        android:src="@mipmap/ic_bluehelix_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,13 +25,17 @@
         android:visibility="gone"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_generate_wallet"
         android:layout_width="match_parent"
         android:layout_marginTop="100dp"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_left"
+        app:backgroundTint="@color/blue"
+        app:cornerRadius="@dimen/main_radius_conner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btn_import_wallet"
@@ -41,19 +45,23 @@
         style="@style/main_text_white"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_import_wallet"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_left"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
+        app:backgroundTint="@color/dark20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="40dp"
+        app:cornerRadius="@dimen/main_radius_conner"
         android:text="@string/wallet_import_trusteeship"
+        android:gravity="center"
         style="@style/main_text_white"
-        android:background="@drawable/btn_drak_corner"
         android:layout_marginTop="16dp"
         />
 

@@ -63,7 +63,7 @@ public abstract class ProgressDialogExtObserver<T> implements Observer<T> {
     }
 
     public void closeLoading() {
-        if (this.context != null && loadingDialog!=null && loadingDialog.isShowing()) {
+        if (loadingDialog!=null && loadingDialog.isShowing()) {
             loadingDialog.dismiss();
         }
     }

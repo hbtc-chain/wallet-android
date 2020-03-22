@@ -1,7 +1,8 @@
-package com.bhex.wallet.mnemonic.utils;
+package com.bhex.wallet.common.utils;
 
 import android.os.SystemClock;
 
+import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.crypto.Sha256;
 import com.bhex.tools.utils.LogUtils;
@@ -21,6 +22,7 @@ import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Wallet;
 import org.web3j.crypto.WalletFile;
 import org.web3j.protocol.ObjectMapperFactory;
+import org.web3j.utils.Numeric;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,11 +45,9 @@ public class BHWalletUtils {
 
     private Credentials credentials;
     /**
-     * 通用的以太坊基于bip44协议的助记词路径 （imtoken jaxx Metamask myetherwallet）
+     * 通用的以太坊基于bip44协议的助记词路径 （
      */
-    /*public static String ETH_JAXX_TYPE = "m/44'/60'/0'/0/0";
-    public static String ETH_LEDGER_TYPE = "m/44'/60'/0'/0";
-    public static String ETH_CUSTOM_TYPE = "m/44'/60'/1'/0/0";*/
+
     public static String BH_CUSTOM_TYPE = "m/44'/496'/0'/0/0";
 
     /**
@@ -97,19 +97,27 @@ public class BHWalletUtils {
                 int number = Integer.parseInt(pathArray[i]);
                 childNumber = new ChildNumber(number, false);
             }
-
             dkKey = HDKeyDerivation.deriveChildKey(dkKey, childNumber);
-
         }
 
         ECKeyPair keyPair = ECKeyPair.create(dkKey.getPrivKeyBytes());
-        //LogUtils.d();keyPair.getPublicKey().bitLength();
 
+        LogUtils.d("BHWalletUtils==>:","keyPair==:"+keyPair.getPrivateKey().toString(16));
         BHWallet bhWalletExt = generateWallet(walletName, pwd, keyPair);
 
-        if (bhWalletExt != null) {
-            bhWalletExt.setMnemonic(convertMnemonicList(mnemonic));
+        try{
+            if (bhWalletExt != null) {
+                String old_mnemonic =  convertMnemonicList(mnemonic);
+
+                String key = MD5.md5(pwd);
+                byte[] result =CryptoUtil.encrypt(old_mnemonic.getBytes(),key);
+                LogUtils.d("BHWalletUtil==>:","result==>:"+HexUtils.toHex(result));
+                bhWalletExt.setMnemonic(HexUtils.toHex(result));
+            }
+        }catch (Exception e){
+
         }
+
         return bhWalletExt;
     }
 
@@ -130,33 +138,40 @@ public class BHWalletUtils {
      * @return
      */
     private static BHWallet generateWallet(String walletName, String pwd, ECKeyPair keyPair) {
-        WalletFile walletFile;
+        BHWallet bhWallet = null;
         try {
-            walletFile = Wallet.create(pwd, keyPair, 1024, 1);
+            WalletFile walletFile = Wallet.create(pwd, keyPair, 1024, 1);
+            // 生成BH-地址
+            String bh_adress = pubKey_to_adress(keyPair.getPublicKey());
+            walletFile.setAddress(bh_adress);
+            //keystore存储
+            String ks_path = save_keystore(walletFile,walletName);
+            //私钥加密
+            String privatekeyHex = keyPair.getPrivateKey().toString();
+            //LogUtils.d("BHWallet==>:","sceretPrivate=="+privatekeyHex);
+            //byte [] privateBytes = CryptoUtil.encrypt(HexUtils.toBytes(privatekeyHex),pwd);
+            //String sceretPrivate = HexUtils.toHex(privateBytes);
+            //privatekeyHex = "abcd";
+            //String key = "11147169444463676897639210105259";
+            String key = MD5.md5(pwd);
+            byte[] result =CryptoUtil.encrypt(privatekeyHex.getBytes("utf-8"),key);
+
+            //byte[] result =CryptoUtil.encrypt(privatekeyHex.getBytes("utf-8"),key);
+
+            //LogUtils.d("BHWallet==>:","sceretPrivate=="+HexUtils.toHex(result));
+
+            bhWallet = BHUserManager.getInstance().getTmpBhWallet();
+            bhWallet.setName(walletName);
+            bhWallet.setAddress(bh_adress);
+            bhWallet.setPrivateKey(HexUtils.toHex(result));
+            bhWallet.setKeystorePath(ks_path);
+            bhWallet.setPassword(MD5.md5(pwd));
+            bhWallet.setIsDefault(0);
+            bhWallet.setIsBackup(0);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        // 生成BH-地址
-        String bh_adress = pubKey_to_adress(keyPair.getPublicKey());
-        walletFile.setAddress(bh_adress);
-
-        //keystore存储
-        String ks_path = save_keystore(walletFile,walletName);
-
-        //byte [] t = Keys.serialize(keyPair);
-        //LogUtils.d("BHWalletUtils==>:", pwd+"==pwd=="+MD5.md5(pwd));
-
-        //LogUtils.d("BHWalletUtils", Keys.toChecksumAddress(walletFile.getAddress()));
-        BHWallet bhWallet = BHUserManager.getInstance().getBhWallet();
-        bhWallet.setName(walletName);
-        bhWallet.setAddress(bh_adress);
-        //walletExt.setAddress(Keys.toChecksumAddress(walletFile.getAddress()));
-        //walletExt.setAddress(walletFile.getAddress());
-        bhWallet.setKeystorePath(ks_path);
-        bhWallet.setPassword(MD5.md5(pwd));
-        bhWallet.setIsDefault(0);
-        bhWallet.setIsBackup(0);
         return bhWallet;
     }
 
@@ -184,9 +199,9 @@ public class BHWalletUtils {
         //判断目标文件所在的目录是否存在
         if (!file.getParentFile().exists()) {
             //如果目标文件所在的目录不存在，则创建父目录
-            LogUtils.d("BHWalletUtils", "目标文件所在目录不存在，准备创建");
+            //LogUtils.d("BHWalletUtils", "目标文件所在目录不存在，准备创建");
             if (!file.getParentFile().mkdirs()) {
-                LogUtils.d("BHWalletUtils", "创建目标文件所在目录失败！");
+                //LogUtils.d("BHWalletUtils", "创建目标文件所在目录失败！");
                 return false;
             }
         }
@@ -194,15 +209,15 @@ public class BHWalletUtils {
     }
 
     //助记词导入
-    public static void importMnemonic(String path, List<String> list) {
+    public static BHWallet importMnemonic(String path, List<String> list,String walletName,String pwd) {
         if (!path.startsWith("m") && !path.startsWith("M")) {
             //参数非法
-            return;
+            return null;
         }
         String[] pathArray = path.split("/");
         if (pathArray.length <= 1) {
             //内容不对
-            return;
+            return null;
         }
         /*if (password.length() < 8) {
             //密码过短
@@ -223,7 +238,7 @@ public class BHWalletUtils {
         System.out.println(Arrays.toString(mnemonic.toArray()));
 
         if (seedBytes == null)
-            return;
+            return null;
 
         DeterministicKey dkKey = HDKeyDerivation.createMasterPrivateKey(seedBytes);
         for (int i = 1; i < pathArray.length; i++) {
@@ -240,8 +255,16 @@ public class BHWalletUtils {
         }
 
         ECKeyPair keyPair = ECKeyPair.create(dkKey.getPrivKeyBytes());
+        LogUtils.d("BHWalletUtils==>:","keyPair==:"+keyPair.getPrivateKey().toString(16));
+        //String bh_address = pubKey_to_adress(keyPair.getPublicKey());
 
-        String bh_address = pubKey_to_adress(keyPair.getPublicKey());
+        BHWallet bhWallet = generateWallet(walletName, pwd, keyPair);
+
+        if (bhWallet != null) {
+            bhWallet.setMnemonic(convertMnemonicList(mnemonic));
+        }
+
+        return bhWallet;
         /*//公钥压缩
         String pubKey_compress = compressPubKey(keyPair.getPublicKey());
 
@@ -258,41 +281,26 @@ public class BHWalletUtils {
         String address = base58Address(pubKeyHash);
 
         LogUtils.d("BHWallUtils=>","address:"+address);*/
+    }
 
 
+    /**
+     * 导入私钥 私钥16进制
+     * @param privateKey
+     */
+    public static BHWallet importPrivateKey(String privateKey,String walletName,String pwd){
+        ECKeyPair keyPair = ECKeyPair.create(Numeric.toBigInt(privateKey));
+        BHWallet bhWallet = generateWallet(walletName, pwd, keyPair);
+        return bhWallet;
     }
 
     public static String pubKey_to_adress(BigInteger publicKey) {
-        //LogUtils.d("BHWallUtils=>", "publicKey:" + publicKey.toString(16));
-
-        //LogUtils.d("BHWallUtils=>", "publicKey-->bytes:" + Arrays.toString(HexUtils.toBytes(publicKey.toString(16))));
-
         //公钥压缩
         String pubKey_compress = compressPubKey(publicKey);
-
-
-        //LogUtils.d("BHWallUtils=>", "pubKey_compress:" + pubKey_compress);
-
-        //LogUtils.d("BHWallUtils=>", "pubKey_compress-->Bytes:" + Arrays.toString(HexUtils.toBytes(pubKey_compress)));
-
-
         //公钥hash
         byte[] pubKeyHash = pubKeyCompressToHash(pubKey_compress);
-
-        //LogUtils.d("BHWallUtils=>", "ripemd160->hash:" + Arrays.toString(pubKeyHash));
-        //LogUtils.d("BHWallUtils=>", "ripemd160-hex16->:" + HexUtils.toHex(pubKeyHash));
-
-
         //base58编码
         String address = base58Address(pubKeyHash);
-
-        //LogUtils.d("BHWallUtils=>", "address:" + address);
-
-
-        //String pubk = Bech32.encode("bhpub", HexUtils.toBytes(publicKey.toString(16)));
-
-        //LogUtils.d("BHWallUtils=>", "pubk:" + pubk);
-
         return address;
     }
 
@@ -356,12 +364,7 @@ public class BHWalletUtils {
         System.arraycopy(check, 0, hash_new2, 2 + hash.length, 4);
 
         encode = BHBase58.encode(hash_new2);
-        //System.out.println();
-        //System.out.println("BHWallUtils=>res==" + encode);
 
-        //Base58.encodeChecked()
-
-        //System.out.println("BHWallUtils=>"+"decode:"+Arrays.toString(Base58.decode("BHf68hJ65Y6Q4deCVTLmQYVeoFXKrSTVL8G")));
         return encode;
     }
 

@@ -25,8 +25,8 @@ public interface BHWalletDao {
     @Insert
     Long insert(BHWallet wallet);
 
-    @Update
-    void update(BHWallet wallet);
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    Integer update(BHWallet wallet);
 
     @Delete
     void delete(BHWallet wallet);
@@ -38,11 +38,17 @@ public interface BHWalletDao {
     int loadMaxId();
 
 
-    @Query("update tab_wallet set isDefault=:isDefault where Id=:bh_id")
-    void update(int bh_id,int isDefault);
+    @Query("update tab_wallet set isDefault=:isDefault where id=:bh_id")
+    int update(int bh_id,int isDefault);
 
 
     @Query("update tab_wallet set isDefault=:status")
-    void updateNoDefault(int status);
+    int updateNoDefault(int status);
 
+
+    @Query("delete from tab_wallet where id=:bh_id")
+    void deleteWallet(int bh_id);
+
+    @Query("update tab_wallet set password=:pwdMd5 where id=:bh_id")
+    int updatePassword(int bh_id, String pwdMd5);
 }

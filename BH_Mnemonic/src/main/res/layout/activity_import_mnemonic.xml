@@ -22,7 +22,7 @@
             android:gravity="center"
             style="@style/toolbar_layout_title_style"
             android:text="@string/import_mnemonic"
-            tools:text="@string/import_mnemonic" />
+            tools:text="@string/import_mnemonic"/>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -31,97 +31,61 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:drawableLeft="@drawable/ic_dot_blue"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:text="@string/import_mnemonic_tips"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_right"
-        android:layout_marginTop="16dp"
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="3dp"
+        android:lineSpacingExtra="5dp"
         style="@style/main_text_tips_style"
         />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:id="@+id/layout_index_1"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
         android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_right"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imprt_mnemonic_tips"
-        >
+        android:background="@color/gray_f9f9fb">
 
-        <LinearLayout
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_mnemonic"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="120dp"
-            android:orientation="vertical"
-            android:background="@color/gray_f9f9fb">
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:textSize="15sp"
-                android:hint="@string/mnemonic_input_hint"
-                android:textColorHint="@color/dark_blue"
-                android:textColor="@color/tips_text_black"
-                android:padding="16dp"
-                android:inputType="text"
-                android:layout_marginBottom="30dp"
-                android:textCursorDrawable="@null">
-
-
-            </androidx.appcompat.widget.AppCompatEditText>
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:textSize="14sp"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/dark_blue"
-            android:text="钱包(托管单元)密码"
-            />
-
-        <com.bhex.lib.uikit.widget.InputView
-            android:id="@+id/inp_wallet_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:textType="2"
-            app:hint="请设置钱包密码(不少于6位)"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:textSize="14sp"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/dark_blue"
-            android:text="重复密码"
-            />
-
-        <com.bhex.lib.uikit.widget.InputView
-            android:id="@+id/inp_wallet_confirm_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textSize="15sp"
+            android:gravity="top"
+            android:hint="@string/mnemonic_input_hint"
+            android:textColorHint="@color/dark_blue"
+            android:textColor="@color/tips_text_black"
+            android:padding="16dp"
+            android:inputType="text"
             android:layout_marginBottom="30dp"
-            app:textType="2"
-            app:hint="重复密码"/>
+            android:textCursorDrawable="@null"
+            tools:text="sniff float truck talent walk search mad boat away fossil sleep dune">
+
+        </androidx.appcompat.widget.AppCompatEditText>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_import_wallet"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_next"
         android:layout_width="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        app:layout_constraintTop_toBottomOf="@+id/layout_index_1"
         style="@style/main_btn_blue_44"
-        android:layout_marginStart="@dimen/main_margin_left"
-        android:layout_marginEnd="@dimen/main_margin_left"
-        android:layout_marginBottom="40dp"
-        android:text="@string/wallet_create"
+        android:layout_marginTop="32dp"
+        android:text="@string/next"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

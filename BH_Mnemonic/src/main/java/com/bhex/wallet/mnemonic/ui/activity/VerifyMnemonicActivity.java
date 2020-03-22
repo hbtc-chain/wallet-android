@@ -15,6 +15,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -138,14 +139,16 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     @Override
     protected void addEvent() {
         btn_start_bakcup.setOnClickListener(v -> {
-            if(BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+            if(BHUserManager.getInstance().getTargetClass()!=null &&
+                    BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
                 ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
             }else{
                 NavitateUtil.startMainActivity(this,
-                        new String[]{Constants.BACKUP_TEXT,Constants.LATER_BACKUP});
+                        new String[]{Constants.BACKUP_TEXT,Constants.BACKUP});
             }
             //NavitateUtil.startMainActivity(VerifyMnemonicActivity.this);
-            finish();
+            //finish();
+            ActivityCache.getInstance().finishActivity();
         });
     }
 }

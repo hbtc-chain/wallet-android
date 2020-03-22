@@ -27,10 +27,8 @@ public class UnderMnemonicAdapter extends BaseQuickAdapter<MnemonicItem, BaseVie
 
     @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable MnemonicItem memonicItem) {
-        //MnemonicTextView mnemonicTextView =  baseViewHolder.getView(R2.id.mtv_word);
         MnemonicTextView mnemonicTextView =  viewHolder.getView(R.id.mtv_word);
         mnemonicTextView.getTextWordView().setText(memonicItem.getWord());
-        //mnemonicTextView.getTextWordIndexView().setText(memonicItem.getIndex()+"");
 
         if(memonicItem.isSelected()){
             mnemonicTextView.getTextWordView().setTextColor(ContextCompat.getColor(getContext(),R.color.light_blue));

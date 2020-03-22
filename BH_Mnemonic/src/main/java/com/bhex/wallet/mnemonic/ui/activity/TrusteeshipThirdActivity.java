@@ -2,28 +2,26 @@ package com.bhex.wallet.mnemonic.ui.activity;
 
 import android.text.Editable;
 import android.view.View;
-import android.widget.CheckedTextView;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
-import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.persenter.TrusteeshipPresenter;
-import com.bhex.wallet.mnemonic.viewmodel.WalletViewModel;
+import com.bhex.wallet.mnemonic.ui.fragment.GlobalTipsFragment;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,7 +31,8 @@ import butterknife.OnClick;
  * 创建托管单元第二步
  * 2020-3-12 20:47:54
  */
-public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPresenter> {
+public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPresenter>
+        implements GlobalTipsFragment.GlobalOnClickListenter {
 
     WalletViewModel walletViewModel;
 
@@ -44,10 +43,14 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     AppCompatButton btn_create;
 
     @BindView(R2.id.ck_agreement)
-    CheckedTextView ck_agreement;
+    AppCompatCheckBox ck_agreement;
 
     @BindView(R2.id.tv_password_count)
     AppCompatTextView tv_password_count;
+
+    @BindView(R2.id.tv_agreement)
+    AppCompatTextView tv_agreement;
+
 
     String mOldPwd;
     @Override
@@ -57,7 +60,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
     @Override
     protected void initView() {
-        mOldPwd = BHUserManager.getInstance().getBhWallet().getPassword();
+        mOldPwd = BHUserManager.getInstance().getTmpBhWallet().getPassword();
     }
 
     @Override
@@ -82,28 +85,9 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
 
-    }
-
-
-    @OnClick({R2.id.btn_create,R2.id.ck_agreement})
-    public void onViewClicked(View view) {
-        if(view.getId()==R.id.btn_create){
-            //设置密码
-            String userName = BHUserManager.getInstance().getBhWallet().getName();
-            generateMnemonic(userName,mOldPwd);
-        }else if(view.getId()==R.id.ck_agreement){
-
-            ck_agreement.setChecked(!ck_agreement.isChecked());
-
+        ck_agreement.setOnCheckedChangeListener((buttonView, isChecked) -> {
             getPresenter().checkConfirmPassword(inp_wallet_confirm_pwd,btn_create,mOldPwd,ck_agreement);
-        }
-    }
-
-    /**
-     * 生成助记词
-     */
-    private void generateMnemonic(String name, String pwd) {
-        walletViewModel.generateMnemonic(this,name, pwd);
+        });
 
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
             if (loadDataModel.loadingStatus== LoadingStatus.SUCCESS) {
@@ -116,4 +100,53 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
         });
     }
 
+
+    @OnClick({R2.id.btn_create,R2.id.tv_agreement})
+    public void onViewClicked(View view) {
+        if(view.getId()==R.id.btn_create){
+            //设置密码
+            String userName = BHUserManager.getInstance().getTmpBhWallet().getName();
+            int way = BHUserManager.getInstance().getTmpBhWallet().way;
+            if(way==0){
+                generateMnemonic(userName,mOldPwd);
+            }else if(way==1){
+                importMnemoic(userName,mOldPwd);
+            }else if(way==2){
+                importPrivatekey(userName,mOldPwd);
+            }
+        }else if(view.getId()==R.id.tv_agreement){
+            GlobalTipsFragment.showDialog(getSupportFragmentManager(),"",this,ck_agreement.isChecked());
+        }
+    }
+
+    /**
+     * 生成助记词
+     */
+    private void generateMnemonic(String name, String pwd) {
+        walletViewModel.generateMnemonic(this,name, pwd);
+    }
+
+    /**
+     * 导入助记词
+     * @param name
+     * @param pwd
+     */
+    private void importMnemoic(String name, String pwd) {
+        List<String> words = BHUserManager.getInstance().getTmpBhWallet().mWords;
+        walletViewModel.importMnemonic(this,words,name,pwd);
+    }
+
+    /**
+     * 导入私钥
+     * @param name
+     * @param pwd
+     */
+    private void importPrivatekey(String name,String pwd){
+        walletViewModel.importPrivateKey(this,name,pwd);
+    }
+
+    @Override
+    public void onCheckClickListener(View view, boolean isCheck) {
+        ck_agreement.setChecked(isCheck);
+    }
 }

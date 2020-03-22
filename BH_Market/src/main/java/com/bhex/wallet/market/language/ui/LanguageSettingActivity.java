@@ -70,7 +70,6 @@ public class LanguageSettingActivity extends BaseActivity {
     private void initData() {
         Locale locale = LocalManageUtil.getSetLanguageLocale(this);
         int  selectIndex = LocalManageUtil.getSetLanguageLocaleIndex(this);
-        //LogUtils.d("LanguageSettingActivity","locale:"+locale.getLanguage());
         mLanguageList = new ArrayList<>();
         String []langArray = getResources().getStringArray(R.array.app_language_type);
 

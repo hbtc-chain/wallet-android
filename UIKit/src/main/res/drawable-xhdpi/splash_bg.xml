@@ -3,6 +3,6 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/theme_color_bg" />
     <item android:bottom="120.0dip">
-        <bitmap android:gravity="center" android:src="@mipmap/ic_bluehelix" />
+        <bitmap android:gravity="center" android:src="@mipmap/ic_bluehelix_logo" />
     </item>
 </layer-list>

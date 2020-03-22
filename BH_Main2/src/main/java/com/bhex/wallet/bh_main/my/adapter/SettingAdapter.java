@@ -39,5 +39,7 @@ public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
             viewHolder.setText(R.id.tv_right_txt,myItem.rightTxt);
         }
 
+        viewHolder.setText(R.id.tv_right_2_txt,myItem.rightTxt);
+
     }
 }

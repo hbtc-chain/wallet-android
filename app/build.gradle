@@ -177,15 +177,16 @@ dependencies {
     //toast提示
     //implementation 'com.hjq:toast:8.0'
 
-    implementation 'com.github.markzhai:blockcanary-android:1.5.0'
+
     implementation 'org.greenrobot:eventbus:3.2.0'
 
     //blockcanary
     implementation 'com.github.markzhai:blockcanary-android:1.5.0'
 
+    //implementation 'com.github.markzhai:blockcanary-android:1.5.0'
     // this way you only enable BlockCanary in debug package
-    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
-    releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
+    //debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+    //releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
 
     implementation 'com.alibaba:arouter-api:1.4.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
@@ -198,7 +199,7 @@ dependencies {
     implementation project(path: ':Lib_Tools')
     implementation project(path: ':UIKit')*/
     implementation project(path: ':BH_Common')
-    implementation project(path: ':BH_Market')
+    //implementation project(path: ':BH_Market')
     implementation project(path: ':BH_Mnemonic')
     implementation project(path: ':BH_Balance')
     implementation project(path: ':BH_Main2')

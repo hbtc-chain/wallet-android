@@ -3,8 +3,11 @@ package com.bhex.wallet.common.db.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.util.List;
 
 /**
  * Created by BHEX.
@@ -41,7 +44,14 @@ public class BHWallet {
     @ColumnInfo(name = "isDefault")
     public int isDefault;//1默认 0默认
 
+    @ColumnInfo(name = "privateKey")
+    public String privateKey;
 
+    @Ignore
+    public List<String> mWords;
+
+    @ColumnInfo(name = "way")
+    public int way;//0 生成 1 助记词导入 2 导入keystore 3.私钥
 
 
     public String getAddress() {
@@ -98,5 +108,29 @@ public class BHWallet {
 
     public void setIsBackup(int isBackup) {
         this.isBackup = isBackup;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public List<String> getWords() {
+        return mWords;
+    }
+
+    public void setWords(List<String> mWords) {
+        this.mWords = mWords;
+    }
+
+    public int getWay() {
+        return way;
+    }
+
+    public void setWay(int way) {
+        this.way = way;
     }
 }

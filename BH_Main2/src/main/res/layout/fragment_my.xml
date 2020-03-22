@@ -13,128 +13,127 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/blue"/>
+        android:background="@color/blue_356AFC"/>
 
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_bar"
+        android:background="@mipmap/bg_balance"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/ic_setting"
+        android:text="@string/trusteeship_manger"
+        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:paddingEnd="@dimen/main_padding_right"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:drawablePadding="2dp"
+        android:background="@drawable/btn_bg_setting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_bar"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_default_man"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_default_man"
+        android:layout_marginStart="@dimen/main_padding_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_setting"
+        app:layout_constraintStart_toStartOf="parent"
+        />
     <RelativeLayout
-        android:id="@+id/layout_top"
+        android:id="@+id/layout_index_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="245dp"
-        android:paddingTop="@dimen/dp_20"
-        app:layout_constraintTop_toBottomOf="@+id/status_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/blue"
+        app:layout_constraintTop_toTopOf="@+id/iv_default_man"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_default_man"
+        app:layout_constraintStart_toEndOf="@+id/iv_default_man"
         >
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_setting"
+            android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_setting"
-            android:text="@string/trusteeship_manger"
-            android:textSize="10sp"
             android:textColor="@color/white"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/main_padding_right"
-            android:paddingEnd="@dimen/main_padding_right"
-            android:gravity="center"
-            android:drawablePadding="2dp"
-            android:background="@drawable/btn_bg_setting"
+            android:textSize="20sp"
+            android:drawableRight="@mipmap/ic_edit"
+            android:drawablePadding="8dp"
+            tools:text="Username"
+            android:textStyle="normal"
+
             />
-        <RelativeLayout
-            android:layout_width="match_parent"
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="25dp"
-            android:layout_alignParentStart="true"
-            >
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_default_man"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_default_man"
-                android:layout_marginTop="@dimen/dp_10"
-                />
-            
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/iv_default_man"
-                android:layout_centerVertical="true">
-
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:drawableRight="@mipmap/ic_edit"
-                    android:drawablePadding="8dp"
-                    tools:text="Username"
-                    android:textStyle="normal"
-                    />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_username"
-                    android:layout_alignLeft="@+id/tv_username"
-                    android:drawablePadding="8dp"
-                    android:layout_marginTop="5dp"
-                    android:drawableRight="@mipmap/ic_paste"
-                    android:gravity="center"
-                    android:textColor="#BFFFFFFF"
-                    android:textSize="12sp"
-                    tools:text="2222" />
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="130dp"
-            android:layout_marginStart="@dimen/main_padding_left"
-            android:layout_marginEnd="@dimen/main_padding_right"
-            >
-            
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:minHeight="88dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_white_bg"
-                >
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:minHeight="88dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/btn_white_bg"
-                >
-
-            </RelativeLayout>
-
-        </LinearLayout>
+            android:layout_below="@+id/tv_username"
+            android:layout_alignLeft="@+id/tv_username"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="5dp"
+            android:drawableRight="@mipmap/ic_paste"
+            android:gravity="center"
+            android:textColor="#BFFFFFFF"
+            android:textSize="12sp"
+            tools:text="2222" />
 
     </RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_index_2"
+        android:layout_width="0dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        app:layout_constraintTop_toBottomOf="@+id/layout_index_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/layout_index_3"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:cardForegroundColor="@color/trans"
+        app:cardElevation="5dp"
+        >
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_index_3"
+        android:layout_width="0dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        app:layout_constraintTop_toBottomOf="@+id/layout_index_1"
+        app:layout_constraintStart_toEndOf="@+id/layout_index_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:cardForegroundColor="@color/trans"
+        app:cardElevation="5dp"
+        >
+
+    </com.google.android.material.card.MaterialCardView>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_my"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_top"
+        app:layout_constraintTop_toBottomOf="@+id/layout_index_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:overScrollMode="never"

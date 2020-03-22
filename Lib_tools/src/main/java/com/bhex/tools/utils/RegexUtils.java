@@ -63,7 +63,7 @@ public final class RegexUtils {
 	 * @return
 	 */
 	public static boolean checkPasswd(String passwd) {
-		String regex = "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,}).{8,20}$";
+		String regex = "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,}).{8,255}$";
 		return Pattern.matches(regex,passwd);
 	}
 
@@ -216,5 +216,35 @@ public final class RegexUtils {
 		String regex = "[1-9](\\d{1,2})?\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))";
 		return Pattern.matches(regex, ipAddress);
 	}
-	
+
+	/**
+	 * 匹配密码是否包含数字
+	 * @param pwd
+	 * @return
+	 */
+	public static boolean checkContainNum(String pwd){
+		String regex = ".*\\d+.*";
+		return Pattern.matches(regex, pwd);
+	}
+
+
+	/**
+	 * 匹配密码是否包含大写字母
+	 * @param pwd
+	 * @return
+	 */
+	public static boolean checkContainUpper(String pwd){
+		String regex = ".*[A-Z]+.*";
+		return Pattern.matches(regex, pwd);
+	}
+
+	/**
+	 * 匹配密码是否包含小写字母
+	 * @param pwd
+	 * @return
+	 */
+	public static boolean checkContainLower(String pwd){
+		String regex = ".*[a-z]+.*";
+		return Pattern.matches(regex, pwd);
+	}
 }

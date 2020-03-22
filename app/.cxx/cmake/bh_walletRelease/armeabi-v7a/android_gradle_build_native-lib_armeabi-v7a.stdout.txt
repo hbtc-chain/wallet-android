@@ -1,0 +1,3 @@
+ninja: Entering directory `D:\bhex\BHWallet\app\.cxx\cmake\bh_walletRelease\armeabi-v7a'
+[1/2] Building CXX object CMakeFiles/native-lib.dir/native-lib.cpp.o
+[2/2] Linking CXX shared library D:\bhex\BHWallet\app\build\intermediates\cmake\bh_walletRelease\obj\armeabi-v7a\libnative-lib.so

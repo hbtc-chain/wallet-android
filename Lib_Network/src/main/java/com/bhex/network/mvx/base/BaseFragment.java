@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * created by gongdongyang
  * on 2020/2/24
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     protected static final String TAG = BaseFragment.class.getSimpleName();
 
@@ -29,7 +29,20 @@ public abstract class BaseFragment extends Fragment {
 
     private ProgressDialog mProgressDialog;
 
+    protected T mPresenter;
+
     private int dialogRef;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initPresenter();
+    }
+
+    protected void initPresenter() {
+
+    }
 
     @Nullable
     @Override

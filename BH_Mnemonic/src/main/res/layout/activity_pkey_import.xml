@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.PKeyImportActivity">
+
+    <include
+        layout="@layout/layout_toolbar"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tip_index_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark_blue"
+        android:textSize="14sp"
+        android:text="@string/set_pwd_tip_1"
+        android:drawableLeft="@drawable/ic_dot_blue"
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="3dp"
+        android:lineSpacingExtra="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginStart="@dimen/main_padding_left"
+        />
+
+
+
+    <LinearLayout
+        android:id="@+id/layout_index_2"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tip_index_1"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_f9f9fb"
+        >
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_private_key"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:singleLine="false"
+            android:background="@null"
+            android:textSize="15sp"
+            android:gravity="top"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tip_index_1"
+            android:hint="@string/hint_private_key_input"
+            android:textColorHint="@color/dark_blue"
+            android:textColor="@color/tips_text_black"
+            android:padding="16dp"
+            android:inputType="text"
+            android:textCursorDrawable="@null"
+            tools:text="3323r2f2332def"
+            >
+
+        </androidx.appcompat.widget.AppCompatEditText>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginStart="@dimen/main_padding_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_index_2"
+        style="@style/main_btn_gray_disable"
+        android:layout_marginTop="32dp"
+        android:text="@string/next"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

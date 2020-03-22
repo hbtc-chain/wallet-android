@@ -16,9 +16,9 @@ import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
-import com.bhex.wallet.mnemonic.viewmodel.WalletViewModel;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,7 +28,7 @@ import butterknife.OnClick;
  * 2020-3-4 18:15:01
  * 创建托管单元`
  */
-@Route(path = ARouterConfig.TRUSTEESHIP_FRIST_PAGE)
+@Route(path = ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST)
 public class TrusteeshipActivity extends BaseCacheActivity {
 
     WalletViewModel walletViewModel;
@@ -67,6 +67,9 @@ public class TrusteeshipActivity extends BaseCacheActivity {
                 if(!TextUtils.isEmpty(inp_wallet_name.getInputString())){
                     btn_next.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);
                     btn_next.setEnabled(true);
+                }else{
+                    btn_next.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
+                    btn_next.setEnabled(false);
                 }
             }
         });
@@ -77,7 +80,7 @@ public class TrusteeshipActivity extends BaseCacheActivity {
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_next){
             //设置钱包用户名
-            BHUserManager.getInstance().getBhWallet()
+            BHUserManager.getInstance().getTmpBhWallet()
                     .setName(inp_wallet_name.getInputString());
             NavitateUtil.startActivity(this,TrusteeshipSecActivity.class);
         }

@@ -1,4 +1,4 @@
-package com.bhex.wallet.mnemonic.utils;
+package com.bhex.wallet.common.utils;
 
 import com.bhex.tools.utils.LogUtils;
 

@@ -1,85 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:paddingStart="@dimen/main_padding_left"
-    tools:context=".ui.activity.TrusteeshipManagerActivity">
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_wallet_header"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@mipmap/ic_default_man"
-        tools:src="@mipmap/ic_default_man"
-        />
+    android:layout_marginBottom="1dp"
+    android:clipChildren="false"
+    android:paddingStart="@dimen/main_padding_left">
 
     <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/iv_wallet_header"
-        app:layout_constraintRight_toLeftOf="@+id/ck_wallet"
-        >
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_wallet_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/tv_wallet_address"
-            android:layout_marginStart="8dp"
-            android:textSize="17sp"
-            android:textColor="@color/main_text_black"
-            tools:text="Wallet 2"
+        android:id="@+id/slide_itemView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:tag="slide_flag">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_wallet_header"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_default_man"
+            tools:src="@mipmap/ic_default_man" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_f9f9fb"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/iv_wallet_header"
             />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_wallet_default"
+        <RelativeLayout
+            android:id="@+id/layout_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_wallet_header"
+            >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_wallet_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/main_text_black"
+                android:textSize="17sp"
+                tools:text="Wallet 2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_wallet_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_wallet_name"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/tv_wallet_name"
+                android:background="#663375E0"
+                android:paddingStart="8dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="3dp"
+                android:text="@string/str_default"
+                android:textColor="@color/blue"
+                android:textSize="10sp"
+                tools:text="Wallet 2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_wallet_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_wallet_name"
+                android:layout_alignLeft="@+id/tv_wallet_name"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp"
+                tools:text="0x7u4ser3n…a4mp6lfomp" />
+
+
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/ck_wallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_wallet_name"
-            android:layout_toRightOf="@+id/tv_wallet_name"
-            android:layout_marginStart="8dp"
-            android:background="#663375E0"
-            android:textSize="10sp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textColor="@color/blue"
-            android:text="@string/str_default"
-            tools:text="Wallet 2"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/main_padding_right"
+            android:drawableStart="@drawable/checkbox_style"
             />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_wallet_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_wallet_name"
-            android:layout_alignLeft="@+id/tv_wallet_name"
-            android:textSize="12sp"
-            android:textColor="@color/dark_blue"
-            tools:text="0x7u4ser3n…a4mp6lfomp"
-            />
 
     </RelativeLayout>
 
-    <androidx.appcompat.widget.AppCompatCheckedTextView
-        android:id="@+id/ck_wallet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="@dimen/main_padding_right"
-        android:drawableStart="@drawable/checkbox_style"
-        />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

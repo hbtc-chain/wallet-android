@@ -4,10 +4,8 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.bhex.network.mvx.base.BaseActivity;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.ActivityCache;
@@ -17,9 +15,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
-import com.bhex.wallet.mnemonic.ui.fragment.GlobalTipsFragment;
 import com.bhex.wallet.mnemonic.ui.fragment.ScreenShotTipsFragment;
-import com.bhex.wallet.mnemonic.viewmodel.WalletViewModel;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,6 +25,7 @@ import butterknife.OnClick;
  * 2020-3-4 20:44:35
  * 托管单元创建成功
  */
+@Route(path=ARouterConfig.TRUSTEESHIP_CREATE_OK_PAGE)
 public class TrusteeshipSuccessActivity extends BaseCacheActivity implements ScreenShotTipsFragment.IKnowListener {
 
     @BindView(R2.id.btn_at_once_backup)
@@ -59,7 +56,8 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
             ScreenShotTipsFragment fragment = ScreenShotTipsFragment.showDialog(getSupportFragmentManager(),"");
             fragment.setIKnowListener(TrusteeshipSuccessActivity.this);
         }else if(view.getId()== R.id.btn_later_backup){
-            if(BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+            if(BHUserManager.getInstance().getTargetClass()!=null &&
+                    BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
                 ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
             }else{
                 NavitateUtil.startMainActivity(this,

@@ -40,6 +40,9 @@ public class GlobalTipsFragment extends BaseDialogFragment {
         // Required empty public constructor
     }
 
+    GlobalOnClickListenter globalOnClickListenter;
+
+    private boolean isCheck;
 
     @Override
     public int getLayout() {
@@ -69,8 +72,10 @@ public class GlobalTipsFragment extends BaseDialogFragment {
 
     }
 
-    public static void showDialog(FragmentManager fm, String tag){
+    public static void showDialog(FragmentManager fm, String tag,GlobalOnClickListenter globalOnClickListenter,Boolean isCheck){
         GlobalTipsFragment fragment = new GlobalTipsFragment();
+        fragment.setGlobalOnClickListenter(globalOnClickListenter);
+        fragment.isCheck = isCheck;
         fragment.show(fm,tag);
     }
 
@@ -78,7 +83,7 @@ public class GlobalTipsFragment extends BaseDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         check_agreement = mRootView.findViewById(R.id.check_agreement);
-
+        check_agreement.setChecked(isCheck);
         addEvent();
     }
 
@@ -92,12 +97,29 @@ public class GlobalTipsFragment extends BaseDialogFragment {
         });
 
         mRootView.findViewById(R.id.btn_confirm).setOnClickListener(v -> {
-            if(check_agreement.isChecked()){
-                NavitateUtil.startActivity(getActivity(), TrusteeshipActivity.class);
-                dismiss();
+            /*if(check_agreement.isChecked()){
+                //NavitateUtil.startActivity(getActivity(), TrusteeshipActivity.class);
+
+
+            }*/
+            dismiss();
+            if(globalOnClickListenter!=null){
+                globalOnClickListenter.onCheckClickListener(null,check_agreement.isChecked());
             }
         });
     }
 
+
+    public GlobalOnClickListenter getGlobalOnClickListenter() {
+        return globalOnClickListenter;
+    }
+
+    public void setGlobalOnClickListenter(GlobalOnClickListenter globalOnClickListenter) {
+        this.globalOnClickListenter = globalOnClickListenter;
+    }
+
+    public interface GlobalOnClickListenter{
+        public void onCheckClickListener(View view,boolean isCheck);
+    }
 
 }

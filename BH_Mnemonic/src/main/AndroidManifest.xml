@@ -9,20 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.activity.PKeyImportActivity"></activity>
+        <activity android:name=".ui.activity.ImportIndexActivity" />
         <activity
             android:name=".ui.activity.TrusteeshipManagerActivity"
-            android:launchMode="singleTask"/>
-
+            android:launchMode="singleTask" />
         <activity android:name=".ui.activity.TrusteeshipThirdActivity" />
         <activity android:name=".ui.activity.TrusteeshipSecActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.LockActivity" />
         <activity android:name=".ui.activity.ImportMnemonicActivity" />
         <activity android:name=".ui.activity.VerifyMnemonicActivity" />
         <activity android:name=".MnemonicIndexActivity" />
         <activity android:name=".ui.activity.TrusteeshipActivity" />
         <activity android:name=".ui.activity.BackupMnemonicActivity" />
         <activity android:name=".ui.activity.TrusteeshipSuccessActivity" />
+        <activity android:name=".ui.activity.RecycleViewSwipActivity" />
     </application>
 
 </manifest>

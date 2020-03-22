@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="285dp"
+    android:background="@drawable/btn_white_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.AddressFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="账户"
+        android:textSize="17sp"
+        android:textColor="@color/main_text_black"
+        android:gravity="center"
+        android:paddingTop="@dimen/main_padding_top"
+        android:paddingBottom="@dimen/main_padding_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        android:background="@color/gray_E7ECF4"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_address"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cancel"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
+        android:overScrollMode="never"
+        >
+
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_confirm"
+        app:layout_constraintHorizontal_weight="1"
+        app:backgroundTint="@color/gray_B0BFDB"
+        android:text="@string/cancel"
+        style="@style/main_material_btn"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_confirm"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:backgroundTint="@color/blue"
+        app:cornerRadius="@dimen/main_radius_conner"
+        style="@style/main_material_btn"
+        android:text="确定"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

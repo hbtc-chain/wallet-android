@@ -69,11 +69,13 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
             //ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).reset().init();
         }else if(getStatusColorValue()== Constants.STATUS_COLOR_BLUE){
             StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
-            //ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).reset().init();
-        }else{
-            StatusBarUtil.setStatusColor(this,false,true,R.color.white);
+        }else if(getStatusColorValue()== Constants.STATUS_COLOR_TRANS){
+            StatusBarUtil.setStatusColor(this,true,true,R.color.trans);
             //ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).reset().init();
+        }else{
         }
+
+
     }
 
     protected  int getStatusColorValue(){
@@ -92,7 +94,6 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        LogUtils.d("MainActivity","==attachBaseContext==");
         super.attachBaseContext(LocalManageUtil.attachBaseContext(newBase,""));
     }
 

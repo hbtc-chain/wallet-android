@@ -11,6 +11,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.RegexUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.mnemonic.R;
 
@@ -44,9 +45,7 @@ public class LoginPresenter extends BasePresenter {
      */
     public void setButtonStatus(AppCompatButton btn_confirm,String pwd){
         boolean flag = false;
-        if(pwd!=null && pwd.length()>=8){
-            flag = true;
-        }
+        flag = RegexUtils.checkPasswd(pwd);
 
         if (flag) {
             btn_confirm.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);
@@ -62,13 +61,11 @@ public class LoginPresenter extends BasePresenter {
      */
     public void verifyPassword(String inputPwd, BHWallet bhWallet){
         String pwdMd5 = MD5.md5(inputPwd);
-        LogUtils.d("LoginPresenter","inputPwd=="+inputPwd);
-        LogUtils.d("LoginPresenter",pwdMd5+"==pwdMd5=="+bhWallet.getPassword());
         if(pwdMd5.equals(bhWallet.getPassword())){
             NavitateUtil.startMainActivity(getActivity());
             getActivity().finish();
         }else{
-            ToastUtils.showToast("密码错误");
+            ToastUtils.showToast(getActivity().getString(R.string.error_password));
         }
     }
 }

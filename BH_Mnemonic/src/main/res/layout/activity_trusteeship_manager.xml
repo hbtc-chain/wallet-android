@@ -8,7 +8,7 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.yanzhenjie.recyclerview.SwipeRecyclerView
         android:id="@+id/recycler_trusteeship"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,11 +17,10 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
         android:overScrollMode="never"
-        android:layout_marginBottom="16dp"
-        >
+        android:layout_marginBottom="16dp">
 
+    </com.yanzhenjie.recyclerview.SwipeRecyclerView>
 
-    </androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="0dp"
@@ -51,8 +50,7 @@
             android:layout_height="48dp"
             android:text="@string/wallet_import_trusteeship"
             android:layout_weight="1"
-            style="@style/main_btn_blue_44"
-            />
+            style="@style/main_btn_blue_44"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

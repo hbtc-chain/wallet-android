@@ -1,6 +1,7 @@
 package com.bhex.wallet.common.manager;
 
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.kenai.jffi.Main;
 
 import java.util.List;
 
@@ -12,7 +13,9 @@ import java.util.List;
  */
 public class BHUserManager {
 
-    private BHWallet bhWalletExt;
+    private BHWallet tmpBhWallet;
+
+    private BHWallet mCurrentBhWallet;
 
     private List<BHWallet> allWallet;
 
@@ -21,7 +24,8 @@ public class BHUserManager {
     private static volatile BHUserManager  _INSTANCE;
 
     private BHUserManager(){
-        bhWalletExt = new BHWallet();
+        tmpBhWallet = new BHWallet();
+        mCurrentBhWallet = new BHWallet();
     }
 
     public static BHUserManager getInstance(){
@@ -35,12 +39,12 @@ public class BHUserManager {
         return _INSTANCE;
     }
 
-    public BHWallet getBhWallet(){
-        return bhWalletExt;
+    public BHWallet getTmpBhWallet() {
+        return tmpBhWallet;
     }
 
-    public void setBhWalletExt(BHWallet bhWalletExt) {
-        this.bhWalletExt = bhWalletExt;
+    public void setTmpBhWallet(BHWallet tmpBhWallet) {
+        this.tmpBhWallet = tmpBhWallet;
     }
 
     public void setAllWallet(List<BHWallet> allWallet) {
@@ -52,7 +56,7 @@ public class BHUserManager {
     }
 
     public boolean isHasWallet(){
-        if(bhWalletExt.id>0){
+        if(mCurrentBhWallet.id>0){
             return true;
         }
         return false;
@@ -65,4 +69,25 @@ public class BHUserManager {
     public void setTargetClass(Class targetClass) {
         this.targetClass = targetClass;
     }
+
+    public BHWallet getCurrentBhWallet() {
+        return mCurrentBhWallet;
+    }
+
+    public void setCurrentBhWallet(BHWallet mCurrentBhWallet) {
+        this.mCurrentBhWallet = mCurrentBhWallet;
+        if(allWallet==null || allWallet.size()<=0){
+            return;
+        }
+        for (int i = 0; i < allWallet.size(); i++) {
+            BHWallet item = allWallet.get(i);
+            if(item.id==mCurrentBhWallet.id){
+                item.setIsDefault(1);
+            }else{
+                item.setIsDefault(0);
+            }
+        }
+    }
+
+
 }

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".bh_main.ui.activity.MainActivity">
 
-
     <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="0dp"
@@ -14,9 +13,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/main_bottom"
-        />
-
+        app:layout_constraintBottom_toTopOf="@+id/main_bottom"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_bottom"
@@ -33,7 +30,6 @@
         app:itemIconTint="@color/selector_tab_color"
         app:itemTextColor="@color/theme_ck_text_color"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/tab_home_menu"
-        />
+        app:menu="@menu/tab_home_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

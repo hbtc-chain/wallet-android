@@ -2,6 +2,9 @@ package com.bhex.wallet.mnemonic.helper;
 
 import android.text.TextUtils;
 
+import com.bhex.tools.crypto.CryptoUtil;
+import com.bhex.tools.crypto.HexUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
 
@@ -16,17 +19,29 @@ import java.util.List;
  * Time: 20:43
  */
 public class MnemonicDataHelper {
-    //deer, bleak, bring, biology, pole, energy, galaxy, situate, upgrade, south, clarify, lava
     public static List<MnemonicItem> makeMnemonic(){
         List<MnemonicItem> list = new ArrayList<>();
+        try{
+            String encryptMnemonic = BHUserManager.getInstance().getTmpBhWallet().getMnemonic();
+            String pwd = "";
+            if(!TextUtils.isEmpty(encryptMnemonic)){
+                encryptMnemonic = BHUserManager.getInstance().getTmpBhWallet().getMnemonic();
+                pwd = BHUserManager.getInstance().getTmpBhWallet().getPassword();
+            }else{
+                encryptMnemonic = BHUserManager.getInstance().getCurrentBhWallet().getMnemonic();
+                pwd = BHUserManager.getInstance().getCurrentBhWallet().getPassword();
+            }
+            byte [] bytes = CryptoUtil.decrypt(HexUtils.toBytes(encryptMnemonic),pwd);
+            String  mnemonic  = new String(bytes);
+            String []array = mnemonic.split(" ");
 
-        String []array = BHUserManager.getInstance().getBhWallet().getMnemonic().split(" ");
-        for (int i = 0; i < array.length; i++) {
-            MnemonicItem item = new MnemonicItem(array[i],(i+1),false);
-            list.add(item);
+            for (int i = 0; i < array.length; i++) {
+                MnemonicItem item = new MnemonicItem(array[i],(i+1),false);
+                list.add(item);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-
 
         return list;
     }

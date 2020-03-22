@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -14,8 +15,13 @@ import com.bhex.wallet.bh_main.my.adapter.SettingAdapter;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -48,6 +54,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void addEvent() {
+
         mItems = MyHelper.getSettingItems(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -55,13 +62,14 @@ public class SettingActivity extends BaseActivity {
         recycler_setting.setLayoutManager(layoutManager);
         //mMyAdapter.setHasStableIds(true);
 
-        mSettingAdapter = new SettingAdapter(R.layout.item_my,mItems);
+        mSettingAdapter = new SettingAdapter(R.layout.item_setting,mItems);
 
         recycler_setting.setAdapter(mSettingAdapter);
 
         mSettingAdapter.setOnItemClickListener((adapter, view, position) -> {
             clickItemAction(adapter, view, position);
         });
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -73,8 +81,22 @@ public class SettingActivity extends BaseActivity {
     private void clickItemAction(BaseQuickAdapter adapater, View parent,int position) {
         switch (position){
             case 0:
-                ARouterUtil.startActivity(ARouterConfig.MINE_MAIN_PAGE);
+                ARouterUtil.startActivity(ARouterConfig.MY_LANGUAE_SET_PAGE);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeLanguage(LanguageEvent language){
+        mItems = MyHelper.getSettingItems(this);
+        mSettingAdapter.getData().clear();
+        mSettingAdapter.addData(mItems);
+
     }
 
 

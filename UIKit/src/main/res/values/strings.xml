@@ -54,7 +54,6 @@
     <string name="set_pwd_tip_1">安全密码是保护钱包私钥和操作资产的重要凭证</string>
     <string name="set_pwd_tip_2">BlueHelix钱包不会缓存、上传、存储您的密码</string>
     <string name="set_pwd_tip_3">请务必妥善保管密码</string>
-    <string name="wallet_password">钱包密码</string>
     <string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>
     <string name="pwd_index">%1$d个字符</string>
     <string name="pwd_rule_tip">为了保证您的资产安全，密码请包括：</string>
@@ -72,6 +71,19 @@
     <string name="confirm_password">重复密码</string>
     <string name="trusteeship_manger">管理托管单元</string>
     <string name="str_default">默认</string>
+    <string name="set_name">设置名称</string>
+    <string name="please_be_sure">请务必</string>
+    <string name="delete">删除</string>
+    <string name="error_password">密码错误</string>
+    <string name="import_private_key">导入私钥</string>
+    <string name="hint_private_key_input">请输入私钥</string>
+    <string name="transfer">转账</string>
+    <string name="make_collection">收款</string>
+    <string name="cancel">取消</string>
+    <string name="copyed">已复制</string>
+    <string name="wallet_password">钱包密码</string>
+    <string name="hint_import_way">请选择导入方式</string>
+    <string name="import_keystore">导入KeyStore</string>
 
 
     <string-array name="my_list_item">
