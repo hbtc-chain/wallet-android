@@ -52,6 +52,14 @@ public class JsonUtils {
         return object.get(memberName).getAsInt();
     }
 
+    public static String getAsJsonObject(String json, String memberName) {
+        initG();
+        JsonObject object = mParser.parse(json).getAsJsonObject();
+        if (!object.has(memberName))
+            return "";
+        return object.get(memberName).getAsJsonObject().toString();
+    }
+
     @NonNull
     public static JsonArray getAsJsonArray(String json, String memberName) {
         initG();

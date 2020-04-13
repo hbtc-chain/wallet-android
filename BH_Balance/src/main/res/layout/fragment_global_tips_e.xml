@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_white_16_corner"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.GlobalTipsFragment">
+
+
+    <LinearLayout
+        android:id="@+id/layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_bottom"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:text="@string/service_agreement"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:text="@string/agreement_index_1"
+            android:textColor="@color/dark_blue"
+            android:textSize="13sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            >
+
+
+        <com.bhex.lib.uikit.widget.JustifyTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:lineHeight="20dp"
+            android:paddingLeft="24dp"
+            android:paddingTop="2dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="2dp"
+            android:text="@string/agreement_context"
+            android:textColor="@color/tips_text_black"
+            android:textSize="13sp" />
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <CheckedTextView
+            android:id="@+id/check_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/checkbox_style"
+            android:drawablePadding="4dp"
+            android:layout_marginBottom="20dp"
+            android:text="2332"
+            android:textAlignment="center"
+            android:textColor="@color/dark_black"
+            android:textSize="13sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/btn_bg_blue_66_corner"
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -55,4 +55,19 @@ public class ARouterConfig {
     //托管单元导入
     public static final String MNEMONIC_TEST = "/mnemonic/test";
 
+    //资产
+    public static final String Balance_Search = "/balance/search";
+
+    //资产详情页
+    public static final String Balance_Assets_Detail = "/balance/assets";
+
+    //充币
+    public static final String Balance_transfer_in = "/balance/transfer/in";
+
+    //提币
+    public static final String Balance_transfer_out = "/balance/transfer/out";
+
+    public static final String Balance_fragment = "/balance/fragment";
+
+    public static final String Balance_cross_address = "/balance/cross_adress";
 }

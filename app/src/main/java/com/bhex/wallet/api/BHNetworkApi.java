@@ -4,7 +4,7 @@ import com.bhex.network.Urls;
 import com.bhex.network.base.BaseResponse;
 import com.bhex.network.base.NetworkApi;
 import com.bhex.network.errorhandler.ExceptionHandler;
-import com.bhex.tools.utils.TimeUtils;
+import com.bhex.tools.utils.DateUtil;
 
 import java.io.IOException;
 
@@ -39,7 +39,7 @@ public class BHNetworkApi extends NetworkApi {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                String timeStr = TimeUtils.getTimeStr();
+                String timeStr = DateUtil.getTimeStr();
                 Request.Builder builder = chain.request().newBuilder();
                 builder.addHeader("Source", "source");
                 builder.addHeader("Date", timeStr);

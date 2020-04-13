@@ -21,11 +21,9 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 
-import com.bhex.lib.uikit.widget.util.PixelUtils;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
-import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.ui.activity.TrusteeshipActivity;
 

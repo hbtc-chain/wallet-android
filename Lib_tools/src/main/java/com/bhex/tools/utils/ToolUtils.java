@@ -120,9 +120,9 @@ public class ToolUtils {
     //生成随机数
     /*public static String getRandomString(int length) {
         StringBuffer sb = new StringBuffer();
-        int len = Constants.RANDOMSTR.length();
+        int len = BHConstants.RANDOMSTR.length();
         for (int i = 0; i < length; i++) {
-            sb.append(Constants.RANDOMSTR.charAt(getRandom(len - 1)));
+            sb.append(BHConstants.RANDOMSTR.charAt(getRandom(len - 1)));
         }
         return sb.toString();
     }*/

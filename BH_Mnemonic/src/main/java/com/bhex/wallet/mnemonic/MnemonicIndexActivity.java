@@ -5,8 +5,6 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bhex.tools.constants.Constants;
-import com.bhex.tools.utils.StatusBarUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.utils.ARouterUtil;
@@ -37,7 +35,7 @@ public class MnemonicIndexActivity extends BaseCacheActivity {
 
     @Override
     protected void initView() {
-        StatusBarUtil.setStatusColor(this,false,true,R.color.white);
+        //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
 
     }
 

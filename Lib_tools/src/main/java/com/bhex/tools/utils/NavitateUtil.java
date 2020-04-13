@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.bhex.tools.constants.Constants;
+import com.bhex.tools.constants.BHConstants;
 
 /**
  * created by gongdongyang
@@ -59,7 +59,7 @@ public class NavitateUtil {
      * @param context
      */
     public static void startMainActivity(Context context){
-        Intent intent = new Intent(Constants.MAIN_PATH);
+        Intent intent = new Intent(BHConstants.MAIN_PATH);
         context.startActivity(intent);
     }
 
@@ -69,7 +69,7 @@ public class NavitateUtil {
      * @param context
      */
     public static void startMainActivity(Context context,String ...params){
-        Intent intent = new Intent(Constants.MAIN_PATH);
+        Intent intent = new Intent(BHConstants.MAIN_PATH);
         if(params!=null && params.length>1){
             for(int index=0;index<params.length/2;index++){
                 intent.putExtra(params[index],params[index+1]);

@@ -98,7 +98,7 @@ public class TrusteeshipActivity extends BaseCacheActivity {
                 if ("1".equals(status)) {
                     ToastUtils.showToast("创建成功");
                     NavitateUtil.startActivity(TrusteeshipActivity.this, TrusteeshipSuccessActivity.class);
-                    MMKVManager.getInstance().mmkv().encode(Constants.FRIST_BOOT, true);
+                    MMKVManager.getInstance().mmkv().encode(BHConstants.FRIST_BOOT, true);
                 } else {
                     ToastUtils.showToast("创建失败");
                 }

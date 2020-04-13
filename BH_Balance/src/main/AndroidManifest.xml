@@ -9,8 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BalanceIndexActivity"/>
-
+        <activity android:name=".ui.activity.ReEntrustActivity"></activity>
+        <activity android:name=".ui.activity.GenerateAddressActivity" />
+        <activity android:name=".ui.activity.TransferOutActivity" />
+        <activity android:name=".ui.activity.TransferInActivity" />
+        <activity android:name=".ui.activity.GatheringActivity" />
+        <activity android:name=".ui.activity.AssetDetailActivity" />
+        <activity android:name=".ui.activity.CoinSearchActivity" />
+        <activity android:name=".BalanceIndexActivity" />
     </application>
 
 </manifest>

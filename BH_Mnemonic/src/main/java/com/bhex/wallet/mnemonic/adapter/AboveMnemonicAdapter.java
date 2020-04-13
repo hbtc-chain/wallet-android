@@ -38,7 +38,6 @@ public class AboveMnemonicAdapter extends BaseQuickAdapter<MnemonicItem, BaseVie
         MnemonicTextViewExt mnemonicTextView =  viewHolder.getView(R.id.mtv_word);
         int position = viewHolder.getPosition();
 
-        LogUtils.d("AboveMnemonicAdapter","position==>:"+position);
 
         if(position==0){
             mnemonicTextView.getRootLayout().setBackground(getContext().getDrawable(R.drawable.btn_white_top_left_corner));

@@ -28,17 +28,17 @@ public class ImportPresenter extends BasePresenter {
         List<ImportItem> list = new ArrayList<>();
 
         ImportItem wordItem = new ImportItem(getActivity().getString(R.string.import_mnemonic),
-                getActivity().getString(R.string.hint_import_way),R.mipmap.ic_import_pk);
+                getActivity().getString(R.string.hint_import_way),R.mipmap.ic_import_word);
 
         list.add(wordItem);
 
         ImportItem ksItem = new ImportItem(getActivity().getString(R.string.import_keystore),
-                getActivity().getString(R.string.hint_import_way),R.mipmap.ic_import_pk);
+                getActivity().getString(R.string.hint_import_way),R.mipmap.ic_import_ks);
 
         list.add(ksItem);
 
         ImportItem privateKeyItem = new ImportItem(getActivity().getString(R.string.import_private_key),
-                getActivity().getString(R.string.hint_import_way),R.mipmap.ic_import_key);
+                getActivity().getString(R.string.hint_import_way),R.mipmap.ic_import_pk);
 
         list.add(privateKeyItem);
         return list;

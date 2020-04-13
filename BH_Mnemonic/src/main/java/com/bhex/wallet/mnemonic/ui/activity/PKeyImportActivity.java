@@ -12,8 +12,10 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.RegexUtil;
+import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
@@ -29,7 +31,7 @@ import butterknife.OnClick;
  * 2020-3-18 18:26:18
  */
 @Route(path = ARouterConfig.TRUSTEESHIP_PRIVATEKEY_IMPORT)
-public class PKeyImportActivity extends BaseActivity {
+public class PKeyImportActivity extends BaseCacheActivity {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -60,7 +62,10 @@ public class PKeyImportActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 super.afterTextChanged(s);
-                if(!TextUtils.isEmpty(et_private_key.getText())){
+                String origin = et_private_key.getText().toString().trim();
+                boolean flag = RegexUtil.checkIsHex(origin);
+                LogUtils.d("");
+                if(!TextUtils.isEmpty(origin)){
                     btn_next.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);
                     btn_next.setEnabled(true);
                 }else{

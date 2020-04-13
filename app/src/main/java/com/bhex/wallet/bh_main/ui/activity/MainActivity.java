@@ -1,15 +1,11 @@
 package com.bhex.wallet.bh_main.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
-import android.view.WindowManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.constants.Constants;
-import com.bhex.tools.utils.StatusBarUtil;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -19,8 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.lang.reflect.Field;
 
 import butterknife.BindView;
 
@@ -117,6 +111,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     protected int getStatusColorValue() {
-        return Constants.STATUS_COLOR_TRANS;
+        return BHConstants.STATUS_COLOR_TRANS;
     }
 }

@@ -20,6 +20,26 @@ public class NetWorkStatusChangeReceiver extends BroadcastReceiver {
     public static int Network_Status_None = 0;
 
     public static int Network_Status_WIFI = 2;
+    private static int status;
+
+    public static int getNectworkStatus() { return status; }
+
+    public static void init(Context paramContext) {
+        if (isNetworkConnected(paramContext)) {
+            status = 1;
+            return;
+        }
+        status = 0;
+
+    }
+     public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            NetworkInfo networkInfo = ((ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+            if (networkInfo != null)
+                return networkInfo.isAvailable();
+        }
+        return false;
+    }
 
     /**
      * 获取连接类型

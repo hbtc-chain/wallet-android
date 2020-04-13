@@ -1,19 +1,15 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
-import android.content.Intent;
 import android.text.TextUtils;
-import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.widget.recyclerview.GridDividerItemDecoration;
 import com.bhex.lib.uikit.widget.recyclerview.GridLayoutItemDecoration;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.app.BaseApplication;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.constants.Constants;
-import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
@@ -28,9 +24,7 @@ import com.bhex.wallet.mnemonic.helper.MnemonicDataHelper;
 import com.bhex.wallet.mnemonic.persenter.VerifyPresenter;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -127,6 +121,7 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
             underMnemonicAdapter.notifyDataSetChanged();
             getPresenter().verifyMnmonic(aboverMnemonicItemList,orginMnemonicItemList,btn_start_bakcup);
 
+
         });
 
     }
@@ -139,16 +134,27 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     @Override
     protected void addEvent() {
         btn_start_bakcup.setOnClickListener(v -> {
-            if(BHUserManager.getInstance().getTargetClass()!=null &&
-                    BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
-                ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
-            }else{
-                NavitateUtil.startMainActivity(this,
-                        new String[]{Constants.BACKUP_TEXT,Constants.BACKUP});
-            }
-            //NavitateUtil.startMainActivity(VerifyMnemonicActivity.this);
-            //finish();
-            ActivityCache.getInstance().finishActivity();
+            ToastUtils.showToast("助记词备份成功");
+            BaseApplication.getMainHandler().postDelayed(()->{
+                gotoTarget();
+            },1500);
+
         });
+    }
+
+    /**
+     *
+     */
+    private void gotoTarget(){
+        if(BHUserManager.getInstance().getTargetClass()!=null &&
+                BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
+        }else{
+            NavitateUtil.startMainActivity(this,
+                    new String[]{BHConstants.BACKUP_TEXT, BHConstants.BACKUP});
+        }
+        //NavitateUtil.startMainActivity(VerifyMnemonicActivity.this);
+        //finish();
+        ActivityCache.getInstance().finishActivity();
     }
 }

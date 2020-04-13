@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.CoinSearchActivity">
+
+
+    <include
+        layout="@layout/layout_toolbar"
+        />
+
+    <RelativeLayout
+        android:id="@+id/layout_search"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/gray_f9f9fb">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_search_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_search"
+            android:layout_centerVertical="true"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/ed_search_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/iv_search_ic"
+            android:textCursorDrawable="@null"
+            android:background="@null"
+            android:layout_marginEnd="@dimen/main_margin_right"
+            android:textSize="15sp"
+            android:textColorHint="@color/dark_blue"
+            android:textColor="@color/main_text_black"
+            android:hint="请输入币种名称"/>
+
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_coin"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/main_margin_top"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        app:layout_constraintTop_toBottomOf="@+id/layout_search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

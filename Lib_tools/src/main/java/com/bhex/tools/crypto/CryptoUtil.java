@@ -1,9 +1,17 @@
 package com.bhex.tools.crypto;
 
-import org.spongycastle.jce.provider.BouncyCastleProvider;
+import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.MD5;
 
+import org.spongycastle.jce.provider.BouncyCastleProvider;
+import org.web3j.utils.Numeric;
+
+import java.math.BigInteger;
 import java.security.Key;
+import java.security.MessageDigest;
 import java.security.Security;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -51,6 +59,90 @@ public class CryptoUtil {
         out.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
         byte[] dec = out.doFinal(content);
         return dec;
+    }
+
+
+
+    //助记词加密
+    public static String encryptMnemonic(String origin,String pwd){
+        String encrypt = "";
+        try{
+            String key = MD5.md5(pwd);
+            byte[] result = CryptoUtil.encrypt(origin.getBytes(),key);
+            encrypt = HexUtils.toHex(result);
+        }catch (Exception e){
+
+        }
+        return encrypt;
+    }
+
+    //解密助记词
+    public static String decryptMnemonic(String encryptMnemonic,String pwd){
+        String encrypt = "";
+        try{
+            byte[] result = CryptoUtil.decrypt(HexUtils.toBytes(encryptMnemonic),pwd);
+            encrypt = new String(result);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return encrypt;
+    }
+
+    //加密私钥
+    public static String encryptPK(BigInteger originPK, String pwd){
+        String encrypt_PK = "";
+        try{
+            byte []hex= HexUtils.toBytes(originPK.toString(16));
+            byte[] result = CryptoUtil.encrypt(hex,MD5.md5(pwd));
+            encrypt_PK = HexUtils.toHex(result);
+        }catch (Exception e){
+
+        }
+        return encrypt_PK;
+    }
+
+    /**
+     * 解密私钥 - 16进制
+     * @param encryptPK
+     * @param pwd
+     * @return
+     */
+    public static String decryptPK(String encryptPK,String pwd){
+        String decrypt = "";
+        try{
+            byte[] byte_pk = CryptoUtil.decrypt(HexUtils.toBytes(encryptPK),pwd);
+
+            BigInteger big_pk = Numeric.toBigInt(byte_pk);
+            decrypt = big_pk.toString(16);
+            //LogUtils.d("CryptoUtil==>:","decryptPK=hex==>:"+ Arrays.toString(byte_pk));
+            //LogUtils.d("CryptoUtil==>:","decryptPK=b==>:"+ big_pk.toString(16));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return decrypt;
+    }
+
+
+    private static String convertMnemonicList(List<String> mnemonics) {
+        StringBuilder sb = new StringBuilder();
+        for (String mnemonic : mnemonics) {
+            sb.append(mnemonic);
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
+
+    public static String sha256(String origin){
+        String res = "";
+        try{
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(origin.getBytes("UTF-8"));
+            res = HexUtils.toHex(md.digest());
+        }catch (Exception e){
+
+        }
+        return res;
     }
 
 }

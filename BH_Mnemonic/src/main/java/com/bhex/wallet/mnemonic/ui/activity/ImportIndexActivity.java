@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
-import com.bhex.lib.uikit.widget.util.ColorUtil;
-import com.bhex.lib.uikit.widget.util.PixelUtils;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.mnemonic.R;
@@ -28,7 +28,7 @@ import butterknife.BindView;
  * 2020-3-18 16:35:22
  */
 @Route(path = ARouterConfig.TRUSTEESHIP_IMPORT_INDEX)
-public class ImportIndexActivity extends BaseActivity<ImportPresenter> {
+public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
 
     /*@BindView(R2.id.btn_import_mnemonic)
     MaterialButton btn_import_mnemonic;

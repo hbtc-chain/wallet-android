@@ -73,8 +73,6 @@ public class LanguageSettingActivity extends BaseActivity {
 
         int  selectIndex = LocalManageUtil.getSetLanguageLocaleIndex(this);
 
-        LogUtils.d("LanguageSettingActivity==>:",locale.getLanguage()+"=locale="+selectIndex);
-        //LogUtils.d("LanguageSettingActivity","locale:"+locale.getLanguage());
         mLanguageList = new ArrayList<>();
         String []langArray = getResources().getStringArray(R.array.app_language_type);
 
@@ -110,7 +108,6 @@ public class LanguageSettingActivity extends BaseActivity {
                 //.compose(RxSchedulersHelper.io_main())
                 .map(integer -> {
                     LanguageEntity languageEntity = mLanguageList.get(integer);
-                    LogUtils.d("LanguageSettingActivity==>:","id==>:"+languageEntity.getId());
                     LocalManageUtil.saveSelectLanguage(LanguageSettingActivity.this, languageEntity.getId());
                     EventBus.getDefault().post(new LanguageEvent());
                     return Boolean.valueOf(true);

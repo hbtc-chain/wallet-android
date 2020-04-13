@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="285dp"
-    android:background="@drawable/btn_white_bg"
+    android:layout_height="185dp"
+    android:maxHeight="285dp"
+    android:background="@drawable/shape_white_password"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.AddressFragment">
 

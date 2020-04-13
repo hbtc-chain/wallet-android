@@ -5,14 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.LocaleList;
 
-import com.bhex.tools.constants.Constants;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 
 import java.util.Locale;
 
 public class LocalSPUtil {
 
-    private final String SP_NAME = Constants.SP_NAME;
+    private final String SP_NAME = BHConstants.SP_NAME;
 
     private final String TAG_LANGUAGE = "language_select";
 
@@ -29,14 +29,13 @@ public class LocalSPUtil {
 
 
     public void saveLanguage(int select) {
-        LogUtils.d("LocalSPUtil","select:"+select);
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         edit.putInt(TAG_LANGUAGE, select);
         edit.apply();
     }
 
     public int getSelectLanguage() {
-        return mSharedPreferences.getInt(TAG_LANGUAGE, 0);
+        return mSharedPreferences.getInt(TAG_LANGUAGE, -1);
     }
 
 

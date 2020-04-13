@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/frame_bg_white_16_corner"
+    android:background="@drawable/shape_white_16_corner"
     tools:context=".ui.fragment.ScreenShotTipsFragment">
 
     <androidx.appcompat.widget.AppCompatImageView

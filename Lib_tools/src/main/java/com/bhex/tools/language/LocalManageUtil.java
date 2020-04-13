@@ -81,15 +81,8 @@ public class LocalManageUtil {
      * @return
      */
     public static Locale getSetLanguageLocale(Context context) {
-        int selectIndex = LocalSPUtil.getInstance(context).getSelectLanguage();
-        LogUtils.d("LanguageSettingActivity==>:","selectIndex=="+selectIndex);
+        int selectIndex = LocalManageUtil.getSetLanguageLocaleIndex(context);
         switch (selectIndex) {
-            case 0:
-                Locale locale = getSystemLocale(context);
-                if (!locale.getLanguage().startsWith("zh") && !locale.getLanguage().startsWith("en")) {
-                    locale = Locale.US;
-                }
-                return locale;
             case 1:
                 return Locale.SIMPLIFIED_CHINESE;
             case 2:
@@ -110,8 +103,18 @@ public class LocalManageUtil {
         }else{
             return selectIndex;
         }*/
+        if(selectIndex==-1){
+           Locale locale =  getSystemLocale(context);
+           if(locale.getLanguage().contains("zh")){
+               selectIndex = 1;
+           }else if(locale.getLanguage().contains("en")){
+               selectIndex = 2;
+           }
+        }
         return selectIndex;
     }
+
+
 
     /**
      * 获取系统语言

@@ -25,8 +25,8 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bhex.lib.uikit.R;
-import com.bhex.lib.uikit.widget.util.ColorUtil;
-import com.bhex.lib.uikit.widget.util.PixelUtils;
+import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.PixelUtils;
 
 /**
  * Created by BHEX.
@@ -170,7 +170,7 @@ public class InputView extends LinearLayout implements View.OnClickListener {
         int inputActionWidth = PixelUtils.dp2px(mContext,30);
         mInputEd.setPadding(mInputEd.getPaddingLeft(),mInputEd.getPaddingTop(),right+inputActionWidth,mInputEd.getPaddingBottom());
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mInputAction.getLayoutParams();
-        layoutParams.rightMargin = right+PixelUtils.dp2px(mContext,5);
+        layoutParams.rightMargin = right+ PixelUtils.dp2px(mContext,5);
 
         mInputAction.setLayoutParams(layoutParams);
     }

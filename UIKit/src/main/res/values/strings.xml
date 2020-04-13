@@ -7,6 +7,7 @@
     <string name="get_auth_code">获取验证码</string>
     <string name="import_auth_code">输入验证码</string>
     <string name="resend">重新发送</string>
+    <string name="app_no_data">暂无数据</string>
 
     <string name="http_loading">数据加载中</string>
 
@@ -78,13 +79,53 @@
     <string name="import_private_key">导入私钥</string>
     <string name="hint_private_key_input">请输入私钥</string>
     <string name="transfer">转账</string>
+    <string name="un_transfer">取消转账</string>
     <string name="make_collection">收款</string>
     <string name="cancel">取消</string>
     <string name="copyed">已复制</string>
     <string name="wallet_password">钱包密码</string>
     <string name="hint_import_way">请选择导入方式</string>
     <string name="import_keystore">导入KeyStore</string>
-
+    <string name="bh_register_agreement">我已阅读并同意《Bluehelix服务协议》</string>
+    <string name="bh_register_agreement_sub">Bluehelix服务协议</string>
+    <string name="copy_address">复制地址</string>
+    <string name="transfer_in">收款</string>
+    <string name="draw_coin">提币</string>
+    <string name="hint_input_copy_address">输入或粘贴地址</string>
+    <string name="draw_coin_count">提币数量</string>
+    <string name="hint_withdraw_minAmount">最小提币数量%1$s%2$d</string>
+    <string name="all_withdraw_amount">全部提币</string>
+    <string name="reach_account_amount">到账数量</string>
+    <string name="fee">手续费</string>
+    <string name="withdraw_speedup">提币加速</string>
+    <string name="exchange_speedup">交易加速</string>
+    <string name="native_token">原生代币</string>
+    <string name="no_native_token">跨链代币</string>
+    <string name="genarate_address">生成跨链地址</string>
+    <string name="re_entrust">转委托</string>
+    <string name="entrust">委托</string>
+    <string name="un_entrust">取消委托</string>
+    <string name="status">状态</string>
+    <string name="time">时间</string>
+    <string name="consigner">委托人</string>
+    <string name="transfer_out">转出</string>
+    <string name="withdraw_income">提取收益</string>
+    <string name="withdraw_share">提取分红</string>
+    <string name="verifier">验证人</string>
+    <string name="reminder">温馨提示</string>
+    <string name="reinvset_share">复投分红</string>
+    <string name="success">成功</string>
+    <string name="fail">失败</string>
+    <string name="add_coin">添加新资产</string>
+    <string name="available">可用</string>
+    <string name="reload_data">重新加载</string>
+    <string name="hold_amount">当前持有</string>
+    <string name="cross_chian_trans_in">跨链充币</string>
+    <string name="cross_chian_trans_out">跨链提币</string>
+    <string name="genarate_cross_address">生成跨链地址</string>
+    <string name="hidden_small_token">隐藏小额币种</string>
+    <string name="transfer_address">转账地址</string>
+    <string name="transfer_amount">转账数量</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

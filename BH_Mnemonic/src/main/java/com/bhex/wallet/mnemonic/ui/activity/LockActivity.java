@@ -14,6 +14,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -50,6 +51,9 @@ public class LockActivity extends BaseActivity<LoginPresenter> implements Addres
     @BindView(R2.id.tv_import_mnemonic)
     AppCompatTextView tv_import_mnemonic;
 
+    @BindView(R2.id.iv_username)
+    AppCompatTextView iv_username;
+
     @BindView(R2.id.tv_forget_pwd)
     AppCompatTextView tv_forget_pwd;
     @BindView(R2.id.btn_wallet_create)
@@ -76,6 +80,7 @@ public class LockActivity extends BaseActivity<LoginPresenter> implements Addres
     protected void initView() {
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_bh_address.setText(mCurrentWallet.getAddress());
+        iv_username.setText(mCurrentWallet.getName());
         getPresenter().proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
 
     }
@@ -128,9 +133,13 @@ public class LockActivity extends BaseActivity<LoginPresenter> implements Addres
             BHUserManager.getInstance().setCurrentBhWallet(mCurrentWallet);
             walletVM.updateWallet(this, mCurrentWallet, mCurrentWallet.id, BHWalletItem.SELECTED);
             getPresenter().proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
+            iv_username.setText(mCurrentWallet.getName());
         }
 
     }
 
-
+    @Override
+    protected boolean isShowBacking() {
+        return false;
+    }
 }

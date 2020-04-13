@@ -41,7 +41,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_import_wallet"
         android:layout_marginBottom="16dp"
         android:text="@string/wallet_create_trusteeship"
-        android:background="@drawable/btn_bg_blue"
+        android:background="@drawable/shape_btn_blue"
         style="@style/main_text_white"
         />
 

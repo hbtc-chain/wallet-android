@@ -31,8 +31,10 @@ public class MnemonicDataHelper {
                 encryptMnemonic = BHUserManager.getInstance().getCurrentBhWallet().getMnemonic();
                 pwd = BHUserManager.getInstance().getCurrentBhWallet().getPassword();
             }
-            byte [] bytes = CryptoUtil.decrypt(HexUtils.toBytes(encryptMnemonic),pwd);
-            String  mnemonic  = new String(bytes);
+            /*byte [] bytes = CryptoUtil.decrypt(HexUtils.toBytes(encryptMnemonic),pwd);
+            String  mnemonic  = new String(bytes);*/
+
+            String mnemonic = CryptoUtil.decryptMnemonic(encryptMnemonic,pwd);
             String []array = mnemonic.split(" ");
 
             for (int i = 0; i < array.length; i++) {

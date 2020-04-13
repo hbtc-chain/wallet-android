@@ -9,7 +9,6 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.bhex.lib.uikit.widget.util.PixelUtils;
 
 /**
  * Created by BHEX.

@@ -14,10 +14,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bhex.network.R;
 import com.bhex.network.receiver.NetWorkStatusChangeReceiver;
-import com.bhex.tools.constants.Constants;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.StatusBarUtil;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -64,14 +63,15 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     }
 
     protected  void setStatusColor(){
-        if(getStatusColorValue()== Constants.STATUS_COLOR_WHITE){
-            StatusBarUtil.setStatusColor(this,false,true,R.color.white);
-            //ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).reset().init();
-        }else if(getStatusColorValue()== Constants.STATUS_COLOR_BLUE){
-            StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
-        }else if(getStatusColorValue()== Constants.STATUS_COLOR_TRANS){
-            StatusBarUtil.setStatusColor(this,true,true,R.color.trans);
-            //ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).reset().init();
+        if(getStatusColorValue()== BHConstants.STATUS_COLOR_WHITE){
+            //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
+            ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).barColor(R.color.white).fitsSystemWindows(true).init();
+        }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_BLUE){
+            //StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
+            ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).fitsSystemWindows(true).init();
+        }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_TRANS){
+            //StatusBarUtil.setStatusColor(this,true,true,R.color.trans);
+            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
         }else{
         }
 
@@ -79,7 +79,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     }
 
     protected  int getStatusColorValue(){
-        return Constants.STATUS_COLOR_WHITE;
+        return BHConstants.STATUS_COLOR_WHITE;
     }
 
     protected  void initPresenter(){

@@ -1,8 +1,20 @@
 package com.bhex.wallet.common.manager;
 
+import android.text.TextUtils;
+
+import com.bhex.network.app.BaseApplication;
+import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.FileUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.model.BHBalance;
 import com.kenai.jffi.Main;
 
+import org.web3j.crypto.MnemonicUtils;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,11 +25,15 @@ import java.util.List;
  */
 public class BHUserManager {
 
+    private final static String TAG = BHUserManager.class.getSimpleName();
+
     private BHWallet tmpBhWallet;
 
     private BHWallet mCurrentBhWallet;
 
     private List<BHWallet> allWallet;
+
+    private List<String> mWordList;
 
     private Class targetClass;
 
@@ -26,6 +42,7 @@ public class BHUserManager {
     private BHUserManager(){
         tmpBhWallet = new BHWallet();
         mCurrentBhWallet = new BHWallet();
+        initWord();
     }
 
     public static BHUserManager getInstance(){
@@ -37,6 +54,17 @@ public class BHUserManager {
             }
         }
         return _INSTANCE;
+    }
+
+    private void initWord(){
+        try{
+            String res = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"en-mnemonic-word-list.txt");
+            if(!TextUtils.isEmpty(res)){
+                mWordList = Arrays.asList(res.split(" "));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public BHWallet getTmpBhWallet() {
@@ -89,5 +117,37 @@ public class BHUserManager {
         }
     }
 
+    public List<String> getWordList() {
+        return mWordList;
+    }
 
+    public void saveUserBalanceList(List<BHBalance> list){
+        if(list==null && list.size()==0){
+            return;
+        }
+
+        StringBuffer buffer = new StringBuffer("");
+        for (BHBalance item:list) {
+            buffer.append(item.symbol).append("_");
+        }
+
+        buffer.delete(buffer.length()-1,buffer.length());
+
+        LogUtils.d(TAG+"====>:",buffer.toString());
+        String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
+        MMKVManager.getInstance().mmkv().encode(key,buffer.toString());
+    }
+
+
+    public String getUserBalanceList(){
+        String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
+        String result = MMKVManager.getInstance().mmkv().decodeString(key, BHConstants.COIN_DEFAULT_LIST);
+        //LogUtils.d(TAG+"====>:","result==="+result);
+        return result;
+    }
+
+    public String getSymbolList(){
+        String symbol= "bht_btc_eth_usdt";
+        return symbol;
+    }
 }

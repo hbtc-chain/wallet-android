@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ReEntrustActivity">
+
+    <include
+        layout="@layout/layout_toolbar"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_entrust_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23455.345670"
+                android:textSize="26sp"
+                android:textColor="@color/dark_black"
+                android:layout_marginStart="@dimen/page_margin_start"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_tranction_text"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="13sp"
+                    android:text="TXID"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_tranction_hash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="13sp"
+                    android:text="3233r32r32r32r32r1321r"
+                    android:layout_toEndOf="@+id/tv_tranction_text"
+                    android:layout_toLeftOf="@+id/iv_txid_paste"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_txid_paste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:src="@mipmap/ic_paste_blue"
+                    android:paddingEnd="23dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/status"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    tools:text="成功"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/time"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="2020-4-8 12:23:22"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray_f9f9fb"
+                android:layout_marginTop="16dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/blue"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/re_entrust"
+                    android:textSize="17sp"
+                    android:textColor="@color/main_text_black"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/consigner"
+                android:textSize="13sp"
+                android:textColor="@color/dark_blue"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/page_margin_start"
+                android:layout_marginTop="@dimen/page_margin_top"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_consigner_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/main_text_black"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    tools:text="Abcddsfsdfdafdsaf"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_consigner_paste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_paste_blue"
+                    android:paddingEnd="23dp"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    />
+
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/transfer_out"
+            android:textSize="13sp"
+            android:textColor="@color/dark_blue"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/page_margin_start"
+            android:layout_marginTop="@dimen/page_margin_top"
+            />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_transfer_out_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/main_text_black"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    tools:text="Abcddsfsdfdafdsaf"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_transfer_out_paste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_paste_blue"
+                    android:paddingEnd="23dp"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    />
+
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/transfer_in"
+                android:textSize="13sp"
+                android:textColor="@color/dark_blue"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/page_margin_start"
+                android:layout_marginTop="@dimen/page_margin_top"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_transfer_in_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/main_text_black"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    tools:text="Abcddsfsdfdafdsaf"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_transfer_in_paste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_paste_blue"
+                    android:paddingEnd="23dp"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray_f9f9fb"
+                android:layout_marginTop="20dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/blue"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/withdraw_income"
+                    android:textSize="17sp"
+                    android:textColor="@color/main_text_black"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/consigner"
+                android:textSize="13sp"
+                android:textColor="@color/dark_blue"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/page_margin_start"
+                android:layout_marginTop="@dimen/page_margin_top"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_consigner_address_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/main_text_black"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    tools:text="Abcddsfsdfdafdsaf"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_consigner_address1_paste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_paste_blue"
+                    android:paddingEnd="23dp"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    />
+
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/verifier"
+                android:textSize="13sp"
+                android:textColor="@color/dark_blue"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/page_margin_start"
+                android:layout_marginTop="@dimen/page_margin_top"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_verifier_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/main_text_black"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:layout_marginStart="@dimen/page_margin_start"
+                    tools:text="Abcddsfsdfdafdsaf"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_verifier_paste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_paste_blue"
+                    android:paddingEnd="23dp"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

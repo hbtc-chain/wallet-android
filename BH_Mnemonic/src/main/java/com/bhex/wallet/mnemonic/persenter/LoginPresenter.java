@@ -8,10 +8,9 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavitateUtil;
-import com.bhex.tools.utils.RegexUtils;
+import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.mnemonic.R;
 
@@ -45,7 +44,7 @@ public class LoginPresenter extends BasePresenter {
      */
     public void setButtonStatus(AppCompatButton btn_confirm,String pwd){
         boolean flag = false;
-        flag = RegexUtils.checkPasswd(pwd);
+        flag = RegexUtil.checkPasswd(pwd);
 
         if (flag) {
             btn_confirm.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);

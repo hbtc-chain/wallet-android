@@ -69,6 +69,7 @@
             android:inputType="text"
             android:layout_marginBottom="30dp"
             android:textCursorDrawable="@null"
+            android:text="burst clean range coral dumb produce spatial rare boat pottery virtual reveal"
             tools:text="sniff float truck talent walk search mad boat away fossil sleep dune">
 
         </androidx.appcompat.widget.AppCompatEditText>
@@ -83,9 +84,10 @@
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_right"
         app:layout_constraintTop_toBottomOf="@+id/layout_index_1"
-        style="@style/main_btn_blue_44"
+        style="@style/main_btn_gray_disable"
         android:layout_marginTop="32dp"
         android:text="@string/next"
+        android:enabled="false"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

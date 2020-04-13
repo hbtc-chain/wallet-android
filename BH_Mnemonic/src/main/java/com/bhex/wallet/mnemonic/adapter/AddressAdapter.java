@@ -6,7 +6,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.bhex.lib.uikit.widget.util.ColorUtil;
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -47,15 +47,15 @@ public class AddressAdapter extends BaseQuickAdapter<BHWalletItem, BaseViewHolde
         AppCompatTextView tv_address = viewHolder.getView(R.id.tv_address);
 
 
-        LogUtils.d("AddressAdapter==>:","=position=");
+        //LogUtils.d("AddressAdapter==>:","=position=");
         ck.setChecked(false);
         tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.gray_ACB5C3));
         if(bhWallet.isDefault==1 ){
             ck.setChecked(true);
-            tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.main_text_black));
+            tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.blue));
         }else{
             ck.setChecked(false);
-            tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.gray_ACB5C3));
+            tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.main_text_black));
 
         }
         ck.setOnClickListener(v -> {

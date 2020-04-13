@@ -3,10 +3,16 @@ package com.bhex.wallet.app;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.NetworkApi;
+import com.bhex.network.cache.RxCache;
+import com.bhex.network.cache.diskconverter.GsonDiskConverter;
+import com.bhex.network.receiver.NetWorkStatusChangeReceiver;
 import com.bhex.wallet.BuildConfig;
 import com.bhex.wallet.base.BHNetwork;
+import com.bhex.wallet.common.cache.CacheCenter;
 import com.facebook.stetho.Stetho;
 import com.tencent.mmkv.MMKV;
+
+import java.io.File;
 
 /**
  * created by gongdongyang
@@ -46,7 +52,7 @@ public class SystemConfig  {
         arouterInit();
 
         if(BuildConfig.DEBUG){
-            Stetho.initializeWithDefaults(BaseApplication.getInstance());
+            //Stetho.initializeWithDefaults(BaseApplication.getInstance());
         }
 
         /*Stetho.initialize(
@@ -57,6 +63,20 @@ public class SystemConfig  {
         NetworkApi.init(new BHNetwork(BaseApplication.getInstance()));
 
         MMKV.initialize(BHApplication.getInstance());
+
+        RxCache.initializeDefault(
+                new RxCache.Builder()
+                        .appVersion(1)
+                        .diskDir(new File(BaseApplication.getInstance().getCacheDir() + File.separator + "data-cache"))
+                        .diskConverter(new GsonDiskConverter())
+                        .diskMax((20 * 1024 * 1024))
+                        .memoryMax(0)
+                        .build());
+
+        //网络状态
+        NetWorkStatusChangeReceiver.init(BaseApplication.getInstance());
+        //获取币种信息
+        CacheCenter.getInstance().loadCache();
 
     }
 

@@ -16,8 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.InputView;
-import com.bhex.lib.uikit.widget.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
@@ -67,7 +67,7 @@ public class PasswordFragment extends BaseDialogFragment {
 
         Window window = getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.getAttributes().windowAnimations = R.style.bottomDialogStyle;
+        window.getAttributes().windowAnimations = R.style.centerDialogStyle;
 
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);

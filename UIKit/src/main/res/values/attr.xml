@@ -14,4 +14,16 @@
         <attr name="centerTitle" format="reference|string" />
     </declare-styleable>
 
+    <declare-styleable name="Coin_Button">
+        <attr name="actionImage" format="reference|integer" />
+        <attr name="actionText" format="reference|string"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="With_Coin_Input">
+        <attr name="rightColor" format="reference|color" />
+        <attr name="rightText" format="reference|string"/>
+        <attr name="leftHint" format="reference|string"/>
+        <attr name="leftText" format="reference|string"/>
+    </declare-styleable>
 </resources>

@@ -11,7 +11,7 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.observer.ProgressDialogExtObserver;
+import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.SimpleObserver;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
@@ -59,17 +59,18 @@ public class WalletViewModel extends ViewModel {
      */
     public void generateMnemonic(BaseActivity activity,String name, String pwd){
 
-        ProgressDialogExtObserver pbo = new ProgressDialogExtObserver<BHWallet>(activity) {
+        BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
-            public void onSuccess(BHWallet bhWalletExt) {
+            public void onSuccess(BHWallet bhWallet) {
                 LoadDataModel loadDataModel = new LoadDataModel("");
+                BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 mutableLiveData.postValue(loadDataModel);
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                LoadDataModel loadDataModel = new LoadDataModel();
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 mutableLiveData.postValue(loadDataModel);
 
             }
@@ -77,25 +78,24 @@ public class WalletViewModel extends ViewModel {
 
         Observable.create((emitter)->{
             try{
-                BHWallet walletExt = BHWalletUtils.generateMnemonic(name,pwd);
+                BHWallet bhWallet = BHWalletUtils.generateMnemonic(name,pwd);
                 int maxId = bhWalletDao.loadMaxId();
                 if(maxId==0){
-                    walletExt.isDefault = 1;
+                    bhWallet.isDefault = 1;
                 }
-                walletExt.id = maxId+1;
-                int id = bhWalletDao.insert(walletExt).intValue();
-                walletExt.id = id;
-                BHUserManager.getInstance().setCurrentBhWallet(walletExt);
-                emitter.onNext(walletExt);
+                bhWallet.id = maxId+1;
+                int id = bhWalletDao.insert(bhWallet).intValue();
+                bhWallet.id = id;
+                BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
+                emitter.onNext(bhWallet);
                 emitter.onComplete();
             }catch (Exception e){
                 e.printStackTrace();
+                emitter.onError(e);
             }
-
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(pbo);
-
     }
 
     /**
@@ -138,7 +138,7 @@ public class WalletViewModel extends ViewModel {
      * 更新钱包的状态
      */
     public void updateWallet(AppCompatActivity activity,BHWallet bhWallet,int bh_id,int isDefault){
-        ProgressDialogExtObserver pbo = new ProgressDialogExtObserver<String>(activity) {
+        BHProgressObserver pbo = new BHProgressObserver<String>(activity) {
             @Override
             protected void onSuccess(String str) {
                 LoadDataModel loadDataModel = new LoadDataModel("");
@@ -184,7 +184,7 @@ public class WalletViewModel extends ViewModel {
      * @param bh_id
      */
     public void deleteWallet(AppCompatActivity activity,int bh_id){
-        ProgressDialogExtObserver pbo = new ProgressDialogExtObserver<String>(activity) {
+        BHProgressObserver pbo = new BHProgressObserver<String>(activity) {
             @Override
             protected void onSuccess(String str) {
                 //ToastUtils.showToast(str);
@@ -195,7 +195,7 @@ public class WalletViewModel extends ViewModel {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                LoadDataModel loadDataModel = new LoadDataModel();
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 mutableLiveData.postValue(loadDataModel);
             }
         };
@@ -225,10 +225,11 @@ public class WalletViewModel extends ViewModel {
      * @param pwd
      */
     public void importMnemonic(BaseActivity activity,List<String> words, String name, String pwd){
-        ProgressDialogExtObserver pbo = new ProgressDialogExtObserver<BHWallet>(activity) {
+        BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
-            public void onSuccess(BHWallet bhWalletExt) {
+            public void onSuccess(BHWallet bhWallet) {
                 LoadDataModel loadDataModel = new LoadDataModel("");
+                BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 mutableLiveData.postValue(loadDataModel);
             }
 
@@ -241,7 +242,7 @@ public class WalletViewModel extends ViewModel {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                LoadDataModel loadDataModel = new LoadDataModel();
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 mutableLiveData.postValue(loadDataModel);
 
             }
@@ -260,6 +261,7 @@ public class WalletViewModel extends ViewModel {
                 emitter.onComplete();
             }catch (Exception e){
                 e.printStackTrace();
+                emitter.onError(e);
             }
 
         }).compose(RxSchedulersHelper.io_main())
@@ -273,7 +275,7 @@ public class WalletViewModel extends ViewModel {
      * @param pwd
      */
     public void importPrivateKey(BaseActivity activity,String name, String pwd) {
-        ProgressDialogExtObserver pbo = new ProgressDialogExtObserver<BHWallet>(activity) {
+        BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
             public void onSuccess(BHWallet bhWalletExt) {
                 LoadDataModel loadDataModel = new LoadDataModel("");
@@ -289,7 +291,7 @@ public class WalletViewModel extends ViewModel {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                LoadDataModel loadDataModel = new LoadDataModel();
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 mutableLiveData.postValue(loadDataModel);
 
             }
@@ -310,6 +312,7 @@ public class WalletViewModel extends ViewModel {
                 emitter.onComplete();
             }catch (Exception e){
                 e.printStackTrace();
+                emitter.onError(e);
             }
 
         }).compose(RxSchedulersHelper.io_main())
@@ -322,7 +325,7 @@ public class WalletViewModel extends ViewModel {
      * @param newPwd
      */
     public void updatePassword(BaseActivity activity,String newPwd,BHWallet bhWallet) {
-        ProgressDialogExtObserver pbo = new ProgressDialogExtObserver<BHWallet>(activity) {
+        BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
             public void onSuccess(BHWallet str) {
                 LoadDataModel loadDataModel = new LoadDataModel(str);

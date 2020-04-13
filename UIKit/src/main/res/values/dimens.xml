@@ -20,6 +20,8 @@
     <dimen name="recycler_item_default_height" tools:override="true">56dp</dimen>
     <dimen name="main_line_spacing_extra" tools:override="true">3dp</dimen>
     <dimen name="main_radius_conner" tools:override="true">6dp</dimen>
+    <dimen name="page_margin_start">24dp</dimen>
+    <dimen name="page_margin_top">12dp</dimen>
 
 
 </resources>

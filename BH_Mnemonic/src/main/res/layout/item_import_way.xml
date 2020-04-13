@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <!--<FrameLayout
             android:id="@+id/iv_import_bg"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -25,14 +25,21 @@
             android:layout_marginStart="@dimen/main_margin_left"
 
             >
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_import_ic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_import_pk"
-                android:layout_gravity="center"/>
 
-        </FrameLayout>
+
+        </FrameLayout>-->
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_import_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_import_ks"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/main_margin_left"
+            />
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -40,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_import_bg"
+            app:layout_constraintStart_toEndOf="@+id/iv_import_ic"
             app:layout_constraintBottom_toTopOf="@+id/tv_import_hint"
             android:layout_marginStart="@dimen/main_margin_left"
             android:layout_marginBottom="3dp"
@@ -56,7 +63,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_import_title"
-            app:layout_constraintStart_toEndOf="@+id/iv_import_bg"
+            app:layout_constraintStart_toEndOf="@+id/iv_import_ic"
             android:layout_marginStart="@dimen/main_margin_left"
             android:textColor="@color/gray_ACB5C3"
             android:textSize="13sp"

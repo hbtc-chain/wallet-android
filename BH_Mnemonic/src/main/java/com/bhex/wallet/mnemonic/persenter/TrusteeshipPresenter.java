@@ -1,16 +1,14 @@
 package com.bhex.wallet.mnemonic.persenter;
 
-import android.widget.CheckedTextView;
-
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.widget.InputView;
-import com.bhex.lib.uikit.widget.util.ColorUtil;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
-import com.bhex.tools.utils.RegexUtils;
+import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.mnemonic.R;
 
 /**
@@ -33,21 +31,21 @@ public class TrusteeshipPresenter extends BasePresenter {
      */
     public void checkPassword(InputView inpPwd, AppCompatButton btnNext, AppCompatTextView... tv){
         String pwd = inpPwd.getInputString();
-        if(!RegexUtils.checkContainNum(pwd)){
+        if(!RegexUtil.checkContainNum(pwd)){
             tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
             tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
         }else {
             tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
         }
 
-        if(!RegexUtils.checkContainUpper(pwd)){
+        if(!RegexUtil.checkContainUpper(pwd)){
             tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
             tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
         }else{
             tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
         }
 
-        if(!RegexUtils.checkContainLower(pwd)){
+        if(!RegexUtil.checkContainLower(pwd)){
             tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
             tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
         }else{
@@ -61,7 +59,7 @@ public class TrusteeshipPresenter extends BasePresenter {
             tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
         }
 
-        if (!RegexUtils.checkPasswd(pwd)) {
+        if (!RegexUtil.checkPasswd(pwd)) {
             btnNext.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
             btnNext.setEnabled(false);
         }else{

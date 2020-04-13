@@ -10,15 +10,13 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
-import com.bhex.tools.constants.Constants;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.R;
 import com.bhex.wallet.balance.ui.fragment.BalanceFragment;
 import com.bhex.wallet.bh_main.exchange.ui.fragment.ExchangeFragment;
 import com.bhex.wallet.bh_main.my.ui.fragment.MyFragment;
 import com.bhex.wallet.bh_main.order.ui.fragment.OrderFragment;
-import com.bhex.wallet.mnemonic.ui.activity.BackupMnemonicActivity;
 import com.bhex.wallet.mnemonic.ui.fragment.SecureTipsFragment;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -44,9 +42,9 @@ public class MainPresenter extends BasePresenter {
     public void onCreate(@NotNull LifecycleOwner owner) {
         super.onCreate(owner);
         //requestPermissions();
-        String isBackUp = getActivity().getIntent().getStringExtra(Constants.BACKUP_TEXT);
+        String isBackUp = getActivity().getIntent().getStringExtra(BHConstants.BACKUP_TEXT);
         //LogUtils.d("MainPresenter==>:","isBackUp:"+isBackUp);
-        if(Constants.LATER_BACKUP.equals(isBackUp)){
+        if(BHConstants.LATER_BACKUP.equals(isBackUp)){
             SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),"");
         }
     }

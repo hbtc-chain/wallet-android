@@ -10,9 +10,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bhex.lib.uikit.widget.util.PixelUtils;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.WalletEvent;
@@ -24,6 +25,7 @@ import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.TrustManagerAdapter;
 import com.bhex.wallet.mnemonic.persenter.TrustManagerPresenter;
 import com.bhex.wallet.mnemonic.ui.item.BHWalletItem;
+import com.google.android.material.button.MaterialButton;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
 import com.yanzhenjie.recyclerview.SwipeMenu;
 import com.yanzhenjie.recyclerview.SwipeMenuBridge;
@@ -53,10 +55,10 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     SwipeRecyclerView recycler_trusteeship;
 
     @BindView(R2.id.btn_wallet_create)
-    AppCompatTextView btnWalletCreate;
+    MaterialButton btnWalletCreate;
 
     @BindView(R2.id.btn_wallet_impot)
-    AppCompatTextView btnWalletImpot;
+    MaterialButton btnWalletImpot;
 
     private TrustManagerAdapter mTrustManagerAdapter;
     //private TrustManagerExtAdapter trustManagerExtAdapter;
@@ -102,6 +104,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         walletViewModel.loadWallet(this);
         walletViewModel.mutableWallentLiveData.observe(this,listLoadDataModel -> {
             mAllWalletList = mPresenter.getAllBHWalletItem();
+
             mTrustManagerAdapter.getData().clear();
             mTrustManagerAdapter.addData(mAllWalletList);
         });

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="false">
+
+    <RelativeLayout
+        android:id="@+id/toast_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        >
+
+        <TextView
+            android:id="@+id/toast_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="@dimen/main_padding_left"
+            android:textColor="@color/main_text_black"
+            android:textSize="16sp"
+            android:text="1dfsafdsafd"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

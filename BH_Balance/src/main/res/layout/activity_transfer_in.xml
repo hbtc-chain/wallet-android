@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".ui.activity.TransferInActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/toolbar_layout_title_white_style"
+            android:text="@string/transfer_in"
+            tools:text="@string/transfer_in" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/layout_index_1"
+        android:layout_width="0dp"
+        android:layout_height="315dp"
+        android:orientation="vertical"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:background="@mipmap/bg_transfer_top"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/main_text_black"
+            android:text="托管单元地址"
+            android:layout_marginTop="32dp"
+            android:layout_gravity="center"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_qr_code"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_transfer_in_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/dark_black"
+            android:textSize="13sp"
+            tools:text="0xasrgkbkdsvssdvbkewkhksnsafasfds" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_index_2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_index_1"
+        android:background="@mipmap/bg_transfer_bottom"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="@string/copy_address"
+            android:textColor="@color/blue"
+            android:textSize="17sp"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:background="@drawable/shape_white_ring">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_coin_ic"
+            android:layout_width="49dp"
+            android:layout_height="49dp"
+            android:layout_gravity="center"
+            tools:src="@mipmap/ic_eth"
+            />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_index_3"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_index_2"
+        >
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:background="@color/trans_77_white"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/trans_77_white"
+            android:text="@string/reminder"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:background="@color/trans_77_white"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_index_3">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/trans_77_white"
+            tools:text="1. 段落文本占位"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/trans_77_white"
+            android:layout_marginTop="3dp"
+            tools:text="2. 段落文本占位"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/trans_77_white"
+            android:layout_marginTop="3dp"
+            tools:text="3. 段落文本占位"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

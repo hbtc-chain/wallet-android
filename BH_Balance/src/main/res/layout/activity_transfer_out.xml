@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.TransferOutActivity">
+
+    <include
+        layout="@layout/layout_toolbar"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/layout_index_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/btn_drawwith_coin"
+        >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_withdraw_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:text="@string/draw_coin_address"
+            android:textSize="15sp"
+            />
+
+        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+            android:id="@+id/tv_to_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:leftHint="@string/hint_input_copy_address"
+            app:leftText="BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_transfer_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/draw_coin_count"
+                android:textSize="15sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_available_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp"
+                android:text="可用 3000.00 ABC"
+                />
+        </RelativeLayout>
+
+        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+            android:id="@+id/ed_transfer_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:leftHint="@string/hint_withdraw_minAmount"
+            app:rightColor="@color/blue"
+            app:rightText="@string/all_withdraw_amount"
+            />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_black"
+            android:layout_marginTop="30dp"
+            android:text="@string/reach_account_amount"
+            android:textSize="15sp"/>
+
+        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+            android:id="@+id/tv_reach_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:leftText="0"
+            app:rightColor="@color/dark_blue"
+            tools:rightText="ABC" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/fee"
+                android:textSize="15sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_available_bht_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp"
+                android:text="可用 3000.00 BHT"/>
+
+
+
+        </RelativeLayout>
+
+
+        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+            android:id="@+id/et_input_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:leftHint="@string/hint_withdraw_minAmount"
+            app:rightColor="@color/dark_blue"
+            app:rightText="BHT" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/exchange_speedup"
+                android:textSize="15sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp"
+                android:text="3000.00 BHT"/>
+
+
+        </RelativeLayout>
+
+        <com.bhex.lib.uikit.widget.seekbar.BHSeekBar
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            />
+
+    </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_drawwith_coin"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
+        style="@style/main_material_btn"
+        app:backgroundTint="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cornerRadius="6dp"
+        android:text="@string/draw_coin"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bhex.network.R;
 import com.bhex.network.receiver.NetWorkStatusChangeReceiver;
-import com.bhex.tools.constants.Constants;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.StatusBarUtil;
@@ -62,10 +62,10 @@ public abstract class BaseCoreActivity<T extends IPresenter> extends AppCompatAc
     }
 
     protected  void setStatusColor(){
-        if(getStatusColorValue()== Constants.STATUS_COLOR_WHITE){
+        if(getStatusColorValue()== BHConstants.STATUS_COLOR_WHITE){
             StatusBarUtil.setStatusColor(this,false,true,R.color.white);
             //ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).reset().init();
-        }else if(getStatusColorValue()== Constants.STATUS_COLOR_BLUE){
+        }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_BLUE){
             StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
             //ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).reset().init();
         }else{
@@ -75,7 +75,7 @@ public abstract class BaseCoreActivity<T extends IPresenter> extends AppCompatAc
     }
 
     protected  int getStatusColorValue(){
-        return Constants.STATUS_COLOR_WHITE;
+        return BHConstants.STATUS_COLOR_WHITE;
     }
 
     protected  void initPresenter(){
@@ -90,7 +90,6 @@ public abstract class BaseCoreActivity<T extends IPresenter> extends AppCompatAc
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        LogUtils.d("MainActivity","==attachBaseContext==");
         super.attachBaseContext(LocalManageUtil.attachBaseContext(newBase,""));
     }
 

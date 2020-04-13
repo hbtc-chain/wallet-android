@@ -9,11 +9,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.widget.util.ColorUtil;
-import com.bhex.lib.uikit.widget.util.PixelUtils;
+import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.constants.Constants;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.tools.utils.ToolUtils;
@@ -92,8 +91,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                 getYActivity(), DividerItemDecoration.VERTICAL,
                 PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(), R.color.gray_f9f9fb)
         );
-
-
 
         recycler_my.addItemDecoration(myRecyclerDivider);
 

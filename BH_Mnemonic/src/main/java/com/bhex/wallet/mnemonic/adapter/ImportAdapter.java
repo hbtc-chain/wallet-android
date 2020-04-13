@@ -1,5 +1,7 @@
 package com.bhex.wallet.mnemonic.adapter;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.ui.item.ImportItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,5 +28,9 @@ public class ImportAdapter extends BaseQuickAdapter<ImportItem, BaseViewHolder> 
     @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable ImportItem importItem) {
         viewHolder.setText(R.id.tv_import_title,importItem.title);
+
+        AppCompatImageView iv_import_ic = viewHolder.getView(R.id.iv_import_ic);
+
+        iv_import_ic.setImageDrawable(getContext().getDrawable(importItem.resId));
     }
 }

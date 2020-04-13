@@ -18,9 +18,9 @@ import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
-import com.bhex.lib.uikit.widget.util.ColorUtil;
-import com.bhex.lib.uikit.widget.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
@@ -122,7 +122,15 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         params.width = dm.widthPixels;
-        params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 285);
+        //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 285);
+
+        if(mData==null || mData.size()==0 || mData.size()==1){
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 185);
+        }else if(mData.size()==2){
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 235);
+        }else{
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 285);
+        }
         window.setAttributes(params);
     }
 

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.GenerateAddressActivity">
+
+    <include
+        layout="@layout/layout_toolbar"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        app:cardElevation="0dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="#E7ECF4"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/main_radius_conner"
+        app:cardForegroundColor="@color/trans"
+        app:contentPaddingLeft="10dp"
+        app:contentPaddingRight="10dp"
+        app:contentPaddingTop="16dp"
+        app:contentPaddingBottom="16dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/dark_black"
+            android:lineSpacingExtra="3dp"
+            android:text="首次跨链充币，需要生成充币地址，该过程最快只需要十几秒，请耐心等待..."
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        android:layout_marginTop="@dimen/main_margin_top">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="@string/fee"
+            android:textSize="15sp"
+            android:textColor="@color/dark_black"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_available_bht_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="可用"
+            android:textSize="15sp"
+            android:textColor="@color/dark_blue"
+            />
+    </RelativeLayout>
+
+    <com.bhex.lib.uikit.widget.editor.WithDrawInput
+        android:id="@+id/ed_fee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        app:rightColor="@color/dark_blue"
+        app:leftText="1000"
+        app:rightText="BHT"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        android:layout_marginTop="@dimen/main_margin_top">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="加速"
+            android:textSize="15sp"
+            android:textColor="@color/dark_black"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="20BHT"
+            android:textSize="15sp"
+            android:textColor="@color/dark_blue"
+            />
+    </RelativeLayout>
+
+    <com.bhex.lib.uikit.widget.seekbar.BHSeekBar
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/gray_ACB5C3"
+            android:text="温馨提示"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="13sp"
+            android:textColor="@color/gray_ACB5C3"
+            android:text="1.段落文本"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp"
+            android:textColor="@color/gray_ACB5C3"
+            android:text="2.段落文本段落文本"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp"
+            android:textColor="@color/gray_ACB5C3"
+            android:text="3.段落文本段落文本段落文本段落文本段落文本"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_crosslink_address"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
+        app:backgroundTint="@color/blue"
+        app:cornerRadius="@dimen/main_radius_conner"
+        style="@style/main_material_btn"
+        android:textColor="@color/white"
+        android:text="@string/genarate_address"/>
+
+</LinearLayout>

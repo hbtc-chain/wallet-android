@@ -140,7 +140,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/ck_agreement"
-                android:text="我已阅读并同意《Bluehelix服务协议》"
+                android:text="@string/bh_register_agreement"
                 android:textColor="@color/dark_blue"
                 android:textSize="14sp" />
         </RelativeLayout>

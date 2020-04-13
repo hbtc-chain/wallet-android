@@ -20,7 +20,7 @@ public class BHBase58 extends Base58 {
 
         //byte[] addressBytes = new byte[1 + payload.length + 4];
         //System.arraycopy(payload, 0, addressBytes, 1, payload.length);
-        LogUtils.d("BHBase58==>:",Arrays.toString(payload));
+        //LogUtils.d("BHBase58==>:",Arrays.toString(payload));
         byte[] checksum = hashTwiceSHA256(payload);
 
         //System.out.println("BHWallUtils=>"+"checksum-btyes:"+ Arrays.toString(checksum));
@@ -39,10 +39,10 @@ public class BHBase58 extends Base58 {
         MessageDigest digest = newDigest();
         digest.update(payload, 0, payload.length);
         byte []hash1 = digest.digest();
-        LogUtils.d("BHBase58==>:","hash--one-"+Arrays.toString(hash1));
+        //LogUtils.d("BHBase58==>:","hash--one-"+Arrays.toString(hash1));
 
         byte []hash2 = digest.digest(hash1);
-        LogUtils.d("BHBase58==>:","hash--two-"+Arrays.toString(hash2));
+        //LogUtils.d("BHBase58==>:","hash--two-"+Arrays.toString(hash2));
 
         return hash2;
     }

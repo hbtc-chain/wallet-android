@@ -32,14 +32,12 @@ public class MarketListViewModel extends AutoDisposeViewModel {
         BaseObserver<MarketAllEntity> observer = new BaseObserver<MarketAllEntity>() {
             @Override
             public void onSuccess(MarketAllEntity marketAllEntity) {
-                LogUtils.d("MarketListViewModel",Thread.currentThread().getName());
                 marketLiveDatas.postValue(new LoadDataModel<MarketAllEntity>(marketAllEntity));
             }
 
             @Override
             public void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LogUtils.d("MarketListViewModel","errorMsg:"+errorMsg);
                 marketLiveDatas.postValue(new LoadDataModel(code,errorMsg));
             }
         };

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/shape_white_password"
+    tools:context=".ui.fragment.WithDrawShareFragment">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_withdraw_share"
+        android:layout_marginTop="32dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/withdraw_share"
+        android:textColor="@color/main_text_black"
+        android:layout_gravity="center"
+        android:textStyle="normal"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提取所有分红 5790.45 BHT，并支付交易手续费 12.468 BHT"
+        android:textColor="@color/dark_black"
+        android:paddingStart="@dimen/page_margin_start"
+        android:paddingEnd="@dimen/page_margin_start"
+        android:layout_gravity="center"
+        android:textStyle="normal"
+        android:textSize="15sp"
+        android:layout_marginTop="@dimen/main_margin_top"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        android:layout_marginTop="@dimen/page_margin_top"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/main_material_btn"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/gray_B0BFDB"
+            app:cornerRadius="@dimen/main_radius_conner" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirm"
+            style="@style/main_material_btn"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/blue" />
+    </LinearLayout>
+</LinearLayout>

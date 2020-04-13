@@ -17,10 +17,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
 
-import com.bhex.lib.uikit.widget.util.PixelUtils;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
-import com.bhex.network.utils.ToastUtils;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 

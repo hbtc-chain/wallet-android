@@ -47,6 +47,9 @@ public class BHWallet {
     @ColumnInfo(name = "privateKey")
     public String privateKey;
 
+    @ColumnInfo(name = "publicKey")
+    public String publicKey;
+
     @Ignore
     public List<String> mWords;
 
@@ -132,5 +135,13 @@ public class BHWallet {
 
     public void setWay(int way) {
         this.way = way;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 }

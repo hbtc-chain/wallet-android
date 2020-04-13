@@ -15,13 +15,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/btn_wallet_impot"
         android:overScrollMode="never"
         android:layout_marginBottom="16dp">
 
     </com.yanzhenjie.recyclerview.SwipeRecyclerView>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -52,5 +52,45 @@
             android:layout_weight="1"
             style="@style/main_btn_blue_44"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_wallet_impot"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        android:layout_marginStart="@dimen/main_margin_left"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toStartOf="@+id/btn_wallet_create"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:backgroundTint="@color/white"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/blue"
+        app:cornerRadius="@dimen/main_radius_conner"
+        style="@style/main_material_btn"
+        android:text="@string/wallet_import_trusteeship"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_wallet_create"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
+        android:layout_marginEnd="@dimen/main_margin_right"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_wallet_impot"
+        app:layout_constraintHorizontal_weight="1"
+        app:backgroundTint="@color/blue"
+        android:text="@string/wallet_create_trusteeship"
+        style="@style/main_material_btn"
+        android:textColor="@color/white"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
