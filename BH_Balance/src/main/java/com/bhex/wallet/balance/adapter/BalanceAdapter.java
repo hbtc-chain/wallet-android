@@ -45,19 +45,9 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         SymbolCache symbolCache  = CacheCenter.getInstance().getSymbolCache();
 
         BHToken bhCoin = symbolCache.getBHToken(balanceItem.symbol.toLowerCase());
-        if(bhCoin==null){
-            return;
-        }
 
-        if(bhCoin.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.GONE);
-        }else if(bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.VISIBLE);
-            tv_coin_type.setText(R.string.native_token);
-        }else if(!bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.VISIBLE);
-            tv_coin_type.setText(R.string.no_native_token);
-        }
+
+
 
         //实时价格
         String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);
@@ -71,6 +61,20 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         }else{
             viewHolder.setText(R.id.tv_coin_amount, "0");
             viewHolder.setText(R.id.tv_coin_count, "0");
+        }
+
+        //标签
+        if(bhCoin==null){
+            return;
+        }
+        if(bhCoin.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            tv_coin_type.setVisibility(View.GONE);
+        }else if(bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            tv_coin_type.setVisibility(View.VISIBLE);
+            tv_coin_type.setText(R.string.native_token);
+        }else if(!bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            tv_coin_type.setVisibility(View.VISIBLE);
+            tv_coin_type.setText(R.string.no_native_token);
         }
     }
 

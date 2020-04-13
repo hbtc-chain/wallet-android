@@ -1,3 +1,5 @@
 # ninja log v5
 0	625	608121015	CMakeFiles/native-lib.dir/native-lib.cpp.o	c2b8ad0251d3bcfd
 626	871	608121015	D:/bhex/BHWallet/app/build/intermediates/cmake/bh_walletDebug/obj/arm64-v8a/libnative-lib.so	c0fee4fc778cf417
+1	605	608449233	CMakeFiles/native-lib.dir/native-lib.cpp.o	c2b8ad0251d3bcfd
+605	835	608449234	D:/bhex/BHWallet/app/build/intermediates/cmake/bh_walletDebug/obj/arm64-v8a/libnative-lib.so	c0fee4fc778cf417
