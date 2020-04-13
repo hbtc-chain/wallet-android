@@ -1,6 +1,7 @@
 package com.bhex.wallet.balance.helper;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
@@ -82,7 +83,7 @@ public class BHBalanceHelper {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
 
-        double tmp = NumberUtil.sub(amount,frozen_amount);
+        double tmp = NumberUtil.sub(TextUtils.isEmpty(amount)?"0":amount,TextUtils.isEmpty(frozen_amount)?"0":frozen_amount);
         double displayAmount = NumberUtil.divide(String.valueOf(tmp), Math.pow(10,bhToken.decimals)+"",3);
 
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);

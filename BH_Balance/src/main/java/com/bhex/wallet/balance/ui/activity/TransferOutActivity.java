@@ -29,6 +29,7 @@ import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 import java.math.BigInteger;
 
@@ -51,6 +52,10 @@ public class TransferOutActivity extends BaseActivity  {
     @Autowired(name = "bhtBalance")
     BHBalance bhtBalance;
 
+    @Autowired(name="way")
+    int way;
+
+
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
     @BindView(R2.id.tv_withdraw_address)
@@ -58,7 +63,8 @@ public class TransferOutActivity extends BaseActivity  {
     @BindView(R2.id.tv_transfer_amount)
     AppCompatTextView tv_transfer_amount;
 
-
+    @BindView(R2.id.layout_transfer_out_tips)
+    MaterialCardView layout_transfer_out_tips;
     @BindView(R2.id.tv_to_address)
     WithDrawInput tv_to_address;
     @BindView(R2.id.tv_available_amount)
@@ -71,6 +77,13 @@ public class TransferOutActivity extends BaseActivity  {
     WithDrawInput et_input_fee;
     @BindView(R2.id.tv_available_bht_amount)
     AppCompatTextView tv_available_bht_amount;
+
+    @BindView(R2.id.tv_transfer_out_tips_1)
+    AppCompatTextView tv_transfer_out_tips_1;
+    @BindView(R2.id.tv_transfer_out_tips_2)
+    AppCompatTextView tv_transfer_out_tips_2;
+    @BindView(R2.id.tv_transfer_out_tips_3)
+    AppCompatTextView tv_transfer_out_tips_3;
 
     @BindView(R2.id.btn_drawwith_coin)
     MaterialButton btn_drawwith_coin;
@@ -116,12 +129,24 @@ public class TransferOutActivity extends BaseActivity  {
     }
 
     private void initTokenView() {
-        if(balance.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_center_title.setText(getResources().getString(R.string.transfer));
+        if(balance.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            tv_center_title.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.transfer));
             tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
             tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
+            layout_transfer_out_tips.setVisibility(View.GONE);
+            btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
         }else{
-            tv_center_title.setText(getResources().getString(R.string.draw_coin));
+            layout_transfer_out_tips.setVisibility(View.VISIBLE);
+            tv_center_title.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.draw_coin));
+            if(way==BHConstants.INNER_LINK){
+                tv_transfer_out_tips_1.setText(getResources().getString(R.string.linkinner_withdraw_tip_1));
+                tv_transfer_out_tips_2.setText(getResources().getString(R.string.linkinner_withdraw_tip_2));
+                tv_transfer_out_tips_3.setText(getResources().getString(R.string.linkinner_withdraw_tip_3));
+            }else if(way==BHConstants.CROSS_LINK){
+                tv_transfer_out_tips_1.setText(getResources().getString(R.string.crosslink_withdraw_tip_1));
+                tv_transfer_out_tips_2.setText(getResources().getString(R.string.crosslink_withdraw_tip_2));
+                tv_transfer_out_tips_3.setText(getResources().getString(R.string.crosslink_withdraw_tip_3));
+            }
         }
     }
 

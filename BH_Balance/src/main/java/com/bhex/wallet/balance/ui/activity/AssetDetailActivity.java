@@ -146,8 +146,8 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             tv_redemption_value.setText(mAccountInfo.getUnbonding());
             //已收益
             tv_income_value.setText(mAccountInfo.getClaimed_reward());
-
-
+            //转账
+            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
 
         } else if (BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)) {
             //原生代币
@@ -161,8 +161,13 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             tv_redemption_value.setVisibility(View.GONE);
             tv_income_text.setVisibility(View.GONE);
             tv_income_value.setVisibility(View.GONE);
+            //转账
+            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.draw_coin));
         } else {
+
             //跨链代币
+            //提币
+            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.draw_coin));
             //跨链充币
             btn_draw_share.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_in));
             btn_draw_share.tv_bottom_text.setText(getResources().getString(R.string.cross_chian_trans_in));
@@ -193,7 +198,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         transactionViewModel.queryTransctionByAddress(this,
                 BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, balance.symbol, null);
         transactionViewModel.transLiveData.observe(this, ldm -> {
-
             //更新交易记录
             if (ldm.loadingStatus == LoadingStatus.SUCCESS && ldm.getData() != null && ldm.getData().size() > 0) {
                 empty_layout.loadSuccess();
@@ -260,6 +264,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         }else if(view.getId() == R.id.cross_chian_withdraw){
             ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                     .withObject("balance", balance)
+                    .withObject("bhtBalance",bthBalance)
                     .withInt("way",2)
                     .navigation();
         }

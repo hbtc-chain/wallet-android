@@ -33,4 +33,9 @@ public class BHConstants {
 
     public static final double BHT_DECIMALS = Math.pow(10,18);
 
+    //链内操作
+    public static final int INNER_LINK= 1;
+    //跨链操作
+    public static final int CROSS_LINK= 2;
+
 }

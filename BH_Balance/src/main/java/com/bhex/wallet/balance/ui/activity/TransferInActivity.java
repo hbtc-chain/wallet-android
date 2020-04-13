@@ -67,7 +67,7 @@ public class TransferInActivity extends BaseActivity {
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
-        tv_center_title.setText(getResources().getString(R.string.make_collection));
+        tv_center_title.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.make_collection));
 
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         Bitmap bitmap = QREncodUtil.createQRCode(mCurrentWallet.address,

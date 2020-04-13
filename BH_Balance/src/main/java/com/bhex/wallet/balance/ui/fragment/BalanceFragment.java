@@ -212,8 +212,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         tv_asset.setText(allTokenAssetsText);
         tv_asset.setTag(R.id.tag_first,allTokenAssetsText);
 
-        Typeface typeFace = Typeface.createFromAsset(getYActivity().getAssets(),"fonts/Ancona-Cd-Bold.ttf");
-        tv_asset.setTypeface(typeFace);
+//        Typeface typeFace = Typeface.createFromAsset(getYActivity().getAssets(),"fonts/Ancona-Cd-Bold.ttf");
+//        tv_asset.setTypeface(typeFace);
 
 
     }

@@ -126,7 +126,13 @@
     <string name="hidden_small_token">隐藏小额币种</string>
     <string name="transfer_address">转账地址</string>
     <string name="transfer_amount">转账数量</string>
+    <string name="crosslink_withdraw_tip_1">您正在进行托管单元跨链提币</string>
+    <string name="crosslink_withdraw_tip_2">请务必使用跨链提币的提币通道</string>
+    <string name="crosslink_withdraw_tip_3">请务必确认提币地址是该币的原生公链地址</string>
 
+    <string name="linkinner_withdraw_tip_1">您正在进行托管单元链内转出(提币)</string>
+    <string name="linkinner_withdraw_tip_2">请务必使用链内的提币通道</string>
+    <string name="linkinner_withdraw_tip_3">请务必确认提币地址以 BH 为开端</string>
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>
