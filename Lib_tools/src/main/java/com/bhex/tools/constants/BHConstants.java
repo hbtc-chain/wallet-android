@@ -38,4 +38,10 @@ public class BHConstants {
     //跨链操作
     public static final int CROSS_LINK= 2;
 
+
+    //验证人-有效
+    public static final int VALIDATOR_VALID= 1;
+    //验证人-无效
+    public static final int VALIDATOR_INVALID= 0;
+
 }

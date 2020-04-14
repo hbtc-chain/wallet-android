@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:icon="@drawable/ic_tab_balance" android:id="@+id/tab_balance" android:title="@string/tab_balance_title" />
-    <item android:icon="@drawable/ic_tab_change" android:id="@+id/tab_change" android:title="@string/tab_change_title" />
+    <item android:icon="@drawable/ic_tab_validator" android:id="@+id/tab_validator" android:title="@string/tab_validator" />
     <item android:icon="@drawable/ic_tab_order" android:id="@+id/tab_order" android:title="@string/tab_order_title" />
     <item android:icon="@drawable/ic_tab_my" android:id="@+id/tab_my" android:title="@string/tab_my_title" />
 </menu>

@@ -88,6 +88,20 @@ public class NumberUtil {
 
     }
 
+    // 百分比
+    public static String getPercentFormat(String d) {
+        try {
+            BigDecimal b1 = new BigDecimal(d);
+            double percent = mul(b1.toPlainString(),100+"");
+
+            String date = new java.text.DecimalFormat("#0.00").format(percent);
+            return date + "%";
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
 
     /**
      * 格式化输出

@@ -60,8 +60,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                 case R.id.tab_balance:
                     getPresenter().goBalanceFragment();
                     return true;
-                case R.id.tab_change:
-                    getPresenter().goExchangeFragment();
+                case R.id.tab_validator:
+                    getPresenter().goValidatorFragment();
                     return true;
                 case R.id.tab_order:
                     getPresenter().goOrderFragment();

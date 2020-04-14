@@ -70,4 +70,9 @@ public class ARouterConfig {
     public static final String Balance_fragment = "/balance/fragment";
 
     public static final String Balance_cross_address = "/balance/cross_adress";
+
+
+    //验证人详情页
+    public static final String Validator_Detail = "/validator/detail";
+
 }

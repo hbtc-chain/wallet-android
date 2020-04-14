@@ -186,7 +186,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
         balanceViewModel.accountLiveData.observe(this,ldm -> {
-            if(ldm.loadingStatus== LoadingStatus.SUCCESS && ldm.getData()!=null){
+            if(ldm.loadingStatus== LoadingStatus.SUCCESS && ldm.getData()!=null && (ldm.getData() instanceof AccountInfo)){
                 updateAssets(ldm.getData());
             }
 
