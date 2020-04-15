@@ -24,9 +24,9 @@ public class BHConstants {
     public static final String BACKUP = "1";
     public static final String LATER_BACKUP = "2";
 
-    public static final String COIN_DEFAULT_LIST = "bht_btc_eth_usdt";
+    public static final String COIN_DEFAULT_LIST = "hbc_btc_eth_tusdt";
 
-    public static final String BHT_TOKEN = "bht";
+    public static final String BHT_TOKEN = "hbc";
     public static final int PAGE_SIZE = 20;
 
     public static final double BHT_GAS_PRICE = Math.pow(10,12);
@@ -37,5 +37,12 @@ public class BHConstants {
     public static final int INNER_LINK= 1;
     //跨链操作
     public static final int CROSS_LINK= 2;
+
+
+    public static final byte []BH = new byte[]{5,-54};
+    //public static final byte []HBT = new byte[]{2, 16, 103};
+    public static final byte []HBT = new byte[]{2, 16, 66};
+
+    public static final String BH_MEMO="test memo";
 
 }

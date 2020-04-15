@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
@@ -31,7 +32,7 @@ public class BHBalanceHelper {
 
     public static BHBalance getBHBalanceBySymbol(String symbol){
         BHBalance item = new BHBalance();
-        if(symbol.equalsIgnoreCase("bht")){
+        if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             item.resId = R.mipmap.ic_bht;
         }else if(symbol.equalsIgnoreCase("btc")){
             item.resId = R.mipmap.ic_btc;
@@ -63,7 +64,7 @@ public class BHBalanceHelper {
 
         //RatesCache ratesCache = CacheCenter.getInstance().getRatesCache();
         int decimals = bhToken!=null?bhToken.decimals:2;
-
+        decimals = 0;
         double displayAmount = NumberUtil.divide(amount, Math.pow(10,decimals)+"",3);
 
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
@@ -82,9 +83,11 @@ public class BHBalanceHelper {
     public static String getAmountForUser(BaseActivity context, String amount, String frozen_amount, String symbol) {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
-
+        int decimals = bhToken!=null?bhToken.decimals:2;
+        decimals = 0;
         double tmp = NumberUtil.sub(TextUtils.isEmpty(amount)?"0":amount,TextUtils.isEmpty(frozen_amount)?"0":frozen_amount);
-        double displayAmount = NumberUtil.divide(String.valueOf(tmp), Math.pow(10,bhToken.decimals)+"",3);
+
+        double displayAmount = NumberUtil.divide(String.valueOf(tmp), Math.pow(10,decimals)+"",3);
 
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
         //DecimalFormat format = new DecimalFormat();
@@ -93,7 +96,7 @@ public class BHBalanceHelper {
 
     public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){
         int resId = 0;
-        if(symbol.equalsIgnoreCase("bht")){
+        if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             resId = R.mipmap.ic_bht;
         }else if(symbol.equalsIgnoreCase("btc")){
             resId = R.mipmap.ic_btc;

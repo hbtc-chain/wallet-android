@@ -100,8 +100,8 @@ public class BHSeekBar extends View {
 
         mProgressRect.top = mCenterY - mProgressHeight/2;
         mProgressRect.bottom = mCenterY + mProgressHeight/2;
-        mProgressRect.left = 0;
-        mProgressRect.right = mWidth;
+        mProgressRect.left = mInnerRadius;
+        mProgressRect.right = mWidth-mInnerRadius;
 
         mCircleCenterX = mWidth*mProgress;
         //BitmapFactory.decodeResource(mContext.getResources(),R.mipmap.ic_s)
@@ -155,7 +155,7 @@ public class BHSeekBar extends View {
                     float touchX = event.getX();
                     float touchY = event.getY();
                     float moveX = touchX-touchStartX;
-                    if((mCircleCenterX+moveX-mInnerRadius)>=0 && (mCircleCenterX+moveX+mInnerRadius) <= mWidth){
+                    if((mCircleCenterX+moveX)>=0 && (mCircleCenterX+moveX+mInnerRadius) <= mWidth-mInnerRadius){
                         mCircleCenterX = mCircleCenterX+moveX;
                         mCircleRect.set((int)mCircleCenterX-mInnerRadius,mCircleRect.top,(int)mCircleCenterX+mInnerRadius,mCircleRect.bottom);
                         touchStartX = touchX;

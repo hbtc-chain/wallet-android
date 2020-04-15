@@ -13,15 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.balance.CoinBottomBtn;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.TxOrderAdapter;
+import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
+import com.bhex.wallet.balance.helper.TransactionHelper;
+import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.balance.presenter.AssetPresenter;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.ui.fragment.ReInvestShareFragment;
@@ -32,6 +37,10 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.TransactionOrder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -108,6 +117,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
 
     @Override
     protected void initView() {
+
         ARouter.getInstance().inject(this);
         tv_center_title.setText(balance.symbol.toUpperCase());
 
@@ -138,7 +148,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
 
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.symbol)){
             //可用数量
-            String available_value = BHBalanceHelper.getAmountForUser(this,balance.amount,balance.frozen_amount,balance.symbol);
+            String available_value = BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
             tv_available_value.setText(available_value);
             //委托中
             tv_entrust_value.setText(mAccountInfo.getBonded());
@@ -162,12 +172,12 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             tv_income_text.setVisibility(View.GONE);
             tv_income_value.setVisibility(View.GONE);
             //转账
-            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.draw_coin));
+            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
         } else {
 
             //跨链代币
-            //提币
-            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.draw_coin));
+            //转账
+            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
             //跨链充币
             btn_draw_share.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_in));
             btn_draw_share.tv_bottom_text.setText(getResources().getString(R.string.cross_chian_trans_in));
@@ -212,8 +222,24 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         });
 
         mTxOrderAdapter.setOnItemClickListener((adapter, view, position) -> {
+            TransactionOrder txo = mOrderList.get(position);
+            TxOrderItem txOrderItem = TransactionHelper.getTxOrderItem(txo);
+            ARouter.getInstance().build(ARouterConfig.Balance_transcation_detail)
+                    .withObject("txo",txOrderItem)
+                    .navigation();
+
+
+
 
         });
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -225,6 +251,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         if (data == null || data.size() == 0) {
             return;
         }
+        mOrderList = data;
         mTxOrderAdapter.addData(data);
     }
 
@@ -249,24 +276,40 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             ReInvestShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
                     ReInvestShareFragment.class.getSimpleName(), fragmentItemListener);
         }else if(view.getId() == R.id.cross_chian_transfer_in){
-            if(TextUtils.isEmpty(balance.external_address)){
-                ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
+            if(!TextUtils.isEmpty(balance.external_address)){
+                /*ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                         .withObject("balance", balance)
                         .withObject("bhtBalance",bthBalance)
                         .withInt("way",2)
                         .navigation();
-                return;
+                return;*/
+                ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
+                        .withObject("balance", balance)
+                        .withInt("way",2)
+                        .navigation();
+            }else{
+                //请求用户资产 获取链外地址
+
             }
-            ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
-                    .withObject("balance", balance)
-                    .withInt("way",2)
-                    .navigation();
+
         }else if(view.getId() == R.id.cross_chian_withdraw){
-            ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
-                    .withObject("balance", balance)
-                    .withObject("bhtBalance",bthBalance)
-                    .withInt("way",2)
-                    .navigation();
+            if(!TextUtils.isEmpty(balance.external_address)){
+                /*ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
+                        .withObject("balance", balance)
+                        .withObject("bhtBalance",bthBalance)
+                        .withInt("way",2)
+                        .navigation();
+                return;*/
+                ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
+                        .withObject("balance", balance)
+                        .withObject("bhtBalance",bthBalance)
+                        .withInt("way",2)
+                        .navigation();
+            }else{
+                //请求用户资产 获取链外地址
+
+            }
+
         }
     }
 
@@ -277,5 +320,12 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
 
     });
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateTransction(TransctionEvent txEvent){
+        transactionViewModel.queryTransctionByAddress(this,
+                BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, balance.symbol, null);
+    }
 
 }

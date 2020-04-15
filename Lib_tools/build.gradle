@@ -135,6 +135,8 @@ dependencies {
 
     api 'com.google.zxing:core:3.3.0'
 
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.2'
     /*//rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.18'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'

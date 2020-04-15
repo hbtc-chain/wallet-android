@@ -6,12 +6,14 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +24,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
@@ -32,6 +35,7 @@ import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -42,6 +46,7 @@ import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
@@ -98,6 +103,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @BindView(R2.id.ck_hidden_small)
     CheckedTextView ck_hidden_small;
 
+    private View mEmptyLayout;
+
 
     private BalanceAdapter mBalanceAdapter;
 
@@ -136,6 +143,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         getYActivity().setSupportActionBar(mToolBar);
         getYActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+
+        //LogUtils.d("bhWallet===","==bhWallet="+bhWallet.getAddress());
+
         mOriginBalanceList = mPresenter.makeBalanceList();
         mBalanceList = mPresenter.getBalanceList(mOriginBalanceList);
         LinearLayoutManager layoutManager = new MyLinearLayoutManager(getContext());
@@ -159,6 +169,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         ed_search_content.addTextChangedListener(balanceTextWatcher);
 
+        mEmptyLayout = LayoutInflater.from(getYActivity()).inflate(R.layout.layout_empty_asset,(ViewGroup) recycler_balance.getParent(),false);
     }
 
 
@@ -186,7 +197,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
         balanceViewModel.accountLiveData.observe(this,ldm -> {
-            if(ldm.loadingStatus== LoadingStatus.SUCCESS && ldm.getData()!=null){
+            if(ldm.loadingStatus==LoadingStatus.SUCCESS){
                 updateAssets(ldm.getData());
             }
 
@@ -203,7 +214,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mAccountInfo = accountInfo;
         List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
         if(list==null || list.size()==0){
-            return;
+            mBalanceAdapter.setEmptyView(mEmptyLayout);
         }
         //计算每一个币种的资产价值 和 总资产
         allTokenAssets = mPresenter.calculateAllTokenPrice(accountInfo,mOriginBalanceList);
@@ -211,11 +222,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
         tv_asset.setText(allTokenAssetsText);
         tv_asset.setTag(R.id.tag_first,allTokenAssetsText);
-
-//        Typeface typeFace = Typeface.createFromAsset(getYActivity().getAssets(),"fonts/Ancona-Cd-Bold.ttf");
-//        tv_asset.setTypeface(typeFace);
-
-
     }
 
 
@@ -271,6 +277,21 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }
         //持久化添加资产
         BHUserManager.getInstance().saveUserBalanceList(mOriginBalanceList);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeAccount(WalletEvent walletEvent){
+        //当前钱包用户
+        //bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+        //清空原始用户资产
+        mBalanceAdapter.getData().clear();
+        mOriginBalanceList = mPresenter.makeBalanceList();
+        mBalanceList = mPresenter.getBalanceList(mOriginBalanceList);
+        mBalanceAdapter.addData(mBalanceList);
+        mBalanceAdapter.notifyDataSetChanged();
+
+        //更新资产
+        balanceViewModel.getAccountInfo(getYActivity(),bhWallet.address);
     }
 
     private SwipeMenuCreator swipeMenuCreator = (leftMenu, rightMenu, position) -> {

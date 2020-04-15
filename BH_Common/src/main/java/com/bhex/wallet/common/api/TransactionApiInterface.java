@@ -18,7 +18,7 @@ import retrofit2.http.Path;
  */
 public interface TransactionApiInterface {
 
-    @POST("txs")
+    @POST("api/v1/txs")
     Observable<JsonObject> sendTransaction(@Body RequestBody body);
 
     @GET("cu/cus/{address}")

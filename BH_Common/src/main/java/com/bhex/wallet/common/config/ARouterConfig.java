@@ -70,4 +70,8 @@ public class ARouterConfig {
     public static final String Balance_fragment = "/balance/fragment";
 
     public static final String Balance_cross_address = "/balance/cross_adress";
+
+    //转账详情
+    public static final String Balance_transcation_detail = "/balance/transcation_detail";
+
 }

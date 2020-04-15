@@ -19,6 +19,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
+import com.bhex.wallet.common.utils.BHKey;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -26,6 +27,8 @@ import com.bhex.wallet.mnemonic.persenter.LoginPresenter;
 import com.bhex.wallet.mnemonic.ui.fragment.AddressFragment;
 import com.bhex.wallet.mnemonic.ui.item.BHWalletItem;
 import com.google.android.material.button.MaterialButton;
+
+import org.bitcoinj.core.Base58;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

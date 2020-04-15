@@ -16,10 +16,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@mipmap/bg_balance"
+        android:layout_below="@+id/status_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/status_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize"
+        xmlns:tools="http://schemas.android.com/tools">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:drawableStart="@mipmap/ic_bluehelix"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:text="Bluehelix Wallet"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:text="Bluehelix Wallet" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/status_bar"
+        android:layout_below="@+id/toolbar"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,58 +65,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@mipmap/bg_balance"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!--<RelativeLayout
-                android:id="@+id/layout_top"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-
-
-            </RelativeLayout>-->
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-                app:titleTextAppearance="@style/Toolbar_textsize"
-                xmlns:tools="http://schemas.android.com/tools">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_center_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:drawableStart="@mipmap/ic_bluehelix"
-                    android:drawablePadding="3dp"
-                    android:gravity="center"
-                    android:text="Bluehelix Wallet"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    tools:text="Bluehelix Wallet" />
-
-            </androidx.appcompat.widget.Toolbar>
-
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_balance_txt"
@@ -89,10 +74,8 @@
                 android:layout_marginStart="24dp"
                 android:text="@string/tab_balance_title"
                 android:textColor="@color/white"
-                android:textSize="30dp"
-                android:layout_below="@+id/toolbar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                android:textSize="30dp" />
+
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_search"
@@ -246,6 +229,7 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:layout_marginEnd="@dimen/main_margin_right"
                     android:layout_toRightOf="@+id/iv_search_ic"
                     android:background="@null"

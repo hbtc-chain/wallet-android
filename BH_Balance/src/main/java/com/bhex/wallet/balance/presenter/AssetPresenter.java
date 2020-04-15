@@ -21,7 +21,14 @@ public class AssetPresenter extends BasePresenter {
     }
 
     public BHBalance getBthBalanceWithAccount(AccountInfo accountInfo){
+        if(accountInfo==null){
+            return null;
+        }
         BHBalance balance = new BHBalance();
+        balance.amount="";
+        balance.chain=BHConstants.BHT_TOKEN;
+        balance.symbol = BHConstants.BHT_TOKEN;
+
         List<AccountInfo.AssetsBean> assetsBeanList = accountInfo.getAssets();
         if(assetsBeanList==null || assetsBeanList.size()==0){
             return balance;
@@ -36,6 +43,8 @@ public class AssetPresenter extends BasePresenter {
                 balance.address = assetsBean.getExternal_address();
             }
         }
+
+
         return balance;
     }
 

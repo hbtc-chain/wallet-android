@@ -95,6 +95,7 @@
     <string name="draw_coin_count">提币数量</string>
     <string name="hint_withdraw_minAmount">最小提币数量%1$s%2$d</string>
     <string name="all_withdraw_amount">全部提币</string>
+    <string name="all_transfer_amount">全部转账</string>
     <string name="reach_account_amount">到账数量</string>
     <string name="fee">手续费</string>
     <string name="withdraw_speedup">提币加速</string>
@@ -130,9 +131,21 @@
     <string name="crosslink_withdraw_tip_2">请务必使用跨链提币的提币通道</string>
     <string name="crosslink_withdraw_tip_3">请务必确认提币地址是该币的原生公链地址</string>
 
-    <string name="linkinner_withdraw_tip_1">您正在进行托管单元链内转出(提币)</string>
-    <string name="linkinner_withdraw_tip_2">请务必使用链内的提币通道</string>
-    <string name="linkinner_withdraw_tip_3">请务必确认提币地址以 BH 为开端</string>
+    <string name="linkinner_withdraw_tip_1">您正在进行托管单元链内转账</string>
+    <string name="linkinner_withdraw_tip_2">请务必使用链内的转账通道</string>
+    <string name="linkinner_withdraw_tip_3">请务必确认转账地址以 HBC 为开端</string>
+    <string name="transfer_fee">交易手续费</string>
+    <string name="withdraw_fee">提币手续费</string>
+    <string name="BH_token">HBC</string>
+    <string name="trusteeship_address">托管单元地址</string>
+    <string name="address">地址</string>
+    <string name="crosslink_address">跨链地址生成</string>
+    <string name="cross_deposit">跨链充值</string>
+    <string name="cross_withdraw">跨链提币</string>
+    <string name="crosslink_deposit_tip_2">请提醒转出方，务必使用OMNI钱包提币</string>
+    <string name="linkinner_deposit_tip_1">您正在进行托管单元链内收款(充币)</string>
+    <string name="linkinner_deposit_tip_2">请提醒转出方，务必使用非跨链的提币通道</string>
+
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>

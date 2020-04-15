@@ -7,6 +7,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.FileUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.kenai.jffi.Main;
 
@@ -29,10 +30,15 @@ public class BHUserManager {
 
     private BHWallet tmpBhWallet;
 
+    //当前使用的钱包
     private BHWallet mCurrentBhWallet;
+
+    //资产账户信息
+    private AccountInfo mAccountInfo;
 
     private List<BHWallet> allWallet;
 
+    //助记词列表
     private List<String> mWordList;
 
     private Class targetClass;
@@ -115,6 +121,14 @@ public class BHUserManager {
                 item.setIsDefault(0);
             }
         }
+    }
+
+    public AccountInfo getAccountInfo() {
+        return mAccountInfo;
+    }
+
+    public void setAccountInfo(AccountInfo accountInfo) {
+        this.mAccountInfo = accountInfo;
     }
 
     public List<String> getWordList() {

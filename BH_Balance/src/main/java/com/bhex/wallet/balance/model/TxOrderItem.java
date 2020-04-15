@@ -1,19 +1,20 @@
-package com.bhex.wallet.common.tx;
+package com.bhex.wallet.balance.model;
 
+import com.bhex.wallet.common.tx.TransactionOrder;
 import com.google.gson.JsonObject;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by BHEX.
  * User: gdy
- * Date: 2020/4/10
- * Time: 15:42
+ * Date: 2020/4/14
+ * Time: 18:17
  */
-public class TransactionOrder implements Serializable {
+public class TxOrderItem {
 
-    public TransactionOrder() {
+
+    public TxOrderItem() {
     }
 
     /**
@@ -31,16 +32,18 @@ public class TransactionOrder implements Serializable {
 
 
 
-    private String hash;
-    private int height;
-    private String fee;
-    private boolean success;
-    private Object error_message;
-    private long time;
-    private int gas_used;
-    private int gas_wanted;
-    private String memo;
-    private List<ActivitiesBean> activities;
+    public String hash;
+    public int height;
+    public String fee;
+    public boolean success;
+    public Object error_message;
+    public long time;
+    public int gas_used;
+    public int gas_wanted;
+    public String memo;
+    public String value;
+    //public String txType;
+    public List<TxOrderItem.ActivitiesBean> activities;
 
     public String getHash() {
         return hash;
@@ -114,11 +117,11 @@ public class TransactionOrder implements Serializable {
         this.memo = memo;
     }
 
-    public List<ActivitiesBean> getActivities() {
+    public List<TxOrderItem.ActivitiesBean> getActivities() {
         return activities;
     }
 
-    public void setActivities(List<ActivitiesBean> activities) {
+    public void setActivities(List<TxOrderItem.ActivitiesBean> activities) {
         this.activities = activities;
     }
 
@@ -128,8 +131,8 @@ public class TransactionOrder implements Serializable {
          * value : {"amount":[{"amount":"9223372036854775807","denom":"bht"}],"from_address":"BHYc5BsYgne5SPNKYreBGpjYY9jyXAHLGbK","to_address":"BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ"}
          */
 
-        private String type;
-        private JsonObject value;
+        public String type;
+        //public String value;
 
         public String getType() {
             return type;
@@ -139,13 +142,13 @@ public class TransactionOrder implements Serializable {
             this.type = type;
         }
 
-        public JsonObject getValue() {
+        /*public String getValue() {
             return value;
         }
 
-        public void setValue(JsonObject value) {
+        public void setValue(String value) {
             this.value = value;
-        }
+        }*/
 
         public static class ValueBean {
             /**
@@ -154,9 +157,9 @@ public class TransactionOrder implements Serializable {
              * to_address : BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ
              */
 
-            private String from_address;
-            private String to_address;
-            private List<AmountBean> amount;
+            public String from_address;
+            public String to_address;
+            public List<TxOrderItem.ActivitiesBean.ValueBean.AmountBean> amount;
 
             public String getFrom_address() {
                 return from_address;
@@ -174,11 +177,11 @@ public class TransactionOrder implements Serializable {
                 this.to_address = to_address;
             }
 
-            public List<AmountBean> getAmount() {
+            public List<TxOrderItem.ActivitiesBean.ValueBean.AmountBean> getAmount() {
                 return amount;
             }
 
-            public void setAmount(List<AmountBean> amount) {
+            public void setAmount(List<TxOrderItem.ActivitiesBean.ValueBean.AmountBean> amount) {
                 this.amount = amount;
             }
 
@@ -188,8 +191,8 @@ public class TransactionOrder implements Serializable {
                  * denom : bht
                  */
 
-                private String amount;
-                private String denom;
+                public String amount;
+                public String denom;
 
                 public String getAmount() {
                     return amount;
@@ -215,41 +218,9 @@ public class TransactionOrder implements Serializable {
             public String OrderId;
             public String Symbol;
         }
-
-        public static class WithdrawalBean{
-            public String amount;
-            public String from_cu;
-            public String gas_fee;
-            public String order_id;
-            public String symbol;
-            public String to_multi_sign_address;
-        }
-
-        public static class DepositBean{
-
-            /**
-             * amount : 500000000000000000
-             * from_cu : HBCbV2tuSYE2WG6sHEaxteiZwHbfU559avFC
-             * height : 7714737
-             * index : 0
-             * memo :
-             * order_id : a4fe6a96-1221-42d0-bf23-562cdfc2ab0b
-             * symbol : eth
-             * to_adddress : 0x218da933EAe48436b228FB65E2A57cB92E20Dc25
-             * to_cu : HBCYu3Xf77dvNqAceLQQSmtto3utEi4kBd4r
-             * txhash : 0x065b2d9d1d2378a1aa1635ffb8ad2b62c952878cc29a2c7e32a7ac8639d73765
-             */
-            public String amount;
-            public String from_cu;
-            public String height;
-            public int index;
-            public String memo;
-            public String order_id;
-            public String symbol;
-            public String to_adddress;
-            public String to_cu;
-            public String txhash;
-
-        }
     }
+
+
+
+
 }

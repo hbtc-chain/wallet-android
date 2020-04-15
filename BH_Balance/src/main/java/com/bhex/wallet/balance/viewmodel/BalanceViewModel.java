@@ -42,7 +42,7 @@ public class BalanceViewModel extends ViewModel {
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR);
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 accountLiveData.postValue(loadDataModel);
             }
         };

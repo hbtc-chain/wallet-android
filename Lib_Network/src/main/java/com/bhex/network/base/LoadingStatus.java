@@ -25,7 +25,7 @@ public class LoadingStatus {
     public LoadingStatus(int code, String message) {
         this.code = code;
         this.msg = message;
-        this.loadingStatus = 2;
+        this.loadingStatus = ERROR;
     }
 
     public int getCode() { return this.code; }

@@ -139,6 +139,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeAccount(WalletEvent walletEvent){
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+        tv_username.setText(mBhWallet.getName());
         MyHelper.proccessAddress(tv_address,mBhWallet.getAddress());
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activity.ReEntrustActivity">
+    tools:context=".ui.activity.TranscationDetailActivity">
 
     <include
         layout="@layout/layout_toolbar"
@@ -14,14 +14,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
+            android:orientation="vertical">
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_entrust_amount"
                 android:layout_width="wrap_content"
@@ -43,7 +41,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_tranction_text"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_blue"
                     android:textSize="13sp"
@@ -56,22 +54,23 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_tranction_hash"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/main_text_black"
                     android:textSize="13sp"
-                    android:text="3233r32r32r32r32r1321r"
+                    tools:text="3233r32r32r32r32r1321r3233r32r32r32r32r1321r3233r32r32r32r32r1321r3233r32r32r32r32r1321r"
                     android:layout_toEndOf="@+id/tv_tranction_text"
                     android:layout_toLeftOf="@+id/iv_txid_paste"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
+                    android:layout_marginEnd="45dp"
                     />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_txid_paste"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:src="@mipmap/ic_paste_blue"
                     android:paddingEnd="23dp"
                     android:paddingTop="3dp"
@@ -88,7 +87,7 @@
                 android:orientation="horizontal"
                 >
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="@color/dark_blue"
@@ -100,6 +99,7 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_transcation_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
@@ -115,7 +115,7 @@
                 android:orientation="horizontal"
                 >
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="@color/dark_blue"
@@ -127,10 +127,11 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_transcation_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:text="2020-4-8 12:23:22"
+                    tools:text="2020-4-8 12:23:22"
                     />
 
             </LinearLayout>
@@ -202,15 +203,15 @@
             </RelativeLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/transfer_out"
-            android:textSize="13sp"
-            android:textColor="@color/dark_blue"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/page_margin_start"
-            android:layout_marginTop="@dimen/page_margin_top"
-            />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/transfer_out"
+                android:textSize="13sp"
+                android:textColor="@color/dark_blue"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/page_margin_start"
+                android:layout_marginTop="@dimen/page_margin_top"
+                />
 
             <RelativeLayout
                 android:layout_width="match_parent"

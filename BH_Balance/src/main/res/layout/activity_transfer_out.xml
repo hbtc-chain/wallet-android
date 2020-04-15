@@ -10,13 +10,13 @@
         layout="@layout/layout_toolbar"
         />
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/layout_index_1"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:orientation="vertical"
-        android:layout_marginStart="@dimen/main_padding_left"
-        android:layout_marginEnd="@dimen/main_padding_right"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -27,7 +27,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="@dimen/main_padding_left"
+        android:paddingEnd="@dimen/main_padding_right"
+        >
         
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/layout_transfer_out_tips"
@@ -111,8 +114,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            tools:text="0xcEFf80D0175531662aE0084F5a153748C4d7D4cb"
             app:leftHint="@string/hint_input_copy_address"
-            app:leftText="BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ" />
+            app:leftText="HBCTf9xpgPQPFYraZLFi86FyuAGXngYvwgpQ" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -148,18 +152,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            app:leftHint="@string/hint_withdraw_minAmount"
+            app:leftHint="请输入转账数量"
             app:rightColor="@color/blue"
             app:rightText="@string/all_withdraw_amount"
             />
 
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_reach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_black"
             android:layout_marginTop="30dp"
             android:text="@string/reach_account_amount"
+            android:visibility="gone"
             android:textSize="15sp"/>
 
         <com.bhex.lib.uikit.widget.editor.WithDrawInput
@@ -167,9 +173,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:visibility="gone"
             app:leftText="0"
             app:rightColor="@color/dark_blue"
             tools:rightText="ABC" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_withdraw_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/dark_black"
+            android:text="@string/withdraw_fee"
+            android:textSize="15sp"
+            />
+        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+            android:id="@+id/et_withdraw_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:leftHint="请输入提币手续费"
+            app:rightColor="@color/dark_blue"
+             />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -183,7 +210,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/dark_black"
-                android:text="@string/fee"
+                android:text="@string/transfer_fee"
                 android:textSize="15sp"
                 />
 
@@ -195,7 +222,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp"
-                android:text="可用 3000.00 BHT"/>
+                android:text="可用 3000.00"/>
 
 
 
@@ -203,19 +230,21 @@
 
 
         <com.bhex.lib.uikit.widget.editor.WithDrawInput
-            android:id="@+id/et_input_fee"
+            android:id="@+id/et_tx_fee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            app:leftHint="@string/hint_withdraw_minAmount"
+            app:leftHint="请输入交易手续费"
+            app:leftText="2"
             app:rightColor="@color/dark_blue"
-            app:rightText="BHT" />
+            app:rightText="@string/BH_token" />
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:visibility="gone"
             >
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -235,7 +264,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp"
-                android:text="3000.00 BHT"/>
+                android:text="3000.00"/>
 
 
         </RelativeLayout>
@@ -244,11 +273,58 @@
             android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="28dp"
+            android:visibility="gone"
             />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/page_margin_top"
+            android:layout_marginBottom="24dp"
+            >
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reminder"
+                android:textColor="@color/gray_ACB5C3"
+                android:textSize="13sp"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineHeight="18dp"
+                android:text="1.段落文本占位符"
+                android:textColor="@color/gray_ACB5C3"
+                android:textSize="13sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.段落文本占位符"
+                android:lineHeight="18dp"
+                android:textColor="@color/gray_ACB5C3"
+                android:textSize="13sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.段落文本占位符"
+                android:lineHeight="18dp"
+                android:textColor="@color/gray_ACB5C3"
+                android:textSize="13sp"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
     
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_drawwith_coin"
@@ -260,7 +336,8 @@
         android:layout_marginEnd="@dimen/main_padding_right"
         android:layout_marginBottom="@dimen/main_margin_bottom"
         style="@style/main_material_btn"
-        app:backgroundTint="@color/blue"
+        android:enabled="false"
+        app:backgroundTint="@color/gray_E7ECF4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

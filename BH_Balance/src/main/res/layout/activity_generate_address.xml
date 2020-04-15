@@ -73,8 +73,8 @@
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_right"
         app:rightColor="@color/dark_blue"
-        app:leftText="1000"
-        app:rightText="BHT"
+        app:leftText="2"
+        app:rightText="@string/BH_token"
         />
 
     <RelativeLayout
@@ -97,7 +97,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="20BHT"
             android:textSize="15sp"
             android:textColor="@color/dark_blue"
             />
@@ -164,10 +163,12 @@
         android:layout_marginEnd="@dimen/main_margin_right"
         android:insetBottom="0dp"
         android:insetTop="0dp"
-        app:backgroundTint="@color/blue"
+        app:backgroundTint="@color/gray_E7ECF4"
         app:cornerRadius="@dimen/main_radius_conner"
         style="@style/main_material_btn"
         android:textColor="@color/white"
-        android:text="@string/genarate_address"/>
+        android:text="@string/genarate_address"
+        android:enabled="false"
+        />
 
 </LinearLayout>

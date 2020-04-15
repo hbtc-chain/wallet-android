@@ -335,7 +335,7 @@ public class WalletViewModel extends ViewModel {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR);
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 mutableLiveData.postValue(loadDataModel);
 
             }

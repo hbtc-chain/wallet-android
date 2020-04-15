@@ -1,2 +1,0 @@
-ninja: Entering directory `D:\bhex\BHWallet\app\.cxx\cmake\bh_walletDebug\arm64-v8a'
-ninja: no work to do.

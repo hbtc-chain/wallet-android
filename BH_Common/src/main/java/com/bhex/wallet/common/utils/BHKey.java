@@ -3,12 +3,15 @@ package com.bhex.wallet.common.utils;
 import android.util.Log;
 
 import com.bhex.network.utils.Base64;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.crypto.Sha256;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
+import com.fasterxml.jackson.databind.ser.Serializers;
 
+import org.bitcoinj.core.Base58;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Utils;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
@@ -16,6 +19,7 @@ import org.bouncycastle.crypto.digests.RIPEMD160Digest;
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.Arrays;
 
 /**
  * Created by BHEX.
@@ -145,7 +149,7 @@ public class BHKey {
         byte[] sumHexByte = HexUtils.toBytes(sumHex);
         try {
             byte[] converted = convertBits(sumHexByte, 8,5,true);
-            result = bech32Encode("bhpub".getBytes(), converted);
+            result = bech32Encode("hbtcpub".getBytes(), converted);
         } catch (Exception e) {
             Log.w(TAG,"getBHUserDpPubKey Error");
 
@@ -210,23 +214,24 @@ public class BHKey {
      */
     public static String base58Address(byte[] hash) {
         String encode = "";
-        byte[] bh_prefix = new byte[]{5, -54};
 
-        byte[] hash_new = new byte[2 + hash.length];
+        byte[] bh_prefix = BHConstants.HBT;
 
-        System.arraycopy(bh_prefix, 0, hash_new, 0, 2);
+        byte[] hash_new = new byte[bh_prefix.length + hash.length];
 
-        System.arraycopy(hash, 0, hash_new, 2, hash.length);
+        System.arraycopy(bh_prefix, 0, hash_new, 0, bh_prefix.length);
+
+        System.arraycopy(hash, 0, hash_new, bh_prefix.length, hash.length);
 
         byte[] check = BHBase58.checkSum(hash_new);
 
-        byte[] hash_new2 = new byte[2 + hash.length + 4];
+        byte[] hash_new2 = new byte[bh_prefix.length + hash.length + 4];
 
-        System.arraycopy(bh_prefix, 0, hash_new2, 0, 2);
+        System.arraycopy(bh_prefix, 0, hash_new2, 0,  bh_prefix.length);
 
-        System.arraycopy(hash, 0, hash_new2, 2, hash.length);
+        System.arraycopy(hash, 0, hash_new2,  bh_prefix.length, hash.length);
 
-        System.arraycopy(check, 0, hash_new2, 2 + hash.length, 4);
+        System.arraycopy(check, 0, hash_new2,  bh_prefix.length + hash.length, 4);
 
         encode = BHBase58.encode(hash_new2);
 
@@ -242,5 +247,13 @@ public class BHKey {
         return base64_signData;
     }
 
+
+    public static void test(){
+       byte[]bhbytes = Base58.decode("B");
+
+       byte[]hbcbytes = Base58.decode("H");
+
+       LogUtils.d("BHKey===>:","bhbytes==>:"+Arrays.toString(bhbytes)+"==hbcbytes=="+Arrays.toString(hbcbytes));
+    }
 
 }

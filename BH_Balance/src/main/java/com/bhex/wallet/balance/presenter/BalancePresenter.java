@@ -49,8 +49,6 @@ public class BalancePresenter extends BasePresenter {
     }
 
     public List<BHBalance> makeBalanceList(){
-
-
         List<BHBalance> list = new ArrayList<>();
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         String[] coin_list = BHUserManager.getInstance().getUserBalanceList().split("_");
@@ -63,22 +61,6 @@ public class BalancePresenter extends BasePresenter {
             }
             list.add(bhBalance);
         }
-
-        /*BHBalance btc = new BHBalance(R.mipmap.ic_btc,"BTC");
-        list.add(btc);
-
-        BHBalance usdt = new BHBalance(R.mipmap.ic_usdt,"USDT");
-        list.add(usdt);
-
-        BHBalance eth = new BHBalance(R.mipmap.ic_eth,"ETH");
-        list.add(eth);
-
-        BHBalance eos = new BHBalance(R.mipmap.ic_eos,"EOS");
-        list.add(eos);
-
-        BHBalance bht = new BHBalance(R.mipmap.ic_bht,"BHT");
-        list.add(eos);
-*/
         return list;
     }
 
@@ -234,14 +216,16 @@ public class BalancePresenter extends BasePresenter {
      * @return
      */
     public double calculateAllTokenPrice(AccountInfo accountInfo,List<BHBalance> mOriginBalanceList){
+        double allTokenPrice = 0;
 
         List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
-
+        if(list==null || list.size()==0){
+            return allTokenPrice;
+        }
         Map<String,AccountInfo.AssetsBean> map = new HashMap<>();
         for(AccountInfo.AssetsBean bean:list){
             map.put(bean.getSymbol(),bean);
         }
-        double allTokenPrice = 0;
         for(BHBalance balance:mOriginBalanceList){
             AccountInfo.AssetsBean assetsBean = map.get(balance.symbol.toLowerCase());
             if(assetsBean==null){
@@ -253,7 +237,7 @@ public class BalancePresenter extends BasePresenter {
             balance.external_address = assetsBean.getExternal_address();
             balance.frozen_amount = assetsBean.getFrozen_amount();
             //计算每一个币种的资产价值
-            double b1 = CurrencyManager.getInstance().getSymbolBalancePrice(mBaseActivity,balance.symbol,balance.amount);
+            double b1 = CurrencyManager.getInstance().getSymbolBalancePrice(mBaseActivity,balance.symbol,balance.amount,false);
             allTokenPrice = NumberUtil.add(b1,allTokenPrice);
         }
 

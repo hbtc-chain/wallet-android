@@ -52,6 +52,7 @@ public class TrusteeshipActivity extends BaseCacheActivity {
     protected void initView() {
         tv_center_title.setText(R.string.wallet_create_trusteeship);
         inp_wallet_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
+        inp_wallet_name.getEditText().setText("Bluehelix Wallet");
     }
 
     @Override

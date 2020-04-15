@@ -98,18 +98,22 @@ public class CurrencyManager {
         return 0;
     }
 
-    public double getSymbolBalancePrice(Context context, String symbol,String amount){
+    public double getSymbolBalancePrice(Context context, String symbol,String amount,boolean isDecimalFlag){
         double balancePrice = 0;
         if(TextUtils.isEmpty(amount) || Double.valueOf(amount)==0){
             return balancePrice;
         }
 
+
         //获取汇率
         double symbolRate = getCurrencyRate(context,symbol);
         //获取精度
         BHToken token = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol);
-
-        double displayAmount = NumberUtil.divide(amount, Math.pow(10,token.decimals)+"",3);
+        int decimals = 0;
+        if(isDecimalFlag){
+            decimals = token.decimals;
+        }
+        double displayAmount = NumberUtil.divide(amount, Math.pow(10,decimals)+"",3);
         balancePrice = NumberUtil.mul(String.valueOf(displayAmount),String.valueOf(symbolRate));
 
         return balancePrice;

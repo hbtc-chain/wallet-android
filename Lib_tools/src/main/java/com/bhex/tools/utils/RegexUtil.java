@@ -117,7 +117,13 @@ public final class RegexUtil {
 	public static boolean checkDecimals(String decimals) {
 		String regex = "\\-?[1-9]\\d+(\\.\\d+)?";
 		return Pattern.matches(regex,decimals);
-	} 
+	}
+
+
+	public static boolean checkNumeric(String decimals){
+		String regex = "^-?\\d+(\\.\\d+)?$";
+		return Pattern.matches(regex,decimals);
+	}
 	
 	/**
 	 * 验证空白字符

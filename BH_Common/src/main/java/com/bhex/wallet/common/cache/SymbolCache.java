@@ -64,7 +64,7 @@ public class SymbolCache extends BaseCache {
                             symbolMap.put(item.symbol,item);
                         }
 
-                        //LogUtils.d(TAG+"===>:","size=="+symbolMap.size());
+                        LogUtils.d(TAG+"===>:","size=="+symbolMap.size());
                     }
 
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_white_password"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.TransferInTipFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tip_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提示"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/main_text_black"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_transfer_in_tips_1"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/tv_tip_title"
+        android:textColor="@color/dark_blue"
+        android:textSize="14sp"
+        android:text="@string/linkinner_deposit_tip_1"
+        android:drawableLeft="@drawable/ic_dot_blue"
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="3dp"
+        android:lineSpacingExtra="5dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_transfer_in_tips_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark_blue"
+        android:textSize="14sp"
+        android:text="@string/linkinner_deposit_tip_2"
+        android:drawableLeft="@drawable/ic_dot_blue"
+        android:drawablePadding="5dp"
+        android:layout_below="@+id/tv_transfer_in_tips_1"
+        android:layout_marginLeft="3dp"
+        android:lineSpacingExtra="5dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_ikonw"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
+        style="@style/main_material_btn"
+        app:backgroundTint="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cornerRadius="6dp"
+        android:text="我已知晓风险，显示地址"
+        />
+
+</RelativeLayout>

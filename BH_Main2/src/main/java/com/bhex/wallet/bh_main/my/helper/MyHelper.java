@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.network.utils.PackageUtils;
 import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 
