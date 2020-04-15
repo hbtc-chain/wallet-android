@@ -74,4 +74,7 @@ public class ARouterConfig {
     //转账详情
     public static final String Balance_transcation_detail = "/balance/transcation_detail";
 
+    //验证人详情页
+    public static final String Validator_Detail = "/validator/detail";
+
 }

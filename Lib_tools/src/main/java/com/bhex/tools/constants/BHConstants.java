@@ -44,5 +44,9 @@ public class BHConstants {
     public static final byte []HBT = new byte[]{2, 16, 66};
 
     public static final String BH_MEMO="test memo";
+    //验证人-有效
+    public static final int VALIDATOR_VALID= 1;
+    //验证人-无效
+    public static final int VALIDATOR_INVALID= 0;
 
 }
