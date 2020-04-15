@@ -1,6 +1,7 @@
 package com.bhex.wallet.bh_main.validator.ui.fragment;
 
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 
@@ -28,7 +29,7 @@ import butterknife.BindView;
 public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPresenter> {
 
     public static String KEY_VALIDATOR_TYPE = "validator_type";
-
+    private int mValidatorType =0;
     ValidatorAdapter mValidatorAdapter;
     @BindView(R2.id.ed_search_content)
     AppCompatEditText ed_search_content;
@@ -55,14 +56,11 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         recycler_validator.setLayoutManager(layoutManager);
         recycler_validator.setNestedScrollingEnabled(true);
 
-
-        mOriginValidatorInfoList = new ArrayList<>();
-        mValidatorInfoList = new ArrayList<>();
-        mOriginValidatorInfoList.add(new ValidatorInfo());
-        mOriginValidatorInfoList.add(new ValidatorInfo());
-        mOriginValidatorInfoList.add(new ValidatorInfo());
-        mOriginValidatorInfoList.add(new ValidatorInfo());
-        mValidatorInfoList.addAll(mOriginValidatorInfoList);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            mValidatorType = arguments.getInt(KEY_VALIDATOR_TYPE,0);
+            mPresenter.getRecord(mValidatorType);
+        }
         mValidatorAdapter = new ValidatorAdapter(R.layout.item_validator, mValidatorInfoList);
         recycler_validator.setAdapter(mValidatorAdapter);
     }
@@ -79,6 +77,28 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         });
     }
 
+    public void updateRecord(List<ValidatorInfo> datas) {
+        mOriginValidatorInfoList = datas;
+        List<ValidatorInfo> result = new ArrayList<>();
+
+        String searchContent = ed_search_content.getText().toString().trim();
+        if(TextUtils.isEmpty(searchContent)){
+            for(int i=0;i<mOriginValidatorInfoList.size();i++){
+                ValidatorInfo item = mOriginValidatorInfoList.get(i);
+                result.add(item);
+            }
+
+        }else{
+            for(int i=0;i<mOriginValidatorInfoList.size();i++){
+                ValidatorInfo item = mOriginValidatorInfoList.get(i);
+                if(item.getAddress().toLowerCase().contains(searchContent.toLowerCase())){
+                    result.add(item);
+                }
+            }
+        }
+        mValidatorAdapter.getData().clear();
+        mValidatorAdapter.addData(result);
+    }
 
     @Override
     protected void initPresenter() {
