@@ -156,6 +156,8 @@
     <string name="voting_power_proportion">投票权</string>
     <string name="other_delegate_proportion">佣金率</string>
     <string name="self_delegate_proportion">自我委托</string>
+    <string name="withdraw_reward">提取收益</string>
+    <string name="other">其它</string>
 
 
     <string-array name="my_list_item">

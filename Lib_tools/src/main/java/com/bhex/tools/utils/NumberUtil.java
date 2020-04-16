@@ -28,6 +28,13 @@ public class NumberUtil {
     }
 
     public static double divide_100(String number1,String number2){
+        if(TextUtils.isEmpty(number1)||Double.valueOf(number1)==0){
+            return 0;
+        }
+        if(TextUtils.isEmpty(number2)||Double.valueOf(number2)==0){
+            return 0;
+        }
+
         BigDecimal b1 = new BigDecimal(number1);
         BigDecimal b2 = new BigDecimal(number2);
         double b3 = b1.divide(b2, 4, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -35,6 +42,12 @@ public class NumberUtil {
     }
 
     public static double divide(String number1,String number2){
+        if(TextUtils.isEmpty(number1)||Double.valueOf(number1)==0){
+            return 0;
+        }
+        if(TextUtils.isEmpty(number2)||Double.valueOf(number2)==0){
+            return 0;
+        }
         BigDecimal b1 = new BigDecimal(number1);
         BigDecimal b2 = new BigDecimal(number2);
         double b3 = b1.divide(b2,BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -44,8 +57,11 @@ public class NumberUtil {
 
     public static double divide(String number1,String number2,int digit){
         double b3 = 0;
-        if(TextUtils.isEmpty(number1) ){
-            return  0;
+        if(TextUtils.isEmpty(number1)||Double.valueOf(number1)==0){
+            return 0;
+        }
+        if(TextUtils.isEmpty(number2)||Double.valueOf(number2)==0){
+            return 0;
         }
         BigDecimal b1 = new BigDecimal(number1);
         BigDecimal b2 = new BigDecimal(number2);
@@ -118,6 +134,42 @@ public class NumberUtil {
             return "0";
         }
         return String.format("%."+digit + "f", val);
+    }
+
+    //最大保留10位数值
+    public static String dispalyForUsertokenAmount(String amount){
+        if(TextUtils.isEmpty(amount) || Double.valueOf(amount)==0){
+            return "0";
+        }
+        double double_amount = Double.valueOf(amount);
+        int digit = 4;
+        if(double_amount<10){
+            digit = 9;
+        }else if(double_amount<100){
+            digit = 8;
+        }else if(double_amount<1000){
+            digit = 7;
+        }else if(double_amount<10000){
+            digit = 6;
+        }else if(double_amount<100000){
+            digit = 5;
+        }else if(double_amount<1000000){
+            digit = 4;
+        }else if(double_amount<10000000){
+            digit = 3;
+        }else if(double_amount<100000000){
+            digit = 2;
+        }else if(double_amount<1000000000){
+            digit = 1;
+        }else if(double_amount<10000000000d){
+            digit = 0;
+        }
+
+        String result = formatValue(Double.valueOf(amount),digit);
+
+        BigDecimal res=new BigDecimal(result);
+
+        return res.stripTrailingZeros().toPlainString();
     }
 
 }

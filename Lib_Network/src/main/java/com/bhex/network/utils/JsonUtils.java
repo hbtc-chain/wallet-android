@@ -46,6 +46,7 @@ public class JsonUtils {
 
     public static int getAsInt(String json, String memberName) {
         initG();
+
         JsonObject object = mParser.parse(json).getAsJsonObject();
         if (!object.has(memberName))
             return 0;
@@ -83,6 +84,17 @@ public class JsonUtils {
     public static <T> List<T> getListFromJson(String json, String memberName, Class<T> classOfT) {
         initG();
         return getListFromJson(getAsJsonArray(json, memberName).toString(), classOfT);
+    }
+
+    public static boolean isHasMember(JsonObject jsonObject, String memberName) {
+        initG();
+        boolean flag = false;
+        //JsonObject object = mParser.parse(json).getAsJsonObject();
+        /*if(!jsonObject.has(memberName)){
+            return flag;
+        }*/
+
+        return jsonObject.has(memberName);
     }
 
     public static <T> List<T> getListFromJson(String json, Class<T> classOfT) {

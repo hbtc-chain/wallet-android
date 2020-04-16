@@ -3,6 +3,7 @@ package com.bhex.wallet.common.cache;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
+import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.LogUtils;
@@ -51,19 +52,21 @@ public class SymbolCache extends BaseCache {
 
 
 
-        BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,2000)
+        BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,200)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxCache.getDefault().transformObservable("symbol_all", type, getCacheStrategy()))
                 .map(new CacheResult.MapFunc<>())
                 .subscribe(new BHBaseObserver<JsonObject>() {
                     @Override
                     protected void onSuccess(JsonObject jsonObject) {
+                        if(!JsonUtils.isHasMember(jsonObject,"tokens")){
+                            return;
+                        }
                         symbolMap.clear();
                         List<BHToken> coinList = JsonUtils.getListFromJson(jsonObject.toString(),"tokens", BHToken.class);
                         for(BHToken item:coinList){
                             symbolMap.put(item.symbol,item);
                         }
-
                         LogUtils.d(TAG+"===>:","size=="+symbolMap.size());
                     }
 

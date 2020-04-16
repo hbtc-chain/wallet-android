@@ -16,10 +16,13 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.balance.CoinBottomBtn;
+import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.TxOrderAdapter;
@@ -31,22 +34,26 @@ import com.bhex.wallet.balance.presenter.AssetPresenter;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.ui.fragment.ReInvestShareFragment;
 import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
+import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.TransactionOrder;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
 
 /**
  * @author gongdongyang
@@ -98,12 +105,16 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
     AppCompatTextView tv_income_text;
     @BindView(R2.id.tv_income_value)
     AppCompatTextView tv_income_value;
+    @BindView(R2.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
 
     TxOrderAdapter mTxOrderAdapter;
     TransactionViewModel transactionViewModel;
     List<TransactionOrder> mOrderList;
 
     int mCurrentPage = 1;
+
+    BalanceViewModel balanceViewModel;
 
     @Override
     protected int getLayoutId() {
@@ -133,7 +144,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         recycler_order.setNestedScrollingEnabled(false);
 
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
-
+        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
         //根据token 显示View
         initTokenView();
     }
@@ -141,7 +152,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
     private void initTokenView() {
 
         //计算持有资产
-        String []res = BHBalanceHelper.getAmountToCurrencyValue(this,balance.amount,balance.symbol);
+        String []res = BHBalanceHelper.getAmountToCurrencyValue(this,balance.amount,balance.symbol,false);
         tv_coin_amount.setText(res[0]);
         //对应法币实际值
         tv_coin_currency.setText(res[1]);
@@ -151,11 +162,15 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             String available_value = BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
             tv_available_value.setText(available_value);
             //委托中
-            tv_entrust_value.setText(mAccountInfo.getBonded());
+            String bonded_value = NumberUtil.dispalyForUsertokenAmount(mAccountInfo.getBonded());
+            tv_entrust_value.setText(bonded_value);
             //赎回中
-            tv_redemption_value.setText(mAccountInfo.getUnbonding());
+            String unbonding_value = NumberUtil.dispalyForUsertokenAmount(mAccountInfo.getUnbonding());
+            tv_redemption_value.setText(unbonding_value);
             //已收益
-            tv_income_value.setText(mAccountInfo.getClaimed_reward());
+            String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount(mAccountInfo.getClaimed_reward());
+            tv_income_value.setText(claimed_reward_value);
+
             //转账
             btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
 
@@ -198,15 +213,16 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             tv_income_value.setVisibility(View.GONE);
         }
 
-
-
+        Flowable.timer(4L, TimeUnit.SECONDS).subscribe();
     }
 
     @Override
     protected void addEvent() {
         empty_layout.showProgess();
+
         transactionViewModel.queryTransctionByAddress(this,
                 BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, balance.symbol, null);
+
         transactionViewModel.transLiveData.observe(this, ldm -> {
             //更新交易记录
             if (ldm.loadingStatus == LoadingStatus.SUCCESS && ldm.getData() != null && ldm.getData().size() > 0) {
@@ -227,13 +243,33 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             ARouter.getInstance().build(ARouterConfig.Balance_transcation_detail)
                     .withObject("txo",txOrderItem)
                     .navigation();
-
-
-
-
         });
 
+        balanceViewModel.accountLiveData.observe(this,ldm->{
+            updateAssest(ldm);
+        });
+
+        refreshLayout.setOnRefreshListener(refreshLayout1 -> {
+            balanceViewModel.getAccountInfo(AssetDetailActivity.this,bthBalance.address);
+            transactionViewModel.queryTransctionByAddress(this,
+                    BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, balance.symbol, null);
+        });
         EventBus.getDefault().register(this);
+    }
+
+    /**
+     * 更新资产
+     * @param ldm
+     */
+    private void updateAssest(LoadDataModel<AccountInfo> ldm) {
+
+        LogUtils.d("AssetDetailActivity==>:","==updateAssest==");
+        //更新
+        refreshLayout.finishRefresh();
+        if(ldm.loadingStatus==LoadingStatus.SUCCESS){
+            mAccountInfo = ldm.getData();
+            initView();
+        }
     }
 
     @Override
@@ -251,6 +287,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         if (data == null || data.size() == 0) {
             return;
         }
+        mTxOrderAdapter.getData().clear();
         mOrderList = data;
         mTxOrderAdapter.addData(data);
     }

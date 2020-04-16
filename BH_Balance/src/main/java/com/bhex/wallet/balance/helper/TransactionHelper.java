@@ -23,6 +23,7 @@ import com.bhex.wallet.common.tx.TransactionOrder;
 public class TransactionHelper {
     /**
      * 获取交易类型
+     *
      */
     public static String getTranscationType(Context context, String typeValue){
         String typeLabel = "";
@@ -40,6 +41,10 @@ public class TransactionHelper {
             typeLabel = context.getResources().getString(R.string.cross_deposit);
         }else if(typeValue.equalsIgnoreCase("hbtcchain/transfer/MsgWithdrawal")){
             typeLabel = context.getResources().getString(R.string.cross_withdraw);
+        }else if(typeValue.equalsIgnoreCase("cosmos-sdk/MsgWithdrawDelegationReward")){
+            typeLabel = context.getResources().getString(R.string.withdraw_reward);
+        }else {
+            typeLabel = context.getResources().getString(R.string.other);
         }
         return typeLabel;
     }
@@ -118,9 +123,12 @@ public class TransactionHelper {
 
     public static void setRealAmount(AppCompatTextView tv,String amount,String symbol){
         BHToken token = SymbolCache.getInstance().getBHToken(symbol);
-        double real_amount = NumberUtil.divide(amount,Math.pow(10,token.decimals)+"",2);
-        String tv_amount = NumberUtil.formatValue(real_amount,2)+symbol.toUpperCase();
-        tv.setText(tv_amount);
+        if(token!=null){
+            double real_amount = NumberUtil.divide(amount,Math.pow(10,token.decimals)+"");
+            String tv_amount = NumberUtil.dispalyForUsertokenAmount(String.valueOf(real_amount))+symbol.toUpperCase();
+            tv.setText(tv_amount);
+        }
+
     }
 
 

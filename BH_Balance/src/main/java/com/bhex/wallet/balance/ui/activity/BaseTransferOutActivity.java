@@ -31,8 +31,6 @@ import butterknife.BindView;
  */
 public abstract class BaseTransferOutActivity<P extends BasePresenter> extends BaseActivity<P> {
 
-
-
     protected TransactionViewModel transactionViewModel;
 
     protected BHWallet mCurrentBhWallet;

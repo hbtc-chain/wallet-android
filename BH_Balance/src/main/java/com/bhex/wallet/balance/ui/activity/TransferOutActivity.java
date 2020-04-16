@@ -17,6 +17,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
+import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -57,7 +58,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     int way;
 
     private double available_amount;
-
+    BHToken bhToken;
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
@@ -94,7 +95,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     private void initTokenView() {
         ed_transfer_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et_tx_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        if(balance.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
             tv_center_title.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.transfer));
             tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
             tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
@@ -136,7 +137,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             //提币手续费单位
             et_withdraw_fee.btn_right_text.setText(balance.symbol.toUpperCase());
-            BHToken bhToken = SymbolCache.getInstance().getBHToken(balance.symbol.toLowerCase());
+             bhToken = SymbolCache.getInstance().getBHToken(balance.symbol.toLowerCase());
             //double withdraw_fee = NumberUtil.divide(bhToken.withdrawal_fee,String.valueOf(Math.pow(10,bhToken.decimals)),10);
             //double withdraw_fee = Double.
             et_withdraw_fee.ed_input.setText(bhToken.withdrawal_fee);
@@ -171,8 +172,14 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     }
 
     public View.OnClickListener allWithDrawListener = v -> {
-        ed_transfer_amount.ed_input.setText(String.valueOf(available_amount));
-
+        //ed_transfer_amount.ed_input.setText(String.valueOf(available_amount));
+        if(way==BHConstants.CROSS_LINK){
+            double all_count = NumberUtil.sub(String.valueOf(available_amount),bhToken.withdrawal_fee);
+            ed_transfer_amount.ed_input.setText(String.valueOf(all_count));
+        }else if(balance.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            double all_count = NumberUtil.sub(String.valueOf(available_amount),"2");
+            ed_transfer_amount.ed_input.setText(String.valueOf(all_count));
+        }
     };
 
     public SimpleTextWatcher checkTextWatcher = new SimpleTextWatcher(){

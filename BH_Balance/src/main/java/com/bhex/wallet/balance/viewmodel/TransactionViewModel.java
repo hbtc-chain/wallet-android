@@ -94,7 +94,7 @@ public class TransactionViewModel extends ViewModel {
                     LoadDataModel ldm = new LoadDataModel(list);
                     transLiveData.postValue(ldm);
                 }else{
-                    LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR);
+                    LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR,"");
                     transLiveData.postValue(ldm);
                 }
 
@@ -105,7 +105,7 @@ public class TransactionViewModel extends ViewModel {
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR);
+                LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR,"");
                 transLiveData.postValue(ldm);
             }
         };

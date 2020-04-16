@@ -11,6 +11,9 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -68,13 +71,33 @@ public class TransferInTipFragment extends BaseDialogFragment {
 
         AppCompatTextView tv_tip1 = mRootView.findViewById(R.id.tv_transfer_in_tips_1);
         AppCompatTextView tv_tip2 = mRootView.findViewById(R.id.tv_transfer_in_tips_2);
+        ForegroundColorSpan foregroundColorSpan=new ForegroundColorSpan(Color.parseColor("#FF0000"));
 
         if(way==1){
-            tv_tip1.setText(getResources().getString(R.string.linkinner_deposit_tip_1));
-            tv_tip2.setText(getResources().getString(R.string.linkinner_deposit_tip_2));
+            String tip1 = getResources().getString(R.string.linkinner_deposit_tip_1);
+            int index1 = tip1.indexOf("链内");
+            SpannableString spannableStr1 = new SpannableString(tip1);
+            spannableStr1.setSpan(foregroundColorSpan,index1,index1+"链内".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            tv_tip1.setText(spannableStr1);
+
+            String tip2 = getResources().getString(R.string.linkinner_deposit_tip_2);
+            int index2 = tip2.indexOf("非跨链");
+            SpannableString spannableStr2 = new SpannableString(tip2);
+            spannableStr2.setSpan(foregroundColorSpan,index2,index2+"非跨链".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            tv_tip2.setText(spannableStr2);
+
         }else if(way==2){
-            tv_tip1.setText(getResources().getString(R.string.crosslink_deposit_tip_1));
-            tv_tip2.setText(getResources().getString(R.string.crosslink_deposit_tip_2));
+            String tip1 = getResources().getString(R.string.crosslink_deposit_tip_1);
+            int index1 = tip1.indexOf("跨链");
+            SpannableString spannableStr1 = new SpannableString(tip1);
+            spannableStr1.setSpan(foregroundColorSpan,index1,index1+"跨链".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            tv_tip1.setText(spannableStr1);
+
+            String tip2 = getResources().getString(R.string.crosslink_deposit_tip_2);
+            int index2 = tip2.indexOf("OMNI钱包");
+            SpannableString spannableStr2 = new SpannableString(tip2);
+            spannableStr2.setSpan(foregroundColorSpan,index2,index2+"OMNI钱包".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            tv_tip2.setText(spannableStr2);
         }
     }
 

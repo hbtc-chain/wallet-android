@@ -113,7 +113,7 @@ public class TransferInActivity extends BaseActivity {
         Bitmap bitmap = QREncodUtil.createQRCode(deposit_address,
                 PixelUtils.dp2px(this,180),PixelUtils.dp2px(this,180),null);
         iv_qr_code.setImageBitmap(bitmap);
-        tv_transfer_in_address.setText(balance.external_address);
+        tv_transfer_in_address.setText(deposit_address);
 
     }
 

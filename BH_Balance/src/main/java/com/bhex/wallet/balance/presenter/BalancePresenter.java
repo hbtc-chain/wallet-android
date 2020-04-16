@@ -1,12 +1,16 @@
 package com.bhex.wallet.balance.presenter;
 
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.widget.CheckedTextView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.JsonUtils;
@@ -255,7 +259,11 @@ public class BalancePresenter extends BasePresenter {
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_close));
         }else{
             String unhiddenText = tv_asset.getTag(R.id.tag_first).toString();
-            tv_asset.setText(unhiddenText);
+            SpannableString spanStr = new SpannableString(unhiddenText);
+            spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            tv_asset.setText(spanStr);
+            //tv_asset.setTag(R.id.tag_first,allTokenAssetsText);
+            //tv_asset.setText(unhiddenText);
             eyeIv.setTag("0");
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye));
         }
@@ -284,4 +292,10 @@ public class BalancePresenter extends BasePresenter {
     }
 
 
+    public void setTextFristSamll(AppCompatTextView tv_asset, String allTokenAssetsText) {
+        SpannableString spanStr = new SpannableString(allTokenAssetsText);
+        spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        tv_asset.setText(spanStr);
+        tv_asset.setTag(R.id.tag_first,allTokenAssetsText);
+    }
 }

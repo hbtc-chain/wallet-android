@@ -1,6 +1,7 @@
 package com.bhex.lib.uikit.widget;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -25,6 +26,11 @@ public class CustomTextView extends AppCompatTextView {
 
     public CustomTextView(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
     }
 
     @Override

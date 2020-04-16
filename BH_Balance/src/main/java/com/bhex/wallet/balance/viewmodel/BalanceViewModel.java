@@ -7,6 +7,7 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.wallet.common.cache.BaseCache;
@@ -30,10 +31,10 @@ public class BalanceViewModel extends ViewModel {
 
     //获取资产
     public void getAccountInfo(BaseActivity activity,String address){
-        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
-                super.onSuccess(jsonObject);
+                //super.onSuccess(jsonObject);
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
                 accountLiveData.postValue(loadDataModel);

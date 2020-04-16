@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
+import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
@@ -36,10 +37,25 @@ public class CoinViewModel extends ViewModel {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
-                List<BHTokenItem> coinList = JsonUtils.getListFromJson(jsonObject.toString(),
-                        "tokens", BHTokenItem.class);
+                
+                if(JsonUtils.isHasMember(jsonObject,"tokens")){
+                    List<BHTokenItem> coinList = JsonUtils.getListFromJson(jsonObject.toString(),
+                            "tokens", BHTokenItem.class);
 
-                LoadDataModel loadDataModel = new LoadDataModel(coinList);
+                    LoadDataModel loadDataModel = new LoadDataModel(coinList);
+                    coinLiveData.postValue(loadDataModel);
+                }else{
+                    LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
+                    coinLiveData.postValue(loadDataModel);
+                }
+
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 coinLiveData.postValue(loadDataModel);
             }
         };

@@ -56,20 +56,24 @@ public class BHBalanceHelper {
      * @param symbol
      * @return
      */
-    public static String[]  getAmountToCurrencyValue(Context context,String amount, String symbol){
+    public static String[]  getAmountToCurrencyValue(Context context,String amount, String symbol,boolean flag){
         String []result = new String[2];
 
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
 
         //RatesCache ratesCache = CacheCenter.getInstance().getRatesCache();
-        int decimals = bhToken!=null?bhToken.decimals:2;
-        decimals = 0;
-        double displayAmount = NumberUtil.divide(amount, Math.pow(10,decimals)+"",3);
 
+        int decimals = bhToken!=null?bhToken.decimals:2;
+        if(!flag){
+            decimals = 0;
+        }
+
+        double displayAmount = NumberUtil.divide(amount, Math.pow(10,decimals)+"");
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
         //DecimalFormat format = new DecimalFormat();
-        result[0] = NumberUtil.formatValue(displayAmount,3);
+        //result[0] = NumberUtil.formatValue(displayAmount,3);
+        result[0] = NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
 
         //法币价值
         //BHRates.RatesBean ratesBean = ratesCache.getBHRate(symbol.toLowerCase());
@@ -87,11 +91,11 @@ public class BHBalanceHelper {
         decimals = 0;
         double tmp = NumberUtil.sub(TextUtils.isEmpty(amount)?"0":amount,TextUtils.isEmpty(frozen_amount)?"0":frozen_amount);
 
-        double displayAmount = NumberUtil.divide(String.valueOf(tmp), Math.pow(10,decimals)+"",3);
+        double displayAmount = NumberUtil.divide(String.valueOf(tmp), Math.pow(10,decimals)+"");
 
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
         //DecimalFormat format = new DecimalFormat();
-       return NumberUtil.formatValue(displayAmount,3);
+       return NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
     }
 
     public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){

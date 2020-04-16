@@ -13,18 +13,6 @@
   },
   {
     "level": "INFO",
-    "message": "- expected json D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\arm64-v8a\\android_gradle_build.json file is not present, will remove stale json folder"
-  },
-  {
-    "level": "INFO",
-    "message": "- missing previous command file D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\arm64-v8a\\build_command.txt, will remove stale json folder"
-  },
-  {
-    "level": "INFO",
-    "message": "- command changed from previous, will remove stale json folder"
-  },
-  {
-    "level": "INFO",
     "message": "removing stale contents from \u0027D:\\bhex\\BHWallet\\app\\.cxx\\cmake\\bh_walletDebug\\arm64-v8a\u0027"
   },
   {

@@ -5,7 +5,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,6 +55,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
@@ -102,6 +106,10 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @BindView(R2.id.ck_hidden_small)
     CheckedTextView ck_hidden_small;
+    @BindView(R2.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+
+
 
     private View mEmptyLayout;
 
@@ -197,12 +205,17 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
         balanceViewModel.accountLiveData.observe(this,ldm -> {
+            refreshLayout.finishRefresh();
             if(ldm.loadingStatus==LoadingStatus.SUCCESS){
                 updateAssets(ldm.getData());
             }
 
         });
-        balanceViewModel.getAccountInfo(getYActivity(),bhWallet.address);
+
+        refreshLayout.setOnRefreshListener(refreshLayout1 -> {
+            balanceViewModel.getAccountInfo(getYActivity(),bhWallet.address);
+        });
+        refreshLayout.autoRefresh();
     }
 
     /**
@@ -220,8 +233,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         allTokenAssets = mPresenter.calculateAllTokenPrice(accountInfo,mOriginBalanceList);
         mBalanceAdapter.notifyDataSetChanged();
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
-        tv_asset.setText(allTokenAssetsText);
-        tv_asset.setTag(R.id.tag_first,allTokenAssetsText);
+        //设置第一字符15sp
+        mPresenter.setTextFristSamll(tv_asset,allTokenAssetsText);
+
     }
 
 

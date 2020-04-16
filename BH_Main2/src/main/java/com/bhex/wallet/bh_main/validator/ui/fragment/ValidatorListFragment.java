@@ -1,35 +1,22 @@
 package com.bhex.wallet.bh_main.validator.ui.fragment;
 
 
-import android.os.Bundle;
-
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.viewpager.widget.ViewPager;
-
 import android.text.Editable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.adapter.ValidatorAdapter;
-import com.bhex.wallet.bh_main.validator.presenter.ValidatorFragmentPresenter;
 import com.bhex.wallet.bh_main.validator.presenter.ValidatorListFragmentPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.ValidatorInfo;
-import com.google.android.material.tabs.TabLayout;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.ArrayList;
@@ -70,6 +57,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
 
 
         mOriginValidatorInfoList = new ArrayList<>();
+        mValidatorInfoList = new ArrayList<>();
         mOriginValidatorInfoList.add(new ValidatorInfo());
         mOriginValidatorInfoList.add(new ValidatorInfo());
         mOriginValidatorInfoList.add(new ValidatorInfo());

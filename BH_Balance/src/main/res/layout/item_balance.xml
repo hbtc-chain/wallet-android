@@ -54,7 +54,7 @@
             android:visibility="gone"
             tools:text="@string/native_token" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.bhex.lib.uikit.widget.CustomTextView
             android:id="@+id/tv_coin_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,20 +66,19 @@
             android:layout_marginTop="2dp"
             />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.bhex.lib.uikit.widget.CustomTextView
             android:id="@+id/tv_coin_amount"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/main_text_black"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="BTC"
-            android:textSize="17sp"
-            android:textColor="@color/main_text_black"
-            />
+            tools:text="BTC" />
 
 
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.bhex.lib.uikit.widget.CustomTextView
             android:id="@+id/tv_coin_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

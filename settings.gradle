@@ -1,2 +1,2 @@
-include ':app', ':Lib_Network', ':Lib_Tools',  ':UIKit', ':BH_Common', ':BH_Mnemonic', ':BH_Balance', ':BH_Main2'
+include ':app', ':Lib_Network', ':Lib_Tools',  ':UIKit', ':BH_Common', ':BH_Mnemonic', ':BH_Balance', ':BH_Main2', ':Lib_Qr'
 rootProject.name='BHWallet'

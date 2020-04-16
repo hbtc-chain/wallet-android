@@ -35,7 +35,7 @@
         tools:text="成功"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.bhex.lib.uikit.widget.CustomTextView
         android:id="@+id/tv_tx_time"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
@@ -48,7 +48,7 @@
         />
 
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.bhex.lib.uikit.widget.CustomTextView
         android:id="@+id/tv_tx_amount"
         android:layout_width="wrap_content"
         android:layout_height="22dp"

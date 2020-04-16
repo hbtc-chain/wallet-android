@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
@@ -38,6 +39,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     protected void initView() {
+        RefreshLayoutManager.init();
         //透明状态栏
         /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
             try {
