@@ -27,7 +27,7 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
  */
 public class BalanceViewModel extends ViewModel {
 
-    public MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
+    public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
 
     //获取资产
     public void getAccountInfo(BaseActivity activity,String address){

@@ -6,7 +6,9 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by BHEX.
@@ -46,6 +48,34 @@ public class AssetPresenter extends BasePresenter {
 
 
         return balance;
+    }
+
+    /**
+     * 更新用户资产
+     * @param accountInfo
+     * @param balance
+     */
+    public void updateBalance(AccountInfo accountInfo,BHBalance balance){
+
+        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        if(list==null || list.size()==0){
+            return;
+        }
+
+        Map<String,AccountInfo.AssetsBean> map = new HashMap<>();
+        for(AccountInfo.AssetsBean bean:list){
+            map.put(bean.getSymbol(),bean);
+        }
+
+        AccountInfo.AssetsBean assetsBean = map.get(balance.symbol.toLowerCase());
+        if(assetsBean==null){
+            return;
+        }
+
+        balance.amount = assetsBean.getAmount();
+        balance.is_native = assetsBean.isIs_native();
+        balance.external_address = assetsBean.getExternal_address();
+        balance.frozen_amount = assetsBean.getFrozen_amount();
     }
 
 }

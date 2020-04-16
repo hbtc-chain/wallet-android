@@ -268,7 +268,8 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         refreshLayout.finishRefresh();
         if(ldm.loadingStatus==LoadingStatus.SUCCESS){
             mAccountInfo = ldm.getData();
-            initView();
+            mPresenter.updateBalance(mAccountInfo,balance);
+            initTokenView();
         }
     }
 
