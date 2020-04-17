@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.ui.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.util.TypedValue;
@@ -14,6 +15,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.lib_qr.XQRCode;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
@@ -280,7 +282,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
                     gasPrice,"test memo",null,suquece,balance.symbol);
 
-            //transactionViewModel.sendTransaction(this,bhSendTranscation);
+            transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });
     }
@@ -291,8 +293,9 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         //处理二维码扫描结果
         if (requestCode == BHQrScanActivity.REQUEST_CODE && resultCode == RESULT_OK) {
             //处理扫描结果（在界面上显示）
-            //handleScanResult(data);
-            LogUtils.d("TransferOutActivity==>:","resultCode");
+            String qrCode  = data.getExtras().getString(XQRCode.RESULT_DATA);
+            tv_to_address.ed_input.setText(qrCode);
+            //LogUtils.d("TransferOutActivity==>:","qrCode=="+qrCode);
         }
 
 

@@ -115,8 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             tools:text="0xcEFf80D0175531662aE0084F5a153748C4d7D4cb"
-            app:leftHint="@string/hint_input_copy_address"
-            app:leftText="HBCTf9xpgPQPFYraZLFi86FyuAGXngYvwgpQ" />
+            app:leftHint="@string/hint_input_copy_address"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

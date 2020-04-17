@@ -24,6 +24,7 @@ import com.bhex.lib_qr.ui.CaptureActivity;
 import com.bhex.lib_qr.ui.CaptureFragment;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -169,6 +170,9 @@ public class BHQrScanActivity extends BaseActivity {
      * @param result
      */
     protected void handleAnalyzeSuccess(Bitmap bitmap, String result) {
+
+        LogUtils.d("TransferOutActivity==>:","result=="+result);
+
         Intent resultIntent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putInt(XQRCode.RESULT_TYPE, XQRCode.RESULT_SUCCESS);

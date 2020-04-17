@@ -94,8 +94,6 @@ public class BHTransactionManager {
         BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
 
         return bhSendTranscation;
-
-
         //
     }
 
