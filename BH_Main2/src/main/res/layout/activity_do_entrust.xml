@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="validator.ui.activity.ValidatorDetailActivity">
+    tools:context="validator.ui.activity.DoEntrustActivity">
 
     <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,8 +25,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/validate_node"
-            tools:text="@string/validate_node" />
+            android:text="@string/do_entrust"
+            tools:text="@string/do_entrust" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -47,391 +47,218 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_validator_name"
-                android:layout_width="0dp"
+                android:id="@+id/tv_tips"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/page_margin_start"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                android:layout_marginTop="@dimen/main_margin_top"
+                android:gravity="top"
+                android:background="@drawable/bg_border_corners_gray"
+                android:text="@string/do_entrust_tip"
                 android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_20"
-                app:layout_constraintEnd_toStartOf="@id/ll_status"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="@dimen/sp_15"
+                android:letterSpacing="0.02"
+                android:padding="@dimen/dp_8"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="testseadgfasdxfvadsvg" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_entrust_to_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_black"
+                android:layout_marginTop="@dimen/main_margin_top"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tips"
+                android:text="@string/entrust_to"
+                android:textSize="15sp"
+                />
+
+            <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                android:id="@+id/tv_to_address"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/tv_entrust_to_title"
+                tools:leftText="Blueblue - BHA620B\u00E2\u0080\u00A6\u00E2\u0080\u00A66B86E9E36B"
+                app:leftHint="@string/hint_input_validator"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_entrust_amount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/entrust_amount"
+
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_to_address"
+                android:textSize="15sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_available_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_blue"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginEnd="@dimen/page_margin_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_to_address"
+                android:textSize="13sp"
+                tools:text="可用 3000.00 BHT"
+                />
+
+            <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                android:id="@+id/ed_entrust_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/tv_entrust_amount_title"
+                app:leftHint="@string/hint_enter_entrust"
+                app:rightColor="@color/blue"
+                app:rightText="@string/all_entrust"
+                />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_real_entrust_amount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/entrust_amount"
+
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_entrust_amount"
+                android:textSize="15sp"
+                />
+
+            <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                android:id="@+id/ed_real_entrust_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/tv_real_entrust_amount_title"
+                app:leftHint=""
+                app:rightColor="@color/dark_blue"
+                tools:rightText="BHT"
+                />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_entrust_fee_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/fee"
+
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_real_entrust_amount"
+                android:textSize="15sp"
+                />
+
+            <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                android:id="@+id/ed_entrust_fee_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/tv_entrust_fee_title"
+                app:leftHint=""
+                app:rightColor="@color/dark_blue"
+                tools:rightText="BHT"
+                />
 
 
             <LinearLayout
-                android:id="@+id/ll_status"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginEnd="@dimen/dp_13"
-                android:background="@drawable/bg_status"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:src="@mipmap/icon_validator_valid"
-                    android:tag="0" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/color_green"
-                    android:textSize="@dimen/sp_13"
-                    tools:text="有效" />
-
-
-            </LinearLayout>
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/voting_power_proportion"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:layout_marginTop="@dimen/main_margin_top"
-                android:gravity="center_vertical"
-                android:text="@string/voting_power_proportion"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_validator_name" />
-
-
-            <com.bhex.lib.uikit.widget.CustomTextView
-                android:id="@+id/tv_voting_power_proportion"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/main_margin_top"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/voting_power_proportion"
-                app:layout_constraintTop_toBottomOf="@id/tv_validator_name"
-                tools:text="1.00%" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/self_delegate_proportion"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:gravity="center_vertical"
-                android:text="@string/self_delegate_proportion"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/voting_power_proportion" />
-
-
-            <com.bhex.lib.uikit.widget.CustomTextView
-                android:id="@+id/tv_self_delegate_proportion"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/self_delegate_proportion"
-                app:layout_constraintTop_toBottomOf="@id/tv_voting_power_proportion"
-                tools:text="1.00%" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/up_time"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:gravity="center_vertical"
-                android:text="@string/up_time"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/self_delegate_proportion" />
-
-
-            <com.bhex.lib.uikit.widget.CustomTextView
-                android:id="@+id/tv_up_time"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/up_time"
-                app:layout_constraintTop_toBottomOf="@id/tv_self_delegate_proportion"
-                tools:text="1.00%" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/other_delegate_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:gravity="center_vertical"
-                android:text="@string/other_delegate_proportion"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/up_time" />
-
-
-            <com.bhex.lib.uikit.widget.CustomTextView
-                android:id="@+id/tv_other_delegate_proportion"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/other_delegate_amount"
-                app:layout_constraintTop_toBottomOf="@id/tv_up_time"
-                tools:text="1.00%" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/update_time"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:gravity="center_vertical"
-                android:text="@string/update_time"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/other_delegate_amount" />
-
-
-            <com.bhex.lib.uikit.widget.CustomTextView
-                android:id="@+id/tv_update_time"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/update_time"
-                app:layout_constraintTop_toBottomOf="@id/tv_other_delegate_proportion"
-                tools:text="2020/04/03  1:23:34 AM UTC" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/max_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:gravity="center_vertical"
-                android:text="@string/max_rate_limit"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/update_time" />
-
-
-            <com.bhex.lib.uikit.widget.CustomTextView
-                android:id="@+id/tv_max_rate"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/max_rate"
-                app:layout_constraintTop_toBottomOf="@id/tv_update_time"
-                tools:text="1.00%" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/max_change_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:gravity="center_vertical"
-                android:text="@string/voting_power_proportion"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/max_rate" />
-
-
-            <com.bhex.lib.uikit.widget.CustomTextView
-                android:id="@+id/tv_max_change_rate"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/max_change_rate"
-                app:layout_constraintTop_toBottomOf="@id/tv_max_rate"
-                tools:text="1.00%" />
-
-
-            <View
-                android:id="@+id/divider_line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_line_height"
-                android:layout_marginStart="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_16"
-                android:background="@color/divider_line_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_max_change_rate"></View>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_address_title"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_12"
-                android:gravity="center_vertical"
-                android:text="@string/address"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_line" />
-
-
-            <com.bhex.lib.uikit.widget.CustomTextView
-                android:id="@+id/tv_address_value"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_12"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toStartOf="@id/iv_copy"
-                app:layout_constraintStart_toEndOf="@id/tv_address_title"
-                app:layout_constraintTop_toBottomOf="@id/divider_line"
-                tools:text="BHA620BA13...6B86E9E36B" />
-
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_copy"
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:src="@mipmap/icon_paste"
-                android:tag="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_line" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_website_title"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:gravity="center_vertical"
-                android:text="@string/website"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_address_value" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_website_value"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:ellipsize="end"
-                android:gravity="center_vertical|right"
-                android:maxLines="1"
-                android:textColor="@color/main_text_black"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_website_title"
-                app:layout_constraintTop_toBottomOf="@id/tv_address_value"
-                tools:text="https://www.jfsldfjsljs.com" />
-
-            <View
-                android:id="@+id/divider_line1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_line_height"
-                android:layout_marginStart="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_16"
-                android:background="@color/divider_line_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_website_value"></View>
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginLeft="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_12"
-                android:gravity="center_vertical"
-                android:text="@string/detail"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_line1" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_detail_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minLines="3"
-                android:layout_marginStart="@dimen/dp_24"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:layout_marginBottom="@dimen/dp_24"
-                android:gravity="top"
-                tools:text="We are the leading staking service provider for blockchain projects. Join our community to help secure networks and earn rewards.We know staking.\nWe are the leading staking service provider for blockchain projects.\n"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/sp_13"
-                android:letterSpacing="0.02"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_detail" />
+                app:layout_constraintTop_toBottomOf="@+id/ed_entrust_fee_title"
+
+                android:layout_marginBottom="@dimen/dp_24"
+                >
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminder"
+                    android:textColor="@color/gray_ACB5C3"
+                    android:textSize="13sp"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineHeight="18dp"
+                    android:text="1.段落文本占位符"
+                    android:textColor="@color/gray_ACB5C3"
+                    android:textSize="13sp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.段落文本占位符"
+                    android:lineHeight="18dp"
+                    android:textColor="@color/gray_ACB5C3"
+                    android:textSize="13sp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.段落文本占位符"
+                    android:lineHeight="18dp"
+                    android:textColor="@color/gray_ACB5C3"
+                    android:textSize="13sp"
+                    />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -445,38 +272,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_transfer_entrust"
-            style="@style/main_material_btn"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="@dimen/dp_24"
-            android:layout_marginRight="@dimen/dp_8"
-            android:layout_weight="1"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="@string/transfer_entrust"
-            android:textColor="@color/blue"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="@dimen/main_radius_conner"
-            app:strokeColor="@color/blue"
-            app:strokeWidth="1dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_relieve_entrust"
-            style="@style/main_material_btn"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="@string/relieve_entrust"
-            android:textColor="@color/blue"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="@dimen/main_radius_conner"
-            app:strokeColor="@color/blue"
-            app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_do_entrust"

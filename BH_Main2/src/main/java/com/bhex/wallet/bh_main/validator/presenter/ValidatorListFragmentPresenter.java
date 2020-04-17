@@ -23,25 +23,4 @@ public class ValidatorListFragmentPresenter extends BasePresenter {
         super(activity);
     }
 
-
-    public void getRecord(int valid){
-
-        BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,2000)
-                .compose(RxSchedulersHelper.io_main())
-                .subscribe(new BHBaseObserver<JsonObject>() {
-                    @Override
-                    protected void onSuccess(JsonObject jsonObject) {
-                        List<ValidatorInfo> validatorInfoList = JsonUtils.getListFromJson(jsonObject.toString(), ValidatorInfo.class);
-                        get
-
-                    }
-
-
-                    @Override
-                    protected void onFailure(int code, String errorMsg) {
-                        super.onFailure(code, errorMsg);
-                    }
-                });
-
-    }
 }

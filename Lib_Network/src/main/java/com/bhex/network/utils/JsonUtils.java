@@ -67,7 +67,11 @@ public class JsonUtils {
         JsonObject object = mParser.parse(json).getAsJsonObject();
         if (!object.has(memberName))
             return new JsonArray();
-        return object.get(memberName).getAsJsonArray();
+        if (object.get(memberName) != null && !object.get(memberName).isJsonNull() )
+            return object.get(memberName).getAsJsonArray();
+        else {
+            return new JsonArray();
+        }
     }
 
     public static String toJson(Object object) {

@@ -3,6 +3,7 @@ package com.bhex.wallet.bh_main.validator.ui.activity;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -12,26 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.balance.CoinBottomBtn;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.wallet.balance.R;
-import com.bhex.wallet.balance.R2;
-import com.bhex.wallet.balance.adapter.TxOrderAdapter;
-import com.bhex.wallet.balance.event.TransctionEvent;
-import com.bhex.wallet.balance.helper.BHBalanceHelper;
-import com.bhex.wallet.balance.helper.TransactionHelper;
-import com.bhex.wallet.balance.model.TxOrderItem;
-import com.bhex.wallet.balance.presenter.AssetPresenter;
-import com.bhex.wallet.balance.ui.fragment.ReInvestShareFragment;
-import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
-import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
+import com.bhex.tools.utils.DateUtil;
+import com.bhex.wallet.bh_main.R;
+import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.TransactionOrder;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,283 +39,108 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @author gongdongyang
- * 2020-4-4 23:34:33
- * 资产详情
+ * @author zc
+ * 2020-4-16
+ * 验证节点
  */
-@Route(path = ARouterConfig.Balance_Assets_Detail)
-public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
+@Route(path = ARouterConfig.Validator_Detail)
+public class ValidatorDetailActivity extends BaseActivity {
 
-    @Autowired(name = "balance")
-    BHBalance balance;
-    @Autowired(name = "accountInfo")
-    AccountInfo mAccountInfo;
-
-    BHBalance bthBalance;
-
-    @BindView(R2.id.tv_center_title)
-    AppCompatTextView tv_center_title;
-    @BindView(R2.id.btn_transfer_in)
-    CoinBottomBtn btn_transfer_in;
-    @BindView(R2.id.btn_transfer_out)
-    CoinBottomBtn btn_transfer_out;
-    @BindView(R2.id.btn_draw_share)
-    CoinBottomBtn btn_draw_share;
-    @BindView(R2.id.btn_reinvest_share)
-    CoinBottomBtn btn_reinvest_share;
-    @BindView(R2.id.recycler_order)
-    RecyclerView recycler_order;
-    @BindView(R2.id.empty_layout)
-    EmptyLayout empty_layout;
-
-    @BindView(R2.id.tv_coin_amount)
-    AppCompatTextView tv_coin_amount;
-    @BindView(R2.id.tv_coin_currency)
-    AppCompatTextView tv_coin_currency;
-    @BindView(R2.id.tv_available_text)
-    AppCompatTextView tv_available_text;
-    @BindView(R2.id.tv_available_value)
-    AppCompatTextView tv_available_value;
-    @BindView(R2.id.tv_entrust_text)
-    AppCompatTextView tv_entrust_text;
-    @BindView(R2.id.tv_entrust_value)
-    AppCompatTextView tv_entrust_value;
-    @BindView(R2.id.tv_redemption_text)
-    AppCompatTextView tv_redemption_text;
-    @BindView(R2.id.tv_redemption_value)
-    AppCompatTextView tv_redemption_value;
-    @BindView(R2.id.tv_income_text)
-    AppCompatTextView tv_income_text;
-    @BindView(R2.id.tv_income_value)
-    AppCompatTextView tv_income_value;
-
-    TxOrderAdapter mTxOrderAdapter;
-    TransactionViewModel transactionViewModel;
-    List<TransactionOrder> mOrderList;
-
-    int mCurrentPage = 1;
+    @Autowired(name = "validatorInfo")
+    ValidatorInfo mValidatorInfo;
+    @Autowired(name = "valid")
+    int mValid;
+    @BindView(R2.id.tv_validator_name)
+    AppCompatTextView tv_validator_name;
+    @BindView(R2.id.tv_voting_power_proportion)
+    CustomTextView tv_voting_power_proportion;
+    @BindView(R2.id.tv_self_delegate_proportion)
+    CustomTextView tv_self_delegate_proportion;
+    @BindView(R2.id.tv_up_time)
+    CustomTextView tv_up_time;
+    @BindView(R2.id.tv_other_delegate_proportion)
+    CustomTextView tv_other_delegate_proportion;
+    @BindView(R2.id.tv_update_time)
+    CustomTextView tv_update_time;
+    @BindView(R2.id.tv_max_rate)
+    CustomTextView tv_max_rate;
+    @BindView(R2.id.tv_max_change_rate)
+    CustomTextView tv_max_change_rate;
+    @BindView(R2.id.tv_address_value)
+    CustomTextView tv_address_value;
+    @BindView(R2.id.tv_website_value)
+    AppCompatTextView tv_website_value;
+    @BindView(R2.id.tv_detail_value)
+    AppCompatTextView tv_detail_value;
+    @BindView(R2.id.iv_status)
+    AppCompatImageView iv_status;
+    @BindView(R2.id.tv_status)
+    AppCompatTextView tv_status;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_asset_detail;
-    }
-
-    @Override
-    protected void initPresenter() {
-        mPresenter = new AssetPresenter(this);
+        return R.layout.activity_validator_detail;
     }
 
     @Override
     protected void initView() {
 
         ARouter.getInstance().inject(this);
-        tv_center_title.setText(balance.symbol.toUpperCase());
-
-        bthBalance = mPresenter.getBthBalanceWithAccount(mAccountInfo);
-
-        LinearLayoutManager lm = new LinearLayoutManager(this);
-        lm.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_order.setLayoutManager(lm);
-
-        mTxOrderAdapter = new TxOrderAdapter(R.layout.item_tx_order, mOrderList);
-        recycler_order.setAdapter(mTxOrderAdapter);
-
-        recycler_order.setNestedScrollingEnabled(false);
-
-        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
-
-        //根据token 显示View
-        initTokenView();
+        initValidatorView();
     }
 
-    private void initTokenView() {
 
-        //计算持有资产
-        String []res = BHBalanceHelper.getAmountToCurrencyValue(this,balance.amount,balance.symbol);
-        tv_coin_amount.setText(res[0]);
-        //对应法币实际值
-        tv_coin_currency.setText(res[1]);
-
-        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.symbol)){
-            //可用数量
-            String available_value = BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
-            tv_available_value.setText(available_value);
-            //委托中
-            tv_entrust_value.setText(mAccountInfo.getBonded());
-            //赎回中
-            tv_redemption_value.setText(mAccountInfo.getUnbonding());
-            //已收益
-            tv_income_value.setText(mAccountInfo.getClaimed_reward());
-            //转账
-            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
-
-        } else if (BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)) {
-            //原生代币
-            btn_draw_share.setVisibility(View.GONE);
-            btn_reinvest_share.setVisibility(View.GONE);
-            tv_available_text.setVisibility(View.GONE);
-            tv_available_value.setVisibility(View.GONE);
-            tv_entrust_text.setVisibility(View.GONE);
-            tv_entrust_value.setVisibility(View.GONE);
-            tv_redemption_text.setVisibility(View.GONE);
-            tv_redemption_value.setVisibility(View.GONE);
-            tv_income_text.setVisibility(View.GONE);
-            tv_income_value.setVisibility(View.GONE);
-            //转账
-            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
+    private void initValidatorView() {
+        if(mValidatorInfo==null)
+            return;
+        if (mValidatorInfo.getDescription()!=null) {
+            tv_validator_name.setText(mValidatorInfo.getDescription().getMoniker());
+            tv_website_value.setText(mValidatorInfo.getDescription().getWebsite());
+        }
+        if (mValid== BHConstants.VALIDATOR_VALID) {
+            iv_status.setImageResource(R.mipmap.icon_validator_valid);
+            tv_status.setText(R.string.tab_valid);
+            tv_status.setTextColor(getResources().getColor(R.color.color_green));
         } else {
-
-            //跨链代币
-            //转账
-            btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
-            //跨链充币
-            btn_draw_share.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_in));
-            btn_draw_share.tv_bottom_text.setText(getResources().getString(R.string.cross_chian_trans_in));
-
-            btn_draw_share.setId(R.id.cross_chian_transfer_in);
-            //跨链提币
-            btn_reinvest_share.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));
-            btn_reinvest_share.tv_bottom_text.setText(getResources().getString(R.string.cross_chian_trans_out));
-            btn_reinvest_share.setId(R.id.cross_chian_withdraw);
-
-            tv_available_text.setVisibility(View.GONE);
-            tv_available_value.setVisibility(View.GONE);
-            tv_entrust_text.setVisibility(View.GONE);
-            tv_entrust_value.setVisibility(View.GONE);
-            tv_redemption_text.setVisibility(View.GONE);
-            tv_redemption_value.setVisibility(View.GONE);
-            tv_income_text.setVisibility(View.GONE);
-            tv_income_value.setVisibility(View.GONE);
+            iv_status.setImageResource(R.mipmap.icon_validator_invalid);
+            tv_status.setText(R.string.tab_invalid);
+            tv_status.setTextColor(getResources().getColor(R.color.dark_black));
         }
 
+        tv_voting_power_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getVoting_power_proportion())? "":mValidatorInfo.getVoting_power_proportion() + "%");
+        tv_self_delegate_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getSelf_delegate_proportion())? "":mValidatorInfo.getSelf_delegate_proportion() + "%");
+        tv_other_delegate_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getOther_delegate_proportion())? "":mValidatorInfo.getVoting_power_proportion() + "%");
+        tv_up_time.setText(TextUtils.isEmpty(mValidatorInfo.getUp_time())? "":mValidatorInfo.getUp_time() + "%");
 
-
+        String tv_time = DateUtil.transTimeWithPattern(mValidatorInfo.getLast_voted_time()*1000,"yyyy/MM/dd hh:mm:ss aa z");
+        tv_update_time.setText(tv_time);
+        if (mValidatorInfo.getCommission()!=null) {
+            tv_max_rate.setText(TextUtils.isEmpty(mValidatorInfo.getCommission().getMax_rate()) ? "" : mValidatorInfo.getCommission().getMax_rate() + "%");
+            tv_max_change_rate.setText(TextUtils.isEmpty(mValidatorInfo.getCommission().getMax_change_rate()) ? "" : mValidatorInfo.getCommission().getMax_change_rate() + "%");
+        }
+        tv_address_value.setText(mValidatorInfo.getOperator_address());
     }
 
     @Override
     protected void addEvent() {
-        empty_layout.showProgess();
-        transactionViewModel.queryTransctionByAddress(this,
-                BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, balance.symbol, null);
-        transactionViewModel.transLiveData.observe(this, ldm -> {
-            //更新交易记录
-            if (ldm.loadingStatus == LoadingStatus.SUCCESS && ldm.getData() != null && ldm.getData().size() > 0) {
-                empty_layout.loadSuccess();
-                updateTxOrder(ldm.getData());
-            } else if (ldm.getData() == null || ldm.getData().size() == 0) {
-                empty_layout.showNoData();
-            } else {
-                empty_layout.showNeterror(view -> {
-
-                });
-            }
-        });
-
-        mTxOrderAdapter.setOnItemClickListener((adapter, view, position) -> {
-            TransactionOrder txo = mOrderList.get(position);
-            TxOrderItem txOrderItem = TransactionHelper.getTxOrderItem(txo);
-            ARouter.getInstance().build(ARouterConfig.Balance_transcation_detail)
-                    .withObject("txo",txOrderItem)
-                    .navigation();
-
-
-
-
-        });
-
-        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
-    /**
-     * 更新交易记录
-     *
-     * @param data
-     */
-    private void updateTxOrder(List<TransactionOrder> data) {
-        if (data == null || data.size() == 0) {
-            return;
-        }
-        mOrderList = data;
-        mTxOrderAdapter.addData(data);
-    }
-
-    @OnClick({R2.id.btn_transfer_in, R2.id.btn_transfer_out,
-            R2.id.btn_draw_share, R2.id.btn_reinvest_share})
+    @OnClick({R2.id.iv_copy, R2.id.btn_transfer_entrust, R2.id.btn_relieve_entrust, R2.id.btn_do_entrust})
     public void onViewClicked(View view) {
-        if (view.getId() == R.id.btn_transfer_in) {
-            ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
-                    .withObject("balance", balance)
-                    .withInt("way",1)
-                    .navigation();
-        } else if (view.getId() == R.id.btn_transfer_out) {
-            ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
-                    .withObject("balance", balance)
-                    .withObject("bhtBalance",bthBalance)
-                    .withInt("way",1)
-                    .navigation();
-        } else if (view.getId() == R.id.btn_draw_share) {
-            WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
-                    WithDrawShareFragment.class.getSimpleName(), itemListener);
-        } else if (view.getId() == R.id.btn_reinvest_share) {
-            ReInvestShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
-                    ReInvestShareFragment.class.getSimpleName(), fragmentItemListener);
-        }else if(view.getId() == R.id.cross_chian_transfer_in){
-            if(!TextUtils.isEmpty(balance.external_address)){
-                /*ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
-                        .withObject("balance", balance)
-                        .withObject("bhtBalance",bthBalance)
-                        .withInt("way",2)
-                        .navigation();
-                return;*/
-                ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
-                        .withObject("balance", balance)
-                        .withInt("way",2)
-                        .navigation();
-            }else{
-                //请求用户资产 获取链外地址
+        if (view.getId() == R.id.iv_copy) {
 
-            }
+        } else if (view.getId() == R.id.btn_transfer_entrust) {
 
-        }else if(view.getId() == R.id.cross_chian_withdraw){
-            if(!TextUtils.isEmpty(balance.external_address)){
-                /*ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
-                        .withObject("balance", balance)
-                        .withObject("bhtBalance",bthBalance)
-                        .withInt("way",2)
-                        .navigation();
-                return;*/
-                ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
-                        .withObject("balance", balance)
-                        .withObject("bhtBalance",bthBalance)
-                        .withInt("way",2)
-                        .navigation();
-            }else{
-                //请求用户资产 获取链外地址
+        } else if (view.getId() == R.id.btn_relieve_entrust) {
 
-            }
+        } else if (view.getId() == R.id.btn_do_entrust) {
 
         }
-    }
-
-    private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-
-    });
-
-    private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
-
-    });
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateTransction(TransctionEvent txEvent){
-        transactionViewModel.queryTransctionByAddress(this,
-                BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, balance.symbol, null);
     }
 
 }

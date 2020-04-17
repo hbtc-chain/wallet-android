@@ -50,6 +50,11 @@ public class ValidatorInfo {
     private CommissionBean commission;
     private DescriptionBean description;
     private List<LastBlocksBean> last_blocks;
+    /**
+     * last_voted_time : 1584526635
+     */
+
+    private long last_voted_time;
 
     public String getAddress() {
         return address;
@@ -201,6 +206,14 @@ public class ValidatorInfo {
 
     public void setLast_blocks(List<LastBlocksBean> last_blocks) {
         this.last_blocks = last_blocks;
+    }
+
+    public long getLast_voted_time() {
+        return last_voted_time;
+    }
+
+    public void setLast_voted_time(long last_voted_time) {
+        this.last_voted_time = last_voted_time;
     }
 
     public static class CommissionBean {

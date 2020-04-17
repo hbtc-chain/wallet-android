@@ -156,10 +156,23 @@
     <string name="voting_power_proportion">投票权</string>
     <string name="other_delegate_proportion">佣金率</string>
     <string name="self_delegate_proportion">自我委托</string>
+    <string name="validate_node">验证节点</string>
+    <string name="transfer_entrust">转委托</string>
+    <string name="relieve_entrust">解委托</string>
+    <string name="do_entrust">委托</string>
+    <string name="up_time">上线时间比重</string>
+    <string name="update_time">更新时间</string>
+    <string name="max_rate_limit">最大佣金限制</string>
+    <string name="website">网站</string>
+    <string name="detail">详情</string>
+    <string name="do_entrust_tip">It will take 21 days to unlock your tokens after they are staked. There is a risk that some tokens will be lost depending on the behaviour of the validator you choose.</string>
+    <string name="entrust_to">委托至</string>
+    <string name="hint_input_validator">请输入验证人</string>
+    <string name="hint_enter_entrust">请输入委托数量</string>
+    <string name="entrust_amount">委托数量</string>
+
     <string name="withdraw_reward">提取收益</string>
     <string name="other">其它</string>
-
-
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>
