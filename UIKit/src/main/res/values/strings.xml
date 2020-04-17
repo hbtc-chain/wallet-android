@@ -173,6 +173,7 @@
 
     <string name="withdraw_reward">提取收益</string>
     <string name="other">其它</string>
+    <string name="max_rate_change_limit">每天最大佣金变化限制</string>
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>
