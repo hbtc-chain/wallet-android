@@ -77,4 +77,9 @@ public class ARouterConfig {
     //验证人详情页
     public static final String Validator_Detail = "/validator/detail";
 
+
+    //二维码扫描
+    public static final String Commom_scan_qr = "/Common/scan_qr";
+
+
 }

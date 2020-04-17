@@ -23,7 +23,8 @@ import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.xuexiang.xqrcode.logs.QCLog;
+
+import com.bhex.lib_qr.logs.QCLog;
 
 import java.util.regex.Pattern;
 

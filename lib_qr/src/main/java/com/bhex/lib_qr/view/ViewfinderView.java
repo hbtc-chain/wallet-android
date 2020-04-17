@@ -28,9 +28,9 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.bhex.lib_qr.R;
+import com.bhex.lib_qr.camera.CameraManager;
 import com.google.zxing.ResultPoint;
-import com.xuexiang.xqrcode.R;
-import com.xuexiang.xqrcode.camera.CameraManager;
 
 import java.util.Collection;
 import java.util.HashSet;

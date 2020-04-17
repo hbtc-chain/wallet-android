@@ -18,22 +18,22 @@ package com.bhex.lib_qr.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.annotation.Nullable;
 
+import androidx.annotation.Nullable;
+
+import com.bhex.lib_qr.camera.BitmapLuminanceSource;
+import com.bhex.lib_qr.decoding.DecodeFormatManager;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.xuexiang.xqrcode.camera.BitmapLuminanceSource;
-import com.xuexiang.xqrcode.decoding.DecodeFormatManager;
 
 import java.io.File;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import static com.xuexiang.xqrcode.util.QRCodeProduceUtils.QRCODE_BITMAP_MAX_SIZE;
 
 /**
  * <pre>
@@ -103,7 +103,7 @@ public final class QRCodeAnalyzeUtils {
      * @return
      */
     private static Bitmap getQRCodeBitmap(String qrCodePicPath) {
-        return getBitmap(qrCodePicPath, QRCODE_BITMAP_MAX_SIZE, QRCODE_BITMAP_MAX_SIZE);
+        return getBitmap(qrCodePicPath, QRCodeProduceUtils.QRCODE_BITMAP_MAX_SIZE, QRCodeProduceUtils.QRCODE_BITMAP_MAX_SIZE);
     }
 
     /**

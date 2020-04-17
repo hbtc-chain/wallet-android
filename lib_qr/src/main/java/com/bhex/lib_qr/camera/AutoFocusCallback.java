@@ -20,8 +20,9 @@ import android.hardware.Camera;
 import android.os.Handler;
 import android.os.Message;
 
-import com.xuexiang.xqrcode.XQRCode;
-import com.xuexiang.xqrcode.logs.QCLog;
+import com.bhex.lib_qr.XQRCode;
+import com.bhex.lib_qr.logs.QCLog;
+
 
 /**
  * 自动聚焦的回掉

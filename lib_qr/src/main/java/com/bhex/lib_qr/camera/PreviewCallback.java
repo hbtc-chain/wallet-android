@@ -21,7 +21,8 @@ import android.hardware.Camera;
 import android.os.Handler;
 import android.os.Message;
 
-import com.xuexiang.xqrcode.logs.QCLog;
+import com.bhex.lib_qr.logs.QCLog;
+
 
 public final class PreviewCallback implements Camera.PreviewCallback {
 

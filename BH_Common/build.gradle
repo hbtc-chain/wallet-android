@@ -81,6 +81,7 @@ dependencies {
     api project(path: ':Lib_Network')
     api project(path: ':Lib_Tools')
     api project(path: ':UIKit')
+    api project(path: ':Lib_Qr')
 
     implementation 'org.web3j:core:3.3.1-android'
     implementation 'io.github.novacrypto:BIP39:0.1.9'//用于生成助记词

@@ -2,7 +2,7 @@
 <resources>
 
     <dimen name="default_inner_corner_length">32dp</dimen>
-    <dimen name="default_inner_corner_width">6dp</dimen>
+    <dimen name="default_inner_corner_width">3dp</dimen>
     <dimen name="default_inner_scan_speed">5dp</dimen>
 
 

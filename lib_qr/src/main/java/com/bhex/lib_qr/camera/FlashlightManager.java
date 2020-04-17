@@ -20,7 +20,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 
-import com.xuexiang.xqrcode.logs.QCLog;
+
+import com.bhex.lib_qr.logs.QCLog;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

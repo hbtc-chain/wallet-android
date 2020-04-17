@@ -1,5 +1,7 @@
 package com.bhex.wallet.balance.ui.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.InputType;
 import android.util.TypedValue;
@@ -17,6 +19,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
@@ -32,6 +35,7 @@ import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -86,6 +90,11 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.mutableLiveData.observe(this,ldm -> {
             updateTransferStatus(ldm);
+        });
+        tv_to_address.btn_right_text.setVisibility(View.GONE);
+        tv_to_address.iv_right.setVisibility(View.VISIBLE);
+        tv_to_address.iv_right.setOnClickListener(v -> {
+            ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
         });
     }
 
@@ -274,6 +283,19 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             //transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //处理二维码扫描结果
+        if (requestCode == BHQrScanActivity.REQUEST_CODE && resultCode == RESULT_OK) {
+            //处理扫描结果（在界面上显示）
+            //handleScanResult(data);
+            LogUtils.d("TransferOutActivity==>:","resultCode");
+        }
+
+
     }
 
 }

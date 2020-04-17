@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
@@ -29,6 +30,8 @@ public class WithDrawInput extends RelativeLayout {
 
     public AppCompatTextView btn_right_text;
 
+    public AppCompatImageView iv_right;
+
     public WithDrawInput(Context context) {
         this(context,null);
     }
@@ -47,6 +50,9 @@ public class WithDrawInput extends RelativeLayout {
         mRootView = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.layout_withdraw_input,this);
         ed_input = mRootView.findViewById(R.id.et_input_content);
         btn_right_text = mRootView.findViewById(R.id.btn_right_text);
+
+        iv_right = mRootView.findViewById(R.id.iv_right);
+
 
         TypedArray ta = mContext.obtainStyledAttributes(attrs,R.styleable.With_Coin_Input);
 
