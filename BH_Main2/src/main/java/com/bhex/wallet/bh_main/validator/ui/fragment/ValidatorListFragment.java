@@ -59,9 +59,8 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         Bundle arguments = getArguments();
         if (arguments != null) {
             mValidatorType = arguments.getInt(KEY_VALIDATOR_TYPE,0);
-            mPresenter.getRecord(mValidatorType);
         }
-        mValidatorAdapter = new ValidatorAdapter(R.layout.item_validator, mValidatorInfoList);
+        mValidatorAdapter = new ValidatorAdapter(mValidatorType,R.layout.item_validator, mValidatorInfoList);
         recycler_validator.setAdapter(mValidatorAdapter);
     }
 
