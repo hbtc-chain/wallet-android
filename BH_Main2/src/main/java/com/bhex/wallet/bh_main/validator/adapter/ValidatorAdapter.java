@@ -30,14 +30,16 @@ import java.util.List;
  */
 public class ValidatorAdapter extends BaseQuickAdapter<ValidatorInfo, BaseViewHolder> {
 
-    public ValidatorAdapter(int layoutResId, @Nullable List<ValidatorInfo> data) {
+    private int mValid;
+    public ValidatorAdapter(int isValid,int layoutResId, @Nullable List<ValidatorInfo> data) {
         super(layoutResId, data);
+        mValid = isValid;
     }
 
     @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable ValidatorInfo validatorInfo) {
-        viewHolder.setText(R.id.tv_validator_name,validatorInfo.getAddress());
-        if (validatorInfo.getStatus() == BHConstants.VALIDATOR_VALID) {
+        viewHolder.setText(R.id.tv_validator_name,validatorInfo.getDescription().getMoniker());
+        if (mValid == BHConstants.VALIDATOR_VALID) {
             viewHolder.setTextColor(R.id.tv_validator_name, getContext().getResources().getColor(R.color.main_text_black));
             viewHolder.setImageResource(R.id.iv_status, R.mipmap.icon_validator_valid);
         } else {
@@ -45,9 +47,9 @@ public class ValidatorAdapter extends BaseQuickAdapter<ValidatorInfo, BaseViewHo
             viewHolder.setImageResource(R.id.iv_status, R.mipmap.icon_validator_invalid);
         }
 
-        viewHolder.setText(R.id.tv_voting_power_proportion, NumberUtil.getPercentFormat(validatorInfo.getVoting_power_proportion()));
-        viewHolder.setText(R.id.tv_self_delegate_proportion,NumberUtil.getPercentFormat(validatorInfo.getSelf_delegate_proportion()));
-        viewHolder.setText(R.id.tv_other_delegate_proportion,NumberUtil.getPercentFormat(validatorInfo.getOther_delegate_proportion()));
+        viewHolder.setText(R.id.tv_voting_power_proportion, validatorInfo.getVoting_power_proportion() + "%");
+        viewHolder.setText(R.id.tv_self_delegate_proportion,validatorInfo.getSelf_delegate_proportion() + "%");
+        viewHolder.setText(R.id.tv_other_delegate_proportion,TextUtils.isEmpty(validatorInfo.getOther_delegate_proportion())? "":validatorInfo.getOther_delegate_proportion() + "%");
 
     }
 

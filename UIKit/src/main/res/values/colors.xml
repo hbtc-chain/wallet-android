@@ -64,5 +64,9 @@
     <color name="theme_color_dark">#ff0062cc</color>
     <color name="theme_color">#ff007aff</color>
 
-    <color name="divider_line_color">#E5E5E5</color>
+    <color name="divider_line_color">#F9F9FB</color>
+    <color name="color_F9F9FB">#F4F7FF</color>
+    <color name="color_F4F7FF">#F9F9FB</color>
+
+
 </resources>

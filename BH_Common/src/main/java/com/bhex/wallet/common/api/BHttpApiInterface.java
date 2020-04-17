@@ -1,6 +1,7 @@
 package com.bhex.wallet.common.api;
 
 import com.bhex.wallet.common.model.BHRates;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -40,4 +41,9 @@ public interface BHttpApiInterface {
     Observable<JsonObject> queryTransctionByAddress(@Path("address") String address,
                                                     @Query("page") int page,@Query("page_size") int pageSize,
                                                     @Query("token") String token,@Query("type") String type);
+
+
+    //验证人接口
+    @GET("api/v1/validators")
+    Observable<JsonArray> queryValidators(@Query("valid") int valid);
 }

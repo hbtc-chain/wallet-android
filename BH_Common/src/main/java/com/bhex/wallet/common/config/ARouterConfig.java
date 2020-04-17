@@ -76,6 +76,8 @@ public class ARouterConfig {
 
     //验证人详情页
     public static final String Validator_Detail = "/validator/detail";
+    public static final String Do_Entrust = "/validator/do_entrust";
+    public static final String Transfer_Entrust = "/validator/transfer_entrust";
 
 
     //二维码扫描

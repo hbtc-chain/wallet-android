@@ -11,6 +11,8 @@
         <activity android:name=".my.ui.activity.SettingActivity" />
         <activity android:name=".my.ui.activity.LanguageSettingActivity" />
         <activity android:name=".MainIndexActivity" />
+        <activity android:name=".validator.ui.activity.ValidatorDetailActivity" />
+
     </application>
 
 </manifest>
