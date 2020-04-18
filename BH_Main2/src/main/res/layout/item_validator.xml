@@ -119,8 +119,8 @@
 
         <com.bhex.lib.uikit.widget.CustomTextView
             android:id="@+id/tv_other_delegate_proportion"
-            android:layout_width="109dp"
-            android:layout_height="31dp"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_28"
             android:gravity="right|center_vertical"
             android:text=""
             android:textColor="@color/main_text_black"
