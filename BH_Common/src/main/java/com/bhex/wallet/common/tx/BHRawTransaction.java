@@ -26,6 +26,7 @@ public class BHRawTransaction {
 
     /**
      * 创建交易
+     *
      * @param sequence
      * @param from
      * @param to
@@ -35,9 +36,9 @@ public class BHRawTransaction {
      * @param memo
      * @return
      */
-    public static BHRawTransaction createBHRawTransaction(String sequence,  String from,String to,
-                                                   BigInteger amount, BigInteger feeAmount,BigInteger gasPrice,
-                                                          String memo,String symbol){
+    public static BHRawTransaction createBHRawTransaction(String sequence, String from, String to,
+                                                          BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
+                                                          String memo, String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = memo;
         bhRawTransaction.sequence = sequence;
@@ -78,7 +79,7 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long)NumberUtil.divide(feeAmount.toString(10),gasPrice.toString(10))+"";
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
 
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
@@ -86,7 +87,6 @@ public class BHRawTransaction {
     }
 
     /**
-     *
      * @param sequence
      * @param from
      * @param to
@@ -96,9 +96,9 @@ public class BHRawTransaction {
      * @param symbol
      * @return
      */
-    public static BHRawTransaction createBHCrossGenerateTransaction(String sequence,  String from,String to,
-                                                          BigInteger feeAmount,BigInteger gasPrice,
-                                                          String memo,String symbol){
+    public static BHRawTransaction createBHCrossGenerateTransaction(String sequence, String from, String to,
+                                                                    BigInteger feeAmount, BigInteger gasPrice,
+                                                                    String memo, String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = memo;
         bhRawTransaction.sequence = sequence;
@@ -141,7 +141,7 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long)NumberUtil.divide(feeAmount.toString(10),gasPrice.toString(10))+"";
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
 
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
@@ -149,7 +149,6 @@ public class BHRawTransaction {
     }
 
     /**
-     *
      * @param sequence
      * @param from
      * @param to
@@ -159,9 +158,9 @@ public class BHRawTransaction {
      * @param symbol
      * @return
      */
-    public static BHRawTransaction createBHCrossWithdrawalTransaction(String sequence,  String from,String to,
-                                                                      BigInteger amount,BigInteger feeAmount,BigInteger gasFeeAmount,BigInteger gasPrice,
-                                                                    String memo,String symbol){
+    public static BHRawTransaction createBHCrossWithdrawalTransaction(String sequence, String from, String to,
+                                                                      BigInteger amount, BigInteger feeAmount, BigInteger gasFeeAmount, BigInteger gasPrice,
+                                                                      String memo, String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = memo;
         bhRawTransaction.sequence = sequence;
@@ -206,14 +205,126 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long)NumberUtil.divide(feeAmount.toString(10),gasPrice.toString(10))+"";
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
 
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
 
     }
 
-    public BHRawTransaction addTransferMsg(TxMsg txMsg){
+
+    /**
+     * 委托
+     *
+     * @param sequence
+     * @param delegatorAddress
+     * @param validatorAddress
+     * @param amount
+     * @param feeAmount
+     * @param gasPrice
+     * @param memo
+     * @param symbol
+     * @return
+     */
+    public static BHRawTransaction createBHDoEntrustTransaction(String sequence, String delegatorAddress, String validatorAddress,
+                                                                BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
+                                                                String memo, String symbol) {
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = memo;
+        bhRawTransaction.sequence = sequence;
+
+        bhRawTransaction.msgs = new ArrayList<>();
+
+        //开始创建一个委托TxMsg
+        TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
+
+
+        //msg.type = "cosmos-sdk/MsgSend";
+        msg.type = "hbtcchain/MsgDelegate";
+
+        DoEntrustMsg doEntrustMsg = new DoEntrustMsg();
+        msg.value = doEntrustMsg;
+
+        //转账Amount
+        TxCoin coin = new TxCoin();
+        coin.denom = symbol;
+        coin.amount = amount.toString(10);
+
+        doEntrustMsg.amount = coin;
+
+
+        doEntrustMsg.validator_address = validatorAddress;
+        doEntrustMsg.delegator_address = delegatorAddress;
+
+        //完成创建一个交易TxMsg
+        bhRawTransaction.msgs.add(msg);
+
+        //转账手续费
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxCoin feeCoin = new TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+
+        bhRawTransaction.fee = fee;
+        return bhRawTransaction;
+
+    }
+
+
+
+    public static BHRawTransaction createBHRelieveEntrustTransaction(String sequence, String delegatorAddress, String validatorAddress,
+                                                                BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
+                                                                String memo, String symbol) {
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = memo;
+        bhRawTransaction.sequence = sequence;
+
+        bhRawTransaction.msgs = new ArrayList<>();
+
+        //开始创建一个委托TxMsg
+        TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
+
+
+        //msg.type = "cosmos-sdk/MsgSend";
+        msg.type = "hbtcchain/MsgUndelegate";
+
+        DoEntrustMsg doEntrustMsg = new DoEntrustMsg();
+        msg.value = doEntrustMsg;
+
+        //转账Amount
+        TxCoin coin = new TxCoin();
+        coin.denom = symbol;
+        coin.amount = amount.toString(10);
+
+        doEntrustMsg.amount = coin;
+
+
+        doEntrustMsg.validator_address = validatorAddress;
+        doEntrustMsg.delegator_address = delegatorAddress;
+
+        //完成创建一个交易TxMsg
+        bhRawTransaction.msgs.add(msg);
+
+        //转账手续费
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxCoin feeCoin = new TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+
+        bhRawTransaction.fee = fee;
+        return bhRawTransaction;
+
+    }
+
+    public BHRawTransaction addTransferMsg(TxMsg txMsg) {
         this.msgs.add(txMsg);
         return this;
     }
@@ -227,7 +338,7 @@ public class BHRawTransaction {
         public List<TxMsg> msgs;
         public String sequence;
 
-        public BHRawTransaction build(){
+        public BHRawTransaction build() {
             return new BHRawTransaction();
         }
     }

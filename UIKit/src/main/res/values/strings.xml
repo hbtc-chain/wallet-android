@@ -73,6 +73,7 @@
     <string name="tips_secure_index_5">等情况导致的资产损失</string>
     <string name="confirm_password">重复密码</string>
     <string name="trusteeship_manger">管理托管单元</string>
+    <string name="my_trusteeship">我的托管单元</string>
     <string name="str_default">默认</string>
     <string name="set_name">设置名称</string>
     <string name="please_be_sure">请务必</string>
@@ -174,6 +175,19 @@
     <string name="withdraw_reward">提取收益</string>
     <string name="other">其它</string>
     <string name="max_rate_change_limit">每天最大佣金变化限制</string>
+    <string name="speedup">加速</string>
+    <string name="string_placeholder">--</string>
+    <string name="source_address">来源于</string>
+    <string name="relieve_entrust_to">解委托至</string>
+    <string name="real_entrust_amount">实际到账数量</string>
+    <string name="relieve_entrust_amount">解委托数量</string>
+    <string name="transfer_entrust_amount">转委托数量</string>
+    <string name="do_entrust_succeed">委托成功</string>
+    <string name="do_entrust_failed">委托失败</string>
+    <string name="relieve_entrust_failed">解委托失败</string>
+    <string name="relieve_entrust_succeed">解委托成功</string>
+    <string name="transfer_entrust_succeed">转委托成功</string>
+    <string name="transfer_entrust_failed">转委托失败</string>
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>

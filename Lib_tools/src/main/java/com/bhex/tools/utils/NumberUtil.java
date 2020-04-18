@@ -90,6 +90,12 @@ public class NumberUtil {
         return b1.add(b2).doubleValue();
     }
 
+    public static Double add(String value1, String value2) {
+        BigDecimal b1 = new BigDecimal(value1);
+        BigDecimal b2 = new BigDecimal(value2);
+        return b1.add(b2).doubleValue();
+    }
+
 
     /**
      * 两个数相乘

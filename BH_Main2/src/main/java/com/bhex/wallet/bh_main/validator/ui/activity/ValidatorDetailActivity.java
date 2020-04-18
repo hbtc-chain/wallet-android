@@ -20,14 +20,17 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.DateUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
+import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.TransactionOrder;
+import com.hjq.toast.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -91,13 +94,14 @@ public class ValidatorDetailActivity extends BaseActivity {
 
 
     private void initValidatorView() {
-        if(mValidatorInfo==null)
+        if (mValidatorInfo == null)
             return;
-        if (mValidatorInfo.getDescription()!=null) {
+        if (mValidatorInfo.getDescription() != null) {
             tv_validator_name.setText(mValidatorInfo.getDescription().getMoniker());
             tv_website_value.setText(mValidatorInfo.getDescription().getWebsite());
+            tv_detail_value.setText(mValidatorInfo.getDescription().getDetails());
         }
-        if (mValid== BHConstants.VALIDATOR_VALID) {
+        if (mValid == BHConstants.VALIDATOR_VALID) {
             iv_status.setImageResource(R.mipmap.icon_validator_valid);
             tv_status.setText(R.string.tab_valid);
             tv_status.setTextColor(getResources().getColor(R.color.color_green));
@@ -107,14 +111,14 @@ public class ValidatorDetailActivity extends BaseActivity {
             tv_status.setTextColor(getResources().getColor(R.color.dark_black));
         }
 
-        tv_voting_power_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getVoting_power_proportion())? "":mValidatorInfo.getVoting_power_proportion() + "%");
-        tv_self_delegate_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getSelf_delegate_proportion())? "":mValidatorInfo.getSelf_delegate_proportion() + "%");
-        tv_other_delegate_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getOther_delegate_proportion())? "":mValidatorInfo.getVoting_power_proportion() + "%");
-        tv_up_time.setText(TextUtils.isEmpty(mValidatorInfo.getUp_time())? "":mValidatorInfo.getUp_time() + "%");
+        tv_voting_power_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getVoting_power_proportion()) ? "" : mValidatorInfo.getVoting_power_proportion() + "%");
+        tv_self_delegate_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getSelf_delegate_proportion()) ? "" : mValidatorInfo.getSelf_delegate_proportion() + "%");
+        tv_other_delegate_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getOther_delegate_proportion()) ? "" : mValidatorInfo.getVoting_power_proportion() + "%");
+        tv_up_time.setText(TextUtils.isEmpty(mValidatorInfo.getUp_time()) ? "" : mValidatorInfo.getUp_time() + "%");
 
-        String tv_time = DateUtil.transTimeWithPattern(mValidatorInfo.getLast_voted_time()*1000,"yyyy/MM/dd hh:mm:ss aa z");
+        String tv_time = DateUtil.transTimeWithPattern(mValidatorInfo.getLast_voted_time() * 1000, "yyyy/MM/dd hh:mm:ss aa z");
         tv_update_time.setText(tv_time);
-        if (mValidatorInfo.getCommission()!=null) {
+        if (mValidatorInfo.getCommission() != null) {
             tv_max_rate.setText(TextUtils.isEmpty(mValidatorInfo.getCommission().getMax_rate()) ? "" : mValidatorInfo.getCommission().getMax_rate() + "%");
             tv_max_change_rate.setText(TextUtils.isEmpty(mValidatorInfo.getCommission().getMax_change_rate()) ? "" : mValidatorInfo.getCommission().getMax_change_rate() + "%");
         }
@@ -133,13 +137,26 @@ public class ValidatorDetailActivity extends BaseActivity {
     @OnClick({R2.id.iv_copy, R2.id.btn_transfer_entrust, R2.id.btn_relieve_entrust, R2.id.btn_do_entrust})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.iv_copy) {
+            String text = tv_address_value.getText().toString();
+
+            ToolUtils.copyText(text, this);
+            ToastUtils.show(getResources().getString(R.string.copyed));
 
         } else if (view.getId() == R.id.btn_transfer_entrust) {
-
+            ARouter.getInstance().build(ARouterConfig.Do_Entrust)
+                    .withObject("validatorInfo",mValidatorInfo)
+                    .withInt("bussiType", ENTRUST_BUSI_TYPE.TRANFER_ENTRUS.getTypeId())
+                    .navigation();
         } else if (view.getId() == R.id.btn_relieve_entrust) {
-
+            ARouter.getInstance().build(ARouterConfig.Do_Entrust)
+                    .withObject("validatorInfo",mValidatorInfo)
+                    .withInt("bussiType", ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId())
+                    .navigation();
         } else if (view.getId() == R.id.btn_do_entrust) {
-
+            ARouter.getInstance().build(ARouterConfig.Do_Entrust)
+                    .withObject("validatorInfo",mValidatorInfo)
+                    .withInt("bussiType", ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId())
+                    .navigation();
         }
     }
 

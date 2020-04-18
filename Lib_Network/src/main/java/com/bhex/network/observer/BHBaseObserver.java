@@ -30,6 +30,7 @@ public abstract class BHBaseObserver<T>  implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        e.printStackTrace();
         ApiException apiException = ExceptionEngin.handleException(e);
         onFailure(apiException.getCode(), apiException.getDisplayMessage());
     }
