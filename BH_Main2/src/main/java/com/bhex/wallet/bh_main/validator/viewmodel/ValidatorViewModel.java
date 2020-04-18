@@ -12,8 +12,6 @@ import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
-import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -29,16 +27,42 @@ import java.util.List;
  */
 public class ValidatorViewModel extends ViewModel {
 
-    public MutableLiveData<LoadDataModel<List<ValidatorInfo>>> validatorLiveData  = new MutableLiveData<>();
+    public MutableLiveData<LoadDataModel<List<ValidatorInfo>>> validatorsLiveData = new MutableLiveData<>();
+    public MutableLiveData<LoadDataModel<ValidatorInfo>> validatorLiveData  = new MutableLiveData<>();
+
 
     //获取验证人
-    public void getValidatorInfo(BaseActivity activity,int valid){
-        BHProgressObserver<JsonArray> observer = new BHProgressObserver<JsonArray>(activity) {
+    public void getValidatorInfos(BaseActivity activity, int valid){
+        BHBaseObserver<JsonArray> observer = new BHBaseObserver<JsonArray>() {
             @Override
             protected void onSuccess(JsonArray jsonObject) {
-                super.onSuccess(jsonObject);
                 List<ValidatorInfo> validatorInfoList = JsonUtils.getListFromJson(jsonObject.toString(), ValidatorInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(validatorInfoList);
+                validatorsLiveData.postValue(loadDataModel);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
+                validatorsLiveData.postValue(loadDataModel);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .queryValidators(valid)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+    //获取验证人
+    public void getValidatorInfo(BaseActivity activity, String  opAddress){
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                super.onSuccess(jsonObject);
+                ValidatorInfo validatorInfo = JsonUtils.fromJson(jsonObject.toString(), ValidatorInfo.class);
+                LoadDataModel loadDataModel = new LoadDataModel(validatorInfo);
                 validatorLiveData.postValue(loadDataModel);
             }
 
@@ -51,11 +75,10 @@ public class ValidatorViewModel extends ViewModel {
         };
 
         BHttpApi.getService(BHttpApiInterface.class)
-                .queryValidators(valid)
+                .queryValidator(opAddress)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
     }
-
 
 }

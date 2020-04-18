@@ -5,17 +5,12 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.CustomTextView;
-import com.bhex.lib.uikit.widget.EmptyLayout;
-import com.bhex.lib.uikit.widget.balance.CoinBottomBtn;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
@@ -24,19 +19,16 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
+import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.ValidatorInfo;
-import com.bhex.wallet.common.tx.TransactionOrder;
 import com.hjq.toast.ToastUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -80,6 +72,11 @@ public class ValidatorDetailActivity extends BaseActivity {
     @BindView(R2.id.tv_status)
     AppCompatTextView tv_status;
 
+    @BindView(R2.id.refreshLayout)
+    SmartRefreshLayout swipeRefresh;
+
+    ValidatorViewModel mValidatorViewModel;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_validator_detail;
@@ -90,6 +87,8 @@ public class ValidatorDetailActivity extends BaseActivity {
 
         ARouter.getInstance().inject(this);
         initValidatorView();
+
+        mValidatorViewModel = ViewModelProviders.of(this).get(ValidatorViewModel.class);
     }
 
 
@@ -122,42 +121,77 @@ public class ValidatorDetailActivity extends BaseActivity {
             tv_max_rate.setText(TextUtils.isEmpty(mValidatorInfo.getCommission().getMax_rate()) ? "" : mValidatorInfo.getCommission().getMax_rate() + "%");
             tv_max_change_rate.setText(TextUtils.isEmpty(mValidatorInfo.getCommission().getMax_change_rate()) ? "" : mValidatorInfo.getCommission().getMax_change_rate() + "%");
         }
-        tv_address_value.setText(mValidatorInfo.getOperator_address());
+        tv_address_value.setText(addressReplace(mValidatorInfo.getOperator_address()));
     }
 
+    private String addressReplace(String originAddress) {
+        if (originAddress == null || TextUtils.isEmpty(originAddress)) {
+            return "";
+        }
+        if (originAddress.length()<21) {
+            return originAddress;
+        }
+        return originAddress.replace(originAddress.substring(10,originAddress.length()-10),"...");
+    }
     @Override
     protected void addEvent() {
+        mValidatorViewModel.validatorLiveData.observe(this, ldm -> {
+            swipeRefresh.finishRefresh();
+            if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
+                updateRecord(ldm.getData());
+            }
+        });
+
+
+        swipeRefresh.setOnRefreshListener(refreshLayout1 -> {
+            getRecord();
+        });
+    }
+
+    private void updateRecord(ValidatorInfo data) {
+        mValidatorInfo = data;
+        initValidatorView();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getRecord();
+    }
 
     @OnClick({R2.id.iv_copy, R2.id.btn_transfer_entrust, R2.id.btn_relieve_entrust, R2.id.btn_do_entrust})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.iv_copy) {
-            String text = tv_address_value.getText().toString();
-
-            ToolUtils.copyText(text, this);
+            if (mValidatorInfo==null)
+                return;
+            ToolUtils.copyText(mValidatorInfo.getOperator_address(), this);
             ToastUtils.show(getResources().getString(R.string.copyed));
 
         } else if (view.getId() == R.id.btn_transfer_entrust) {
             ARouter.getInstance().build(ARouterConfig.Do_Entrust)
-                    .withObject("validatorInfo",mValidatorInfo)
+                    .withObject("validatorInfo", mValidatorInfo)
                     .withInt("bussiType", ENTRUST_BUSI_TYPE.TRANFER_ENTRUS.getTypeId())
                     .navigation();
         } else if (view.getId() == R.id.btn_relieve_entrust) {
             ARouter.getInstance().build(ARouterConfig.Do_Entrust)
-                    .withObject("validatorInfo",mValidatorInfo)
+                    .withObject("validatorInfo", mValidatorInfo)
                     .withInt("bussiType", ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId())
                     .navigation();
         } else if (view.getId() == R.id.btn_do_entrust) {
             ARouter.getInstance().build(ARouterConfig.Do_Entrust)
-                    .withObject("validatorInfo",mValidatorInfo)
+                    .withObject("validatorInfo", mValidatorInfo)
                     .withInt("bussiType", ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId())
                     .navigation();
         }
+    }
+
+    private void getRecord() {
+        mValidatorViewModel.getValidatorInfo(this,
+                mValidatorInfo.getOperator_address());
     }
 
 }

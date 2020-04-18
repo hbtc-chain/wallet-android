@@ -21,7 +21,6 @@ import com.bhex.wallet.bh_main.validator.adapter.ValidatorAdapter;
 import com.bhex.wallet.bh_main.validator.presenter.ValidatorListFragmentPresenter;
 import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
@@ -35,7 +34,7 @@ import butterknife.BindView;
 public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPresenter> {
 
     public static String KEY_VALIDATOR_TYPE = "validator_type";
-    private int mValidatorType =0;
+    private int mValidatorType = 0;
     ValidatorAdapter mValidatorAdapter;
     @BindView(R2.id.ed_search_content)
     AppCompatEditText ed_search_content;
@@ -52,9 +51,9 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     List<ValidatorInfo> mValidatorInfoList;
 
     ValidatorViewModel mValidatorViewModel;
+
     public ValidatorListFragment() {
     }
-
 
 
     @Override
@@ -72,17 +71,17 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            mValidatorType = arguments.getInt(KEY_VALIDATOR_TYPE,0);
+            mValidatorType = arguments.getInt(KEY_VALIDATOR_TYPE, 0);
         }
         mValidatorViewModel = ViewModelProviders.of(this).get(ValidatorViewModel.class);
-        mValidatorAdapter = new ValidatorAdapter(mValidatorType,R.layout.item_validator, mValidatorInfoList);
+        mValidatorAdapter = new ValidatorAdapter(mValidatorType, R.layout.item_validator, mValidatorInfoList);
         recycler_validator.setAdapter(mValidatorAdapter);
     }
 
     @Override
     protected void addEvent() {
         empty_layout.showProgess();
-        mValidatorViewModel.validatorLiveData.observe(this,ldm->{
+        mValidatorViewModel.validatorsLiveData.observe(this, ldm -> {
             swipeRefresh.finishRefresh();
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 empty_layout.loadSuccess();
@@ -100,17 +99,23 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         ed_search_content.addTextChangedListener(ValidatorTextWatcher);
         //点击事件
         mValidatorAdapter.setOnItemClickListener((adapter, view, position) -> {
-            ValidatorInfo item =  mValidatorAdapter.getData().get(position);
+            ValidatorInfo item = mValidatorAdapter.getData().get(position);
             ARouter.getInstance().build(ARouterConfig.Validator_Detail)
-                    .withObject("validatorInfo",item)
-                    .withInt("valid",mValidatorType)
+                    .withObject("validatorInfo", item)
+                    .withInt("valid", mValidatorType)
                     .navigation();
         });
     }
 
     private void getRecord() {
-        mValidatorViewModel.getValidatorInfo(getYActivity(),
+        mValidatorViewModel.getValidatorInfos(getYActivity(),
                 mValidatorType);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getRecord();
     }
 
     public void updateRecord(List<ValidatorInfo> datas) {
@@ -118,7 +123,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         List<ValidatorInfo> result = new ArrayList<>();
 
         String searchContent = ed_search_content.getText().toString().trim();
-        if (mOriginValidatorInfoList!=null) {
+        if (mOriginValidatorInfoList != null) {
             if (TextUtils.isEmpty(searchContent)) {
                 for (int i = 0; i < mOriginValidatorInfoList.size(); i++) {
                     ValidatorInfo item = mOriginValidatorInfoList.get(i);
@@ -128,13 +133,13 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
             } else {
                 for (int i = 0; i < mOriginValidatorInfoList.size(); i++) {
                     ValidatorInfo item = mOriginValidatorInfoList.get(i);
-                    if (item.getAddress().toLowerCase().contains(searchContent.toLowerCase())) {
+                    if (item.getDescription() != null && item.getDescription().getMoniker().toLowerCase().contains(searchContent.toLowerCase())) {
                         result.add(item);
                     }
                 }
             }
         }
-        if (result.size()>0) {
+        if (result.size() > 0) {
             empty_layout.loadSuccess();
         } else {
             empty_layout.showNoData();
@@ -147,7 +152,8 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     protected void initPresenter() {
         mPresenter = new ValidatorListFragmentPresenter(getYActivity());
     }
-    private SimpleTextWatcher ValidatorTextWatcher = new SimpleTextWatcher(){
+
+    private SimpleTextWatcher ValidatorTextWatcher = new SimpleTextWatcher() {
         @Override
         public void afterTextChanged(Editable s) {
             super.afterTextChanged(s);
@@ -155,4 +161,5 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
 
         }
     };
+
 }

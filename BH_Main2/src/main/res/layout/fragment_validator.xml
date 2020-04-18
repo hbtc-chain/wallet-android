@@ -8,8 +8,8 @@
 
     <com.bhex.lib.uikit.widget.StatusBarView
         android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
