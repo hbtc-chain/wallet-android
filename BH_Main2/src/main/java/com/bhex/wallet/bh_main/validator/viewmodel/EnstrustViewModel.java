@@ -18,6 +18,7 @@ import com.bhex.wallet.common.api.TransactionApi;
 import com.bhex.wallet.common.api.TransactionApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
+import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.TransactionOrder;
@@ -38,11 +39,12 @@ import okhttp3.RequestBody;
 public class EnstrustViewModel extends ViewModel {
 
     public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
+    public static MutableLiveData<LoadDataModel<List<ValidatorDelegationInfo>>> delegationLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel> mutableLiveData  = new MutableLiveData<>();
 
     //获取资产
     public void getAccountInfo(BaseActivity activity){
-        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 //super.onSuccess(jsonObject);
@@ -61,6 +63,31 @@ public class EnstrustViewModel extends ViewModel {
 
         BHttpApi.getService(BHttpApiInterface.class)
                 .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+
+    public void getCustDelegations(BaseActivity activity){
+        BHProgressObserver<JsonArray> observer = new BHProgressObserver<JsonArray>(activity) {
+            @Override
+            protected void onSuccess(JsonArray jsonObject) {
+                //super.onSuccess(jsonObject);
+                List<ValidatorDelegationInfo> infos = JsonUtils.getListFromJson(jsonObject.toString(),ValidatorDelegationInfo.class);
+                LoadDataModel loadDataModel = new LoadDataModel(infos);
+                delegationLiveData.postValue(loadDataModel);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
+                delegationLiveData.postValue(loadDataModel);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .queryCustDelegations(BHUserManager.getInstance().getCurrentBhWallet().address)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);

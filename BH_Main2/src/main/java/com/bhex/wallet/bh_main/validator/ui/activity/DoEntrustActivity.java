@@ -29,6 +29,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
@@ -99,8 +100,6 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
     EnstrustViewModel mEnstrustViewModel;
 
-    private AccountInfo.AssetsBean mAsset;
-
     String mAvailabelTitle = "";
 
 
@@ -131,7 +130,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             if (mValidatorInfo != null) {
                 String address = mValidatorInfo.getOperator_address();
                 if (mValidatorInfo.getDescription() != null) {
-                    address = mValidatorInfo.getDescription().getMoniker() + "-" + address;
+                    address = mValidatorInfo.getDescription().getMoniker() + "-" + addressReplace(address);
                 }
                 validatorAddress = mValidatorInfo.getOperator_address();
                 tv_to_address.ed_input.setText(address);
@@ -154,7 +153,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
                 String address = mValidatorInfo.getOperator_address();
                 validatorAddress = mValidatorInfo.getOperator_address();
                 if (mValidatorInfo.getDescription() != null) {
-                    address = mValidatorInfo.getDescription().getMoniker() + "-" + address;
+                    address = mValidatorInfo.getDescription().getMoniker() + "-" + addressReplace(address);
                 }
                 tv_to_address.ed_input.setText(address);
             }
@@ -167,7 +166,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             if (mValidatorInfo != null) {
                 validatorAddress = mValidatorInfo.getOperator_address();
             }
-            String address = getString(R.string.my_trusteeship) + "-" + BHUserManager.getInstance().getCurrentBhWallet().address;
+            String address = getString(R.string.my_trusteeship) + "-" + addressReplace(BHUserManager.getInstance().getCurrentBhWallet().address);
             tv_to_address.ed_input.setText(address);
             mAvailabelTitle = "可解 ";
             tv_entrust_to_title.setText(getString(R.string.relieve_entrust_to));
@@ -197,13 +196,36 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             }
 
         });
+        mEnstrustViewModel.delegationLiveData.observe(this, ldm -> {
+            refreshLayout.finishRefresh();
+            if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
+                updateValidatorAssets(ldm.getData());
+            }
 
-        mEnstrustViewModel.getAccountInfo(this);
+        });
+        queryAssetInfo();
 
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
-            mEnstrustViewModel.getAccountInfo(this);
+            queryAssetInfo();
         });
     }
+    private String addressReplace(String originAddress) {
+        if (originAddress == null || TextUtils.isEmpty(originAddress)) {
+            return "";
+        }
+        if (originAddress.length()<21) {
+            return originAddress;
+        }
+        return originAddress.replace(originAddress.substring(10,originAddress.length()-10),"...");
+    }
+    private void  queryAssetInfo() {
+        if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
+            mEnstrustViewModel.getAccountInfo(this);
+        } else {
+            mEnstrustViewModel.getCustDelegations(this);
+        }
+    }
+
 
     private void updateDoEntrustStatus(LoadDataModel ldm) {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
@@ -304,7 +326,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
 
     public View.OnClickListener allListener = v -> {
-        if (mAsset==null) {
+        if (available_amount==null || TextUtils.isEmpty(available_amount)) {
             ed_entrust_amount.ed_input.setText("");
             return;
         }
@@ -312,8 +334,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
         if (TextUtils.isEmpty(fee)) {
             fee = "0";
         }
-        String available_bht_amount_str = getAmountForUser(mAsset.getAmount(),mAsset.getFrozen_amount(),token);
-        double all_count = NumberUtil.sub(String.valueOf(available_bht_amount_str),fee);
+        double all_count = NumberUtil.sub(String.valueOf(available_amount),fee);
         ed_entrust_amount.ed_input.setText(String.valueOf(all_count));
     };
 
@@ -327,13 +348,25 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
         }
         for (AccountInfo.AssetsBean item : list) {
             if (item.getSymbol().equalsIgnoreCase(token)) {
-                mAsset= item;
                 available_amount = getAmountForUser(item.getAmount(),item.getFrozen_amount(),token);
                 tv_available_amount.setText("可用 "+available_amount+token.toUpperCase());
             }
         }
     }
+    private void updateValidatorAssets(List<ValidatorDelegationInfo> data) {
+        if (data == null || data.size()<1) {
+            return;
+        }
 
+        for (ValidatorDelegationInfo item : data) {
+            if (item.getValidator().equalsIgnoreCase(validatorAddress)) {
+                String asset = data.get(0).getBonded();
+
+                available_amount = getAmountForUser(asset,"0",token);
+                tv_available_amount.setText("可用 "+available_amount+token.toUpperCase());
+            }
+        }
+    }
     public String getAmountForUser(String amount, String frozen_amount, String symbol) {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
