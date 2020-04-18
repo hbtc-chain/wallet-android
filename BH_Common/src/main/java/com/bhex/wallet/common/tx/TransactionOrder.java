@@ -251,5 +251,44 @@ public class TransactionOrder implements Serializable {
             public String txhash;
 
         }
+
+        public static class DelegateBean{
+
+            /**
+             * amount : {"amount":"20000000000000000000","denom":"hbc"}
+             * delegator_address : HBCYu3Xf77dvNqAceLQQSmtto3utEi4kBd4r
+             * validator_address : hbcvaloper1we2ufxj2wpanrhzd2h7upw07hffudxfw472txx
+             */
+
+            public AmountBean amount;
+            public String delegator_address;
+            public String validator_address;
+
+            public static class AmountBean {
+                /**
+                 * amount : 20000000000000000000
+                 * denom : hbc
+                 */
+
+                private String amount;
+                private String denom;
+
+                public String getAmount() {
+                    return amount;
+                }
+
+                public void setAmount(String amount) {
+                    this.amount = amount;
+                }
+
+                public String getDenom() {
+                    return denom;
+                }
+
+                public void setDenom(String denom) {
+                    this.denom = denom;
+                }
+            }
+        }
     }
 }

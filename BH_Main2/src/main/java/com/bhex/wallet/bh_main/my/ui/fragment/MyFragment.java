@@ -27,6 +27,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
 
 import org.greenrobot.eventbus.EventBus;

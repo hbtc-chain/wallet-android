@@ -28,6 +28,7 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +63,7 @@ public class BHQrScanActivity extends BaseActivity {
     @Override
     protected void initView() {
         tv_center_title.setText("二维码扫描");
+        ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.blue).fitsSystemWindows(true).init();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {

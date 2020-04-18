@@ -16,6 +16,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.CoinSearchAdapter;
@@ -120,15 +121,15 @@ public class CoinSearchActivity extends BaseActivity {
 
         for (int i = 0; i < data.size(); i++) {
            BHTokenItem coinItem = data.get(i);
-           if(coinItem.symbol.equals("btc")){
+           if(coinItem.symbol.equalsIgnoreCase("btc")){
                coinItem.resId = R.mipmap.ic_btc;
-           }else if(coinItem.symbol.equals("eth")){
+           }else if(coinItem.symbol.equalsIgnoreCase("eth")){
                coinItem.resId = R.mipmap.ic_eth;
-           }else if(coinItem.symbol.equals("eos")){
+           }else if(coinItem.symbol.equalsIgnoreCase("eos")){
                coinItem.resId = R.mipmap.ic_eos;
-           }else if(coinItem.symbol.equals("usdt")){
+           }else if(coinItem.symbol.equalsIgnoreCase("tusdt")){
                coinItem.resId = R.mipmap.ic_usdt;
-           }else if(coinItem.symbol.equals("bht")){
+           }else if(coinItem.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
                coinItem.resId = R.mipmap.ic_bht;
            }else{
                coinItem.resId = R.mipmap.ic_default_coin;

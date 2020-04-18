@@ -262,7 +262,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
      * @param ldm
      */
     private void updateAssest(LoadDataModel<AccountInfo> ldm) {
-
         LogUtils.d("AssetDetailActivity==>:","==updateAssest==");
         //更新
         refreshLayout.finishRefresh();
@@ -315,29 +314,24 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                     ReInvestShareFragment.class.getSimpleName(), fragmentItemListener);
         }else if(view.getId() == R.id.cross_chian_transfer_in){
             if(!TextUtils.isEmpty(balance.external_address)){
-                /*ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
-                        .withObject("balance", balance)
-                        .withObject("bhtBalance",bthBalance)
-                        .withInt("way",2)
-                        .navigation();
-                return;*/
+                /**/
                 ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
                         .withObject("balance", balance)
                         .withInt("way",2)
                         .navigation();
             }else{
                 //请求用户资产 获取链外地址
-
-            }
-
-        }else if(view.getId() == R.id.cross_chian_withdraw){
-            if(!TextUtils.isEmpty(balance.external_address)){
-                /*ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
+                ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                         .withObject("balance", balance)
                         .withObject("bhtBalance",bthBalance)
                         .withInt("way",2)
                         .navigation();
-                return;*/
+                return;
+            }
+
+        }else if(view.getId() == R.id.cross_chian_withdraw){
+            if(!TextUtils.isEmpty(balance.external_address)){
+
                 ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
                         .withObject("balance", balance)
                         .withObject("bhtBalance",bthBalance)
@@ -345,7 +339,13 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                         .navigation();
             }else{
                 //请求用户资产 获取链外地址
-
+                //balanceViewModel.getAccountInfo(this,bthBalance.address);
+                ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
+                        .withObject("balance", balance)
+                        .withObject("bhtBalance",bthBalance)
+                        .withInt("way",2)
+                        .navigation();
+                return;
             }
 
         }

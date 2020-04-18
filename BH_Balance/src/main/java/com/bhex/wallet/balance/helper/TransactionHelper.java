@@ -9,6 +9,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.balance.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.model.BHToken;
@@ -26,27 +27,7 @@ public class TransactionHelper {
      *
      */
     public static String getTranscationType(Context context, String typeValue){
-        String typeLabel = "";
-        if(typeValue.equalsIgnoreCase("hbtcchain/transfer/MsgSend")){
-            typeLabel = context.getResources().getString(R.string.transfer);
-        }else if(typeValue.equalsIgnoreCase("hbtcchain/MsgDelegate")){
-            typeLabel = context.getResources().getString(R.string.entrust);
-        }else if(typeValue.equalsIgnoreCase("hbtcchain/MsgUndelegate")){
-            typeLabel = context.getResources().getString(R.string.un_entrust);
-        }else if(typeValue.equalsIgnoreCase("hbtcchain/keygen/MsgKeyGen")){
-            typeLabel = context.getResources().getString(R.string.crosslink_address);
-        }else if(typeValue.equalsIgnoreCase("cosmos-sdk/MsgWithdrawDelegationReward")){
-
-        }else if(typeValue.equalsIgnoreCase("hbtcchain/transfer/MsgDeposit")){
-            typeLabel = context.getResources().getString(R.string.cross_deposit);
-        }else if(typeValue.equalsIgnoreCase("hbtcchain/transfer/MsgWithdrawal")){
-            typeLabel = context.getResources().getString(R.string.cross_withdraw);
-        }else if(typeValue.equalsIgnoreCase("cosmos-sdk/MsgWithdrawDelegationReward")){
-            typeLabel = context.getResources().getString(R.string.withdraw_reward);
-        }else {
-            typeLabel = context.getResources().getString(R.string.other);
-        }
-        return typeLabel;
+        return TRANSCATION_BUSI_TYPE.getValue(typeValue);
     }
 
 
@@ -97,7 +78,7 @@ public class TransactionHelper {
 
 
     public static void displayTranscationAmount(Context context,AppCompatTextView tv,String txType,String json){
-        if(txType.equalsIgnoreCase("hbtcchain/transfer/MsgSend")){
+        if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Transfer.getType())){
 
             TransactionOrder.ActivitiesBean.ValueBean valueBean
                     = JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.ValueBean.class);
@@ -105,19 +86,24 @@ public class TransactionHelper {
             TransactionOrder.ActivitiesBean.ValueBean.AmountBean bean1 = valueBean.getAmount().get(0);
 
             setRealAmount(tv,bean1.getAmount(),bean1.getDenom());
-        }else if(txType.equalsIgnoreCase("hbtcchain/keygen/MsgKeyGen")){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.KeyGen.getType())){
             TransactionOrder.ActivitiesBean.AddressGenBean addressGenBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.AddressGenBean.class);
-        }else if(txType.equalsIgnoreCase("hbtcchain/transfer/MsgWithdrawal")){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Withdrawal.getType())){
 
             TransactionOrder.ActivitiesBean.WithdrawalBean withdrawalBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.WithdrawalBean.class);
             setRealAmount(tv,withdrawalBean.amount,withdrawalBean.symbol);
-        }else if(txType.equalsIgnoreCase("hbtcchain/transfer/MsgDeposit")){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Deposit.getType())){
             TransactionOrder.ActivitiesBean.DepositBean depositBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DepositBean.class);
 
             setRealAmount(tv,depositBean.amount,depositBean.symbol);
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Delegate.getType())){
+            TransactionOrder.ActivitiesBean.DelegateBean delegateBean =
+                    JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DelegateBean.class);
+
+            setRealAmount(tv,delegateBean.amount.getAmount(),delegateBean.amount.getDenom());
         }
     }
 
@@ -135,7 +121,7 @@ public class TransactionHelper {
     public static void displayTranscationFromTo(Context context,AppCompatTextView tv_from,
                                                 AppCompatTextView tv_to,String txType,String json){
 
-        if(txType.equalsIgnoreCase("hbtcchain/transfer/MsgSend")){
+        if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Transfer.getType())){
 
             TransactionOrder.ActivitiesBean.ValueBean valueBean
                     = JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.ValueBean.class);
@@ -145,24 +131,31 @@ public class TransactionHelper {
             tv_from.setText(valueBean.getFrom_address());
             tv_to.setText(valueBean.getTo_address());
 
-        }else if(txType.equalsIgnoreCase("hbtcchain/keygen/MsgKeyGen")){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.KeyGen.getType())){
             TransactionOrder.ActivitiesBean.AddressGenBean addressGenBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.AddressGenBean.class);
 
             tv_from.setText(addressGenBean.From);
             tv_to.setText(addressGenBean.To);
-        }else if(txType.equalsIgnoreCase("hbtcchain/transfer/MsgWithdrawal")){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Withdrawal.getType())){
 
             TransactionOrder.ActivitiesBean.WithdrawalBean withdrawalBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.WithdrawalBean.class);
             tv_from.setText(withdrawalBean.from_cu);
             tv_to.setText(withdrawalBean.to_multi_sign_address);
-        }else if(txType.equalsIgnoreCase("hbtcchain/transfer/MsgDeposit")){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Deposit.getType())){
             TransactionOrder.ActivitiesBean.DepositBean depositBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DepositBean.class);
 
             tv_from.setText(depositBean.from_cu);
             tv_to.setText(depositBean.to_adddress);
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Delegate.getType())){
+            TransactionOrder.ActivitiesBean.DelegateBean delegateBean =
+                    JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DelegateBean.class);
+
+            tv_from.setText(delegateBean.delegator_address);
+
+            tv_to.setText(delegateBean.validator_address);
         }
     }
 }

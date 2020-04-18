@@ -24,6 +24,9 @@ public class ARouterConfig {
 
     public static final String MY_UPDATE_PASSWORD = "/my/update/password";
 
+    //汇率设置
+    public static final String MY_Rate_setting = "/my/rate_set";
+
     /**
      * 助记词模块
      */

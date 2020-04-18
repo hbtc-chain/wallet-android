@@ -1,4 +1,4 @@
-package com.bhex.wallet.bh_main.my.ui.fragment;
+package com.bhex.wallet.common.ui.fragment;
 
 
 import android.app.Dialog;
@@ -22,8 +22,8 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.MD5;
-import com.bhex.wallet.bh_main.R;
-import com.bhex.wallet.bh_main.R2;
+import com.bhex.wallet.common.R;
+import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.google.android.material.button.MaterialButton;
@@ -138,6 +138,6 @@ public class PasswordFragment extends BaseDialogFragment {
     }
 
     public interface PasswordClickListener {
-        void confirmAction(String password,int position);
+        void confirmAction(String password, int position);
     }
 }

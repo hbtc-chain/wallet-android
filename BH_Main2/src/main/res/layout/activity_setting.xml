@@ -12,6 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@mipmap/icon_back"
         app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
         app:titleTextAppearance="@style/Toolbar_textsize">
 

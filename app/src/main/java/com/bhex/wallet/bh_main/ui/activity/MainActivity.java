@@ -8,6 +8,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.R;
+import com.bhex.wallet.balance.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.LanguageEvent;
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void initView() {
         RefreshLayoutManager.init();
+        TRANSCATION_BUSI_TYPE.init(this);
         //透明状态栏
         /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
             try {

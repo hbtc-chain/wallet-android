@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -22,6 +23,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
@@ -38,6 +40,7 @@ import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -52,7 +55,7 @@ import butterknife.OnClick;
  */
 
 @Route(path = ARouterConfig.Balance_transfer_out)
-public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPresenter> {
+public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPresenter> implements PasswordFragment.PasswordClickListener{
 
     @Autowired(name = "balance")
     BHBalance balance;
@@ -239,22 +242,13 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(mCurrentBhWallet.privateKey,mCurrentBhWallet.password);
-        //String from = "BHYc5BsYgne5SPNKYreBGpjYY9jyXAHLGbK";
-        //String to = "BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ";
-        String from_address = mCurrentBhWallet.getAddress();
-        String to_address = tv_to_address.ed_input.getText().toString().trim();
-        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-        String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
-        String feeAmount = et_tx_fee.ed_input.getText().toString();
+        if(flag){
+            PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+                    PasswordFragment.class.getName(),
+                    this,0);
+        }
 
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
-                    gasPrice,"test memo",null,suquece,balance.symbol);
-            //LogUtils.d("TransferoutActivity==>","bhSendTranscation=="+ JsonUtils.toJson(bhSendTranscation));
-            transactionViewModel.sendTransaction(this,bhSendTranscation);
-            return 0;
-        });
+
     }
 
     /**
@@ -271,20 +265,11 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(mCurrentBhWallet.privateKey,mCurrentBhWallet.password);
-        String from_address = mCurrentBhWallet.getAddress();
-        String to_address = tv_to_address.ed_input.getText().toString();
-        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-        String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
-        String feeAmount = et_tx_fee.ed_input.getText().toString();
-
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
-                    gasPrice,"test memo",null,suquece,balance.symbol);
-
-            transactionViewModel.sendTransaction(this,bhSendTranscation);
-            return 0;
-        });
+        if(flag){
+            PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+                    PasswordFragment.class.getName(),
+                    this,0);
+        }
     }
 
     @Override
@@ -297,8 +282,56 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             tv_to_address.ed_input.setText(qrCode);
             //LogUtils.d("TransferOutActivity==>:","qrCode=="+qrCode);
         }
-
-
     }
 
+    /**
+     * 密码对话框回调
+     * @param password
+     * @param position
+     */
+    @Override
+    public void confirmAction(String password, int position) {
+        if(TextUtils.isEmpty(password)){
+            ToastUtils.showToast("请输入密码");
+            return;
+        }
+
+        if(!MD5.md5(password).equals(BHUserManager.getInstance().getCurrentBhWallet().getPassword())){
+            ToastUtils.showToast("密码错误");
+            return;
+        }
+
+        String hexPK = CryptoUtil.decryptPK(mCurrentBhWallet.privateKey,mCurrentBhWallet.password);
+        String from_address = mCurrentBhWallet.getAddress();
+        String to_address = tv_to_address.ed_input.getText().toString().trim();
+        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+        if(way==1){
+            //String from = "BHYc5BsYgne5SPNKYreBGpjYY9jyXAHLGbK";
+            //String to = "BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ";
+            //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+            String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
+            String feeAmount = et_tx_fee.ed_input.getText().toString();
+
+            BHTransactionManager.loadSuquece(suquece -> {
+                BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
+                        gasPrice,"test memo",null,suquece,balance.symbol);
+                //LogUtils.d("TransferoutActivity==>","bhSendTranscation=="+ JsonUtils.toJson(bhSendTranscation));
+                transactionViewModel.sendTransaction(this,bhSendTranscation);
+                return 0;
+            });
+        }else if(way==2){
+            //String to_address = tv_to_address.ed_input.getText().toString();
+            //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+            String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
+            String feeAmount = et_tx_fee.ed_input.getText().toString();
+
+            BHTransactionManager.loadSuquece(suquece -> {
+                BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
+                        gasPrice,"test memo",null,suquece,balance.symbol);
+
+                transactionViewModel.sendTransaction(this,bhSendTranscation);
+                return 0;
+            });
+        }
+    }
 }
