@@ -39,7 +39,7 @@ import okhttp3.RequestBody;
 public class EnstrustViewModel extends ViewModel {
 
     //public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
-    public static MutableLiveData<LoadDataModel<List<ValidatorDelegationInfo>>> delegationLiveData  = new MutableLiveData<>();
+    public MutableLiveData<LoadDataModel<List<ValidatorDelegationInfo>>> delegationLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel> mutableLiveData  = new MutableLiveData<>();
 
     //获取资产
