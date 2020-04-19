@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
@@ -72,9 +73,11 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         }else if(bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setVisibility(View.VISIBLE);
             tv_coin_type.setText(R.string.native_token);
+            tv_coin_type.setTextAppearance(getContext(),R.style.tx_status_success);
         }else if(!bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setVisibility(View.VISIBLE);
             tv_coin_type.setText(R.string.no_native_token);
+            tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);
         }
     }
 

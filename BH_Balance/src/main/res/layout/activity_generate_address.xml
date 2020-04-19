@@ -82,7 +82,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_right"
-        android:layout_marginTop="@dimen/main_margin_top">
+        android:layout_marginTop="@dimen/main_margin_top"
+        android:visibility="gone"
+        >
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -107,6 +109,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_right"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -163,12 +166,12 @@
         android:layout_marginEnd="@dimen/main_margin_right"
         android:insetBottom="0dp"
         android:insetTop="0dp"
-        app:backgroundTint="@color/gray_E7ECF4"
+        app:backgroundTint="@color/blue"
         app:cornerRadius="@dimen/main_radius_conner"
         style="@style/main_material_btn"
         android:textColor="@color/white"
         android:text="@string/genarate_address"
-        android:enabled="false"
+        android:enabled="true"
         />
 
 </LinearLayout>

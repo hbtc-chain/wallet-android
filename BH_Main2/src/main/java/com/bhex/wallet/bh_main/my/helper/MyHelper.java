@@ -6,10 +6,13 @@ import android.text.TextUtils;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.network.utils.PackageUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
+import com.bhex.wallet.common.enums.CURRENCY_TYPE;
+import com.bhex.wallet.common.manager.MMKVManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +72,12 @@ public class MyHelper {
         }
 
         myItems.get(0).rightTxt = langArray[selectIndex-1];
+
+        //语言
+        CURRENCY_TYPE.initCurrency(context);
+        String currency_name = MMKVManager.getInstance().mmkv().decodeString(BHConstants.CURRENCY_USED);
+
+        myItems.get(1).rightTxt = CURRENCY_TYPE.getValue(currency_name).name+"("+CURRENCY_TYPE.getValue(currency_name)+")";
         return myItems;
     }
 }

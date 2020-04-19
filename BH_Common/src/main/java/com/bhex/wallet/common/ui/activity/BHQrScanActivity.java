@@ -8,12 +8,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -24,14 +26,20 @@ import com.bhex.lib_qr.ui.CaptureActivity;
 import com.bhex.lib_qr.ui.CaptureFragment;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.gyf.immersionbar.ImmersionBar;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.xuexiang.xutil.app.IntentUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 import static com.bhex.lib_qr.ui.CaptureActivity.KEY_CAPTURE_THEME;
 import static com.bhex.lib_qr.ui.CaptureActivity.REQUEST_CODE_REQUEST_PERMISSIONS;
@@ -46,8 +54,17 @@ public class BHQrScanActivity extends BaseActivity {
 
     public static final int REQUEST_CODE = 111;
 
+    public static final int REQUEST_IMAGE = 112;
+
+
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
+
+    @BindView(R2.id.tv_album)
+    AppCompatTextView tv_album;
+
+    @BindView(R2.id.iv_back)
+    AppCompatImageView iv_back;
 
     @Override
     protected int getLayoutId() {
@@ -62,7 +79,7 @@ public class BHQrScanActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        tv_center_title.setText("二维码扫描");
+        tv_center_title.setText("二维码");
         ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.blue).fitsSystemWindows(true).init();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -76,9 +93,44 @@ public class BHQrScanActivity extends BaseActivity {
 
     @Override
     protected void addEvent() {
+        tv_album.setOnClickListener(v -> {
+            requestPermissions();
+            //startActivityForResult(IntentUtils.getDocumentPickerIntent(IntentUtils.DocumentType.IMAGE), REQUEST_IMAGE);
+        });
 
+        iv_back.setOnClickListener(v -> {
+            finish();
+        });
+    }
+    public void requestPermissions() {
+        final RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions
+                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(permission -> {
+                    if (permission.granted) {
+                        // 用户已经同意该权限
+                        startActivityForResult(IntentUtils.getDocumentPickerIntent(IntentUtils.DocumentType.IMAGE), REQUEST_IMAGE);
+                    } else if (permission.shouldShowRequestPermissionRationale) {
+                        // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                        LogUtils.d(permission.name + " is denied. More info should be provided.");
+                    } else {
+                        // 用户拒绝了该权限，并且选中『不再询问』
+                        LogUtils.d(permission.name + " is denied.");
+                    }
+                });
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_IMAGE){
+            if(data!=null){
+                setResult(REQUEST_IMAGE,data);
+                finish();
+            }
+        }
+    }
 
     /**
      * 初始化采集
@@ -172,9 +224,7 @@ public class BHQrScanActivity extends BaseActivity {
      * @param result
      */
     protected void handleAnalyzeSuccess(Bitmap bitmap, String result) {
-
-        LogUtils.d("TransferOutActivity==>:","result=="+result);
-
+        //LogUtils.d("TransferOutActivity==>:","result=="+result);
         Intent resultIntent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putInt(XQRCode.RESULT_TYPE, XQRCode.RESULT_SUCCESS);

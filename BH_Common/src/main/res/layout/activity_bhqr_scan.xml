@@ -16,28 +16,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="@color/blue"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@mipmap/icon_back_white"
-        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-        app:titleTextAppearance="@style/Toolbar_textsize"
-        xmlns:tools="http://schemas.android.com/tools">
+        android:background="@color/blue">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="?android:selectableItemBackground"
+            android:paddingStart="12dp"
+            android:paddingTop="@dimen/page_margin_top"
+            android:paddingBottom="@dimen/page_margin_top"
+            android:src="@mipmap/icon_back_white" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_center_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_centerInParent="true"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="17sp"
             android:text="扫描二维码"
             tools:text="@string/wallet_create_trusteeship" />
 
-    </androidx.appcompat.widget.Toolbar>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_album"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:paddingEnd="16dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:text="@string/album"
+            tools:text="相册" />
+    </RelativeLayout>
 </FrameLayout>

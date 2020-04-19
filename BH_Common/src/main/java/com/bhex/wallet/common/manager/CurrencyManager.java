@@ -3,10 +3,13 @@ package com.bhex.wallet.common.manager;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.RatesCache;
 import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.enums.CURRENCY_TYPE;
+import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.model.BHRates;
 import com.bhex.wallet.common.model.BHToken;
 
@@ -28,6 +31,7 @@ public class CurrencyManager {
     private NumberFormat currencyFormat = NumberFormat.getInstance();
 
     private CurrencyManager(){
+        //mCurrency = "cny";
         currencyFormat.setGroupingUsed(false);
         currencyFormat.setMaximumFractionDigits(3);
         currencyFormat.setMinimumFractionDigits(3);
@@ -46,7 +50,10 @@ public class CurrencyManager {
     }
 
     public String loadCurrency(Context context){
-        mCurrency = "cny";
+        //mCurrency = "cny";
+        if(TextUtils.isEmpty(mCurrency)){
+            mCurrency = MMKVManager.getInstance().mmkv().decodeString(BHConstants.CURRENCY_USED, CURRENCY_TYPE.USD.shortName);
+        }
         return mCurrency;
     }
 
@@ -61,22 +68,26 @@ public class CurrencyManager {
         if(ratesBean==null){
             return "0";
         }
-        if(CurrencyManager.getInstance().loadCurrency(context).equals("cny")){
+        /*if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.CNY.shortName)){
             return "¥"+currencyFormat.format(Double.valueOf(ratesBean.getCny()));
-        }else if(CurrencyManager.getInstance().loadCurrency(context).equals("usd")){
+        }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.USD.shortName)){
             return "$"+currencyFormat.format(Double.valueOf(ratesBean.getUsd()));
-        }
-        return "";
+        }*/
+        double rate = getCurrencyRate(context,symbol);
+
+        return CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(context).toUpperCase()).character+currencyFormat.format(rate);
     }
 
     public String getCurrencyDecription(Context context, double value){
 
-        if(CurrencyManager.getInstance().loadCurrency(context).equals("cny")){
+        /*if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.CNY.shortName)){
             return "¥"+currencyFormat.format(value);
-        }else if(CurrencyManager.getInstance().loadCurrency(context).equals("usd")){
+        }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.USD.shortName)){
             return "$"+currencyFormat.format(value);
-        }
-        return "";
+        }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.USD.shortName)){
+
+        }*/
+       return CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(context).toUpperCase()).character+currencyFormat.format(value);
     }
 
     public double getCurrencyRate(Context context, String symbol){
@@ -90,10 +101,16 @@ public class CurrencyManager {
         if(ratesBean==null){
             return 0;
         }
-        if(CurrencyManager.getInstance().loadCurrency(context).equals("cny")){
+        if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.CNY.shortName)){
             return Double.valueOf(ratesBean.getCny());
-        }else if(CurrencyManager.getInstance().loadCurrency(context).equals("usd")){
+        }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.USD.shortName)){
             return Double.valueOf(ratesBean.getUsd());
+        }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.KRW.shortName)){
+            return Double.valueOf(ratesBean.getKrw());
+        }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.JPY.shortName)){
+            return Double.valueOf(ratesBean.getJpy());
+        }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.VND.shortName)){
+            return Double.valueOf(ratesBean.getVnd());
         }
         return 0;
     }
@@ -119,6 +136,10 @@ public class CurrencyManager {
         return balancePrice;
     }
 
+
+    public void setCurrency(String currency) {
+        this.mCurrency = currency;
+    }
 
     /**
      * 抽象货币类

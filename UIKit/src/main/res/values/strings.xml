@@ -188,6 +188,7 @@
     <string name="relieve_entrust_succeed">解委托成功</string>
     <string name="transfer_entrust_succeed">转委托成功</string>
     <string name="transfer_entrust_failed">转委托失败</string>
+    <string name="album">相册</string>
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>
@@ -201,5 +202,13 @@
     <string-array name="set_list_item">
         <item>语言</item>
         <item>计价货币</item>
+    </string-array>
+
+    <string-array name="Currency_list">
+        <item>人民币</item>
+        <item>美元</item>
+        <item>韩元</item>
+        <item>日元</item>
+        <item>越南盾</item>
     </string-array>
 </resources>

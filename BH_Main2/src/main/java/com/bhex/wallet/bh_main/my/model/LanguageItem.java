@@ -9,7 +9,7 @@ import android.os.Parcelable;
  */
 
 
-public class LanguageEntity implements Parcelable {
+public class LanguageItem implements Parcelable {
 
     private int id;
     private String fullName;
@@ -62,25 +62,25 @@ public class LanguageEntity implements Parcelable {
         dest.writeByte(this.selected ? (byte) 1 : (byte) 0);
     }
 
-    public LanguageEntity() {
+    public LanguageItem() {
     }
 
-    protected LanguageEntity(Parcel in) {
+    protected LanguageItem(Parcel in) {
         this.id = in.readInt();
         this.fullName = in.readString();
         this.shortName = in.readString();
         this.selected = in.readByte() != 0;
     }
 
-    public static final Creator<LanguageEntity> CREATOR = new Creator<LanguageEntity>() {
+    public static final Creator<LanguageItem> CREATOR = new Creator<LanguageItem>() {
         @Override
-        public LanguageEntity createFromParcel(Parcel source) {
-            return new LanguageEntity(source);
+        public LanguageItem createFromParcel(Parcel source) {
+            return new LanguageItem(source);
         }
 
         @Override
-        public LanguageEntity[] newArray(int size) {
-            return new LanguageEntity[size];
+        public LanguageItem[] newArray(int size) {
+            return new LanguageItem[size];
         }
     };
 }

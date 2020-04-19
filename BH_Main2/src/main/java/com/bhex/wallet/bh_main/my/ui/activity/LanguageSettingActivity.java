@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.ProgressDialogObserver;
 import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.LanguageAdapter;
-import com.bhex.wallet.bh_main.my.model.LanguageEntity;
+import com.bhex.wallet.bh_main.my.model.LanguageItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.utils.LanguageConstants;
@@ -37,7 +37,7 @@ public class LanguageSettingActivity extends BaseActivity {
 
     LanguageAdapter mLanguageAdapter;
     
-    private List<LanguageEntity> mLanguageList;
+    private List<LanguageItem> mLanguageList;
 
 
     @Override
@@ -77,7 +77,7 @@ public class LanguageSettingActivity extends BaseActivity {
         String []langArray = getResources().getStringArray(R.array.app_language_type);
 
         for (int i = 0; i < langArray.length; i++) {
-            LanguageEntity language = new LanguageEntity();
+            LanguageItem language = new LanguageItem();
             language.setFullName(langArray[i]);
             if((i+1)==selectIndex){
                 language.setSelected(true);
@@ -107,12 +107,12 @@ public class LanguageSettingActivity extends BaseActivity {
         Observable.just(Integer.valueOf(position))
                 //.compose(RxSchedulersHelper.io_main())
                 .map(integer -> {
-                    LanguageEntity languageEntity = mLanguageList.get(integer);
+                    LanguageItem languageEntity = mLanguageList.get(integer);
                     LocalManageUtil.saveSelectLanguage(LanguageSettingActivity.this, languageEntity.getId());
                     EventBus.getDefault().post(new LanguageEvent());
                     return Boolean.valueOf(true);
                 }).delay(1200L, TimeUnit.MILLISECONDS).
-                subscribe(new ProgressDialogObserver<Boolean>(LanguageSettingActivity.this,getString(R.string.http_loading)){
+                subscribe(new BHProgressObserver<Boolean>(LanguageSettingActivity.this,getString(R.string.http_loading)){
             @Override
             public void onSuccess(Boolean aBoolean) {
                 finish();

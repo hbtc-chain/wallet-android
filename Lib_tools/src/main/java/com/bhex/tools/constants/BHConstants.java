@@ -14,6 +14,8 @@ public class BHConstants {
     //"com.jrmf360.action.ENTER"
     public static final String  MAIN_PATH = "com.bhex.wallet.action.main";
 
+    //选择的货币
+    public static final String CURRENCY_USED = "currency";
 
     public static final int STATUS_COLOR_WHITE = 1;
     public static final int STATUS_COLOR_BLUE = 2;

@@ -1,6 +1,7 @@
 package com.bhex.wallet.balance.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +9,9 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,6 +21,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib_qr.XQRCode;
+import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
@@ -25,6 +30,7 @@ import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.tools.utils.PathUtils;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -98,9 +104,11 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         });
         tv_to_address.btn_right_text.setVisibility(View.GONE);
         tv_to_address.iv_right.setVisibility(View.VISIBLE);
-        tv_to_address.iv_right.setOnClickListener(v -> {
-            ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
-        });
+
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)tv_to_address.ed_input.getLayoutParams();
+        lp.addRule(RelativeLayout.LEFT_OF,R.id.iv_right);
+        tv_to_address.ed_input.setLayoutParams(lp);
+
     }
 
 
@@ -183,10 +191,13 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     protected void addEvent() {
         mCurrentBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         //EventBus.getDefault().register(this);
+        //二维码扫描
+        tv_to_address.iv_right.setOnClickListener(v -> {
+            ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
+        });
     }
 
     public View.OnClickListener allWithDrawListener = v -> {
-        //ed_transfer_amount.ed_input.setText(String.valueOf(available_amount));
         if(way==BHConstants.CROSS_LINK){
             double all_count = NumberUtil.sub(String.valueOf(available_amount),bhToken.withdrawal_fee);
             ed_transfer_amount.ed_input.setText(String.valueOf(all_count));
@@ -276,12 +287,31 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //处理二维码扫描结果
-        if (requestCode == BHQrScanActivity.REQUEST_CODE && resultCode == RESULT_OK) {
-            //处理扫描结果（在界面上显示）
-            String qrCode  = data.getExtras().getString(XQRCode.RESULT_DATA);
-            tv_to_address.ed_input.setText(qrCode);
-            //LogUtils.d("TransferOutActivity==>:","qrCode=="+qrCode);
+        if (requestCode == BHQrScanActivity.REQUEST_CODE ) {
+            if(resultCode == RESULT_OK){
+                //处理扫描结果（在界面上显示）
+                String qrCode  = data.getExtras().getString(XQRCode.RESULT_DATA);
+                tv_to_address.ed_input.setText(qrCode);
+            }else if(resultCode == BHQrScanActivity.REQUEST_IMAGE){
+                getAnalyzeQRCodeResult(data.getData());
+            }
+
         }
+    }
+
+
+    private void getAnalyzeQRCodeResult(Uri uri) {
+        XQRCode.analyzeQRCode(PathUtils.getFilePathByUri(this, uri), new QRCodeAnalyzeUtils.AnalyzeCallback() {
+            @Override
+            public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
+                tv_to_address.ed_input.setText(result);
+            }
+
+            @Override
+            public void onAnalyzeFailed() {
+                ToastUtils.showToast("解析二维码失败");
+            }
+        });
     }
 
     /**
@@ -306,9 +336,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         String to_address = tv_to_address.ed_input.getText().toString().trim();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         if(way==1){
-            //String from = "BHYc5BsYgne5SPNKYreBGpjYY9jyXAHLGbK";
-            //String to = "BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ";
-            //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
             String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
             String feeAmount = et_tx_fee.ed_input.getText().toString();
 
@@ -320,8 +347,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 return 0;
             });
         }else if(way==2){
-            //String to_address = tv_to_address.ed_input.getText().toString();
-            //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
             String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
             String feeAmount = et_tx_fee.ed_input.getText().toString();
 

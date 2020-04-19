@@ -49,6 +49,7 @@ import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -306,6 +307,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         //更新资产
         balanceViewModel.getAccountInfo(getYActivity(),bhWallet.address);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeCurrency(CurrencyEvent currencyEvent){
+        LogUtils.d("BalanceFragment==>","=currencyEvent=");
+        updateAssets(mAccountInfo);
     }
 
     private SwipeMenuCreator swipeMenuCreator = (leftMenu, rightMenu, position) -> {

@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.NavitateUtil;
@@ -15,6 +16,7 @@ import com.bhex.wallet.bh_main.my.adapter.SettingAdapter;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -79,9 +81,14 @@ public class SettingActivity extends BaseActivity {
      * @param position
      */
     private void clickItemAction(BaseQuickAdapter adapater, View parent,int position) {
+        MyItem myItem = mItems.get(position);
         switch (position){
             case 0:
                 ARouterUtil.startActivity(ARouterConfig.MY_LANGUAE_SET_PAGE);
+                break;
+            case 1:
+                ARouter.getInstance().build(ARouterConfig.MY_Rate_setting).withString("title",myItem.title).navigation();
+                break;
         }
     }
 
@@ -93,6 +100,14 @@ public class SettingActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeLanguage(LanguageEvent language){
+        mItems = MyHelper.getSettingItems(this);
+        mSettingAdapter.getData().clear();
+        mSettingAdapter.addData(mItems);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeCurrency(CurrencyEvent currency){
         mItems = MyHelper.getSettingItems(this);
         mSettingAdapter.getData().clear();
         mSettingAdapter.addData(mItems);
