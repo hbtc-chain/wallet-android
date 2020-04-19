@@ -193,6 +193,7 @@ public class BHTransactionManager {
         return bhSendTranscation;
     }
 
+
     public static BHSendTranscation doEntrust(String privateKey,
                                              String delegatorAddress, String validatorAddress,
                                              String amount,
@@ -268,8 +269,6 @@ public class BHTransactionManager {
         BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
 
         return bhSendTranscation;
-
-
         //
     }
     /**

@@ -341,7 +341,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
-                        gasPrice,"test memo",null,suquece,balance.symbol);
+                        gasPrice,BHConstants.BH_MEMO,null,suquece,balance.symbol);
                 //LogUtils.d("TransferoutActivity==>","bhSendTranscation=="+ JsonUtils.toJson(bhSendTranscation));
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
@@ -352,7 +352,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
-                        gasPrice,"test memo",null,suquece,balance.symbol);
+                        gasPrice,BHConstants.BH_MEMO,null,suquece,balance.symbol);
 
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;

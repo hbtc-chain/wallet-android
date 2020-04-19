@@ -1,4 +1,4 @@
-package com.bhex.wallet.balance.viewmodel;
+package com.bhex.wallet.common.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,13 +8,11 @@ import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
-import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
-import com.bhex.wallet.common.cache.BaseCache;
-import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.google.gson.JsonObject;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
@@ -43,7 +41,7 @@ public class BalanceViewModel extends ViewModel {
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
+                LoadDataModel loadDataModel = new LoadDataModel(0,"");
                 accountLiveData.postValue(loadDataModel);
             }
         };

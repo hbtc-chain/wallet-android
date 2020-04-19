@@ -38,12 +38,12 @@ import okhttp3.RequestBody;
  */
 public class EnstrustViewModel extends ViewModel {
 
-    public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
+    //public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
     public static MutableLiveData<LoadDataModel<List<ValidatorDelegationInfo>>> delegationLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel> mutableLiveData  = new MutableLiveData<>();
 
     //获取资产
-    public void getAccountInfo(BaseActivity activity){
+    /*public void getAccountInfo(BaseActivity activity){
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
@@ -66,7 +66,7 @@ public class EnstrustViewModel extends ViewModel {
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
-    }
+    }*/
 
     public void getCustDelegations(BaseActivity activity){
         BHProgressObserver<JsonArray> observer = new BHProgressObserver<JsonArray>(activity) {
@@ -111,7 +111,8 @@ public class EnstrustViewModel extends ViewModel {
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel lmd = new LoadDataModel(LoadingStatus.ERROR);
+                //LoadDataModel lmd = new LoadDataModel(LoadingStatus.ERROR);
+                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
                 mutableLiveData.postValue(lmd);
             }
         };

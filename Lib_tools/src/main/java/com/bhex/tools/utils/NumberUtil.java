@@ -71,6 +71,14 @@ public class NumberUtil {
     }
 
     public static double sub(String number1,String number2){
+        if(TextUtils.isEmpty(number1)){
+            number1 = "0";
+        }
+
+        if(TextUtils.isEmpty(number2)){
+            number2 = "0";
+        }
+
         BigDecimal b1 = new BigDecimal(number1);
         BigDecimal b2 = new BigDecimal(number2);
         double b3 = b1.subtract(b2).doubleValue();

@@ -148,7 +148,7 @@ public class GenerateAddressActivity extends BaseActivity {
 
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkAddress(hexPK,from_address,to_address,feeAmount,
-                    gasPrice,"test memo",null,suquece,balance.symbol);
+                    gasPrice,BHConstants.BH_MEMO,null,suquece,balance.symbol);
 
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;

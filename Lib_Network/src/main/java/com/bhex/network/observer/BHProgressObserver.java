@@ -19,8 +19,15 @@ public abstract class BHProgressObserver<T> extends BHBaseObserver<T> {
 
     private ProgressDialog loadingDialog = null;
 
+    private boolean isShowDialog = true;
+
     public BHProgressObserver(Context context) {
         this(context, context.getString(R.string.http_loading));
+    }
+
+    public BHProgressObserver(Context context,boolean isShowDialog) {
+        this(context, context.getString(R.string.http_loading));
+        this.isShowDialog = isShowDialog;
     }
 
     public BHProgressObserver(Context context, String hint) {
@@ -51,6 +58,9 @@ public abstract class BHProgressObserver<T> extends BHBaseObserver<T> {
 
 
     public void showLoading(){
+        if(!isShowDialog){
+            return;
+        }
         if (loadingDialog == null){
             loadingDialog = new ProgressDialog(this.context);
         }

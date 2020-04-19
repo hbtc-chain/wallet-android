@@ -74,7 +74,7 @@ public class BalancePresenter extends BasePresenter {
         Tx tx = new Tx();
         tx.chain_id = "bhchain-testnet";
         tx.cu_number = "0";
-        tx.memo="test memo";
+        tx.memo="";
         tx.sequence = "5";
 
         TxFee fee = new TxFee();
