@@ -56,8 +56,8 @@ public class ValidatorViewModel extends ViewModel {
                 .subscribe(observer);
     }
     //获取验证人
-    public void getValidatorInfo(BaseActivity activity, String  opAddress){
-        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+    public void getValidatorInfo(BaseActivity activity, String  opAddress,boolean isShowDialog){
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity,isShowDialog) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
