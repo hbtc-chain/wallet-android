@@ -2,6 +2,11 @@ package com.bhex.network.observer;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.widget.ProgressBar;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 
 import com.bhex.network.R;
 
@@ -62,10 +67,13 @@ public abstract class BHProgressObserver<T> extends BHBaseObserver<T> {
             return;
         }
         if (loadingDialog == null){
-            loadingDialog = new ProgressDialog(this.context);
+            loadingDialog = new ProgressDialog(this.context,R.style.AlertDialogCustom);
         }
         loadingDialog.setMessage(this.loadingText);
         loadingDialog.show();
+
+        ProgressBar progressBar = loadingDialog.findViewById(android.R.id.progress);
+        progressBar.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.blue), PorterDuff.Mode.SRC_IN);
     }
 
     public void closeLoading() {

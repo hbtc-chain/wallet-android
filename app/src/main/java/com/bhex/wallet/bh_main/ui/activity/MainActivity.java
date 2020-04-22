@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
     }
 
     @Override
@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        LogUtils.d("MainActivity===>","==outState=="+outState);
+        //LogUtils.d("MainActivity===>","==outState=="+outState);
         outState.putInt("index",mCurrentCheckId);
     }
 }

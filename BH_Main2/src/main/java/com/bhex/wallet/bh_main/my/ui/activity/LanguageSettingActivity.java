@@ -125,11 +125,12 @@ public class LanguageSettingActivity extends BaseActivity {
                     EventBus.getDefault().post(new LanguageEvent());
                     return Boolean.valueOf(true);
                 }).delay(1200L, TimeUnit.MILLISECONDS).
-                subscribe(new BHProgressObserver<Boolean>(LanguageSettingActivity.this,getResources().getString(R.string.langeuage_setting)){
-            @Override
-            public void onSuccess(Boolean aBoolean) {
-                finish();
-            }
+                subscribe(
+                        new BHProgressObserver<Boolean>(LanguageSettingActivity.this,getResources().getString(R.string.langeuage_setting)){
+                        @Override
+                        public void onSuccess(Boolean aBoolean) {
+                            finish();
+                        }
         });
 
 
