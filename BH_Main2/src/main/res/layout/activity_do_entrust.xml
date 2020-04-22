@@ -161,6 +161,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_entrust_amount"
                 android:textSize="15sp"
+                android:visibility="gone"
                 />
 
             <com.bhex.lib.uikit.widget.editor.WithDrawInput
@@ -178,6 +179,7 @@
                 app:leftHint=""
                 app:rightColor="@color/dark_blue"
                 tools:rightText="BHT"
+                android:visibility="gone"
                 />
 
 

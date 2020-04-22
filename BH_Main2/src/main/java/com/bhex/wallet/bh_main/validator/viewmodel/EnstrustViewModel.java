@@ -68,8 +68,8 @@ public class EnstrustViewModel extends ViewModel {
                 .subscribe(observer);
     }*/
 
-    public void getCustDelegations(BaseActivity activity){
-        BHProgressObserver<JsonArray> observer = new BHProgressObserver<JsonArray>(activity) {
+    public void getCustDelegations(BaseActivity activity,boolean isShowDialog){
+        BHProgressObserver<JsonArray> observer = new BHProgressObserver<JsonArray>(activity,isShowDialog) {
             @Override
             protected void onSuccess(JsonArray jsonObject) {
                 //super.onSuccess(jsonObject);

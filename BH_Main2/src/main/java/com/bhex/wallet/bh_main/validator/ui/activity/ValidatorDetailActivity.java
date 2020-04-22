@@ -144,7 +144,7 @@ public class ValidatorDetailActivity extends BaseActivity {
 
 
         swipeRefresh.setOnRefreshListener(refreshLayout1 -> {
-            getRecord();
+            getRecord(false);
         });
     }
 
@@ -160,7 +160,7 @@ public class ValidatorDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getRecord();
+        getRecord(true);
     }
 
     @OnClick({R2.id.iv_copy, R2.id.btn_transfer_entrust, R2.id.btn_relieve_entrust, R2.id.btn_do_entrust})
@@ -189,9 +189,9 @@ public class ValidatorDetailActivity extends BaseActivity {
         }
     }
 
-    private void getRecord() {
+    private void getRecord(boolean isShowDialog) {
         mValidatorViewModel.getValidatorInfo(this,
-                mValidatorInfo.getOperator_address());
+                mValidatorInfo.getOperator_address(),isShowDialog);
     }
 
 }

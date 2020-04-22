@@ -1,5 +1,6 @@
 package com.bhex.wallet.bh_main.validator.ui.activity;
 
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -99,13 +100,14 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     BalanceViewModel mBalanceViewModel;
     String mAvailabelTitle = "";
 
-    String validatorAddress ="";
+    String validatorAddress = "";
     private String available_amount;
 
     @Override
     protected void initPresenter() {
         mPresenter = new DoEntrustPresenter(this);
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_do_entrust;
@@ -122,7 +124,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     private void initValidatorView() {
         tv_to_address.ed_input.setEnabled(false);
 
-        if (mBussiType==ENTRUST_BUSI_TYPE.TRANFER_ENTRUS.getTypeId()) {
+        if (mBussiType == ENTRUST_BUSI_TYPE.TRANFER_ENTRUS.getTypeId()) {
             if (mValidatorInfo != null) {
                 String address = mValidatorInfo.getOperator_address();
                 if (mValidatorInfo.getDescription() != null) {
@@ -170,9 +172,10 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             btn_do_entrust.setText(getString(R.string.relieve_entrust));
             tv_center_title.setText(getString(R.string.relieve_entrust));
         }
+        ed_entrust_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_real_entrust_amount.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.btn_right_text.setText(token.toUpperCase());
-
+        ed_entrust_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         tv_available_amount.setText("可用 " + getString(R.string.string_placeholder) + token.toUpperCase());
     }
 
@@ -181,7 +184,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
         ed_entrust_amount.btn_right_text.setOnClickListener(allListener);
 
         mEnstrustViewModel = ViewModelProviders.of(this).get(EnstrustViewModel.class);
-        mEnstrustViewModel.mutableLiveData.observe(this,ldm -> {
+        mEnstrustViewModel.mutableLiveData.observe(this, ldm -> {
             updateDoEntrustStatus(ldm);
         });
         mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
@@ -200,32 +203,34 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             }
 
         });
-        queryAssetInfo();
+        queryAssetInfo(true);
 
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
-            queryAssetInfo();
+            queryAssetInfo(false);
         });
     }
+
     private String addressReplace(String originAddress) {
         if (originAddress == null || TextUtils.isEmpty(originAddress)) {
             return "";
         }
-        if (originAddress.length()<21) {
+        if (originAddress.length() < 21) {
             return originAddress;
         }
-        return originAddress.replace(originAddress.substring(10,originAddress.length()-10),"...");
+        return originAddress.replace(originAddress.substring(10, originAddress.length() - 10), "...");
     }
-    private void  queryAssetInfo() {
+
+    private void queryAssetInfo(boolean isShowProgressDialog) {
         if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
-            mBalanceViewModel.getAccountInfo(this,null);
+            mBalanceViewModel.getAccountInfo(this, null);
         } else {
-            mEnstrustViewModel.getCustDelegations(this);
+            mEnstrustViewModel.getCustDelegations(this, isShowProgressDialog);
         }
     }
 
 
     private void updateDoEntrustStatus(LoadDataModel ldm) {
-        if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+        if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
             if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
                 com.bhex.network.utils.ToastUtils.showToast(getString(R.string.do_entrust_succeed));
             } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
@@ -234,7 +239,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
                 com.bhex.network.utils.ToastUtils.showToast(getString(R.string.transfer_entrust_succeed));
             }
             finish();
-        }else{
+        } else {
             if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
                 ToastUtils.showToast(getString(R.string.do_entrust_failed));
             } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
@@ -263,27 +268,27 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     }
 
     private void sendRelieveEntrust() {
-        boolean flag = mPresenter.checkDoEntrust(validatorAddress,BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
+        boolean flag = mPresenter.checkDoEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
                 ed_entrust_amount.ed_input.getText().toString(),
                 String.valueOf(available_amount),
                 ed_entrust_fee.ed_input.getText().toString().trim()
         );
-        if(!flag){
+        if (!flag) {
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         String validator_address = validatorAddress;
-        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
         String entrustDrawAmount = ed_entrust_amount.ed_input.getText().toString();
         String feeAmount = ed_entrust_fee.ed_input.getText().toString();
 
 
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.relieveEntrust(hexPK,delegator_address,validator_address,entrustDrawAmount,feeAmount,
-                    gasPrice,BHConstants.BH_MEMO,null,suquece,token);
-            mEnstrustViewModel.sendDoEntrust(this,bhSendTranscation);
+            BHSendTranscation bhSendTranscation = BHTransactionManager.relieveEntrust(hexPK, delegator_address, validator_address, entrustDrawAmount, feeAmount,
+                    gasPrice, BHConstants.BH_MEMO, null, suquece, token);
+            mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
             return 0;
         });
     }
@@ -291,43 +296,40 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     /**
      * 发送交易
      */
-    private void sendDoEntrust(){
-        boolean flag = mPresenter.checkDoEntrust(validatorAddress,BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
+    private void sendDoEntrust() {
+        boolean flag = mPresenter.checkDoEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
                 ed_entrust_amount.ed_input.getText().toString(),
                 String.valueOf(available_amount),
                 ed_entrust_fee.ed_input.getText().toString().trim()
         );
-        if(!flag){
+        if (!flag) {
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         String validator_address = validatorAddress;
-        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
         String entrustDrawAmount = ed_entrust_amount.ed_input.getText().toString();
         String feeAmount = ed_entrust_fee.ed_input.getText().toString();
 
 
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.doEntrust(hexPK,delegator_address,validator_address,entrustDrawAmount,feeAmount,
-                    gasPrice,BHConstants.BH_MEMO,null,suquece,token);
-            mEnstrustViewModel.sendDoEntrust(this,bhSendTranscation);
+            BHSendTranscation bhSendTranscation = BHTransactionManager.doEntrust(hexPK, delegator_address, validator_address, entrustDrawAmount, feeAmount,
+                    gasPrice, BHConstants.BH_MEMO, null, suquece, token);
+            mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
             return 0;
         });
     }
 
 
     public View.OnClickListener allListener = v -> {
-        if (available_amount==null || TextUtils.isEmpty(available_amount)) {
+        if (available_amount == null || TextUtils.isEmpty(available_amount)) {
             ed_entrust_amount.ed_input.setText("");
             return;
         }
         String fee = ed_entrust_fee.ed_input.getText().toString().trim();
-        if (TextUtils.isEmpty(fee)) {
-            fee = "0";
-        }
-        double all_count = NumberUtil.sub(String.valueOf(available_amount),fee);
+        double all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
         ed_entrust_amount.ed_input.setText(String.valueOf(all_count));
     };
 
@@ -341,21 +343,22 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
         }
         for (AccountInfo.AssetsBean item : list) {
             if (item.getSymbol().equalsIgnoreCase(token)) {
-                available_amount = mPresenter.getAmountForUser(item.getAmount(),item.getFrozen_amount(),token);
-                tv_available_amount.setText("可用 "+available_amount+token.toUpperCase());
+                available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+                tv_available_amount.setText("可用 " + available_amount + token.toUpperCase());
             }
         }
     }
+
     private void updateValidatorAssets(List<ValidatorDelegationInfo> data) {
-        if (data == null || data.size()<1) {
+        if (data == null || data.size() < 1) {
             return;
         }
 
         for (ValidatorDelegationInfo item : data) {
             if (item.getValidator().equalsIgnoreCase(validatorAddress)) {
                 String asset = data.get(0).getBonded();
-                available_amount = mPresenter.getAmountForUser(asset,"0",token);
-                tv_available_amount.setText("可用 "+available_amount+token.toUpperCase());
+                available_amount = mPresenter.getAmountForUser(asset, "0", token);
+                tv_available_amount.setText("可用 " + available_amount + token.toUpperCase());
             }
         }
     }
