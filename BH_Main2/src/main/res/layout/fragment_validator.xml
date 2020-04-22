@@ -58,6 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:paddingStart="@dimen/dp_8"
+            app:tabIndicatorColor="@color/blue"
+            app:tabBackground="@color/main_backgound"
             app:tabGravity="fill"
             app:tabIndicatorHeight="@dimen/tab_indicator_height"
             app:tabIndicatorGravity="bottom"

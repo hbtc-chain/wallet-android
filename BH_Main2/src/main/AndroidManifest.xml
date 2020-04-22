@@ -9,7 +9,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".my.ui.activity.RateSettingActivity"></activity>
         <activity android:name=".my.ui.activity.UpdatePasswordActivity" />
-        <activity android:name=".my.ui.activity.SettingActivity" android:launchMode="singleTop"/>
+        <activity android:name=".my.ui.activity.SettingActivity"/>
         <activity android:name=".my.ui.activity.LanguageSettingActivity" />
         <activity android:name=".MainIndexActivity" />
         <activity android:name=".validator.ui.activity.ValidatorDetailActivity" />

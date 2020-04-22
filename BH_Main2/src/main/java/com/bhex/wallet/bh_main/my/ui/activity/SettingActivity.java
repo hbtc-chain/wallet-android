@@ -59,6 +59,11 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
 
     @Override
     protected void initView() {
+        if(MMKVManager.getInstance().getSelectNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         mItems = MyHelper.getSettingItems(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -88,6 +93,7 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         mSettingAdapter.setOnItemClickListener((adapter, view, position) -> {
             clickItemAction(adapter, view, position);
         });
+
 
     }
 
@@ -137,18 +143,19 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         SwitchCompat switchCompat = (SwitchCompat) buttonView;
         if(isChecked){
             switchCompat.setThumbResource(R.mipmap.ic_thumb_night);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            EventBus.getDefault().post(new ThemeEvent(AppCompatDelegate.MODE_NIGHT_YES));
+            //EventBus.getDefault().post(new ThemeEvent(AppCompatDelegate.MODE_NIGHT_YES));
 
         }else{
             switchCompat.setThumbResource(R.mipmap.ic_thumb_sun);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            EventBus.getDefault().post(new ThemeEvent(AppCompatDelegate.MODE_NIGHT_NO));
+            //EventBus.getDefault().post(new ThemeEvent(AppCompatDelegate.MODE_NIGHT_NO));
         }
-        overridePendingTransition(R.anim.activity_close_enter,R.anim.activity_close_exit);
         NavitateUtil.startActivity(this,SettingActivity.class);
+        overridePendingTransition(R.anim.start_anim, R.anim.out_anim);
+        finish();
         //recreate();
     }
 }

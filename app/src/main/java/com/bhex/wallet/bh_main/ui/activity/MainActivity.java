@@ -138,20 +138,10 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         recreate();
     }
 
-    @Subscribe(threadMode= ThreadMode.MAIN)
+    /*@Subscribe(threadMode= ThreadMode.MAIN)
     public void changeTheme(ThemeEvent event){
-        /*if(isChecked){
-            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            //MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-        }else{
-            //switchCompat.setThumbResource(com.bhex.wallet.bh_main.R.mipmap.ic_thumb_sun);
-            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            //MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }*/
-        //AppCompatDelegate.setDefaultNightMode(event.model);
-        //recreate();
-    }
+    }*/
 
     @Override
     protected void onNewIntent(Intent intent) {

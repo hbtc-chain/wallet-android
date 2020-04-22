@@ -126,7 +126,7 @@ public class CoinSearchActivity extends BaseActivity {
      * @param data
      */
     private void updateCoinList(List<BHTokenItem> data) {
-        if(data==null || data.size()==0){
+        if(data==null ){
             return;
         }
 
@@ -165,19 +165,25 @@ public class CoinSearchActivity extends BaseActivity {
             super.afterTextChanged(s);
             String searhContent = ed_search_content.getText().toString().trim();
 
-            if(originList==null || originList.size()==0 || TextUtils.isEmpty(searhContent)){
+            if(originList==null || originList.size()==0){
                 return ;
             }
+
             List<BHTokenItem> resultList = new ArrayList<>();
             //coinList.clear();
-            for(int i=0;i<originList.size();i++){
-                BHTokenItem bhCoinItem = originList.get(i);
-                if(bhCoinItem.symbol.toLowerCase().contains(searhContent.toLowerCase())){
-                    resultList.add(bhCoinItem);
+            if(!TextUtils.isEmpty(searhContent)){
+                for(int i=0;i<originList.size();i++){
+                    BHTokenItem bhCoinItem = originList.get(i);
+                    if(bhCoinItem.symbol.toLowerCase().contains(searhContent.toLowerCase())){
+                        resultList.add(bhCoinItem);
+                    }
                 }
+                updateCoinList(resultList);
+            }else{
+                updateCoinList(originList);
             }
 
-            updateCoinList(resultList);
+
         }
     };
 
