@@ -51,4 +51,7 @@ public class BHConstants {
     //验证人-无效
     public static final int VALIDATOR_INVALID= 0;
 
+    //夜间模式
+    public static final String THEME_MODEL ="theme_model";
+
 }

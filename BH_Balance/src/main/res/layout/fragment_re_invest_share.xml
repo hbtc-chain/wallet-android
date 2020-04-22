@@ -53,16 +53,15 @@
             style="@style/main_material_btn"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="@dimen/main_margin_bottom"
+            android:layout_weight="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="@string/cancel"
             android:textColor="@color/white"
             app:backgroundTint="@color/gray_B0BFDB"
-            app:cornerRadius="@dimen/main_radius_conner"
-            />
+            app:cornerRadius="@dimen/main_radius_conner" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_confirm"

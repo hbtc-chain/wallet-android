@@ -89,8 +89,8 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         ed_transfer_amount.btn_right_text.setOnClickListener(allWithDrawListener);
         tv_reach_amount.ed_input.setEnabled(false);
 
-        ed_transfer_amount.ed_input.addTextChangedListener(checkTextWatcher);
-        et_tx_fee.ed_input.addTextChangedListener(checkTextWatcher);
+        //ed_transfer_amount.ed_input.addTextChangedListener(checkTextWatcher);
+        //et_tx_fee.ed_input.addTextChangedListener(checkTextWatcher);
 
         //初始化可用手续费
         String available_bht_amount_str =  BHBalanceHelper.getAmountForUser(this,bhtBalance.amount,"0",bhtBalance.symbol);
@@ -207,7 +207,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         }
     };
 
-    public SimpleTextWatcher checkTextWatcher = new SimpleTextWatcher(){
+    /*public SimpleTextWatcher checkTextWatcher = new SimpleTextWatcher(){
         @Override
         public void afterTextChanged(Editable s) {
             super.afterTextChanged(s);
@@ -223,7 +223,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             }
 
         }
-    };
+    };*/
 
 
     @OnClick({R2.id.btn_drawwith_coin})

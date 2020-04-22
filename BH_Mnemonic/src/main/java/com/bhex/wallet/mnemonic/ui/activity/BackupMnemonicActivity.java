@@ -1,6 +1,7 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
 
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -10,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.mnemonic.R;
@@ -71,6 +74,25 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
         if(view.getId()== R.id.btn_start_verify){
             NavitateUtil.startActivity(this, VerifyMnemonicActivity.class);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NavitateUtil.startMainActivity(this,
+                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
+        ActivityCache.getInstance().finishActivity();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            NavitateUtil.startMainActivity(this,
+                    new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
+            ActivityCache.getInstance().finishActivity();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

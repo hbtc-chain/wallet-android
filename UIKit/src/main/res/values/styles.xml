@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
-    <style name="BaseTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
+    <style name="BaseTheme" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <!--Appbar背景色-->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -12,7 +12,7 @@
         <item name="colorPrimaryDark">@color/main_text_black</item>
         <!--控制各个控件被选中时的颜色-->
         <item name="colorAccent">@color/blue</item>
-        <item name="android:windowBackground">@color/theme_color_bg</item>
+        <item name="android:windowBackground">@color/main_backgound</item>
         <item name="android:textColor">@color/theme_content</item>
         <!--<item name="colorControlActivated">@color/colorAccent</item>-->
     </style>
@@ -89,7 +89,7 @@
     <style name="toolbar_layout_title_style">
         <item name="android:textSize">17sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/main_text_black</item>
+        <item name="android:textColor">@color/theme_toolbar_title</item>
     </style>
 
     <style name="toolbar_layout_title_white_style">
@@ -210,10 +210,24 @@
     <style name="ck_hidden_small">
         <item name="android:textSize">13.0sp</item>
         <item name="android:textColor">@color/selector_theme_color</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="tabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/dark_blue</item>
+    </style>
+
+    <!--分割线-->
+    <style name="divider_line_style">
+        <item name="android:background">@color/divider_line_color</item>
+        <item name="android:height">1px</item>
+    </style>
+
+    <!--对话框标题-->
+    <style name="dialog_title_style">
+        <item name="android:textSize">17sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/main_text_black</item>
     </style>
 </resources>

@@ -35,12 +35,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:textSize="17sp"
             android:textColor="@color/main_text_black"
             android:layout_gravity="center"
             android:text="请勿截屏"
             android:textStyle="bold"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/dark_black"
+            android:layout_gravity="center"
+            android:text="截屏可能会被第三方恶意软件收集，造成资产损失"
+            android:textStyle="normal"
             />
 
 

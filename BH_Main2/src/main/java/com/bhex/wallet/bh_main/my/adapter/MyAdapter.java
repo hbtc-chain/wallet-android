@@ -2,6 +2,8 @@ package com.bhex.wallet.bh_main.my.adapter;
 
 import android.view.View;
 
+import androidx.appcompat.widget.SwitchCompat;
+
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,6 +40,8 @@ public class MyAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
             viewHolder.getView(R.id.tv_right_txt).setVisibility(View.VISIBLE);
             viewHolder.setText(R.id.tv_right_txt,myItem.rightTxt);
         }
+
+
 
     }
 }

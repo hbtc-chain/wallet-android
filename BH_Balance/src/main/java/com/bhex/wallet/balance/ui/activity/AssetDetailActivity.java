@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.EmptyLayout;
+import com.bhex.lib.uikit.widget.RecycleViewDivider;
+import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.balance.CoinBottomBtn;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
@@ -22,6 +26,7 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
+import com.bhex.wallet.balance.adapter.BalanceAdapter;
 import com.bhex.wallet.balance.adapter.TxOrderAdapter;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
@@ -208,7 +213,16 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             tv_income_value.setVisibility(View.GONE);
         }
 
-        Flowable.timer(4L, TimeUnit.SECONDS).subscribe();
+        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
+                this,LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(this,24),0,
+                ColorUtil.getColor(this,R.color.divider_line_color));
+
+        recycler_order.addItemDecoration(ItemDecoration);
+        //gray_f9f9fb
+        //recycler_balance.addItemDecoration(divider);
+
+        //Flowable.timer(4L, TimeUnit.SECONDS).subscribe();
     }
 
     @Override

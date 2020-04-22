@@ -1,11 +1,16 @@
 package com.bhex.wallet.bh_main.my.ui.activity;
 
 
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
+import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.ProgressDialogObserver;
@@ -31,6 +36,11 @@ import io.reactivex.Observable;
 @Route(path= ARouterConfig.MY_LANGUAE_SET_PAGE)
 public class LanguageSettingActivity extends BaseActivity {
 
+    @Autowired(name="title")
+    String title;
+
+    @BindView(R2.id.tv_center_title)
+    AppCompatTextView tv_center_title;
 
     @BindView(R2.id.rcv_language_set)
     RecyclerView rcvLanguageSet;
@@ -47,6 +57,8 @@ public class LanguageSettingActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        ARouter.getInstance().inject(this);
+        tv_center_title.setText(title);
 
         initData();
 
@@ -58,9 +70,10 @@ public class LanguageSettingActivity extends BaseActivity {
         rcvLanguageSet.setAdapter(mLanguageAdapter);
         rcvLanguageSet.setLayoutManager(layoutManager);
 
-        RecycleViewDivider divider = new RecycleViewDivider(
-                this, 1, 2,
-                getResources().getColor(R.color.line_color));
+        RecycleViewExtDivider divider = new RecycleViewExtDivider(
+                this, LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(this,32),0,
+                getResources().getColor(R.color.divider_line_color));
 
         rcvLanguageSet.addItemDecoration(divider);
     }
@@ -112,7 +125,7 @@ public class LanguageSettingActivity extends BaseActivity {
                     EventBus.getDefault().post(new LanguageEvent());
                     return Boolean.valueOf(true);
                 }).delay(1200L, TimeUnit.MILLISECONDS).
-                subscribe(new BHProgressObserver<Boolean>(LanguageSettingActivity.this,getString(R.string.http_loading)){
+                subscribe(new BHProgressObserver<Boolean>(LanguageSettingActivity.this,getResources().getString(R.string.langeuage_setting)){
             @Override
             public void onSuccess(Boolean aBoolean) {
                 finish();

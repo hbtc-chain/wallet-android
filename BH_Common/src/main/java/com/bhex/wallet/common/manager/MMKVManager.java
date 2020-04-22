@@ -1,5 +1,8 @@
 package com.bhex.wallet.common.manager;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
+import com.bhex.tools.constants.BHConstants;
 import com.tencent.mmkv.MMKV;
 
 /**
@@ -32,5 +35,14 @@ public class MMKVManager {
 
     public MMKV mmkv() {
         return mmkv;
+    }
+
+
+    public int getSelectNightMode(){
+        return mmkv.decodeInt(BHConstants.THEME_MODEL, AppCompatDelegate.MODE_NIGHT_NO);
+    }
+
+    public void setSelectNightMode(int model){
+        mmkv.encode(BHConstants.THEME_MODEL, model);
     }
 }

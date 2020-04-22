@@ -59,6 +59,7 @@ public class PasswordFragment extends BaseDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
     }
 
     @Override
@@ -88,11 +89,7 @@ public class PasswordFragment extends BaseDialogFragment {
         Dialog dialog =  super.onCreateDialog(savedInstanceState);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-
-
-
         return dialog;
-
     }
 
     /**

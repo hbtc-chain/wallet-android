@@ -13,6 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.widget.RecycleViewDivider;
+import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
@@ -84,6 +88,13 @@ public class CoinSearchActivity extends BaseActivity {
         mCoinSearchAdapter = new CoinSearchAdapter(R.layout.item_seach_coin,coinList);
         recycler_coin.setLayoutManager(lm);
         recycler_coin.setAdapter(mCoinSearchAdapter);
+
+        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
+                this,LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(this,68),
+                0,
+                ColorUtil.getColor(this,R.color.divider_line_color));
+        recycler_coin.addItemDecoration(ItemDecoration);
 
         mCoinViewModel = ViewModelProviders.of(this).get(CoinViewModel.class);
 

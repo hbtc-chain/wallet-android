@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/main_backgound"
     tools:context=".ui.fragment.BalanceFragment">
 
     <com.bhex.lib.uikit.widget.StatusBarView
@@ -89,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:paddingEnd="24dp"
-                android:src="@mipmap/ic_menu"
+                android:src="@mipmap/ic_add_token"
                 android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@+id/tv_balance_txt"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_balance_txt"
@@ -121,7 +122,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="@dimen/main_padding_right"
                 android:layout_below="@+id/tv_address"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_backgound"
                 app:cardCornerRadius="10dp"
                 app:cardForegroundColor="@color/trans"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +141,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="24dp"
                         android:text="总资产(CNY)"
-                        android:textColor="@color/dark_black"
+                        android:textColor="@color/asset_title_color"
                         android:textSize="17sp" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -174,11 +175,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_balance_txt2"
-                        android:layout_marginTop="6dp"
-                        android:layout_toRightOf="@+id/tv_currency"
                         android:layout_alignLeft="@+id/tv_balance_txt2"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_toRightOf="@+id/tv_currency"
                         android:includeFontPadding="false"
-                        android:textColor="@color/dark_black"
+                        android:textColor="@color/asset_big_title_color"
                         android:textSize="30sp"
                         android:textStyle="bold"
                         app:cardElevation="5dp"
@@ -192,16 +194,16 @@
             <CheckedTextView
                 android:id="@+id/ck_hidden_small"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                android:layout_height="33dp"
                 android:layout_below="@+id/layout_balance"
+                android:layout_marginStart="@dimen/main_padding_left"
                 android:layout_marginTop="12dp"
+                android:checked="false"
                 android:drawableLeft="@drawable/checkbox_style"
                 android:drawablePadding="2dp"
                 android:gravity="center_vertical"
                 android:text="@string/hidden_small_token"
-                android:layout_marginStart="@dimen/main_padding_left"
                 android:textAppearance="@style/ck_hidden_small"
-                android:checked="false"
                 app:layout_constraintLeft_toLeftOf="@+id/layout_balance"
                 app:layout_constraintTop_toBottomOf="@+id/layout_balance" />
 
@@ -211,7 +213,7 @@
                 android:layout_height="32dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="@dimen/main_margin_right"
-                android:background="@color/gray_f9f9fb"
+                android:background="@drawable/shape_input_corner"
                 android:layout_below="@+id/layout_balance"
                 android:layout_alignParentEnd="true"
                 app:layout_constraintBottom_toBottomOf="@+id/ck_hidden_small"
@@ -231,35 +233,45 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/ed_search_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:maxLines="1"
-                    android:singleLine="true"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
                     android:layout_marginEnd="@dimen/main_margin_right"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/iv_search_ic"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:hint="请输入币种名称"
-                    android:textColor="@color/main_text_black"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/main_text_color"
                     android:textColorHint="@color/dark_blue"
                     android:textCursorDrawable="@null"
                     android:textSize="15sp" />
             </RelativeLayout>
 
-            <com.yanzhenjie.recyclerview.SwipeRecyclerView
+            <View
+                android:id="@+id/view_divider_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/page_margin_top"
+                android:layout_marginStart="@dimen/main_padding_left"
+                style="@style/divider_line_style"
+                android:layout_below="@+id/ck_hidden_small"/>
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:overScrollMode="never"
-                android:layout_below="@+id/ck_hidden_small"
+                android:layout_below="@+id/view_divider_line"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small">
 
-            </com.yanzhenjie.recyclerview.SwipeRecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn2_tx"

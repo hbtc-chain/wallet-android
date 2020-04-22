@@ -81,24 +81,25 @@
             android:text="@string/wallet_password"
             />
 
+
         <com.bhex.lib.uikit.widget.InputView
             android:id="@+id/inp_wallet_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            app:textType="password"
-            app:hint="@string/hint_please_input_password"/>
+            app:hint="@string/hint_please_input_password"
+            app:textType="password" />
 
-
-
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_confirm"
+            style="@style/main_btn_gray_disable"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="@string/confirm"
             android:enabled="false"
-            style="@style/main_btn_gray_disable"
-            />
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/confirm"
+            app:backgroundTint="@color/btn_disable_color"/>
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatTextView

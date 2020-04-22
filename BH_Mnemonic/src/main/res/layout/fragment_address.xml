@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        android:background="@color/gray_E7ECF4"
+        android:background="@color/divider_line_color"
         />
 
     <androidx.recyclerview.widget.RecyclerView

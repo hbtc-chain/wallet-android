@@ -125,7 +125,7 @@ public class GenerateAddressActivity extends BaseActivity {
                 btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.blue));
             }else{
                 btn_crosslink_address.setEnabled(false);
-                btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.gray_E7ECF4));
+                btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.btn_disable_color));
             }
         }
     };

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bhex.network.R;
@@ -63,16 +64,30 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     }
 
     protected  void setStatusColor(){
-        if(getStatusColorValue()== BHConstants.STATUS_COLOR_WHITE){
-            //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
-            ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).barColor(R.color.white).fitsSystemWindows(true).init();
-        }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_BLUE){
-            //StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
-            ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).fitsSystemWindows(true).init();
-        }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_TRANS){
-            //StatusBarUtil.setStatusColor(this,true,true,R.color.trans);
-            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
+        if(!isNight()){
+            if(getStatusColorValue()== BHConstants.STATUS_COLOR_WHITE){
+                //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
+                ImmersionBar.with(this).statusBarColor(R.color.main_backgound).statusBarDarkFont(true).barColor(R.color.main_backgound).fitsSystemWindows(true).init();
+            }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_BLUE){
+                //StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
+                ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).fitsSystemWindows(true).init();
+            }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_TRANS){
+                //StatusBarUtil.setStatusColor(this,true,true,R.color.trans);
+                ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
+            }else{
+
+            }
         }else{
+            if(getStatusColorValue()== BHConstants.STATUS_COLOR_WHITE){
+                //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
+                ImmersionBar.with(this).statusBarColor(R.color.main_backgound).statusBarDarkFont(false).barColor(R.color.main_backgound).fitsSystemWindows(true).init();
+            }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_BLUE){
+                //StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
+                ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).fitsSystemWindows(true).init();
+            }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_TRANS){
+                //StatusBarUtil.setStatusColor(this,true,true,R.color.trans);
+                ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
+            }
         }
 
 
@@ -162,6 +177,10 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
             this.mProgressDialog.dismiss();
         }
 
+    }
+
+    public boolean isNight(){
+       return (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
     }
 
 

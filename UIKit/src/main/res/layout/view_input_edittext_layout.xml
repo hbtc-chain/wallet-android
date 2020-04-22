@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="10dp">
+    android:layout_height="48dp"
+    android:background="@drawable/shape_input_corner"
+    >
 
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/input_edit"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="0dp"
-        android:background="#F9F9FB"
+        android:background="@null"
         android:focusable="true"
         android:gravity="center_vertical"
         android:inputType="text"
         android:hint="请输入用户名称"
+        android:layout_centerVertical="true"
         android:paddingLeft="8dp"
         android:paddingRight="60dp"
         android:singleLine="true"
         android:textSize="14sp"
-        android:textColor="@color/dark"
-        android:textColorHint="#B0BFDB"
+        android:textColor="@color/main_text_color"
+        android:textColorHint="@color/main_text_color"
         android:textCursorDrawable="@null" />
 
 
     <LinearLayout
         android:id="@+id/input_action"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:orientation="horizontal">
 

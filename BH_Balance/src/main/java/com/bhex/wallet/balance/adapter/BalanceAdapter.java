@@ -12,6 +12,7 @@ import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.enums.CURRENCY_TYPE;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
@@ -58,10 +59,11 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         if(!TextUtils.isEmpty(balanceItem.amount)){
             String []result = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balanceItem.amount,balanceItem.symbol,false);
             viewHolder.setText(R.id.tv_coin_amount, result[0]);
-            viewHolder.setText(R.id.tv_coin_count, result[1]);
+            viewHolder.setText(R.id.tv_coin_count, "≈"+result[1]);
         }else{
             viewHolder.setText(R.id.tv_coin_amount, "0");
-            viewHolder.setText(R.id.tv_coin_count, "0");
+            viewHolder.setText(R.id.tv_coin_count, "≈"+
+                    CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(getContext()).toUpperCase()).character+"0");
         }
 
         //标签

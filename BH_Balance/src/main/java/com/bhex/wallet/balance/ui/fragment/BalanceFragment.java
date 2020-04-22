@@ -22,11 +22,13 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
+import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
 import com.bhex.network.base.LoadingStatus;
@@ -79,7 +81,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     Toolbar mToolBar;
 
     @BindView(R2.id.recycler_balance)
-    SwipeRecyclerView recycler_balance;
+    RecyclerView recycler_balance;
 
     @BindView(R2.id.tv_address)
     AppCompatTextView tv_address;
@@ -156,14 +158,15 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         recycler_balance.setLayoutManager(layoutManager);
         recycler_balance.setNestedScrollingEnabled(false);
 
-        RecycleViewDivider ItemDecoration = new RecycleViewDivider(
+        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
                 getContext(),LinearLayoutManager.VERTICAL,
-                1,
-                ColorUtil.getColor(getContext(),R.color.gray_E7ECF4));
+                PixelUtils.dp2px(getYActivity(),68),0,
 
-        recycler_balance.addItemDecoration(ItemDecoration);
+                ColorUtil.getColor(getContext(),R.color.divider_line_color));
+
+        //recycler_balance.addItemDecoration(ItemDecoration);
         //gray_f9f9fb
-        //recycler_balance.addItemDecoration(divider);
+        recycler_balance.addItemDecoration(ItemDecoration);
 
         mBalanceAdapter = new BalanceAdapter(R.layout.item_balance, mBalanceList);
         recycler_balance.setAdapter(mBalanceAdapter);
@@ -252,6 +255,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             //隐藏小额币种
             List<BHBalance> result = mPresenter.hiddenSmallToken(getYActivity(),ck_hidden_small,mOriginBalanceList);
 
+            if(result==null||result.size()==0){
+                mBalanceAdapter.setEmptyView(mEmptyLayout);
+            }
             mBalanceAdapter.getData().clear();
             mBalanceAdapter.addData(result);
         }

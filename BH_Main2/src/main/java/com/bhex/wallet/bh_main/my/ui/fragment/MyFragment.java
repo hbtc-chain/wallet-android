@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseFragment;
@@ -90,7 +91,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
         MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(
                 getYActivity(), DividerItemDecoration.VERTICAL,
-                PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(), R.color.gray_f9f9fb)
+                PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(), R.color.divider_line_color)
         );
 
         recycler_my.addItemDecoration(myRecyclerDivider);
@@ -108,6 +109,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     protected void addEvent() {
         EventBus.getDefault().register(this);
         mMyAdapter.setOnItemClickListener((adapter, view, position) -> {
+            MyItem item = mItems.get(position);
             switch (position){
                 case 0:
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
@@ -115,7 +117,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                             MyFragment.this,position);
                     break;
                 case 1:
-                    ARouterUtil.startActivity(ARouterConfig.MY_UPDATE_PASSWORD);
+                    //ARouterUtil.startActivity(ARouterConfig.MY_UPDATE_PASSWORD);
+                    ARouter.getInstance().build(ARouterConfig.MY_UPDATE_PASSWORD).withString("title",item.title).navigation();
                     break;
                 case 4:
                     //设置

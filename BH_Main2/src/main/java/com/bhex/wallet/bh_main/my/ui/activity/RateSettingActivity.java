@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.tools.constants.BHConstants;
@@ -80,6 +83,15 @@ public class RateSettingActivity extends BaseActivity<RatePresenter> {
         mRateAdapter = new RateAdapter(R.layout.item_rate,currencyItemList);
 
         recycler_rate.setAdapter(mRateAdapter);
+
+        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
+                this,LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(this,32),0,
+
+                ColorUtil.getColor(this,R.color.divider_line_color));
+
+
+        recycler_rate.addItemDecoration(ItemDecoration);
     }
 
     @Override

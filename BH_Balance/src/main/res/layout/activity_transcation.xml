@@ -20,17 +20,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_tranction_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="23455.345670"
-                android:textSize="26sp"
-                android:textColor="@color/dark_black"
                 android:layout_marginStart="@dimen/page_margin_start"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/theme_toolbar_title"
+                android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="23455.345670" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:id="@+id/tv_tranction_text"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/main_text_color"
                     android:textSize="13sp"
                     android:text="TXID"
                     android:layout_marginStart="@dimen/page_margin_start"
@@ -56,7 +56,7 @@
                     android:id="@+id/tv_tranction_hash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/main_text_black"
+                    android:textColor="@color/asset_title_color"
                     android:textSize="13sp"
                     tools:text="3233r32r32r32r32r1321r3233r32r32r32r32r1321r3233r32r32r32r32r1321r3233r32r32r32r32r1321r"
                     android:layout_toEndOf="@+id/tv_tranction_text"
@@ -90,7 +90,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/main_text_color"
                     android:text="@string/status"
                     android:layout_marginStart="@dimen/page_margin_start"
                     app:layout_constraintStart_toStartOf="parent"
@@ -114,23 +114,24 @@
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 >
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textColor="@color/dark_blue"
-                    android:text="@string/time"
                     android:layout_marginStart="@dimen/page_margin_start"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
-                    />
+                    android:text="@string/time"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_transcation_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
+                    android:textColor="@color/asset_title_color"
                     tools:text="2020-4-8 12:23:22"
                     />
 
@@ -147,7 +148,7 @@
                     android:id="@+id/tv_from_label"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/main_text_color"
                     android:textSize="13sp"
                     android:text="FROM"
                     android:layout_marginStart="@dimen/page_margin_start"
@@ -160,7 +161,7 @@
                     android:id="@+id/tv_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/main_text_black"
+                    android:textColor="@color/asset_title_color"
                     android:textSize="13sp"
                     tools:text="3233r32r32r32r32r13"
                     android:layout_toEndOf="@+id/tv_from_label"
@@ -207,7 +208,7 @@
                     android:id="@+id/tv_to"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/main_text_black"
+                    android:textColor="@color/asset_title_color"
                     android:textSize="13sp"
                     tools:text="3233r32r32r32r32r13"
                     android:layout_toEndOf="@+id/tv_to_label"

@@ -24,8 +24,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_f9f9fb"
+            android:layout_height="1px"
+            android:background="@color/divider_line_color"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/iv_wallet_header"
             />
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textColor="@color/main_text_black"
+                style="@style/dialog_title_style"
                 android:textSize="17sp"
                 tools:text="Wallet 2" />
 

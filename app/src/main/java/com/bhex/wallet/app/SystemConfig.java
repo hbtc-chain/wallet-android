@@ -10,6 +10,7 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.BuildConfig;
 import com.bhex.wallet.base.BHNetwork;
 import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.manager.MMKVManager;
 import com.facebook.stetho.Stetho;
 import com.tencent.mmkv.MMKV;
 
@@ -24,7 +25,7 @@ public class SystemConfig  {
     private static SystemConfig _instance;
 
     private SystemConfig() {
-
+        MMKV.initialize(BHApplication.getInstance());
     }
 
     public static SystemConfig getInstance() {
@@ -63,7 +64,6 @@ public class SystemConfig  {
 
         NetworkApi.init(new BHNetwork(BaseApplication.getInstance()));
 
-        MMKV.initialize(BHApplication.getInstance());
         File cacheFile = new File(BaseApplication.getInstance().getCacheDir() + File.separator + "data-cache");
 
         LogUtils.d("SystemConfig===>:","cacheFile===="+cacheFile.getAbsolutePath());
@@ -100,4 +100,6 @@ public class SystemConfig  {
         }
         ARouter.init(BHApplication.getInstance());
     }
+
+
 }

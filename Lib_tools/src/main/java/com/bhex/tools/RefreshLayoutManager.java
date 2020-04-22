@@ -25,9 +25,9 @@ public class RefreshLayoutManager {
             public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
                 //开始设置全局的基本参数（这里设置的属性只跟下面的MaterialHeader绑定，其他Header不会生效，能覆盖DefaultRefreshInitializer的属性和Xml设置的属性）
                 layout.setEnableHeaderTranslationContent(false);
-                return new MaterialHeader(context).setColorSchemeResources(R.color.main_text_black,
-                        R.color.main_text_black,
-                        R.color.main_text_black);
+                return new MaterialHeader(context).setColorSchemeResources(R.color.refresh_cricle_color,
+                        R.color.refresh_cricle_color,
+                        R.color.refresh_cricle_color);
 
             }
         });

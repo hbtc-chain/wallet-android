@@ -7,6 +7,7 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.bh_main.my.model.CurrencyItem;
 import com.bhex.wallet.common.enums.CURRENCY_TYPE;
+import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class RatePresenter extends BasePresenter {
     }
 
     public List<CurrencyItem> getAllCurrency(Context context){
-        String currency_name = MMKVManager.getInstance().mmkv().decodeString(BHConstants.CURRENCY_USED);
+        String currency_name = MMKVManager.getInstance().mmkv().decodeString(BHConstants.CURRENCY_USED, CURRENCY_TYPE.USD.shortName);
 
         List<CurrencyItem> list = new ArrayList<>();
         CURRENCY_TYPE []items = CURRENCY_TYPE.values();

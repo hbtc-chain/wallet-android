@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.bhex.network.R;
+import com.bhex.tools.constants.BHConstants;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.ButterKnife;
 
@@ -37,6 +40,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setStatusColor();
         initPresenter();
     }
 
@@ -112,5 +116,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         }
 
     }
+
+
+    public boolean isNight(){
+        return (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
+
+
 
 }

@@ -12,7 +12,7 @@
     <dimen name="main_margin_right">16dip</dimen>
     <dimen name="main_margin_top">16dip</dimen>
     <dimen name="main_margin_bottom">16dip</dimen>
-
+    <dimen name="input_radius_conner">4dip</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">10sp</dimen><!--修改选中的文字大小 -->
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">10sp</dimen>
     <dimen name="design_bottom_navigation_margin" tools:override="true">10dp</dimen>

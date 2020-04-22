@@ -75,7 +75,7 @@ public class MyHelper {
 
         //语言
         CURRENCY_TYPE.initCurrency(context);
-        String currency_name = MMKVManager.getInstance().mmkv().decodeString(BHConstants.CURRENCY_USED);
+        String currency_name = MMKVManager.getInstance().mmkv().decodeString(BHConstants.CURRENCY_USED,CURRENCY_TYPE.USD.shortName);
 
         myItems.get(1).rightTxt = CURRENCY_TYPE.getValue(currency_name).name+"("+CURRENCY_TYPE.getValue(currency_name)+")";
         return myItems;

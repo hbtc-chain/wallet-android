@@ -22,6 +22,8 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
     private Paint mPaint;
     private Drawable mDivider;
     private int mDividerHeight = 2;//分割线高度，默认为1px
+    private int mPaddingLeft;
+    private int mPaddingRight;
     private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
@@ -71,6 +73,15 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
         mPaint.setStyle(Paint.Style.FILL);
     }
 
+    public RecycleViewDivider(Context context, int orientation, int paddingLeft, int dividerHeight, int dividerColor) {
+        this(context, orientation);
+        mDividerHeight = dividerHeight;
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(dividerColor);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaddingLeft = paddingLeft;
+    }
+
 
     //获取分割线尺寸
     @Override
@@ -94,12 +105,13 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
         }
     }
 
-    /**
-     * 绘制纵向列表时的分隔线  这时分隔线是横着的
-     * 每次 left相同，top根据child变化，right相同，bottom也变化
-     * @param canvas
-     * @param parent
-     */
+
+        /**
+         * 绘制纵向列表时的分隔线  这时分隔线是横着的
+         * 每次 left相同，top根据child变化，right相同，bottom也变化
+         * @param canvas
+         * @param parent
+         */
     private void drawVertical(Canvas canvas, RecyclerView parent) {
         final int left = parent.getPaddingLeft();
         final int right = parent.getMeasuredWidth() - parent.getPaddingRight();
@@ -109,6 +121,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int top = child.getBottom() + layoutParams.bottomMargin;
             final int bottom = top + mDividerHeight;
+            //final int left = child.getRight() + layoutParams.rightMargin;
             if (mDivider != null) {
                 mDivider.setBounds(left, top, right, bottom);
                 mDivider.draw(canvas);

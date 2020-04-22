@@ -1,9 +1,14 @@
 package com.bhex.wallet.bh_main.my.adapter;
 
 import android.view.View;
+import android.widget.CompoundButton;
+
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
+import com.bhex.wallet.common.manager.MMKVManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
@@ -20,9 +25,12 @@ import java.util.List;
  */
 public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
 
+    private SwitchCheckListener switchCheckListener;
 
-    public SettingAdapter(int layoutResId, @Nullable List<MyItem> data) {
+    public SettingAdapter(int layoutResId, @Nullable List<MyItem> data,SwitchCheckListener listener) {
         super(layoutResId, data);
+        this.switchCheckListener = listener;
+        //addChildClickViewIds(R.id.sc_theme);
     }
 
     @Override
@@ -41,5 +49,34 @@ public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
 
         viewHolder.setText(R.id.tv_right_2_txt,myItem.rightTxt);
 
+        SwitchCompat sc = viewHolder.getView(R.id.sc_theme);
+
+        int position = getItemPosition(myItem);
+        if(position==2){
+            int model = MMKVManager.getInstance().getSelectNightMode();
+            if(model== AppCompatDelegate.MODE_NIGHT_YES){
+                sc.setChecked(true);
+                sc.setThumbResource(R.mipmap.ic_thumb_night);
+            }else{
+                sc.setChecked(false);
+                sc.setThumbResource(R.mipmap.ic_thumb_sun);
+            }
+            sc.setVisibility(View.VISIBLE);
+            viewHolder.getView(R.id.iv_arrow).setVisibility(View.INVISIBLE);
+            sc.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if(switchCheckListener!=null){
+                    switchCheckListener.checkStatus(buttonView, isChecked);
+                }
+            });
+        }else{
+            sc.setVisibility(View.INVISIBLE);
+            viewHolder.getView(R.id.iv_arrow).setVisibility(View.VISIBLE);
+        }
+
+
+    }
+
+    public interface  SwitchCheckListener{
+        public void checkStatus(CompoundButton buttonView, boolean isChecked);
     }
 }

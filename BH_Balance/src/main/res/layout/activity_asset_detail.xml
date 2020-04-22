@@ -41,8 +41,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/main_margin_left"
                 android:layout_marginEnd="@dimen/main_margin_right"
-                app:cardCornerRadius="10dp"
                 app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/card_backgound"
+                app:cardCornerRadius="10dp"
                 app:cardForegroundColor="@color/trans"
                 app:contentPaddingBottom="@dimen/main_margin_bottom"
                 app:contentPaddingLeft="@dimen/main_padding_left"
@@ -63,7 +64,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/hold_amount"
-                        android:textColor="@color/dark_blue"
+                        android:textColor="@color/main_text_color"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +74,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="0.00"
-                        android:textColor="@color/main_text_black"
+                        android:textColor="@color/asset_big_title_color"
                         android:textSize="26sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_hold_text" />
@@ -84,18 +85,28 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="0.00"
-                        android:textColor="@color/dark_blue"
+                        android:textColor="@color/main_text_color"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_coin_amount" />
 
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_coin_ic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/ic_big_btc"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_hold_text" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1px"
+                        android:background="@color/divider_line_color"
+                        app:layout_constraintStart_toStartOf="@+id/tv_coin_currency"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_coin_ic"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_coin_ic"
+                        />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_available_text"
@@ -103,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:text="@string/available"
-                        android:textColor="@color/dark_blue"
+                        android:textColor="@color/main_text_color"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_coin_currency" />
@@ -113,7 +124,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:textColor="@color/main_text_black"
+                        android:textColor="@color/asset_title_color"
                         android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_coin_currency"
@@ -125,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="委托中"
-                        android:textColor="@color/dark_blue"
+                        android:textColor="@color/main_text_color"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_available_text" />
@@ -134,7 +145,7 @@
                         android:id="@+id/tv_entrust_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/main_text_black"
+                        android:textColor="@color/asset_title_color"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_entrust_text"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -146,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="赎回中"
-                        android:textColor="@color/dark_blue"
+                        android:textColor="@color/main_text_color"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_entrust_text" />
@@ -155,7 +166,7 @@
                         android:id="@+id/tv_redemption_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/main_text_black"
+                        android:textColor="@color/asset_title_color"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_redemption_text"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -167,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="已收益"
-                        android:textColor="@color/dark_blue"
+                        android:textColor="@color/main_text_color"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_redemption_value" />
@@ -176,7 +187,7 @@
                         android:id="@+id/tv_income_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/main_text_black"
+                        android:textColor="@color/asset_title_color"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_income_text"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +239,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#32ffffff"
             android:gravity="center_horizontal"
             android:paddingBottom="16dp"
             app:actionImage="@mipmap/ic_transfer_in"

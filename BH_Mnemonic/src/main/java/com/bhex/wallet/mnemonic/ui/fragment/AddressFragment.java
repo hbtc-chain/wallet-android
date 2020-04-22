@@ -76,6 +76,8 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         mData = getAllBHWalletItem();
 
         mAddressAdapter = new AddressAdapter(R.layout.item_address,mData);
@@ -87,7 +89,7 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
         RecycleViewDivider ItemDecoration = new RecycleViewDivider(
                 getContext(),LinearLayoutManager.VERTICAL,
                 1,
-                ColorUtil.getColor(getContext(),R.color.gray_E7ECF4));
+                ColorUtil.getColor(getContext(),R.color.btn_disable_color));
 
         recycler_address.addItemDecoration(ItemDecoration);
 

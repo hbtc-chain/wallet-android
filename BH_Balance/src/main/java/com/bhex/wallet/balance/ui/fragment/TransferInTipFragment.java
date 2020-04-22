@@ -64,6 +64,7 @@ public class TransferInTipFragment extends BaseDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         mRootView.findViewById(R.id.btn_ikonw).setOnClickListener(v->{
             dismiss();

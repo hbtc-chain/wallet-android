@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
@@ -47,10 +48,10 @@ public class LoginPresenter extends BasePresenter {
         flag = RegexUtil.checkPasswd(pwd);
 
         if (flag) {
-            btn_confirm.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);
+            btn_confirm.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.blue));
             btn_confirm.setEnabled(true);
         }else{
-            btn_confirm.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
+            btn_confirm.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.btn_disable_color));
             btn_confirm.setEnabled(false);
         }
     }

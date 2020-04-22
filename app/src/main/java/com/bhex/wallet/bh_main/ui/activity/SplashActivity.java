@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.R;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -14,6 +15,8 @@ import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.MnemonicIndexActivity;
 import com.bhex.wallet.mnemonic.ui.activity.LockActivity;
 import com.gyf.immersionbar.ImmersionBar;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,25 +42,24 @@ public class SplashActivity extends AppCompatActivity {
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletViewModel.loadWallet(this);
 
-       /*walletViewModel.mutableWallentLiveData.observe(this, listLoadDataModel -> {
-            if(listLoadDataModel.loadingStatus== LoadingStatus.SUCCESS){
-                //List<BHWallet> list = listLoadDataModel.getData();
-                //BHUserManager.getInstance().setAllWallet(list);
-            }
-        });*/
+
 
         boolean flag = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FRIST_BOOT);
 
         //
-        Disposable disposable = Observable.just(0).timer(2000, TimeUnit.MILLISECONDS).subscribe(aLong -> {
-            //首次启动
-            if(!BHUserManager.getInstance().isHasWallet()){
-                NavitateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
-            }else {
-                NavitateUtil.startActivity(SplashActivity.this, LockActivity.class);
-            }
-            finish();
-        });
+        Disposable disposable = Observable.just(0).timer(2000, TimeUnit.MILLISECONDS)
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(aLong -> {
+                    LogUtils.d("SplashActivity===>:","aLong=="+aLong);
+                    //首次启动
+                    if(!BHUserManager.getInstance().isHasWallet()){
+
+                        NavitateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
+                    }else {
+                        NavitateUtil.startActivity(SplashActivity.this, LockActivity.class);
+                    }
+                    finish();
+                });
 
         mCompositeDisposable.add(disposable);
 

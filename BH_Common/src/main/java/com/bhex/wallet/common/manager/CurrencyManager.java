@@ -33,9 +33,9 @@ public class CurrencyManager {
     private CurrencyManager(){
         //mCurrency = "cny";
         currencyFormat.setGroupingUsed(false);
-        currencyFormat.setMaximumFractionDigits(3);
-        currencyFormat.setMinimumFractionDigits(3);
-        currencyFormat.setRoundingMode(RoundingMode.FLOOR);
+        currencyFormat.setMaximumFractionDigits(2);
+        currencyFormat.setMinimumFractionDigits(2);
+        currencyFormat.setRoundingMode(RoundingMode.HALF_UP);
     }
 
     public static CurrencyManager getInstance(){
@@ -87,7 +87,12 @@ public class CurrencyManager {
         }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.USD.shortName)){
 
         }*/
-       return CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(context).toUpperCase()).character+currencyFormat.format(value);
+        if(value==0){
+            return CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(context).toUpperCase()).character+"0";
+
+        }else{
+            return CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(context).toUpperCase()).character+currencyFormat.format(value);
+        }
     }
 
     public double getCurrencyRate(Context context, String symbol){

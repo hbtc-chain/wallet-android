@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.presenter.ValidatorFragmentPresenter;
 import com.google.android.material.tabs.TabLayout;
+import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +67,10 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
     }
 
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 
     private void initTab() {
         List<Pair<String, Fragment>> items = new ArrayList<>();
@@ -124,4 +130,6 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
 
         }
     }
+
+
 }

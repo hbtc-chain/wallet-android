@@ -1,17 +1,26 @@
 package com.bhex.wallet.bh_main.ui.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.balance.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.LanguageEvent;
+import com.bhex.wallet.common.event.ThemeEvent;
+import com.bhex.wallet.common.manager.MMKVManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,6 +42,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     private long mExitTime = 0L;
 
+    private int mCurrentCheckId = 0;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -56,21 +66,42 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        LogUtils.d("MainActivity===>","==onRestoreInstanceState==");
+        if(savedInstanceState!=null){
+            mCurrentCheckId = savedInstanceState.getInt("index",0);
+            mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
+        }
+    }
+
+    @Override
     protected void addEvent() {
 
         EventBus.getDefault().register(this);
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.tab_balance:
+                    mCurrentCheckId = 0;
                     getPresenter().goBalanceFragment();
                     return true;
                 case R.id.tab_validator:
+                    mCurrentCheckId = 1;
                     getPresenter().goValidatorFragment();
                     return true;
                 case R.id.tab_order:
+                    mCurrentCheckId = 2;
                     getPresenter().goOrderFragment();
                     return true;
                 case R.id.tab_my:
+                    mCurrentCheckId = 3;
                     getPresenter().goMyFragment();
                     return true;
             }
@@ -102,19 +133,41 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         EventBus.getDefault().unregister(this);
     }
 
-
     @Subscribe(threadMode= ThreadMode.MAIN)
     public void changeLanguage(LanguageEvent language){
         recreate();
     }
 
+    @Subscribe(threadMode= ThreadMode.MAIN)
+    public void changeTheme(ThemeEvent event){
+        /*if(isChecked){
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            //MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        }else{
+            //switchCompat.setThumbResource(com.bhex.wallet.bh_main.R.mipmap.ic_thumb_sun);
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            //MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }*/
+        //AppCompatDelegate.setDefaultNightMode(event.model);
+        //recreate();
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
     }
 
     @Override
     protected int getStatusColorValue() {
         return BHConstants.STATUS_COLOR_TRANS;
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        LogUtils.d("MainActivity===>","==outState=="+outState);
+        outState.putInt("index",mCurrentCheckId);
     }
 }

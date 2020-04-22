@@ -2,11 +2,17 @@ package com.bhex.wallet.bh_main.my.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.NavitateUtil;
@@ -18,6 +24,8 @@ import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
+import com.bhex.wallet.common.event.ThemeEvent;
+import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -35,7 +43,7 @@ import butterknife.ButterKnife;
  * 2020-3-12 15:48:18
  * 设置
  */
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity implements SettingAdapter.SwitchCheckListener {
 
     @BindView(R2.id.recycler_setting)
     RecyclerView recycler_setting;
@@ -51,12 +59,6 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
-    }
-
-    @Override
-    protected void addEvent() {
-
         mItems = MyHelper.getSettingItems(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -64,14 +66,29 @@ public class SettingActivity extends BaseActivity {
         recycler_setting.setLayoutManager(layoutManager);
         //mMyAdapter.setHasStableIds(true);
 
-        mSettingAdapter = new SettingAdapter(R.layout.item_setting,mItems);
+        mSettingAdapter = new SettingAdapter(R.layout.item_setting,mItems,this);
 
         recycler_setting.setAdapter(mSettingAdapter);
+
+        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
+                this,LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(this,16),0,
+
+                ColorUtil.getColor(this,R.color.divider_line_color));
+
+
+        recycler_setting.addItemDecoration(ItemDecoration);
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void addEvent() {
 
         mSettingAdapter.setOnItemClickListener((adapter, view, position) -> {
             clickItemAction(adapter, view, position);
         });
-        EventBus.getDefault().register(this);
+
     }
 
     /**
@@ -84,7 +101,8 @@ public class SettingActivity extends BaseActivity {
         MyItem myItem = mItems.get(position);
         switch (position){
             case 0:
-                ARouterUtil.startActivity(ARouterConfig.MY_LANGUAE_SET_PAGE);
+                ARouter.getInstance().build(ARouterConfig.MY_LANGUAE_SET_PAGE).withString("title",myItem.title).navigation();
+
                 break;
             case 1:
                 ARouter.getInstance().build(ARouterConfig.MY_Rate_setting).withString("title",myItem.title).navigation();
@@ -114,5 +132,23 @@ public class SettingActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void checkStatus(CompoundButton buttonView, boolean isChecked) {
+        SwitchCompat switchCompat = (SwitchCompat) buttonView;
+        if(isChecked){
+            switchCompat.setThumbResource(R.mipmap.ic_thumb_night);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            EventBus.getDefault().post(new ThemeEvent(AppCompatDelegate.MODE_NIGHT_YES));
 
+        }else{
+            switchCompat.setThumbResource(R.mipmap.ic_thumb_sun);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            EventBus.getDefault().post(new ThemeEvent(AppCompatDelegate.MODE_NIGHT_NO));
+        }
+        overridePendingTransition(R.anim.activity_close_enter,R.anim.activity_close_exit);
+        NavitateUtil.startActivity(this,SettingActivity.class);
+        //recreate();
+    }
 }

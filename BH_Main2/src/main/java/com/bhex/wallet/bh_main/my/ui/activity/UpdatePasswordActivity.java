@@ -10,7 +10,9 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
@@ -37,6 +39,8 @@ import butterknife.OnClick;
 
 @Route(path= ARouterConfig.MY_UPDATE_PASSWORD)
 public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
+    @Autowired(name="title")
+    String title;
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -58,7 +62,8 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
 
     @Override
     protected void initView() {
-
+        ARouter.getInstance().inject(this);
+        tv_center_title.setText(title);
     }
 
     @Override

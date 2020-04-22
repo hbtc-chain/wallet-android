@@ -80,6 +80,7 @@ public class BHBalanceHelper {
         double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,symbol);
         double asset = NumberUtil.mul(String.valueOf(displayAmount),String.valueOf(symbolPrice));
         result[1] = CurrencyManager.getInstance().getCurrencyDecription(context,asset);
+
         return result;
     }
 

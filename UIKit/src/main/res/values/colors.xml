@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="textColorPrimary">#616161</color>
+    <color name="refresh_cricle_color">#0A1825</color>
 
     <!--<color name="colorCustomHeaderLine">#A9A9A9</color>
     <color name="colorCustomHeaderInner">#A9A9A9</color>-->
@@ -32,7 +33,7 @@
     <color name="dark_black">#475563</color>
     <color name="gray_f9f9fb">#f9f9fb</color>
     <color name="gray_B0BFDB">#B0BFDB</color>
-    <color name="gray_E7ECF4">#E7ECF4</color>
+    <!--<color name="gray_E7ECF4">#E7ECF4</color>-->
     <color name="gray_ACB5C3">#ACB5C3</color>
 
     <color name="color_269A99">#269A99</color>
@@ -65,9 +66,39 @@
     <color name="theme_color_dark">#ff0062cc</color>
     <color name="theme_color">#ff007aff</color>
 
-    <color name="divider_line_color">#F9F9FB</color>
     <color name="color_F9F9FB">#F4F7FF</color>
     <color name="color_F4F7FF">#F9F9FB</color>
 
+    <color name="switch_compat_bg">#ff9ea7b4</color>
 
+    <!--黑白版颜色-->
+    <color name="main_backgound">@color/white</color>
+    <color name="theme_nav_background">#F9F9FB</color>
+    <color name="card_backgound">@color/white</color>
+    <color name="asset_title_color">#475563</color>
+    <color name="asset_big_title_color">#475563</color>
+    <!--分割线颜色-->
+    <color name="divider_line_color">#77F9F9FB</color>
+    <color name="main_text_color">#6E8196</color>
+    <color name="theme_nav_title">@color/main_text_color</color>
+    <!--顶部标题颜色-->
+    <color name="theme_toolbar_title">@color/main_text_black</color>
+
+    <!--输入框背景色-->
+    <color name="input_hint_background">#77F9F9FB</color>
+
+    <!--提币边框颜色-->
+    <color name="tranfer_stoke_color">#E7ECF4</color>
+    <!--提币边框文字颜色-->
+    <color name="tranfer_stoke_text_color">#475563</color>
+    <!--token操作颜色-->
+    <color name="tranfer_action_text_color">#242b32</color>
+
+    <!--输入框背景色-->
+    <color name="input_background">#F9F9FB</color>
+    <!--dialog背景色-->
+    <color name="dialog_fragment_backgound">@color/white</color>
+
+    <!--btn-禁用颜色-->
+    <color name="btn_disable_color">#E7ECF4</color>
 </resources>

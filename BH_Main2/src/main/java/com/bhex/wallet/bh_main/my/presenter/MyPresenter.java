@@ -34,7 +34,9 @@ public class MyPresenter extends BasePresenter {
             mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.blue));
             mb.setEnabled(true);
         }else{
-            mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.gray_E7ECF4));
+            mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.btn_disable_color));
+
+            //mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.btn_disable_color));
             mb.setEnabled(false);
         }
 

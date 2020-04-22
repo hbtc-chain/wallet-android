@@ -54,4 +54,17 @@
         android:visibility="invisible"
         />
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sc_theme"
+        android:layout_width="42dip"
+        android:layout_height="22dip"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:thumb="@mipmap/ic_thumb_sun"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/dp_16"
+        app:trackTint="@color/switch_compat_bg"
+        android:visibility="invisible"
+        />
+
 </RelativeLayout>

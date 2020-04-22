@@ -76,7 +76,7 @@ public class BHSeekBar extends View {
         mInnerRadius = PixelUtils.dp2px(mContext,12.5f);
 
 
-        mProgressPaint.setColor(ContextCompat.getColor(mContext, R.color.gray_E7ECF4));
+        mProgressPaint.setColor(ContextCompat.getColor(mContext, R.color.btn_disable_color));
         mProgressPaint.setStyle(Paint.Style.FILL);
         mProgressPaint.setDither(true);
         mProgressPaint.setStrokeWidth(mProgressHeight);

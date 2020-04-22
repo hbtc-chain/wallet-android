@@ -64,6 +64,7 @@ public class ReInvestShareFragment extends BaseDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         MaterialButton btn_cancel = mRootView.findViewById(R.id.btn_cancel);
 

@@ -159,9 +159,8 @@ public class BHUserManager {
         //LogUtils.d(TAG+"====>:","result==="+result);
         return result;
     }
-
     public String getSymbolList(){
-        String symbol= "bht_btc_eth_usdt";
+        String symbol= "hbc_btc_eth_tusdt_usdt";
         return symbol;
     }
 }
