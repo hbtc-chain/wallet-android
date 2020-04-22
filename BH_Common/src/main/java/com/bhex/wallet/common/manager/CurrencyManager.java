@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.RatesCache;
@@ -109,6 +110,7 @@ public class CurrencyManager {
         if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.CNY.shortName)){
             return Double.valueOf(ratesBean.getCny());
         }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.USD.shortName)){
+            LogUtils.d("CurrencyManager===>:","currency=="+ratesBean.getUsd());
             return Double.valueOf(ratesBean.getUsd());
         }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.KRW.shortName)){
             return Double.valueOf(ratesBean.getKrw());

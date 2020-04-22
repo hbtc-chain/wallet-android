@@ -9,9 +9,11 @@ public class LoadDataModel<T> extends LoadingStatus {
     private T data;
 
     public LoadDataModel() {
+        super(LoadingStatus.SUCCESS);
     }
 
     public LoadDataModel(int code, String message) { super(code, message); }
+
 
     public LoadDataModel(T t) {
         super(LoadingStatus.SUCCESS);

@@ -176,6 +176,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         ed_search_content.addTextChangedListener(balanceTextWatcher);
 
         mEmptyLayout = LayoutInflater.from(getYActivity()).inflate(R.layout.layout_empty_asset,(ViewGroup) recycler_balance.getParent(),false);
+
+
     }
 
 
@@ -201,14 +203,15 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         });
 
-        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
+        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(getYActivity());
         balanceViewModel.accountLiveData.observe(this,ldm -> {
             refreshLayout.finishRefresh();
             if(ldm.loadingStatus==LoadingStatus.SUCCESS){
                 updateAssets(ldm.getData());
             }
-
         });
+
+        getLifecycle().addObserver(balanceViewModel);
 
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
             balanceViewModel.getAccountInfo(getYActivity(),bhWallet.address);

@@ -65,7 +65,7 @@ public class RatesCache extends BaseCache {
                         }
                         ratesMap.clear();
                         for (BHRates rate:ratelist){
-                            ratesMap.put(rate.getToken(),rate.getRates());
+                            ratesMap.put(rate.getToken().toLowerCase(),rate.getRates());
                         }
                         //LogUtils.d(TAG+"===>:","size=="+ratesMap.size());
                     }

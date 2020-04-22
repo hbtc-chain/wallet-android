@@ -85,7 +85,6 @@ public class LockActivity extends BaseActivity<LoginPresenter> implements Addres
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());
         getPresenter().proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
-
     }
 
     @Override

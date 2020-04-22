@@ -1,5 +1,7 @@
 package com.bhex.wallet.common.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by BHEX.
  * User: gdy
@@ -43,11 +45,17 @@ public class BHRates {
          * vnd : 925.126168
          */
 
+        @SerializedName("cny")
         private String cny;
+        @SerializedName("jpy")
         private String jpy;
+        @SerializedName("krw")
         private String krw;
+        @SerializedName("usd")
         private String usd;
+        @SerializedName("usdt")
         private String usdt;
+        @SerializedName("vnd")
         private String vnd;
 
         public String getCny() {

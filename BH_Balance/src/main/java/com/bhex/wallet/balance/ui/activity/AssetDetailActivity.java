@@ -145,6 +145,8 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
 
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
+
+        transactionViewModel.initData(this,balance.symbol);
         //根据token 显示View
         initTokenView();
     }
@@ -232,21 +234,26 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         transactionViewModel.queryTransctionByAddress(this,
                 BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, balance.symbol, null);
 
+        getLifecycle().addObserver(transactionViewModel);
+
         transactionViewModel.transLiveData.observe(this, ldm -> {
             //更新交易记录
-            if (ldm.loadingStatus == LoadingStatus.SUCCESS && ldm.getData() != null && ldm.getData().size() > 0) {
-                empty_layout.loadSuccess();
-                updateTxOrder(ldm.getData());
-            } else if (ldm.getData() == null || ldm.getData().size() == 0) {
-                empty_layout.showNoData();
-            } else {
+            if (ldm.loadingStatus == LoadingStatus.SUCCESS ) {
+                if((ldm.getData() == null || ldm.getData().size()==0)&& mTxOrderAdapter.getData().size()==0){
+                    empty_layout.showNoData();
+                }else {
+                    empty_layout.loadSuccess();
+                    updateTxOrder(ldm.getData());
+                }
+            } else if(ldm.loadingStatus == LoadingStatus.ERROR){
                 empty_layout.showNeterror(view -> {
 
                 });
             }
         });
 
-        mTxOrderAdapter.setOnItemClickListener((adapter, view, position) -> {
+        mTxOrderAdapter.setOnItemClickListener((adapter, view,
+                                                position) -> {
             TransactionOrder txo = mOrderList.get(position);
             TxOrderItem txOrderItem = TransactionHelper.getTxOrderItem(txo);
             ARouter.getInstance().build(ARouterConfig.Balance_transcation_detail)
