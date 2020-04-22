@@ -96,9 +96,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                     mCurrentCheckId = 1;
                     getPresenter().goValidatorFragment();
                     return true;
-                case R.id.tab_order:
+                case R.id.tab_proposals:
                     mCurrentCheckId = 2;
-                    getPresenter().goOrderFragment();
+                    getPresenter().goProposalFragment();
                     return true;
                 case R.id.tab_my:
                     mCurrentCheckId = 3;
