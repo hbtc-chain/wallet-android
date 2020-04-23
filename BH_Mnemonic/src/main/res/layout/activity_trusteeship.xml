@@ -67,17 +67,27 @@
             android:textColor="@color/dark_blue"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
-            android:text="钱包名称"
+            android:text="@string/wallet_name"
             />
 
         <com.bhex.lib.uikit.widget.InputView
             android:id="@+id/inp_wallet_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            app:textType="normal"
             app:editable="true"
-            app:hint="1-20字符"/>
+            app:hint="1-20字符"
+            app:textType="normal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_wallet_name_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="3dp"
+            android:layout_gravity="right"
+            android:textColor="@color/dark_blue"
+            tools:text="@string/pwd_index"
+            />
 
 
         <androidx.appcompat.widget.AppCompatButton

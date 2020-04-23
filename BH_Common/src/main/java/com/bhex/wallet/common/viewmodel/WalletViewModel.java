@@ -68,11 +68,10 @@ public class WalletViewModel extends ViewModel {
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel(code,"");
                 mutableLiveData.postValue(loadDataModel);
-
             }
         };
 
@@ -148,8 +147,8 @@ public class WalletViewModel extends ViewModel {
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
                 LoadDataModel loadDataModel = new LoadDataModel();
                 mutableLiveData.postValue(loadDataModel);
             }
@@ -193,9 +192,9 @@ public class WalletViewModel extends ViewModel {
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel(code,"");
                 mutableLiveData.postValue(loadDataModel);
             }
         };
@@ -228,7 +227,7 @@ public class WalletViewModel extends ViewModel {
         BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
             public void onSuccess(BHWallet bhWallet) {
-                LoadDataModel loadDataModel = new LoadDataModel("");
+                LoadDataModel loadDataModel = new LoadDataModel();
                 BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 mutableLiveData.postValue(loadDataModel);
             }
@@ -240,11 +239,10 @@ public class WalletViewModel extends ViewModel {
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel(code,"");
                 mutableLiveData.postValue(loadDataModel);
-
             }
         };
 

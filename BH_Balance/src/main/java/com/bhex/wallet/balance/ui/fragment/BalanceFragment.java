@@ -27,20 +27,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
+import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.BalanceAdapter;
 import com.bhex.wallet.balance.event.BHCoinEvent;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
+import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -51,11 +52,11 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.viewmodel.BalanceViewModel;
+import com.bhex.wallet.common.utils.LiveDataBus;
+import com.google.android.material.textview.MaterialTextView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
-import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -79,6 +80,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @BindView(value = R2.id.toolbar)
     Toolbar mToolBar;
+
+    @BindView(R2.id.tv_balance_txt2)
+    MaterialTextView tv_balance_txt2;
 
     @BindView(R2.id.recycler_balance)
     RecyclerView recycler_balance;
@@ -106,10 +110,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
 
-
-
     private View mEmptyLayout;
-
 
     private BalanceAdapter mBalanceAdapter;
 
@@ -148,7 +149,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         getYActivity().setSupportActionBar(mToolBar);
         getYActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
-
+        String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
+        tv_balance_txt2.setText(all_asset_label);
         //LogUtils.d("bhWallet===","==bhWallet="+bhWallet.getAddress());
 
         mOriginBalanceList = mPresenter.makeBalanceList();
@@ -177,7 +179,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         mEmptyLayout = LayoutInflater.from(getYActivity()).inflate(R.layout.layout_empty_asset,(ViewGroup) recycler_balance.getParent(),false);
 
-
     }
 
 
@@ -204,10 +205,16 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         });
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(getYActivity());
-        balanceViewModel.accountLiveData.observe(this,ldm -> {
+       /* balanceViewModel.accountLiveData.observe(this,ldm -> {
             refreshLayout.finishRefresh();
             if(ldm.loadingStatus==LoadingStatus.SUCCESS){
                 updateAssets(ldm.getData());
+            }
+        });*/
+        LiveDataBus.getInstance().with(BHConstants.Account_Label, LoadDataModel.class).observe(this, ldm->{
+            refreshLayout.finishRefresh();
+            if(ldm.loadingStatus==LoadingStatus.SUCCESS){
+                updateAssets((AccountInfo) ldm.getData());
             }
         });
 
@@ -225,6 +232,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
      */
 
     private void updateAssets(AccountInfo accountInfo) {
+        String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
+        tv_balance_txt2.setText(all_asset_label);
         mAccountInfo = accountInfo;
         List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
         if(list==null || list.size()==0){
@@ -314,7 +323,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(CurrencyEvent currencyEvent){
-        LogUtils.d("BalanceFragment==>","=currencyEvent=");
+        //LogUtils.d("BalanceFragment==>","=currencyEvent=");
         updateAssets(mAccountInfo);
     }
 

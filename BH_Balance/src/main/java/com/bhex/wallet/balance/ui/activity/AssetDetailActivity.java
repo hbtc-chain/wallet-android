@@ -35,13 +35,14 @@ import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.balance.presenter.AssetPresenter;
 import com.bhex.wallet.balance.ui.fragment.ReInvestShareFragment;
 import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
+import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.TransactionOrder;
-import com.bhex.wallet.common.viewmodel.BalanceViewModel;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -261,7 +262,10 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                     .navigation();
         });
 
-        balanceViewModel.accountLiveData.observe(this,ldm->{
+        /*balanceViewModel.accountLiveData.observe(this,ldm->{
+            updateAssest(ldm);
+        });*/
+        LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).observe(this,ldm->{
             updateAssest(ldm);
         });
 

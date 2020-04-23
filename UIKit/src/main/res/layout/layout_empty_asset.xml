@@ -15,7 +15,7 @@
         android:drawablePadding="20dp"
         android:text="暂无资产"
         android:textSize="15sp"
-        android:textColor="@color/gray_ACB5C3"
+        android:textColor="@color/tip_text_color"
         android:layout_gravity="center"
         android:layout_centerInParent="true"
         />

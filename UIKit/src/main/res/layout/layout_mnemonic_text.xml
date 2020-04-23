@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/gray_f9f9fb">
+    android:background="@color/input_background">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_word_index"

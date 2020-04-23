@@ -6,5 +6,20 @@ package com.bhex.wallet.common.enums;
  * Date: 2020/4/22
  * Time: 23:26
  */
-public class MAKE_WALLET_TYPE {
+public enum  MAKE_WALLET_TYPE {
+    创建助记词(0),导入助记词(1),PK(2),KS(3);
+
+    private int way;
+
+    MAKE_WALLET_TYPE(int way) {
+        this.way = way;
+    }
+
+    public int getWay() {
+        return way;
+    }
+
+    public void setWay(int way) {
+        this.way = way;
+    }
 }

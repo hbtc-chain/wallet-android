@@ -12,6 +12,8 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.enums.CURRENCY_TYPE;
+import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
 
 import java.util.ArrayList;
@@ -33,11 +35,15 @@ public class MyHelper {
         MyItem item = null;
         for (int i = 0; i < res.length; i++) {
             if (i == 6) {
-                item = new MyItem(res[i], false, PackageUtils.getVersionName(context));
+                item = new MyItem(i,res[i], false, PackageUtils.getVersionName(context));
             } else {
-                item = new MyItem(res[i], true, "");
+                item = new MyItem(i,res[i], true, "");
             }
             myItems.add(item);
+        }
+
+        if(BHUserManager.getInstance().getCurrentBhWallet().getWay()!= MAKE_WALLET_TYPE.创建助记词.getWay()){
+            myItems.remove(0);
         }
         return myItems;
     }
@@ -67,7 +73,7 @@ public class MyHelper {
 
         String [] res = context.getResources().getStringArray(R.array.set_list_item);
         for (int i = 0; i < res.length; i++) {
-            MyItem item = new MyItem(res[i], true, "");
+            MyItem item = new MyItem(i,res[i], true, "");
             myItems.add(item);
         }
 

@@ -32,13 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="提取并委托所有分红 5790.45 BHT至验证节点，并支付交易手续费"
-        android:textColor="@color/dark_black"
         android:paddingStart="@dimen/page_margin_start"
         android:paddingEnd="@dimen/page_margin_start"
         android:layout_gravity="center"
-        android:textStyle="normal"
-        android:textSize="15sp"
         android:layout_marginTop="@dimen/main_margin_top"
+        style="@style/reinvesrt_content_style"
         />
 
     <LinearLayout

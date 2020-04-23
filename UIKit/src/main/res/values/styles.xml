@@ -233,9 +233,17 @@
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:typeface">normal</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/blue</item>
         <item name="android:background">@color/white</item>
         <item name="android:headerDividersEnabled">true</item>
+    </style>
+
+    <!--提取收益和分红内容中的颜色-->
+    <style name="reinvesrt_content_style">
+        <item name="android:typeface">normal</item>
+        <item name="android:textColor">@color/tranfer_stoke_text_color</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 </resources>

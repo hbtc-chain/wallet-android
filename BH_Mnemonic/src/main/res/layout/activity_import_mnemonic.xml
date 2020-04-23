@@ -12,6 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@mipmap/icon_back"
         app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
         app:titleTextAppearance="@style/Toolbar_textsize">
 
@@ -53,7 +54,7 @@
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_right"
         app:layout_constraintTop_toBottomOf="@+id/imprt_mnemonic_tips"
-        android:background="@color/gray_f9f9fb">
+        android:background="@color/input_background">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_mnemonic"
@@ -64,12 +65,11 @@
             android:gravity="top"
             android:hint="@string/mnemonic_input_hint"
             android:textColorHint="@color/dark_blue"
-            android:textColor="@color/tips_text_black"
+            android:textColor="@color/main_text_black"
             android:padding="16dp"
             android:inputType="text"
             android:layout_marginBottom="30dp"
             android:textCursorDrawable="@null"
-            android:text="burst clean range coral dumb produce spatial rare boat pottery virtual reveal"
             tools:text="sniff float truck talent walk search mad boat away fossil sleep dune">
 
         </androidx.appcompat.widget.AppCompatEditText>

@@ -30,8 +30,10 @@ import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.api.TransactionApi;
 import com.bhex.wallet.common.api.TransactionApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.TransactionOrder;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonObject;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
@@ -141,6 +143,35 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 .subscribe(observer);
     }
 
+    //获取资产
+    public void getAccountInfo(BaseActivity activity,String address){
+        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                //super.onSuccess(jsonObject);
+                AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
+                //BalanceViewModel.accountLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
+
+                //LiveDataBus.getInstance().with("")
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel(0,"");
+                //BalanceViewModel.accountLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
 
     private void beginReloadData() {
         Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
@@ -157,6 +188,8 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                         //queryTransctionByAddress();
                         TransactionViewModel.this.queryTransctionByAddress(mActivity,
                                 BHUserManager.getInstance().getCurrentBhWallet().address,1,mSymbol,null);
+
+                        TransactionViewModel.this.getAccountInfo(mActivity,null);
                     }
 
                     @Override

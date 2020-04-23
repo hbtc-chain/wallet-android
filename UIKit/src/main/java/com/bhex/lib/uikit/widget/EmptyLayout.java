@@ -50,11 +50,11 @@ public class EmptyLayout extends LinearLayout {
     private void initEmptyLayout(Context context, AttributeSet attrs) {
         LinearLayout.inflate(context, R.layout.empty_layout,this);
 
-        this.empty_img = (ImageView)findViewById(R.id.empty_img);
-        this.empty_progress = (ProgressBar)findViewById(R.id.empty_progress);
-        this.empty_bt_reload = (AppCompatButton)findViewById(R.id.empty_bt_reload);
-        this.empty_title = (TextView)findViewById(R.id.empty_title);
-        this.empty_sub_title = (TextView)findViewById(R.id.empty_sub_title);
+        this.empty_img = findViewById(R.id.empty_img);
+        this.empty_progress = findViewById(R.id.empty_progress);
+        this.empty_bt_reload =findViewById(R.id.empty_bt_reload);
+        this.empty_title = findViewById(R.id.empty_title);
+        this.empty_sub_title = findViewById(R.id.empty_sub_title);
     }
 
     public void loadSuccess() {

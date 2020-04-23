@@ -125,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"
-            android:textColor="@color/gray_ACB5C3"
+            android:textColor="@color/tip_text_color"
             android:text="温馨提示"
             />
 
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="13sp"
-            android:textColor="@color/gray_ACB5C3"
+            android:textColor="@color/tip_text_color"
             android:text="1.段落文本"
             />
 
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:lineSpacingExtra="2dp"
-            android:textColor="@color/gray_ACB5C3"
+            android:textColor="@color/tip_text_color"
             android:text="2.段落文本段落文本"
             />
 
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:lineSpacingExtra="2dp"
-            android:textColor="@color/gray_ACB5C3"
+            android:textColor="@color/tip_text_color"
             android:text="3.段落文本段落文本段落文本段落文本段落文本"
             />
     </LinearLayout>

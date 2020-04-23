@@ -54,4 +54,7 @@ public class BHConstants {
     //夜间模式
     public static final String THEME_MODEL ="theme_model";
 
+    //LiveDataBus 订阅账户信息
+    public static final String Account_Label = "accountLiveData";
+
 }

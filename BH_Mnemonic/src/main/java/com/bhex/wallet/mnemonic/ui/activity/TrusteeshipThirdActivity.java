@@ -13,10 +13,12 @@ import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.tools.utils.StringUtils;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
@@ -31,7 +33,7 @@ import butterknife.OnClick;
 
 /**
  * @author gongdongyang
- * 创建托管单元第二步
+ * 创建托管单元第三步
  * 2020-3-12 20:47:54
  */
 public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPresenter>
@@ -100,10 +102,15 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
             if (loadDataModel.loadingStatus== LoadingStatus.SUCCESS) {
-                NavitateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
-                ActivityCache.getInstance().finishActivity();
+                if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.导入助记词.getWay()){
+                    NavitateUtil.startMainActivity(this,null);
+                }else{
+                    NavitateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
+                    ActivityCache.getInstance().finishActivity();
+                }
+
             } else if(loadDataModel.loadingStatus== LoadingStatus.ERROR){
-                ToastUtils.showToast("创建失败");
+                ToastUtils.showToast(getString(R.string.create_fail));
             }
         });
     }
@@ -118,11 +125,11 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
             int way = BHUserManager.getInstance().getTmpBhWallet().way;
 
-            if(way==0){
+            if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
                 generateMnemonic(userName,mOldPwd);
-            }else if(way==1){
+            }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){
                 importMnemoic(userName,mOldPwd);
-            }else if(way==2){
+            }else if(way==MAKE_WALLET_TYPE.PK.getWay()){
                 importPrivatekey(userName,mOldPwd);
             }
 

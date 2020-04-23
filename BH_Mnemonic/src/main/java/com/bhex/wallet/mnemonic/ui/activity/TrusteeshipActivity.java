@@ -42,6 +42,8 @@ public class TrusteeshipActivity extends BaseCacheActivity {
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
 
+    @BindView(R2.id.tv_wallet_name_count)
+    AppCompatTextView tv_wallet_name_count;
 
     @Override
     protected int getLayoutId() {
@@ -52,7 +54,7 @@ public class TrusteeshipActivity extends BaseCacheActivity {
     protected void initView() {
         tv_center_title.setText(R.string.wallet_create_trusteeship);
         inp_wallet_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
-        inp_wallet_name.getEditText().setText("Bluehelix Wallet");
+        //inp_wallet_name.getEditText().setText("Bluehelix Wallet");
     }
 
     @Override
@@ -72,8 +74,13 @@ public class TrusteeshipActivity extends BaseCacheActivity {
                     btn_next.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
                     btn_next.setEnabled(false);
                 }
+                int count = inp_wallet_name.getInputString().length();
+                tv_wallet_name_count.setText(String.format(getString(R.string.pwd_index), count));
+
             }
         });
+
+
     }
 
 

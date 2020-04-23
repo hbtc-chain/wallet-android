@@ -3,6 +3,7 @@
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:background="@color/input_background"
     xmlns:tools="http://schemas.android.com/tools"
     >
 

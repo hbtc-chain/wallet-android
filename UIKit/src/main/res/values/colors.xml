@@ -42,7 +42,7 @@
     <color name="tips_text_black">#0E1D2C</color>
 
     <color name="blue5">#0c3375E0</color>
-    <color name="red">#ED3756</color>
+    <color name="red">#F73A46</color>
 
     <color name="dark20">#202F44</color>
     <color name="dark80">#cc242b32</color>
@@ -101,4 +101,8 @@
 
     <!--btn-禁用颜色-->
     <color name="btn_disable_color">#E7ECF4</color>
+
+    <!--tips-->
+    <color name="tip_text_color">#ACB5C3</color>
+
 </resources>

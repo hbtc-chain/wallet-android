@@ -29,4 +29,6 @@
     <color name="dialog_fragment_backgound">#222D42</color>
     <!--btn-禁用颜色-->
     <color name="btn_disable_color">#222D42</color>
+    <!--tips-->
+    <color name="tip_text_color">#6E8196</color>
 </resources>

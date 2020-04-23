@@ -87,7 +87,7 @@
             android:layout_height="23dp"
             android:textColor="@color/main_text_black"
             android:textSize="16sp"
-            android:text="备份提示"
+            android:text="@string/tips_backup"
             android:textStyle="normal"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
@@ -98,7 +98,7 @@
             android:layout_height="20dp"
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
-            android:text="您将通过助记词备份钱包"
+            android:text="@string/tips_trust_success_index_1"
             android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
@@ -110,7 +110,7 @@
             android:layout_height="20dp"
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
-            android:text="助记词为12个英文单词"
+            android:text="@string/tips_trust_success_index_2"
             android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="5dp"
@@ -123,7 +123,7 @@
             android:layout_gravity="left"
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
-            android:text="助记词可助您恢复钱包"
+            android:text="@string/tips_trust_success_index_3"
             android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
@@ -135,7 +135,7 @@
             android:layout_height="20dp"
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
-            android:text="请务必牢记您的助记词"
+            android:text="@string/tips_trust_success_index_4"
             android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="5dp"
@@ -149,7 +149,7 @@
             android:textSize="14sp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="17dp"
-            android:text="我们建议"
+            android:text="@string/tips_our_suggestion"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -157,7 +157,7 @@
             android:layout_height="20dp"
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
-            android:text="请勿通过邮箱、通讯工具分享您的助记词"
+            android:text="@string/tips_trust_success_index_5"
             android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
 
@@ -166,7 +166,7 @@
             android:layout_height="20dp"
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
-            android:text="请勿将您的助记词轻易告知他人"
+            android:text="@string/tips_trust_success_index_6"
             android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
 
@@ -175,7 +175,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/dark_blue"
             android:textSize="14sp"
-            android:text="请勿将助记词截屏、照相等方式保存于您的移动设备中"
+            android:text="@string/tips_trust_success_index_7"
             android:lineSpacingExtra="@dimen/main_line_spacing_extra"
             />
         </LinearLayout>

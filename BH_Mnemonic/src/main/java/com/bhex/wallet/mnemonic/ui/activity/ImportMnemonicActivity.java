@@ -10,12 +10,15 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -89,18 +92,18 @@ public class ImportMnemonicActivity extends BaseCacheActivity {
 
         boolean flag = RegexUtil.checkIsLetter(mnemoicStr);
 
-        String []array = mnemoicStr.split(" ");
+        String []array = mnemoicStr.split("\\s+");
 
         if(!flag || array.length < 12){
             return true;
         }
 
-        for (int i = 0; i < array.length; i++) {
+        /*for (int i = 0; i < array.length; i++) {
             if(!mOriginWords.contains(array[i])){
                 //flag = false;
                 return true;
             }
-        }
+        }*/
 
         return false;
     }
@@ -111,10 +114,10 @@ public class ImportMnemonicActivity extends BaseCacheActivity {
         boolean flag = true;
 
         if(!TextUtils.isEmpty(mnemoicStr)){
-            String []array = mnemoicStr.split(" ");
+            String []array = mnemoicStr.split("\\s+");
             for (int i = 0; i < array.length; i++) {
-                if(!TextUtils.isEmpty(array[i])){
-                    mnemonicItems.add(array[i]);
+                if(!TextUtils.isEmpty(array[i].trim())){
+                    mnemonicItems.add(array[i].trim());
                 }
             }
         }
@@ -129,14 +132,17 @@ public class ImportMnemonicActivity extends BaseCacheActivity {
         }
 
         if(!flag){
-            ToastUtils.showToast("助记词格式错误");
+            ToastUtils.showToast(getResources().getString(R.string.error_mnemonic_form));
             return;
         }
+        String mnemonic_text = et_mnemonic.getText().toString().replaceAll("\\s+"," ");
+        LogUtils.d("ImportMnemonicActivity===>:","mnemonic_text=="+mnemonic_text);
 
-        BHUserManager.getInstance().getTmpBhWallet().setWay(1);
-        BHUserManager.getInstance().getTmpBhWallet().setMnemonic(et_mnemonic.getText().toString());
+        BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入助记词.getWay());
+        BHUserManager.getInstance().getTmpBhWallet().setMnemonic(mnemonic_text);
         BHUserManager.getInstance().getTmpBhWallet().setWords(mnemonicItems);
-        NavitateUtil.startActivity(this,TrusteeshipActivity.class);
+        ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST).navigation();
+        //NavitateUtil.startActivity(this,TrusteeshipActivity.class);
         //walletViewModel.importMnemonic(this,mnemonicItems,"gongdongyang","q1234567");
         //BHWalletUtils.importMnemonic(BHWalletUtils.BH_CUSTOM_TYPE,mnemonicItems,"gongdongyang","q1234567");
     }

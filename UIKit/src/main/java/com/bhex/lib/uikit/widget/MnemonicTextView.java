@@ -44,16 +44,16 @@ public class MnemonicTextView extends RelativeLayout {
     private void initLayout() {
         mRootLayout = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.layout_mnemonic_text,this);
 
-        Log.d("MnemonicTextView","mRootLayout=="+mRootLayout.toString());
+        //Log.d("MnemonicTextView","mRootLayout=="+mRootLayout.toString());
 
         mTextWordIndex = mRootLayout.findViewById(R.id.text_word_index);
 
 
-        Log.d("MnemonicTextView","mRootLayout=="+mTextWordIndex.getText());
+        //Log.d("MnemonicTextView","mRootLayout=="+mTextWordIndex.getText());
 
         mTextWord = mRootLayout.findViewById(R.id.text_word);
 
-        Log.d("MnemonicTextView","mRootLayout=="+mTextWord.getText());
+        //Log.d("MnemonicTextView","mRootLayout=="+mTextWord.getText());
 
 
     }

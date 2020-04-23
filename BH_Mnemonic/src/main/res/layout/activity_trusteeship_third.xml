@@ -103,8 +103,8 @@
             android:id="@+id/inp_wallet_confirm_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textType="2"
-            app:hint="@string/set_pwd_hint"/>
+            app:hint="@string/hint_confirm_password"
+            app:textType="2" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_password_count"

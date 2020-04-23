@@ -11,6 +11,7 @@ import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.HUtils;
 import com.bhex.network.utils.JsonUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -22,6 +23,7 @@ import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.TransactionOrder;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uber.autodispose.AutoDispose;
@@ -43,21 +45,24 @@ public class EnstrustViewModel extends ViewModel {
     public MutableLiveData<LoadDataModel> mutableLiveData  = new MutableLiveData<>();
 
     //获取资产
-    /*public void getAccountInfo(BaseActivity activity){
+    public void getAccountInfo(BaseActivity activity){
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 //super.onSuccess(jsonObject);
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
-                accountLiveData.postValue(loadDataModel);
+                //accountLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
-                accountLiveData.postValue(loadDataModel);
+                LoadDataModel loadDataModel = new LoadDataModel(code,"");
+                //accountLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
+
             }
         };
 
@@ -66,7 +71,7 @@ public class EnstrustViewModel extends ViewModel {
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
-    }*/
+    }
 
     public void getCustDelegations(BaseActivity activity,boolean isShowDialog){
         BHProgressObserver<JsonArray> observer = new BHProgressObserver<JsonArray>(activity,isShowDialog) {

@@ -7,7 +7,7 @@
     <string name="get_auth_code">获取验证码</string>
     <string name="import_auth_code">输入验证码</string>
     <string name="resend">重新发送</string>
-    <string name="app_no_data">暂无数据</string>
+    <string name="app_no_data">暂无记录</string>
 
     <string name="http_loading">数据加载中</string>
 
@@ -190,6 +190,20 @@
     <string name="transfer_entrust_failed">转委托失败</string>
     <string name="album">相册</string>
     <string name="langeuage_setting">语言设置中...</string>
+    <string name="hint_input_token_name">请输入币种名称</string>
+    <string name="all_asset">总资产</string>
+    <string name="tips_backup">备份提示</string>
+    <string name="tips_trust_success_index_1">您将通过助记词备份钱包</string>
+    <string name="tips_trust_success_index_2">助记词为12个英文单词</string>
+    <string name="tips_trust_success_index_3">助记词可助您恢复钱包</string>
+    <string name="tips_trust_success_index_4">请务必牢记您的助记词</string>
+    <string name="tips_trust_success_index_5">请勿通过邮箱、通讯工具分享您的助记词</string>
+    <string name="error_mnemonic_form">助记词格式错误</string>
+    <string name="wallet_name">钱包名称</string>
+    <string name="hint_confirm_password">请输入重复密码</string>
+    <string name="create_fail">创建失败</string>
+    <string name="hint_input_username">请输入用户名称</string>
+    <string name="please_input_password">请输入密码</string>
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>

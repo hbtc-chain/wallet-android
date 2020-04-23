@@ -24,17 +24,14 @@ import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
 import com.bhex.wallet.bh_main.validator.presenter.DoEntrustPresenter;
 import com.bhex.wallet.bh_main.validator.viewmodel.EnstrustViewModel;
-import com.bhex.wallet.common.cache.CacheCenter;
-import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
-import com.bhex.wallet.common.viewmodel.BalanceViewModel;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -97,7 +94,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     private String token = BHConstants.BHT_TOKEN;
 
     EnstrustViewModel mEnstrustViewModel;
-    BalanceViewModel mBalanceViewModel;
+    //BalanceViewModel mBalanceViewModel;
     String mAvailabelTitle = "";
 
     String validatorAddress = "";
@@ -187,14 +184,20 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
         mEnstrustViewModel.mutableLiveData.observe(this, ldm -> {
             updateDoEntrustStatus(ldm);
         });
-        mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
+        //mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
         //mEnstrustViewModel = ViewModelProviders.of(this).get(EnstrustViewModel.class);
-        mBalanceViewModel.accountLiveData.observe(this, ldm -> {
+        /*mBalanceViewModel.accountLiveData.observe(this, ldm -> {
             refreshLayout.finishRefresh();
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 updateAssets(ldm.getData());
             }
 
+        });*/
+        LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).observe(this,ldm->{
+            refreshLayout.finishRefresh();
+            if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
+                updateAssets((AccountInfo) ldm.getData());
+            }
         });
         mEnstrustViewModel.delegationLiveData.observe(this, ldm -> {
             refreshLayout.finishRefresh();
@@ -222,7 +225,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
     private void queryAssetInfo(boolean isShowProgressDialog) {
         if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
-            mBalanceViewModel.getAccountInfo(this, null);
+            mEnstrustViewModel.getAccountInfo(this);
         } else {
             mEnstrustViewModel.getCustDelegations(this, isShowProgressDialog);
         }

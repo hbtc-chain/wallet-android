@@ -75,7 +75,7 @@ public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
         recycler_import_way.setAdapter(importAdapter);
 
         RecycleViewDivider divider = new RecycleViewDivider(this, LinearLayoutManager.VERTICAL,
-                PixelUtils.dp2px(this,16), ColorUtil.getColor(this,R.color.white));
+                PixelUtils.dp2px(this,16), ColorUtil.getColor(this,R.color.main_backgound));
 
         recycler_import_way.addItemDecoration(divider);
 

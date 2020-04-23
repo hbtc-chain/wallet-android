@@ -36,9 +36,8 @@
         android:paddingStart="@dimen/page_margin_start"
         android:paddingEnd="@dimen/page_margin_start"
         android:layout_gravity="center"
-        android:textStyle="normal"
-        android:textSize="15sp"
         android:layout_marginTop="@dimen/main_margin_top"
+        style="@style/reinvesrt_content_style"
         />
 
     <LinearLayout

@@ -14,6 +14,7 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.tools.utils.ToolUtils;
@@ -110,7 +111,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         EventBus.getDefault().register(this);
         mMyAdapter.setOnItemClickListener((adapter, view, position) -> {
             MyItem item = mItems.get(position);
-            switch (position){
+            switch (item.id){
                 case 0:
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
@@ -145,6 +146,12 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_username.setText(mBhWallet.getName());
         MyHelper.proccessAddress(tv_address,mBhWallet.getAddress());
+
+        mItems = MyHelper.getAllItems(getYActivity());
+        mMyAdapter.getData().clear();
+        mMyAdapter.addData(mItems);
+        LogUtils.d("MyFragment===>:","mItems=="+mItems.size());
+        //mMyAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -157,18 +164,18 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @Override
     public void confirmAction(String password,int position) {
         if(TextUtils.isEmpty(password)){
-            ToastUtils.showToast("请输入密码");
+            ToastUtils.showToast(getResources().getString(R.string.please_input_password));
             return;
         }
 
         if(!MD5.md5(password).equals(mBhWallet.getPassword())){
-            ToastUtils.showToast("密码错误");
+            ToastUtils.showToast(getResources().getString(R.string.error_password));
             return;
         }
 
         //备份助记词
         if(position==0){
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_CREATE_OK_PAGE);
+            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
         }
 
     }

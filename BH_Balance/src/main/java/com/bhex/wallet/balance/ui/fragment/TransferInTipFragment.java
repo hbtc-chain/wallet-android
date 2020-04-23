@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -72,7 +73,7 @@ public class TransferInTipFragment extends BaseDialogFragment {
 
         AppCompatTextView tv_tip1 = mRootView.findViewById(R.id.tv_transfer_in_tips_1);
         AppCompatTextView tv_tip2 = mRootView.findViewById(R.id.tv_transfer_in_tips_2);
-        ForegroundColorSpan foregroundColorSpan=new ForegroundColorSpan(Color.parseColor("#FF0000"));
+        ForegroundColorSpan foregroundColorSpan=new ForegroundColorSpan(ContextCompat.getColor(getContext(),R.color.red));
 
         if(way==1){
             String tip1 = getResources().getString(R.string.linkinner_deposit_tip_1);

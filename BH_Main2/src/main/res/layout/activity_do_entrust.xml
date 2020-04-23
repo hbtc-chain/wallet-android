@@ -283,7 +283,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/reminder"
-                    android:textColor="@color/gray_ACB5C3"
+                    android:textColor="@color/tip_text_color"
                     android:textSize="13sp"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
@@ -292,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:lineHeight="18dp"
                     android:text="1.段落文本占位符"
-                    android:textColor="@color/gray_ACB5C3"
+                    android:textColor="@color/tip_text_color"
                     android:textSize="13sp"
                     />
 
@@ -302,7 +302,7 @@
                     android:layout_height="wrap_content"
                     android:text="1.段落文本占位符"
                     android:lineHeight="18dp"
-                    android:textColor="@color/gray_ACB5C3"
+                    android:textColor="@color/tip_text_color"
                     android:textSize="13sp"
                     />
 
@@ -312,7 +312,7 @@
                     android:layout_height="wrap_content"
                     android:text="1.段落文本占位符"
                     android:lineHeight="18dp"
-                    android:textColor="@color/gray_ACB5C3"
+                    android:textColor="@color/tip_text_color"
                     android:textSize="13sp"
                     />
 
