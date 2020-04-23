@@ -18,11 +18,13 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.JsonUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonObject;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
@@ -60,14 +62,16 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
                 //super.onSuccess(jsonObject);
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
-                accountLiveData.postValue(loadDataModel);
+                //accountLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
                 LoadDataModel loadDataModel = new LoadDataModel(0,"");
-                accountLiveData.postValue(loadDataModel);
+                //accountLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
             }
         };
 
@@ -94,7 +98,7 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
                     public void onNext(Long aLong) {
                         super.onNext(aLong);
                         LogUtils.d("BalanceViewModel===>:","==aLong=="+aLong);
-                        //BalanceViewModel.this.getAccountInfo(mContext,null);
+                        BalanceViewModel.this.getAccountInfo(mContext,null);
                     }
 
                     @Override
@@ -112,7 +116,7 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void onPause(){
         if(compositeDisposable!=null && !compositeDisposable.isDisposed()){
-            LogUtils.d("BalanceViewModel===>:","==onPause==");
+            //LogUtils.d("BalanceViewModel===>:","==onPause==");
             compositeDisposable.isDisposed();
         }
     }
