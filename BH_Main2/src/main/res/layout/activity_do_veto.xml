@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="validator.ui.activity.DoEntrustActivity">
+
+    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@mipmap/icon_back"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            style="@style/toolbar_layout_title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/string_veto"
+            tools:text="@string/string_veto" />
+
+    </androidx.appcompat.widget.Toolbar>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        >
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_8"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/main_margin_right"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                android:layout_marginTop="@dimen/dp_8"
+                android:gravity="top"
+                android:background="@drawable/bg_border_corners_gray"
+                android:text="@string/do_entrust_tip"
+                android:textColor="@color/main_text_black"
+                android:textSize="@dimen/sp_15"
+                android:letterSpacing="0.02"
+                android:padding="@dimen/dp_10"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_pledge_amount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/string_veto"
+
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tips"
+                android:textSize="15sp"
+                />
+
+          <RelativeLayout
+              android:id="@+id/rl_yes_option"
+              android:layout_marginTop="@dimen/dp_8"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dp_48"
+              android:layout_marginStart="@dimen/main_margin_left"
+              android:layout_marginEnd="@dimen/main_margin_right"
+
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/tv_pledge_amount_title"
+              android:background="@drawable/input_bg_gray_corner"
+              android:paddingRight="@dimen/main_margin_left"
+              android:paddingLeft="@dimen/main_padding_left"
+              android:gravity="center_vertical">
+              <ImageView
+                  android:id="@+id/iv_option_yes"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@mipmap/icon_veto_yes">
+
+              </ImageView>
+              <androidx.appcompat.widget.AppCompatTextView
+                  android:id="@+id/tv_option_yes"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/veto_yes"
+                  android:textSize="@dimen/sp_17"
+                  android:textColor="@color/dark_black"
+                  android:layout_centerHorizontal="true">
+              </androidx.appcompat.widget.AppCompatTextView>
+
+          </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_no_option"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_yes_option"
+                android:background="@drawable/input_bg_gray_corner"
+                android:paddingRight="@dimen/main_margin_left"
+                android:paddingLeft="@dimen/main_padding_left"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/iv_option_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_veto_no">
+
+                </ImageView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_option_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/veto_no"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="@color/dark_black"
+                    android:layout_centerHorizontal="true">
+                </androidx.appcompat.widget.AppCompatTextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_abstain_option"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_no_option"
+                android:background="@drawable/input_bg_gray_corner"
+                android:paddingRight="@dimen/main_margin_left"
+                android:paddingLeft="@dimen/main_padding_left"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/iv_option_abstain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_veto_abstain">
+
+                </ImageView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_option_abstain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/veto_abstain"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="@color/dark_black"
+                    android:layout_centerHorizontal="true">
+                </androidx.appcompat.widget.AppCompatTextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_no_with_veto_option"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_abstain_option"
+                android:background="@drawable/input_bg_gray_corner"
+                android:paddingRight="@dimen/main_margin_left"
+                android:paddingLeft="@dimen/main_padding_left"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/iv_option_with_no_veto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_veto_no_with_veto">
+
+                </ImageView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_option_no_with_veto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/veto_no_with_veto"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="@color/dark_black"
+                    android:layout_centerHorizontal="true">
+                </androidx.appcompat.widget.AppCompatTextView>
+
+            </RelativeLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_fee_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/fee"
+
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_no_with_veto_option"
+                android:textSize="15sp"
+                />
+
+
+            <com.bhex.lib.uikit.widget.CustomTextView
+                android:id="@+id/tv_available_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_blue"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_no_with_veto_option"
+                android:textSize="13sp"
+                tools:text="可用 3000.00 BHT"
+                />
+
+            <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                android:id="@+id/ed_fee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/tv_fee_title"
+                app:leftHint=""
+                app:rightColor="@color/dark_blue"
+                tools:rightText="BHT"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_speedup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/speedup"
+
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_fee"
+                android:textSize="15sp"
+                android:visibility="gone"
+                />
+
+            <com.bhex.lib.uikit.widget.CustomTextView
+                android:id="@+id/tv_speedup_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_blue"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginEnd="@dimen/page_margin_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_entrust_fee"
+                android:textSize="13sp"
+                tools:text="可用 3000.00 BHT"
+                android:visibility="gone"
+                />
+
+
+
+            <com.bhex.lib.uikit.widget.seekbar.BHSeekBar
+                android:id="@+id/speed_up"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_speedup_title"
+                android:visibility="gone"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_76"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_do_veto"
+            style="@style/main_material_btn"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/string_veto"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/blue" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

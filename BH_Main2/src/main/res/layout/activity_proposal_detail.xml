@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="validator.ui.activity.ValidatorDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@mipmap/icon_back"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            style="@style/toolbar_layout_title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/proposals_detail"
+            tools:text="@string/proposals_detail" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_proposal_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="testseadgfasdxfvadsvg" />
+
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:layout_marginTop="@dimen/main_margin_top"
+                    android:gravity="center_vertical"
+                    android:text="@string/status"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_proposal_name" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/main_margin_top"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:maxLines="1"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_status_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_proposal_name"
+                    tools:text="质押募集中" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_id_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:gravity="center_vertical"
+                    android:text="@string/proposal_id"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_status_title" />
+
+
+                <com.bhex.lib.uikit.widget.CustomTextView
+                    android:id="@+id/tv_id"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:maxLines="1"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_id_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_status_title"
+                    tools:text="56" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:gravity="center_vertical"
+                    android:text="@string/proposal_type"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_id_title" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:maxLines="1"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_type_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_id_title"
+                    tools:text="cosmos-sdk/CommunityPool SpendProposal" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_validator_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:gravity="center_vertical"
+                    android:text="@string/proposal_validator"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_type" />
+
+
+                <com.bhex.lib.uikit.widget.CustomTextView
+                    android:id="@+id/tv_validator"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:maxLines="1"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_validator_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_type"
+                    tools:text="BH19wlk845...k89q4h7xr3" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:gravity="center_vertical"
+                    android:text="@string/proposal_time"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_validator_title" />
+
+
+                <com.bhex.lib.uikit.widget.CustomTextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:maxLines="1"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_time_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_validator_title"
+                    tools:text="2020/04/03  1:23:34 AM UTC" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_pledge_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:gravity="center_vertical"
+                    android:text="@string/pledge_amount"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_time_title" />
+
+
+                <com.bhex.lib.uikit.widget.CustomTextView
+                    android:id="@+id/tv_pledge"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:maxLines="1"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_pledge_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_time_title"
+                    tools:text="99999/100000 BHT" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_veto_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:gravity="center_vertical"
+                    android:text="@string/veto_end_time"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_pledge_title" />
+
+                <com.bhex.lib.uikit.widget.CustomTextView
+                    android:id="@+id/tv_veto_time1"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:maxLines="1"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toStartOf="@id/tv_veto_time2"
+                    app:layout_constraintStart_toEndOf="@id/tv_veto_time_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_pledge_title"
+                    tools:text="3" />
+
+                <com.bhex.lib.uikit.widget.CustomTextView
+                    android:id="@+id/tv_veto_time2"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:maxLines="1"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_pledge_title"
+                    tools:text="days later" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ll_veto_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_F4F7FF"
+                    android:layout_marginTop="@dimen/dp_16"
+                    app:layout_constraintTop_toBottomOf="@id/tv_veto_time_title"
+                    android:paddingBottom="@dimen/dp_16">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_veto_result"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:text="@string/veto_rate"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_veto_yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_veto_yes"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:tag="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_result"
+                        android:layout_marginTop="@dimen/dp_6"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_veto_yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:text="@string/veto_yes"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintStart_toEndOf="@id/iv_veto_yes"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_result" />
+
+
+                    <com.bhex.lib.uikit.widget.CustomTextView
+                        android:id="@+id/tv_veto_yes_rate"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical|right"
+                        android:maxLines="1"
+                        android:textColor="@color/main_text_black"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_veto_yes"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_result"
+                        tools:text="132,789,234 (94.54%)" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_veto_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_veto_no"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:tag="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_yes"
+                        android:layout_marginTop="@dimen/dp_6"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_veto_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:text="@string/veto_no"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintStart_toEndOf="@id/iv_veto_no"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_yes" />
+
+
+                    <com.bhex.lib.uikit.widget.CustomTextView
+                        android:id="@+id/tv_veto_no_rate"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical|right"
+                        android:maxLines="1"
+                        android:textColor="@color/main_text_black"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_veto_no"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_yes"
+                        tools:text="132,789,234 (94.54%)" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_veto_abstain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_veto_abstain"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:tag="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_no"
+                        android:layout_marginTop="@dimen/dp_6"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_veto_abstain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:text="@string/veto_abstain"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintStart_toEndOf="@id/iv_veto_abstain"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_no" />
+
+
+                    <com.bhex.lib.uikit.widget.CustomTextView
+                        android:id="@+id/tv_veto_abstain_rate"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical|right"
+                        android:maxLines="1"
+                        android:textColor="@color/main_text_black"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_veto_abstain"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_no"
+                        tools:text="132,789,234 (94.54%)" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_veto_no_with_veto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_veto_no_with_veto"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:tag="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_abstain"
+                        android:layout_marginTop="@dimen/dp_6"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_veto_no_with_veto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:gravity="center_vertical"
+                        android:text="@string/veto_no_with_veto"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintStart_toEndOf="@id/iv_veto_no_with_veto"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_abstain"/>
+
+
+                    <com.bhex.lib.uikit.widget.CustomTextView
+                        android:id="@+id/tv_veto_no_with_veto_rate"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical|right"
+                        android:maxLines="1"
+                        android:textColor="@color/main_text_black"
+                        android:textSize="@dimen/sp_15"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_veto_no_with_veto"
+                        app:layout_constraintTop_toBottomOf="@id/tv_veto_abstain"
+                        tools:text="132,789,234 (94.54%)" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <View
+                    android:id="@+id/divider_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:background="@color/divider_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_veto_detail"></View>
+
+                <View
+                    android:id="@+id/divider_line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_line_height"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@color/divider_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_veto_detail"></View>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_descripstion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:gravity="center_vertical"
+                    android:text="@string/string_description"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_line" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_description_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_24"
+                    android:layout_marginBottom="@dimen/dp_24"
+                    android:gravity="top"
+                    android:letterSpacing="0.02"
+                    android:minLines="3"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_descripstion"
+                    tools:text="We are the leading staking service provider for blockchain projects. Join our community to help secure networks and earn rewards.We know staking.\nWe are the leading staking service provider for blockchain projects.\n" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_76"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_do_pledge"
+            style="@style/main_material_btn"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/string_pledge"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/blue"
+            android:visibility="visible"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_do_veto"
+            style="@style/main_material_btn"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/string_veto"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/blue"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

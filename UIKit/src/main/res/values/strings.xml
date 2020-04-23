@@ -206,6 +206,58 @@
     <string name="create_proposals">发起</string>
     <string name="tab_governance_title">治理提案</string>
     <string name="tab_proposals_title">提案治理</string>
+    <string name="create_proposals">发起</string>
+    <string name="create_proposals1">发起提案</string>
+    <string name="proposal_voting">投票中</string>
+    <string name="view_detail">查看详情</string>
+    <string name="proposal_id_format">ID-%1s</string>
+    <string name="proposal_in_payment">质押募集中</string>
+    <string name="proposal_passed">已通过</string>
+    <string name="proposal_reject">已拒绝</string>
+    <string name="proposal_failed">募集失败</string>
+    <string name="hint_proposal_search">请输入提案名称</string>
+    <string name="hint_proposal_description">请输入提案描述</string>
+    <string name="hint_proposal_title">请输入提案标题</string>
+    <string name="hint_proposal_type">请选择提案类型</string>
+    <string name="proposals_detail">提案详情</string>
+    <string name="string_description">描述</string>
+    <string name="veto_yes">Yes</string>
+    <string name="veto_no">No</string>
+    <string name="veto_abstain">Abstain</string>
+    <string name="veto_no_with_veto">No With Veto</string>
+    <string name="veto_rate">投票比例</string>
+    <string name="proposal_id">提案ID</string>
+    <string name="proposal_type">提案类型</string>
+    <string name="sring_proposal_type">类型</string>
+    <string name="proposal_validator">提案人</string>
+    <string name="proposal_time">提案时间</string>
+    <string name="pledge_amount">已质押</string>
+    <string name="pledge_amount1">质押数量</string>
+
+    <string name="veto_end_time">投票结束时间</string>
+    <string name="string_veto">投票</string>
+    <string name="string_pledge">质押</string>
+    <string name="days_later">%1s 天后</string>
+    <string name="days_before">%1s 天前</string>
+    <string name="proposal_title">标题</string>
+    <string name="description_length_format">%1d/2500字</string>
+    <string name="hint_enter_pledge">请输入质押数量</string>
+    <string name="submit">提交</string>
+    <string name="do_create_proposal_succeed">发起提案成功</string>
+    <string name="do_create_proposal_failed">发起提案失败</string>
+    <string name="do_pledge_succeed">质押成功</string>
+    <string name="do_pledge_failed">质押失败</string>
+    <string name="check_proposal_info">获取提案信息失败</string>
+    <string name="check_empty_fee">手续不能为空且大于0</string>
+    <string name="check_pledge_amount_and_fee_max">质押数量和手续费之和不能大于可用余额</string>
+    <string name="check_pledge_amount">质押数量不能为空且大于0</string>
+    <string name="do_veto_failed">投票失败</string>
+    <string name="do_veto_succeed">投票成功</string>
+    <string name="check_veto_optin">投票选项不能为空</string>
+    <string name="check_fee_max">手续费不能大于可用余额</string>
+    <string name="available_format">可用 %1s</string>
+
+
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>

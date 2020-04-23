@@ -324,6 +324,92 @@ public class BHRawTransaction {
 
     }
 
+    public static BHRawTransaction createBHDoPledgeTransaction(String sequence, String delegatorAddress, String proposalId, BigInteger amount, BigInteger feeAmount, BigInteger gasPrice, String memo, String symbol) {
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = memo;
+        bhRawTransaction.sequence = sequence;
+
+        bhRawTransaction.msgs = new ArrayList<>();
+
+        //开始创建一个交易TxMsg
+        TxMsg<PledgeMsg> msg = new TxMsg<PledgeMsg>();
+
+
+        //msg.type = "cosmos-sdk/MsgSend";
+        msg.type = "hbtcchain/gov/MsgDeposit";
+
+        PledgeMsg pledgeMsg = new PledgeMsg();
+        msg.value = pledgeMsg;
+
+        pledgeMsg.amount = new ArrayList<>();
+
+        //转账Amount
+        TxCoin coin = new TxCoin();
+        coin.denom = symbol;
+        coin.amount = amount.toString(10);
+
+        pledgeMsg.amount.add(coin);
+
+
+        pledgeMsg.depositor = delegatorAddress;
+        pledgeMsg.proposal_id = proposalId;
+
+        //完成创建一个交易TxMsg
+        bhRawTransaction.msgs.add(msg);
+
+        //转账手续费
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxCoin feeCoin = new TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+
+        bhRawTransaction.fee = fee;
+        return bhRawTransaction;
+    }
+
+    public static BHRawTransaction createBHDoVetoTransaction(String sequence, String delegatorAddress, String option, String proposalId, BigInteger feeAmount, BigInteger gasPrice, String memo, String symbol) {
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = memo;
+        bhRawTransaction.sequence = sequence;
+
+        bhRawTransaction.msgs = new ArrayList<>();
+
+        //开始创建一个交易TxMsg
+        TxMsg<VetoMsg> msg = new TxMsg<VetoMsg>();
+
+
+        //msg.type = "cosmos-sdk/MsgSend";
+        msg.type = "hbtcchain/gov/MsgVote";
+
+        VetoMsg vetoMsg = new VetoMsg();
+        msg.value = vetoMsg;
+
+        vetoMsg.voter =delegatorAddress;
+
+        vetoMsg.option = option;
+        vetoMsg.proposal_id = proposalId;
+
+        //完成创建一个交易TxMsg
+        bhRawTransaction.msgs.add(msg);
+
+        //转账手续费
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxCoin feeCoin = new TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+
+        bhRawTransaction.fee = fee;
+        return bhRawTransaction;
+    }
+
     public BHRawTransaction addTransferMsg(TxMsg txMsg) {
         this.msgs.add(txMsg);
         return this;

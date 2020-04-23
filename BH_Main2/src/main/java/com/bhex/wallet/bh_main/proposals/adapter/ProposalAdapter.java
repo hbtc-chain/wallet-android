@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by BHEX.
  * User: zhouchang
- * Date: 2020/4/14
+ * Date: 2020/4/21
  */
 public class ProposalAdapter extends BaseQuickAdapter<ProposalInfo, BaseViewHolder> {
 
@@ -26,19 +26,34 @@ public class ProposalAdapter extends BaseQuickAdapter<ProposalInfo, BaseViewHold
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable ProposalInfo validatorInfo) {
-//        viewHolder.setText(R.id.tv_validator_name,validatorInfo.getDescription().getMoniker());
-//        if (mValid == BHConstants.VALIDATOR_VALID) {
-//            viewHolder.setTextColor(R.id.tv_validator_name, getContext().getResources().getColor(R.color.main_text_black));
-//            viewHolder.setImageResource(R.id.iv_status, R.mipmap.icon_validator_valid);
-//        } else {
-//            viewHolder.setTextColor(R.id.tv_validator_name, getContext().getResources().getColor(R.color.dark_blue));
-//            viewHolder.setImageResource(R.id.iv_status, R.mipmap.icon_validator_invalid);
-//        }
-//
-//        viewHolder.setText(R.id.tv_voting_power_proportion, validatorInfo.getVoting_power_proportion() + "%");
-//        viewHolder.setText(R.id.tv_self_delegate_proportion,validatorInfo.getSelf_delegate_proportion() + "%");
-//        viewHolder.setText(R.id.tv_other_delegate_proportion,TextUtils.isEmpty(validatorInfo.getOther_delegate_proportion())? "":validatorInfo.getOther_delegate_proportion() + "%");
+    protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable ProposalInfo proposalInfo) {
+        viewHolder.setText(R.id.tv_id, getContext().getResources().getString(R.string.proposal_id_format, proposalInfo.getId()));
+
+        viewHolder.setText(R.id.tv_proposal_name, proposalInfo.getTitle());
+        viewHolder.setText(R.id.tv_proposal_desc, proposalInfo.getDescription());
+
+        if (proposalInfo.getStatus() == 1) {
+            viewHolder.setText(R.id.tv_status, getContext().getResources().getString(R.string.proposal_in_payment));
+            viewHolder.setTextColor(R.id.tv_status, getContext().getResources().getColor(R.color.proposal_in_payment));
+            viewHolder.setImageResource(R.id.iv_status, R.drawable.ic_pledge_collection);
+        } else if (proposalInfo.getStatus() == 2) {
+            viewHolder.setText(R.id.tv_status, getContext().getResources().getString(R.string.proposal_voting));
+            viewHolder.setTextColor(R.id.tv_status, getContext().getResources().getColor(R.color.proposal_voting));
+            viewHolder.setImageResource(R.id.iv_status, R.mipmap.icon_proposal_voting);
+        } else if (proposalInfo.getStatus() == 3) {
+            viewHolder.setText(R.id.tv_status, getContext().getResources().getString(R.string.proposal_passed));
+            viewHolder.setTextColor(R.id.tv_status, getContext().getResources().getColor(R.color.proposal_passed));
+            viewHolder.setImageResource(R.id.iv_status, R.drawable.ic_proposal_passed);
+        } else if (proposalInfo.getStatus() == 4) {
+            viewHolder.setText(R.id.tv_status, getContext().getResources().getString(R.string.proposal_reject));
+            viewHolder.setTextColor(R.id.tv_status, getContext().getResources().getColor(R.color.proposal_reject));
+            viewHolder.setImageResource(R.id.iv_status, R.drawable.ic_proposal_reject);
+        } else if (proposalInfo.getStatus() == 5) {
+            viewHolder.setText(R.id.tv_status, getContext().getResources().getString(R.string.proposal_failed));
+            viewHolder.setTextColor(R.id.tv_status, getContext().getResources().getColor(R.color.proposal_failed));
+            viewHolder.setImageResource(R.id.iv_status, R.drawable.ic_proposal_failed);
+        }
+
 
     }
 

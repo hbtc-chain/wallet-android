@@ -11,7 +11,7 @@
         android:id="@+id/top_rl"
         android:layout_width="match_parent"
         android:layout_height="151dp"
-        android:background="@mipmap/bg_validator_header"
+        android:background="@mipmap/bg_proposal_header"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
             android:layout_toRightOf="@+id/iv_search_ic"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="@string/hint_validator_search"
+            android:hint="@string/hint_proposal_search"
             android:textColor="@color/main_text_black"
             android:textColorHint="@color/dark_blue"
             android:textCursorDrawable="@null"

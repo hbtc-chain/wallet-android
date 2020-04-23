@@ -26,14 +26,25 @@ public class ProposalInfo {
     private String type;
     private String title;
     private String description;
-    private int submit_time;
-    private int deposit_end_time;
-    private int voting_start_time;
-    private int voting_end_time;
+    private long submit_time;
+    private long deposit_end_time;
+    private long voting_start_time;
+    private long voting_end_time;
     private int status;
     private String total_deposit;
     private ResultBean result;
     private String voting_proportion;
+    /**
+     * id : 2
+     * proposer : HBCgS6KSUhmudwbh88tRynzVu86fFghFA6Pg
+     * submit_time : 1587212478
+     * deposit_end_time : 0
+     * voting_start_time : 1587212478
+     * deposit_threshold : 10000000
+     */
+
+    private String proposer;
+    private String deposit_threshold;
 
     public String getId() {
         return id;
@@ -67,35 +78,35 @@ public class ProposalInfo {
         this.description = description;
     }
 
-    public int getSubmit_time() {
+    public long getSubmit_time() {
         return submit_time;
     }
 
-    public void setSubmit_time(int submit_time) {
+    public void setSubmit_time(long submit_time) {
         this.submit_time = submit_time;
     }
 
-    public int getDeposit_end_time() {
+    public long getDeposit_end_time() {
         return deposit_end_time;
     }
 
-    public void setDeposit_end_time(int deposit_end_time) {
+    public void setDeposit_end_time(long deposit_end_time) {
         this.deposit_end_time = deposit_end_time;
     }
 
-    public int getVoting_start_time() {
+    public long getVoting_start_time() {
         return voting_start_time;
     }
 
-    public void setVoting_start_time(int voting_start_time) {
+    public void setVoting_start_time(long voting_start_time) {
         this.voting_start_time = voting_start_time;
     }
 
-    public int getVoting_end_time() {
+    public long getVoting_end_time() {
         return voting_end_time;
     }
 
-    public void setVoting_end_time(int voting_end_time) {
+    public void setVoting_end_time(long voting_end_time) {
         this.voting_end_time = voting_end_time;
     }
 
@@ -129,6 +140,22 @@ public class ProposalInfo {
 
     public void setVoting_proportion(String voting_proportion) {
         this.voting_proportion = voting_proportion;
+    }
+
+    public String getProposer() {
+        return proposer;
+    }
+
+    public void setProposer(String proposer) {
+        this.proposer = proposer;
+    }
+
+    public String getDeposit_threshold() {
+        return deposit_threshold;
+    }
+
+    public void setDeposit_threshold(String deposit_threshold) {
+        this.deposit_threshold = deposit_threshold;
     }
 
     public static class ResultBean {

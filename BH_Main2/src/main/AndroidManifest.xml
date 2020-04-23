@@ -14,6 +14,10 @@
         <activity android:name=".MainIndexActivity" />
         <activity android:name=".validator.ui.activity.ValidatorDetailActivity" />
         <activity android:name=".validator.ui.activity.DoEntrustActivity" />
+        <activity android:name=".proposals.ui.activity.ProposalDetailActivity" />
+        <activity android:name=".proposals.ui.activity.DoPledgeActivity" />
+        <activity android:name=".proposals.ui.activity.DoVetoActivity" />
+
     </application>
 
 </manifest>

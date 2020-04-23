@@ -70,12 +70,13 @@ public class BHttpApi extends NetworkApi {
 
     @Override
     public String getFormal() {
-        return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
+//        return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
+        return "http://public-chain-web-1081294751.ap-northeast-1.elb.amazonaws.com:11994/";
     }
 
     @Override
     public String getTest() {
-//        return "http://public-chain-web-1081294751.ap-northeast-1.elb.amazonaws.com:11994/";
-        return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
+        return "http://public-chain-web-1081294751.ap-northeast-1.elb.amazonaws.com:11994/";
+//        return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
     }
 }

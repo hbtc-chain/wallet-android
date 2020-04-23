@@ -654,6 +654,30 @@ public class DateUtil {
         return months;
     }
 
+    /**
+     * 获取两个日期之间的天数
+     *
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public static long getDaysBetweenDate(long date1, long date2) {
+        Date d1 = new Date(date1);
+
+        Date d2 = new Date(date2);
+
+        final Calendar fromCalendar = Calendar.getInstance();
+        fromCalendar.setTime(d1);
+
+        Calendar toCalendar = Calendar.getInstance();
+        toCalendar.setTime(d2);
+        long remainSecond = toCalendar.getTime().getTime() - fromCalendar.getTime().getTime();
+
+        long remainDays = remainSecond /(1000*60*60*24);
+
+        return remainDays;
+    }
+
     public static long parseTime4Long(String time) {
         long datetime = -1;
         Date date = parser24(time);
