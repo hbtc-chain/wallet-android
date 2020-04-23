@@ -191,6 +191,7 @@
     <string name="album">相册</string>
     <string name="langeuage_setting">语言设置中...</string>
     <string name="hint_input_token_name">请输入币种名称</string>
+    <string name="all_asset">总资产</string>
     <string name="tips_backup">备份提示</string>
     <string name="tips_trust_success_index_1">您将通过助记词备份钱包</string>
     <string name="tips_trust_success_index_2">助记词为12个英文单词</string>
@@ -203,7 +204,6 @@
     <string name="create_fail">创建失败</string>
     <string name="hint_input_username">请输入用户名称</string>
     <string name="please_input_password">请输入密码</string>
-    <string name="create_proposals">发起</string>
     <string name="tab_governance_title">治理提案</string>
     <string name="tab_proposals_title">提案治理</string>
     <string name="create_proposals">发起</string>
