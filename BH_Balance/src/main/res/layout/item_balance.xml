@@ -39,6 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="BTC"
+            android:textStyle="normal"
             android:textSize="17sp"
             android:textColor="@color/asset_big_title_color"
             />

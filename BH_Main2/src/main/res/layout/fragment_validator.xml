@@ -15,44 +15,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_create_validator"
+        style="@style/toolbar_layout_title_style"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:layout_marginRight="@dimen/main_margin_right"
+        android:text="@string/validator_create"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_bar"
+        tools:text="@string/validator_create" />
+
     <RelativeLayout
         android:id="@+id/top_rl"
         android:layout_width="0dp"
-        android:layout_height="151dp"
-        android:background="@mipmap/bg_validator_header"
+        android:layout_height="107dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status_bar">
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_create_validator"
-            style="@style/toolbar_layout_title_style"
-            android:layout_width="100dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center"
-            android:layout_marginRight="@dimen/main_margin_right"
-            android:gravity="right"
-            android:text="@string/validator_create"
-            android:visibility="invisible"
-            tools:text="@string/validator_create" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tv_create_validator">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_validator_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_create_validator"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/page_margin_start"
-            android:layout_marginTop="@dimen/dp_10"
             android:text="@string/title_validator"
             android:textColor="@color/main_text_black"
             android:textSize="@dimen/sp_30"
             tools:text="@string/title_validator" />
 
-
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bg_validator_header"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            />
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
             android:layout_width="wrap_content"

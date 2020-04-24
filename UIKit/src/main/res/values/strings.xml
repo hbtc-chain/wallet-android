@@ -217,7 +217,7 @@
     <string name="tip_crosslink_generate">首次跨链充币，需要生成充币地址，该过程最快只需要十几秒，请耐心等待...</string>
 
     <string name="tab_governance_title">治理提案</string>
-    <string name="tab_proposals_title">提案治理</string>
+    <string name="tab_proposals_title">治理提案</string>
     <string name="create_proposals">发起</string>
     <string name="create_proposals1">发起提案</string>
     <string name="proposal_voting">投票中</string>
@@ -271,6 +271,9 @@
     <string name="check_proposal_title">请输入提案标题</string>
     <string name="check_proposal_desc">请输入提案描述</string>
     <string name="text_proposal">文本提案</string>
+    <string name="delegate">委托中</string>
+    <string name="unbonding">赎回中</string>
+    <string name="claimed_reward">已收益</string>
 
 
     <string-array name="my_list_item">
