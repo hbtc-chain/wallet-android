@@ -54,13 +54,13 @@ public class SystemConfig  {
         arouterInit();
 
         if(BuildConfig.DEBUG){
-            //Stetho.initializeWithDefaults(BaseApplication.getInstance());
+            Stetho.initializeWithDefaults(BaseApplication.getInstance());
         }
 
-        /*Stetho.initialize(
+        Stetho.initialize(
                 Stetho.newInitializerBuilder(BaseApplication.getInstance())
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(BaseApplication.getInstance()))
-                        .build());*/
+                        .build());
 
         NetworkApi.init(new BHNetwork(BaseApplication.getInstance()));
 

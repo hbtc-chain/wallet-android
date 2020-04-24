@@ -138,7 +138,7 @@ public class CoinSearchActivity extends BaseActivity {
                coinItem.resId = R.mipmap.ic_eth;
            }else if(coinItem.symbol.equalsIgnoreCase("eos")){
                coinItem.resId = R.mipmap.ic_eos;
-           }else if(coinItem.symbol.equalsIgnoreCase("tusdt")){
+           }else if(coinItem.symbol.equalsIgnoreCase("usdt")){
                coinItem.resId = R.mipmap.ic_usdt;
            }else if(coinItem.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
                coinItem.resId = R.mipmap.ic_bht;

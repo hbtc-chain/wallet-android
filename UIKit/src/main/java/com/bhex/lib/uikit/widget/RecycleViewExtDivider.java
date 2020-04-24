@@ -138,7 +138,7 @@ public class RecycleViewExtDivider extends RecyclerView.ItemDecoration {
             final int top = child.getBottom() + layoutParams.bottomMargin;
             final int bottom = top + mDividerHeight;
 
-            Log.d("RecyleViewExtDivider==>","height=="+(bottom-top));
+            //Log.d("RecyleViewExtDivider==>","height=="+(bottom-top));
 
             //final int left = child.getRight() + layoutParams.rightMargin;
             if (mDivider != null) {

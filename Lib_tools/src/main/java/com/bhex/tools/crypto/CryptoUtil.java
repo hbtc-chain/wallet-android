@@ -96,7 +96,7 @@ public class CryptoUtil {
             byte[] result = CryptoUtil.encrypt(hex,MD5.md5(pwd));
             encrypt_PK = HexUtils.toHex(result);
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return encrypt_PK;
     }

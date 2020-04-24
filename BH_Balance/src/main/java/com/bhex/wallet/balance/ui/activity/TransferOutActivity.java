@@ -179,11 +179,11 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
      */
     private void updateTransferStatus(LoadDataModel ldm) {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
-            ToastUtils.showToast("转账成功");
+            ToastUtils.showToast(getResources().getString(R.string.transfer_in_success));
             EventBus.getDefault().post(new TransctionEvent());
             finish();
         }else{
-            ToastUtils.showToast("转账失败");
+            ToastUtils.showToast(getResources().getString(R.string.transfer_in_fail));
         }
     }
 
@@ -309,7 +309,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             @Override
             public void onAnalyzeFailed() {
-                ToastUtils.showToast("解析二维码失败");
+                ToastUtils.showToast(getResources().getString(R.string.encode_qr_fail));
             }
         });
     }
@@ -321,15 +321,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
      */
     @Override
     public void confirmAction(String password, int position) {
-        if(TextUtils.isEmpty(password)){
-            ToastUtils.showToast("请输入密码");
-            return;
-        }
-
-        if(!MD5.md5(password).equals(BHUserManager.getInstance().getCurrentBhWallet().getPassword())){
-            ToastUtils.showToast("密码错误");
-            return;
-        }
 
         String hexPK = CryptoUtil.decryptPK(mCurrentBhWallet.privateKey,mCurrentBhWallet.password);
         String from_address = mCurrentBhWallet.getAddress();

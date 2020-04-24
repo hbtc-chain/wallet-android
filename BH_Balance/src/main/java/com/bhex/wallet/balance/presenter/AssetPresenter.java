@@ -3,6 +3,7 @@ package com.bhex.wallet.balance.presenter;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 
@@ -69,9 +70,10 @@ public class AssetPresenter extends BasePresenter {
 
         AccountInfo.AssetsBean assetsBean = map.get(balance.symbol.toLowerCase());
         if(assetsBean==null){
+            LogUtils.d("AssetPresenter====>:","===null===");
             return;
         }
-
+        balance.isHasToken = 1;
         balance.amount = assetsBean.getAmount();
         balance.is_native = assetsBean.isIs_native();
         balance.external_address = assetsBean.getExternal_address();

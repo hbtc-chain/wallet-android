@@ -84,7 +84,7 @@ public abstract class NetworkApi implements IEnvironment {
             okHttpClientBuilder.readTimeout(15, TimeUnit.SECONDS);//10秒读取超时
             okHttpClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
             if(BuildConfig.DEBUG){
-                //okHttpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
+                okHttpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
             }
 
             okHttpClientBuilder.addInterceptor(new CommonRequestInterceptor(iNetworkRequiredInfo));

@@ -34,7 +34,8 @@
         </activity>
         <activity
             android:name=".bh_main.ui.activity.SplashActivity"
-            android:theme="@style/AppTheme.Splash">
+            android:theme="@style/AppTheme.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

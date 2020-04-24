@@ -21,6 +21,7 @@ import com.bhex.lib.uikit.widget.balance.CoinBottomBtn;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
@@ -247,9 +248,10 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                     updateTxOrder(ldm.getData());
                 }
             } else if(ldm.loadingStatus == LoadingStatus.ERROR){
-                empty_layout.showNeterror(view -> {
-
-                });
+                if(mTxOrderAdapter.getData()==null || mTxOrderAdapter.getData().size()==0){
+                    empty_layout.showNeterror(view -> {
+                    });
+                }
             }
         });
 
@@ -262,9 +264,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                     .navigation();
         });
 
-        /*balanceViewModel.accountLiveData.observe(this,ldm->{
-            updateAssest(ldm);
-        });*/
         LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).observe(this,ldm->{
             updateAssest(ldm);
         });
@@ -282,7 +281,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
      * @param ldm
      */
     private void updateAssest(LoadDataModel<AccountInfo> ldm) {
-        LogUtils.d("AssetDetailActivity==>:","==updateAssest==");
+        //LogUtils.d("AssetDetailActivity==>:","==updateAssest==");
         //更新
         refreshLayout.finishRefresh();
         if(ldm.loadingStatus==LoadingStatus.SUCCESS){
@@ -333,13 +332,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             ReInvestShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
                     ReInvestShareFragment.class.getSimpleName(), fragmentItemListener);
         }else if(view.getId() == R.id.cross_chian_transfer_in){
-            if(!TextUtils.isEmpty(balance.external_address)){
-                /**/
-                ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
-                        .withObject("balance", balance)
-                        .withInt("way",2)
-                        .navigation();
-            }else{
+            if(balance.isHasToken==0||TextUtils.isEmpty(balance.external_address)){
                 //请求用户资产 获取链外地址
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                         .withObject("balance", balance)
@@ -347,17 +340,17 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                         .withInt("way",2)
                         .navigation();
                 return;
+
+            }else{
+                /**/
+                ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
+                        .withObject("balance", balance)
+                        .withInt("way",2)
+                        .navigation();
             }
 
         }else if(view.getId() == R.id.cross_chian_withdraw){
-            if(!TextUtils.isEmpty(balance.external_address)){
-
-                ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
-                        .withObject("balance", balance)
-                        .withObject("bhtBalance",bthBalance)
-                        .withInt("way",2)
-                        .navigation();
-            }else{
+            if(balance.isHasToken==0||TextUtils.isEmpty(balance.external_address)){
                 //请求用户资产 获取链外地址
                 //balanceViewModel.getAccountInfo(this,bthBalance.address);
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
@@ -366,6 +359,13 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                         .withInt("way",2)
                         .navigation();
                 return;
+
+            }else{
+                ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
+                        .withObject("balance", balance)
+                        .withObject("bhtBalance",bthBalance)
+                        .withInt("way",2)
+                        .navigation();
             }
 
         }

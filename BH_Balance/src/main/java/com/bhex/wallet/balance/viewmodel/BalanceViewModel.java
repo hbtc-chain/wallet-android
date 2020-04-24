@@ -59,7 +59,6 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
                 //super.onSuccess(jsonObject);
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
-                //accountLiveData.postValue(loadDataModel);
                 LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
             }
 
@@ -67,7 +66,6 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
                 LoadDataModel loadDataModel = new LoadDataModel(0,"");
-                //accountLiveData.postValue(loadDataModel);
                 LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
             }
         };

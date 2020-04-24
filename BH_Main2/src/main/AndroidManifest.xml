@@ -6,14 +6,15 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".my.ui.activity.RateSettingActivity"></activity>
-        <activity android:name=".my.ui.activity.UpdatePasswordActivity" />
-        <activity android:name=".my.ui.activity.SettingActivity"/>
-        <activity android:name=".my.ui.activity.LanguageSettingActivity" />
-        <activity android:name=".MainIndexActivity" />
-        <activity android:name=".validator.ui.activity.ValidatorDetailActivity" />
-        <activity android:name=".validator.ui.activity.DoEntrustActivity" />
+        android:theme="@style/AppTheme"
+        >
+        <activity android:name=".my.ui.activity.RateSettingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".my.ui.activity.UpdatePasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".my.ui.activity.SettingActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".my.ui.activity.LanguageSettingActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".MainIndexActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".validator.ui.activity.ValidatorDetailActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".validator.ui.activity.DoEntrustActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>

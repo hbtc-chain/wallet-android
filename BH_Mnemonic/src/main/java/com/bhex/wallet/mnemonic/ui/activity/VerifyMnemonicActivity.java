@@ -1,21 +1,26 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bhex.lib.uikit.widget.recyclerview.GridLayoutItemDecoration;
 import com.bhex.network.app.BaseApplication;
+import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
+import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.AboveMnemonicAdapter;
@@ -55,6 +60,8 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
 
     private List<MnemonicItem> aboverMnemonicItemList;
 
+    private WalletViewModel walletViewModel;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_verify_mnemonic;
@@ -63,6 +70,7 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     @Override
     protected void initView() {
 
+        LogUtils.d("VerifyMnemonicActivity===>","isbackup==="+BHUserManager.getInstance().getCurrentBhWallet().isBackup);
         orginMnemonicItemList = MnemonicDataHelper.makeMnemonic();
         underMnemonicItemList = MnemonicDataHelper.makeNewMnemonicList(orginMnemonicItemList);
 
@@ -133,12 +141,21 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
 
     @Override
     protected void addEvent() {
+        walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
+        walletViewModel.walletLiveData.observe(this,lmd->{
+            if(lmd.loadingStatus== LoadingStatus.SUCCESS){
+                gotoTarget();
+            }
+        });
+
         btn_start_bakcup.setOnClickListener(v -> {
-            ToastUtils.showToast("助记词备份成功");
+
+            //
+            /*ToastUtils.showToast(getResources().getString(R.string.mnemonic_backup_success));
             BaseApplication.getMainHandler().postDelayed(()->{
                 gotoTarget();
-            },1500);
-
+            },800);*/
+            walletViewModel.backupMnemonic(this,BHUserManager.getInstance().getCurrentBhWallet());
         });
     }
 

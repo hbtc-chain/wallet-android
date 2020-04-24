@@ -259,7 +259,7 @@
                 style="@style/divider_line_style"
                 android:layout_below="@+id/ck_hidden_small"/>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.yanzhenjie.recyclerview.SwipeRecyclerView
                 android:id="@+id/recycler_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -271,29 +271,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small">
 
-            </androidx.recyclerview.widget.RecyclerView>
+            </com.yanzhenjie.recyclerview.SwipeRecyclerView>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn2_tx"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:text="解密私钥"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_tx"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="交易"
-                android:layout_alignParentBottom="true"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

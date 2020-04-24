@@ -114,10 +114,10 @@ public class BHRawTransaction {
         KeyGenMsg keyGenMsg = new KeyGenMsg();
         msg.value = keyGenMsg;
 
-        keyGenMsg.From = from;
-        keyGenMsg.To = to;
-        keyGenMsg.OrderId = UUID.randomUUID().toString();
-        keyGenMsg.Symbol = symbol;
+        keyGenMsg.from = from;
+        keyGenMsg.to = to;
+        keyGenMsg.order_id = UUID.randomUUID().toString();
+        keyGenMsg.symbol = symbol;
 
         /*//转账Amount
         TxCoin coin = new TxCoin();

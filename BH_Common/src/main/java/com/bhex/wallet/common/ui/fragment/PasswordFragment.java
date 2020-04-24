@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -112,10 +113,15 @@ public class PasswordFragment extends BaseDialogFragment {
         } else if (view.getId() == R.id.btn_confirm) {
             if (passwordClickListener != null) {
                 BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
-                String inputPassword = inp_wallet_pwd.getInputString();
+                String inputPassword = inp_wallet_pwd.getInputString().toString().trim();
+
+                if(TextUtils.isEmpty(inputPassword)){
+                    ToastUtils.showToast(getResources().getString(R.string.please_input_password));
+                    return;
+                }
 
                 if(!currentWallet.password.equals(MD5.md5(inputPassword))){
-                    ToastUtils.showToast("密码错误");
+                    ToastUtils.showToast(getResources().getString(R.string.error_password));
                     return;
                 }
 

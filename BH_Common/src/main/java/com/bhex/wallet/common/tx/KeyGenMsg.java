@@ -8,18 +8,18 @@ package com.bhex.wallet.common.tx;
  */
 public class KeyGenMsg {
 
-    public String OrderId;
-    public String Symbol;
-    public String From;
-    public String To;
+    public String order_id;
+    public String symbol;
+    public String from;
+    public String to;
 
     public KeyGenMsg() {
     }
 
-    public KeyGenMsg(String orderId, String symbol, String from, String to) {
-        OrderId = orderId;
-        Symbol = symbol;
-        From = from;
-        To = to;
+    public KeyGenMsg(String order_id, String symbol, String from, String to) {
+        this.order_id = order_id;
+        this.symbol = symbol;
+        this.from = from;
+        this.to = to;
     }
 }

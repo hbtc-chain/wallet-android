@@ -31,6 +31,8 @@ public class BHBalance {
 
     public String frozen_amount;
 
+    public int isHasToken;
+
     public BHBalance() {
     }
 

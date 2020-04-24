@@ -110,7 +110,7 @@ public class CurrencyManager {
         if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.CNY.shortName)){
             return Double.valueOf(ratesBean.getCny());
         }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.USD.shortName)){
-            LogUtils.d("CurrencyManager===>:","currency=="+ratesBean.getUsd());
+            //LogUtils.d("CurrencyManager===>:","currency=="+ratesBean.getUsd());
             return Double.valueOf(ratesBean.getUsd());
         }else if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.KRW.shortName)){
             return Double.valueOf(ratesBean.getKrw());

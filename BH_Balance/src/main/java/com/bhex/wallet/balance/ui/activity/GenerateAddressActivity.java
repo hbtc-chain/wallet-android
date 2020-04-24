@@ -21,6 +21,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
+import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -33,6 +34,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.google.android.material.button.MaterialButton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,7 +52,7 @@ import butterknife.OnClick;
  */
 
 @Route(path = ARouterConfig.Balance_cross_address)
-public class GenerateAddressActivity extends BaseActivity {
+public class GenerateAddressActivity extends BaseActivity implements PasswordFragment.PasswordClickListener{
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -76,6 +78,8 @@ public class GenerateAddressActivity extends BaseActivity {
 
     private TransactionViewModel transactionViewModel;
 
+    String available_label;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_generate_address;
@@ -84,6 +88,7 @@ public class GenerateAddressActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        available_label = getResources().getString(R.string.available);
         ARouter.getInstance().inject(this);
         tv_center_title.setText(getResources().getString(R.string.genarate_cross_address));
 
@@ -91,7 +96,7 @@ public class GenerateAddressActivity extends BaseActivity {
 
         String available_amount_str = BHBalanceHelper.getAmountForUser(this, bhtBalance.amount, "0", bhtBalance.symbol);
         available_bht_amount = Double.valueOf(available_amount_str);
-        tv_available_bht_amount.setText(available_amount_str + bhtBalance.symbol.toUpperCase());
+        tv_available_bht_amount.setText(available_label+" "+available_amount_str + bhtBalance.symbol.toUpperCase());
 
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.mutableLiveData.observe(this,ldm->{
@@ -135,6 +140,50 @@ public class GenerateAddressActivity extends BaseActivity {
      */
     private void generateCrossLinkAddress() {
 
+        if(TextUtils.isEmpty(bhtBalance.amount)||Double.valueOf(bhtBalance.amount)<=0){
+            ToastUtils.showToast(getResources().getString(R.string.not_have_amount)+BHConstants.BHT_TOKEN.toUpperCase());
+            return;
+        }
+
+        String fee_aumount = ed_fee.ed_input.getText().toString().trim();
+        if(TextUtils.isEmpty(fee_aumount)||Double.valueOf(fee_aumount)<=0){
+            ToastUtils.showToast(getResources().getString(R.string.please_input_gas_fee));
+            return;
+        }
+
+        if(!RegexUtil.checkNumeric(fee_aumount)){
+            ToastUtils.showToast(getResources().getString(R.string.error_input_gas_fes));
+            return;
+        }
+
+        if(Double.valueOf(fee_aumount)>Double.valueOf(bhtBalance.amount)){
+            ToastUtils.showToast(getResources().getString(R.string.gas_fee_high_available_fee));
+            return;
+        }
+
+
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+                PasswordFragment.class.getName(),
+                this,0);
+
+
+    }
+
+    /**
+     * 更新地址状态
+     * @param ldm
+     */
+    private void updateGenerateAddress(LoadDataModel ldm) {
+        if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+            ToastUtils.showToast(getResources().getString(R.string.link_outter_generating));
+            EventBus.getDefault().post(new TransctionEvent());
+            finish();
+        }
+    }
+
+    //密码提示回调
+    @Override
+    public void confirmAction(String password, int position) {
         String hexPK = CryptoUtil.decryptPK(mCurrentWallet.privateKey,mCurrentWallet.password);
 
         //String from = "BHYc5BsYgne5SPNKYreBGpjYY9jyXAHLGbK";
@@ -153,17 +202,5 @@ public class GenerateAddressActivity extends BaseActivity {
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });
-    }
-
-    /**
-     * 更新地址状态
-     * @param ldm
-     */
-    private void updateGenerateAddress(LoadDataModel ldm) {
-        if(ldm.loadingStatus== LoadingStatus.SUCCESS){
-            ToastUtils.showToast("地址生成中...");
-            EventBus.getDefault().post(new TransctionEvent());
-            finish();
-        }
     }
 }

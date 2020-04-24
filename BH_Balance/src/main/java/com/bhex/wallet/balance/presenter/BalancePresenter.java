@@ -14,6 +14,7 @@ import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.JsonUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
@@ -235,7 +236,7 @@ public class BalancePresenter extends BasePresenter {
             if(assetsBean==null){
                 continue;
             }
-
+            balance.isHasToken = 1;
             balance.amount = assetsBean.getAmount();
             balance.is_native = assetsBean.isIs_native();
             balance.external_address = assetsBean.getExternal_address();
@@ -297,5 +298,34 @@ public class BalancePresenter extends BasePresenter {
         spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tv_asset.setText(spanStr);
         tv_asset.setTag(R.id.tag_first,allTokenAssetsText);
+    }
+
+
+    public BHBalance getBthBalanceWithAccount(AccountInfo accountInfo){
+        if(accountInfo==null){
+            return null;
+        }
+        BHBalance balance = new BHBalance();
+        balance.amount="";
+        balance.chain= BHConstants.BHT_TOKEN;
+        balance.symbol = BHConstants.BHT_TOKEN;
+
+        List<AccountInfo.AssetsBean> assetsBeanList = accountInfo.getAssets();
+        if(assetsBeanList==null || assetsBeanList.size()==0){
+            return balance;
+        }
+
+        for(AccountInfo.AssetsBean assetsBean:assetsBeanList){
+            if(assetsBean.getSymbol().equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+                balance.symbol = assetsBean.getSymbol();
+                balance.chain = assetsBean.getSymbol();
+                balance.amount = assetsBean.getAmount();
+                balance.frozen_amount = assetsBean.getFrozen_amount();
+                balance.address = assetsBean.getExternal_address();
+            }
+        }
+
+
+        return balance;
     }
 }

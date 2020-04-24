@@ -40,6 +40,7 @@
             app:strokeColor="@color/tranfer_stoke_color"
             app:cardCornerRadius="10dp"
             app:cardForegroundColor="@color/trans"
+            app:cardBackgroundColor="@color/main_backgound"
             app:contentPaddingTop="@dimen/page_margin_top"
             app:contentPaddingBottom="@dimen/page_margin_top"
             app:contentPaddingLeft="10dp"

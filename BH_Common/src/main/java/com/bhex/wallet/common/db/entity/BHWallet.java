@@ -39,7 +39,7 @@ public class BHWallet {
     public String mnemonic;
 
     @ColumnInfo(name = "isBackup")
-    public int isBackup; //1备份 2未备份
+    public int isBackup; //1备份 0未备份
 
     @ColumnInfo(name = "isDefault")
     public int isDefault;//1默认 0默认

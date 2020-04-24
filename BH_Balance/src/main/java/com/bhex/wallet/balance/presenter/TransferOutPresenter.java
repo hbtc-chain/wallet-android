@@ -7,6 +7,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.wallet.balance.R;
 
 /**
  * Created by BHEX.
@@ -24,6 +25,11 @@ public class TransferOutPresenter extends BasePresenter {
                                           String available_amount,String fee_amount){
         if(!to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
             ToastUtils.showToast("链内转账地址错误");
+            return false;
+        }
+
+        if(TextUtils.isEmpty(available_amount) || Double.valueOf(available_amount)<=0){
+            ToastUtils.showToast("没有可用余额");
             return false;
         }
 
@@ -49,12 +55,12 @@ public class TransferOutPresenter extends BasePresenter {
                                           String available_amount,
                                            String tx_fee_amount,String fee_amount){
         if(to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
-            ToastUtils.showToast("跨链转账地址错误");
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.link_outter_address_error));
             return false;
         }
 
         if(TextUtils.isEmpty(transfer_amount) && Double.valueOf(transfer_amount)<=0){
-            ToastUtils.showToast("转账数量不能为空且大于0");
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.input_withdraw_amount));
             return false;
         }
 

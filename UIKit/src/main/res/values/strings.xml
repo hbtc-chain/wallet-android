@@ -204,6 +204,16 @@
     <string name="create_fail">创建失败</string>
     <string name="hint_input_username">请输入用户名称</string>
     <string name="please_input_password">请输入密码</string>
+    <string name="mnemonic_backup_success">助记词备份成功</string>
+    <string name="transfer_in_success">转账成功</string>
+    <string name="transfer_in_fail">转账失败</string>
+    <string name="encode_qr_fail">解析二维码失败</string>
+    <string name="link_outter_address_error">跨链地址错误</string>
+    <string name="input_withdraw_amount">请输入提币数量</string>
+    <string name="please_input_gas_fee">请输入交易手续</string>
+    <string name="error_input_gas_fes">交易手续费输入错误</string>
+    <string name="gas_fee_high_available_fee">交易手续费不能大于可用HBC</string>
+    <string name="tip_crosslink_generate">首次跨链充币，需要生成充币地址，该过程最快只需要十几秒，请耐心等待...</string>
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>

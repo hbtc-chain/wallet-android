@@ -18,10 +18,10 @@
         android:layout_marginEnd="@dimen/main_margin_right"
         app:cardElevation="0dp"
         app:strokeWidth="2dp"
-        app:strokeColor="#E7ECF4"
-        app:cardBackgroundColor="@color/white"
+        app:strokeColor="@color/tranfer_stoke_color"
         app:cardCornerRadius="@dimen/main_radius_conner"
         app:cardForegroundColor="@color/trans"
+        app:cardBackgroundColor="@color/main_backgound"
         app:contentPaddingLeft="10dp"
         app:contentPaddingRight="10dp"
         app:contentPaddingTop="16dp"
@@ -34,7 +34,7 @@
             android:textSize="15sp"
             android:textColor="@color/dark_black"
             android:lineSpacingExtra="3dp"
-            android:text="首次跨链充币，需要生成充币地址，该过程最快只需要十几秒，请耐心等待..."
+            android:text="@string/tip_crosslink_generate"
             />
     </com.google.android.material.card.MaterialCardView>
 
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="可用"
+            android:text="@string/available"
             android:textSize="15sp"
             android:textColor="@color/dark_blue"
             />

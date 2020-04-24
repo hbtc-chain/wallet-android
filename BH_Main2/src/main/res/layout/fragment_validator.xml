@@ -35,6 +35,7 @@
             android:layout_marginRight="@dimen/main_margin_right"
             android:gravity="right"
             android:text="@string/validator_create"
+            android:visibility="invisible"
             tools:text="@string/validator_create" />
 
 

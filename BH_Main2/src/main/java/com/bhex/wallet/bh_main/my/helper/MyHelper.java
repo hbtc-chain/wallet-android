@@ -42,9 +42,11 @@ public class MyHelper {
             myItems.add(item);
         }
 
-        if(BHUserManager.getInstance().getCurrentBhWallet().getWay()!= MAKE_WALLET_TYPE.创建助记词.getWay()){
+        if(BHUserManager.getInstance().getCurrentBhWallet().getWay()!= MAKE_WALLET_TYPE.创建助记词.getWay()
+            || BHUserManager.getInstance().getCurrentBhWallet().isBackup==1){
             myItems.remove(0);
         }
+
         return myItems;
     }
 

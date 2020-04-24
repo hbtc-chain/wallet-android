@@ -375,4 +375,42 @@ public class WalletViewModel extends ViewModel {
                 .subscribe(pbo);
     }
 
+    /**
+     * 备份助记词
+     * @param activity
+     * @param bhWallet
+     */
+    public void backupMnemonic(BaseActivity activity,BHWallet bhWallet) {
+        BHProgressObserver pbo = new BHProgressObserver<String>(activity) {
+            @Override
+            protected void onSuccess(String str) {
+                LoadDataModel loadDataModel = new LoadDataModel("");
+                bhWallet.isBackup = 2;
+                BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
+                walletLiveData.postValue(loadDataModel);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel();
+                walletLiveData.postValue(loadDataModel);
+            }
+        };
+
+
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                //把bh_id设置默认
+                int res = bhWalletDao.backupMnemonic(bhWallet.id);
+
+                emitter.onNext("");
+                emitter.onComplete();
+            }
+        }).compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(pbo);
+    }
+
 }

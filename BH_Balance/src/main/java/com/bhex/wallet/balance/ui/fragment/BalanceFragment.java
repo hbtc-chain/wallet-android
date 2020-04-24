@@ -15,14 +15,12 @@ import android.widget.CheckedTextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
@@ -55,8 +53,11 @@ import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.textview.MaterialTextView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
+import com.yanzhenjie.recyclerview.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -85,7 +86,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     MaterialTextView tv_balance_txt2;
 
     @BindView(R2.id.recycler_balance)
-    RecyclerView recycler_balance;
+    SwipeRecyclerView recycler_balance;
 
     @BindView(R2.id.tv_address)
     AppCompatTextView tv_address;
@@ -95,9 +96,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @BindView(R2.id.tv_asset)
     AppCompatTextView tv_asset;
-
-    @BindView(R2.id.btn_tx)
-    AppCompatButton btn_tx;
 
     @BindView(R2.id.iv_search)
     AppCompatImageView iv_search;
@@ -171,6 +169,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         recycler_balance.addItemDecoration(ItemDecoration);
 
         mBalanceAdapter = new BalanceAdapter(R.layout.item_balance, mBalanceList);
+        recycler_balance.setSwipeMenuCreator(swipeMenuCreator);
+        recycler_balance.setOnItemMenuClickListener(mMenuItemClickListener);
         recycler_balance.setAdapter(mBalanceAdapter);
 
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
@@ -211,6 +211,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
                 updateAssets(ldm.getData());
             }
         });*/
+
+        //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Account_Label, LoadDataModel.class).observe(this, ldm->{
             refreshLayout.finishRefresh();
             if(ldm.loadingStatus==LoadingStatus.SUCCESS){
@@ -249,7 +251,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
 
-    @OnClick({R2.id.iv_eye,R2.id.tv_address,R2.id.btn_tx,R2.id.iv_search,R2.id.ck_hidden_small})
+    @OnClick({R2.id.iv_eye,R2.id.tv_address,R2.id.iv_search,R2.id.ck_hidden_small})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_eye){
             //隐藏资产
@@ -257,8 +259,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }else if(view.getId()==R.id.tv_address){
             ToolUtils.copyText(bhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));
-        }else if(view.getId()==R.id.btn_tx){
-            generateTranction();
         }else if(view.getId()==R.id.iv_search){
             //币种搜索
             ARouter.getInstance().build(ARouterConfig.Balance_Search).
@@ -391,4 +391,24 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private OnItemMenuClickListener mMenuItemClickListener = (menuBridge, adapterPosition) -> {
+        int direction = menuBridge.getDirection();
+        BHBalance balance = mBalanceAdapter.getData().get(adapterPosition);
+
+        if(direction == SwipeRecyclerView.RIGHT_DIRECTION){
+            BHBalance bthBalance =mPresenter.getBthBalanceWithAccount(mAccountInfo);
+
+            ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
+                    .withObject("balance", balance)
+                    .withObject("bhtBalance",bthBalance)
+                    .withInt("way",1)
+                    .navigation();
+        }else{
+            ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
+                    .withObject("balance", balance)
+                    .withInt("way",1)
+                    .navigation();
+        }
+    };
 }
