@@ -46,6 +46,7 @@ public class ProposalViewModel extends ViewModel {
     public MutableLiveData<LoadDataModel<ProposalInfo>> proposalInfoLiveData = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel> doPledgeLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel> doVetoLiveData  = new MutableLiveData<>();
+    public MutableLiveData<LoadDataModel> createProposalLiveData  = new MutableLiveData<>();
 
     /**
      * 查询单页方案记录
@@ -142,6 +143,34 @@ public class ProposalViewModel extends ViewModel {
                 //LoadDataModel lmd = new LoadDataModel(LoadingStatus.ERROR);
                 LoadDataModel lmd = new LoadDataModel(code,errorMsg);
                 doVetoLiveData.postValue(lmd);
+            }
+        };
+
+        RequestBody txBody = HUtils.createJson(body);
+        TransactionApi.getService(TransactionApiInterface.class)
+                .sendTransaction(txBody)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+
+    public void sendCreatePorposal(BaseActivity activity, final BHSendTranscation bhSendTranscation){
+        String body = JsonUtils.toJson(bhSendTranscation);
+        LogUtils.d("EnstrustViewModel==>:","body=="+ JsonUtils.toJson(bhSendTranscation));
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                super.onSuccess(jsonObject);
+                LoadDataModel lmd = new LoadDataModel(LoadingStatus.SUCCESS);
+                createProposalLiveData.postValue(lmd);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                //LoadDataModel lmd = new LoadDataModel(LoadingStatus.ERROR);
+                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
+                createProposalLiveData.postValue(lmd);
             }
         };
 

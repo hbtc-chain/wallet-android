@@ -275,10 +275,9 @@ public class BHRawTransaction {
     }
 
 
-
     public static BHRawTransaction createBHRelieveEntrustTransaction(String sequence, String delegatorAddress, String validatorAddress,
-                                                                BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                                String memo, String symbol) {
+                                                                     BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
+                                                                     String memo, String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = memo;
         bhRawTransaction.sequence = sequence;
@@ -388,11 +387,61 @@ public class BHRawTransaction {
         VetoMsg vetoMsg = new VetoMsg();
         msg.value = vetoMsg;
 
-        vetoMsg.voter =delegatorAddress;
+        vetoMsg.voter = delegatorAddress;
 
         vetoMsg.option = option;
         vetoMsg.proposal_id = proposalId;
 
+        //完成创建一个交易TxMsg
+        bhRawTransaction.msgs.add(msg);
+
+        //转账手续费
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxCoin feeCoin = new TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+
+        bhRawTransaction.fee = fee;
+        return bhRawTransaction;
+    }
+
+    public static BHRawTransaction createBHCreateProposalTransaction(String sequence, String delegatorAddress, String type, String title, String description, BigInteger amount, BigInteger feeAmount, BigInteger gasPrice, String memo, String symbol) {
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = memo;
+        bhRawTransaction.sequence = sequence;
+
+        bhRawTransaction.msgs = new ArrayList<>();
+
+        //开始创建一个交易TxMsg
+        TxMsg<CreateProposalMsg> msg = new TxMsg<CreateProposalMsg>();
+
+
+        //msg.type = "cosmos-sdk/MsgSend";
+        msg.type = "hbtcchain/gov/MsgSubmitProposal";
+
+        CreateProposalMsg createProposalMsg = new CreateProposalMsg();
+        msg.value = createProposalMsg;
+
+        createProposalMsg.initial_deposit = new ArrayList<>();
+
+        //转账Amount
+        TxCoin coin = new TxCoin();
+        coin.denom = symbol;
+        coin.amount = amount.toString(10);
+
+        createProposalMsg.initial_deposit.add(coin);
+        createProposalMsg.proposer = delegatorAddress;
+        CreateProposalMsg.ProposalContent content = new CreateProposalMsg.ProposalContent();
+        content.type = type;
+        CreateProposalMsg.ProposalValue value = new CreateProposalMsg.ProposalValue();
+        value.description = description;
+        value.title = title;
+        content.value = value;
+        createProposalMsg.content = content;
         //完成创建一个交易TxMsg
         bhRawTransaction.msgs.add(msg);
 

@@ -71,7 +71,7 @@
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginStart="@dimen/main_margin_left"
                 android:layout_marginEnd="@dimen/main_margin_right"
-                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_proposal_title"
@@ -125,13 +125,15 @@
                     android:textSize="@dimen/sp_15"
                     android:gravity="center_vertical"
                     android:enabled="false"
-                    tools:text=""/>
+                    tools:text=""
+                    android:text="@string/text_proposal"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp_12"
-                    android:src="@mipmap/ic_arrow_down">
+                    android:src="@mipmap/ic_arrow_down"
+                    android:visibility="gone">
 
                 </ImageView>
 
@@ -179,6 +181,7 @@
                     android:textColorHint="@color/dark_blue"
                     android:textColor="@color/main_text_black"
                     android:textSize="@dimen/sp_15"
+                    android:maxLength="2500"
                     android:gravity="top"
                     tools:text=""/>
 

@@ -30,7 +30,7 @@ public class DoVetoPresenter extends BasePresenter {
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) && Double.valueOf(fee_amount)<=0){
+        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
             ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
             return false;
         }

@@ -91,7 +91,7 @@ public class BHTransactionManager {
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
 
         //交易请求数据构建
-        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
 
         return bhSendTranscation;
         //
@@ -147,7 +147,7 @@ public class BHTransactionManager {
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
 
         //交易请求数据构建
-        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
         return bhSendTranscation;
     }
 
@@ -189,7 +189,7 @@ public class BHTransactionManager {
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
 
         //交易请求数据构建
-        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
         return bhSendTranscation;
     }
 
@@ -226,7 +226,7 @@ public class BHTransactionManager {
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
 
         //交易请求数据构建
-        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
 
         return bhSendTranscation;
 
@@ -266,7 +266,7 @@ public class BHTransactionManager {
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
 
         //交易请求数据构建
-        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
 
         return bhSendTranscation;
         //
@@ -298,7 +298,7 @@ public class BHTransactionManager {
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
 
         //交易请求数据构建
-        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
 
         return bhSendTranscation;
 
@@ -338,9 +338,48 @@ public class BHTransactionManager {
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
 
         //交易请求数据构建
-        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,"block");
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
 
         return bhSendTranscation;
+    }
+
+    public static BHSendTranscation createProposal(String privateKey,
+                                           String delegatorAddress, String type,
+                                           String title,String description,
+                                                   String amount,
+                                           String feeAmount,
+                                           BigInteger gasPrice,
+                                           String memo,
+                                           String data,
+                                           String sequence,
+                                           String symbol){
+
+        BHRawTransaction bhRawTransaction = null;
+        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
+        BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
+
+        double double_amount = NumberUtil.mul(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
+
+        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BHCredentials bhCredentials = BHCredentials.createBHCredentials(privateKey);
+
+
+        //交易数据构建
+        bhRawTransaction = BHRawTransaction.createBHCreateProposalTransaction(sequence,
+                delegatorAddress,type,title,description,BigDecimal.valueOf(double_amount).toBigInteger(),
+                BigDecimal.valueOf( double_feeAmount).toBigInteger()
+                ,gasPrice,memo,symbol);
+
+        String raw_json = JsonUtils.toJson(bhRawTransaction);
+        String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
+
+        //交易请求数据构建
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
+
+        return bhSendTranscation;
+
+
+        //
     }
     /**
      * 获取suquece

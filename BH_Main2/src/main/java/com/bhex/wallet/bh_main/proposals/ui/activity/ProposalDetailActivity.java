@@ -216,10 +216,10 @@ public class ProposalDetailActivity extends BaseActivity {
         double total = NumberUtil.add(result.getYes(),result.getNo());
         total =  NumberUtil.add(total + "",result.getAbstain());
         total =  NumberUtil.add(total + "",result.getNo_with_veto());
-        tv_veto_yes_rate.setText(result.getYes()+ "(" + NumberUtil.getPercentFormat(String.valueOf(NumberUtil.divide(result.getYes(),total+"")))+")");
-        tv_veto_no_rate.setText(result.getNo()+ "(" + NumberUtil.getPercentFormat(String.valueOf(NumberUtil.divide(result.getNo(),total+"")))+")");
-        tv_veto_abstain_rate.setText(result.getAbstain()+ "(" + NumberUtil.getPercentFormat(String.valueOf(NumberUtil.divide(result.getAbstain(),total+"")))+")");
-        tv_veto_no_with_veto_rate.setText(result.getNo_with_veto()+ "(" + NumberUtil.getPercentFormat(String.valueOf(NumberUtil.divide(result.getNo_with_veto(),total+"")))+")");
+        tv_veto_yes_rate.setText(result.getYes()+ "(" + NumberUtil.getPercentFormat(String.valueOf(NumberUtil.divide(result.getYes(),total+"",2)))+")");
+        tv_veto_no_rate.setText(result.getNo()+ "(" + NumberUtil.getPercentFormat(String.valueOf(NumberUtil.divide(result.getNo(),total+"",2)))+")");
+        tv_veto_abstain_rate.setText(result.getAbstain()+ "(" + NumberUtil.getPercentFormat(String.valueOf(NumberUtil.divide(result.getAbstain(),total+"",2)))+")");
+        tv_veto_no_with_veto_rate.setText(result.getNo_with_veto()+ "(" + NumberUtil.getPercentFormat(String.valueOf(NumberUtil.divide(result.getNo_with_veto(),total+"",2)))+")");
     }
 
 

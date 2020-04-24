@@ -256,6 +256,9 @@
     <string name="check_veto_optin">投票选项不能为空</string>
     <string name="check_fee_max">手续费不能大于可用余额</string>
     <string name="available_format">可用 %1s</string>
+    <string name="check_proposal_title">请输入提案标题</string>
+    <string name="check_proposal_desc">请输入提案描述</string>
+    <string name="text_proposal">文本提案</string>
 
 
     <string-array name="my_list_item">

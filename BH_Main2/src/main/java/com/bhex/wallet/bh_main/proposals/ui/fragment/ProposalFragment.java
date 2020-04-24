@@ -99,6 +99,8 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
     public void onViewClicked(View view) {
         if (view.getId() == R.id.tv_create_proposal) {
 
+            ARouter.getInstance().build(ARouterConfig.Create_Proposal)
+                    .navigation();
         }
     }
 

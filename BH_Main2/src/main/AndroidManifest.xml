@@ -17,6 +17,8 @@
         <activity android:name=".proposals.ui.activity.ProposalDetailActivity" />
         <activity android:name=".proposals.ui.activity.DoPledgeActivity" />
         <activity android:name=".proposals.ui.activity.DoVetoActivity" />
+        <activity android:name=".proposals.ui.activity.CreateProposalActivity" />
+
 
     </application>
 

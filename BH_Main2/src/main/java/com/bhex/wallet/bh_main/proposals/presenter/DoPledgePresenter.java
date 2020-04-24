@@ -25,12 +25,12 @@ public class DoPledgePresenter extends BasePresenter {
             return false;
         }
 
-        if(TextUtils.isEmpty(amount) && Double.valueOf(amount)<=0){
+        if(TextUtils.isEmpty(amount) || Double.valueOf(amount)<=0){
             ToastUtils.showToast(getActivity().getString(R.string.check_pledge_amount));
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) && Double.valueOf(fee_amount)<=0){
+        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
             ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
             return false;
         }

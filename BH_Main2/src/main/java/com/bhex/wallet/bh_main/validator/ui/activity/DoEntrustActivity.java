@@ -271,7 +271,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     }
 
     private void sendRelieveEntrust() {
-        boolean flag = mPresenter.checkDoEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
+        boolean flag = mPresenter.checkReliveEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
                 ed_entrust_amount.ed_input.getText().toString(),
                 String.valueOf(available_amount),
                 ed_entrust_fee.ed_input.getText().toString().trim()

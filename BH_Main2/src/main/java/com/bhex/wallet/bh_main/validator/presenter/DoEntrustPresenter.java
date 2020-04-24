@@ -20,12 +20,12 @@ public class DoEntrustPresenter extends BasePresenter {
     public boolean checkDoEntrust(String validatorAddress,String delegatorAddress,String transfer_amount,
                                           String available_amount,String fee_amount){
 
-        if(TextUtils.isEmpty(transfer_amount) && Double.valueOf(transfer_amount)<=0){
+        if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
             ToastUtils.showToast("委托数量不能为空且大于0");
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) && Double.valueOf(fee_amount)<=0){
+        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
             ToastUtils.showToast("手续不能为空且大于0");
             return false;
         }
@@ -41,12 +41,12 @@ public class DoEntrustPresenter extends BasePresenter {
     public boolean checkReliveEntrust(String validatorAddress,String delegatorAddress,String transfer_amount,
                                   String available_amount,String fee_amount){
 
-        if(TextUtils.isEmpty(transfer_amount) && Double.valueOf(transfer_amount)<=0){
+        if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
             ToastUtils.showToast("解委托数量不能为空且大于0");
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) && Double.valueOf(fee_amount)<=0){
+        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
             ToastUtils.showToast("手续不能为空且大于0");
             return false;
         }

@@ -1,7 +1,9 @@
 package com.bhex.wallet.bh_main.proposals.ui.activity;
 
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -111,16 +113,36 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
     }
 
     private void initUI() {
+        tv_description_length.setText(getString(R.string.description_length_format,0));
         ed_pledge_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_fee.btn_right_text.setText(token.toUpperCase());
         ed_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        tv_available_amount.setText("可用 " + getString(R.string.string_placeholder) + token.toUpperCase());
+        tv_available_amount.setText(getString(R.string.available_format,getString(R.string.string_placeholder) + token.toUpperCase()));
     }
 
     @Override
     protected void addEvent() {
+        mProposalViewModel = ViewModelProviders.of(this).get(ProposalViewModel.class);
+        mProposalViewModel.createProposalLiveData.observe(this, ldm -> {
+            updateCreateStatus(ldm);
+        });
         ed_pledge_amount.btn_right_text.setOnClickListener(allListener);
+        ed_description.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tv_description_length.setText(getString(R.string.description_length_format,s.toString().length()));
+            }
+        });
 
         mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
         mBalanceViewModel.accountLiveData.observe(this, ldm -> {
@@ -135,16 +157,6 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
             queryAssetInfo();
         });
-    }
-
-    private String addressReplace(String originAddress) {
-        if (originAddress == null || TextUtils.isEmpty(originAddress)) {
-            return "";
-        }
-        if (originAddress.length() < 21) {
-            return originAddress;
-        }
-        return originAddress.replace(originAddress.substring(10, originAddress.length() - 10), "...");
     }
 
     private void queryAssetInfo() {
@@ -173,7 +185,29 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
      * 发送交易
      */
     private void sendSubmit() {
+        boolean flag = mPresenter.checkCreateProposal(ed_proposal_title.getText().toString().trim(), ed_description.getText().toString().trim(),
+                String.valueOf(available_amount),ed_pledge_amount.ed_input.getText().toString(),
+                ed_fee.ed_input.getText().toString().trim()
+        );
+        if (!flag) {
+            return;
+        }
 
+        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
+        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
+        String amount = ed_pledge_amount.ed_input.getText().toString();
+        String title = ed_proposal_title.getText().toString().trim();
+        String desc = ed_description.getText().toString().trim();
+        String feeAmount = ed_fee.ed_input.getText().toString();
+
+
+        BHTransactionManager.loadSuquece(suquece -> {
+            BHSendTranscation bhSendTranscation = BHTransactionManager.createProposal(hexPK, delegator_address,BHConstants.TextProposalType,title,desc, amount, feeAmount,
+                    gasPrice, BHConstants.BH_MEMO, null, suquece, token);
+            mProposalViewModel.sendCreatePorposal(this, bhSendTranscation);
+            return 0;
+        });
     }
 
 
@@ -184,7 +218,7 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
         }
         String fee = ed_fee.ed_input.getText().toString().trim();
         double all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-        ed_fee.ed_input.setText(String.valueOf(all_count));
+        ed_pledge_amount.ed_input.setText(String.valueOf(all_count));
     };
 
     private void updateAssets(AccountInfo data) {
@@ -198,7 +232,7 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
         for (AccountInfo.AssetsBean item : list) {
             if (item.getSymbol().equalsIgnoreCase(token)) {
                 available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
-                tv_available_amount.setText("可用 " + available_amount + token.toUpperCase());
+                tv_available_amount.setText(getString(R.string.available_format,available_amount + token.toUpperCase()));
             }
         }
     }
