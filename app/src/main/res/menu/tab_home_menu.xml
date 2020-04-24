@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:icon="@drawable/ic_tab_balance" android:id="@+id/tab_balance" android:title="@string/tab_balance_title" />
     <item android:icon="@drawable/ic_tab_validator" android:id="@+id/tab_validator" android:title="@string/tab_validator" />
-    <item android:icon="@drawable/ic_tab_order" android:id="@+id/tab_order" android:title="@string/tab_order_title" />
+    <item android:icon="@drawable/ic_tab_proposals" android:id="@+id/tab_proposals" android:title="@string/tab_proposals_title" />
     <item android:icon="@drawable/ic_tab_my" android:id="@+id/tab_my" android:title="@string/tab_my_title" />
 </menu>

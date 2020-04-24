@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".proposals.ui.activity.CreateProposalActivity">
+
+    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@mipmap/icon_back"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            style="@style/toolbar_layout_title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/create_proposals1"
+            tools:text="@string/create_proposals1" />
+
+    </androidx.appcompat.widget.Toolbar>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        >
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_8"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_proposal_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_black"
+                android:layout_marginTop="@dimen/main_margin_top"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/proposal_title"
+                android:textSize="15sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/ed_proposal_title"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                android:paddingLeft="@dimen/dp_10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_proposal_title"
+                android:background="@color/input_hint_background"
+                android:hint="@string/hint_proposal_title"
+                android:textColorHint="@color/dark_blue"
+                android:textColor="@color/main_text_black"
+                android:textSize="@dimen/sp_15"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_proposal_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_black"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_proposal_title"
+                android:text="@string/sring_proposal_type"
+                android:textSize="15sp"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_proposal_type"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_proposal_type"
+                android:background="@color/input_hint_background"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/ed_proposal_type"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_4"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@null"
+                    android:hint="@string/hint_proposal_type"
+                    android:textColorHint="@color/dark_blue"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    android:gravity="center_vertical"
+                    android:enabled="false"
+                    tools:text=""
+                    android:text="@string/text_proposal"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp_12"
+                    android:src="@mipmap/ic_arrow_down"
+                    android:visibility="gone">
+
+                </ImageView>
+
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_black"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_proposal_type"
+                android:text="@string/string_description"
+                android:textSize="15sp"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_description"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_132"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description"
+                android:background="@color/input_hint_background"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/ed_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_12"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/input_hint_background"
+                    android:hint="@string/hint_proposal_description"
+                    android:textColorHint="@color/dark_blue"
+                    android:textColor="@color/main_text_black"
+                    android:textSize="@dimen/sp_15"
+                    android:maxLength="2500"
+                    android:gravity="top"
+                    tools:text=""/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_description_length"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:text="@string/description_length_format"
+                    android:textSize="@dimen/sp_10"
+                    android:textColor="@color/gray_B0BFDB"
+                    android:gravity="center_vertical|right">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_pledge_amount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/pledge_amount1"
+
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_description"
+                android:textSize="15sp"
+                />
+
+            <com.bhex.lib.uikit.widget.CustomTextView
+                android:id="@+id/tv_available_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_blue"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_description"
+                android:textSize="13sp"
+                tools:text="可用 3000.00 BHT"
+                />
+
+            <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                android:id="@+id/ed_pledge_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/tv_pledge_amount_title"
+                app:leftHint="@string/hint_enter_pledge"
+                app:rightColor="@color/blue"
+                app:rightText="@string/all_entrust"
+                />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_fee_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/fee"
+
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_pledge_amount"
+                android:textSize="15sp"
+                />
+
+            <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                android:id="@+id/ed_fee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/tv_fee_title"
+                app:leftHint=""
+                app:rightColor="@color/dark_blue"
+                tools:rightText="BHT"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_speedup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_black"
+                android:text="@string/speedup"
+
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginStart="@dimen/main_margin_left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_entrust_fee"
+                android:textSize="15sp"
+                android:visibility="gone"
+                />
+
+            <com.bhex.lib.uikit.widget.CustomTextView
+                android:id="@+id/tv_speedup_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/dark_blue"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginEnd="@dimen/page_margin_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_entrust_fee"
+                android:textSize="13sp"
+                tools:text="可用 3000.00 BHT"
+                android:visibility="gone"
+                />
+
+
+
+            <com.bhex.lib.uikit.widget.seekbar.BHSeekBar
+                android:id="@+id/speed_up"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_marginStart="@dimen/main_margin_left"
+                android:layout_marginEnd="@dimen/main_margin_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_speedup_title"
+                android:visibility="gone"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_76"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit"
+            style="@style/main_material_btn"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/submit"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/blue" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

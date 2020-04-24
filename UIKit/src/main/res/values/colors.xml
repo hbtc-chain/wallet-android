@@ -105,4 +105,14 @@
     <!--tips-->
     <color name="tip_text_color">#ACB5C3</color>
 
+    <!--提案-质押募集中-->
+    <color name="proposal_in_payment">#FF922E</color>
+    <!--提案-投票中-->
+    <color name="proposal_voting">#3375E0</color>
+    <!--提案-已通过-->
+    <color name="proposal_passed">#51D372</color>
+    <!--提案-已拒绝-->
+    <color name="proposal_reject">#F73A46</color>
+    <!--提案-募集失败-->
+    <color name="proposal_failed">#6E8196</color>
 </resources>

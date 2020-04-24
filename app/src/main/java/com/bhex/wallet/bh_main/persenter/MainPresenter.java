@@ -17,6 +17,7 @@ import com.bhex.wallet.balance.ui.fragment.BalanceFragment;
 import com.bhex.wallet.bh_main.exchange.ui.fragment.ExchangeFragment;
 import com.bhex.wallet.bh_main.my.ui.fragment.MyFragment;
 import com.bhex.wallet.bh_main.order.ui.fragment.OrderFragment;
+import com.bhex.wallet.bh_main.proposals.ui.fragment.ProposalFragment;
 import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorFragment;
 import com.bhex.wallet.mnemonic.ui.fragment.SecureTipsFragment;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -97,6 +98,9 @@ public class MainPresenter extends BasePresenter {
 
     public void goOrderFragment() {
         setCurrentFragment(OrderFragment.class,null);
+    }
+    public void goProposalFragment() {
+        setCurrentFragment(ProposalFragment.class,null);
     }
 
 

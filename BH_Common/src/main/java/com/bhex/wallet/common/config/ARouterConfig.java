@@ -85,6 +85,10 @@ public class ARouterConfig {
 
     //二维码扫描
     public static final String Commom_scan_qr = "/Common/scan_qr";
+    public static final String Proposal_Detail = "/proposal/detail";
+    public static final String Do_Pledge = "/proposal/do_pledge";
+    public static final String Do_Veto = "/proposal/do_veto";
+    public static final String Create_Proposal = "/proposal/create_proposal";
 
 
 }

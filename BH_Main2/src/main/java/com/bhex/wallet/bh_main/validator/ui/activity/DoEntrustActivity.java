@@ -271,7 +271,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     }
 
     private void sendRelieveEntrust() {
-        boolean flag = mPresenter.checkDoEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
+        boolean flag = mPresenter.checkReliveEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
                 ed_entrust_amount.ed_input.getText().toString(),
                 String.valueOf(available_amount),
                 ed_entrust_fee.ed_input.getText().toString().trim()
@@ -347,7 +347,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
         for (AccountInfo.AssetsBean item : list) {
             if (item.getSymbol().equalsIgnoreCase(token)) {
                 available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
-                tv_available_amount.setText("可用 " + available_amount + token.toUpperCase());
+                tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
             }
         }
     }
@@ -361,7 +361,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             if (item.getValidator().equalsIgnoreCase(validatorAddress)) {
                 String asset = data.get(0).getBonded();
                 available_amount = mPresenter.getAmountForUser(asset, "0", token);
-                tv_available_amount.setText("可用 " + available_amount + token.toUpperCase());
+                tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
             }
         }
     }
