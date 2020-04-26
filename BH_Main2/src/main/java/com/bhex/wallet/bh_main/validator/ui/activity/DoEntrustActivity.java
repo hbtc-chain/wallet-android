@@ -225,7 +225,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
     private void queryAssetInfo(boolean isShowProgressDialog) {
         if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
-            mEnstrustViewModel.getAccountInfo(this);
+            mEnstrustViewModel.getAccountInfo(this,isShowProgressDialog);
         } else {
             mEnstrustViewModel.getCustDelegations(this, isShowProgressDialog);
         }

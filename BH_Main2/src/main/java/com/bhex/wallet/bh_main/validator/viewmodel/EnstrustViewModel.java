@@ -45,8 +45,8 @@ public class EnstrustViewModel extends ViewModel {
     public MutableLiveData<LoadDataModel> mutableLiveData  = new MutableLiveData<>();
 
     //获取资产
-    public void getAccountInfo(BaseActivity activity){
-        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+    public void getAccountInfo(BaseActivity activity,boolean isShowDialog){
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity,isShowDialog) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 //super.onSuccess(jsonObject);

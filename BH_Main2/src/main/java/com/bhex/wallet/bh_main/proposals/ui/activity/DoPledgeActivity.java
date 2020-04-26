@@ -34,6 +34,7 @@ import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -85,8 +86,6 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter> {
 
     private String token = BHConstants.BHT_TOKEN;
 
-    BalanceViewModel mBalanceViewModel;
-
     private String available_amount;
 
     ProposalViewModel mProposalViewModel;
@@ -125,13 +124,11 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter> {
         });
         ed_pledge_amount.btn_right_text.setOnClickListener(allListener);
 
-        mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
-        mBalanceViewModel.accountLiveData.observe(this, ldm -> {
+        LiveDataBus.getInstance().with(BHConstants.Account_Label, LoadDataModel.class).observe(this, ldm->{
             refreshLayout.finishRefresh();
-            if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
-                updateAssets(ldm.getData());
+            if(ldm.loadingStatus==LoadingStatus.SUCCESS){
+                updateAssets((AccountInfo) ldm.getData());
             }
-
         });
         queryAssetInfo(true);
 
@@ -141,7 +138,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter> {
     }
 
     private void queryAssetInfo(boolean isShowProgressDialog) {
-        mBalanceViewModel.getAccountInfo(this, null, isShowProgressDialog);
+        mProposalViewModel.getAccountInfo(this, isShowProgressDialog);
     }
 
 

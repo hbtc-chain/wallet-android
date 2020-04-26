@@ -20,6 +20,8 @@ import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.api.TransactionApi;
 import com.bhex.wallet.common.api.TransactionApiInterface;
+import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
 import com.bhex.wallet.common.model.ProposalQueryResult;
 import com.bhex.wallet.common.model.ValidatorInfo;
@@ -47,7 +49,34 @@ public class ProposalViewModel extends ViewModel {
     public MutableLiveData<LoadDataModel> doPledgeLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel> doVetoLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel> createProposalLiveData  = new MutableLiveData<>();
+    //获取资产
+    public void getAccountInfo(BaseActivity activity,boolean isShowDialog){
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity,isShowDialog) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                //super.onSuccess(jsonObject);
+                AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
+                //accountLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
+            }
 
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel(code,"");
+                //accountLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
+
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
     /**
      * 查询单页方案记录
      */

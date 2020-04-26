@@ -38,6 +38,7 @@ import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -91,10 +92,6 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
     private String token = BHConstants.BHT_TOKEN;
 
     ProposalViewModel mProposalViewModel;
-    BalanceViewModel mBalanceViewModel;
-    String mAvailabelTitle = "";
-
-    String validatorAddress = "";
     private String available_amount;
 
     @Override
@@ -135,23 +132,22 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
             }
         });
 
-        mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
-        mBalanceViewModel.accountLiveData.observe(this, ldm -> {
+        LiveDataBus.getInstance().with(BHConstants.Account_Label, LoadDataModel.class).observe(this, ldm->{
             refreshLayout.finishRefresh();
-            if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
-                updateAssets(ldm.getData());
+            if(ldm.loadingStatus==LoadingStatus.SUCCESS){
+                updateAssets((AccountInfo) ldm.getData());
             }
-
         });
-        queryAssetInfo();
+
+        queryAssetInfo(true);
 
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
-            queryAssetInfo();
+            queryAssetInfo(false);
         });
     }
 
-    private void queryAssetInfo() {
-        mBalanceViewModel.getAccountInfo(this, null);
+    private void queryAssetInfo(boolean isShowProgressDialog) {
+        mProposalViewModel.getAccountInfo(this, isShowProgressDialog);
     }
 
 
