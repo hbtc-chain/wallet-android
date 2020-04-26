@@ -32,6 +32,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -97,7 +98,6 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> {
 
     private String token = BHConstants.BHT_TOKEN;
 
-    BalanceViewModel mBalanceViewModel;
     String mAvailabelTitle = "";
 
     private String available_amount;
@@ -135,13 +135,11 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> {
             updateDoVetoStatus(ldm);
         });
 
-        mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
-        mBalanceViewModel.accountLiveData.observe(this, ldm -> {
+        LiveDataBus.getInstance().with(BHConstants.Account_Label, LoadDataModel.class).observe(this, ldm->{
             refreshLayout.finishRefresh();
-            if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
-                updateAssets(ldm.getData());
+            if(ldm.loadingStatus==LoadingStatus.SUCCESS){
+                updateAssets((AccountInfo) ldm.getData());
             }
-
         });
         queryAssetInfo(true);
 
@@ -151,7 +149,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> {
     }
 
     private void queryAssetInfo(boolean isShowProgressDialog) {
-        mBalanceViewModel.getAccountInfo(this, null, isShowProgressDialog);
+        mProposalViewModel.getAccountInfo(this, isShowProgressDialog);
     }
 
 
