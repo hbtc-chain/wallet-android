@@ -208,7 +208,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
             } else {
                 for (int i = 0; i < mOriginProposalInfoList.size(); i++) {
                     ProposalInfo item = mOriginProposalInfoList.get(i);
-                    if (item.getDescription() != null && item.getTitle().toLowerCase().contains(searchContent.toLowerCase())) {
+                    if (item.getTitle() != null && item.getTitle().toLowerCase().contains(searchContent.toLowerCase())) {
                         result.add(item);
                     }
                 }
