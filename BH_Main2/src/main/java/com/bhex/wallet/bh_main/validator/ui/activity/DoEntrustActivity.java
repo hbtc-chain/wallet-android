@@ -90,6 +90,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     AppCompatTextView tv_entrust_amount_title;
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
+    @BindView(R2.id.tv_fee_available_amount)
+    CustomTextView tv_fee_available_amount;
 
     private String token = BHConstants.BHT_TOKEN;
 
@@ -99,6 +101,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
     String validatorAddress = "";
     private String available_amount;
+    private String wallet_available;
 
     @Override
     protected void initPresenter() {
@@ -144,6 +147,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             btn_do_entrust.setText(getString(R.string.transfer_entrust));
             tv_center_title.setText(getString(R.string.transfer_entrust));
         } else if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
+            tv_fee_available_amount.setVisibility(View.GONE);
             if (mValidatorInfo != null) {
                 String address = mValidatorInfo.getOperator_address();
                 validatorAddress = mValidatorInfo.getOperator_address();
@@ -168,6 +172,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             tv_entrust_amount_title.setText(getString(R.string.relieve_entrust_amount));
             btn_do_entrust.setText(getString(R.string.relieve_entrust));
             tv_center_title.setText(getString(R.string.relieve_entrust));
+            tv_fee_available_amount.setVisibility(View.VISIBLE);
+            tv_fee_available_amount.setText("可用 " + getString(R.string.string_placeholder) + token.toUpperCase());
         }
         ed_entrust_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_real_entrust_amount.btn_right_text.setText(token.toUpperCase());
@@ -226,8 +232,9 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
     private void queryAssetInfo(boolean isShowProgressDialog) {
         if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
             mEnstrustViewModel.getAccountInfo(this,isShowProgressDialog);
-        } else {
+        } else  if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
             mEnstrustViewModel.getCustDelegations(this, isShowProgressDialog);
+            mEnstrustViewModel.getAccountInfo(this,isShowProgressDialog);
         }
     }
 
@@ -272,7 +279,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
     private void sendRelieveEntrust() {
         boolean flag = mPresenter.checkReliveEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
-                ed_entrust_amount.ed_input.getText().toString(),
+                ed_entrust_amount.ed_input.getText().toString(),wallet_available,
                 String.valueOf(available_amount),
                 ed_entrust_fee.ed_input.getText().toString().trim()
         );
@@ -346,8 +353,13 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
         }
         for (AccountInfo.AssetsBean item : list) {
             if (item.getSymbol().equalsIgnoreCase(token)) {
-                available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
-                tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
+                if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
+                    available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+                    tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
+                } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
+                    wallet_available = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+                    tv_fee_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
+                }
             }
         }
     }
@@ -359,7 +371,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
         for (ValidatorDelegationInfo item : data) {
             if (item.getValidator().equalsIgnoreCase(validatorAddress)) {
-                String asset = data.get(0).getBonded();
+                String asset = item.getBonded();
                 available_amount = mPresenter.getAmountForUser(asset, "0", token);
                 tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
             }
