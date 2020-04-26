@@ -9,19 +9,17 @@
     <string name="resend">重新发送</string>
     <string name="app_no_data">暂无记录</string>
 
-    <string name="http_loading">数据加载中</string>
+    <string name="http_loading">数据请求中</string>
 
     <string name="app_try_again">暂无数据，点击重试</string>
     <string name="net_error_msg">网络异常</string>
     <string name="app_net_error_msg">网络不给力</string>
-    <string name="app_net_error_msg_check">请检查你的手机是否联网</string>
+    <string name="app_net_error_msg_check">请检查网络设置后重新加载</string>
     <string name="auth_info_faild">当前登录信息过期,请重新登录</string>
     <string name="error_network_later_try">网络异常，请稍后再试</string>
     <string name="error_network_time_out">请求超时</string>
     <string name="app_account_language">语言</string>
     <string name="language_setting">语言设置</string>
-
-
 
     <string name="wallet_create_trusteeship">创建托管单元</string>
     <string name="wallet_import_trusteeship">导入托管单元</string>
@@ -275,6 +273,9 @@
     <string name="unbonding">赎回中</string>
     <string name="claimed_reward">已收益</string>
 
+    <string name="initiate_proposal">发起治理提案</string>
+    <string name="pledge_proposal">治理提案质押</string>
+    <string name="vote_proposal">治理提案投票</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

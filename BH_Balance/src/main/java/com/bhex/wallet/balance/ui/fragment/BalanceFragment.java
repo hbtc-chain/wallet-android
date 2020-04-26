@@ -54,7 +54,6 @@ import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.textview.MaterialTextView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
-import com.yanzhenjie.recyclerview.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
@@ -301,6 +300,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
            mOriginBalanceList.remove(index);
            mBalanceList.remove(index);
            mBalanceAdapter.notifyItemRemoved(index);
+           if(mBalanceAdapter.getData().size()==0){
+               mBalanceAdapter.setEmptyView(mEmptyLayout);
+           }
         }
         //持久化添加资产
         BHUserManager.getInstance().saveUserBalanceList(mOriginBalanceList);

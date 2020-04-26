@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_info"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/main_padding_left"
@@ -12,9 +11,8 @@
     android:layout_marginEnd="@dimen/main_padding_right"
     android:layout_marginBottom="6dp"
     app:cardBackgroundColor="@color/card_backgound"
-    app:cardCornerRadius="10dp"
-    app:cardForegroundColor="@color/trans">
-
+    app:cardForegroundColor="@color/trans"
+    app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
@@ -30,7 +28,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_validator_name"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_32"
+            android:layout_height="wrap_content"
             tools:text="testseadgfasdxfvadsvgasdgasdgasdgasd111111"
             android:maxLines="1"
             android:ellipsize="end"
@@ -49,7 +47,9 @@
             android:src="@mipmap/icon_validator_valid"
             android:tag="0"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="@+id/tv_validator_name"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_validator_name"
+            />
 
         <TextView
             android:id="@+id/title1"

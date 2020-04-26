@@ -63,6 +63,7 @@ public class BalancePresenter extends BasePresenter {
             BHToken bhToken = symbolCache.getBHToken(bhBalance.symbol.toLowerCase());
             if(bhToken!=null){
                 bhBalance.chain = bhToken.chain;
+                bhBalance.logo = bhToken.logo;
             }
             list.add(bhBalance);
         }

@@ -48,6 +48,7 @@ public class TxOrderAdapter extends BaseQuickAdapter<TransactionOrder, BaseViewH
 
         //转账金额
         AppCompatTextView tv_tx = vh.getView(R.id.tv_tx_amount);
+        tv_tx.setText("");
         TransactionHelper.displayTranscationAmount(getContext(),tv_tx,bean.getType(),bean.getValue().toString());
 
     }

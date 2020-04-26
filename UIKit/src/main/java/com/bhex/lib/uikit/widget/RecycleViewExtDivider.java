@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecycleViewExtDivider extends RecyclerView.ItemDecoration {
     private Paint mPaint;
     private Drawable mDivider;
-    private int mDividerHeight = 1;//分割线高度，默认为1px
+    private int mDividerHeight = 2;//分割线高度，默认为1px
     private int mPaddingLeft;
     private int mPaddingRight;
     private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL

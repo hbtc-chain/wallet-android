@@ -26,6 +26,8 @@ public class BHBalance {
 
     public boolean is_native;
 
+    public String logo="";
+
     //是否能发送交易
     public boolean enable_sendtx;
 

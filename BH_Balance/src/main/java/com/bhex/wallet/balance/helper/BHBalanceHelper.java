@@ -43,7 +43,7 @@ public class BHBalanceHelper {
         }else if(symbol.equalsIgnoreCase("usdt")){
             item.resId = R.mipmap.ic_usdt;
         }else{
-            item.resId = R.mipmap.ic_usdt;
+            item.resId = 0;
         }
         item.symbol = symbol;
         return item;

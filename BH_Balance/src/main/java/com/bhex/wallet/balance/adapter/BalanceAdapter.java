@@ -2,12 +2,15 @@ package com.bhex.wallet.balance.adapter;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ImageLoaderUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.cache.CacheCenter;
@@ -39,7 +42,15 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
     @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
         AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
-        iv.setImageDrawable(getContext().getResources().getDrawable(balanceItem.resId));
+        if(balanceItem.resId==0){
+            LogUtils.d("BalanceAdapter===>:","logo=="+balanceItem.logo);
+            ImageLoaderUtil.loadImageView(getContext(),
+                    balanceItem.logo,
+                    iv,
+                    R.mipmap.ic_default_coin);
+        }else{
+            iv.setImageDrawable(getContext().getResources().getDrawable(balanceItem.resId));
+        }
         viewHolder.setText(R.id.tv_coin_name,balanceItem.symbol.toUpperCase());
 
         AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);
@@ -47,9 +58,6 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         SymbolCache symbolCache  = CacheCenter.getInstance().getSymbolCache();
 
         BHToken bhCoin = symbolCache.getBHToken(balanceItem.symbol.toLowerCase());
-
-
-
 
         //实时价格
         String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);

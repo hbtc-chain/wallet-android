@@ -78,7 +78,7 @@ public class TransactionHelper {
 
 
     public static void displayTranscationAmount(Context context,AppCompatTextView tv,String txType,String json){
-        if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Transfer.getType())){
+        if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.转账.getType())){
 
             TransactionOrder.ActivitiesBean.ValueBean valueBean
                     = JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.ValueBean.class);
@@ -86,24 +86,30 @@ public class TransactionHelper {
             TransactionOrder.ActivitiesBean.ValueBean.AmountBean bean1 = valueBean.getAmount().get(0);
 
             setRealAmount(tv,bean1.getAmount(),bean1.getDenom());
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.KeyGen.getType())){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链地址生成.getType())){
             TransactionOrder.ActivitiesBean.AddressGenBean addressGenBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.AddressGenBean.class);
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Withdrawal.getType())){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链提币.getType())){
 
             TransactionOrder.ActivitiesBean.WithdrawalBean withdrawalBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.WithdrawalBean.class);
             setRealAmount(tv,withdrawalBean.amount,withdrawalBean.symbol);
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Deposit.getType())){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链充值.getType())){
             TransactionOrder.ActivitiesBean.DepositBean depositBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DepositBean.class);
 
             setRealAmount(tv,depositBean.amount,depositBean.symbol);
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Delegate.getType())){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.委托.getType())){
             TransactionOrder.ActivitiesBean.DelegateBean delegateBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DelegateBean.class);
 
             setRealAmount(tv,delegateBean.amount.getAmount(),delegateBean.amount.getDenom());
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.发起治理提案.getType())){
+
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.治理提案质押.getType())){
+
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.治理提案投票.getType())){
+
         }
     }
 
@@ -121,7 +127,7 @@ public class TransactionHelper {
     public static void displayTranscationFromTo(Context context,AppCompatTextView tv_from,
                                                 AppCompatTextView tv_to,String txType,String json){
 
-        if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Transfer.getType())){
+        if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.转账.getType())){
 
             TransactionOrder.ActivitiesBean.ValueBean valueBean
                     = JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.ValueBean.class);
@@ -131,31 +137,35 @@ public class TransactionHelper {
             tv_from.setText(valueBean.getFrom_address());
             tv_to.setText(valueBean.getTo_address());
 
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.KeyGen.getType())){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链地址生成.getType())){
             TransactionOrder.ActivitiesBean.AddressGenBean addressGenBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.AddressGenBean.class);
 
-            tv_from.setText(addressGenBean.From);
-            tv_to.setText(addressGenBean.To);
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Withdrawal.getType())){
+            tv_from.setText(addressGenBean.from);
+            tv_to.setText(addressGenBean.to);
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链提币.getType())){
 
             TransactionOrder.ActivitiesBean.WithdrawalBean withdrawalBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.WithdrawalBean.class);
             tv_from.setText(withdrawalBean.from_cu);
             tv_to.setText(withdrawalBean.to_multi_sign_address);
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Deposit.getType())){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链充值.getType())){
             TransactionOrder.ActivitiesBean.DepositBean depositBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DepositBean.class);
 
             tv_from.setText(depositBean.from_cu);
             tv_to.setText(depositBean.to_adddress);
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.Delegate.getType())){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.委托.getType())){
             TransactionOrder.ActivitiesBean.DelegateBean delegateBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DelegateBean.class);
 
             tv_from.setText(delegateBean.delegator_address);
 
             tv_to.setText(delegateBean.validator_address);
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.取消委托.getType())){
+
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.取消委托.getType())){
+
         }
     }
 }

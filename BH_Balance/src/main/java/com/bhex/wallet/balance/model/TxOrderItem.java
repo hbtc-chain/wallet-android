@@ -213,10 +213,10 @@ public class TxOrderItem {
         }
 
         public static class AddressGenBean{
-            public String From;
-            public String To;
-            public String OrderId;
-            public String Symbol;
+            public String from;
+            public String to;
+            public String order_id;
+            public String symbol;
         }
     }
 

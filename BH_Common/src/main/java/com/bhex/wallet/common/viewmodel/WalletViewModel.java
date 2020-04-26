@@ -327,14 +327,14 @@ public class WalletViewModel extends ViewModel {
             @Override
             public void onSuccess(BHWallet str) {
                 LoadDataModel loadDataModel = new LoadDataModel(str);
-                mutableLiveData.postValue(loadDataModel);
+                walletLiveData.postValue(loadDataModel);
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
                 LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
-                mutableLiveData.postValue(loadDataModel);
+                walletLiveData.postValue(loadDataModel);
 
             }
         };

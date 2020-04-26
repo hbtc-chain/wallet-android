@@ -3,6 +3,8 @@ package com.bhex.wallet.balance.adapter;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.bhex.tools.utils.ImageLoaderUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.model.BHTokenItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -36,6 +38,12 @@ public class CoinSearchAdapter extends BaseQuickAdapter<BHTokenItem, BaseViewHol
             ck.setChecked(true);
         }
         AppCompatImageView iv_coin_ic = viewHolder.getView(R.id.iv_coin_ic);
-        iv_coin_ic.setImageDrawable(getContext().getResources().getDrawable(coin.resId));
+        //iv_coin_ic.setImageDrawable(getContext().getResources().getDrawable(coin.resId));
+        if(coin.resId==0){
+            ImageLoaderUtil.loadImageView(getContext(),coin.logo,iv_coin_ic,R.mipmap.ic_default_coin);
+        }else{
+            LogUtils.d("CoinSearchAdapter==>:","logo=="+coin.logo);
+            iv_coin_ic.setImageDrawable(getContext().getResources().getDrawable(coin.resId));
+        }
     }
 }

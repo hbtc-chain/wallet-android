@@ -103,7 +103,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
             if (loadDataModel.loadingStatus== LoadingStatus.SUCCESS) {
                 if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.导入助记词.getWay()){
-                    NavitateUtil.startMainActivity(this,null);
+                    NavitateUtil.startMainActivity(this,new String[]{});
                 }else{
                     NavitateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
                     ActivityCache.getInstance().finishActivity();

@@ -143,7 +143,7 @@ public class CoinSearchActivity extends BaseActivity {
            }else if(coinItem.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
                coinItem.resId = R.mipmap.ic_bht;
            }else{
-               coinItem.resId = R.mipmap.ic_default_coin;
+               coinItem.resId = 0;
            }
            if(balanceMap.get(coinItem.symbol.toLowerCase())!=null){
                coinItem.isSelected = true;

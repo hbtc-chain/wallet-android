@@ -15,13 +15,16 @@ import java.util.Optional;
  *
  */
 public enum  TRANSCATION_BUSI_TYPE {
-    Transfer("hbtcchain/transfer/MsgSend"),
-    Delegate("hbtcchain/MsgDelegate"),
-    Undelegate("hbtcchain/MsgUndelegate"),
-    KeyGen("hbtcchain/keygen/MsgKeyGen"),
-    WithdrawDelegationReward("hbtcchain/MsgWithdrawDelegationReward"),
-    Deposit("hbtcchain/transfer/MsgDeposit"),
-    Withdrawal("hbtcchain/transfer/MsgWithdrawal"),
+    转账("hbtcchain/transfer/MsgSend"),
+    委托("hbtcchain/MsgDelegate"),
+    取消委托("hbtcchain/MsgUndelegate"),
+    跨链地址生成("hbtcchain/keygen/MsgKeyGen"),
+    提取收益("hbtcchain/MsgWithdrawDelegationReward"),
+    跨链充值("hbtcchain/transfer/MsgDeposit"),
+    跨链提币("hbtcchain/transfer/MsgWithdrawal"),
+    发起治理提案("hbtcchain/gov/MsgSubmitProposal"),
+    治理提案质押("hbtcchain/gov/MsgDeposit"),
+    治理提案投票("hbtcchain/gov/MsgVote"),
     Other("other");
 
     private String type;
@@ -54,13 +57,16 @@ public enum  TRANSCATION_BUSI_TYPE {
     }
 
     public static void init(Context context){
-        Transfer.label = context.getResources().getString(R.string.transfer);
-        Delegate.label = context.getResources().getString(R.string.entrust);
-        Undelegate.label = context.getResources().getString(R.string.un_entrust);
-        KeyGen.label = context.getResources().getString(R.string.crosslink_address);
-        Deposit.label = context.getResources().getString(R.string.cross_deposit);
-        WithdrawDelegationReward.label = context.getResources().getString(R.string.withdraw_reward);
-        Withdrawal.label = context.getResources().getString(R.string.withdraw_reward);
+        转账.label = context.getResources().getString(R.string.transfer);
+        委托.label = context.getResources().getString(R.string.entrust);
+        取消委托.label = context.getResources().getString(R.string.un_entrust);
+        跨链地址生成.label = context.getResources().getString(R.string.crosslink_address);
+        提取收益.label = context.getResources().getString(R.string.withdraw_reward);
+        跨链充值.label = context.getResources().getString(R.string.cross_deposit);
+        跨链提币.label = context.getResources().getString(R.string.cross_chian_trans_out);
+        发起治理提案.label= context.getResources().getString(R.string.initiate_proposal);
+        治理提案质押.label=context.getResources().getString(R.string.pledge_proposal);
+        治理提案投票.label=context.getResources().getString(R.string.vote_proposal);
         Other.label = context.getResources().getString(R.string.other);
     }
 
