@@ -358,7 +358,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
                     tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
                 } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
                     wallet_available = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
-                    tv_fee_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
+                    tv_fee_available_amount.setText(getString(R.string.available) + wallet_available + token.toUpperCase());
                 }
             }
         }

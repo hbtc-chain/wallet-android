@@ -451,14 +451,15 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingLeft="@dimen/dp_24"
+        android:paddingRight="@dimen/dp_24">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_transfer_entrust"
             style="@style/main_material_btn"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginLeft="@dimen/dp_24"
             android:layout_marginRight="@dimen/dp_8"
             android:layout_weight="1"
             android:insetTop="0dp"
@@ -468,7 +469,8 @@
             app:backgroundTint="@color/white"
             app:cornerRadius="@dimen/main_radius_conner"
             app:strokeColor="@color/blue"
-            app:strokeWidth="1dp" />
+            app:strokeWidth="1dp"
+            android:visibility="gone"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_relieve_entrust"
@@ -491,7 +493,6 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginLeft="@dimen/dp_8"
-            android:layout_marginRight="@dimen/dp_24"
             android:layout_weight="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"
