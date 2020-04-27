@@ -4,7 +4,6 @@ package com.bhex.wallet.balance.ui.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +26,6 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
@@ -62,7 +60,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -145,6 +142,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         EventBus.getDefault().register(this);
         getYActivity().setSupportActionBar(mToolBar);
         getYActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //EditTextHelper.getEditTextDeleteIconWrapper(getContext(),ed_search_content);
+
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
@@ -152,7 +151,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         mOriginBalanceList = mPresenter.makeBalanceList();
         mBalanceList = mPresenter.getBalanceList(mOriginBalanceList);
-        LinearLayoutManager layoutManager = new MyLinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_balance.setLayoutManager(layoutManager);
         recycler_balance.setNestedScrollingEnabled(false);
@@ -204,12 +203,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         });
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(getYActivity());
-       /* balanceViewModel.accountLiveData.observe(this,ldm -> {
-            refreshLayout.finishRefresh();
-            if(ldm.loadingStatus==LoadingStatus.SUCCESS){
-                updateAssets(ldm.getData());
-            }
-        });*/
 
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Account_Label, LoadDataModel.class).observe(this, ldm->{
@@ -245,8 +238,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mBalanceAdapter.notifyDataSetChanged();
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
         //设置第一字符15sp
-        mPresenter.setTextFristSamll(tv_asset,allTokenAssetsText);
-
+        String tag = iv_eye.getTag().toString();
+        if(iv_eye.getTag().equals("0")){
+            mPresenter.setTextFristSamll(tv_asset,allTokenAssetsText);
+        }else{
+            tv_asset.setText("*******");
+        }
     }
 
 
@@ -264,7 +261,10 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
                     withObject("balanceList",mOriginBalanceList).navigation();
         }else if(view.getId()==R.id.ck_hidden_small){
             //隐藏小额币种
-            List<BHBalance> result = mPresenter.hiddenSmallToken(getYActivity(),ck_hidden_small,mOriginBalanceList);
+            ck_hidden_small.toggle();
+
+            String searchText = ed_search_content.getText().toString().trim();
+            List<BHBalance> result = mPresenter.hiddenSmallToken(getYActivity(),ck_hidden_small,mOriginBalanceList,searchText);
 
             if(result==null||result.size()==0){
                 mBalanceAdapter.setEmptyView(mEmptyLayout);
@@ -273,11 +273,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             mBalanceAdapter.addData(result);
         }
     }
-
-    private void generateTranction() {
-
-    }
-
 
     @Override
     public void onDestroy() {
@@ -288,10 +283,13 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void balanceListChange(BHCoinEvent event){
         if(event.flag){
+            //int size = mBalanceAdapter.getData().size();
             BHBalance balance = mPresenter.getBalanceByCoin(event.bhCoinItem);
             mOriginBalanceList.add(balance);
             mBalanceList.add(balance);
-            mBalanceAdapter.notifyDataSetChanged();
+            mBalanceAdapter.notifyItemInserted(mBalanceList.size()-1);
+            mBalanceAdapter.notifyItemChanged(mBalanceList.size()-1);
+            //mBalanceAdapter.notifyDataSetChanged();
         }else{
            int index= mPresenter.getIndexByCoin(mOriginBalanceList,event.bhCoinItem);
            if(index<0){
@@ -300,6 +298,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
            mOriginBalanceList.remove(index);
            mBalanceList.remove(index);
            mBalanceAdapter.notifyItemRemoved(index);
+           mBalanceAdapter.notifyItemChanged(index);
            if(mBalanceAdapter.getData().size()==0){
                mBalanceAdapter.setEmptyView(mEmptyLayout);
            }
@@ -325,7 +324,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(CurrencyEvent currencyEvent){
-        //LogUtils.d("BalanceFragment==>","=currencyEvent=");
         updateAssets(mAccountInfo);
     }
 
@@ -356,21 +354,10 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         public void afterTextChanged(Editable s) {
             super.afterTextChanged(s);
             String searchContent = ed_search_content.getText().toString().trim();
-            List<BHBalance> result = new ArrayList<>();
+            List<BHBalance> result = mPresenter.hiddenSmallToken(getYActivity(),ck_hidden_small,mOriginBalanceList,searchContent);
 
-            if(TextUtils.isEmpty(searchContent)){
-                for(int i=0;i<mOriginBalanceList.size();i++){
-                    BHBalance item = mOriginBalanceList.get(i);
-                    result.add(item);
-                }
-
-            }else{
-                for(int i=0;i<mOriginBalanceList.size();i++){
-                    BHBalance item = mOriginBalanceList.get(i);
-                    if(item.symbol.toLowerCase().contains(searchContent.toLowerCase())){
-                        result.add(item);
-                    }
-                }
+            if(result==null||result.size()==0){
+                mBalanceAdapter.setEmptyView(mEmptyLayout);
             }
             mBalanceAdapter.getData().clear();
             mBalanceAdapter.addData(result);

@@ -28,7 +28,7 @@ public class ImageLoaderUtil {
         if(!path.equals(mImageView.getTag())){
             mImageView.setTag(null);
             Glide.with(mContext).load(path)
-                    .placeholder(resId)
+                    //.placeholder(resId)
                     .error(resId)
                     .into(mImageView);
 

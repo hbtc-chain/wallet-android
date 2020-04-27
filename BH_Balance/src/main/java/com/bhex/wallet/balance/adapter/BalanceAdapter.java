@@ -42,14 +42,14 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
     @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
         AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
+        //LogUtils.d("BalanceAdapter===>:",balanceItem.symbol+"==resid=="+balanceItem.resId);
         if(balanceItem.resId==0){
-            LogUtils.d("BalanceAdapter===>:","logo=="+balanceItem.logo);
             ImageLoaderUtil.loadImageView(getContext(),
                     balanceItem.logo,
                     iv,
                     R.mipmap.ic_default_coin);
         }else{
-            iv.setImageDrawable(getContext().getResources().getDrawable(balanceItem.resId));
+            iv.setImageResource(balanceItem.resId);
         }
         viewHolder.setText(R.id.tv_coin_name,balanceItem.symbol.toUpperCase());
 

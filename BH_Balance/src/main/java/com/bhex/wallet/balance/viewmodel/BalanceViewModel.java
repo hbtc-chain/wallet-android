@@ -79,7 +79,7 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
 
 
     private void beginReloadData() {
-        Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
+        /*Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mContext, Lifecycle.Event.ON_PAUSE)))
                 .subscribe(new SimpleObserver<Long>(){
@@ -92,7 +92,7 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
                     @Override
                     public void onNext(Long aLong) {
                         super.onNext(aLong);
-                        LogUtils.d("BalanceViewModel===>:","==aLong=="+aLong);
+                        //LogUtils.d("BalanceViewModel===>:","==aLong=="+aLong);
                         BalanceViewModel.this.getAccountInfo(mContext,null);
                     }
 
@@ -100,7 +100,7 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
                     public void onError(Throwable e) {
                         super.onError(e);
                     }
-                });
+                });*/
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)

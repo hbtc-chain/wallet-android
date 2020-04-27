@@ -54,23 +54,23 @@ public class TransferOutPresenter extends BasePresenter {
     public boolean checklinkOutterTransfer(String to_address,String transfer_amount,
                                           String available_amount,
                                            String tx_fee_amount,String fee_amount){
-        if(to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
-            ToastUtils.showToast(getActivity().getResources().getString(R.string.link_outter_address_error));
+        if(TextUtils.isEmpty(to_address)||to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.withdraw_address_error));
             return false;
         }
 
-        if(TextUtils.isEmpty(transfer_amount) && Double.valueOf(transfer_amount)<=0){
+        if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.input_withdraw_amount));
             return false;
         }
 
         if(TextUtils.isEmpty(tx_fee_amount) && Double.valueOf(tx_fee_amount)<=0){
-            ToastUtils.showToast("交易手续费不能为空且大于0");
+            ToastUtils.showToast("请输入交易手续费");
             return false;
         }
 
         if(TextUtils.isEmpty(fee_amount) && Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast("提币手续费不能为空且大于0");
+            ToastUtils.showToast("请输入提币手续费");
             return false;
         }
 

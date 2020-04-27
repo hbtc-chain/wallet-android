@@ -362,6 +362,10 @@ public class WalletViewModel extends ViewModel {
                 //int res = bhWalletDao.updatePassword(bhWallet.id,pwdMd5);
                 int res = bhWalletDao.update(bhWallet);
                 if(res>0){
+                    //更新钱包列表
+                    List<BHWallet> list = bhWalletDao.loadAll();
+                    BHUserManager.getInstance().setAllWallet(list);
+                    BHUserManager.getInstance().setCurrentBhWallet(list.get(0));
                     emitter.onNext(bhWallet);
                 }
                 emitter.onComplete();

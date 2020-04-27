@@ -15,6 +15,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
@@ -35,6 +36,8 @@ import com.bhex.wallet.common.tx.Tx;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.tx.TxSignature;
 
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,7 +75,7 @@ public class BalancePresenter extends BasePresenter {
 
 
     //产生交易数据
-    public String makeTranctionMsgJson(){
+    /*public String makeTranctionMsgJson(){
         Tx tx = new Tx();
         tx.chain_id = "bhchain-testnet";
         tx.cu_number = "0";
@@ -122,10 +125,10 @@ public class BalancePresenter extends BasePresenter {
         return json;
     }
 
-    /**
+    *//**
      * 模拟交易请求
      * @return
-     */
+     *//*
     public String makeTranctionRequest(String sign,String pubBase64Value){
         //交易请求
         SendTxRequest sendTxRequest = new SendTxRequest();
@@ -186,7 +189,7 @@ public class BalancePresenter extends BasePresenter {
 
         String json = JsonUtils.toJson(sendTxRequest);
         return json;
-    }
+    }*/
 
 
     //获取balance位置
@@ -203,7 +206,9 @@ public class BalancePresenter extends BasePresenter {
 
     public  BHBalance getBalanceByCoin(BHTokenItem coinItem){
         BHBalance balance = new BHBalance(coinItem.resId,coinItem.symbol);
+        //LogUtils.d("BalancePresenter====>:",balance.symbol+"==resId=="+balance.resId);
         balance.chain = coinItem.chain;
+        balance.logo = coinItem.logo;
         return balance;
     }
 
@@ -264,28 +269,48 @@ public class BalancePresenter extends BasePresenter {
             SpannableString spanStr = new SpannableString(unhiddenText);
             spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             tv_asset.setText(spanStr);
-            //tv_asset.setTag(R.id.tag_first,allTokenAssetsText);
-            //tv_asset.setText(unhiddenText);
             eyeIv.setTag("0");
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye));
         }
     }
 
 
-    public List<BHBalance> hiddenSmallToken(BaseActivity context,CheckedTextView ck_hidden_small,List<BHBalance> mOriginBalanceList){
-        ck_hidden_small.toggle();
+    /**
+     * 隐藏小额资产
+     * @param context
+     * @param ck_hidden_small
+     * @param mOriginBalanceList
+     * @param text
+     * @return
+     */
+    public List<BHBalance> hiddenSmallToken(BaseActivity context,CheckedTextView ck_hidden_small,List<BHBalance> mOriginBalanceList,String text){
         List<BHBalance> result = new ArrayList<>();
 
         if(ck_hidden_small.isChecked()){
             for(BHBalance item :mOriginBalanceList){
                 if(!TextUtils.isEmpty(item.amount) && Double.valueOf(item.amount)>0){
-                    result.add(item);
+                    if(!TextUtils.isEmpty(text)){
+                        if(item.symbol.toLowerCase().contains(text.toLowerCase())){
+                            result.add(item);
+                        }
+                    }else{
+                        result.add(item);
+                    }
                 }
             }
             ck_hidden_small.setTextColor(ContextCompat.getColor(context,R.color.blue));
         }else{
             for (BHBalance item :mOriginBalanceList) {
-                result.add(item);
+                if(TextUtils.isEmpty(text)){
+                    if(!TextUtils.isEmpty(text)){
+                        if(item.symbol.toLowerCase().contains(text.toLowerCase())){
+                            result.add(item);
+                        }
+                    }else{
+                        result.add(item);
+                    }
+                }
+                //result.add(item);
             }
             ck_hidden_small.setTextColor(ContextCompat.getColor(context,R.color.dark_blue));
         }

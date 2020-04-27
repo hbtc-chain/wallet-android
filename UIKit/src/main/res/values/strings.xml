@@ -188,7 +188,7 @@
     <string name="transfer_entrust_failed">转委托失败</string>
     <string name="album">相册</string>
     <string name="langeuage_setting">语言设置中...</string>
-    <string name="hint_input_token_name">请输入币种名称</string>
+    <string name="hint_input_token_name">请输入币种</string>
     <string name="all_asset">总资产</string>
     <string name="tips_backup">备份提示</string>
     <string name="tips_trust_success_index_1">您将通过助记词备份钱包</string>
@@ -208,6 +208,7 @@
     <string name="transfer_in_fail">转账失败</string>
     <string name="encode_qr_fail">解析二维码失败</string>
     <string name="link_outter_address_error">跨链地址错误</string>
+    <string name="withdraw_address_error">提币地址错误</string>
     <string name="input_withdraw_amount">请输入提币数量</string>
     <string name="please_input_gas_fee">请输入交易手续</string>
     <string name="error_input_gas_fes">交易手续费输入错误</string>

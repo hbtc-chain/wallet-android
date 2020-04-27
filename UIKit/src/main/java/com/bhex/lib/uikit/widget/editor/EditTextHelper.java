@@ -31,7 +31,7 @@ public class EditTextHelper {
     public static EditTextWrapper getEditTextDeleteIconWrapper(Context context, final EditText editText) {
         final EditTextWrapper wrapper = new EditTextWrapper(editText);
         if (deleteDrawable == null)
-            deleteDrawable = ContextCompat.getDrawable(context, R.drawable.base_ic_delete);
+            deleteDrawable = ContextCompat.getDrawable(context, R.drawable.btn_clear);
         wrapper.setDrawableRight(deleteDrawable);
         wrapper.setOnDrawableRightClickListener(new EditTextWrapper.onDrawableRightClickListener() {
             @Override

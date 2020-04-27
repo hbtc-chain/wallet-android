@@ -78,7 +78,7 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
         walletViewModel.walletLiveData.observe(this,loadDataModel -> {
             if(loadDataModel.loadingStatus== LoadingStatus.SUCCESS){
                 //mCurrentWallet.setPassword(loadDataModel.getData().toString());
-                mCurrentWallet = loadDataModel.getData();
+                //mCurrentWallet = loadDataModel.getData();
                 ToastUtils.showToast("修改成功");
                 finish();
             }else{
