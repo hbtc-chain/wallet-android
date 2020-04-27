@@ -38,7 +38,7 @@ public class DoEntrustPresenter extends BasePresenter {
         return true;
     }
 
-    public boolean checkReliveEntrust(String validatorAddress,String delegatorAddress,String transfer_amount,
+    public boolean checkReliveEntrust(String validatorAddress,String delegatorAddress,String transfer_amount, String wallet_available,
                                   String available_amount,String fee_amount){
 
         if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
@@ -51,8 +51,13 @@ public class DoEntrustPresenter extends BasePresenter {
             return false;
         }
 
-        if(NumberUtil.add(transfer_amount,fee_amount) >Double.valueOf(available_amount)){
-            ToastUtils.showToast("委托数量大于可用余额");
+        if(Double.valueOf(fee_amount) >Double.valueOf(wallet_available)){
+            ToastUtils.showToast("手续费数量不能大于可用余额");
+            return false;
+        }
+
+        if(Double.valueOf(transfer_amount) >Double.valueOf(available_amount)){
+            ToastUtils.showToast("解委托数量不能大于可用余额");
             return false;
         }
 
