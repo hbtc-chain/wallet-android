@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -33,6 +34,12 @@ public class ReInvestShareFragment extends BaseDialogFragment {
 
     private FragmentItemListener mItemListener;
 
+    private String reinvert_share_content;
+
+    private AppCompatTextView tv_reinvert_share;
+
+    public String mAllReward;
+
     @Override
     public int getLayout() {
         return R.layout.fragment_re_invest_share;
@@ -56,7 +63,7 @@ public class ReInvestShareFragment extends BaseDialogFragment {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         params.width = dm.widthPixels- PixelUtils.dp2px(BaseApplication.getInstance(),24);
-        params.height = PixelUtils.dp2px(BaseApplication.getInstance(),280);
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
         window.setAttributes(params);
     }
@@ -64,6 +71,7 @@ public class ReInvestShareFragment extends BaseDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         MaterialButton btn_cancel = mRootView.findViewById(R.id.btn_cancel);
@@ -75,12 +83,10 @@ public class ReInvestShareFragment extends BaseDialogFragment {
             if(mItemListener==null){
                 return;
             }
-
-            mItemListener.clickItemAction(0);
         });
 
 
-        btn_cancel.setOnClickListener(v -> {
+        btn_confirm.setOnClickListener(v -> {
             dismiss();
             if(mItemListener==null){
                 return;
@@ -88,6 +94,13 @@ public class ReInvestShareFragment extends BaseDialogFragment {
 
             mItemListener.clickItemAction(1);
         });
+
+        reinvert_share_content = getContext().getResources().getString(R.string.reinvert_share_content);
+
+        tv_reinvert_share = mRootView.findViewById(R.id.tv_reinvert_share);
+
+        tv_reinvert_share.setText(String.format(reinvert_share_content,mAllReward,"2"));
+
     }
 
     public FragmentItemListener getItemListener() {
@@ -98,9 +111,12 @@ public class ReInvestShareFragment extends BaseDialogFragment {
         this.mItemListener = mItemListener;
     }
 
-    public static void showWithDrawShareFragment(FragmentManager fm, String tag, FragmentItemListener listener){
+    public static void showWithDrawShareFragment(FragmentManager fm, String tag,
+                                                 FragmentItemListener listener,
+                                                 String allReward){
         ReInvestShareFragment fragment = new ReInvestShareFragment();
         fragment.mItemListener = listener;
+        fragment.mAllReward = allReward;
         fragment.show(fm,tag);
     }
 

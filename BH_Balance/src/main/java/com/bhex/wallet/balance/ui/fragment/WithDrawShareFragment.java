@@ -62,7 +62,8 @@ public class WithDrawShareFragment extends BaseDialogFragment {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         params.width = dm.widthPixels- PixelUtils.dp2px(BaseApplication.getInstance(),24);
-        params.height = PixelUtils.dp2px(BaseApplication.getInstance(),280);
+        //params.height = PixelUtils.dp2px(BaseApplication.getInstance(),280);
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
         window.setAttributes(params);
     }
@@ -85,11 +86,6 @@ public class WithDrawShareFragment extends BaseDialogFragment {
 
         btn_cancel.setOnClickListener(v -> {
             dismiss();
-            /*if(mItemListener==null){
-                return;
-            }
-
-            mItemListener.clickItemAction(0);*/
         });
 
 

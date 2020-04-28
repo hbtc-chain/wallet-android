@@ -11,9 +11,12 @@ import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.tx.DoEntrustMsg;
+import com.bhex.wallet.common.tx.TxCoin;
 import com.bhex.wallet.common.tx.TxSignature;
 import com.bhex.wallet.common.tx.ValidatorMsg;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -100,7 +103,7 @@ public class AssetPresenter extends BasePresenter {
         return res;
     }
 
-    //获取所有的验证人
+    //获取所有的验证人消息
     public List<ValidatorMsg> getAllValidator(List<DelegateValidator> list){
         List<ValidatorMsg> validatorMsgs = new ArrayList<>();
         for(DelegateValidator item:list){
@@ -108,6 +111,28 @@ public class AssetPresenter extends BasePresenter {
             validatorMsgs.add(validatorMsg);
         }
         return validatorMsgs;
+    }
+
+    //创建所有委托消息
+    public List<DoEntrustMsg> getAllEntrust(List<DelegateValidator> list){
+        List<DoEntrustMsg> doEntrustMsgs = new ArrayList<>();
+        for(DelegateValidator item:list){
+            DoEntrustMsg doEntrust = new DoEntrustMsg();
+            doEntrust.delegator_address = BHUserManager.getInstance().getCurrentBhWallet().address;
+            doEntrust.validator_address = item.validator;
+
+            //委托金额
+            TxCoin txCoin = new TxCoin();
+            txCoin.denom = BHConstants.BHT_TOKEN;
+            double tx_amount = NumberUtil.mul(item.unclaimed_reward,String.valueOf(BHConstants.BHT_DECIMALS));
+            txCoin.amount = BigDecimal.valueOf(tx_amount).toBigInteger().toString(10);
+            doEntrust.amount = txCoin;
+
+            doEntrustMsgs.add(doEntrust);
+
+
+        }
+        return doEntrustMsgs;
     }
 
 }

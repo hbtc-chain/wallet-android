@@ -18,6 +18,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.balance.adapter.BalanceAdapter;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.common.cache.CacheCenter;
@@ -258,12 +259,13 @@ public class BalancePresenter extends BasePresenter {
     /**
      * 隐藏显示资产
      */
-    public void hiddenAsset(BaseActivity context,AppCompatTextView tv_asset, AppCompatImageView eyeIv){
+    public void hiddenAsset(BaseActivity context, AppCompatTextView tv_asset, AppCompatImageView eyeIv, BalanceAdapter balanceAdapter){
         String tag = (String) eyeIv.getTag();
         if(tag.equals("0")){
             tv_asset.setText("*******");
             eyeIv.setTag("1");
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_close));
+            balanceAdapter.setIsHidden("1");
         }else{
             String unhiddenText = tv_asset.getTag(R.id.tag_first).toString();
             SpannableString spanStr = new SpannableString(unhiddenText);
@@ -271,6 +273,7 @@ public class BalancePresenter extends BasePresenter {
             tv_asset.setText(spanStr);
             eyeIv.setTag("0");
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye));
+            balanceAdapter.setIsHidden("0");
         }
     }
 

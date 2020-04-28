@@ -184,21 +184,13 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
     //密码提示回调
     @Override
     public void confirmAction(String password, int position) {
-        String hexPK = CryptoUtil.decryptPK(mCurrentWallet.privateKey,mCurrentWallet.password);
-
-        //String from = "BHYc5BsYgne5SPNKYreBGpjYY9jyXAHLGbK";
-
-        //String to = "BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ";
-        String from_address = mCurrentWallet.getAddress();
-        String to_address = mCurrentWallet.getAddress();
+        //String from_address = mCurrentWallet.getAddress();
+        //String to_address = mCurrentWallet.getAddress();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-        //String withDrawAmount = ed_transfer_amount.ed_input.getText().toString().toString();
         String feeAmount = ed_fee.ed_input.getText().toString().toString();
-
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkAddress(hexPK,from_address,to_address,feeAmount,
-                    gasPrice,BHConstants.BH_MEMO,null,suquece,balance.symbol);
-
+            BHSendTranscation bhSendTranscation =
+                    BHTransactionManager.crossLinkAddress(feeAmount,gasPrice,null,suquece,balance.symbol);
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });

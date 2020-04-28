@@ -162,8 +162,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
                 ColorUtil.getColor(getContext(),R.color.divider_line_color));
 
-        //recycler_balance.addItemDecoration(ItemDecoration);
-        //gray_f9f9fb
         recycler_balance.addItemDecoration(ItemDecoration);
 
         mBalanceAdapter = new BalanceAdapter(R.layout.item_balance, mBalanceList);
@@ -251,7 +249,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_eye){
             //隐藏资产
-            mPresenter.hiddenAsset(getYActivity(),tv_asset,iv_eye);
+            mPresenter.hiddenAsset(getYActivity(),tv_asset,iv_eye,mBalanceAdapter);
         }else if(view.getId()==R.id.tv_address){
             ToolUtils.copyText(bhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));

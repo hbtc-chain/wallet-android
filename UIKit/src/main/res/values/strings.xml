@@ -110,6 +110,7 @@
     <string name="status">状态</string>
     <string name="time">时间</string>
     <string name="consigner">委托人</string>
+    <string name="transfer_in_ext">转入</string>
     <string name="transfer_out">转出</string>
     <string name="withdraw_income">提取收益</string>
     <string name="withdraw_share">提取分红</string>
@@ -278,6 +279,7 @@
     <string name="pledge_proposal">治理提案质押</string>
     <string name="vote_proposal">治理提案投票</string>
     <string name="with_reward_content">提取所有分红 %1$s HBC，并支付交易手续费 %2$s HBC</string>
+    <string name="reinvert_share_content">提取并委托所有分红 %1$s HBC至验证节点，并支付交易手续费 %2$s HBC</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

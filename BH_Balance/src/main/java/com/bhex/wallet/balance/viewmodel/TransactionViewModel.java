@@ -186,7 +186,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume(){
-        beginReloadData();
+        //beginReloadData();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -196,16 +196,16 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
         }
     }
 
-
     /**
      * 查询已委托的验证人列表
      */
-    public void queryValidatorByAddress(BaseActivity activity){
+    public void queryValidatorByAddress(BaseActivity activity,int flag){
         BHProgressObserver<JsonArray> observer = new BHProgressObserver<JsonArray>(activity) {
             @Override
             protected void onSuccess(JsonArray jsonObject) {
                 List<DelegateValidator> list = JsonUtils.getListFromJson(jsonObject.toString(), DelegateValidator.class);
                 LoadDataModel ldm = new LoadDataModel(list);
+                ldm.code = flag;
                 validatorLiveData.postValue(ldm);
             }
 

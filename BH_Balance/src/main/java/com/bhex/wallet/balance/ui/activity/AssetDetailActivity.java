@@ -15,7 +15,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.EmptyLayout;
-import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.balance.CoinBottomBtn;
 import com.bhex.network.base.LoadDataModel;
@@ -23,11 +22,9 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
-import com.bhex.wallet.balance.adapter.BalanceAdapter;
 import com.bhex.wallet.balance.adapter.TxOrderAdapter;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
@@ -43,9 +40,9 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.DoEntrustMsg;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.tx.ValidatorMsg;
 import com.bhex.wallet.common.utils.LiveDataBus;
@@ -57,11 +54,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Flowable;
 
 /**
  * @author gongdongyang
@@ -289,7 +284,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
      * @param ldm
      */
     private void updateAssest(LoadDataModel<AccountInfo> ldm) {
-        //LogUtils.d("AssetDetailActivity==>:","==updateAssest==");
         //更新
         refreshLayout.finishRefresh();
         if(ldm.loadingStatus==LoadingStatus.SUCCESS){
@@ -334,13 +328,11 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                     .withInt("way",1)
                     .navigation();
         } else if (view.getId() == R.id.btn_draw_share) {
-            /*WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
-                    WithDrawShareFragment.class.getSimpleName(), itemListener);*/
-
+            //提取收益
             withdrawShare();
         } else if (view.getId() == R.id.btn_reinvest_share) {
-            ReInvestShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
-                    ReInvestShareFragment.class.getSimpleName(), fragmentItemListener);
+            //复投分红
+            reDelegate();
         }else if(view.getId() == R.id.cross_chian_transfer_in){
             if(balance.isHasToken==0||TextUtils.isEmpty(balance.external_address)){
                 //请求用户资产 获取链外地址
@@ -382,10 +374,17 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
     }
 
     /**
+     * 复投分红
+     */
+    private void reDelegate() {
+        transactionViewModel.queryValidatorByAddress(this,2);
+    }
+
+    /**
      * 提取收益
      */
     private void withdrawShare() {
-        transactionViewModel.queryValidatorByAddress(this);
+        transactionViewModel.queryValidatorByAddress(this,1);
     }
 
     /**
@@ -394,40 +393,76 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
     private List<DelegateValidator> mRewardList;
     private void updateValidatorAddress(LoadDataModel ldm) {
         if(ldm.loadingStatus==LoadDataModel.SUCCESS){
-            List<DelegateValidator> dvList =  (List<DelegateValidator>)ldm.getData();
-            //计算所有收益
-            double all_reward = mPresenter.calAllReward(dvList);
-            if(all_reward==0){
-                ToastUtils.showToast("暂无收益");
-            }else {
-                mRewardList = dvList;
-                WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
-                        WithDrawShareFragment.class.getSimpleName(), itemListener, NumberUtil.formatValue(all_reward,2));
-
+            if(ldm.code==1){
+                toDoWithdrawShare(ldm);
+            }else{
+                toDoReDelegate(ldm);
             }
+
 
         }else if(ldm.loadingStatus==LoadDataModel.ERROR){
             ToastUtils.showToast("暂无收益");
         }
     }
 
+    //提取收益--回调
+    public void toDoWithdrawShare(LoadDataModel ldm){
+        List<DelegateValidator> dvList =  (List<DelegateValidator>)ldm.getData();
+        //计算所有收益
+        double all_reward = mPresenter.calAllReward(dvList);
+        if(all_reward==0){
+            ToastUtils.showToast("暂无收益");
+        }else {
+            mRewardList = dvList;
+            WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
+                    WithDrawShareFragment.class.getSimpleName(), itemListener,
+                    NumberUtil.formatValue(all_reward,2));
+        }
+    }
+
+    //复投分红回调
+    public void toDoReDelegate(LoadDataModel ldm){
+        List<DelegateValidator> dvList =  (List<DelegateValidator>)ldm.getData();
+        //计算所有收益
+        double all_reward = mPresenter.calAllReward(dvList);
+        if(all_reward==0){
+            ToastUtils.showToast("暂无收益");
+        }else {
+            mRewardList = dvList;
+            ReInvestShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
+                    ReInvestShareFragment.class.getSimpleName(),
+                    fragmentItemListener,NumberUtil.formatValue(all_reward,2));
+        }
+    }
+
+    //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        //发送提取分红交易
+
         BHTransactionManager.loadSuquece(suquece -> {
             List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
             double all_reward = mPresenter.calAllReward(mRewardList);
             BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
 
             BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs,String.valueOf(all_reward),"2",
-                    gasPrice,BHConstants.BH_MEMO,null,suquece);
+                    gasPrice,null,suquece);
 
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });
     });
 
+    //发送复投分红交易
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
+        BHTransactionManager.loadSuquece(suquece -> {
+            BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
 
+            List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
+            List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
+            BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
+                    "","2", gasPrice,null,suquece);
+            transactionViewModel.sendTransaction(this,bhSendTranscation);
+            return 0;
+        });
     });
 
 

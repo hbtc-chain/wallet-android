@@ -51,7 +51,8 @@ public class BHRawTransaction {
 
 
         //msg.type = "cosmos-sdk/MsgSend";
-        msg.type = "hbtcchain/transfer/MsgSend";
+        //msg.type = "hbtcchain/transfer/MsgSend";
+        msg.type = TRANSCATION_BUSI_TYPE.转账.getType();
 
         TransferMsg transferMsg = new TransferMsg();
         msg.value = transferMsg;
@@ -111,7 +112,7 @@ public class BHRawTransaction {
 
 
         //msg.type = "bhchain/keygen/MsgKeyGen";
-        msg.type = "hbtcchain/keygen/MsgKeyGen";
+        msg.type = TRANSCATION_BUSI_TYPE.跨链地址生成.getType();
         KeyGenMsg keyGenMsg = new KeyGenMsg();
         msg.value = keyGenMsg;
 
@@ -172,8 +173,8 @@ public class BHRawTransaction {
         TxMsg<WithdrawalMsg> msg = new TxMsg<WithdrawalMsg>();
 
 
-        //msg.type = "bhchain/keygen/MsgKeyGen";
-        msg.type = "hbtcchain/transfer/MsgWithdrawal";
+        //msg.type = "hbtcchain/transfer/MsgWithdrawal";
+        msg.type = TRANSCATION_BUSI_TYPE.跨链提币.getType();
         WithdrawalMsg withdrawalMsg = new WithdrawalMsg();
         msg.value = withdrawalMsg;
 
@@ -239,9 +240,8 @@ public class BHRawTransaction {
         //开始创建一个委托TxMsg
         TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
 
-
-        //msg.type = "cosmos-sdk/MsgSend";
-        msg.type = "hbtcchain/MsgDelegate";
+        //msg.type = "hbtcchain/MsgDelegate";
+        msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
 
         DoEntrustMsg doEntrustMsg = new DoEntrustMsg();
         msg.value = doEntrustMsg;
@@ -290,8 +290,8 @@ public class BHRawTransaction {
 
 
         //msg.type = "cosmos-sdk/MsgSend";
-        msg.type = "hbtcchain/MsgUndelegate";
-
+        //msg.type = "hbtcchain/MsgUndelegate";
+        msg.type = TRANSCATION_BUSI_TYPE.取消委托.getType();
         DoEntrustMsg doEntrustMsg = new DoEntrustMsg();
         msg.value = doEntrustMsg;
 
@@ -324,7 +324,9 @@ public class BHRawTransaction {
 
     }
 
-    public static BHRawTransaction createBHDoPledgeTransaction(String sequence, String delegatorAddress, String proposalId, BigInteger amount, BigInteger feeAmount, BigInteger gasPrice, String memo, String symbol) {
+    public static BHRawTransaction createBHDoPledgeTransaction(String sequence, String delegatorAddress, String proposalId,
+                                                               BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
+                                                               String memo, String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = memo;
         bhRawTransaction.sequence = sequence;
@@ -336,7 +338,8 @@ public class BHRawTransaction {
 
 
         //msg.type = "cosmos-sdk/MsgSend";
-        msg.type = "hbtcchain/gov/MsgDeposit";
+        //msg.type = "hbtcchain/gov/MsgDeposit";
+        msg.type = TRANSCATION_BUSI_TYPE.治理提案质押.getType();
 
         PledgeMsg pledgeMsg = new PledgeMsg();
         msg.value = pledgeMsg;
@@ -382,8 +385,8 @@ public class BHRawTransaction {
         TxMsg<VetoMsg> msg = new TxMsg<VetoMsg>();
 
 
-        //msg.type = "cosmos-sdk/MsgSend";
-        msg.type = "hbtcchain/gov/MsgVote";
+        //msg.type = "hbtcchain/gov/MsgVote";
+        msg.type = TRANSCATION_BUSI_TYPE.治理提案投票.getType();
 
         VetoMsg vetoMsg = new VetoMsg();
         msg.value = vetoMsg;
@@ -424,8 +427,8 @@ public class BHRawTransaction {
 
 
         //msg.type = "cosmos-sdk/MsgSend";
-        msg.type = "hbtcchain/gov/MsgSubmitProposal";
-
+        //msg.type = "hbtcchain/gov/MsgSubmitProposal";
+        msg.type = TRANSCATION_BUSI_TYPE.发起治理提案.getType();
         CreateProposalMsg createProposalMsg = new CreateProposalMsg();
         msg.value = createProposalMsg;
 
@@ -480,10 +483,48 @@ public class BHRawTransaction {
             bhRawTransaction.msgs.add(msg);
         }
 
-        //转账Amount金额
-        TxCoin coin = new TxCoin();
-        coin.denom = BHConstants.BHT_TOKEN;
-        coin.amount = amount.toString(10);
+
+        //转账手续费
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxCoin feeCoin = new TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+
+        bhRawTransaction.fee = fee;
+
+        return bhRawTransaction;
+    }
+
+    //构建复投分红交易
+    public static BHRawTransaction createBHRawReDoEntrust(String sequence, BigInteger feeAmount,
+                                                                BigInteger gasPrice,String memo,List<ValidatorMsg>validatorMsgs,
+                                                          List<DoEntrustMsg> doEntrustMsgs){
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = memo;
+        bhRawTransaction.sequence = sequence;
+        bhRawTransaction.msgs = new ArrayList<>();
+
+        //开始创建一个提取收益交易
+        for(ValidatorMsg item:validatorMsgs){
+            TxMsg<ValidatorMsg> msg = new TxMsg<ValidatorMsg>();
+            msg.type = TRANSCATION_BUSI_TYPE.提取收益.getType();
+            msg.value = item;
+            bhRawTransaction.msgs.add(msg);
+        }
+
+        //构建委托交易
+        for(DoEntrustMsg item:doEntrustMsgs){
+            //开始创建一个委托TxMsg
+            TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
+            msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
+            msg.value = item;
+            //转账Amount
+            bhRawTransaction.msgs.add(msg);
+        }
 
 
         //转账手续费

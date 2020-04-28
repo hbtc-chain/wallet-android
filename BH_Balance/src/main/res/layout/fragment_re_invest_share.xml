@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/shape_white_password"
@@ -29,21 +29,24 @@
         />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_reinvert_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="提取并委托所有分红 5790.45 BHT至验证节点，并支付交易手续费"
+        android:text="@string/reinvert_share_content"
         android:paddingStart="@dimen/page_margin_start"
         android:paddingEnd="@dimen/page_margin_start"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/main_margin_top"
         style="@style/reinvesrt_content_style"
-        />
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="@dimen/page_margin_top"
+        android:layout_marginTop="@dimen/page_margin_top"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:layout_marginStart="@dimen/page_margin_start"
         >
 
         <com.google.android.material.button.MaterialButton

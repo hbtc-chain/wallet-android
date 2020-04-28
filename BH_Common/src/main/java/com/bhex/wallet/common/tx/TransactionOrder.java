@@ -29,8 +29,6 @@ public class TransactionOrder implements Serializable {
      * memo : test memo
      */
 
-
-
     private String hash;
     private int height;
     private String fee;
@@ -129,6 +127,7 @@ public class TransactionOrder implements Serializable {
          */
 
         private String type;
+
         private JsonObject value;
 
         public String getType() {
@@ -225,6 +224,7 @@ public class TransactionOrder implements Serializable {
             public String to_multi_sign_address;
         }
 
+
         public static class DepositBean{
 
             /**
@@ -289,6 +289,53 @@ public class TransactionOrder implements Serializable {
                     this.denom = denom;
                 }
             }
+        }
+
+        public static class DelegationRewardBean{
+
+            /**
+             * amount : 1331529719774649893
+             * delegator_address : HBCYu3Xf77dvNqAceLQQSmtto3utEi4kBd4r
+             * validator_address : hbcvaloper1j765j4hrkqqj6r88qleknx8070e505hny73e5h
+             */
+
+            public String amount;
+            public String delegator_address;
+            public String validator_address;
+
+
+        }
+
+
+        public class SubmitProposalBean{
+           /* public ContentBean content;
+            public String proposer;
+            public List<InitialDepositBean> initial_deposit;
+            public  class ContentBean {
+                *//**
+                 * type : hbtcchain/gov/TextProposal
+                 * value : {"description":"tyhhh","title":"yuhhhg"}
+                 *//*
+                public String type;
+                public ValueBean value;
+                public  class ValueBean {
+                    *//**
+                     * description : tyhhh
+                     * title : yuhhhg
+                     *//*
+                    public String description;
+                    public String title;
+                }
+            }
+
+            public  class InitialDepositBean {
+                *//**
+                 * amount : 100000000000000000000
+                 * denom : hbc
+                 *//*
+                public String amount;
+                public String denom;
+            }*/
         }
     }
 }

@@ -35,6 +35,8 @@ import java.util.List;
  */
 public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
 
+    private String isHidden = "0";
+
     public BalanceAdapter(int layoutResId, @Nullable List<BHBalance> data) {
         super(layoutResId, data);
     }
@@ -63,11 +65,18 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);
 
         viewHolder.setText(R.id.tv_coin_price, symbol_prices);
+
         //币的数量
-        if(!TextUtils.isEmpty(balanceItem.amount)){
-            String []result = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balanceItem.amount,balanceItem.symbol,false);
-            viewHolder.setText(R.id.tv_coin_amount, result[0]);
-            viewHolder.setText(R.id.tv_coin_count, "≈"+result[1]);
+        if(!TextUtils.isEmpty(balanceItem.amount)&&Double.valueOf(balanceItem.amount)>0) {
+            if(isHidden.equals("0")){
+                String []result = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balanceItem.amount,balanceItem.symbol,false);
+                viewHolder.setText(R.id.tv_coin_amount, result[0]);
+                viewHolder.setText(R.id.tv_coin_count, "≈"+result[1]);
+            }else{
+                viewHolder.setText(R.id.tv_coin_amount, "***");
+                viewHolder.setText(R.id.tv_coin_count, "***");
+            }
+
         }else{
             viewHolder.setText(R.id.tv_coin_amount, "0");
             viewHolder.setText(R.id.tv_coin_count, "≈"+
@@ -91,4 +100,12 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         }
     }
 
+    public String getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(String isHidden) {
+        this.isHidden = isHidden;
+        notifyDataSetChanged();
+    }
 }

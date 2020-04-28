@@ -333,7 +333,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(from_address,to_address,withDrawAmount,feeAmount,
-                        gasPrice,BHConstants.BH_MEMO,null,suquece,balance.symbol);
+                        gasPrice,null,suquece,balance.symbol);
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });
@@ -343,7 +343,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(from_address,to_address,withDrawAmount,feeAmount,
-                        gasPrice,BHConstants.BH_MEMO,null,suquece,balance.symbol);
+                        gasPrice,null,suquece,balance.symbol);
 
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;

@@ -296,7 +296,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.relieveEntrust(delegator_address, validator_address, entrustDrawAmount, feeAmount,
-                    gasPrice, BHConstants.BH_MEMO, null, suquece, token);
+                    gasPrice, null, suquece, token);
             mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
             return 0;
         });
@@ -324,7 +324,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.doEntrust(delegator_address, validator_address, entrustDrawAmount, feeAmount,
-                    gasPrice, BHConstants.BH_MEMO, null, suquece, token);
+                    gasPrice,null, suquece, token);
             mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
             return 0;
         });

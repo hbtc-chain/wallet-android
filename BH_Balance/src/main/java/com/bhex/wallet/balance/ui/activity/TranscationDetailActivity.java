@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
@@ -59,7 +60,7 @@ public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailP
 
         TransactionHelper.displayTranscationAmount(this, tv_tranction_amount,
                 txo.activities.get(0).type,
-                txo.value);
+                txo.value, JsonUtils.toJson(txo.activities));
 
         TransactionHelper.displayTranscationFromTo(this, tv_from, tv_to,
                 txo.activities.get(0).type,
