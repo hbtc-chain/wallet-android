@@ -1,10 +1,9 @@
-package com.bhex.wallet.balance.enums;
+package com.bhex.wallet.common.enums;
 
 import android.content.Context;
 
-import com.bhex.wallet.balance.R;
+import com.bhex.wallet.common.R;
 
-import java.util.Optional;
 
 /**
  * Created by BHEX.
@@ -14,7 +13,7 @@ import java.util.Optional;
  * 交易类型
  *
  */
-public enum  TRANSCATION_BUSI_TYPE {
+public enum TRANSCATION_BUSI_TYPE {
     转账("hbtcchain/transfer/MsgSend"),
     委托("hbtcchain/MsgDelegate"),
     取消委托("hbtcchain/MsgUndelegate"),
@@ -34,7 +33,7 @@ public enum  TRANSCATION_BUSI_TYPE {
         this.type = type;
     }
 
-    TRANSCATION_BUSI_TYPE(String type,String label) {
+    TRANSCATION_BUSI_TYPE(String type, String label) {
         this.type = type;
         this.label = label;
     }

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/input_background"
+        android:layout_marginTop="20dp">
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/withdraw_income"
+            android:textSize="17sp"
+            android:textColor="@color/main_text_black"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/page_margin_start"
+            />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/consigner"
+        android:textSize="13sp"
+        android:textColor="@color/dark_blue"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginTop="@dimen/page_margin_top"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_delegate_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/main_text_black"
+            android:layout_centerVertical="true"
+            android:gravity="left"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="3dp"
+            android:layout_marginStart="@dimen/page_margin_start"
+            android:layout_toLeftOf="@+id/iv_delegate_address_paste"
+            tools:text="AbcddsfsdfdafdsafAbcddsfsdfdaf"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_delegate_address_paste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_paste_blue"
+            android:paddingEnd="23dp"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            />
+
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/verifier"
+        android:textSize="13sp"
+        android:textColor="@color/dark_blue"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginTop="@dimen/page_margin_top"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_validator_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/main_text_black"
+            android:layout_centerVertical="true"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="3dp"
+            android:layout_marginStart="@dimen/page_margin_start"
+            android:layout_toLeftOf="@+id/iv_validator_paste"
+            tools:text="Abcddsfsdfdafdsaf"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_validator_paste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:paddingTop="3dp"
+            android:paddingEnd="23dp"
+            android:paddingBottom="3dp"
+            android:src="@mipmap/ic_paste_blue" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

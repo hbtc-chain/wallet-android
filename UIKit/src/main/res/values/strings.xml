@@ -277,6 +277,7 @@
     <string name="initiate_proposal">发起治理提案</string>
     <string name="pledge_proposal">治理提案质押</string>
     <string name="vote_proposal">治理提案投票</string>
+    <string name="with_reward_content">提取所有分红 %1$s HBC，并支付交易手续费 %2$s HBC</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

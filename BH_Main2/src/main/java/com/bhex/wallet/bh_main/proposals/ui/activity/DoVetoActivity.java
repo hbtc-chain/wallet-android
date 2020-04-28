@@ -239,7 +239,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> {
 
 
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.doVeto(hexPK, delegator_address, mProposalInfo.getId(), mOption, feeAmount,
+            BHSendTranscation bhSendTranscation = BHTransactionManager.doVeto(delegator_address, mProposalInfo.getId(), mOption, feeAmount,
                     gasPrice, BHConstants.BH_MEMO, null, suquece, token);
             mProposalViewModel.sendDoVeto(this, bhSendTranscation);
             return 0;

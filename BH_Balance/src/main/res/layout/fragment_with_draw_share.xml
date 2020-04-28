@@ -29,9 +29,10 @@
         />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_reward_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="提取所有分红 5790.45 BHT，并支付交易手续费 12.468 BHT"
+        android:text="@string/with_reward_content"
         android:textColor="@color/dark_black"
         android:paddingStart="@dimen/page_margin_start"
         android:paddingEnd="@dimen/page_margin_start"

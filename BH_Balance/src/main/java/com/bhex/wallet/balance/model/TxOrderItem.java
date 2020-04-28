@@ -15,6 +15,7 @@ public class TxOrderItem {
 
 
     public TxOrderItem() {
+
     }
 
     /**
@@ -132,7 +133,8 @@ public class TxOrderItem {
          */
 
         public String type;
-        //public String value;
+
+        public String valueIem;
 
         public String getType() {
             return type;

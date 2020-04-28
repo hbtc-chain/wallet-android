@@ -301,16 +301,13 @@ public class BalancePresenter extends BasePresenter {
             ck_hidden_small.setTextColor(ContextCompat.getColor(context,R.color.blue));
         }else{
             for (BHBalance item :mOriginBalanceList) {
-                if(TextUtils.isEmpty(text)){
-                    if(!TextUtils.isEmpty(text)){
-                        if(item.symbol.toLowerCase().contains(text.toLowerCase())){
-                            result.add(item);
-                        }
-                    }else{
+                if(!TextUtils.isEmpty(text)){
+                    if(item.symbol.toLowerCase().contains(text.toLowerCase())){
                         result.add(item);
                     }
+                }else{
+                    result.add(item);
                 }
-                //result.add(item);
             }
             ck_hidden_small.setTextColor(ContextCompat.getColor(context,R.color.dark_blue));
         }

@@ -2,6 +2,7 @@ package com.bhex.wallet.common.tx;
 
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -409,7 +410,9 @@ public class BHRawTransaction {
         return bhRawTransaction;
     }
 
-    public static BHRawTransaction createBHCreateProposalTransaction(String sequence, String delegatorAddress, String type, String title, String description, BigInteger amount, BigInteger feeAmount, BigInteger gasPrice, String memo, String symbol) {
+    public static BHRawTransaction createBHCreateProposalTransaction(String sequence, String delegatorAddress, String type, String title,
+                                                                     String description, BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
+                                                                     String memo, String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = memo;
         bhRawTransaction.sequence = sequence;
@@ -458,6 +461,46 @@ public class BHRawTransaction {
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
     }
+
+
+    //构建提取收益
+    public static BHRawTransaction createBHRawRewardTransaction(String sequence, BigInteger amount, BigInteger feeAmount,
+                                                                BigInteger gasPrice,String memo,List<ValidatorMsg>list){
+
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = memo;
+        bhRawTransaction.sequence = sequence;
+        bhRawTransaction.msgs = new ArrayList<>();
+
+        //开始创建一个交易TxMsg
+        for(ValidatorMsg item:list){
+            TxMsg<ValidatorMsg> msg = new TxMsg<ValidatorMsg>();
+            msg.type = TRANSCATION_BUSI_TYPE.提取收益.getType();
+            msg.value = item;
+            bhRawTransaction.msgs.add(msg);
+        }
+
+        //转账Amount金额
+        TxCoin coin = new TxCoin();
+        coin.denom = BHConstants.BHT_TOKEN;
+        coin.amount = amount.toString(10);
+
+
+        //转账手续费
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxCoin feeCoin = new TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+
+        bhRawTransaction.fee = fee;
+
+        return bhRawTransaction;
+    }
+
 
     public BHRawTransaction addTransferMsg(TxMsg txMsg) {
         this.msgs.add(txMsg);

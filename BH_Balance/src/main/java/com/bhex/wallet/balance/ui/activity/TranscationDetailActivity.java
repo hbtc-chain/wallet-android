@@ -30,27 +30,17 @@ import butterknife.OnClick;
  * 2020-4-8 11:21:16
  */
 @Route(path = ARouterConfig.Balance_transcation_detail)
-public class TranscationDetailActivity extends BaseActivity<TranscationDetailPresenter> {
+public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailPresenter> {
 
-    @BindView(R2.id.tv_center_title)
-    AppCompatTextView tv_center_title;
-    @BindView(R2.id.tv_tranction_amount)
-    AppCompatTextView tv_tranction_amount;
-    @BindView(R2.id.tv_tranction_hash)
-    AppCompatTextView tv_tranction_hash;
-    @BindView(R2.id.tv_transcation_status)
-    AppCompatTextView tv_transcation_status;
-    @BindView(R2.id.tv_transcation_time)
-    AppCompatTextView tv_transcation_time;
+    @Autowired(name = "txo")
+    public TxOrderItem txo;
+
     @BindView(R2.id.iv_txid_paste)
     AppCompatImageView iv_txid_paste;
     @BindView(R2.id.tv_from)
     AppCompatTextView tv_from;
     @BindView(R2.id.tv_to)
     AppCompatTextView tv_to;
-
-    @Autowired(name = "txo")
-    TxOrderItem txo;
 
     @Override
     protected int getLayoutId() {
@@ -59,17 +49,11 @@ public class TranscationDetailActivity extends BaseActivity<TranscationDetailPre
 
     @Override
     protected void initView() {
+        super.initView();
         ARouter.getInstance().inject(this);
+        mtxo = txo;
 
-        String tx_type = TransactionHelper.getTranscationType(this, txo.getActivities().get(0).type);
-
-        tv_center_title.setText(tx_type);
-
-        tv_tranction_hash.setText(txo.hash);
-
-        TransactionHelper.setTranscationStatusExt(this, txo.success, tv_transcation_status);
-        String tv_time = DateUtil.transTimeWithPattern(txo.time * 1000, DateUtil.DATA_TIME_STYLE);
-        tv_transcation_time.setText(tv_time);
+        initBaseData();
 
         //tv_tranction_amount.setText();
 

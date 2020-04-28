@@ -324,7 +324,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     @Override
     public void confirmAction(String password, int position) {
 
-        String hexPK = CryptoUtil.decryptPK(mCurrentBhWallet.privateKey,mCurrentBhWallet.password);
         String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.ed_input.getText().toString().trim();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
@@ -333,9 +332,8 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             String feeAmount = et_tx_fee.ed_input.getText().toString();
 
             BHTransactionManager.loadSuquece(suquece -> {
-                BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
+                BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(from_address,to_address,withDrawAmount,feeAmount,
                         gasPrice,BHConstants.BH_MEMO,null,suquece,balance.symbol);
-                //LogUtils.d("TransferoutActivity==>","bhSendTranscation=="+ JsonUtils.toJson(bhSendTranscation));
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });
@@ -344,7 +342,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             String feeAmount = et_tx_fee.ed_input.getText().toString();
 
             BHTransactionManager.loadSuquece(suquece -> {
-                BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(hexPK,from_address,to_address,withDrawAmount,feeAmount,
+                BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(from_address,to_address,withDrawAmount,feeAmount,
                         gasPrice,BHConstants.BH_MEMO,null,suquece,balance.symbol);
 
                 transactionViewModel.sendTransaction(this,bhSendTranscation);

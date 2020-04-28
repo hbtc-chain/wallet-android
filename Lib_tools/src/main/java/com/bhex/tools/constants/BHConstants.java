@@ -29,7 +29,7 @@ public class BHConstants {
     public static final String COIN_DEFAULT_LIST = "hbc_btc_eth_usdt";
 
     public static final String BHT_TOKEN = "hbc";
-    public static final int PAGE_SIZE = 20;
+    public static final int PAGE_SIZE = 30;
 
     public static final double BHT_GAS_PRICE = Math.pow(10,12);
 

@@ -75,8 +75,8 @@ public class ARouterConfig {
     public static final String Balance_cross_address = "/balance/cross_adress";
 
     //转账详情
-    public static final String Balance_transcation_detail = "/balance/transcation_detail";
-
+    public static final String Balance_transcation_detail = "/balance/transcation/detail";
+    public static final String Balance_transcation_reward = "/balance/transcation/reward";
     //验证人详情页
     public static final String Validator_Detail = "/validator/detail";
     public static final String Do_Entrust = "/validator/do_entrust";

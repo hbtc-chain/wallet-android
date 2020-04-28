@@ -5,15 +5,19 @@ import android.content.Context;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
-import com.bhex.wallet.balance.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransactionOrder;
+
+import java.util.ArrayList;
 
 /**
  * Created by BHEX.
@@ -73,7 +77,30 @@ public class TransactionHelper {
         String jsonString = JsonUtils.toJson(txo);
         TxOrderItem txOrderItem = JsonUtils.fromJson(jsonString,TxOrderItem.class);
         txOrderItem.value = txo.getActivities().get(0).getValue().toString();
+        txOrderItem.activities = new ArrayList<>();
+        for(TransactionOrder.ActivitiesBean activitiesBean:txo.getActivities()){
+            TxOrderItem.ActivitiesBean activitiesBean1 = new TxOrderItem.ActivitiesBean();
+            activitiesBean1.valueIem = activitiesBean.getValue().toString();
+            activitiesBean1.type = activitiesBean.getType();
+            txOrderItem.activities.add(activitiesBean1);
+        }
         return txOrderItem;
+    }
+
+    /**
+     *
+     * @param txOrderItem
+     */
+    public static void gotoTranscationDetail(TxOrderItem txOrderItem){
+        if(txOrderItem.activities.get(0).type.equals(TRANSCATION_BUSI_TYPE.提取收益.getType())){
+            ARouter.getInstance().build(ARouterConfig.Balance_transcation_reward)
+                    .withObject("txo",txOrderItem)
+                    .navigation();
+        }else {
+            ARouter.getInstance().build(ARouterConfig.Balance_transcation_detail)
+                    .withObject("txo",txOrderItem)
+                    .navigation();
+        }
     }
 
 
@@ -85,7 +112,7 @@ public class TransactionHelper {
 
             TransactionOrder.ActivitiesBean.ValueBean.AmountBean bean1 = valueBean.getAmount().get(0);
 
-            setRealAmount(tv,bean1.getAmount(),bean1.getDenom());
+            setRealAmount(tv,bean1.getAmount(),bean1.getDenom(),"-");
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链地址生成.getType())){
             TransactionOrder.ActivitiesBean.AddressGenBean addressGenBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.AddressGenBean.class);
@@ -93,17 +120,17 @@ public class TransactionHelper {
 
             TransactionOrder.ActivitiesBean.WithdrawalBean withdrawalBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.WithdrawalBean.class);
-            setRealAmount(tv,withdrawalBean.amount,withdrawalBean.symbol);
+            setRealAmount(tv,withdrawalBean.amount,withdrawalBean.symbol,"-");
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链充值.getType())){
             TransactionOrder.ActivitiesBean.DepositBean depositBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DepositBean.class);
 
-            setRealAmount(tv,depositBean.amount,depositBean.symbol);
+            setRealAmount(tv,depositBean.amount,depositBean.symbol,"+");
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.委托.getType())){
             TransactionOrder.ActivitiesBean.DelegateBean delegateBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.DelegateBean.class);
 
-            setRealAmount(tv,delegateBean.amount.getAmount(),delegateBean.amount.getDenom());
+            setRealAmount(tv,delegateBean.amount.getAmount(),delegateBean.amount.getDenom(),"-");
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.发起治理提案.getType())){
 
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.治理提案质押.getType())){
@@ -113,12 +140,12 @@ public class TransactionHelper {
         }
     }
 
-    public static void setRealAmount(AppCompatTextView tv,String amount,String symbol){
+    public static void setRealAmount(AppCompatTextView tv,String amount,String symbol,String flag){
         BHToken token = SymbolCache.getInstance().getBHToken(symbol);
         if(token!=null){
             double real_amount = NumberUtil.divide(amount,Math.pow(10,token.decimals)+"");
             String tv_amount = NumberUtil.dispalyForUsertokenAmount(String.valueOf(real_amount))+symbol.toUpperCase();
-            tv.setText(tv_amount);
+            tv.setText(flag+tv_amount);
         }
 
     }

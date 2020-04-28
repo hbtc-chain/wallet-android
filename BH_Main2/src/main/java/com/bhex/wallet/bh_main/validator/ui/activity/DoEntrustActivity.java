@@ -287,7 +287,6 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         String validator_address = validatorAddress;
         BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
@@ -296,7 +295,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
 
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.relieveEntrust(hexPK, delegator_address, validator_address, entrustDrawAmount, feeAmount,
+            BHSendTranscation bhSendTranscation = BHTransactionManager.relieveEntrust(delegator_address, validator_address, entrustDrawAmount, feeAmount,
                     gasPrice, BHConstants.BH_MEMO, null, suquece, token);
             mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
             return 0;
@@ -316,7 +315,6 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         String validator_address = validatorAddress;
         BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
@@ -325,7 +323,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> {
 
 
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.doEntrust(hexPK, delegator_address, validator_address, entrustDrawAmount, feeAmount,
+            BHSendTranscation bhSendTranscation = BHTransactionManager.doEntrust(delegator_address, validator_address, entrustDrawAmount, feeAmount,
                     gasPrice, BHConstants.BH_MEMO, null, suquece, token);
             mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
             return 0;

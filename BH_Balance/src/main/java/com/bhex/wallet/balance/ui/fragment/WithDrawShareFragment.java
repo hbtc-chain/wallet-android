@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -33,6 +34,12 @@ import com.google.android.material.button.MaterialButton;
 public class WithDrawShareFragment extends BaseDialogFragment {
 
     private FragmentItemListener mItemListener;
+
+    private String with_reward_content;
+
+    public AppCompatTextView tv_reward_text;
+
+    public String mAllReward;
 
     @Override
     public int getLayout() {
@@ -63,6 +70,13 @@ public class WithDrawShareFragment extends BaseDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        tv_reward_text = mRootView.findViewById(R.id.tv_reward_text);
+
+        with_reward_content = getActivity().getResources().getString(R.string.with_reward_content);
+
+        tv_reward_text.setText(String.format(with_reward_content,mAllReward,"2"));
+
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         MaterialButton btn_cancel = mRootView.findViewById(R.id.btn_cancel);
@@ -71,11 +85,11 @@ public class WithDrawShareFragment extends BaseDialogFragment {
 
         btn_cancel.setOnClickListener(v -> {
             dismiss();
-            if(mItemListener==null){
+            /*if(mItemListener==null){
                 return;
             }
 
-            mItemListener.clickItemAction(0);
+            mItemListener.clickItemAction(0);*/
         });
 
 
@@ -89,9 +103,10 @@ public class WithDrawShareFragment extends BaseDialogFragment {
         });
     }
 
-    public static void showWithDrawShareFragment(FragmentManager fm, String tag, FragmentItemListener listener){
+    public static void showWithDrawShareFragment(FragmentManager fm, String tag, FragmentItemListener listener,String allReward){
         WithDrawShareFragment fragment = new WithDrawShareFragment();
         fragment.mItemListener = listener;
+        fragment.mAllReward = allReward;
         fragment.show(fm,tag);
     }
 

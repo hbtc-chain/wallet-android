@@ -57,8 +57,12 @@ public interface BHttpApiInterface {
 
     @GET("api/v1/proposals")
     Observable<JsonObject> queryProposals(@Query("page") int page, @Query("page_size") int pageSize);
+
     @GET("api/v1/proposals/{id}")
     Observable<JsonObject> queryProposal(@Path("id") String id);
 
+    //查询托管单元下委托的验证人列表
+    @GET("api/v1/cus/{addr}/delegations")
+    Observable<JsonArray> queryValidatorsByAddress(@Path("addr") String address);
 
 }

@@ -1,12 +1,20 @@
 package com.bhex.wallet.balance.presenter;
 
+import android.text.TextUtils;
+
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.NumberUtil;
+import com.bhex.wallet.balance.model.DelegateValidator;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.tx.TxSignature;
+import com.bhex.wallet.common.tx.ValidatorMsg;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +78,7 @@ public class AssetPresenter extends BasePresenter {
 
         AccountInfo.AssetsBean assetsBean = map.get(balance.symbol.toLowerCase());
         if(assetsBean==null){
-            LogUtils.d("AssetPresenter====>:","===null===");
+            //LogUtils.d("AssetPresenter====>:","===null===");
             return;
         }
         balance.isHasToken = 1;
@@ -78,6 +86,28 @@ public class AssetPresenter extends BasePresenter {
         balance.is_native = assetsBean.isIs_native();
         balance.external_address = assetsBean.getExternal_address();
         balance.frozen_amount = assetsBean.getFrozen_amount();
+    }
+
+    //计算所有收益
+    public double calAllReward(List<DelegateValidator> list){
+        double res = 0.0f;
+        if(list==null || list.size()==0){
+            return  res;
+        }
+        for(DelegateValidator item:list){
+            res = NumberUtil.add(String.valueOf(res),item.unclaimed_reward);
+        }
+        return res;
+    }
+
+    //获取所有的验证人
+    public List<ValidatorMsg> getAllValidator(List<DelegateValidator> list){
+        List<ValidatorMsg> validatorMsgs = new ArrayList<>();
+        for(DelegateValidator item:list){
+            ValidatorMsg validatorMsg = new ValidatorMsg(BHUserManager.getInstance().getCurrentBhWallet().address,item.validator);
+            validatorMsgs.add(validatorMsg);
+        }
+        return validatorMsgs;
     }
 
 }

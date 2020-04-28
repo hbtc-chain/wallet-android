@@ -1,30 +1,26 @@
 package com.bhex.wallet.balance.viewmodel;
 
-import android.app.Activity;
 import android.app.Application;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
-import androidx.lifecycle.ViewModel;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.HUtils;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
+import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.api.TransactionApi;
@@ -34,6 +30,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.utils.LiveDataBus;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
@@ -42,7 +39,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -60,26 +56,25 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
     private BaseActivity mActivity;
     private String mSymbol;
 
+    //
+    public MutableLiveData<LoadDataModel> mutableLiveData  = new MutableLiveData<>();
+    public MutableLiveData<LoadDataModel<List<TransactionOrder>>> transLiveData  = new MutableLiveData<>();
+    public MutableLiveData<LoadDataModel<List<DelegateValidator>>>  validatorLiveData  = new MutableLiveData<>();
+
     public TransactionViewModel(@NonNull Application application) {
         super(application);
     }
-
-    public MutableLiveData<LoadDataModel> mutableLiveData  = new MutableLiveData<>();
-    public MutableLiveData<LoadDataModel<List<TransactionOrder>>> transLiveData  = new MutableLiveData<>();
-
 
     public void initData(BaseActivity activity,String symbol){
         mActivity = activity;
         mSymbol = symbol;
     }
     /**
-     *
      * @param activity
      * @param bhSendTranscation
      */
     public void sendTransaction(BaseActivity activity, final BHSendTranscation bhSendTranscation){
         String body = JsonUtils.toJson(bhSendTranscation);
-        LogUtils.d("TransactionViewModel==>:","body=="+ JsonUtils.toJson(bhSendTranscation));
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
@@ -113,7 +108,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
         BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
-                //super.onSuccess(jsonObject);
                 String txs = JsonUtils.getAsJsonArray(jsonObject.toString(),"txs").toString();
 
                 if(!TextUtils.isEmpty(txs)){
@@ -124,9 +118,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                     LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR,"");
                     transLiveData.postValue(ldm);
                 }
-
-
-
             }
 
             @Override
@@ -151,17 +142,13 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 //super.onSuccess(jsonObject);
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
-                //BalanceViewModel.accountLiveData.postValue(loadDataModel);
                 LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
-
-                //LiveDataBus.getInstance().with("")
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
                 LoadDataModel loadDataModel = new LoadDataModel(0,"");
-                //BalanceViewModel.accountLiveData.postValue(loadDataModel);
                 LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
             }
         };
@@ -184,8 +171,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
 
                     @Override
                     public void onNext(Long aLong) {
-                        LogUtils.d("TransactionViewModel===>:","aLong=="+aLong);
-                        //queryTransctionByAddress();
                         TransactionViewModel.this.queryTransctionByAddress(mActivity,
                                 BHUserManager.getInstance().getCurrentBhWallet().address,1,mSymbol,null);
 
@@ -201,7 +186,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume(){
-        beginReloadData();
+        //beginReloadData();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -209,6 +194,33 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
         if(compositeDisposable!=null && !compositeDisposable.isDisposed()){
             compositeDisposable.clear();
         }
+    }
+
+
+    /**
+     * 查询已委托的验证人列表
+     */
+    public void queryValidatorByAddress(BaseActivity activity){
+        BHProgressObserver<JsonArray> observer = new BHProgressObserver<JsonArray>(activity) {
+            @Override
+            protected void onSuccess(JsonArray jsonObject) {
+                List<DelegateValidator> list = JsonUtils.getListFromJson(jsonObject.toString(), DelegateValidator.class);
+                LoadDataModel ldm = new LoadDataModel(list);
+                validatorLiveData.postValue(ldm);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR,"");
+                validatorLiveData.postValue(ldm);
+            }
+        };
+        BHttpApi.getService(BHttpApiInterface.class)
+                .queryValidatorsByAddress(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
     }
 
 }

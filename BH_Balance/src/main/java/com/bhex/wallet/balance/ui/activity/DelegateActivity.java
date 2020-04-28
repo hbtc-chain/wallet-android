@@ -4,9 +4,9 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.wallet.balance.R;
 
 /**
- *
+ * 委托
  */
-public class DelegateActivity extends BaseActivity {
+public class DelegateActivity extends TxBaseActivity {
 
     @Override
     protected int getLayoutId() {
@@ -22,4 +22,5 @@ public class DelegateActivity extends BaseActivity {
     protected void addEvent() {
 
     }
+
 }

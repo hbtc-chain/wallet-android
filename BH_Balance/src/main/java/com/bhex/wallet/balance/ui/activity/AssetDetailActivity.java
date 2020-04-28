@@ -32,6 +32,7 @@ import com.bhex.wallet.balance.adapter.TxOrderAdapter;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.helper.TransactionHelper;
+import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.balance.presenter.AssetPresenter;
 import com.bhex.wallet.balance.ui.fragment.ReInvestShareFragment;
@@ -42,7 +43,11 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.BHSendTranscation;
+import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.tx.TransactionOrder;
+import com.bhex.wallet.common.tx.ValidatorMsg;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -50,6 +55,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -223,10 +229,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                 ColorUtil.getColor(this,R.color.divider_line_color));
 
         recycler_order.addItemDecoration(ItemDecoration);
-        //gray_f9f9fb
-        //recycler_balance.addItemDecoration(divider);
-
-        //Flowable.timer(4L, TimeUnit.SECONDS).subscribe();
     }
 
     @Override
@@ -259,9 +261,8 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                                                 position) -> {
             TransactionOrder txo = mOrderList.get(position);
             TxOrderItem txOrderItem = TransactionHelper.getTxOrderItem(txo);
-            ARouter.getInstance().build(ARouterConfig.Balance_transcation_detail)
-                    .withObject("txo",txOrderItem)
-                    .navigation();
+            TransactionHelper.gotoTranscationDetail(txOrderItem);
+
         });
 
         LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).observe(this,ldm->{
@@ -273,8 +274,15 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             transactionViewModel.queryTransctionByAddress(this,
                     BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, balance.symbol, null);
         });
+
+        transactionViewModel.validatorLiveData.observe(this,ldm->{
+            updateValidatorAddress(ldm);
+        });
         EventBus.getDefault().register(this);
+
     }
+
+
 
     /**
      * 更新资产
@@ -326,8 +334,10 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                     .withInt("way",1)
                     .navigation();
         } else if (view.getId() == R.id.btn_draw_share) {
-            WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
-                    WithDrawShareFragment.class.getSimpleName(), itemListener);
+            /*WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
+                    WithDrawShareFragment.class.getSimpleName(), itemListener);*/
+
+            withdrawShare();
         } else if (view.getId() == R.id.btn_reinvest_share) {
             ReInvestShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
                     ReInvestShareFragment.class.getSimpleName(), fragmentItemListener);
@@ -371,8 +381,49 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         }
     }
 
-    private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
+    /**
+     * 提取收益
+     */
+    private void withdrawShare() {
+        transactionViewModel.queryValidatorByAddress(this);
+    }
 
+    /**
+     * 更新验证人列表
+     */
+    private List<DelegateValidator> mRewardList;
+    private void updateValidatorAddress(LoadDataModel ldm) {
+        if(ldm.loadingStatus==LoadDataModel.SUCCESS){
+            List<DelegateValidator> dvList =  (List<DelegateValidator>)ldm.getData();
+            //计算所有收益
+            double all_reward = mPresenter.calAllReward(dvList);
+            if(all_reward==0){
+                ToastUtils.showToast("暂无收益");
+            }else {
+                mRewardList = dvList;
+                WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
+                        WithDrawShareFragment.class.getSimpleName(), itemListener, NumberUtil.formatValue(all_reward,2));
+
+            }
+
+        }else if(ldm.loadingStatus==LoadDataModel.ERROR){
+            ToastUtils.showToast("暂无收益");
+        }
+    }
+
+    private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
+        //发送提取分红交易
+        BHTransactionManager.loadSuquece(suquece -> {
+            List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
+            double all_reward = mPresenter.calAllReward(mRewardList);
+            BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+
+            BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs,String.valueOf(all_reward),"2",
+                    gasPrice,BHConstants.BH_MEMO,null,suquece);
+
+            transactionViewModel.sendTransaction(this,bhSendTranscation);
+            return 0;
+        });
     });
 
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {

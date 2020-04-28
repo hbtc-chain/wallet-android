@@ -190,7 +190,7 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
 
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.createProposal(hexPK, delegator_address,BHConstants.TextProposalType,title,desc, amount, feeAmount,
+            BHSendTranscation bhSendTranscation = BHTransactionManager.createProposal(delegator_address,BHConstants.TextProposalType,title,desc, amount, feeAmount,
                     gasPrice, BHConstants.BH_MEMO, null, suquece, token);
             mProposalViewModel.sendCreatePorposal(this, bhSendTranscation);
             return 0;

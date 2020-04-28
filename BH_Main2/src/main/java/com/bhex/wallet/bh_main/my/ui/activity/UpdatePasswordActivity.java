@@ -81,6 +81,7 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
                 //mCurrentWallet = loadDataModel.getData();
                 ToastUtils.showToast("修改成功");
                 finish();
+
             }else{
                 ToastUtils.showToast("修改失败");
             }

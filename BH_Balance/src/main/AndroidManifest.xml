@@ -8,24 +8,38 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.DelegateActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TranscationDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.GenerateAddressActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TransferOutActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TransferInActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.GatheringActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.AssetDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.CoinSearchActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".BalanceIndexActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.WithRewardActivity"></activity>
+        <activity
+            android:name=".ui.activity.DelegateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TranscationDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.GenerateAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TransferOutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TransferInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.GatheringActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AssetDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CoinSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BalanceIndexActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activity.TxBaseActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
