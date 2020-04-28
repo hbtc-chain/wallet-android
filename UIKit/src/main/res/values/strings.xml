@@ -265,7 +265,7 @@
     <string name="do_veto_failed">投票失败</string>
     <string name="do_veto_succeed">投票成功</string>
     <string name="check_veto_optin">投票选项不能为空</string>
-    <string name="check_fee_max">手续费不能大于可用余额</string>
+    <string name="check_fee_max">手续费数量不能大于钱包可用余额</string>
     <string name="available_format">可用 %1s</string>
     <string name="check_proposal_title">请输入提案标题</string>
     <string name="check_proposal_desc">请输入提案描述</string>
@@ -278,6 +278,10 @@
     <string name="pledge_proposal">治理提案质押</string>
     <string name="vote_proposal">治理提案投票</string>
     <string name="with_reward_content">提取所有分红 %1$s HBC，并支付交易手续费 %2$s HBC</string>
+    <string name="check_do_entrust_amount_and_fee_max">委托数量和手续费之和不能大于可用余额</string>
+    <string name="check_do_entrust_amount">委托数量不能为空且大于0</string>
+    <string name="check_relive_entrust_amount">解委托数量不能为空且大于0</string>
+    <string name="check_relive_entrust_amount_max">解委托数量不能大于可用余额</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

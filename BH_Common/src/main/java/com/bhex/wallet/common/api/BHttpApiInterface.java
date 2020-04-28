@@ -56,7 +56,7 @@ public interface BHttpApiInterface {
 
 
     @GET("api/v1/proposals")
-    Observable<JsonObject> queryProposals(@Query("page") int page, @Query("page_size") int pageSize);
+    Observable<JsonObject> queryProposals(@Query("page") int page, @Query("page_size") int pageSize, @Query("title") String title);
 
     @GET("api/v1/proposals/{id}")
     Observable<JsonObject> queryProposal(@Path("id") String id);

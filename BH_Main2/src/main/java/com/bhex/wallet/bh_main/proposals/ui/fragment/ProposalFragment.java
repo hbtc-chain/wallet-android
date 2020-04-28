@@ -3,6 +3,7 @@ package com.bhex.wallet.bh_main.proposals.ui.fragment;
 
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.proposals.adapter.ProposalAdapter;
@@ -35,9 +37,20 @@ import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import rx.functions.Action1;
 
 /**
  * @author zhou chang
@@ -84,9 +97,10 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         recycler_proposal.setNestedScrollingEnabled(true);
 
         mProposalViewModel = ViewModelProviders.of(this).get(ProposalViewModel.class);
-        mProposalAdapter = new ProposalAdapter(R.layout.item_proposal, mProposalInfoList);
+        mProposalAdapter = new ProposalAdapter(R.layout.item_proposal, mOriginProposalInfoList);
 
         recycler_proposal.setAdapter(mProposalAdapter);
+
     }
 
     @Override
@@ -162,7 +176,26 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
 
             }
         });
-        ed_search_content.addTextChangedListener(ValidatorTextWatcher);
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) {
+                ed_search_content.addTextChangedListener(new SimpleTextWatcher() {
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        super.afterTextChanged(s);
+                        emitter.onNext(s.toString());
+                    }
+                });
+
+            }
+        }).sample(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String value) {
+                mCurrentPage = 1;
+                getRecord(true, mCurrentPage);
+
+            }
+        });
     }
 
     private void updateOriginRecord(ProposalQueryResult data) {
@@ -176,7 +209,13 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
                 mOriginProposalInfoList.addAll(data.getProposals());
             }
             mCurrentPage = data.getPage();
-            updateRecord(mOriginProposalInfoList);
+
+            if (mOriginProposalInfoList != null && mOriginProposalInfoList.size() > 0) {
+                empty_layout.loadSuccess();
+            } else {
+                empty_layout.showNoData();
+            }
+            mProposalAdapter.setNewData(mOriginProposalInfoList);
         }
     }
 
@@ -184,7 +223,8 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         if (showDialog) {
             empty_layout.showProgess();
         }
-        mProposalViewModel.queryProposals(getYActivity(), page);
+        String searchContent = ed_search_content.getText().toString().trim();
+        mProposalViewModel.queryProposals(getYActivity(), page, searchContent);
     }
 
     @Override
@@ -192,43 +232,4 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         super.onResume();
         getRecord(true, mCurrentPage);
     }
-
-    public void updateRecord(List<ProposalInfo> datas) {
-        mOriginProposalInfoList = datas;
-        List<ProposalInfo> result = new ArrayList<>();
-
-        String searchContent = ed_search_content.getText().toString().trim();
-        if (mOriginProposalInfoList != null) {
-            if (TextUtils.isEmpty(searchContent)) {
-                for (int i = 0; i < mOriginProposalInfoList.size(); i++) {
-                    ProposalInfo item = mOriginProposalInfoList.get(i);
-                    result.add(item);
-                }
-
-            } else {
-                for (int i = 0; i < mOriginProposalInfoList.size(); i++) {
-                    ProposalInfo item = mOriginProposalInfoList.get(i);
-                    if (item.getTitle() != null && item.getTitle().toLowerCase().contains(searchContent.toLowerCase())) {
-                        result.add(item);
-                    }
-                }
-            }
-        }
-        if (result.size() > 0) {
-            empty_layout.loadSuccess();
-        } else {
-            empty_layout.showNoData();
-        }
-        mProposalInfoList = result;
-        mProposalAdapter.setNewData(mProposalInfoList);
-    }
-
-    private SimpleTextWatcher ValidatorTextWatcher = new SimpleTextWatcher() {
-        @Override
-        public void afterTextChanged(Editable s) {
-            super.afterTextChanged(s);
-            updateRecord(mOriginProposalInfoList);
-
-        }
-    };
 }
