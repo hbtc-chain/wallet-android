@@ -149,12 +149,11 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         mProposalViewModel.proposalLiveData.observe(this, ldm -> {
             smartRefreshLayout.finishRefresh();
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
+                smartRefreshLayout.finishLoadMore(true);
                 if (ldm.getData() != null && ldm.getData().getProposals() != null) {
                     if (ldm.getData().getTotal() < mCurrentPage * ldm.getData().getPage_size()) {
-                        smartRefreshLayout.finishLoadMoreWithNoMoreData();
+                        smartRefreshLayout.setNoMoreData(true);
                     }
-                } else {
-                    smartRefreshLayout.finishLoadMore(true);
                 }
                 empty_layout.loadSuccess();
                 updateOriginRecord(ldm.getData());
@@ -167,6 +166,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         });
         smartRefreshLayout.setOnRefreshListener(refreshLayout1 -> {
             mCurrentPage = 1;
+            smartRefreshLayout.resetNoMoreData();
             getRecord(false, mCurrentPage);
         });
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -192,6 +192,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
             @Override
             public void accept(String value) {
                 mCurrentPage = 1;
+                smartRefreshLayout.resetNoMoreData();
                 getRecord(true, mCurrentPage);
 
             }
@@ -200,9 +201,6 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
 
     private void updateOriginRecord(ProposalQueryResult data) {
         if (data != null && data.getProposals() != null) {
-            if (data.getTotal() < mCurrentPage * data.getPage_size()) {
-                smartRefreshLayout.finishLoadMoreWithNoMoreData();
-            }
             if (data.getPage() == 1) {
                 mOriginProposalInfoList = data.getProposals();
             } else {
