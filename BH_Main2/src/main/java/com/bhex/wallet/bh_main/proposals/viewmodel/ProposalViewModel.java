@@ -80,7 +80,7 @@ public class ProposalViewModel extends ViewModel {
     /**
      * 查询单页方案记录
      */
-    public void queryProposals(BaseActivity activity, int page){
+    public void queryProposals(BaseActivity activity, int page,String title){
 
         BaseObserver<JsonObject> observer = new BaseObserver<JsonObject>() {
             @Override
@@ -98,7 +98,7 @@ public class ProposalViewModel extends ViewModel {
             }
         };
         BHttpApi.getService(BHttpApiInterface.class)
-                .queryProposals(page, BHConstants.PAGE_SIZE)
+                .queryProposals(page, BHConstants.PAGE_SIZE,title)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);

@@ -33,13 +33,13 @@ public class TransferOutPresenter extends BasePresenter {
             return false;
         }
 
-        if(TextUtils.isEmpty(transfer_amount) && Double.valueOf(transfer_amount)<=0){
-            ToastUtils.showToast("转账数量不能为空且大于0");
+        if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
+            ToastUtils.showToast("请输入转账数量");
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) && Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast("交易手续不能为空且大于0");
+        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
+            ToastUtils.showToast("请输入交易手续费");
             return false;
         }
 

@@ -20,6 +20,7 @@ import com.bhex.wallet.balance.helper.TransactionHelper;
 import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
+import com.bhex.wallet.common.tx.TransactionOrder;
 import com.hjq.toast.ToastUtils;
 
 import butterknife.BindView;
@@ -32,7 +33,9 @@ import butterknife.BindView;
  */
 public abstract class TxBaseActivity<T extends IPresenter> extends BaseActivity<T> {
 
-    public  TxOrderItem mtxo;
+    //public TransactionOrder mtxo;
+    public TransactionOrder mtxo;
+
     @BindView(R2.id.tv_center_title)
     public AppCompatTextView tv_center_title;
     @BindView(R2.id.tv_tranction_amount)
@@ -51,7 +54,7 @@ public abstract class TxBaseActivity<T extends IPresenter> extends BaseActivity<
 
     @Override
     protected void initView() {
-
+        tv_center_title.setText("");
     }
 
     public void initBaseData(){
@@ -66,7 +69,8 @@ public abstract class TxBaseActivity<T extends IPresenter> extends BaseActivity<
         tv_transcation_time.setText(tv_time);
 
         if(TRANSCATION_BUSI_TYPE.跨链地址生成.getLabel().equals(tx_type)
-            ||TRANSCATION_BUSI_TYPE.发起治理提案.getLabel().equals(tx_type)){
+            ||TRANSCATION_BUSI_TYPE.发起治理提案.getLabel().equals(tx_type)
+            ||TRANSCATION_BUSI_TYPE.治理提案质押.getLabel().equals(tx_type)){
             recycler_reward.setVisibility(View.GONE);
         }
     }

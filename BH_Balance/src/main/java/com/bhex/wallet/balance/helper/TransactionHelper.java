@@ -21,6 +21,8 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransactionOrder;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,7 +116,6 @@ public class TransactionHelper {
         for(TransactionOrder.ActivitiesBean activitiesBean:txo.getActivities()){
             TxOrderItem.ActivitiesBean activitiesBean1 = new TxOrderItem.ActivitiesBean();
             activitiesBean1.valueIem = activitiesBean.getValue().toString();
-            //LogUtils.d("TransactionHelper===>:","valueIem===>:"+activitiesBean.getValue().toString());
             activitiesBean1.type = activitiesBean.getType();
             txOrderItem.activities.add(activitiesBean1);
         }
@@ -127,7 +128,8 @@ public class TransactionHelper {
      */
     public static void gotoTranscationDetail(TxOrderItem txOrderItem){
         ARouter.getInstance().build(ARouterConfig.Balance_transcation_view)
-                .withObject("txo",txOrderItem)
+                //.withObject("txo",txOrderItem)
+                .withString("transactionId",txOrderItem.hash)
                 .navigation();
     }
 
@@ -135,7 +137,6 @@ public class TransactionHelper {
     public static void displayTranscationAmount(Context context,AppCompatTextView tv,String txType,String json,String activitylist){
         if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.转账.getType())){
 
-            LogUtils.d("TransactionHelper===>:","转账==json=="+json);
             TransactionOrder.ActivitiesBean.ValueBean valueBean
                     = JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.ValueBean.class);
 
@@ -166,9 +167,15 @@ public class TransactionHelper {
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.发起治理提案.getType())){
             TransactionOrder.ActivitiesBean.SubmitProposalBean submitProposalBean =
                     JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.SubmitProposalBean.class);
-            /*setRealAmount(tv,submitProposalBean.initial_deposit.get(0).amount,
-                    submitProposalBean.initial_deposit.get(0).denom,"-");*/
+            setRealAmount(tv,submitProposalBean.initial_deposit.get(0).amount,
+                    submitProposalBean.initial_deposit.get(0).denom,"-");
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.治理提案质押.getType())){
+            TransactionOrder.ActivitiesBean.ValueBean valueBean
+                    = JsonUtils.fromJson(json,TransactionOrder.ActivitiesBean.ValueBean.class);
+
+            TransactionOrder.ActivitiesBean.ValueBean.AmountBean bean1 = valueBean.getAmount().get(0);
+
+            setRealAmount(tv,bean1.getAmount(),bean1.getDenom(),"-");
 
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.治理提案投票.getType())){
 
@@ -178,34 +185,33 @@ public class TransactionHelper {
             if(activitiesBeans==null || activitiesBeans.size()==0){
                 return;
             }
+
             double amount = 0;
             for (TransactionOrder.ActivitiesBean activitiesBean:activitiesBeans){
 
-                LogUtils.d("TransactionHelper===>:","rewardBean=="
-                        +activitiesBean.getValue().toString());
-
                 TransactionOrder.ActivitiesBean.DelegationRewardBean rewardBean  =
-                        JsonUtils.fromJson(activitiesBean.getValue().toString(),
-                                TransactionOrder.ActivitiesBean.DelegationRewardBean.class);
-
-                if(activitiesBean.getType().equals(TRANSCATION_BUSI_TYPE.提取收益.getType())){
-                    amount = NumberUtil.add(String.valueOf(amount),rewardBean.amount);
+                        JsonUtils.fromJson(activitiesBean.getValue().toString(),TransactionOrder.ActivitiesBean.DelegationRewardBean.class);
+                if(!txType.equals(activitiesBean.type)){
+                    return;
                 }
-
-            }
-            setRealAmount(tv,String.valueOf(amount), BHConstants.BHT_TOKEN,"+");*/
+                if(activitiesBean.getType().equals(TRANSCATION_BUSI_TYPE.提取收益.getType())){
+                    //double rewardAmount = NumberUtil.divide(rewardBean.amount.amount,BHConstants.BHT_DECIMALS+"");
+                    amount = NumberUtil.add(amount+"",rewardBean.amount.amount);
+                }
+                txType = activitiesBean.getType();
+            }*/
+            //LogUtils.d("TransactionHelper===>:","amount=="+amount);
+            //setRealAmount(tv, BigDecimal.valueOf( amount).toBigInteger().toString(10), BHConstants.BHT_TOKEN,"+");
         }
     }
 
     public static void setRealAmount(AppCompatTextView tv,String amount,String symbol,String flag){
         BHToken token = SymbolCache.getInstance().getBHToken(symbol);
-
         if(token!=null){
             double real_amount = NumberUtil.divide(amount,Math.pow(10,token.decimals)+"");
             String tv_amount = NumberUtil.dispalyForUsertokenAmount(String.valueOf(real_amount))+symbol.toUpperCase();
             tv.setText(flag+tv_amount);
         }
-
     }
 
 

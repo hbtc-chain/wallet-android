@@ -19,6 +19,7 @@ import com.bhex.wallet.balance.helper.TransactionHelper;
 import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.balance.presenter.TranscationDetailPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.tx.TransactionOrder;
 import com.hjq.toast.ToastUtils;
 
 import butterknife.BindView;
@@ -33,8 +34,8 @@ import butterknife.OnClick;
 @Route(path = ARouterConfig.Balance_transcation_detail)
 public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailPresenter> {
 
-    @Autowired(name = "txo")
-    public TxOrderItem txo;
+    //@Autowired(name = "txo")
+    public TransactionOrder txo;
 
     @BindView(R2.id.iv_txid_paste)
     AppCompatImageView iv_txid_paste;
@@ -42,6 +43,8 @@ public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailP
     AppCompatTextView tv_from;
     @BindView(R2.id.tv_to)
     AppCompatTextView tv_to;
+
+
 
     @Override
     protected int getLayoutId() {
@@ -56,15 +59,14 @@ public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailP
 
         initBaseData();
 
-        //tv_tranction_amount.setText();
 
         TransactionHelper.displayTranscationAmount(this, tv_tranction_amount,
                 txo.activities.get(0).type,
-                txo.value, JsonUtils.toJson(txo.activities));
+                txo.activities.get(0).value.toString(), JsonUtils.toJson(txo.activities));
 
         TransactionHelper.displayTranscationFromTo(this, tv_from, tv_to,
                 txo.activities.get(0).type,
-                txo.value);
+                txo.activities.get(0).value.toString());
     }
 
     @Override

@@ -61,6 +61,8 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
     public MutableLiveData<LoadDataModel<List<TransactionOrder>>> transLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel<List<DelegateValidator>>>  validatorLiveData  = new MutableLiveData<>();
 
+    //public MutableLiveData<LoadDataModel<List<TransactionOrder>>> transactionLiveData = new MutableLiveData<>();
+
     public TransactionViewModel(@NonNull Application application) {
         super(application);
     }
@@ -218,6 +220,35 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
         };
         BHttpApi.getService(BHttpApiInterface.class)
                 .queryValidatorsByAddress(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+
+
+    /**
+     * 查询交易详情
+     * @param activity
+     * @param hash
+     */
+    public void queryTransactionDetail(BaseActivity activity,String hash){
+        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                TransactionOrder transactionOrder = JsonUtils.fromJson(jsonObject.toString(), TransactionOrder.class);
+                LoadDataModel ldm = new LoadDataModel(transactionOrder);
+                transLiveData.postValue(ldm);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel ldm = new LoadDataModel(code,"");
+                transLiveData.postValue(ldm);
+            }
+        };
+        BHttpApi.getService(BHttpApiInterface.class)
+                .queryTranscationView(hash)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);

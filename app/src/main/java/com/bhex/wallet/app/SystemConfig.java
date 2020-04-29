@@ -6,6 +6,7 @@ import com.bhex.network.base.NetworkApi;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.diskconverter.GsonDiskConverter;
 import com.bhex.network.receiver.NetWorkStatusChangeReceiver;
+import com.bhex.tools.CrashHandler;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.BuildConfig;
 import com.bhex.wallet.base.BHNetwork;
@@ -52,6 +53,9 @@ public class SystemConfig  {
 
     private void syncInit(){
         arouterInit();
+        //异常处理
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(BHApplication.getInstance());
 
         if(BuildConfig.DEBUG){
             Stetho.initializeWithDefaults(BaseApplication.getInstance());

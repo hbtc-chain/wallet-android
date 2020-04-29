@@ -7,6 +7,7 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.model.BHToken;
@@ -21,17 +22,17 @@ public class DoEntrustPresenter extends BasePresenter {
                                           String available_amount,String fee_amount){
 
         if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
-            ToastUtils.showToast("委托数量不能为空且大于0");
+            ToastUtils.showToast(getActivity().getString(R.string.check_do_entrust_amount));
             return false;
         }
 
         if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast("手续不能为空且大于0");
+            ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
             return false;
         }
 
         if(NumberUtil.add(transfer_amount,fee_amount) >Double.valueOf(available_amount)){
-            ToastUtils.showToast("委托数量大于可用余额");
+            ToastUtils.showToast(getActivity().getString(R.string.check_do_entrust_amount_and_fee_max));
             return false;
         }
 
@@ -42,22 +43,22 @@ public class DoEntrustPresenter extends BasePresenter {
                                   String available_amount,String fee_amount){
 
         if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
-            ToastUtils.showToast("解委托数量不能为空且大于0");
+            ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount));
             return false;
         }
 
         if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast("手续不能为空且大于0");
+            ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
             return false;
         }
 
         if(Double.valueOf(fee_amount) >Double.valueOf(wallet_available)){
-            ToastUtils.showToast("手续费数量不能大于可用余额");
+            ToastUtils.showToast(getActivity().getString(R.string.check_fee_max));
             return false;
         }
 
         if(Double.valueOf(transfer_amount) >Double.valueOf(available_amount)){
-            ToastUtils.showToast("解委托数量不能大于可用余额");
+            ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount_max));
             return false;
         }
 

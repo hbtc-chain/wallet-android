@@ -29,16 +29,16 @@ public class TransactionOrder implements Serializable {
      * memo : test memo
      */
 
-    private String hash;
-    private int height;
-    private String fee;
-    private boolean success;
-    private Object error_message;
-    private long time;
-    private int gas_used;
-    private int gas_wanted;
-    private String memo;
-    private List<ActivitiesBean> activities;
+    public String hash;
+    public int height;
+    public String fee;
+    public boolean success;
+    public Object error_message;
+    public long time;
+    public int gas_used;
+    public int gas_wanted;
+    public String memo;
+    public List<ActivitiesBean> activities;
 
     public String getHash() {
         return hash;
@@ -126,9 +126,9 @@ public class TransactionOrder implements Serializable {
          * value : {"amount":[{"amount":"9223372036854775807","denom":"bht"}],"from_address":"BHYc5BsYgne5SPNKYreBGpjYY9jyXAHLGbK","to_address":"BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ"}
          */
 
-        private String type;
+        public String type;
 
-        private JsonObject value;
+        public JsonObject value;
 
         public String getType() {
             return type;
@@ -292,6 +292,26 @@ public class TransactionOrder implements Serializable {
         }
 
         public static class DelegationRewardBean{
+            /**
+             * amount : {"amount":"1331236960000000000","denom":"hbc"}
+             * delegator_address : HBCYu3Xf77dvNqAceLQQSmtto3utEi4kBd4r
+             * validator_address : hbcvaloper1j765j4hrkqqj6r88qleknx8070e505hny73e5h
+             */
+
+            public AmountBean amount;
+            public String delegator_address;
+            public String validator_address;
+            public static class AmountBean {
+                /**
+                 * amount : 1331236960000000000
+                 * denom : hbc
+                 */
+
+                public String amount;
+                public String denom;
+
+
+            }
 
             /**
              * amount : 1331529719774649893
@@ -299,43 +319,40 @@ public class TransactionOrder implements Serializable {
              * validator_address : hbcvaloper1j765j4hrkqqj6r88qleknx8070e505hny73e5h
              */
 
-            public String amount;
-            public String delegator_address;
-            public String validator_address;
 
 
         }
 
 
         public class SubmitProposalBean{
-           /* public ContentBean content;
+           public ContentBean content;
             public String proposer;
             public List<InitialDepositBean> initial_deposit;
             public  class ContentBean {
-                *//**
+                /**
                  * type : hbtcchain/gov/TextProposal
                  * value : {"description":"tyhhh","title":"yuhhhg"}
-                 *//*
+                 */
                 public String type;
                 public ValueBean value;
                 public  class ValueBean {
-                    *//**
+                    /**
                      * description : tyhhh
                      * title : yuhhhg
-                     *//*
+                     */
                     public String description;
                     public String title;
                 }
             }
 
             public  class InitialDepositBean {
-                *//**
+                /**
                  * amount : 100000000000000000000
                  * denom : hbc
-                 *//*
+                 */
                 public String amount;
                 public String denom;
-            }*/
+            }
         }
     }
 }

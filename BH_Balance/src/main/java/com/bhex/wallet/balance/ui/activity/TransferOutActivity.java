@@ -190,7 +190,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     @Override
     protected void addEvent() {
         mCurrentBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
-        //EventBus.getDefault().register(this);
         //二维码扫描
         tv_to_address.iv_right.setOnClickListener(v -> {
             ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
