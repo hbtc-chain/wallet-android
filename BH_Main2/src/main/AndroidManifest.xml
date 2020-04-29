@@ -20,8 +20,6 @@
         <activity android:name=".proposals.ui.activity.DoVetoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".proposals.ui.activity.CreateProposalActivity" android:screenOrientation="portrait"/>
 
-
->>>>>>> 3a351fa318a2031c19c11585e396365c5305b6ee
     </application>
 
 </manifest>
