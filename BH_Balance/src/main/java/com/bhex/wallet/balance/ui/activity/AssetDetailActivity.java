@@ -3,6 +3,7 @@ package com.bhex.wallet.balance.ui.activity;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -110,6 +111,9 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
     AppCompatTextView tv_income_value;
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+
+    @BindView(R2.id.iv_coin_ic)
+    AppCompatImageView iv_coin_ic;
 
     TxOrderAdapter mTxOrderAdapter;
     TransactionViewModel transactionViewModel;
@@ -274,10 +278,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             updateValidatorAddress(ldm);
         });
         EventBus.getDefault().register(this);
-
     }
-
-
 
     /**
      * 更新资产
@@ -334,7 +335,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             //复投分红
             reDelegate();
         }else if(view.getId() == R.id.cross_chian_transfer_in){
-            if(balance.isHasToken==0||TextUtils.isEmpty(balance.external_address)){
+            if(TextUtils.isEmpty(balance.external_address)){
                 //请求用户资产 获取链外地址
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                         .withObject("balance", balance)
@@ -342,7 +343,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                         .withInt("way",2)
                         .navigation();
                 return;
-
             }else{
                 /**/
                 ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
@@ -352,7 +352,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             }
 
         }else if(view.getId() == R.id.cross_chian_withdraw){
-            if(balance.isHasToken==0||TextUtils.isEmpty(balance.external_address)){
+            if(TextUtils.isEmpty(balance.external_address)){
                 //请求用户资产 获取链外地址
                 //balanceViewModel.getAccountInfo(this,bthBalance.address);
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
@@ -369,7 +369,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                         .withInt("way",2)
                         .navigation();
             }
-
         }
     }
 
@@ -437,7 +436,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
 
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-
         BHTransactionManager.loadSuquece(suquece -> {
             List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
             double all_reward = mPresenter.calAllReward(mRewardList);

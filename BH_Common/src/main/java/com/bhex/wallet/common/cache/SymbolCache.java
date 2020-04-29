@@ -6,6 +6,7 @@ import com.bhex.network.cache.data.CacheResult;
 import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.utils.JsonUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -82,5 +83,13 @@ public class SymbolCache extends BaseCache {
     public  BHToken getBHToken(String symbol){
         //LogUtils.d(TAG+"====>:","size=="+symbolMap.size());
         return symbolMap.get(symbol);
+    }
+
+    public int getDecimals(String symbol){
+        if(symbolMap.get(symbol)!=null){
+            return symbolMap.get(symbol).decimals;
+        }else{
+            return BHConstants.BHT_DEFAULT_DECIMAL;
+        }
     }
 }

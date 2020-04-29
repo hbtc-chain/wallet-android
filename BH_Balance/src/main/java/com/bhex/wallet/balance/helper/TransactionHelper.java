@@ -181,7 +181,7 @@ public class TransactionHelper {
 
         }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.提取收益.getType())){
 
-            /*List<TransactionOrder.ActivitiesBean> activitiesBeans = JsonUtils.getListFromJson(activitylist,TransactionOrder.ActivitiesBean.class);
+            List<TransactionOrder.ActivitiesBean> activitiesBeans = JsonUtils.getListFromJson(activitylist,TransactionOrder.ActivitiesBean.class);
             if(activitiesBeans==null || activitiesBeans.size()==0){
                 return;
             }
@@ -195,20 +195,20 @@ public class TransactionHelper {
                     return;
                 }
                 if(activitiesBean.getType().equals(TRANSCATION_BUSI_TYPE.提取收益.getType())){
-                    //double rewardAmount = NumberUtil.divide(rewardBean.amount.amount,BHConstants.BHT_DECIMALS+"");
-                    amount = NumberUtil.add(amount+"",rewardBean.amount.amount);
+                    int decimals = SymbolCache.getInstance().getDecimals(rewardBean.amount.denom);
+                    double rewardAmount = NumberUtil.divide(rewardBean.amount.amount,BHConstants.BHT_DECIMALS+"",decimals);
+                    amount = NumberUtil.add(rewardAmount+"",rewardBean.amount.amount);
                 }
                 txType = activitiesBean.getType();
-            }*/
-            //LogUtils.d("TransactionHelper===>:","amount=="+amount);
-            //setRealAmount(tv, BigDecimal.valueOf( amount).toBigInteger().toString(10), BHConstants.BHT_TOKEN,"+");
+            }
+            setRealAmount(tv, amount+"", BHConstants.BHT_TOKEN,"+");
         }
     }
 
     public static void setRealAmount(AppCompatTextView tv,String amount,String symbol,String flag){
         BHToken token = SymbolCache.getInstance().getBHToken(symbol);
         if(token!=null){
-            double real_amount = NumberUtil.divide(amount,Math.pow(10,token.decimals)+"");
+            double real_amount = NumberUtil.divide(amount,Math.pow(10,token.decimals)+"",token.decimals);
             String tv_amount = NumberUtil.dispalyForUsertokenAmount(String.valueOf(real_amount))+symbol.toUpperCase();
             tv.setText(flag+tv_amount);
         }

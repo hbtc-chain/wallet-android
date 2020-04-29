@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 static def releaseTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }
 
 android {
@@ -110,9 +110,9 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             if (variant.buildType.name == "release") {
-                outputFileName = "${variant.productFlavors[0].name}_Release_V${defaultConfig.versionName}_${releaseTime()}_build${defaultConfig.versionCode}_app.apk"
+                outputFileName = "${variant.productFlavors[0].name}_Release_V${defaultConfig.versionName}_${releaseTime()}_${defaultConfig.versionCode}_app.apk"
             } else if (variant.buildType.name == "debug") {
-                outputFileName = "${variant.productFlavors[0].name}_Debug_V${defaultConfig.versionName}_${releaseTime()}_build${defaultConfig.versionCode}_app.apk"
+                outputFileName = "${variant.productFlavors[0].name}_Debug_V${defaultConfig.versionName}_${releaseTime()}_${defaultConfig.versionCode}_app.apk"
             }
         }
     }

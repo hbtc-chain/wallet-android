@@ -1,14 +1,11 @@
 package com.bhex.wallet.balance.ui.activity;
 
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.alibaba.fastjson.JSON;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.JsonUtils;
@@ -16,7 +13,6 @@ import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.TranscationAdapter;
 import com.bhex.wallet.balance.helper.TransactionHelper;
-import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.tx.TransactionOrder;
@@ -56,7 +52,7 @@ public class TranscationViewActivity extends TxBaseActivity {
     protected void initView() {
         super.initView();
         ARouter.getInstance().inject(this);
-        //mtxo = txo;
+
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_reward.setLayoutManager(lm);

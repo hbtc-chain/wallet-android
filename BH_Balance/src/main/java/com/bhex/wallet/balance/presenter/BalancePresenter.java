@@ -237,6 +237,10 @@ public class BalancePresenter extends BasePresenter {
         Map<String,AccountInfo.AssetsBean> map = new HashMap<>();
         for(AccountInfo.AssetsBean bean:list){
             map.put(bean.getSymbol(),bean);
+
+            //计算每一个币种的资产价值
+            double b1 = CurrencyManager.getInstance().getSymbolBalancePrice(mBaseActivity,bean.getSymbol(),bean.getAmount(),false);
+            allTokenPrice = NumberUtil.add(b1,allTokenPrice);
         }
         for(BHBalance balance:mOriginBalanceList){
             AccountInfo.AssetsBean assetsBean = map.get(balance.symbol.toLowerCase());
@@ -248,11 +252,7 @@ public class BalancePresenter extends BasePresenter {
             balance.is_native = assetsBean.isIs_native();
             balance.external_address = assetsBean.getExternal_address();
             balance.frozen_amount = assetsBean.getFrozen_amount();
-            //计算每一个币种的资产价值
-            double b1 = CurrencyManager.getInstance().getSymbolBalancePrice(mBaseActivity,balance.symbol,balance.amount,false);
-            allTokenPrice = NumberUtil.add(b1,allTokenPrice);
         }
-
         return allTokenPrice;
     }
 
