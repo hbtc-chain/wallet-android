@@ -51,6 +51,10 @@
         <meta-data
             android:name="notchconfig."
             android:value="portrait|landscape" />
+
+        <!--<meta-data
+            android:name="com.bhex.wallet.common.glide.GlideConfiguration"
+            android:value="GlideModule" />-->
     </application>
 
 </manifest>

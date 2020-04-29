@@ -61,13 +61,13 @@ public class CurrencyManager {
     public String getCurrencyRateDecription(Context context, String symbol){
         RatesCache ratesCache = CacheCenter.getInstance().getRatesCache();
         if(ratesCache==null){
-            return "0";
+            return CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(context).toUpperCase()).character+"0";
         }
 
         BHRates.RatesBean ratesBean = ratesCache.getBHRate(symbol.toLowerCase());
 
         if(ratesBean==null){
-            return "0";
+            return CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(context).toUpperCase()).character+"0";
         }
         /*if(CurrencyManager.getInstance().loadCurrency(context).equalsIgnoreCase(CURRENCY_TYPE.CNY.shortName)){
             return "¥"+currencyFormat.format(Double.valueOf(ratesBean.getCny()));

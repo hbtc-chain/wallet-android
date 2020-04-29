@@ -2,6 +2,7 @@ package com.bhex.tools.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
@@ -25,10 +26,14 @@ public class ImageLoaderUtil {
 
     //默认加载
     public static void loadImageView(Context mContext, String path, ImageView mImageView, @DrawableRes int resId) {
+        if(TextUtils.isEmpty(path)){
+           mImageView.setImageResource(resId);
+           return;
+        }
         if(!path.equals(mImageView.getTag())){
             mImageView.setTag(null);
             Glide.with(mContext).load(path)
-                    //.placeholder(resId)
+                    .placeholder(resId)
                     .error(resId)
                     .into(mImageView);
 

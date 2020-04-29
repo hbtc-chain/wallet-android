@@ -1,6 +1,7 @@
 package com.bhex.wallet.common.manager;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.constants.BHConstants;
@@ -136,7 +137,7 @@ public class BHUserManager {
     }
 
     public void saveUserBalanceList(List<BHBalance> list){
-        if(list==null && list.size()==0){
+        if(list==null || list.size()==0){
             return;
         }
 

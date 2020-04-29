@@ -354,4 +354,26 @@ public class BalancePresenter extends BasePresenter {
 
         return balance;
     }
+
+    /**
+     * 是否为小额资产
+     * @param accountInfo
+     * @return
+     */
+    public boolean isSmallToken(AccountInfo accountInfo,String symbol){
+        boolean flag = true;
+        if(accountInfo.getAssets()==null ||accountInfo.getAssets().size()==0 ){
+            return flag;
+        }
+
+        for(AccountInfo.AssetsBean assetsBean:accountInfo.getAssets()){
+            if(assetsBean.getSymbol().equalsIgnoreCase(symbol)
+                && !TextUtils.isEmpty(assetsBean.getAmount())
+                && Double.valueOf(assetsBean.getAmount())>0){
+                flag = false;
+                return flag;
+            }
+        }
+        return flag;
+    }
 }

@@ -43,7 +43,8 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
         if(TRANSCATION_BUSI_TYPE.提取收益.getType().equalsIgnoreCase(activitiesBean.type)){
             //计算提取收益
             DelegateBean delegateBean = JsonUtils.fromJson(activitiesBean.getValue().toString(),DelegateBean.class);
-            double amount = NumberUtil.divide(delegateBean.amount.amount, String.valueOf(BHConstants.BHT_DECIMALS),2);
+            double amount = NumberUtil.divide(delegateBean.amount.amount, String.valueOf(BHConstants.BHT_DECIMALS));
+            String amount_str = NumberUtil.dispalyForUsertokenAmount(String.valueOf(amount));
             viewHolder.setText(R.id.tv_amount, String.valueOf(amount)+BHConstants.BHT_TOKEN.toUpperCase());
 
             viewHolder.setText(R.id.tv_delegate_address,delegateBean.delegator_address);
@@ -53,7 +54,9 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             //计算委托数量
             DelegateBean delegateBean =
                     JsonUtils.fromJson(activitiesBean.value.toString(),DelegateBean.class);
-            double amount = NumberUtil.divide(delegateBean.amount.amount, String.valueOf(BHConstants.BHT_DECIMALS),2);
+            double amount = NumberUtil.divide(delegateBean.amount.amount, String.valueOf(BHConstants.BHT_DECIMALS));
+            String amount_str = NumberUtil.dispalyForUsertokenAmount(String.valueOf(amount));
+
             viewHolder.setText(R.id.tv_amount, String.valueOf(amount)+BHConstants.BHT_TOKEN.toUpperCase());
             viewHolder.setText(R.id.tv_delegate_address,delegateBean.delegator_address);
             viewHolder.setText(R.id.tv_validator_address,delegateBean.validator_address);
@@ -69,16 +72,23 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
                 //计算转账数量
                 double amount = NumberUtil.divide(transferBean.getAmount().get(0).getAmount(), String.valueOf(BHConstants.BHT_DECIMALS));
 
-                String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
+                //String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
                 /*String signal = "-";
                 if(BHUserManager.getInstance().getCurrentBhWallet().address.equals(transferBean.getTo_address())){
                     signal="+";
                 }*/
-                viewHolder.setText(R.id.tv_amount, amount_str+BHConstants.BHT_TOKEN.toUpperCase());
+                viewHolder.setText(R.id.tv_amount, String.valueOf(amount)+BHConstants.BHT_TOKEN.toUpperCase());
             }catch (Exception e){
                 e.printStackTrace();
             }
 
+        }else if(TRANSCATION_BUSI_TYPE.跨链地址生成.getType().equalsIgnoreCase(activitiesBean.type)){
+            TransactionOrder.ActivitiesBean.AddressGenBean addressGenBean = JsonUtils.fromJson(activitiesBean.value.toString(),
+                    TransactionOrder.ActivitiesBean.AddressGenBean.class);
+            viewHolder.setText(R.id.tv_delegate_label,getContext().getString(R.string.transfer_out));
+            viewHolder.setText(R.id.tv_validator_label,getContext().getString(R.string.transfer_in_ext));
+            viewHolder.setText(R.id.tv_delegate_address,addressGenBean.from);
+            viewHolder.setText(R.id.tv_validator_address,addressGenBean.to);
         }
 
         viewHolder.getView(R.id.iv_delegate_address_paste).setOnClickListener(v -> {

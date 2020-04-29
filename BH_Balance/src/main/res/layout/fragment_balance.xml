@@ -89,11 +89,12 @@
                 android:id="@+id/iv_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:paddingEnd="24dp"
                 android:src="@mipmap/ic_add_token"
                 android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@+id/tv_balance_txt"
+                android:layout_alignTop="@+id/tv_balance_txt"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_balance_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_balance_txt" />

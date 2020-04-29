@@ -68,8 +68,7 @@ public abstract class TxBaseActivity<T extends IPresenter> extends BaseActivity<
         String tv_time = DateUtil.transTimeWithPattern(mtxo.time * 1000, DateUtil.DATA_TIME_STYLE);
         tv_transcation_time.setText(tv_time);
 
-        if(TRANSCATION_BUSI_TYPE.跨链地址生成.getLabel().equals(tx_type)
-            ||TRANSCATION_BUSI_TYPE.发起治理提案.getLabel().equals(tx_type)
+        if(TRANSCATION_BUSI_TYPE.发起治理提案.getLabel().equals(tx_type)
             ||TRANSCATION_BUSI_TYPE.治理提案质押.getLabel().equals(tx_type)){
             recycler_reward.setVisibility(View.GONE);
         }

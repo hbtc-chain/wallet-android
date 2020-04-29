@@ -31,6 +31,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -134,7 +135,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
     }
 
     @Override
@@ -142,12 +143,10 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         EventBus.getDefault().register(this);
         getYActivity().setSupportActionBar(mToolBar);
         getYActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //EditTextHelper.getEditTextDeleteIconWrapper(getContext(),ed_search_content);
 
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
-        //LogUtils.d("bhWallet===","==bhWallet="+bhWallet.getAddress());
 
         mOriginBalanceList = mPresenter.makeBalanceList();
         mBalanceList = mPresenter.getBalanceList(mOriginBalanceList);
@@ -159,7 +158,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
                 getContext(),LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(getYActivity(),68),0,
-
                 ColorUtil.getColor(getContext(),R.color.divider_line_color));
 
         recycler_balance.addItemDecoration(ItemDecoration);
@@ -231,9 +229,18 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         if(list==null || list.size()==0){
             mBalanceAdapter.setEmptyView(mEmptyLayout);
         }
-        //计算每一个币种的资产价值 和 总资产
-        allTokenAssets = mPresenter.calculateAllTokenPrice(accountInfo,mOriginBalanceList);
         mBalanceAdapter.notifyDataSetChanged();
+
+        //计算每一个币种的资产价值 和 总资产
+        updateTopTokenAssets();
+    }
+
+    //更新头部资产
+    public void updateTopTokenAssets(){
+        if(mAccountInfo==null){
+            return;
+        }
+        allTokenAssets = mPresenter.calculateAllTokenPrice(mAccountInfo,mOriginBalanceList);
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
         //设置第一字符15sp
         String tag = iv_eye.getTag().toString();
@@ -284,23 +291,33 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             //int size = mBalanceAdapter.getData().size();
             BHBalance balance = mPresenter.getBalanceByCoin(event.bhCoinItem);
             mOriginBalanceList.add(balance);
-            mBalanceList.add(balance);
-            mBalanceAdapter.notifyItemInserted(mBalanceList.size()-1);
-            mBalanceAdapter.notifyItemChanged(mBalanceList.size()-1);
-            //mBalanceAdapter.notifyDataSetChanged();
+            //隐藏小额资产
+            if(ck_hidden_small.isChecked()){
+                //需要判断总资产是否小于等于0
+               boolean isSmallToken = mPresenter.isSmallToken(mAccountInfo,event.bhCoinItem.symbol);
+               if(!isSmallToken){
+                   mBalanceList.add(balance);
+               }
+            }else{
+                mBalanceList.add(balance);
+            }
+            mBalanceAdapter.notifyDataSetChanged();
         }else{
-           int index= mPresenter.getIndexByCoin(mOriginBalanceList,event.bhCoinItem);
-           if(index<0){
-               return;
-           }
-           mOriginBalanceList.remove(index);
-           mBalanceList.remove(index);
-           mBalanceAdapter.notifyItemRemoved(index);
-           mBalanceAdapter.notifyItemChanged(index);
-           if(mBalanceAdapter.getData().size()==0){
-               mBalanceAdapter.setEmptyView(mEmptyLayout);
-           }
+            int rv_index= mPresenter.getIndexByCoin(mBalanceList,event.bhCoinItem);
+            int org_index= mPresenter.getIndexByCoin(mOriginBalanceList,event.bhCoinItem);
+            if(rv_index>=0){
+                mBalanceList.remove(rv_index);
+                if(mBalanceAdapter.getData().size()==0){
+                    mBalanceAdapter.setEmptyView(mEmptyLayout);
+                }
+                mBalanceAdapter.notifyDataSetChanged();
+            }
+            if(org_index>=0){
+                mOriginBalanceList.remove(org_index);
+            }
         }
+        //更新总资产
+        updateTopTokenAssets();
         //持久化添加资产
         BHUserManager.getInstance().saveUserBalanceList(mOriginBalanceList);
     }
