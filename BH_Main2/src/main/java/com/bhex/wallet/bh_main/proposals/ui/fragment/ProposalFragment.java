@@ -97,10 +97,10 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         recycler_proposal.setNestedScrollingEnabled(true);
 
         mProposalViewModel = ViewModelProviders.of(this).get(ProposalViewModel.class);
+        mOriginProposalInfoList = new ArrayList<>();
         mProposalAdapter = new ProposalAdapter(R.layout.item_proposal, mOriginProposalInfoList);
 
         recycler_proposal.setAdapter(mProposalAdapter);
-
     }
 
     @Override
@@ -150,7 +150,8 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
             smartRefreshLayout.finishRefresh();
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 smartRefreshLayout.finishLoadMore(true);
-                if (ldm.getData() != null && ldm.getData().getProposals() != null) {
+                if (ldm.getData() != null) {
+                    mCurrentPage = ldm.getData().getPage();
                     if (ldm.getData().getTotal() < mCurrentPage * ldm.getData().getPage_size()) {
                         smartRefreshLayout.setNoMoreData(true);
                     }
@@ -202,18 +203,19 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
     private void updateOriginRecord(ProposalQueryResult data) {
         if (data != null && data.getProposals() != null) {
             if (data.getPage() == 1) {
-                mOriginProposalInfoList = data.getProposals();
+                mOriginProposalInfoList.clear();
+                mOriginProposalInfoList.addAll(data.getProposals());
             } else {
                 mOriginProposalInfoList.addAll(data.getProposals());
             }
-            mCurrentPage = data.getPage();
 
             if (mOriginProposalInfoList != null && mOriginProposalInfoList.size() > 0) {
                 empty_layout.loadSuccess();
             } else {
                 empty_layout.showNoData();
             }
-            mProposalAdapter.setNewData(mOriginProposalInfoList);
+            mProposalAdapter.notifyDataSetChanged();
+//            mProposalAdapter.setNewData(mOriginProposalInfoList);
         }
     }
 
