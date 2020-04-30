@@ -284,6 +284,10 @@
     <string name="check_do_entrust_amount">委托数量不能为空且大于0</string>
     <string name="check_relive_entrust_amount">解委托数量不能为空且大于0</string>
     <string name="check_relive_entrust_amount_max">解委托数量不能大于可用余额</string>
+    <string name="error_oldpassword">原密码错误</string>
+    <string name="please_input_newpassword">请输入新密码</string>
+    <string name="please_input_confrim_newpwd">请输入新密码确认</string>
+    <string name="tip_two_password_equal">两次输入的新密码不一致</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

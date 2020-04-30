@@ -97,14 +97,6 @@ public class ImportMnemonicActivity extends BaseCacheActivity {
         if(!flag || array.length < 12){
             return true;
         }
-
-        /*for (int i = 0; i < array.length; i++) {
-            if(!mOriginWords.contains(array[i])){
-                //flag = false;
-                return true;
-            }
-        }*/
-
         return false;
     }
     /**

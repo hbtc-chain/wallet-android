@@ -48,8 +48,26 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
     InputView inp_old_pwd;
     @BindView(R2.id.inp_new_pwd)
     InputView inp_new_pwd;
+    @BindView(R2.id.inp_confrim_pwd)
+    InputView inp_confrim_pwd;
+
     @BindView(R2.id.btn_next)
     MaterialButton btn_next;
+
+    @BindView(R2.id.pwd_tips_0)
+    AppCompatTextView pwd_tips_0;
+
+    @BindView(R2.id.pwd_tips_1)
+    AppCompatTextView pwd_tips_1;
+
+    @BindView(R2.id.pwd_tips_2)
+    AppCompatTextView pwd_tips_2;
+
+    @BindView(R2.id.pwd_tips_3)
+    AppCompatTextView pwd_tips_3;
+
+    @BindView(R2.id.pwd_tips_4)
+    AppCompatTextView pwd_tips_4;
 
     private WalletViewModel walletViewModel;
 
@@ -77,32 +95,33 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletViewModel.walletLiveData.observe(this,loadDataModel -> {
             if(loadDataModel.loadingStatus== LoadingStatus.SUCCESS){
-                //mCurrentWallet.setPassword(loadDataModel.getData().toString());
-                //mCurrentWallet = loadDataModel.getData();
-                ToastUtils.showToast("修改成功");
+                ToastUtils.showToast("密码修改成功");
                 finish();
-
             }else{
-                ToastUtils.showToast("修改失败");
+                ToastUtils.showToast("密码修改失败");
             }
         });
 
         inp_old_pwd.addTextWatch(passwordTextWatcher);
 
         inp_new_pwd.addTextWatch(passwordTextWatcher);
+
+        inp_confrim_pwd.addTextWatch(passwordTextWatcher);
     }
 
 
     @OnClick({R2.id.btn_next})
     public void onViewClicked(View view) {
         if(view.getId() == R.id.btn_next){
-            boolean flag = getPresenter().checkPasswordEqual(inp_old_pwd.getInputString());
+            boolean flag = getPresenter().checkPasswordEqual(
+                    inp_old_pwd.getInputString().trim(),
+                    inp_new_pwd.getInputString().trim(),
+                    inp_confrim_pwd.getInputString().trim());
             if(flag){
                 BHWallet item = getPresenter().makeBhWallet(mCurrentWallet);
                 walletViewModel.updatePassword(this,inp_new_pwd.getInputString(),item);
             }
         }
-
     }
 
     private SimpleTextWatcher passwordTextWatcher = new SimpleTextWatcher(){
@@ -111,7 +130,8 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
             super.afterTextChanged(s);
             String oldPwd = inp_old_pwd.getInputString();
             String newPwd = inp_new_pwd.getInputString();
-            mPresenter.checkPasswordIsInput(btn_next,oldPwd,newPwd);
+            String newConfrimPwd = inp_confrim_pwd.getInputString();
+            mPresenter.checkPasswordIsInput(btn_next,oldPwd,newPwd,newConfrimPwd,pwd_tips_0,pwd_tips_1,pwd_tips_2,pwd_tips_3,pwd_tips_4);
         }
     };
 }

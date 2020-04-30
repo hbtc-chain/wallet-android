@@ -46,6 +46,7 @@ import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.tx.DoEntrustMsg;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.tx.ValidatorMsg;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -434,24 +435,55 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         }
     }
 
+
+    PasswordFragment.PasswordClickListener withDrawPwdListener = (password, position) -> {
+        if(position==1){
+            BHTransactionManager.loadSuquece(suquece -> {
+                List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
+                double all_reward = mPresenter.calAllReward(mRewardList);
+                BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
+
+                BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), "2",
+                        gasPrice, null, suquece);
+
+                transactionViewModel.sendTransaction(this, bhSendTranscation);
+                return 0;
+            });
+        }else if(position==2){
+            BHTransactionManager.loadSuquece(suquece -> {
+                BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+
+                List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
+                List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
+                BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
+                        "","2", gasPrice,null,suquece);
+                transactionViewModel.sendTransaction(this,bhSendTranscation);
+                return 0;
+            });
+        }
+
+    };
+
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        BHTransactionManager.loadSuquece(suquece -> {
+        /*BHTransactionManager.loadSuquece(suquece -> {
             List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
             double all_reward = mPresenter.calAllReward(mRewardList);
-            BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+            BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
 
-            BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs,String.valueOf(all_reward),"2",
-                    gasPrice,null,suquece);
+            BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), "2",
+                    gasPrice, null, suquece);
 
-            transactionViewModel.sendTransaction(this,bhSendTranscation);
+            transactionViewModel.sendTransaction(this, bhSendTranscation);
             return 0;
-        });
+        });*/
+
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,1);
     });
 
     //发送复投分红交易
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
-        BHTransactionManager.loadSuquece(suquece -> {
+        /*BHTransactionManager.loadSuquece(suquece -> {
             BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
 
             List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
@@ -460,8 +492,11 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                     "","2", gasPrice,null,suquece);
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
-        });
+        });*/
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,2);
+
     });
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

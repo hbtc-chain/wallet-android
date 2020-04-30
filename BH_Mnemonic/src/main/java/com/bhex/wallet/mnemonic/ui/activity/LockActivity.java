@@ -95,13 +95,13 @@ public class LockActivity extends BaseActivity<LoginPresenter> implements Addres
                 //ToastUtils.showToast("==loadingStatus==" + loadDataModel.loadingStatus);
             }
         });
-        inp_wallet_pwd.addTextWatch(new SimpleTextWatcher() {
+        /*inp_wallet_pwd.addTextWatch(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 super.afterTextChanged(s);
                 getPresenter().setButtonStatus(btn_confirm, inp_wallet_pwd.getInputString());
             }
-        });
+        });*/
 
     }
 

@@ -20,7 +20,14 @@ public abstract class BHBaseObserver<T>  implements Observer<T> {
 
     public Context context;
 
-    public boolean isNeedShowtoast = true;
+    public boolean isNeedShowtoast = false;
+
+    public BHBaseObserver() {
+    }
+
+    public BHBaseObserver(boolean isNeedShowtoast) {
+        this.isNeedShowtoast = isNeedShowtoast;
+    }
 
     @Override
     public void onNext(T t) {

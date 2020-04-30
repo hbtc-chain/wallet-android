@@ -2,6 +2,7 @@ package com.bhex.wallet.app;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.webkit.CookieManager;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -25,6 +26,7 @@ public class BHApplication extends BaseApplication {
         //AppFilePath.init(this);
         BHFilePath.initPath(this);
         //BlockCanary.install(this, new AppBlockCanaryContext()).start();
+
     }
 
     /*@Override
