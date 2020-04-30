@@ -78,6 +78,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
     List<ProposalInfo> mProposalInfoList;
 
     private int mCurrentPage = 1;
+    private int mQueryCurrentPage = 1;
 
     public ProposalFragment() {
         // Required empty public constructor
@@ -160,20 +161,29 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
                 updateOriginRecord(ldm.getData());
             } else {
                 smartRefreshLayout.finishLoadMore(false);
-                empty_layout.showNeterror(view -> {
 
-                });
+
+                if(mOriginProposalInfoList==null || mOriginProposalInfoList.size()==0){
+                    empty_layout.showNeterror(new EmptyLayout.onReloadClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            getRecord(true, mQueryCurrentPage);
+                        }
+                    });
+                }
             }
         });
         smartRefreshLayout.setOnRefreshListener(refreshLayout1 -> {
+            mQueryCurrentPage = 1;
             mCurrentPage = 1;
             smartRefreshLayout.resetNoMoreData();
-            getRecord(false, mCurrentPage);
+            getRecord(false, mQueryCurrentPage);
         });
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                getRecord(false, mCurrentPage + 1);
+                mQueryCurrentPage = mCurrentPage + 1;
+                getRecord(false, mQueryCurrentPage);
 
             }
         });
@@ -192,9 +202,10 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         }).sample(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
             @Override
             public void accept(String value) {
+                mQueryCurrentPage = 1;
                 mCurrentPage = 1;
                 smartRefreshLayout.resetNoMoreData();
-                getRecord(true, mCurrentPage);
+                getRecord(true, mQueryCurrentPage);
 
             }
         });
