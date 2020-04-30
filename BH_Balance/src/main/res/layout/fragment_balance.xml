@@ -132,6 +132,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_address">
 
                 <RelativeLayout
+                    android:background="@mipmap/bg_asset_card"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
