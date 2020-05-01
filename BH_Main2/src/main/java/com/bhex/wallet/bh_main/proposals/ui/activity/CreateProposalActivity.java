@@ -38,6 +38,7 @@ import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -55,7 +56,7 @@ import butterknife.OnClick;
  * 发起提案
  */
 @Route(path = ARouterConfig.Create_Proposal)
-public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter> {
+public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter>  implements PasswordFragment.PasswordClickListener {
 
     @BindView(R2.id.ed_proposal_title)
     AppCompatEditText ed_proposal_title;
@@ -180,21 +181,9 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
-        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
-        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-        String amount = ed_pledge_amount.ed_input.getText().toString();
-        String title = ed_proposal_title.getText().toString().trim();
-        String desc = ed_description.getText().toString().trim();
-        String feeAmount = ed_fee.ed_input.getText().toString();
-
-
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.createProposal(delegator_address,BHConstants.TextProposalType,title,desc, amount, feeAmount,
-                    gasPrice,null, suquece, token);
-            mProposalViewModel.sendCreatePorposal(this, bhSendTranscation);
-            return 0;
-        });
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+                PasswordFragment.class.getName(),
+                this,0);
     }
 
 
@@ -230,4 +219,23 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
     }
 
 
+    @Override
+    public void confirmAction(String password, int position) {
+
+        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
+        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
+        String amount = ed_pledge_amount.ed_input.getText().toString();
+        String title = ed_proposal_title.getText().toString().trim();
+        String desc = ed_description.getText().toString().trim();
+        String feeAmount = ed_fee.ed_input.getText().toString();
+
+
+        BHTransactionManager.loadSuquece(suquece -> {
+            BHSendTranscation bhSendTranscation = BHTransactionManager.createProposal(delegator_address,BHConstants.TextProposalType,title,desc, amount, feeAmount,
+                    gasPrice,null, suquece, token);
+            mProposalViewModel.sendCreatePorposal(this, bhSendTranscation);
+            return 0;
+        });
+    }
 }

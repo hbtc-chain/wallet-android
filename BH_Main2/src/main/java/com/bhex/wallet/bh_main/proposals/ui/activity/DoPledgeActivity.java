@@ -34,6 +34,7 @@ import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -51,7 +52,7 @@ import butterknife.OnClick;
  * 质押
  */
 @Route(path = ARouterConfig.Do_Pledge)
-public class DoPledgeActivity extends BaseActivity<DoPledgePresenter> {
+public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implements PasswordFragment.PasswordClickListener {
 
     @Autowired(name = "proposalInfo")
     ProposalInfo mProposalInfo;
@@ -171,19 +172,9 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter> {
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
-        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
-        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-        String pledgeAmount = ed_pledge_amount.ed_input.getText().toString();
-        String feeAmount = ed_fee.ed_input.getText().toString();
-
-
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.doPledge(delegator_address,mProposalInfo.getId(), pledgeAmount, feeAmount,
-                    gasPrice, null, suquece, token);
-            mProposalViewModel.sendDoPledge(this, bhSendTranscation);
-            return 0;
-        });
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+                PasswordFragment.class.getName(),
+                this,0);
     }
 
 
@@ -219,4 +210,21 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter> {
     }
 
 
+    @Override
+    public void confirmAction(String password, int position) {
+
+        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
+        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
+        String pledgeAmount = ed_pledge_amount.ed_input.getText().toString();
+        String feeAmount = ed_fee.ed_input.getText().toString();
+
+
+        BHTransactionManager.loadSuquece(suquece -> {
+            BHSendTranscation bhSendTranscation = BHTransactionManager.doPledge(delegator_address,mProposalInfo.getId(), pledgeAmount, feeAmount,
+                    gasPrice, null, suquece, token);
+            mProposalViewModel.sendDoPledge(this, bhSendTranscation);
+            return 0;
+        });
+    }
 }

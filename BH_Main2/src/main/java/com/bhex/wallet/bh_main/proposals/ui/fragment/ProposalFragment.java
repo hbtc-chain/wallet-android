@@ -78,6 +78,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
     List<ProposalInfo> mProposalInfoList;
 
     private int mCurrentPage = 1;
+    private int mQueryCurrentPage = 1;
 
     public ProposalFragment() {
         // Required empty public constructor
@@ -97,10 +98,10 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         recycler_proposal.setNestedScrollingEnabled(true);
 
         mProposalViewModel = ViewModelProviders.of(this).get(ProposalViewModel.class);
+        mOriginProposalInfoList = new ArrayList<>();
         mProposalAdapter = new ProposalAdapter(R.layout.item_proposal, mOriginProposalInfoList);
 
         recycler_proposal.setAdapter(mProposalAdapter);
-
     }
 
     @Override
@@ -149,30 +150,40 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         mProposalViewModel.proposalLiveData.observe(this, ldm -> {
             smartRefreshLayout.finishRefresh();
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
-                if (ldm.getData() != null && ldm.getData().getProposals() != null) {
+                smartRefreshLayout.finishLoadMore(true);
+                if (ldm.getData() != null) {
+                    mCurrentPage = ldm.getData().getPage();
                     if (ldm.getData().getTotal() < mCurrentPage * ldm.getData().getPage_size()) {
-                        smartRefreshLayout.finishLoadMoreWithNoMoreData();
+                        smartRefreshLayout.setNoMoreData(true);
                     }
-                } else {
-                    smartRefreshLayout.finishLoadMore(true);
                 }
                 empty_layout.loadSuccess();
                 updateOriginRecord(ldm.getData());
             } else {
                 smartRefreshLayout.finishLoadMore(false);
-                empty_layout.showNeterror(view -> {
 
-                });
+
+                if(mOriginProposalInfoList==null || mOriginProposalInfoList.size()==0){
+                    empty_layout.showNeterror(new EmptyLayout.onReloadClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            getRecord(true, mQueryCurrentPage);
+                        }
+                    });
+                }
             }
         });
         smartRefreshLayout.setOnRefreshListener(refreshLayout1 -> {
+            mQueryCurrentPage = 1;
             mCurrentPage = 1;
-            getRecord(false, mCurrentPage);
+            smartRefreshLayout.resetNoMoreData();
+            getRecord(false, mQueryCurrentPage);
         });
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                getRecord(false, mCurrentPage + 1);
+                mQueryCurrentPage = mCurrentPage + 1;
+                getRecord(false, mQueryCurrentPage);
 
             }
         });
@@ -191,8 +202,10 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         }).sample(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
             @Override
             public void accept(String value) {
+                mQueryCurrentPage = 1;
                 mCurrentPage = 1;
-                getRecord(true, mCurrentPage);
+                smartRefreshLayout.resetNoMoreData();
+                getRecord(true, mQueryCurrentPage);
 
             }
         });
@@ -200,22 +213,20 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
 
     private void updateOriginRecord(ProposalQueryResult data) {
         if (data != null && data.getProposals() != null) {
-            if (data.getTotal() < mCurrentPage * data.getPage_size()) {
-                smartRefreshLayout.finishLoadMoreWithNoMoreData();
-            }
             if (data.getPage() == 1) {
-                mOriginProposalInfoList = data.getProposals();
+                mOriginProposalInfoList.clear();
+                mOriginProposalInfoList.addAll(data.getProposals());
             } else {
                 mOriginProposalInfoList.addAll(data.getProposals());
             }
-            mCurrentPage = data.getPage();
 
             if (mOriginProposalInfoList != null && mOriginProposalInfoList.size() > 0) {
                 empty_layout.loadSuccess();
             } else {
                 empty_layout.showNoData();
             }
-            mProposalAdapter.setNewData(mOriginProposalInfoList);
+            mProposalAdapter.notifyDataSetChanged();
+//            mProposalAdapter.setNewData(mOriginProposalInfoList);
         }
     }
 

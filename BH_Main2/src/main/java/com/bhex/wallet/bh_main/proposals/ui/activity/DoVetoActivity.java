@@ -32,6 +32,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -49,7 +50,7 @@ import butterknife.OnClick;
  * 投票
  */
 @Route(path = ARouterConfig.Do_Veto)
-public class DoVetoActivity extends BaseActivity<DoVetoPresenter> {
+public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements PasswordFragment.PasswordClickListener  {
 
     @Autowired(name = "proposalInfo")
     ProposalInfo mProposalInfo;
@@ -210,8 +211,8 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> {
         }
 
         if (vetoOption == BHConstants.VETO_OPTION_NOWITHVETO) {
-            iv_option_yes.setVisibility(View.GONE);
-            rl_yes_option.setBackgroundResource(R.drawable.bg_blue_corners);
+            iv_option_with_no_veto.setVisibility(View.GONE);
+            rl_no_with_veto_option.setBackgroundResource(R.drawable.bg_blue_corners);
             tv_option_no_with_veto.setTextColor(getResources().getColor(R.color.white));
         } else {
             iv_option_with_no_veto.setVisibility(View.VISIBLE);
@@ -232,18 +233,9 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> {
             return;
         }
 
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
-        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
-        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-        String feeAmount = ed_fee.ed_input.getText().toString();
-
-
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.doVeto(delegator_address, mProposalInfo.getId(), mOption, feeAmount,
-                    gasPrice,null, suquece, token);
-            mProposalViewModel.sendDoVeto(this, bhSendTranscation);
-            return 0;
-        });
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+                PasswordFragment.class.getName(),
+                this,0);
     }
 
     private void updateAssets(AccountInfo data) {
@@ -268,4 +260,19 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> {
     }
 
 
+    @Override
+    public void confirmAction(String password, int position) {
+        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
+        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
+        String feeAmount = ed_fee.ed_input.getText().toString();
+
+
+        BHTransactionManager.loadSuquece(suquece -> {
+            BHSendTranscation bhSendTranscation = BHTransactionManager.doVeto(delegator_address, mProposalInfo.getId(), mOption, feeAmount,
+                    gasPrice,null, suquece, token);
+            mProposalViewModel.sendDoVeto(this, bhSendTranscation);
+            return 0;
+        });
+    }
 }

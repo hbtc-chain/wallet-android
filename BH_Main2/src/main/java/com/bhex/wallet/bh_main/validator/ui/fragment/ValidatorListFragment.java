@@ -4,6 +4,7 @@ package com.bhex.wallet.bh_main.validator.ui.fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.lifecycle.ViewModelProviders;
@@ -87,14 +88,18 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
                 empty_layout.loadSuccess();
                 updateRecord(ldm.getData());
             } else {
-                empty_layout.showNeterror(view -> {
-
-                });
+                if(mOriginValidatorInfoList==null || mOriginValidatorInfoList.size()==0){
+                    empty_layout.showNeterror(new EmptyLayout.onReloadClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            getRecord(true);
+                        }
+                    });
+                }
             }
         });
-        getRecord();
         swipeRefresh.setOnRefreshListener(refreshLayout1 -> {
-            getRecord();
+            getRecord(false);
         });
         ed_search_content.addTextChangedListener(ValidatorTextWatcher);
         //点击事件
@@ -107,7 +112,10 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         });
     }
 
-    private void getRecord() {
+    private void getRecord(boolean showDialog) {
+        if (showDialog) {
+            empty_layout.showProgess();
+        }
         mValidatorViewModel.getValidatorInfos(getYActivity(),
                 mValidatorType);
     }
@@ -115,7 +123,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     @Override
     public void onResume() {
         super.onResume();
-        getRecord();
+        getRecord(true);
     }
 
     public void updateRecord(List<ValidatorInfo> datas) {

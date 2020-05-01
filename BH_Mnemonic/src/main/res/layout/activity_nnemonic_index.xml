@@ -53,7 +53,9 @@
         android:layout_marginEnd="@dimen/main_padding_left"
         android:insetBottom="0dp"
         android:insetTop="0dp"
-        app:backgroundTint="@color/dark20"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="@dimen/dp_2"
+        app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +63,7 @@
         app:cornerRadius="@dimen/main_radius_conner"
         android:text="@string/wallet_import_trusteeship"
         android:gravity="center"
-        style="@style/main_text_white"
+        style="@style/main_text_blue"
         android:layout_marginTop="16dp"
         />
 

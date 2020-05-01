@@ -108,6 +108,7 @@ public class EmptyLayout extends LinearLayout {
         empty_title.setVisibility(View.GONE);
         empty_sub_title.setVisibility(View.GONE);
         empty_progress.setVisibility(View.VISIBLE);
+        empty_bt_reload.setVisibility(GONE);
     }
 
     public static interface onReloadClickListener {
