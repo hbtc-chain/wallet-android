@@ -58,7 +58,7 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
 
     @Override
     protected void initView() {
-
+        mPresenter.setToolBarTitle();
     }
 
     @Override

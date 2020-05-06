@@ -40,7 +40,7 @@ import butterknife.OnClick;
  * @author gongdongyang
  * 2020-3-12
  */
-public class LockActivity extends BaseActivity<LoginPresenter> implements AddressFragment.AddressChangeListener {
+public class LockActivity extends BaseCacheActivity<LoginPresenter> implements AddressFragment.AddressChangeListener {
 
     @BindView(R2.id.tv_bh_address)
     AppCompatTextView tv_bh_address;

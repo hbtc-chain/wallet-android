@@ -83,7 +83,7 @@ public class BHWalletUtils {
     //助记词导入
     public static BHWallet importMnemonic(String path, List<String> list,String walletName,String pwd) {
 
-        String[] pathArray = path.split("/");
+        //String[] pathArray = path.split("/");
 
 
         String passphrase = "";
@@ -205,7 +205,7 @@ public class BHWalletUtils {
             //LogUtils.d(TAG+"==>:","bh_bech_pubkey:"+bh_bech_pubkey);
             //keystore存储
             String ks_path = save_keystore(walletFile,walletName);
-            String pk_str = keyPair.getPrivateKey().toString(16);
+            //String pk_str = keyPair.getPrivateKey().toString(16);
             //LogUtils.d(TAG+"==>:","pk_str:"+pk_str);
             //私钥加密
             String encryptPK = CryptoUtil.encryptPK(keyPair.getPrivateKey(),pwd);

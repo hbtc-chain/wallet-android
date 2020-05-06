@@ -2,6 +2,7 @@ package com.bhex.tools.crypto;
 
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
+import com.subgraph.orchid.encoders.Hex;
 
 import org.spongycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.utils.Numeric;
@@ -92,8 +93,10 @@ public class CryptoUtil {
     public static String encryptPK(BigInteger originPK, String pwd){
         String encrypt_PK = "";
         try{
-            byte []hex= HexUtils.toBytes(originPK.toString(16));
-            byte[] result = CryptoUtil.encrypt(hex,MD5.md5(pwd));
+            String pkHex16 = originPK.toString(16);
+            LogUtils.d("CryptoUtil==>:","pkHex16=="+pkHex16+" :length=:"+pkHex16.length());
+            byte []bytes = originPK.toByteArray();
+            byte[] result = CryptoUtil.encrypt(bytes,MD5.md5(pwd));
             encrypt_PK = HexUtils.toHex(result);
         }catch (Exception e){
             e.printStackTrace();
@@ -111,11 +114,13 @@ public class CryptoUtil {
         String decrypt = "";
         try{
             byte[] byte_pk = CryptoUtil.decrypt(HexUtils.toBytes(encryptPK),pwd);
-
             BigInteger big_pk = Numeric.toBigInt(byte_pk);
             decrypt = big_pk.toString(16);
-            //LogUtils.d("CryptoUtil==>:","decryptPK=hex==>:"+ Arrays.toString(byte_pk));
-            //LogUtils.d("CryptoUtil==>:","decryptPK=b==>:"+ big_pk.toString(16));
+
+            //BigInteger big_pk = Numeric.toBigInt(byte_pk);
+            //decrypt = big_pk.toString(16);
+            //LogUtils.d("CryptoUtil==>:","decryptPK=big_pk==>:"+ big_pk.toString());
+            //LogUtils.d("CryptoUtil==>:","decryptPK=big_pk=hex=>:"+ big_pk.toString(16));
         }catch (Exception e){
             e.printStackTrace();
         }

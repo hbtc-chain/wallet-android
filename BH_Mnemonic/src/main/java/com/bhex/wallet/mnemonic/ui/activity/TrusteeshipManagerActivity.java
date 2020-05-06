@@ -18,6 +18,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
@@ -194,16 +195,37 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
             //int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
             if (direction == SwipeRecyclerView.RIGHT_DIRECTION) {
-                walletViewModel.deleteWallet(TrusteeshipManagerActivity.this,bhWalletItem.id);
-                walletViewModel.mutableLiveData.observe(TrusteeshipManagerActivity.this,loadDataModel -> {
-                    if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
-                        mTrustManagerAdapter.getData().remove(position);
-                        mTrustManagerAdapter.notifyItemRemoved(position);
-                        mTrustManagerAdapter.notifyItemRangeChanged(position,mTrustManagerAdapter.getData().size()-position);
-                    }
-                });
+                deletBHWallet(bhWalletItem);
             }
         }
+    };
+
+
+    /**
+     * 删除托管单元
+     * @param bhWalletItem
+     */
+    private BHWalletItem deletBHWallet;
+    public void deletBHWallet(BHWalletItem bhWalletItem){
+
+        deletBHWallet = bhWalletItem;
+
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
+                passwordClickListener,0);
+    }
+
+    PasswordFragment.PasswordClickListener passwordClickListener = (password, position) -> {
+        if(deletBHWallet==null){
+            return;
+        }
+        walletViewModel.deleteWallet(TrusteeshipManagerActivity.this,deletBHWallet.id);
+        walletViewModel.mutableLiveData.observe(TrusteeshipManagerActivity.this,loadDataModel -> {
+            if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
+                mTrustManagerAdapter.getData().remove(position);
+                mTrustManagerAdapter.notifyItemRemoved(position);
+                mTrustManagerAdapter.notifyItemRangeChanged(position,mTrustManagerAdapter.getData().size()-position);
+            }
+        });
     };
 
 }

@@ -65,6 +65,8 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
     @Override
     protected void initView() {
+        mPresenter.setToolBarTitle();
+
         mOldPwd = BHUserManager.getInstance().getTmpBhWallet().getPassword();
         SpannableString highlightText = StringUtils.highlight(this,
                 getString(R.string.bh_register_agreement),
@@ -104,13 +106,23 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
             if (loadDataModel.loadingStatus== LoadingStatus.SUCCESS) {
                 if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.导入助记词.getWay()){
                     NavitateUtil.startMainActivity(this,new String[]{});
+                    ActivityCache.getInstance().finishActivity();
+                    ToastUtils.showToast("助记词导入成功");
+                }else if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.PK.getWay()){
+                    NavitateUtil.startMainActivity(this,new String[]{});
+                    ActivityCache.getInstance().finishActivity();
+                    ToastUtils.showToast("私钥导入成功");
                 }else{
                     NavitateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
                     ActivityCache.getInstance().finishActivity();
                 }
 
-            } else if(loadDataModel.loadingStatus== LoadingStatus.ERROR){
-                ToastUtils.showToast(getString(R.string.create_fail));
+            }else if(loadDataModel.loadingStatus== LoadingStatus.ERROR){
+                if(loadDataModel.code==1){
+                    ToastUtils.showToast("托管单元已存在");
+                }else{
+                    ToastUtils.showToast(getString(R.string.create_fail));
+                }
             }
         });
     }

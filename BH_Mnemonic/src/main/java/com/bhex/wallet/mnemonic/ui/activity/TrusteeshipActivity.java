@@ -3,6 +3,7 @@ package com.bhex.wallet.mnemonic.ui.activity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -19,6 +21,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
+import com.bhex.wallet.mnemonic.persenter.TrusteeshipPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,7 +32,7 @@ import butterknife.OnClick;
  * 创建托管单元`
  */
 @Route(path = ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST)
-public class TrusteeshipActivity extends BaseCacheActivity {
+public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter> {
 
     WalletViewModel walletViewModel;
 
@@ -51,8 +54,15 @@ public class TrusteeshipActivity extends BaseCacheActivity {
     }
 
     @Override
+    protected void initPresenter() {
+        mPresenter = new TrusteeshipPresenter(this);
+    }
+
+    @Override
     protected void initView() {
-        tv_center_title.setText(R.string.wallet_create_trusteeship);
+
+        LogUtils.d("TrusteeshipActivity===>:","way=="+BHUserManager.getInstance().getTmpBhWallet().getWay());
+        mPresenter.setToolBarTitle();
         inp_wallet_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         //inp_wallet_name.getEditText().setText("Bluehelix Wallet");
     }
@@ -77,6 +87,14 @@ public class TrusteeshipActivity extends BaseCacheActivity {
                 int count = inp_wallet_name.getInputString().length();
                 tv_wallet_name_count.setText(String.format(getString(R.string.pwd_index), count));
 
+            }
+        });
+
+        inp_wallet_name.getEditText().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                LogUtils.d("TrusteeshipActivit===","keyCode==="+KeyEvent.keyCodeToString(keyCode));
+                return false;
             }
         });
 

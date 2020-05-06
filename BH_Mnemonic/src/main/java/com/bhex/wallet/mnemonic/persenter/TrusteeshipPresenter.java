@@ -9,6 +9,8 @@ import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.utils.RegexUtil;
+import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
 
 /**
@@ -87,6 +89,21 @@ public class TrusteeshipPresenter extends BasePresenter {
         }else{
             btnNext.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
             btnNext.setEnabled(false);
+        }
+    }
+
+    /**
+     * 设置Toolbar标题
+     */
+    public void setToolBarTitle(){
+        AppCompatTextView tv_center_title = getActivity().findViewById(R.id.tv_center_title);
+        int way = BHUserManager.getInstance().getTmpBhWallet().way;
+        if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
+            tv_center_title.setText(getActivity().getResources().getString(R.string.wallet_create_trusteeship));
+        }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){
+            tv_center_title.setText(getActivity().getResources().getString(R.string.import_mnemonic));
+        }else if(way== MAKE_WALLET_TYPE.PK.getWay()){
+            tv_center_title.setText(getActivity().getResources().getString(R.string.import_private_key));
         }
     }
 }

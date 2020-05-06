@@ -115,4 +115,7 @@
     <color name="proposal_reject">#F73A46</color>
     <!--提案-募集失败-->
     <color name="proposal_failed">#6E8196</color>
+
+    <!--助记词错误-->
+    <color name="mnemonic_error">#ED3756</color>
 </resources>

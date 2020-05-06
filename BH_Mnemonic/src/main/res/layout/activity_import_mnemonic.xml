@@ -27,7 +27,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/imprt_mnemonic_tips"
+        android:id="@+id/import_mnemonic_tips"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,25 +43,28 @@
         style="@style/main_text_tips_style"
         />
 
+
+
     <LinearLayout
         android:id="@+id/layout_index_1"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:orientation="vertical"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_right"
-        app:layout_constraintTop_toBottomOf="@+id/imprt_mnemonic_tips"
+        app:layout_constraintTop_toBottomOf="@+id/import_mnemonic_tips"
         android:background="@color/input_background">
 
 
-        <androidx.appcompat.widget.AppCompatEditText
+       <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_mnemonic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
+            android:visibility="gone"
             android:textSize="15sp"
             android:gravity="top"
             android:hint="@string/mnemonic_input_hint"
@@ -71,9 +74,15 @@
             android:inputType="text"
             android:layout_marginBottom="30dp"
             android:textCursorDrawable="@null"
-            tools:text="sniff float truck talent walk search mad boat away fossil sleep dune">
+            android:text="burst clean range coral dumb produce spatial rare boat pottery virtual reveal"
+            tools:text="sniff float  talent walk search mad boat away fossil sleep dune">
 
         </androidx.appcompat.widget.AppCompatEditText>
+        
+        <com.bhex.lib.uikit.widget.MnemonicInputView
+            android:id="@+id/input_mnemonic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
 
