@@ -5,6 +5,7 @@
 
     <!-- Base application theme. -->
     <style name="BaseTheme" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:typeface">monospace</item> //隐藏状态栏
         <!-- Customize your theme here. -->
         <!--Appbar背景色-->
         <item name="colorPrimary">@color/colorPrimary</item>
