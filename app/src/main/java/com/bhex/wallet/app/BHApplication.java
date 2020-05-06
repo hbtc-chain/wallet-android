@@ -6,6 +6,7 @@ import android.webkit.CookieManager;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.manager.MMKVManager;
@@ -20,6 +21,7 @@ public class BHApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         SystemConfig.getInstance().init();
+        TypefaceUtils.replaceSystemDefaultFont(this);
         //夜间模式
         AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
 

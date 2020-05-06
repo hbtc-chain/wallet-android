@@ -12,6 +12,27 @@ public class TypefaceUtils {
 
 
     private static Hashtable<String, Typeface> fontCache = new Hashtable<String, Typeface>();
+
+    /**
+     * 全局字体替换
+     */
+    public static void replaceSystemDefaultFont(Context context) {
+        try {
+            Field defaultField = Typeface.class.getDeclaredField("MONOSPACE");
+            defaultField.setAccessible(true);
+            defaultField.set(null, get(context,"fonts/NotoSansSC-Regular.ttf"));
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+        }
+    }
+
+    /**
+     * 获取MPlus常规字体
+     */
+    public static Typeface getMediumNotoTypeface(Context context) {
+        return get(context,"fonts/NotoSansSC-Medium.ttf");
+    }
+
     /**
      * 获取MPlus常规字体
      */
@@ -46,5 +67,9 @@ public class TypefaceUtils {
 
     public static void setTextWeightTypeface(Context context,TextView textView) {
         textView.setTypeface(getTextWeightTypeface(context));
+    }
+
+    public static void setTextMediumNotoTypeface(Context context,TextView textView) {
+        textView.setTypeface(getMediumNotoTypeface(context));
     }
 }
