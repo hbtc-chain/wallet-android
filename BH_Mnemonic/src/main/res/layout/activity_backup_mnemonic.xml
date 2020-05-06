@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@mipmap/icon_back"
+        app:navigationIcon="@drawable/ic_back"
         app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
         app:titleTextAppearance="@style/Toolbar_textsize">
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/dp_8"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginBottom="8dp"
         android:text="@string/please_be_sure"
