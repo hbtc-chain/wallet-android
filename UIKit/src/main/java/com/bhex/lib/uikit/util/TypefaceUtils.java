@@ -68,4 +68,8 @@ public class TypefaceUtils {
     public static void setTextWeightTypeface(Context context,TextView textView) {
         textView.setTypeface(getTextWeightTypeface(context));
     }
+
+    public static void setTextMediumNotoTypeface(Context context,TextView textView) {
+        textView.setTypeface(getMediumNotoTypeface(context));
+    }
 }
