@@ -20,9 +20,9 @@
         android:paddingLeft="8dp"
         android:paddingRight="60dp"
         android:singleLine="true"
-        android:textSize="14sp"
-        android:textColor="@color/main_text_color"
-        android:textColorHint="@color/main_text_color"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/main_text_black"
+        android:textColorHint="@color/tip_text_color"
         android:textCursorDrawable="@null" />
 
 

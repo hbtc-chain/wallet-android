@@ -13,6 +13,8 @@
     <color name="theme_content">#ff3a476b</color>
     <color name="main_text_bright_gray">#BDC3C7</color>
     <color name="main_text_black">#0A1825</color>
+
+    <color name="secondary_text_black">#475563</color>
     <!--<color name="main_title_bar_black">#0A1825</color>-->
 
     <color name="viewBackground">@android:color/white</color>
