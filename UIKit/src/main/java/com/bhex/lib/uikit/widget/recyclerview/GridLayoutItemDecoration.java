@@ -62,7 +62,10 @@ public class GridLayoutItemDecoration extends RecyclerView.ItemDecoration {
      */
     private void drawVertical(Canvas canvas, RecyclerView parent) {
         int childCount = parent.getChildCount();
+        // 第一行，最后一行，第一列，最后一列不绘制
         for (int i = 0; i < childCount; i++) {
+            if(isLastColum(i,parent))
+                continue;
             View childView = parent.getChildAt(i);
 
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) childView.getLayoutParams();
@@ -87,6 +90,8 @@ public class GridLayoutItemDecoration extends RecyclerView.ItemDecoration {
     private void drawHorizontal(Canvas canvas, RecyclerView parent) {
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
+            if (isLastRow(i,parent))
+                continue;
             View childView = parent.getChildAt(i);
 
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) childView.getLayoutParams();

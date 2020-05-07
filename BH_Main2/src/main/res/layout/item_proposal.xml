@@ -7,12 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/main_padding_left"
-    android:layout_marginTop="6dp"
+    android:layout_marginTop="8dp"
     android:layout_marginEnd="@dimen/main_padding_right"
-    android:layout_marginBottom="6dp"
+    android:layout_marginBottom="8dp"
     app:cardBackgroundColor="@color/card_backgound"
     app:cardCornerRadius="10dp"
-    app:cardForegroundColor="@color/trans">
+    app:cardForegroundColor="@color/trans"
+    app:cardElevation="@dimen/dp_10">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,6 +95,7 @@
             android:layout_marginEnd="@dimen/main_margin_right"
             android:gravity="center_vertical"
             android:maxLines="3"
+            android:layout_marginTop="@dimen/dp_8"
             android:paddingTop="@dimen/dp_2"
             android:paddingBottom="@dimen/dp_2"
             android:textColor="@color/dark_blue"
@@ -111,7 +113,7 @@
             android:layout_marginTop="@dimen/dp_8"
             android:layout_marginEnd="@dimen/main_margin_right"
             android:background="@drawable/btn_border_corners_blue"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
             android:textColor="@color/blue"
