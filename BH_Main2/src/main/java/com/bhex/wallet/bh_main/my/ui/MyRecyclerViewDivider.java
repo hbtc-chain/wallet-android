@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.tools.utils.LogUtils;
 
 /**
@@ -28,6 +29,7 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
     private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
+    private Context mContext;
     /**
      * 默认分割线：高度为2px，颜色为灰色
      *
@@ -39,7 +41,7 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
             throw new IllegalArgumentException("请输入正确的参数！");
         }
         mOrientation = orientation;
-
+        mContext = context;
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -114,11 +116,11 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
         final int right = parent.getMeasuredWidth() - parent.getPaddingRight();
         final int childSize = parent.getChildCount();
         for (int i = 0; i < childSize; i++) {
+            final View child = parent.getChildAt(i);
+            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
+            final int top = child.getBottom() + layoutParams.bottomMargin;
             if(i==2) {
-
-                final View child = parent.getChildAt(i);
-                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-                final int top = child.getBottom() + layoutParams.bottomMargin;
+                mDividerHeight = PixelUtils.dp2px(mContext,8);
                 final int bottom = top + mDividerHeight;
                 if (mDivider != null) {
                     mDivider.setBounds(left, top, right, bottom);
@@ -127,7 +129,16 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
                 if (mPaint != null) {
                     canvas.drawRect(left, top, right, bottom, mPaint);
                 }
-
+            }else{
+                mDividerHeight = 1;
+                final int bottom = top + mDividerHeight;
+                if (mDivider != null) {
+                    mDivider.setBounds(left, top, right, bottom);
+                    mDivider.draw(canvas);
+                }
+                if (mPaint != null) {
+                    canvas.drawRect(left, top, right, bottom, mPaint);
+                }
             }
 
 

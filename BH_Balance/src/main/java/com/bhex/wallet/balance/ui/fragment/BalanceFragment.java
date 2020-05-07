@@ -88,6 +88,10 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @BindView(R2.id.tv_address)
     AppCompatTextView tv_address;
 
+    @BindView(R2.id.iv_paste)
+    AppCompatImageView iv_paste;
+
+
     @BindView(R2.id.iv_eye)
     AppCompatImageView iv_eye;
 
@@ -252,12 +256,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
 
-    @OnClick({R2.id.iv_eye,R2.id.tv_address,R2.id.iv_search,R2.id.ck_hidden_small})
+    @OnClick({R2.id.iv_eye,R2.id.tv_address,R2.id.iv_search,R2.id.ck_hidden_small,R2.id.iv_paste})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_eye){
             //隐藏资产
             mPresenter.hiddenAsset(getYActivity(),tv_asset,iv_eye,mBalanceAdapter);
-        }else if(view.getId()==R.id.tv_address){
+        }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(bhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));
         }else if(view.getId()==R.id.iv_search){

@@ -46,14 +46,15 @@
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/input_show"
-            android:layout_width="27dp"
+            android:layout_width="40dp"
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:background="@null"
             android:button="@drawable/btn_show"
             android:checked="false"
             android:gravity="center"
-            android:padding="6dp" />
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"/>
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatTextView

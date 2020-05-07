@@ -52,16 +52,16 @@
     <string name="setup_1_to_3">(第1步，共3步)</string>
     <string name="setup_2_to_3">(第2步，共3步)</string>
     <string name="setup_3_to_3">(第3步，共3步)</string>
-    <string name="set_pwd_tip_1">安全密码是保护钱包私钥和操作资产的重要凭证</string>
-    <string name="set_pwd_tip_2">BlueHelix钱包不会缓存、上传、存储您的密码</string>
-    <string name="set_pwd_tip_3">请务必妥善保管密码</string>
+    <string name="set_pwd_tip_1">·安全密码是保护钱包私钥和操作资产的重要凭证</string>
+    <string name="set_pwd_tip_2">·BlueHelix钱包不会缓存、上传、存储您的密码</string>
+    <string name="set_pwd_tip_3">·请务必妥善保管密码</string>
     <string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>
     <string name="pwd_index">%1$d个字符</string>
     <string name="pwd_rule_tip">为了保证您的资产安全，密码请包括：</string>
-    <string name="pwd_rule_tip_1">1个大写字母</string>
-    <string name="pwd_rule_tip_2">1个小写字母</string>
-    <string name="pwd_rule_tip_3">1个数字</string>
-    <string name="pwd_rule_tip_4">至少8位字符</string>
+    <string name="pwd_rule_tip_1">·1个大写字母</string>
+    <string name="pwd_rule_tip_2">·1个小写字母</string>
+    <string name="pwd_rule_tip_3">·1个数字</string>
+    <string name="pwd_rule_tip_4">·至少8位字符</string>
     <string name="set_username_tip">您正在创建BlueHelix钱包的托管单元，并将拥有一份跨链钱包</string>
     <string name="tips_secure">安全提醒</string>
     <string name="tips_secure_index_1">助记词可用于：</string>
@@ -144,9 +144,9 @@
     <string name="crosslink_address">跨链地址生成</string>
     <string name="cross_deposit">跨链充值</string>
     <string name="cross_withdraw">跨链提币</string>
-    <string name="crosslink_deposit_tip_2">请提醒转出方，务必使用OMNI钱包提币</string>
-    <string name="linkinner_deposit_tip_1">您正在进行托管单元链内收款(充币)</string>
-    <string name="linkinner_deposit_tip_2">请提醒转出方，务必使用非跨链的提币通道</string>
+    <string name="crosslink_deposit_tip_2">·请提醒转出方，务必使用OMNI钱包提币</string>
+    <string name="linkinner_deposit_tip_1">·您正在进行托管单元链内收款(充币)</string>
+    <string name="linkinner_deposit_tip_2">·请提醒转出方，务必使用非跨链的提币通道</string>
 
     <string name="validator_create">创建</string>
     <string name="title_validator">验证人</string>
@@ -192,10 +192,10 @@
     <string name="hint_input_token_name">请输入币种</string>
     <string name="all_asset">总资产</string>
     <string name="tips_backup">备份提示</string>
-    <string name="tips_trust_success_index_1">您将通过助记词备份钱包</string>
-    <string name="tips_trust_success_index_2">助记词为12个英文单词</string>
-    <string name="tips_trust_success_index_3">助记词可助您恢复钱包</string>
-    <string name="tips_trust_success_index_4">请务必牢记您的助记词</string>
+    <string name="tips_trust_success_index_1">·您将通过助记词备份钱包</string>
+    <string name="tips_trust_success_index_2">·助记词为12个英文单词</string>
+    <string name="tips_trust_success_index_3">·助记词可助您恢复钱包</string>
+    <string name="tips_trust_success_index_4">·请务必牢记您的助记词</string>
     <string name="tips_trust_success_index_5">请勿通过邮箱、通讯工具分享您的助记词</string>
     <string name="error_mnemonic_form">助记词格式错误</string>
     <string name="wallet_name">钱包名称</string>
@@ -203,6 +203,11 @@
     <string name="create_fail">创建失败</string>
     <string name="hint_input_username">请输入用户名称</string>
     <string name="please_input_password">请输入密码</string>
+
+    <string name="draw_coin_address">提币地址</string>
+    <string name="crosslink_deposit_tip_1">·您正在进行托管单元跨链收款(充币)</string>
+    <string name="link_outter_generating">跨链地址生成中...</string>
+    <string name="not_have_amount">没有可用HBC</string>
 
     <string name="mnemonic_backup_success">助记词备份成功</string>
     <string name="transfer_in_success">转账成功</string>

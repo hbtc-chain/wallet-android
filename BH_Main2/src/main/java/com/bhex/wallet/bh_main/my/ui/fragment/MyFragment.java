@@ -29,6 +29,7 @@ import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.WalletEvent;
+import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
@@ -104,7 +105,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         tv_username.setText(mBhWallet.getName());
         //tv_address.setText(mBhWallet.getAddress());
 
-        MyHelper.proccessAddress(tv_address,mBhWallet.getAddress());
+        AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
     }
 
 

@@ -72,10 +72,12 @@
                     <com.bhex.lib.uikit.widget.CustomTextView
                         android:id="@+id/tv_coin_amount"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="31dp"
+                        android:layout_marginTop="4dp"
                         android:text="0.00"
                         android:textColor="@color/asset_big_title_color"
                         android:textSize="26sp"
+                        android:gravity="center_vertical"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_hold_text" />
 
@@ -112,22 +114,22 @@
                         android:id="@+id/tv_available_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="16dp"
                         android:text="@string/available"
                         android:textColor="@color/main_text_color"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_coin_currency" />
+                        app:layout_constraintTop_toBottomOf="@+id/iv_coin_ic" />
 
                     <com.bhex.lib.uikit.widget.CustomTextView
                         android:id="@+id/tv_available_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="16dp"
                         android:textColor="@color/asset_title_color"
                         android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_coin_currency"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_coin_ic"
                         tools:text="3200000.00" />
 
                     <androidx.appcompat.widget.AppCompatTextView

@@ -2,8 +2,4 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="draw_coin_address">提币地址</string>
-    <string name="crosslink_deposit_tip_1">您正在进行托管单元跨链收款(充币)</string>
-    <string name="link_outter_generating">跨链地址生成中...</string>
-    <string name="not_have_amount">没有可用HBC</string>
 </resources>

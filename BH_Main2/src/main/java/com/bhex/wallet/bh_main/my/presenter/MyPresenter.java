@@ -2,6 +2,7 @@ package com.bhex.wallet.bh_main.my.presenter;
 
 import android.text.TextUtils;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.util.ColorUtil;
@@ -33,7 +34,7 @@ public class MyPresenter extends BasePresenter {
      * @param oldPwd
      * @param newPwd
      */
-    public void checkPasswordIsInput(MaterialButton mb, String oldPwd,String newPwd,String newConfrimPwd,AppCompatTextView... tv){
+    public void checkPasswordIsInput(AppCompatButton mb, String oldPwd, String newPwd, String newConfrimPwd, AppCompatTextView... tv){
         boolean flag = true;
         if(TextUtils.isEmpty(oldPwd)){
             /*mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.btn_disable_color));

@@ -183,25 +183,25 @@
     <style name="tx_cross_link_token">
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingBottom">2dp</item>
-        <item name="android:paddingStart">5dp</item>
-        <item name="android:paddingEnd">5dp</item>
+        <item name="android:paddingStart">3dp</item>
+        <item name="android:paddingEnd">3dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">10sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/dark_blue</item>
-        <item name="android:background">@color/dark_20_blue</item>
+        <item name="android:background">@drawable/shape_dark20_blue</item>
     </style>
 
     <style name="tx_status_success">
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingBottom">2dp</item>
-        <item name="android:paddingStart">5dp</item>
-        <item name="android:paddingEnd">5dp</item>
+        <item name="android:paddingStart">3dp</item>
+        <item name="android:paddingEnd">3dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">10sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/color_green</item>
-        <item name="android:background">@color/color_20_green</item>
+        <item name="android:background">@drawable/shape_20_green</item>
     </style>
 
     <style name="tx_status_fail">

@@ -99,22 +99,37 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_balance_txt" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_address"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/layout_address"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:drawableRight="@mipmap/ic_paste"
-                android:drawablePadding="8dp"
-                android:gravity="center"
-                android:textColor="#BFFFFFFF"
-                android:textSize="12sp"
-                android:visibility="gone"
                 android:layout_below="@+id/tv_balance_txt"
                 android:layout_alignLeft="@+id/tv_balance_txt"
-                app:layout_constraintStart_toStartOf="@+id/tv_balance_txt"
-                app:layout_constraintTop_toBottomOf="@+id/tv_balance_txt"
-                tools:text="2222eeeeeeeeee" />
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="#BFFFFFFF"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_vertical"
+                    app:layout_constraintStart_toStartOf="@+id/tv_balance_txt"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_balance_txt"
+                    tools:text="2222eeeeeeeeee" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_paste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_paste"
+                    android:padding="3dp"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/layout_balance"
@@ -123,7 +138,7 @@
                 android:layout_marginStart="@dimen/main_padding_left"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="@dimen/main_padding_right"
-                android:layout_below="@+id/tv_address"
+                android:layout_below="@+id/layout_address"
                 app:cardBackgroundColor="@color/card_backgound"
                 app:cardCornerRadius="10dp"
                 app:cardForegroundColor="@color/trans"

@@ -17,6 +17,7 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.utils.BHKey;
@@ -84,7 +85,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());
-        getPresenter().proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
+        AssetHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
     }
 
     @Override
@@ -134,7 +135,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
             mCurrentWallet = bhWallet;
             BHUserManager.getInstance().setCurrentBhWallet(mCurrentWallet);
             walletVM.updateWallet(this, mCurrentWallet, mCurrentWallet.id, BHWalletItem.SELECTED);
-            getPresenter().proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
+            AssetHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
             iv_username.setText(mCurrentWallet.getName());
         }
 

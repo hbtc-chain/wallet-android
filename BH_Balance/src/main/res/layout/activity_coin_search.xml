@@ -20,7 +20,8 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/input_hint_background">
+        android:background="@drawable/shape_input_corner">
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_search_ic"
@@ -52,8 +53,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/main_margin_top"
-        android:layout_marginStart="@dimen/main_padding_left"
-        android:layout_marginEnd="@dimen/main_padding_right"
         app:layout_constraintTop_toBottomOf="@+id/layout_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

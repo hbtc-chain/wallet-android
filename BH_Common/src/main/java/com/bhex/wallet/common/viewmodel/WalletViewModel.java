@@ -86,6 +86,8 @@ public class WalletViewModel extends ViewModel {
                 bhWallet.id = maxId+1;
                 int id = bhWalletDao.insert(bhWallet).intValue();
                 bhWallet.id = id;
+                //设置默认钱包
+
                 BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 emitter.onNext(bhWallet);
                 emitter.onComplete();

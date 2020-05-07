@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -52,7 +53,7 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
     InputView inp_confrim_pwd;
 
     @BindView(R2.id.btn_next)
-    MaterialButton btn_next;
+    AppCompatButton btn_next;
 
     @BindView(R2.id.pwd_tips_0)
     AppCompatTextView pwd_tips_0;
