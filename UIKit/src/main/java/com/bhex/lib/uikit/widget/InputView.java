@@ -150,7 +150,7 @@ public class InputView extends LinearLayout implements View.OnClickListener {
 
     private void setInputNoEditable(boolean editable) {
         mInputEd.setEnabled(editable);
-        mInputEd.setTextColor(ColorUtil.getColor(mContext,R.color.main_text_color));
+        mInputEd.setTextColor(ColorUtil.getColor(mContext,R.color.input_text_color));
     }
 
 

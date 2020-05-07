@@ -1,7 +1,6 @@
 package com.bhex.wallet.bh_main.ui.activity;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,13 +12,11 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.event.LanguageEvent;
-import com.bhex.wallet.common.event.ThemeEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -75,7 +72,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        LogUtils.d("MainActivity===>","==onRestoreInstanceState==");
+        //LogUtils.d("MainActivity===>","==onRestoreInstanceState==");
         if(savedInstanceState!=null){
             mCurrentCheckId = savedInstanceState.getInt("index",0);
             mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());

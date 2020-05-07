@@ -21,8 +21,8 @@
         android:paddingRight="60dp"
         android:singleLine="true"
         android:textSize="@dimen/sp_15"
-        android:textColor="@color/main_text_black"
-        android:textColorHint="@color/tip_text_color"
+        android:textColor="@color/input_text_color"
+        android:textColorHint="@color/input_hint_color"
         android:textCursorDrawable="@null" />
 
 

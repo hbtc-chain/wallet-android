@@ -4,6 +4,7 @@ package com.bhex.wallet.bh_main.my.ui.fragment;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,7 +61,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @BindView(R2.id.tv_address)
     AppCompatTextView tv_address;
 
-
+    @BindView(R2.id.iv_paste)
+    AppCompatImageView iv_paste;
 
     private List<MyItem> mItems;
 
@@ -130,11 +132,11 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         });
     }
 
-    @OnClick({R2.id.tv_setting, R2.id.iv_default_man,R2.id.tv_address})
+    @OnClick({R2.id.tv_setting, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.tv_setting){
             ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
-        }else if(view.getId()==R.id.tv_address){
+        }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(mBhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));
         }

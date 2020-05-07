@@ -32,9 +32,9 @@ public class LoginPresenter extends BasePresenter {
     public void proccessAddress(AppCompatTextView tv_address,String address){
         StringBuffer buf = new StringBuffer("");
         if(!TextUtils.isEmpty(address)){
-            buf.append(address.substring(0,15))
+            buf.append(address.substring(0,10))
                     .append("***")
-                    .append(address.substring(address.length()-8,address.length()));
+                    .append(address.substring(address.length()-10,address.length()));
             tv_address.setText(buf.toString());
         }
 

@@ -33,4 +33,9 @@
     <color name="tip_text_color">#6E8196</color>
 
     <color name="light_gray">#222D42</color>
+
+    <!--input hint颜色-->
+    <color name="input_hint_color">#6E8196</color>
+    <!--input text颜色-->
+    <color name="input_text_color">#B0BFDB</color>
 </resources>

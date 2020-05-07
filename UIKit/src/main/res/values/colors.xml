@@ -106,7 +106,10 @@
 
     <!--tips-->
     <color name="tip_text_color">#ACB5C3</color>
-
+    <!--input hint颜色-->
+    <color name="input_hint_color">#6E8196</color>
+    <!--input text颜色-->
+    <color name="input_text_color">#0A1825</color>
     <!--提案-质押募集中-->
     <color name="proposal_in_payment">#FF922E</color>
     <!--提案-投票中-->

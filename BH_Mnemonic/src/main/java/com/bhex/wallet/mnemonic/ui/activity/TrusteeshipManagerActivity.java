@@ -195,7 +195,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
             //int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
             if (direction == SwipeRecyclerView.RIGHT_DIRECTION) {
-                deletBHWallet(bhWalletItem);
+                deletBHWallet(bhWalletItem,position);
             }
         }
     };
@@ -206,12 +206,12 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
      * @param bhWalletItem
      */
     private BHWalletItem deletBHWallet;
-    public void deletBHWallet(BHWalletItem bhWalletItem){
+    public void deletBHWallet(BHWalletItem bhWalletItem,int position){
 
         deletBHWallet = bhWalletItem;
 
         PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
-                passwordClickListener,0);
+                passwordClickListener,position);
     }
 
     PasswordFragment.PasswordClickListener passwordClickListener = (password, position) -> {
