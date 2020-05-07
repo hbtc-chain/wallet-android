@@ -2,12 +2,14 @@ package com.bhex.wallet.bh_main.validator.ui.fragment;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -17,6 +19,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.presenter.ValidatorFragmentPresenter;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -34,13 +37,15 @@ import butterknife.OnClick;
 public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> {
 
 
-
-    @BindView(R2.id.tv_create_validator)
-    AppCompatTextView tv_create_validator;
+//
+//    @BindView(R2.id.tv_create_validator)
+//    AppCompatTextView tv_create_validator;
     @BindView(R2.id.tab)
     TabLayout tab;
     @BindView(R2.id.viewPager)
     ViewPager viewPager;
+    @BindView(R2.id.appBarLayout)
+    AppBarLayout appBarLayout;
 
     public ValidatorFragment() {
         // Required empty public constructor
@@ -58,6 +63,17 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
 
     @Override
     protected void addEvent() {
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            //verticalOffset是当前appbarLayout的高度与最开始appbarlayout高度的差，向上滑动的话是负数
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(verticalOffset<0){
+                    appBarLayout.setBackgroundColor(getResources().getColor(R.color.main_backgound));
+                } else {
+                    appBarLayout.setBackgroundResource(R.drawable.bg_validator_header);
+                }
+            }
+        });
     }
 
 
@@ -124,12 +140,12 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
         });
     }
 
-    @OnClick({R2.id.tv_create_validator})
-    public void onViewClicked(View view) {
-        if(view.getId()==R.id.tv_create_validator){
-
-        }
-    }
+//    @OnClick({R2.id.tv_create_validator})
+//    public void onViewClicked(View view) {
+//        if(view.getId()==R.id.tv_create_validator){
+//
+//        }
+//    }
 
 
 }

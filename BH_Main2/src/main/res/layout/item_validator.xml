@@ -7,12 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/main_padding_left"
-    android:layout_marginTop="6dp"
+    android:layout_marginTop="8dp"
     android:layout_marginEnd="@dimen/main_padding_right"
-    android:layout_marginBottom="6dp"
+    android:layout_marginBottom="8dp"
     app:cardBackgroundColor="@color/card_backgound"
     app:cardForegroundColor="@color/trans"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="@dimen/dp_10">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
@@ -28,7 +29,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_validator_name"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_32"
             tools:text="testseadgfasdxfvadsvgasdgasdgasdgasd111111"
             android:maxLines="1"
             android:ellipsize="end"
@@ -36,7 +37,7 @@
             app:layout_constraintEnd_toStartOf="@id/iv_status"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center_vertical"
+            android:gravity="top"
             android:textSize="17sp" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -44,18 +45,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
+            android:layout_marginTop="@dimen/dp_2"
             android:src="@mipmap/icon_validator_valid"
             android:tag="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_validator_name"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_validator_name"
             />
 
         <TextView
             android:id="@+id/title1"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.33"
+            app:layout_constraintWidth_percent="0.4"
             app:layout_constraintTop_toBottomOf="@id/tv_validator_name"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/dp_8"
@@ -67,7 +68,7 @@
             android:id="@+id/title2"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.33"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toEndOf="@id/title1"
             app:layout_constraintTop_toBottomOf="@id/tv_validator_name"
             android:layout_marginTop="@dimen/dp_8"
@@ -79,7 +80,7 @@
             android:id="@+id/title3"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.33"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toEndOf="@id/title2"
             app:layout_constraintTop_toBottomOf="@id/tv_validator_name"
             android:gravity="right"
@@ -93,7 +94,7 @@
             android:id="@+id/tv_voting_power_proportion"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_28"
-            app:layout_constraintWidth_percent="0.33"
+            app:layout_constraintWidth_percent="0.4"
             app:layout_constraintTop_toBottomOf="@id/title1"
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="center_vertical"
@@ -106,7 +107,7 @@
             android:id="@+id/tv_self_delegate_proportion"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_28"
-            app:layout_constraintWidth_percent="0.33"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toEndOf="@id/tv_voting_power_proportion"
             app:layout_constraintTop_toBottomOf="@id/title2"
             android:gravity="center_vertical"
@@ -126,7 +127,7 @@
             android:textSize="@dimen/sp_15"
             app:layout_constraintStart_toEndOf="@id/tv_self_delegate_proportion"
             app:layout_constraintTop_toBottomOf="@id/title3"
-            app:layout_constraintWidth_percent="0.33"
+            app:layout_constraintWidth_percent="0.3"
             tools:text="39.00%" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

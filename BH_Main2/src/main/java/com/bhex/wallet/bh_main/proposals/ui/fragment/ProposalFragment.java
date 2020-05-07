@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ import com.bhex.wallet.common.model.ProposalQueryResult;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.google.android.material.appbar.AppBarLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -77,6 +79,12 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
 
     @BindView(R2.id.empty_layout)
     EmptyLayout empty_layout;
+
+    @BindView(R2.id.appBarLayout)
+    AppBarLayout appBarLayout;
+    @BindView(R2.id.iv_proposal_header)
+    ImageView iv_proposal_header;
+
     ProposalViewModel mProposalViewModel;
     ProposalAdapter mProposalAdapter;
     List<ProposalInfo> mOriginProposalInfoList;
@@ -126,20 +134,17 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
 
     @Override
     protected void addEvent() {
-//        mProposalAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
-//            @Override
-//            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                List<ProposalInfo> data = adapter.getData();
-//                if (data != null) {
-//                    final ProposalInfo item = data.get(position);
-//                    if (view.getId() == R.id.tv_view) {
-//                        ARouter.getInstance().build(ARouterConfig.Proposal_Detail)
-//                                .withObject("proposalInfo", item)
-//                                .navigation();
-//                    }
-//                }
-//            }
-//        });
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            //verticalOffset是当前appbarLayout的高度与最开始appbarlayout高度的差，向上滑动的话是负数
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(verticalOffset<0){
+                    iv_proposal_header.setVisibility(View.GONE);
+                } else {
+                    iv_proposal_header.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         //点击事件
         mProposalAdapter.setOnItemClickListener((adapter, view, position) -> {
             List<ProposalInfo> data = mProposalAdapter.getData();

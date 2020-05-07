@@ -73,7 +73,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_proposal_title"
-                android:background="@color/input_hint_background"
+                android:background="@drawable/shape_input_corner"
                 android:hint="@string/hint_proposal_title"
                 android:textColorHint="@color/dark_blue"
                 android:textColor="@color/main_text_black"
@@ -104,7 +104,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_proposal_type"
-                android:background="@color/input_hint_background"
+                android:background="@drawable/shape_input_corner"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -162,7 +162,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_description"
-                android:background="@color/input_hint_background"
+                android:background="@drawable/shape_input_corner"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatEditText
@@ -175,7 +175,7 @@
                     android:layout_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@color/input_hint_background"
+                    android:background="@null"
                     android:hint="@string/hint_proposal_description"
                     android:textColorHint="@color/dark_blue"
                     android:textColor="@color/main_text_black"

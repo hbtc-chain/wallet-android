@@ -64,7 +64,10 @@
                 android:textColor="@color/main_text_black"
                 android:textSize="@dimen/sp_15"
                 android:letterSpacing="0.02"
-                android:padding="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_16"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>

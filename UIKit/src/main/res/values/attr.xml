@@ -20,6 +20,10 @@
     </declare-styleable>
 
 
+    <declare-styleable name="MnemonicTextViewExt">
+        <attr name="bgColor" format="reference|color" />
+    </declare-styleable>
+
     <declare-styleable name="With_Coin_Input">
         <attr name="rightColor" format="reference|color" />
         <attr name="rightText" format="reference|string"/>
