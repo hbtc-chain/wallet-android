@@ -62,7 +62,8 @@ public class ScreenShotTipsFragment extends BaseDialogFragment {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         params.width = dm.widthPixels;
-        params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 260);
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//        params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 248);
 
         window.setAttributes(params);
 

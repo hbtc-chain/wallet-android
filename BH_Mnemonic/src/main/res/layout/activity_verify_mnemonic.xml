@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@mipmap/icon_back"
+        app:navigationIcon="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
@@ -37,6 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:paddingStart="@dimen/main_padding_left"
         android:paddingEnd="@dimen/main_padding_right"
+        android:layout_marginTop="@dimen/dp_8"
         android:text="请按顺序点击助记词，填入下方表格中"
         style="@style/main_text_tips_style"
         />

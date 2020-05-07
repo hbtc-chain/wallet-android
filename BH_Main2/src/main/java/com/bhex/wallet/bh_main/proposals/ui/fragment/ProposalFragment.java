@@ -3,8 +3,13 @@ package com.bhex.wallet.bh_main.proposals.ui.fragment;
 
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -91,7 +96,6 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
 
     @Override
     protected void initView() {
-
         LinearLayoutManager layoutManager = new MyLinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_proposal.setLayoutManager(layoutManager);
