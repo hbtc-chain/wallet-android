@@ -262,7 +262,7 @@ public class BalancePresenter extends BasePresenter {
     public void hiddenAsset(BaseActivity context, AppCompatTextView tv_asset, AppCompatImageView eyeIv, BalanceAdapter balanceAdapter){
         String tag = (String) eyeIv.getTag();
         if(tag.equals("0")){
-            tv_asset.setText("*******");
+            tv_asset.setText("***");
             eyeIv.setTag("1");
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_close));
             balanceAdapter.setIsHidden("1");

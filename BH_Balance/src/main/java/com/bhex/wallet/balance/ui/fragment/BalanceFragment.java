@@ -247,7 +247,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         if(iv_eye.getTag().equals("0")){
             mPresenter.setTextFristSamll(tv_asset,allTokenAssetsText);
         }else{
-            tv_asset.setText("*******");
+            tv_asset.setText("***");
         }
     }
 

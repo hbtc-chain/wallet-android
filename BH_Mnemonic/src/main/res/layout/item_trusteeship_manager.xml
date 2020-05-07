@@ -16,11 +16,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_wallet_header"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_default_man"
-            tools:src="@mipmap/ic_default_man" />
+            android:src="@mipmap/ic_default_wallet"
+            tools:src="@mipmap/ic_default_wallet" />
 
         <View
             android:layout_width="match_parent"
@@ -35,15 +35,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
             android:layout_toRightOf="@+id/iv_wallet_header"
             >
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_wallet_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 style="@style/dialog_title_style"
                 android:textSize="17sp"
+                android:layout_marginBottom="4dp"
                 tools:text="Wallet 2" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -54,10 +55,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_toRightOf="@+id/tv_wallet_name"
                 android:background="#663375E0"
-                android:paddingStart="8dp"
-                android:paddingTop="3dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="3dp"
+                android:paddingStart="4dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="2dp"
+                android:layout_marginBottom="1dp"
                 android:text="@string/str_default"
                 android:textColor="@color/blue"
                 android:textSize="10sp"
@@ -70,7 +72,7 @@
                 android:layout_below="@+id/tv_wallet_name"
                 android:layout_alignLeft="@+id/tv_wallet_name"
                 android:textColor="@color/dark_blue"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 tools:text="0x7u4ser3n…a4mp6lfomp" />
 
 

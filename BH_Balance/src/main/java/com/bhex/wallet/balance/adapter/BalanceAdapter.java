@@ -44,7 +44,7 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
         AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
         iv.setImageResource(0);
-        LogUtils.d("BalanceAdapter===>:",balanceItem.symbol+"==resid=="+balanceItem.resId+"=logo="+balanceItem.logo);
+        //LogUtils.d("BalanceAdapter===>:",balanceItem.symbol+"==resid=="+balanceItem.resId+"=logo="+balanceItem.logo);
         if(balanceItem.resId==0){
             //LogUtils.d("BalanceAdapter=2==>:",balanceItem.symbol+"==resid=22="+balanceItem.resId);
             ImageLoaderUtil.loadImageView(getContext(),
@@ -79,8 +79,8 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
                         CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(getContext()).toUpperCase()).character+"0");
             }
         }else{
-            viewHolder.setText(R.id.tv_coin_amount, "******");
-            viewHolder.setText(R.id.tv_coin_count, "******");
+            viewHolder.setText(R.id.tv_coin_amount, "***");
+            viewHolder.setText(R.id.tv_coin_count, "***");
         }
 
         //标签

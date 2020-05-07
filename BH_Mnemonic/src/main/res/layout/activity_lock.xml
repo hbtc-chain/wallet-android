@@ -92,13 +92,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_confirm"
-            style="@style/main_btn_gray_disable"
+            style="@style/main_btn_blue_enable"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="@string/confirm"
-            app:backgroundTint="@color/blue"/>
+            app:elevation="0dp"
+            app:backgroundTint="@color/blue"
+            app:cornerRadius="@dimen/main_radius_conner"
+            android:backgroundTint="@color/blue"
+            />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatTextView

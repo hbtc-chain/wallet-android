@@ -204,7 +204,7 @@
                 android:layout_marginTop="12dp"
                 android:checked="false"
                 android:drawableLeft="@drawable/checkbox_style"
-                android:drawablePadding="2dp"
+                android:drawablePadding="4dp"
                 android:gravity="center_vertical"
                 android:text="@string/hidden_small_token"
                 android:textAppearance="@style/ck_hidden_small"
@@ -213,7 +213,7 @@
 
             <RelativeLayout
                 android:id="@+id/layout_search"
-                android:layout_width="150dp"
+                android:layout_width="120dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="@dimen/main_margin_right"
@@ -231,8 +231,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="4dp"
                     android:src="@mipmap/ic_search" />
 
                 <androidx.appcompat.widget.AppCompatEditText
