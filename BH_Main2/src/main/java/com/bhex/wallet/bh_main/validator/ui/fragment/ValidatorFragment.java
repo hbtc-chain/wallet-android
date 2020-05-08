@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bhex.lib.uikit.widget.GradientTabLayout;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.bh_main.R;
@@ -41,7 +42,7 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
 //    @BindView(R2.id.tv_create_validator)
 //    AppCompatTextView tv_create_validator;
     @BindView(R2.id.tab)
-    TabLayout tab;
+    GradientTabLayout tab;
     @BindView(R2.id.viewPager)
     ViewPager viewPager;
     @BindView(R2.id.appBarLayout)
@@ -121,7 +122,7 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
             }
         });
 
-        tab.setupWithViewPager(viewPager);
+        tab.setViewPager(viewPager);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
