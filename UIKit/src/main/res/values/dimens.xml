@@ -47,6 +47,7 @@
     <dimen name="sp_10">10sp</dimen>
     <dimen name="sp_17">17sp</dimen>
     <dimen name="dp_150">150dp</dimen>
+    <dimen name="sp_16">16sp</dimen>
 
 
 </resources>

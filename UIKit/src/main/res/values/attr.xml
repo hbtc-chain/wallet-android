@@ -3,8 +3,8 @@
     <declare-styleable name="InputView">
         <attr name="hint" format="reference|string" />
         <attr name="editable" format="reference|boolean" />
-        <attr name="textType" format="reference|integer" >
-            <enum name="silent" value="0"/>
+        <attr name="textType" format="reference|integer">
+            <enum name="silent" value="0" />
             <enum name="normal" value="1" />
             <enum name="password" value="2" />
         </attr>
@@ -16,18 +16,47 @@
 
     <declare-styleable name="Coin_Button">
         <attr name="actionImage" format="reference|integer" />
-        <attr name="actionText" format="reference|string"/>
+        <attr name="actionText" format="reference|string" />
     </declare-styleable>
 
 
     <declare-styleable name="MnemonicTextViewExt">
         <attr name="bgColor" format="reference|color" />
     </declare-styleable>
+    <declare-styleable name="GradientTabLayout">
+        <attr name="tl_indicator_color" />
+        <attr name="tl_indicator_height" />
+        <attr name="tl_indicator_width" />
+        <attr name="tl_indicator_margin_left" />
+        <attr name="tl_indicator_margin_top" />
+        <attr name="tl_indicator_margin_right" />
+        <attr name="tl_indicator_margin_bottom" />
+        <attr name="tl_indicator_corner_radius" />
+        <attr name="tl_indicator_gravity" />
+        <attr name="tl_indicator_style" />
+        <attr name="tl_indicator_width_equal_title" />
+        <attr name="tl_underline_color" />
+        <attr name="tl_underline_height" />
+        <attr name="tl_underline_gravity" />
+        <attr name="tl_divider_color" />
+        <attr name="tl_divider_width" />
+        <attr name="tl_divider_padding" />
+        <attr name="tl_tab_padding" />
+        <attr name="tl_tab_space_equal" />
+        <attr name="tl_tab_width" />
+        <attr name="tl_textsize" />
+        <attr name="tl_textSelectColor" />
+        <attr name="tl_textUnselectColor" />
+        <attr name="tl_textBold" />
+        <attr name="tl_textAllCaps" />
+        <attr name="indicator_start_color" format="color" />
+        <attr name="indicator_end_color" format="color" />
+    </declare-styleable>
 
     <declare-styleable name="With_Coin_Input">
         <attr name="rightColor" format="reference|color" />
-        <attr name="rightText" format="reference|string"/>
-        <attr name="leftHint" format="reference|string"/>
-        <attr name="leftText" format="reference|string"/>
+        <attr name="rightText" format="reference|string" />
+        <attr name="leftHint" format="reference|string" />
+        <attr name="leftText" format="reference|string" />
     </declare-styleable>
 </resources>

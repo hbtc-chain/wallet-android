@@ -78,25 +78,44 @@
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <com.google.android.material.tabs.TabLayout
+
+            <com.bhex.lib.uikit.widget.GradientTabLayout
                 android:id="@+id/tab"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_40"
-                android:layout_alignParentBottom="true"
+                app:tl_tab_space_equal="true"
+                app:tl_iconVisible="false"
                 android:paddingStart="@dimen/dp_8"
-                app:tabBackground="@color/main_backgound"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/blue"
-                app:tabIndicatorFullWidth="false"
-                app:tabIndicatorGravity="bottom"
-                app:tabIndicatorHeight="@dimen/tab_indicator_height"
-                app:tabPaddingEnd="@dimen/dp_16"
-                app:tabPaddingStart="@dimen/dp_16"
-                app:tabRippleColor="@color/trans"
-                app:tabSelectedTextColor="@color/main_text_black"
-                app:tabTextAppearance="@style/tabLayoutTextAppearance">
+                app:indicator_start_color="@color/blue"
+                app:indicator_end_color="@color/blue_0"
+                app:tl_indicator_corner_radius="0dp"
+                app:tl_indicator_height="@dimen/tab_indicator_height"
+                app:tl_indicator_width="@dimen/dp_16"
+                app:tl_indicator_gravity="BOTTOM"
+                app:tl_tab_padding="@dimen/dp_16"
+                app:tl_textSelectColor="@color/main_text_black"
+                app:tl_textUnselectColor="@color/dark_blue"
+                app:tl_textsize="@dimen/sp_16" />
 
-            </com.google.android.material.tabs.TabLayout>
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tab"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="@dimen/dp_40"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:paddingStart="@dimen/dp_8"-->
+<!--                app:tabBackground="@color/main_backgound"-->
+<!--                app:tabGravity="fill"-->
+<!--                app:tabIndicatorColor="@color/blue"-->
+<!--                app:tabIndicatorFullWidth="false"-->
+<!--                app:tabIndicatorGravity="bottom"-->
+<!--                app:tabIndicatorHeight="@dimen/tab_indicator_height"-->
+<!--                app:tabPaddingEnd="@dimen/dp_16"-->
+<!--                app:tabPaddingStart="@dimen/dp_16"-->
+<!--                app:tabRippleColor="@color/trans"-->
+<!--                app:tabSelectedTextColor="@color/main_text_black"-->
+<!--                app:tabTextAppearance="@style/tabLayoutTextAppearance">-->
+
+<!--            </com.google.android.material.tabs.TabLayout>-->
 
             <View
                 android:id="@+id/divider_line"

@@ -24,6 +24,7 @@
     <color name="light_gray">#E5EDFE</color>
 
     <color name="blue">#3375E0</color>
+    <color name="blue_0">#003375E0</color>
     <color name="dark_blue">#6E8196</color>
     <color name="dark_20_blue">#406E8196</color>
     <color name="light_blue">#E5EDFE</color>
@@ -77,7 +78,7 @@
     <color name="asset_title_color">#475563</color>
     <color name="asset_big_title_color">#475563</color>
     <!--分割线颜色-->
-    <color name="divider_line_color">#F9F9FB</color>
+    <color name="divider_line_color">#F4F7FF</color>
     <color name="main_text_color">#6E8196</color>
     <color name="theme_nav_title">@color/main_text_color</color>
     <!--顶部标题颜色-->
