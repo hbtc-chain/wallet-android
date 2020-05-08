@@ -54,7 +54,6 @@ public class WalletViewModel extends ViewModel {
         bhWalletDao = AppDataBase.getInstance(BaseApplication.getInstance()).bhWalletDao();
     }
 
-
     /**
      * 创建助记词并保存本地
      */
@@ -80,13 +79,15 @@ public class WalletViewModel extends ViewModel {
             try{
                 BHWallet bhWallet = BHWalletUtils.generateMnemonic(name,pwd);
                 int maxId = bhWalletDao.loadMaxId();
-                if(maxId==0){
-                    bhWallet.isDefault = 1;
-                }
+
                 bhWallet.id = maxId+1;
                 int id = bhWalletDao.insert(bhWallet).intValue();
-                bhWallet.id = id;
+
                 //设置默认钱包
+                //把所有设置非默认
+                int res = bhWalletDao.updateNoDefault(0);
+                //把bh_id设置默认
+                res = bhWalletDao.update(id,1);
 
                 BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 emitter.onNext(bhWallet);
@@ -117,7 +118,6 @@ public class WalletViewModel extends ViewModel {
                 super.onError(e);
             }
         };
-
 
         Observable.create((ObservableOnSubscribe<List<BHWallet>>)emitter -> {
             List<BHWallet> list = bhWalletDao.loadAll();
@@ -246,11 +246,15 @@ public class WalletViewModel extends ViewModel {
                     emitter.onComplete();
                 }else{
                     int maxId = bhWalletDao.loadMaxId();
-                    if(maxId==0){
-                        bhWallet.isDefault = 1;
-                    }
+
                     bhWallet.id = maxId+1;
                     int id = bhWalletDao.insert(bhWallet).intValue();
+
+                    //设置默认钱包
+                    //把所有设置非默认
+                    int res = bhWalletDao.updateNoDefault(0);
+                    //把bh_id设置默认
+                    res = bhWalletDao.update(id,1);
 
                     //更新当前默认钱包
                     List<BHWallet> allBhWallet = bhWalletDao.loadAll();
@@ -311,11 +315,15 @@ public class WalletViewModel extends ViewModel {
                     emitter.onComplete();
                 }else{
                     int maxId = bhWalletDao.loadMaxId();
-                    if(maxId==0){
-                        bhWallet.setIsDefault(1);
-                    }
+
                     bhWallet.id = maxId+1;
-                    int id = bhWalletDao.insert(bhWallet).intValue();
+                    int resId = bhWalletDao.insert(bhWallet).intValue();
+
+                    //设置默认钱包
+                    //把所有设置非默认
+                    resId = bhWalletDao.updateNoDefault(0);
+                    //把bh_id设置默认
+                    resId = bhWalletDao.update(bhWallet.id,1);
 
                     //更新当前默认钱包
                     List<BHWallet> allBhWallet = bhWalletDao.loadAll();

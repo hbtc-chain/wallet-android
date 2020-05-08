@@ -11,11 +11,14 @@ import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.ui.fragment.ScreenShotTipsFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -49,21 +52,19 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
 
     }
 
-
     @OnClick({R2.id.btn_at_once_backup, R2.id.btn_later_backup})
     public void onViewClicked(View view) {
         if(view.getId()== R.id.btn_at_once_backup){
             ScreenShotTipsFragment fragment = ScreenShotTipsFragment.showDialog(getSupportFragmentManager(),"");
             fragment.setIKnowListener(TrusteeshipSuccessActivity.this);
         }else if(view.getId()== R.id.btn_later_backup){
+
             if(BHUserManager.getInstance().getTargetClass()!=null &&
                     BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
-                ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
-            }else{
-                NavitateUtil.startMainActivity(this,
-                        new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
+                EventBus.getDefault().post(new AccountEvent());
             }
-
+            NavitateUtil.startMainActivity(this,
+                    new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
             ActivityCache.getInstance().finishActivity();
         }
 

@@ -140,15 +140,12 @@ public class BHUserManager {
         if(list==null || list.size()==0){
             return;
         }
-
         StringBuffer buffer = new StringBuffer("");
         for (BHBalance item:list) {
             buffer.append(item.symbol).append("_");
         }
-
         buffer.delete(buffer.length()-1,buffer.length());
-
-        LogUtils.d(TAG+"====>:",buffer.toString());
+        //LogUtils.d(TAG+"====>:",buffer.toString());
         String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
         MMKVManager.getInstance().mmkv().encode(key,buffer.toString());
     }

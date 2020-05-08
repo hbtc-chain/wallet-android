@@ -60,8 +60,7 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
 
     @Override
     protected void initView() {
-
-        LogUtils.d("TrusteeshipActivity===>:","way=="+BHUserManager.getInstance().getTmpBhWallet().getWay());
+        //LogUtils.d("TrusteeshipActivity===>:","way=="+BHUserManager.getInstance().getTmpBhWallet().getWay());
         mPresenter.setToolBarTitle();
         inp_wallet_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         //inp_wallet_name.getEditText().setText("Bluehelix Wallet");

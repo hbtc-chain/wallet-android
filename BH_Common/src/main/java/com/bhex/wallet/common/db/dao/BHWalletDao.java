@@ -52,6 +52,6 @@ public interface BHWalletDao {
     @Query("update tab_wallet set password=:pwdMd5 where id=:bh_id")
     int updatePassword(int bh_id, String pwdMd5);
 
-    @Query("update tab_wallet set isBackup=1 where id=:bh_id")
+    @Query("update tab_wallet set isBackup=1 where id=:bh_id ")
     int backupMnemonic(int bh_id);
 }

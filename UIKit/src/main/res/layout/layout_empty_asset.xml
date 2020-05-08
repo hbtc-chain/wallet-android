@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:drawableTop="@mipmap/ic_no_asset"
         android:drawablePadding="20dp"
-        android:text="暂无资产"
+        android:text="@string/no_asset"
         android:textSize="15sp"
         android:textColor="@color/tip_text_color"
         android:layout_gravity="center"

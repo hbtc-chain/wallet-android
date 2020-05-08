@@ -19,12 +19,15 @@ import com.bhex.tools.utils.StringUtils;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.persenter.TrusteeshipPresenter;
 import com.bhex.wallet.mnemonic.ui.fragment.GlobalTipsFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -107,10 +110,12 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                 if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.导入助记词.getWay()){
                     NavitateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
+                    EventBus.getDefault().post(new AccountEvent());
                     ToastUtils.showToast("助记词导入成功");
                 }else if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.PK.getWay()){
                     NavitateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
+                    EventBus.getDefault().post(new AccountEvent());
                     ToastUtils.showToast("私钥导入成功");
                 }else{
                     NavitateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);

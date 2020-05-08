@@ -28,9 +28,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="@dimen/main_padding_left"
-        android:paddingEnd="@dimen/main_padding_right"
-        >
-        
+        android:paddingEnd="@dimen/main_padding_right">
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/layout_transfer_out_tips"
             android:layout_width="match_parent"
@@ -60,7 +59,6 @@
                     android:textColor="@color/tranfer_stoke_text_color"
                     android:textSize="14sp"
                     android:text="@string/crosslink_withdraw_tip_1"
-                    android:drawableLeft="@drawable/ic_dot_blue"
                     android:drawablePadding="5dp"
                     android:layout_marginLeft="3dp"
                     android:lineSpacingExtra="5dp"
@@ -73,7 +71,6 @@
                     android:textColor="@color/tranfer_stoke_text_color"
                     android:textSize="14sp"
                     android:text="@string/crosslink_withdraw_tip_2"
-                    android:drawableLeft="@drawable/ic_dot_blue"
                     android:drawablePadding="5dp"
                     android:layout_marginLeft="3dp"
                     android:lineSpacingExtra="5dp"
@@ -83,11 +80,10 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_transfer_out_tips_3"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/tranfer_stoke_text_color"
                     android:textSize="14sp"
                     android:text="@string/crosslink_withdraw_tip_3"
-                    android:drawableLeft="@drawable/ic_dot_blue"
                     android:drawablePadding="5dp"
                     android:layout_marginLeft="3dp"
                     android:lineSpacingExtra="5dp"

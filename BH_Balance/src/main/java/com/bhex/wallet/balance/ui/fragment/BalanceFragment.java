@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
@@ -109,7 +111,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
 
-    private View mEmptyLayout;
+    @BindView(R2.id.empty_layout)
+    RelativeLayout empty_layout;
 
     private BalanceAdapter mBalanceAdapter;
 
@@ -174,9 +177,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
 
         ed_search_content.addTextChangedListener(balanceTextWatcher);
-
-        mEmptyLayout = LayoutInflater.from(getYActivity()).inflate(R.layout.layout_empty_asset,(ViewGroup) recycler_balance.getParent(),false);
-
     }
 
 
@@ -230,11 +230,13 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         tv_balance_txt2.setText(all_asset_label);
         mAccountInfo = accountInfo;
         List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
-        if(list==null || list.size()==0){
-            mBalanceAdapter.setEmptyView(mEmptyLayout);
-        }
+        /*if(list==null || list.size()==0){
+            //mBalanceAdapter.setEmptyView(mEmptyLayout);
+            empty_layout.setVisibility(View.VISIBLE);
+        }else{
+            empty_layout.setVisibility(View.GONE);
+        }*/
         mBalanceAdapter.notifyDataSetChanged();
-
         //计算每一个币种的资产价值 和 总资产
         updateTopTokenAssets();
     }
@@ -276,10 +278,13 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             List<BHBalance> result = mPresenter.hiddenSmallToken(getYActivity(),ck_hidden_small,mOriginBalanceList,searchText);
 
             if(result==null||result.size()==0){
-                mBalanceAdapter.setEmptyView(mEmptyLayout);
+                empty_layout.setVisibility(View.VISIBLE);
+            }else{
+                empty_layout.setVisibility(View.GONE);
             }
             mBalanceAdapter.getData().clear();
             mBalanceAdapter.addData(result);
+
         }
     }
 
@@ -312,7 +317,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             if(rv_index>=0){
                 mBalanceList.remove(rv_index);
                 if(mBalanceAdapter.getData().size()==0){
-                    mBalanceAdapter.setEmptyView(mEmptyLayout);
+                    empty_layout.setVisibility(View.VISIBLE);
+                }else{
+                    empty_layout.setVisibility(View.GONE);
                 }
                 mBalanceAdapter.notifyDataSetChanged();
             }
@@ -376,7 +383,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             List<BHBalance> result = mPresenter.hiddenSmallToken(getYActivity(),ck_hidden_small,mOriginBalanceList,searchContent);
 
             if(result==null||result.size()==0){
-                mBalanceAdapter.setEmptyView(mEmptyLayout);
+                empty_layout.setVisibility(View.VISIBLE);
+            }else{
+                empty_layout.setVisibility(View.GONE);
             }
             mBalanceAdapter.getData().clear();
             mBalanceAdapter.addData(result);

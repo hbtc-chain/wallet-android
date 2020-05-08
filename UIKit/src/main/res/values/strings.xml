@@ -129,13 +129,13 @@
     <string name="hidden_small_token">隐藏小额币种</string>
     <string name="transfer_address">转账地址</string>
     <string name="transfer_amount">转账数量</string>
-    <string name="crosslink_withdraw_tip_1">您正在进行托管单元跨链提币</string>
-    <string name="crosslink_withdraw_tip_2">请务必使用跨链提币的提币通道</string>
-    <string name="crosslink_withdraw_tip_3">请务必确认提币地址是该币的原生公链地址</string>
+    <string name="crosslink_withdraw_tip_1">·您正在进行托管单元跨链提币</string>
+    <string name="crosslink_withdraw_tip_2">·请务必使用跨链提币的提币通道</string>
+    <string name="crosslink_withdraw_tip_3">·请务必确认提币地址是该币的原生公链地址</string>
 
-    <string name="linkinner_withdraw_tip_1">您正在进行托管单元链内转账</string>
-    <string name="linkinner_withdraw_tip_2">请务必使用链内的转账通道</string>
-    <string name="linkinner_withdraw_tip_3">请务必确认转账地址以 HBC 为开端</string>
+    <string name="linkinner_withdraw_tip_1">·您正在进行托管单元链内转账</string>
+    <string name="linkinner_withdraw_tip_2">·请务必使用链内的转账通道</string>
+    <string name="linkinner_withdraw_tip_3">·请务必确认转账地址以 HBC 为开端</string>
     <string name="transfer_fee">交易手续费</string>
     <string name="withdraw_fee">提币手续费</string>
     <string name="BH_token">HBC</string>
@@ -293,6 +293,7 @@
     <string name="please_input_newpassword">请输入新密码</string>
     <string name="please_input_confrim_newpwd">请输入新密码确认</string>
     <string name="tip_two_password_equal">两次输入的新密码不一致</string>
+    <string name="no_asset">暂无资产</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

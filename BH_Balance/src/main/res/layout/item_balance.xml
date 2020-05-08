@@ -35,13 +35,12 @@
             android:id="@+id/tv_coin_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/main_text_black"
+            android:textSize="17sp"
+            android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="BTC"
-            android:textStyle="normal"
-            android:textSize="17sp"
-            android:textColor="@color/asset_big_title_color"
-            />
+            tools:text="BTC" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_coin_type"

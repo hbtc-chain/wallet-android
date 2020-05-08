@@ -105,7 +105,7 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume(){
-        beginReloadData();
+        //beginReloadData();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

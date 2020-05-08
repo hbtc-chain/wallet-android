@@ -144,7 +144,7 @@
                 app:cardForegroundColor="@color/trans"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_address">
+                app:layout_constraintTop_toBottomOf="@+id/layout_address">
 
                 <RelativeLayout
                     android:background="@mipmap/bg_asset_card"
@@ -278,20 +278,37 @@
                 style="@style/divider_line_style"
                 android:layout_below="@+id/ck_hidden_small"/>
 
-            <com.yanzhenjie.recyclerview.SwipeRecyclerView
-                android:id="@+id/recycler_balance"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:overScrollMode="never"
+                android:minHeight="300dp"
                 android:layout_below="@+id/view_divider_line"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small">
 
-            </com.yanzhenjie.recyclerview.SwipeRecyclerView>
+                <com.yanzhenjie.recyclerview.SwipeRecyclerView
+                    android:id="@+id/recycler_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:overScrollMode="never"
+                    android:layout_below="@+id/view_divider_line"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small">
 
+                </com.yanzhenjie.recyclerview.SwipeRecyclerView>
+
+                <include
+                    android:id="@+id/empty_layout"
+                    layout="@layout/layout_empty_asset"
+                    android:visibility="gone"
+                    />
+
+            </FrameLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -16,6 +16,7 @@ import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,6 +41,10 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     private long mExitTime = 0L;
 
     private int mCurrentCheckId = 0;
+
+    //是否复位
+    private static boolean isReset = false;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -49,17 +54,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     protected void initView() {
         RefreshLayoutManager.init();
         TRANSCATION_BUSI_TYPE.init(this);
-        //透明状态栏
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            try {
-                Class decorViewClazz = Class.forName("com.android.internal.policy.DecorView");
-                Field field = decorViewClazz.getDeclaredField("mSemiTransparentStatusBarColor");
-                field.setAccessible(true);
-                field.setInt(getWindow().getDecorView(), Color.TRANSPARENT);  //改为透明
-            } catch (Exception e) {}
-        }
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);*/
-        //getLifecycle().addObserver(getPresenter());
     }
 
     @Override
@@ -73,10 +67,12 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         //LogUtils.d("MainActivity===>","==onRestoreInstanceState==");
-        if(savedInstanceState!=null){
+        if(savedInstanceState!=null && !isReset){
             mCurrentCheckId = savedInstanceState.getInt("index",0);
-            mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
+            //mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
         }
+        mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
+
     }
 
     @Override
@@ -132,13 +128,15 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Subscribe(threadMode= ThreadMode.MAIN)
     public void changeLanguage(LanguageEvent language){
+        isReset = false;
         recreate();
     }
 
-    /*@Subscribe(threadMode= ThreadMode.MAIN)
-    public void changeTheme(ThemeEvent event){
-
-    }*/
+    @Subscribe(threadMode= ThreadMode.MAIN)
+    public void changeAccount(AccountEvent language){
+        isReset = true;
+        recreate();
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
