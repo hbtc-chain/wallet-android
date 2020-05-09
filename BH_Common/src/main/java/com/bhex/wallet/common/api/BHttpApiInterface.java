@@ -69,4 +69,11 @@ public interface BHttpApiInterface {
     @GET("api/v1/txs/{hash}")
     Observable<JsonObject> queryTranscationView(@Path("hash") String hash);
 
+    //检查更新
+    @GET("api/v1/app_version")
+    Observable<JsonObject> getUpgradeInfo(@Query("app_id") String app_id,
+                                   @Query("app_version") String app_version,
+                                   @Query("device_type") String device_type,
+                                   @Query("device_version") String device_version);
+
 }

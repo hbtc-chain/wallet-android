@@ -12,6 +12,7 @@ import com.bhex.wallet.BuildConfig;
 import com.bhex.wallet.base.BHNetwork;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.model.BHPhoneInfo;
 import com.facebook.stetho.Stetho;
 import com.tencent.mmkv.MMKV;
 
@@ -53,6 +54,7 @@ public class SystemConfig  {
 
     private void syncInit(){
         arouterInit();
+        BHPhoneInfo.initPhoneInfo(BaseApplication.getInstance());
         //异常处理
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(BHApplication.getInstance());

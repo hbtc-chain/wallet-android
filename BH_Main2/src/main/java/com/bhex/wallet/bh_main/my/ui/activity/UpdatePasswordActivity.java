@@ -96,10 +96,10 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletViewModel.walletLiveData.observe(this,loadDataModel -> {
             if(loadDataModel.loadingStatus== LoadingStatus.SUCCESS){
-                ToastUtils.showToast("密码修改成功");
+                ToastUtils.showToast(getResources().getString(R.string.password_update_success));
                 finish();
             }else{
-                ToastUtils.showToast("密码修改失败");
+                ToastUtils.showToast(getResources().getString(R.string.password_update_fail));
             }
         });
 

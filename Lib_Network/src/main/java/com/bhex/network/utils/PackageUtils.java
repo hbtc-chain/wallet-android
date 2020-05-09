@@ -70,4 +70,21 @@ public class PackageUtils {
         }
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static String getApplicationId(Context context) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_CONFIGURATIONS);
+            ApplicationInfo info = pi.applicationInfo;
+            return info.processName;
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtils.e("VersionName"+ "Exception");
+            return "";
+        }
+    }
+
 }

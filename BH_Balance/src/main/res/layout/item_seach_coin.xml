@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="BTC"
         android:textSize="17sp"
-        android:textColor="@color/asset_big_title_color"
+        android:textColor="@color/main_text_black"
         app:layout_constraintStart_toEndOf="@+id/iv_coin_ic"
         app:layout_constraintBottom_toTopOf="@+id/tv_coin_full"
         app:layout_constraintVertical_chainStyle="packed"

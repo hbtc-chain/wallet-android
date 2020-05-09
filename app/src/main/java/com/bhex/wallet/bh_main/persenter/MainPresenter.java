@@ -2,15 +2,21 @@ package com.bhex.wallet.bh_main.persenter;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.os.SystemClock;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.bhex.network.base.LoadDataModel;
+import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.balance.ui.fragment.BalanceFragment;
@@ -19,12 +25,18 @@ import com.bhex.wallet.bh_main.my.ui.fragment.MyFragment;
 import com.bhex.wallet.bh_main.order.ui.fragment.OrderFragment;
 import com.bhex.wallet.bh_main.proposals.ui.fragment.ProposalFragment;
 import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorFragment;
+import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.model.BHPhoneInfo;
+import com.bhex.wallet.common.model.UpgradeInfo;
+import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
+import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
 import com.bhex.wallet.mnemonic.ui.fragment.SecureTipsFragment;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.functions.Consumer;
@@ -39,6 +51,7 @@ public class MainPresenter extends BasePresenter {
         super(activity);
     }
 
+    private UpgradeViewModel mUpgradeVM;
 
     @Override
     public void onCreate(@NotNull LifecycleOwner owner) {
@@ -49,7 +62,64 @@ public class MainPresenter extends BasePresenter {
         if(BHConstants.LATER_BACKUP.equals(isBackUp)){
             SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),"");
         }
+
     }
+
+    @Override
+    public void onStart(@NotNull LifecycleOwner owner) {
+        super.onStart(owner);
+
+        //
+        mUpgradeVM = ViewModelProviders.of(getActivity()).get(UpgradeViewModel.class);
+        //升级请求
+        mUpgradeVM.upgradeLiveData.observe(getActivity(),ldm->{
+            processUpgradeInfo(ldm);
+        });
+        mUpgradeVM.getUpgradeInfo(getActivity());
+
+
+    }
+
+    /**
+     * 处理升级请求
+     */
+    private void processUpgradeInfo(LoadDataModel<UpgradeInfo> ldm) {
+        if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+            UpgradeInfo upgradeInfo = ldm.getData();
+            upgradeInfo.needUpdate = true;
+            if(upgradeInfo.needUpdate){
+                showUpgradeDailog(upgradeInfo);
+            }
+        }else if(ldm.loadingStatus== LoadingStatus.ERROR){
+
+        }
+    }
+
+    /**
+     * 显示升级对话框
+     */
+    private void showUpgradeDailog(UpgradeInfo upgradeInfo){
+        //是否强制升级
+        if(upgradeInfo.needForceUpdate){
+            //
+            UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo.newFeatures,dialogOnClickListener);
+            fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
+        }else{
+            long lastTime = MMKVManager.getInstance().mmkv().decodeLong(BHPhoneInfo.appVersion, 0);
+            boolean isToday = DateUtil.isToday(lastTime);
+            if(!isToday){
+                UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo.newFeatures,dialogOnClickListener);
+                fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
+                MMKVManager.getInstance().mmkv().encode(BHPhoneInfo.appVersion, new Date().getTime());
+            }
+        }
+    }
+
+    UpgradeFragment.DialogOnClickListener dialogOnClickListener = v -> {
+        ToastUtils.showToast("=dialogOnClickListener=");
+        //下载升级
+
+    };
 
     @Override
     public void onResume(@NotNull LifecycleOwner owner) {
@@ -129,4 +199,6 @@ public class MainPresenter extends BasePresenter {
         }
 
     }
+
+
 }

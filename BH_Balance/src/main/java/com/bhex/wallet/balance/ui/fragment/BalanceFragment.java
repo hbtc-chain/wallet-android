@@ -310,6 +310,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             }else{
                 mBalanceList.add(balance);
             }
+            empty_layout.setVisibility(View.GONE);
             mBalanceAdapter.notifyDataSetChanged();
         }else{
             int rv_index= mPresenter.getIndexByCoin(mBalanceList,event.bhCoinItem);

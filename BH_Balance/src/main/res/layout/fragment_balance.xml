@@ -11,19 +11,16 @@
     <com.bhex.lib.uikit.widget.StatusBarView
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:background="@color/blue_356AFC"
+        android:layout_height="0dp"
+        android:background="@color/trans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/status_bar"
         >
 
     <androidx.core.widget.NestedScrollView
@@ -32,8 +29,8 @@
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status_bar">
+        app:layout_constraintStart_toStartOf="parent">
+
 
 
         <RelativeLayout
@@ -51,12 +48,14 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="44dp"
+                android:layout_marginTop="25dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
                 app:titleTextAppearance="@style/Toolbar_textsize"
                 xmlns:tools="http://schemas.android.com/tools">
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_center_title"
                     android:layout_width="wrap_content"

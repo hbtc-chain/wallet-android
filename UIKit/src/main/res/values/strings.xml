@@ -294,6 +294,10 @@
     <string name="please_input_confrim_newpwd">请输入新密码确认</string>
     <string name="tip_two_password_equal">两次输入的新密码不一致</string>
     <string name="no_asset">暂无资产</string>
+    <string name="password_update_success">密码修改成功</string>
+    <string name="password_update_fail">密码修改失败</string>
+    <string name="sure">确定</string>
+    <string name="safe_setting">安全设置</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

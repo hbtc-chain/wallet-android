@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.network.mvx.base.BaseActivity;
@@ -19,6 +20,7 @@ import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     //是否复位
     private static boolean isReset = false;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -59,25 +62,21 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        //LogUtils.d("MainActivity===>","==onRestoreInstanceState==");
         if(savedInstanceState!=null && !isReset){
             mCurrentCheckId = savedInstanceState.getInt("index",0);
             //mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
         }
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
-
     }
 
     @Override
     protected void addEvent() {
-
         EventBus.getDefault().register(this);
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -102,6 +101,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         });
 
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
+
+
     }
 
     @Override
@@ -152,7 +153,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        //LogUtils.d("MainActivity===>","==outState=="+outState);
         outState.putInt("index",mCurrentCheckId);
     }
 }

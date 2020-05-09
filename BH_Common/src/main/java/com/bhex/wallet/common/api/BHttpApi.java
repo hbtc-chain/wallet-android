@@ -2,6 +2,7 @@ package com.bhex.wallet.common.api;
 
 import com.bhex.network.base.NetworkApi;
 import com.bhex.tools.utils.DateUtil;
+import com.bhex.wallet.common.interceptor.AuthInterceptor;
 
 import java.io.IOException;
 
@@ -36,7 +37,7 @@ public class BHttpApi extends NetworkApi {
 
     @Override
     protected Interceptor getInterceptor() {
-        return new Interceptor() {
+        /*return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 String timeStr = DateUtil.getTimeStr();
@@ -45,7 +46,8 @@ public class BHttpApi extends NetworkApi {
                 builder.addHeader("Date", timeStr);
                 return chain.proceed(builder.build());
             }
-        };
+        };*/
+        return new AuthInterceptor();
     }
 
 

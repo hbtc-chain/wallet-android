@@ -26,19 +26,6 @@ public class LoginPresenter extends BasePresenter {
         super(activity);
     }
 
-    /**
-     * 地址掩码
-     */
-    public void proccessAddress(AppCompatTextView tv_address,String address){
-        StringBuffer buf = new StringBuffer("");
-        if(!TextUtils.isEmpty(address)){
-            buf.append(address.substring(0,10))
-                    .append("***")
-                    .append(address.substring(address.length()-10,address.length()));
-            tv_address.setText(buf.toString());
-        }
-
-    }
 
     /**
      * 设置按钮的状态
