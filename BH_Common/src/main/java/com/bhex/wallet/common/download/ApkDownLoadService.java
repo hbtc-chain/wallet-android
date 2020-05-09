@@ -24,5 +24,6 @@ public class ApkDownLoadService  extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         this.dlInfo = (DownloadInfo) intent.getSerializableExtra("taskInfo");
+
     }
 }
