@@ -24,4 +24,6 @@ public class UpgradeInfo {
     @SerializedName("new_features")
     public String newFeatures;
 
+    public String apkVersion;
+
 }

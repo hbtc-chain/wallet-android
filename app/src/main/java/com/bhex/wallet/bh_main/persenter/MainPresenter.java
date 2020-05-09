@@ -102,15 +102,14 @@ public class MainPresenter extends BasePresenter {
         //是否强制升级
         if(upgradeInfo.needForceUpdate){
             //
-            UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo.newFeatures,dialogOnClickListener);
+            UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo,dialogOnClickListener);
             fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
         }else{
             long lastTime = MMKVManager.getInstance().mmkv().decodeLong(BHPhoneInfo.appVersion, 0);
-            boolean isToday = DateUtil.isToday(lastTime);
-            if(!isToday){
-                UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo.newFeatures,dialogOnClickListener);
+            long diff = DateUtil.getDaysBetweenDate(System.currentTimeMillis(),lastTime);
+            if(diff>1){
+                UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo,dialogOnClickListener);
                 fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
-                MMKVManager.getInstance().mmkv().encode(BHPhoneInfo.appVersion, new Date().getTime());
             }
         }
     }

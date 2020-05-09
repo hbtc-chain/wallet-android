@@ -14,8 +14,14 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application>
-        <activity android:name=".ui.activity.BHQrScanActivity"
+        <activity
+            android:name=".ui.activity.BHQrScanActivity"
             android:screenOrientation="portrait"
+            />
+
+        <service
+            android:name=".download.ApkDownLoadService"
+            android:exported="false"
             />
     </application>
 
