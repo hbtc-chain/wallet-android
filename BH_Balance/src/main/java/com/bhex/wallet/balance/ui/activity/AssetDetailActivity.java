@@ -226,7 +226,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
                 this,LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(this,24),0,
-                ColorUtil.getColor(this,R.color.divider_line_color));
+                ColorUtil.getColor(this,R.color.global_divider_color));
 
         recycler_order.addItemDecoration(ItemDecoration);
     }

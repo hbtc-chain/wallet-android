@@ -74,7 +74,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
         SpannableString highlightText = StringUtils.highlight(this,
                 getString(R.string.bh_register_agreement),
                 getString(R.string.bh_register_agreement_sub),
-                R.color.blue,
+                R.color.highlight_text_color,
                 0, 0);
         tv_agreement.setText(highlightText);
     }

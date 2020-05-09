@@ -3,7 +3,6 @@ package com.bhex.lib.uikit.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
@@ -60,7 +59,7 @@ public class MnemonicTextViewExt extends RelativeLayout {
         mBtnDelete = mRootLayout.findViewById(R.id.btn_delete);
         TypedArray ta = mContext.obtainStyledAttributes(attrs,R.styleable.MnemonicTextViewExt);
 
-        int bgColor = ta.getColor(R.styleable.MnemonicTextViewExt_bgColor, ContextCompat.getColor(mContext,R.color.input_background));
+        int bgColor = ta.getColor(R.styleable.MnemonicTextViewExt_bgColor, ContextCompat.getColor(mContext,R.color.global_input_background));
         mRootLayout.findViewById(R.id.layout_root).setBackgroundColor(bgColor);
         ta.recycle();
     }

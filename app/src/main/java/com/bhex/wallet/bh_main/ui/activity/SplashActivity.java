@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity {
         mCompositeDisposable.add(disposable);
 
         //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
-        ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).init();
+        ImmersionBar.with(this).statusBarColor(R.color.app_bg).statusBarDarkFont(true).init();
 
     }
 

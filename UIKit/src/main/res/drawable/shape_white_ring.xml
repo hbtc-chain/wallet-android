@@ -4,5 +4,5 @@
     android:useLevel="false"
     >
     <size android:width="26dp" android:height="26dp"/>
-    <stroke android:width="3dp" android:color="@color/white"/>
+    <stroke android:width="3dp" android:color="@color/loading_ring"/>
 </shape>

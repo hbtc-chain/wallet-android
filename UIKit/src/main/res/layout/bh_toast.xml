@@ -12,7 +12,7 @@
         android:id="@+id/toast_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
+        android:background="@color/blue_bg"
         >
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingStart="@dimen/main_padding_left"
-            android:textColor="@color/main_text_black"
+            android:textColor="@color/global_main_text_color"
             android:textSize="16sp"
             android:text="1dfsafdsafd"
             />

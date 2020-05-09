@@ -126,13 +126,13 @@ public class ProposalDetailActivity extends BaseActivity {
         if (mProposalInfo.getStatus() == 1) {
             tv_status.setText(getString(R.string.proposal_in_payment));
             tv_status.setTextColor(getResources().getColor(R.color.proposal_in_payment));
-            btn_do_pledge.setBackgroundColor(ColorUtil.getColor(this, R.color.blue));
+            btn_do_pledge.setBackgroundColor(ColorUtil.getColor(this, R.color.global_button_bg_color));
             btn_do_pledge.setEnabled(true);
             tv_pledge.setText(mProposalInfo.getTotal_deposit()+ "/"+mProposalInfo.getDeposit_threshold()+mToken.toUpperCase());
         } else if (mProposalInfo.getStatus() == 2) {
             tv_status.setText(getString(R.string.proposal_voting));
             tv_status.setTextColor(getResources().getColor(R.color.proposal_voting));
-            btn_do_veto.setBackgroundColor(ColorUtil.getColor(this, R.color.blue));
+            btn_do_veto.setBackgroundColor(ColorUtil.getColor(this, R.color.global_button_bg_color));
             btn_do_veto.setEnabled(true);
             long remainDays = DateUtil.getDaysBetweenDate(System.currentTimeMillis(),mProposalInfo.getVoting_end_time()*1000);
 
@@ -152,7 +152,7 @@ public class ProposalDetailActivity extends BaseActivity {
         } else if (mProposalInfo.getStatus() == 3) {
             tv_status.setText(getString(R.string.proposal_passed));
             tv_status.setTextColor(getResources().getColor(R.color.proposal_passed));
-            btn_do_veto.setBackgroundColor(ColorUtil.getColor(this, R.color.btn_disable_color));
+            btn_do_veto.setBackgroundColor(ColorUtil.getColor(this, R.color.global_button_enable_false_bg));
             btn_do_veto.setEnabled(false);
             long remainDays = DateUtil.getDaysBetweenDate(System.currentTimeMillis(),mProposalInfo.getVoting_end_time()*1000);
 
@@ -173,7 +173,7 @@ public class ProposalDetailActivity extends BaseActivity {
             tv_status.setText(getString(R.string.proposal_reject));
             tv_status.setTextColor(getResources().getColor(R.color.proposal_reject));
 
-            btn_do_veto.setBackgroundColor(ColorUtil.getColor(this, R.color.btn_disable_color));
+            btn_do_veto.setBackgroundColor(ColorUtil.getColor(this, R.color.global_button_enable_false_bg));
             btn_do_veto.setEnabled(false);
             long remainDays = DateUtil.getDaysBetweenDate(System.currentTimeMillis(),mProposalInfo.getVoting_end_time()*1000);
 
@@ -192,7 +192,7 @@ public class ProposalDetailActivity extends BaseActivity {
         } else if (mProposalInfo.getStatus() == 5) {
             tv_status.setText(getString(R.string.proposal_failed));
             tv_status.setTextColor(getResources().getColor(R.color.proposal_failed));
-            btn_do_pledge.setBackgroundColor(ColorUtil.getColor(this, R.color.btn_disable_color));
+            btn_do_pledge.setBackgroundColor(ColorUtil.getColor(this, R.color.global_button_enable_false_bg));
             btn_do_pledge.setEnabled(false);
 
         }

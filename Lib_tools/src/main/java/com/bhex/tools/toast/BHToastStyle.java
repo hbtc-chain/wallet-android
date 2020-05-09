@@ -50,7 +50,7 @@ public class BHToastStyle implements IToastStyle {
 
     @Override
     public int getBackgroundColor() {
-        return this.isNight ? ContextCompat.getColor(mContext, R.color.card_backgound) :  ContextCompat.getColor(mContext, R.color.card_backgound);
+        return this.isNight ? ContextCompat.getColor(mContext, R.color.toast_background) :  ContextCompat.getColor(mContext, R.color.toast_background);
     }
 
     @Override

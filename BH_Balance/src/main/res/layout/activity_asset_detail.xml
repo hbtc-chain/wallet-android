@@ -44,7 +44,7 @@
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/card_backgound"
                 app:cardCornerRadius="10dp"
-                app:cardForegroundColor="@color/trans"
+                app:cardForegroundColor="@color/bg_trans"
                 app:contentPaddingBottom="@dimen/main_margin_bottom"
                 app:contentPaddingLeft="@dimen/main_padding_left"
                 app:contentPaddingRight="@dimen/main_padding_right"
@@ -104,7 +104,7 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1px"
-                        android:background="@color/divider_line_color"
+                        android:background="@color/global_divider_color"
                         app:layout_constraintStart_toStartOf="@+id/tv_coin_currency"
                         app:layout_constraintEnd_toEndOf="@+id/iv_coin_ic"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_coin_ic"

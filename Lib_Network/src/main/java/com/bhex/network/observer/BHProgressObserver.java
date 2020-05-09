@@ -73,7 +73,7 @@ public abstract class BHProgressObserver<T> extends BHBaseObserver<T> {
         loadingDialog.show();
 
         ProgressBar progressBar = loadingDialog.findViewById(android.R.id.progress);
-        progressBar.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.blue), PorterDuff.Mode.SRC_IN);
+        progressBar.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.progress_color), PorterDuff.Mode.SRC_IN);
     }
 
     public void closeLoading() {

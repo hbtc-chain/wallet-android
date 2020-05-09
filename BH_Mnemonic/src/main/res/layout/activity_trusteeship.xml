@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:text="@string/set_name"
-        android:textColor="@color/main_text_black"
+        android:textColor="@color/global_main_text_color"
         android:layout_marginTop="@dimen/dp_8"
         android:gravity="center"
         android:textSize="26sp"
@@ -32,7 +32,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_index_1"
         android:text="@string/setup_1_to_3"
         android:includeFontPadding="false"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/global_label_text_color"
         android:textSize="@dimen/sp_13"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_index_1"
         />
@@ -52,7 +52,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/global_label_text_color"
             android:textSize="@dimen/sp_15"
             android:text="@string/set_username_tip"
             android:drawablePadding="5dp"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_15"
-            android:textColor="@color/secondary_text_black"
+            android:textColor="@color/global_secondary_text_color"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:text="@string/wallet_name"
@@ -85,7 +85,7 @@
             android:textSize="14sp"
             android:layout_marginTop="3dp"
             android:layout_gravity="right"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/global_label_text_color"
             tools:text="@string/pwd_index"
             />
 

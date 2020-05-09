@@ -13,7 +13,7 @@
         android:layout_margin="3dp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@color/card_backgound"
-        app:cardForegroundColor="@color/trans"
+        app:cardForegroundColor="@color/bg_trans"
         app:cardPreventCornerOverlap="true"
         app:cardMaxElevation="5dp"
         app:contentPadding="1dp"

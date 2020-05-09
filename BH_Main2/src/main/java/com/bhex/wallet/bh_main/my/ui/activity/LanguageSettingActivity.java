@@ -9,11 +9,9 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
-import com.bhex.network.observer.ProgressDialogObserver;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -73,7 +71,7 @@ public class LanguageSettingActivity extends BaseActivity {
         RecycleViewExtDivider divider = new RecycleViewExtDivider(
                 this, LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(this,32),0,
-                getResources().getColor(R.color.divider_line_color));
+                getResources().getColor(R.color.global_divider_color));
 
         rcvLanguageSet.addItemDecoration(divider);
     }

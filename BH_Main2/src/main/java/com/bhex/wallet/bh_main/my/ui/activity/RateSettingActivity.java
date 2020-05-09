@@ -88,7 +88,7 @@ public class RateSettingActivity extends BaseActivity<RatePresenter> {
                 this,LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(this,32),0,
 
-                ColorUtil.getColor(this,R.color.divider_line_color));
+                ColorUtil.getColor(this,R.color.global_divider_color));
 
 
         recycler_rate.addItemDecoration(ItemDecoration);

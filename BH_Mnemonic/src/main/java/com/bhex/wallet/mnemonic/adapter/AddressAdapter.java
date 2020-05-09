@@ -1,13 +1,9 @@
 package com.bhex.wallet.mnemonic.adapter;
 
-import android.widget.CompoundButton;
-
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
@@ -49,13 +45,12 @@ public class AddressAdapter extends BaseQuickAdapter<BHWalletItem, BaseViewHolde
 
         //LogUtils.d("AddressAdapter==>:","=position=");
         ck.setChecked(false);
-        tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.gray_ACB5C3));
         if(bhWallet.isDefault==1 ){
             ck.setChecked(true);
-            tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.blue));
+            tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.highlight_text_color));
         }else{
             ck.setChecked(false);
-            tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.main_text_black));
+            tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.global_main_text_color));
 
         }
         ck.setOnClickListener(v -> {

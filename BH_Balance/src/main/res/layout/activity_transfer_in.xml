@@ -6,7 +6,7 @@
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/blue_bg"
     tools:context=".ui.activity.TransferInActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="@color/main_text_black"
+            android:textColor="@color/global_main_text_color"
             android:text="@string/trusteeship_address"
             android:layout_marginTop="32dp"
             android:layout_gravity="center"/>
@@ -74,7 +74,7 @@
             android:layout_marginTop="25dp"
             android:paddingStart="@dimen/main_margin_left"
             android:paddingEnd="@dimen/main_margin_left"
-            android:textColor="@color/dark_black"
+            android:textColor="@color/global_secondary_text_color"
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="13sp"
@@ -112,7 +112,7 @@
             android:layout_height="69dp"
             android:layout_gravity="center"
             android:text="@string/copy_address"
-            android:textColor="@color/blue"
+            android:textColor="@color/label_button_text_color"
             android:textSize="17sp"
             android:gravity="center"
             />
@@ -152,13 +152,13 @@
             android:layout_width="20dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="@color/trans_77_white"
+            android:background="@color/blue_bg_tip_text_color"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/trans_77_white"
+            android:textColor="@color/blue_bg_tip_text_color"
             android:text="@string/reminder"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
@@ -168,7 +168,7 @@
             android:layout_width="20dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="@color/trans_77_white"
+            android:background="@color/blue_bg_tip_text_color"
             />
 
     </LinearLayout>
@@ -185,7 +185,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="@color/trans_77_white"
+            android:textColor="@color/blue_bg_tip_text_color"
             tools:text="1. 段落文本占位"
             />
 
@@ -193,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="@color/trans_77_white"
+            android:textColor="@color/blue_bg_tip_text_color"
             android:layout_marginTop="3dp"
             tools:text="2. 段落文本占位"
             />
@@ -202,7 +202,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="@color/trans_77_white"
+            android:textColor="@color/blue_bg_tip_text_color"
             android:layout_marginTop="3dp"
             tools:text="3. 段落文本占位"
             />

@@ -36,10 +36,10 @@
             android:layout_height="wrap_content"
             app:cardElevation="0dp"
             app:strokeWidth="2dp"
-            app:strokeColor="@color/tranfer_stoke_color"
+            app:strokeColor="@color/transfer_stoke_color"
             app:cardCornerRadius="10dp"
-            app:cardForegroundColor="@color/trans"
-            app:cardBackgroundColor="@color/main_backgound"
+            app:cardForegroundColor="@color/bg_trans"
+            app:cardBackgroundColor="@color/app_bg"
             app:contentPaddingTop="@dimen/page_margin_top"
             app:contentPaddingBottom="@dimen/page_margin_top"
             app:contentPaddingLeft="10dp"
@@ -56,7 +56,7 @@
                     android:id="@+id/tv_transfer_out_tips_1"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:textColor="@color/tranfer_stoke_text_color"
+                    android:textColor="@color/global_secondary_text_color"
                     android:textSize="14sp"
                     android:text="@string/crosslink_withdraw_tip_1"
                     android:drawablePadding="5dp"
@@ -68,7 +68,7 @@
                     android:id="@+id/tv_transfer_out_tips_2"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:textColor="@color/tranfer_stoke_text_color"
+                    android:textColor="@color/global_secondary_text_color"
                     android:textSize="14sp"
                     android:text="@string/crosslink_withdraw_tip_2"
                     android:drawablePadding="5dp"
@@ -81,7 +81,7 @@
                     android:id="@+id/tv_transfer_out_tips_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tranfer_stoke_text_color"
+                    android:textColor="@color/global_secondary_text_color"
                     android:textSize="14sp"
                     android:text="@string/crosslink_withdraw_tip_3"
                     android:drawablePadding="5dp"
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/draw_coin_address"
-            android:textColor="@color/dark_black"
+            android:textColor="@color/global_secondary_text_color"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:text="@string/draw_coin_count"
                 android:textSize="15sp"
                 />
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/global_label_text_color"
                 android:textSize="15sp"
                 android:text="可用 3000.00 ABC"
                 />
@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             app:leftHint="请输入转账数量"
-            app:rightColor="@color/blue"
+            app:rightColor="@color/label_button_text_color"
             app:rightText="@string/all_withdraw_amount"
             />
 
@@ -156,7 +156,7 @@
             android:id="@+id/tv_reach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_black"
+            android:textColor="@color/global_secondary_text_color"
             android:layout_marginTop="30dp"
             android:text="@string/reach_account_amount"
             android:visibility="gone"
@@ -169,7 +169,7 @@
             android:layout_marginTop="2dp"
             android:visibility="gone"
             app:leftText="0"
-            app:rightColor="@color/dark_blue"
+            app:rightColor="@color/global_label_text_color"
             tools:rightText="ABC" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -179,7 +179,7 @@
             android:layout_marginTop="30dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/dark_black"
+            android:textColor="@color/global_secondary_text_color"
             android:text="@string/withdraw_fee"
             android:textSize="15sp"
             />
@@ -189,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             app:leftHint="请输入提币手续费"
-            app:rightColor="@color/dark_blue"
+            app:rightColor="@color/global_label_text_color"
              />
 
         <RelativeLayout
@@ -203,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:text="@string/transfer_fee"
                 android:textSize="15sp"
                 />
@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/global_label_text_color"
                 android:textSize="15sp"
                 android:text="可用 3000.00"/>
 
@@ -230,7 +230,7 @@
             android:layout_marginTop="2dp"
             app:leftHint="请输入交易手续费"
             app:leftText="2"
-            app:rightColor="@color/dark_blue"
+            app:rightColor="@color/global_input_profix_text_color"
             app:rightText="@string/BH_token" />
 
 
@@ -246,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:text="@string/exchange_speedup"
                 android:textSize="15sp"
                 />
@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/global_label_text_color"
                 android:textSize="15sp"
                 android:text="3000.00"/>
 
@@ -284,7 +284,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reminder"
-                android:textColor="@color/gray_ACB5C3"
+                android:textColor="@color/secondary_tip_text_color"
                 android:textSize="13sp"
                 />
             <androidx.appcompat.widget.AppCompatTextView
@@ -292,16 +292,7 @@
                 android:layout_height="wrap_content"
                 android:lineHeight="18dp"
                 android:text="1.段落文本占位符"
-                android:textColor="@color/gray_ACB5C3"
-                android:textSize="13sp"
-                />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1.段落文本占位符"
-                android:lineHeight="18dp"
-                android:textColor="@color/gray_ACB5C3"
+                android:textColor="@color/secondary_tip_text_color"
                 android:textSize="13sp"
                 />
 
@@ -310,7 +301,16 @@
                 android:layout_height="wrap_content"
                 android:text="1.段落文本占位符"
                 android:lineHeight="18dp"
-                android:textColor="@color/gray_ACB5C3"
+                android:textColor="@color/secondary_tip_text_color"
+                android:textSize="13sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.段落文本占位符"
+                android:lineHeight="18dp"
+                android:textColor="@color/secondary_tip_text_color"
                 android:textSize="13sp"
                 />
 
@@ -331,7 +331,7 @@
         android:layout_marginBottom="@dimen/main_margin_bottom"
         style="@style/main_material_btn"
         android:enabled="true"
-        app:backgroundTint="@color/blue"
+        app:backgroundTint="@color/global_button_bg_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

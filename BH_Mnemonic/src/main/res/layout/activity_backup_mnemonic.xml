@@ -37,7 +37,7 @@
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginBottom="8dp"
         android:text="@string/please_be_sure"
-        android:textColor="@color/main_text_black"
+        android:textColor="@color/global_main_text_color"
         android:textSize="26sp"
 
         />
@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        style="@style/main_btn_blue_44"
+        style="@style/main_btn_style"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_left"
         android:layout_marginBottom="40dp"

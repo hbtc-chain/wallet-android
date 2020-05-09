@@ -5,9 +5,7 @@ import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
-import com.bhex.lib.uikit.widget.MnemonicTextView;
 import com.bhex.lib.uikit.widget.MnemonicTextViewExt;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -56,6 +54,6 @@ public class AboveMnemonicAdapter extends BaseQuickAdapter<MnemonicItem, BaseVie
         }
         mnemonicTextView.getTextWordView().setText(memonicItem.getWord());
         mnemonicTextView.getTextWordIndexView().setText(memonicItem.getIndex()+"");
-        mnemonicTextView.getTextWordView().setTextColor(ContextCompat.getColor(getContext(),R.color.main_text_black));
+        mnemonicTextView.getTextWordView().setTextColor(ContextCompat.getColor(getContext(),R.color.global_main_text_color));
     }
 }

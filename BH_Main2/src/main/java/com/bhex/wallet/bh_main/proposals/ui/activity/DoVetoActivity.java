@@ -1,7 +1,6 @@
 package com.bhex.wallet.bh_main.proposals.ui.activity;
 
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,10 +19,8 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
-import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
-import com.bhex.wallet.bh_main.proposals.presenter.DoPledgePresenter;
 import com.bhex.wallet.bh_main.proposals.presenter.DoVetoPresenter;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -182,41 +179,41 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
         if (vetoOption == BHConstants.VETO_OPTION_YES) {
             iv_option_yes.setVisibility(View.GONE);
             rl_yes_option.setBackgroundResource(R.drawable.bg_green_corners);
-            tv_option_yes.setTextColor(getResources().getColor(R.color.white));
+            tv_option_yes.setTextColor(getResources().getColor(R.color.vote_option_selected_text));
         } else {
             iv_option_yes.setVisibility(View.VISIBLE);
             rl_yes_option.setBackgroundResource(R.drawable.input_bg_gray_corner);
-            tv_option_yes.setTextColor(getResources().getColor(R.color.dark_black));
+            tv_option_yes.setTextColor(getResources().getColor(R.color.vote_option_text));
         }
 
         if (vetoOption == BHConstants.VETO_OPTION_NO) {
             iv_option_no.setVisibility(View.GONE);
             rl_no_option.setBackgroundResource(R.drawable.bg_red_corners);
-            tv_option_no.setTextColor(getResources().getColor(R.color.white));
+            tv_option_no.setTextColor(getResources().getColor(R.color.vote_option_selected_text));
         } else {
             iv_option_no.setVisibility(View.VISIBLE);
             rl_no_option.setBackgroundResource(R.drawable.input_bg_gray_corner);
-            tv_option_no.setTextColor(getResources().getColor(R.color.dark_black));
+            tv_option_no.setTextColor(getResources().getColor(R.color.vote_option_text));
         }
 
         if (vetoOption == BHConstants.VETO_OPTION_ABSTAIN) {
             iv_option_abstain.setVisibility(View.GONE);
             rl_abstain_option.setBackgroundResource(R.drawable.bg_dark_blue_corners);
-            tv_option_abstain.setTextColor(getResources().getColor(R.color.white));
+            tv_option_abstain.setTextColor(getResources().getColor(R.color.vote_option_selected_text));
         } else {
             iv_option_abstain.setVisibility(View.VISIBLE);
             rl_abstain_option.setBackgroundResource(R.drawable.input_bg_gray_corner);
-            tv_option_abstain.setTextColor(getResources().getColor(R.color.dark_black));
+            tv_option_abstain.setTextColor(getResources().getColor(R.color.vote_option_text));
         }
 
         if (vetoOption == BHConstants.VETO_OPTION_NOWITHVETO) {
             iv_option_with_no_veto.setVisibility(View.GONE);
-            rl_no_with_veto_option.setBackgroundResource(R.drawable.bg_blue_corners);
-            tv_option_no_with_veto.setTextColor(getResources().getColor(R.color.white));
+            rl_no_with_veto_option.setBackgroundResource(R.drawable.bg_proposal_voting_corners);
+            tv_option_no_with_veto.setTextColor(getResources().getColor(R.color.vote_option_selected_text));
         } else {
             iv_option_with_no_veto.setVisibility(View.VISIBLE);
             rl_no_with_veto_option.setBackgroundResource(R.drawable.input_bg_gray_corner);
-            tv_option_no_with_veto.setTextColor(getResources().getColor(R.color.dark_black));
+            tv_option_no_with_veto.setTextColor(getResources().getColor(R.color.vote_option_text));
         }
     }
 

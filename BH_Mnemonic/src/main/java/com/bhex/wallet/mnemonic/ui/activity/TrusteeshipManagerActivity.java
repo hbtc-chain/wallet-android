@@ -177,7 +177,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
                 SwipeMenuItem addItem = new SwipeMenuItem(TrusteeshipManagerActivity.this)
                         .setBackground(R.drawable.btn_0_blue)
                         .setText(getString(R.string.delete))
-                        .setTextColor(Color.WHITE)
+                        .setTextColor(getResources().getColor(R.color.global_button_text_color))
                         .setWidth(width)
                         .setHeight(height);
                 swipeRightMenu.addMenuItem(addItem);

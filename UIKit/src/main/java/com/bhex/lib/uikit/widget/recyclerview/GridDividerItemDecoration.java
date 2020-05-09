@@ -28,7 +28,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     public GridDividerItemDecoration(Context context) {
         TypedArray ta = context.obtainStyledAttributes(ATTRS);
         //mDivider = ta.getDrawable(0);
-        mDivider = context.getDrawable(R.color.blue);
+        mDivider = context.getDrawable(R.color.blue_bg);
         ta.recycle();
     }
 

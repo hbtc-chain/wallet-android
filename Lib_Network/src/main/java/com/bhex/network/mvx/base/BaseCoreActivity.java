@@ -63,13 +63,13 @@ public abstract class BaseCoreActivity<T extends IPresenter> extends AppCompatAc
 
     protected  void setStatusColor(){
         if(getStatusColorValue()== BHConstants.STATUS_COLOR_WHITE){
-            StatusBarUtil.setStatusColor(this,false,true,R.color.white);
+            StatusBarUtil.setStatusColor(this,false,true,R.color.status_bar_bg_white);
             //ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).reset().init();
         }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_BLUE){
-            StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
+            StatusBarUtil.setStatusColor(this,false,false,R.color.status_bar_bg_blue);
             //ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).reset().init();
         }else{
-            StatusBarUtil.setStatusColor(this,false,true,R.color.white);
+            StatusBarUtil.setStatusColor(this,false,true,R.color.status_bar_bg_white);
             //ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true).reset().init();
         }
     }

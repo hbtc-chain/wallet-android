@@ -73,7 +73,7 @@ public class TransferInTipFragment extends BaseDialogFragment {
 
         AppCompatTextView tv_tip1 = mRootView.findViewById(R.id.tv_transfer_in_tips_1);
         AppCompatTextView tv_tip2 = mRootView.findViewById(R.id.tv_transfer_in_tips_2);
-        ForegroundColorSpan foregroundColorSpan=new ForegroundColorSpan(ContextCompat.getColor(getContext(),R.color.red));
+        ForegroundColorSpan foregroundColorSpan=new ForegroundColorSpan(ContextCompat.getColor(getContext(),R.color.alarm_highlight_text_color));
 
         if(way==1){
             String tip1 = getResources().getString(R.string.linkinner_deposit_tip_1);

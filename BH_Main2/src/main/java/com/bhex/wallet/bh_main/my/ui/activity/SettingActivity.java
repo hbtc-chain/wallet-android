@@ -1,6 +1,5 @@
 package com.bhex.wallet.bh_main.my.ui.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -14,7 +13,6 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -24,9 +22,7 @@ import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
-import com.bhex.wallet.common.event.ThemeEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
-import com.bhex.wallet.common.utils.ARouterUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,7 +32,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author gongdongyang
@@ -79,7 +74,7 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
                 this,LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(this,16),0,
 
-                ColorUtil.getColor(this,R.color.divider_line_color));
+                ColorUtil.getColor(this,R.color.global_divider_color));
 
 
         recycler_setting.addItemDecoration(ItemDecoration);

@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/withdraw_share"
-        android:textColor="@color/main_text_black"
+        android:textColor="@color/global_main_text_color"
         android:layout_gravity="center"
         android:textStyle="normal"
         android:textSize="20sp"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/with_reward_content"
-        android:textColor="@color/dark_black"
+        android:textColor="@color/global_tip_text_color"
         android:paddingStart="@dimen/page_margin_start"
         android:paddingEnd="@dimen/page_margin_start"
         android:layout_gravity="center"
@@ -60,8 +60,8 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="@string/cancel"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/gray_B0BFDB"
+            android:textColor="@color/global_button_text_color"
+            app:backgroundTint="@color/secondary_button_bg_color"
             app:cornerRadius="@dimen/main_radius_conner" />
 
         <com.google.android.material.button.MaterialButton
@@ -73,7 +73,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="@string/confirm"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/blue" />
+            android:textColor="@color/global_button_text_color"
+            app:backgroundTint="@color/global_button_bg_color" />
     </LinearLayout>
 </LinearLayout>

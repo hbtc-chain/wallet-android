@@ -34,39 +34,39 @@ public class TrusteeshipPresenter extends BasePresenter {
     public void checkPassword(InputView inpPwd, AppCompatButton btnNext, AppCompatTextView... tv){
         String pwd = inpPwd.getInputString();
         if(!RegexUtil.checkContainNum(pwd)){
-            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
-            tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
+            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
+            tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
         }else {
-            tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+            tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
         }
 
         if(!RegexUtil.checkContainUpper(pwd)){
-            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
-            tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
+            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
+            tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
         }else{
-            tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+            tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
         }
 
         if(!RegexUtil.checkContainLower(pwd)){
-            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
-            tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
+            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
+            tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
         }else{
-            tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+            tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
         }
 
         if(pwd.length()<8){
-            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
-            tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
+            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
+            tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
         }else{
-            tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+            tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
         }
 
         if (!RegexUtil.checkPasswd(pwd)) {
-            btnNext.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
+            btnNext.setBackgroundResource(R.drawable.btn_disabled_gray);
             btnNext.setEnabled(false);
         }else{
             btnNext.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);
-            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+            tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
             btnNext.setEnabled(true);
         }
     }
@@ -87,7 +87,7 @@ public class TrusteeshipPresenter extends BasePresenter {
             btnNext.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);
             btnNext.setEnabled(true);
         }else{
-            btnNext.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
+            btnNext.setBackgroundResource(R.drawable.btn_disabled_gray);
             btnNext.setEnabled(false);
         }
     }

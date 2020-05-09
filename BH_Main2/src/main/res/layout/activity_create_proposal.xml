@@ -53,7 +53,7 @@
                 android:id="@+id/tv_proposal_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:layout_marginTop="@dimen/main_margin_top"
                 android:layout_marginStart="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +75,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_proposal_title"
                 android:background="@drawable/shape_input_corner"
                 android:hint="@string/hint_proposal_title"
-                android:textColorHint="@color/dark_blue"
-                android:textColor="@color/main_text_black"
+                android:textColorHint="@color/global_input_hint_color"
+                android:textColor="@color/global_main_text_color"
                 android:maxLength="140"
                 android:textSize="@dimen/sp_15"/>
 
@@ -85,7 +85,7 @@
                 android:id="@+id/tv_proposal_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:layout_marginTop="@dimen/dp_32"
                 android:layout_marginStart="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
@@ -119,8 +119,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="@null"
                     android:hint="@string/hint_proposal_type"
-                    android:textColorHint="@color/dark_blue"
-                    android:textColor="@color/main_text_black"
+                    android:textColorHint="@color/global_input_hint_color"
+                    android:textColor="@color/global_main_text_color"
                     android:textSize="@dimen/sp_15"
                     android:gravity="center_vertical"
                     android:enabled="false"
@@ -143,7 +143,7 @@
                 android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:layout_marginTop="@dimen/dp_32"
                 android:layout_marginStart="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
@@ -177,8 +177,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="@null"
                     android:hint="@string/hint_proposal_description"
-                    android:textColorHint="@color/dark_blue"
-                    android:textColor="@color/main_text_black"
+                    android:textColorHint="@color/global_input_hint_color"
+                    android:textColor="@color/global_main_text_color"
                     android:textSize="@dimen/sp_15"
                     android:maxLength="2500"
                     android:gravity="top"
@@ -194,7 +194,7 @@
                     android:layout_marginRight="@dimen/dp_10"
                     android:text="@string/description_length_format"
                     android:textSize="@dimen/sp_10"
-                    android:textColor="@color/gray_B0BFDB"
+                    android:textColor="@color/proposal_desc_length_text"
                     android:gravity="center_vertical|right">
 
                 </androidx.appcompat.widget.AppCompatTextView>
@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:text="@string/pledge_amount1"
 
                 android:layout_marginTop="@dimen/dp_32"
@@ -223,7 +223,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/global_secondary_text_color"
                 android:layout_marginTop="@dimen/dp_32"
                 android:layout_marginEnd="@dimen/main_margin_right"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -245,7 +245,7 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/tv_pledge_amount_title"
                 app:leftHint="@string/hint_enter_pledge"
-                app:rightColor="@color/blue"
+                app:rightColor="@color/global_input_profix_text_color"
                 app:rightText="@string/all_entrust"
                 />
 
@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:text="@string/fee"
 
                 android:layout_marginTop="@dimen/dp_32"
@@ -264,6 +264,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_pledge_amount"
                 android:textSize="15sp"
+
                 />
 
             <com.bhex.lib.uikit.widget.editor.WithDrawInput
@@ -279,7 +280,7 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/tv_fee_title"
                 app:leftHint=""
-                app:rightColor="@color/dark_blue"
+                app:rightColor="@color/global_input_profix_text_color"
                 tools:rightText="BHT"
                 />
             <androidx.appcompat.widget.AppCompatTextView
@@ -288,7 +289,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_black"
+                android:textColor="@color/global_secondary_text_color"
                 android:text="@string/speedup"
 
                 android:layout_marginTop="@dimen/dp_32"
@@ -305,7 +306,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/global_secondary_text_color"
                 android:layout_marginTop="@dimen/dp_32"
                 android:layout_marginEnd="@dimen/page_margin_start"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -356,8 +357,8 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="@string/submit"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/blue" />
+            android:textColor="@color/global_button_text_color"
+            app:backgroundTint="@color/global_button_bg_color" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

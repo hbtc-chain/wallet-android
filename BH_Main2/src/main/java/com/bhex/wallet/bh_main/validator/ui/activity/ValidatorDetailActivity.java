@@ -107,7 +107,7 @@ public class ValidatorDetailActivity extends BaseActivity {
         } else {
             iv_status.setImageResource(R.mipmap.icon_validator_invalid);
             tv_status.setText(R.string.tab_invalid);
-            tv_status.setTextColor(getResources().getColor(R.color.dark_black));
+            tv_status.setTextColor(getResources().getColor(R.color.global_secondary_text_color));
         }
 
         tv_voting_power_proportion.setText(TextUtils.isEmpty(mValidatorInfo.getVoting_power_proportion()) ? "" : mValidatorInfo.getVoting_power_proportion() + "%");

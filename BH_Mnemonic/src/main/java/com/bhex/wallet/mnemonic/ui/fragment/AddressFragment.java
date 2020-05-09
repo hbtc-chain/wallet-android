@@ -89,7 +89,7 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
         RecycleViewDivider ItemDecoration = new RecycleViewDivider(
                 getContext(),LinearLayoutManager.VERTICAL,
                 1,
-                ColorUtil.getColor(getContext(),R.color.btn_disable_color));
+                ColorUtil.getColor(getContext(),R.color.grid_divider_color));
 
         recycler_address.addItemDecoration(ItemDecoration);
 

@@ -15,7 +15,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
@@ -93,7 +92,7 @@ public class CoinSearchActivity extends BaseActivity {
                 this,LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(this,68),
                 0,
-                ColorUtil.getColor(this,R.color.divider_line_color));
+                ColorUtil.getColor(this,R.color.global_divider_color));
         recycler_coin.addItemDecoration(ItemDecoration);
 
         mCoinViewModel = ViewModelProviders.of(this).get(CoinViewModel.class);

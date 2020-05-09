@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="账户"
         android:textSize="17sp"
-        android:textColor="@color/main_text_black"
+        android:textColor="@color/global_main_text_color"
         android:gravity="center"
         android:paddingTop="@dimen/main_padding_top"
         android:paddingBottom="@dimen/main_padding_bottom"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        android:background="@color/divider_line_color"
+        android:background="@color/global_divider_color"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_confirm"
         app:layout_constraintHorizontal_weight="1"
-        app:backgroundTint="@color/gray_B0BFDB"
+        app:backgroundTint="@color/secondary_button_bg_color"
         android:text="@string/cancel"
         style="@style/main_material_btn"
         />
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:backgroundTint="@color/blue"
+        app:backgroundTint="@color/global_button_bg_color"
         app:cornerRadius="@dimen/main_radius_conner"
         style="@style/main_material_btn"
         android:text="确定"/>

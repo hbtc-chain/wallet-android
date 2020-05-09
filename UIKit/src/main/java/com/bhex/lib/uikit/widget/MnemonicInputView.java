@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -23,8 +22,6 @@ import androidx.core.content.ContextCompat;
 
 import com.bhex.lib.uikit.R;
 import com.bhex.lib.uikit.util.PixelUtils;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,7 +143,7 @@ public class MnemonicInputView extends ViewGroup {
         }
 
         AppCompatEditText et = new AppCompatEditText(getContext());
-        et.setTextColor(ContextCompat.getColor(mContext, R.color.main_text_black));
+        et.setTextColor(ContextCompat.getColor(mContext, R.color.global_main_text_color));
         et.setTextSize(TypedValue.COMPLEX_UNIT_SP,13);
         //et.setImeOptions(EditorInfo.IME_ACTION_DONE);
         et.setSingleLine(true);

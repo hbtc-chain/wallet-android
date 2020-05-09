@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     tools:context="validator.ui.activity.DoEntrustActivity">
 
-    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -66,7 +64,7 @@
                     android:paddingRight="@dimen/dp_10"
                     android:paddingBottom="@dimen/dp_16"
                     android:text="@string/do_entrust_tip"
-                    android:textColor="@color/main_text_black"
+                    android:textColor="@color/global_secondary_text_color"
                     android:textSize="@dimen/sp_15"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +81,7 @@
                     android:layout_marginTop="@dimen/dp_16"
 
                     android:text="@string/string_veto"
-                    android:textColor="@color/dark_black"
+                    android:textColor="@color/global_secondary_text_color"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_tips" />
@@ -118,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="@string/veto_yes"
-                        android:textColor="@color/dark_black"
+                        android:textColor="@color/vote_option_text"
                         android:textSize="@dimen/sp_17"></androidx.appcompat.widget.AppCompatTextView>
 
                 </RelativeLayout>
@@ -153,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="@string/veto_no"
-                        android:textColor="@color/dark_black"
+                        android:textColor="@color/vote_option_text"
                         android:textSize="@dimen/sp_17"></androidx.appcompat.widget.AppCompatTextView>
 
                 </RelativeLayout>
@@ -188,7 +186,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="@string/veto_abstain"
-                        android:textColor="@color/dark_black"
+                        android:textColor="@color/vote_option_text"
                         android:textSize="@dimen/sp_17"></androidx.appcompat.widget.AppCompatTextView>
 
                 </RelativeLayout>
@@ -223,7 +221,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="@string/veto_no_with_veto"
-                        android:textColor="@color/dark_black"
+                        android:textColor="@color/vote_option_text"
                         android:textSize="@dimen/sp_17"></androidx.appcompat.widget.AppCompatTextView>
 
                 </RelativeLayout>
@@ -239,7 +237,7 @@
                     android:layout_marginTop="@dimen/dp_32"
 
                     android:text="@string/fee"
-                    android:textColor="@color/dark_black"
+                    android:textColor="@color/global_secondary_text_color"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rl_no_with_veto_option" />
@@ -253,7 +251,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/dp_32"
                     android:layout_marginEnd="@dimen/main_margin_right"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/global_label_text_color"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rl_no_with_veto_option"
@@ -272,7 +270,7 @@
 
                     app:layout_constraintTop_toBottomOf="@+id/tv_fee_title"
                     app:leftHint=""
-                    app:rightColor="@color/dark_blue"
+                    app:rightColor="@color/global_input_profix_text_color"
                     tools:rightText="BHT" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -285,7 +283,7 @@
                     android:layout_marginTop="@dimen/dp_32"
 
                     android:text="@string/speedup"
-                    android:textColor="@color/dark_black"
+                    android:textColor="@color/global_secondary_text_color"
                     android:textSize="15sp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
@@ -299,7 +297,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/dp_32"
                     android:layout_marginEnd="@dimen/page_margin_start"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/global_label_text_color"
                     android:textSize="13sp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -345,8 +343,8 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="@string/string_veto"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/blue" />
+            android:textColor="@color/global_button_text_color"
+            app:backgroundTint="@color/global_button_bg_color" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

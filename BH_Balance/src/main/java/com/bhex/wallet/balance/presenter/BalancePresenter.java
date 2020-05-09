@@ -301,7 +301,7 @@ public class BalancePresenter extends BasePresenter {
                     }
                 }
             }
-            ck_hidden_small.setTextColor(ContextCompat.getColor(context,R.color.blue));
+            ck_hidden_small.setTextColor(ContextCompat.getColor(context,R.color.checkbox_checked_text_color));
         }else{
             for (BHBalance item :mOriginBalanceList) {
                 if(!TextUtils.isEmpty(text)){
@@ -312,7 +312,7 @@ public class BalancePresenter extends BasePresenter {
                     result.add(item);
                 }
             }
-            ck_hidden_small.setTextColor(ContextCompat.getColor(context,R.color.dark_blue));
+            ck_hidden_small.setTextColor(ContextCompat.getColor(context,R.color.checkbox_text_color));
         }
 
         return result;

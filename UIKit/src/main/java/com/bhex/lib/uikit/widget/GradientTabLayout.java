@@ -155,8 +155,8 @@ public class GradientTabLayout extends HorizontalScrollView implements ViewPager
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.GradientTabLayout);
 //        mIndicatorStartColor = Color.parseColor("#3375E0");
 //        mIndicatorEndColor = Color.parseColor("#ffffff");
-        mIndicatorStartColor = ta.getColor(R.styleable.GradientTabLayout_indicator_start_color, getResources().getColor(R.color.blue));
-        mIndicatorEndColor = ta.getColor(R.styleable.GradientTabLayout_indicator_end_color, getResources().getColor(R.color.blue));
+        mIndicatorStartColor = ta.getColor(R.styleable.GradientTabLayout_indicator_start_color, getResources().getColor(R.color.blue_bg));
+        mIndicatorEndColor = ta.getColor(R.styleable.GradientTabLayout_indicator_end_color, getResources().getColor(R.color.blue_bg));
         mIndicatorStyle = ta.getInt(R.styleable.GradientTabLayout_tl_indicator_style, STYLE_NORMAL);
         mIndicatorColor = ta.getColor(R.styleable.GradientTabLayout_tl_indicator_color, Color.parseColor(mIndicatorStyle == STYLE_BLOCK ? "#4B6A87" : "#ffffff"));
         mIndicatorHeight = ta.getDimension(R.styleable.GradientTabLayout_tl_indicator_height,

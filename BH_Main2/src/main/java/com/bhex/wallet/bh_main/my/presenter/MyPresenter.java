@@ -54,35 +54,35 @@ public class MyPresenter extends BasePresenter {
 
         if(!TextUtils.isEmpty(newPwd)){
             if(!RegexUtil.checkContainNum(newPwd)){
-                tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
-                tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
+                tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
+                tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
                 flag = false;
             }else {
-                tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+                tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
             }
 
             if(!RegexUtil.checkContainUpper(newPwd)){
-                tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
-                tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
+                tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
+                tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
                 flag = false;
             }else{
-                tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+                tv[1].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
             }
 
             if(!RegexUtil.checkContainLower(newPwd)){
-                tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
-                tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
+                tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
+                tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
                 flag = false;
             }else{
-                tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+                tv[2].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
             }
 
             if(newPwd.length()<8){
-                tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
-                tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.red));
+                tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
+                tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
                 flag = false;
             }else{
-                tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.dark_blue));
+                tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
             }
         }
 
@@ -92,10 +92,10 @@ public class MyPresenter extends BasePresenter {
         }
 
         if(flag){
-            mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.blue));
+            mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.global_button_bg_color));
             mb.setEnabled(true);
         }else{
-            mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.btn_disable_color));
+            mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.global_button_enable_false_bg));
             mb.setEnabled(false);
         }
 

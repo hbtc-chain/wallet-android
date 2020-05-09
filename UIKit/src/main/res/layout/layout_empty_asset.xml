@@ -15,7 +15,7 @@
         android:drawablePadding="20dp"
         android:text="@string/no_asset"
         android:textSize="15sp"
-        android:textColor="@color/tip_text_color"
+        android:textColor="@color/light_text"
         android:layout_gravity="center"
         android:layout_centerInParent="true"
         />

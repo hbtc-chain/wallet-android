@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/app_bg"
     android:minHeight="50dp">
 
     <TextView
@@ -10,11 +10,11 @@
         android:layout_width="75dp"
         android:layout_height="50dp"
         android:layout_marginStart="18dp"
-        android:background="@color/white"
+        android:background="@color/app_bg"
         android:gravity="center_vertical"
         android:includeFontPadding="false"
         android:text="@string/auth_code"
-        android:textColor="@color/main_text_black"
+        android:textColor="@color/global_main_text_color"
         android:textSize="15sp" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="@string/get_auth_code"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_bg_text_color"
         android:textSize="14sp" />
 
     <EditText
@@ -39,15 +39,15 @@
         android:layout_height="50dp"
         android:layout_toEndOf="@id/title_auth_code"
         android:layout_toStartOf="@id/tv_get_auth_code"
-        android:background="@color/white"
+        android:background="@color/app_bg"
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:hint="@string/import_auth_code"
         android:inputType="number"
         android:paddingEnd="8dp"
         android:paddingStart="0dp"
-        android:textColor="@color/main_text_black"
-        android:textColorHint="@color/main_text_bright_gray"
+        android:textColor="@color/global_main_text_color"
+        android:textColorHint="@color/global_input_hint_color"
         android:textSize="14sp" />
 
 </RelativeLayout>

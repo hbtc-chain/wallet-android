@@ -34,7 +34,7 @@
         android:insetTop="0dp"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_left"
-        app:backgroundTint="@color/blue"
+        app:backgroundTint="@color/global_button_bg_color"
         app:cornerRadius="@dimen/main_radius_conner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/wallet_create_trusteeship"
         android:background="@drawable/shape_btn_blue"
-        style="@style/main_text_white"
+        style="@style/main_material_btn"
         />
 
     <com.google.android.material.button.MaterialButton
@@ -53,9 +53,9 @@
         android:layout_marginEnd="@dimen/main_padding_left"
         android:insetBottom="0dp"
         android:insetTop="0dp"
-        app:strokeColor="@color/blue"
+        app:strokeColor="@color/border_button_border_color"
         app:strokeWidth="@dimen/dp_2"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/border_button_bg_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,7 +63,7 @@
         app:cornerRadius="@dimen/main_radius_conner"
         android:text="@string/wallet_import_trusteeship"
         android:gravity="center"
-        style="@style/main_text_blue"
+        style="@style/border_btn_text_style"
         android:layout_marginTop="16dp"
         />
 

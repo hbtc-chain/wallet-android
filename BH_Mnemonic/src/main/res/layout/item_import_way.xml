@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="88dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/main_backgound"
-    app:cardForegroundColor="@color/trans"
-    app:strokeColor="@color/blue"
+    app:cardBackgroundColor="@color/app_bg"
+    app:cardForegroundColor="@color/bg_trans"
+    app:strokeColor="@color/blue_bg"
     app:strokeWidth="2dp"
     app:cardCornerRadius="@dimen/main_radius_conner">
     
@@ -51,7 +51,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_import_hint"
             android:layout_marginStart="@dimen/main_margin_left"
             android:layout_marginBottom="3dp"
-            android:textColor="@color/main_text_black"
+            android:textColor="@color/global_main_text_color"
             android:textSize="17sp"
             android:text="@string/import_mnemonic"
             app:layout_constraintVertical_chainStyle="packed"
@@ -65,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_import_title"
             app:layout_constraintStart_toEndOf="@+id/iv_import_ic"
             android:layout_marginStart="@dimen/main_margin_left"
-            android:textColor="@color/gray_ACB5C3"
+            android:textColor="@color/light_text"
             android:textSize="13sp"
             android:text="请选择导入方式 "
             />

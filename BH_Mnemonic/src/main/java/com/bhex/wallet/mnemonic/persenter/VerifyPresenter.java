@@ -40,7 +40,7 @@ public class VerifyPresenter extends BasePresenter {
         }
 
         if (!flag) {
-            btn.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
+            btn.setBackgroundResource(R.drawable.btn_disabled_gray);
             btn.setEnabled(false);
         }else{
             btn.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);

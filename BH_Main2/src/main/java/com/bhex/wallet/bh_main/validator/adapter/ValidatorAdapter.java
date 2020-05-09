@@ -1,19 +1,9 @@
 package com.bhex.wallet.bh_main.validator.adapter;
 
 import android.text.TextUtils;
-import android.view.View;
-
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.bh_main.R;
-import com.bhex.wallet.common.cache.CacheCenter;
-import com.bhex.wallet.common.cache.SymbolCache;
-import com.bhex.wallet.common.manager.CurrencyManager;
-import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -40,10 +30,10 @@ public class ValidatorAdapter extends BaseQuickAdapter<ValidatorInfo, BaseViewHo
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable ValidatorInfo validatorInfo) {
         viewHolder.setText(R.id.tv_validator_name,validatorInfo.getDescription().getMoniker());
         if (mValid == BHConstants.VALIDATOR_VALID) {
-            viewHolder.setTextColor(R.id.tv_validator_name, getContext().getResources().getColor(R.color.main_text_black));
+            viewHolder.setTextColor(R.id.tv_validator_name, getContext().getResources().getColor(R.color.global_main_text_color));
             viewHolder.setImageResource(R.id.iv_status, R.mipmap.icon_validator_valid);
         } else {
-            viewHolder.setTextColor(R.id.tv_validator_name, getContext().getResources().getColor(R.color.dark_blue));
+            viewHolder.setTextColor(R.id.tv_validator_name, getContext().getResources().getColor(R.color.global_secondary_text_color));
             viewHolder.setImageResource(R.id.iv_status, R.mipmap.icon_validator_invalid);
         }
 

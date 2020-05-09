@@ -11,7 +11,7 @@
         android:id="@+id/status_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/trans"
+        android:background="@color/bg_trans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -86,15 +86,15 @@
                 app:tl_tab_space_equal="true"
                 app:tl_iconVisible="false"
                 android:paddingStart="@dimen/dp_8"
-                app:indicator_start_color="@color/blue"
-                app:indicator_end_color="@color/blue_0"
+                app:indicator_start_color="@color/indicator_start_color"
+                app:indicator_end_color="@color/indicator_end_color"
                 app:tl_indicator_corner_radius="0dp"
                 app:tl_indicator_height="@dimen/tab_indicator_height"
                 app:tl_indicator_width="@dimen/dp_16"
                 app:tl_indicator_gravity="BOTTOM"
                 app:tl_tab_padding="@dimen/dp_16"
-                app:tl_textSelectColor="@color/main_text_black"
-                app:tl_textUnselectColor="@color/dark_blue"
+                app:tl_textSelectColor="@color/global_main_text_color"
+                app:tl_textUnselectColor="@color/global_label_text_color"
                 app:tl_textsize="@dimen/sp_16" />
 
 <!--            <com.google.android.material.tabs.TabLayout-->
@@ -121,7 +121,7 @@
                 android:id="@+id/divider_line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_line_height"
-                android:background="@color/divider_line_color"
+                android:background="@color/global_divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/top_rl"></View>

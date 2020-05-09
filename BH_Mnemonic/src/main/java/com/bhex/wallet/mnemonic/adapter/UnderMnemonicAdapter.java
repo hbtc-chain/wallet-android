@@ -31,9 +31,9 @@ public class UnderMnemonicAdapter extends BaseQuickAdapter<MnemonicItem, BaseVie
         mnemonicTextView.getTextWordView().setText(memonicItem.getWord());
 
         if(memonicItem.isSelected()){
-            mnemonicTextView.getTextWordView().setTextColor(ContextCompat.getColor(getContext(),R.color.gray_ACB5C3));
+            mnemonicTextView.getTextWordView().setTextColor(ContextCompat.getColor(getContext(),R.color.mnemonic_filled_text));
         }else{
-            mnemonicTextView.getTextWordView().setTextColor(ContextCompat.getColor(getContext(),R.color.main_text_black));
+            mnemonicTextView.getTextWordView().setTextColor(ContextCompat.getColor(getContext(),R.color.global_main_text_color));
         }
     }
 }

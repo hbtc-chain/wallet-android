@@ -25,7 +25,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/divider_line_color"
+            android:background="@color/global_divider_color"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/iv_wallet_header"
             />
@@ -61,7 +61,7 @@
                 android:paddingBottom="2dp"
                 android:layout_marginBottom="1dp"
                 android:text="@string/str_default"
-                android:textColor="@color/blue"
+                android:textColor="@color/highlight_text_color"
                 android:textSize="10sp"
                 tools:text="Wallet 2" />
 
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_wallet_name"
                 android:layout_alignLeft="@+id/tv_wallet_name"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/global_label_text_color"
                 android:textSize="13sp"
                 tools:text="0x7u4ser3n…a4mp6lfomp" />
 

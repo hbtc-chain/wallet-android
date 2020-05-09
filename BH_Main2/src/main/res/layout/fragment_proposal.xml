@@ -10,7 +10,7 @@
         android:id="@+id/status_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/main_backgound"
+        android:background="@color/app_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="@color/main_backgound">
+                android:background="@color/app_bg">
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                     android:id="@+id/divider_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_line_height"
-                    android:background="@color/divider_line_color"
+                    android:background="@color/global_divider_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/top_rl"></View>
@@ -134,8 +134,8 @@
                             android:gravity="center_vertical"
                             android:hint="@string/hint_proposal_search"
                             android:maxLines="1"
-                            android:textColor="@color/main_text_color"
-                            android:textColorHint="@color/dark_blue"
+                            android:textColor="@color/global_input_text_color"
+                            android:textColorHint="@color/global_input_hint_color"
                             android:textCursorDrawable="@null"
                             android:textSize="15sp" />
                     </RelativeLayout>

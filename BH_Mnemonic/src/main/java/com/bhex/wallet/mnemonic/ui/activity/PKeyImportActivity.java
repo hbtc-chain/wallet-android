@@ -69,7 +69,7 @@ public class PKeyImportActivity extends BaseCacheActivity {
                     btn_next.setBackgroundResource(R.drawable.btn_bg_blue_6_corner);
                     btn_next.setEnabled(true);
                 }else{
-                    btn_next.setBackgroundResource(R.drawable.btn_gray_e7ecf4);
+                    btn_next.setBackgroundResource(R.drawable.btn_disabled_gray);
                     btn_next.setEnabled(false);
                 }
             }

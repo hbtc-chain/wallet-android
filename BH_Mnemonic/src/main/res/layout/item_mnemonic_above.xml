@@ -10,7 +10,7 @@
         android:id="@+id/mtv_word"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:bgColor="@color/trans">
+        app:bgColor="@color/bg_trans">
 
 
     </com.bhex.lib.uikit.widget.MnemonicTextViewExt>

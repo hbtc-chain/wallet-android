@@ -95,7 +95,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
         MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(
                 getYActivity(), DividerItemDecoration.VERTICAL,
-                PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(), R.color.divider_line_color)
+                PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(), R.color.global_divider_color)
         );
 
         recycler_my.addItemDecoration(myRecyclerDivider);

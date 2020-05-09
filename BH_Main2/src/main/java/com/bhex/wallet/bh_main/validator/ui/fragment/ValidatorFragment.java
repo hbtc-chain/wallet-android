@@ -69,7 +69,7 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
             //verticalOffset是当前appbarLayout的高度与最开始appbarlayout高度的差，向上滑动的话是负数
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if(verticalOffset<0){
-                    appBarLayout.setBackgroundColor(getResources().getColor(R.color.main_backgound));
+                    appBarLayout.setBackgroundColor(getResources().getColor(R.color.app_bg));
                 } else {
                     appBarLayout.setBackgroundResource(R.drawable.bg_validator_header);
                 }

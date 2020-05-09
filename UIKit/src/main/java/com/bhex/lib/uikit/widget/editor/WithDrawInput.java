@@ -56,7 +56,7 @@ public class WithDrawInput extends RelativeLayout {
 
         TypedArray ta = mContext.obtainStyledAttributes(attrs,R.styleable.With_Coin_Input);
 
-        int rightTextColor = ta.getColor(R.styleable.With_Coin_Input_rightColor, ContextCompat.getColor(mContext,R.color.gray_f9f9fb));
+        int rightTextColor = ta.getColor(R.styleable.With_Coin_Input_rightColor, ContextCompat.getColor(mContext,R.color.global_input_profix_text_color));
         btn_right_text.setTextColor(rightTextColor);
 
         String leftHint = ta.getString(R.styleable.With_Coin_Input_leftHint);

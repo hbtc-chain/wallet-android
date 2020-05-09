@@ -4,7 +4,6 @@ package com.bhex.wallet.balance.ui.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
@@ -33,7 +31,6 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -165,7 +162,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
                 getContext(),LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(getYActivity(),68),0,
-                ColorUtil.getColor(getContext(),R.color.divider_line_color));
+                ColorUtil.getColor(getContext(),R.color.global_divider_color));
 
         recycler_balance.addItemDecoration(ItemDecoration);
 
@@ -361,7 +358,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         SwipeMenuItem transferItem = new SwipeMenuItem(getContext())
                 .setBackground(R.drawable.btn_0_blue)
                 .setText(getResources().getString(R.string.transfer))
-                .setTextColor(Color.WHITE)
+                .setTextColor(getResources().getColor(R.color.global_button_text_color))
                 .setWidth(width)
                 .setHeight(height);
         rightMenu.addMenuItem(transferItem);
@@ -370,7 +367,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         SwipeMenuItem makeCollectItem = new SwipeMenuItem(getContext())
                 .setBackground(R.drawable.btn_0_blue)
                 .setText(getResources().getString(R.string.make_collection))
-                .setTextColor(Color.WHITE)
+                .setTextColor(getResources().getColor(R.color.global_button_text_color))
                 .setWidth(width)
                 .setHeight(height);
         leftMenu.addMenuItem(makeCollectItem);

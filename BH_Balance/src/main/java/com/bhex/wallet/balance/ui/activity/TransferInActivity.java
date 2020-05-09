@@ -89,15 +89,15 @@ public class TransferInActivity extends BaseActivity {
         BHBalanceHelper.setTokenIcon(this,balance.symbol,iv_coin_ic);
 
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
-            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.blue).fitsSystemWindows(true).init();
+            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.status_bar_bg_blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.status_bar_bg_blue).fitsSystemWindows(true).init();
             tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.trusteeship_address));
         }else if(way==1){
-            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.color_269A99).statusBarDarkFont(false).barColor(com.bhex.network.R.color.color_269A99).fitsSystemWindows(true).init();
-            mRootView.setBackgroundColor(ContextCompat.getColor(this,R.color.color_269A99));
+            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.tranfer_in_inner_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_inner_bg).fitsSystemWindows(true).init();
+            mRootView.setBackgroundColor(ContextCompat.getColor(this,R.color.tranfer_in_inner_bg));
             tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.trusteeship_address));
         }else if(way==2){
-            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.dark_black).statusBarDarkFont(false).barColor(com.bhex.network.R.color.dark_black).fitsSystemWindows(true).init();
-            mRootView.setBackgroundColor(ContextCompat.getColor(this,R.color.dark_black));
+            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.tranfer_in_out_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_out_bg).fitsSystemWindows(true).init();
+            mRootView.setBackgroundColor(ContextCompat.getColor(this,R.color.tranfer_in_out_bg));
             tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.address));
         }
 

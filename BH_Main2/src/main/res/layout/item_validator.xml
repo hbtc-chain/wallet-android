@@ -10,8 +10,8 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="@dimen/main_padding_right"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="@color/card_backgound"
-    app:cardForegroundColor="@color/trans"
+    app:cardBackgroundColor="@color/app_bg"
+    app:cardForegroundColor="@color/bg_trans"
     app:cardCornerRadius="10dp"
     app:cardElevation="@dimen/dp_10">
 
@@ -33,7 +33,7 @@
             tools:text="testseadgfasdxfvadsvgasdgasdgasdgasd111111"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textColor="@color/main_text_black"
+            android:textColor="@color/global_main_text_color"
             app:layout_constraintEnd_toStartOf="@id/iv_status"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -61,7 +61,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/dp_8"
             android:textSize="@dimen/sp_13"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/global_label_text_color"
             android:text="@string/voting_power_proportion"
             />
         <TextView
@@ -73,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_validator_name"
             android:layout_marginTop="@dimen/dp_8"
             android:textSize="@dimen/sp_13"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/global_label_text_color"
             android:text="@string/self_delegate_proportion"
             />
         <TextView
@@ -86,7 +86,7 @@
             android:gravity="right"
             android:layout_marginTop="@dimen/dp_8"
             android:textSize="@dimen/sp_13"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/global_label_text_color"
             android:text="@string/other_delegate_proportion"
             />
 
@@ -99,7 +99,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="center_vertical"
             android:textSize="@dimen/sp_15"
-            android:textColor="@color/main_text_black"
+            android:textColor="@color/global_main_text_color"
             android:text=""
             tools:text="39.00%"
             />
@@ -112,7 +112,7 @@
             app:layout_constraintTop_toBottomOf="@id/title2"
             android:gravity="center_vertical"
             android:textSize="@dimen/sp_15"
-            android:textColor="@color/main_text_black"
+            android:textColor="@color/global_main_text_color"
             android:text=""
             tools:text="39.00%"
             />
@@ -123,7 +123,7 @@
             android:layout_height="@dimen/dp_28"
             android:gravity="right|center_vertical"
             android:text=""
-            android:textColor="@color/main_text_black"
+            android:textColor="@color/global_main_text_color"
             android:textSize="@dimen/sp_15"
             app:layout_constraintStart_toEndOf="@id/tv_self_delegate_proportion"
             app:layout_constraintTop_toBottomOf="@id/title3"

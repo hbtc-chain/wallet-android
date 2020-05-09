@@ -127,10 +127,10 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
             String text = ed_fee.ed_input.getText().toString().trim();
             if(RegexUtil.checkNumeric(text)){
                 btn_crosslink_address.setEnabled(true);
-                btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.blue));
+                btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.global_button_bg_color));
             }else{
                 btn_crosslink_address.setEnabled(false);
-                btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.btn_disable_color));
+                btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.global_button_enable_false_bg));
             }
         }
     };

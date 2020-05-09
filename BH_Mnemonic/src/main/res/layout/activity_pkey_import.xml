@@ -40,7 +40,7 @@
         android:layout_marginEnd="@dimen/main_padding_right"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginTop="16dp"
-        android:background="@color/input_background"
+        android:background="@color/global_input_background"
         >
 
 
@@ -56,8 +56,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_tip_index_1"
             android:hint="@string/hint_private_key_input"
-            android:textColorHint="@color/dark_blue"
-            android:textColor="@color/main_text_black"
+            android:textColorHint="@color/global_input_hint_color"
+            android:textColor="@color/global_main_text_color"
             android:padding="16dp"
             android:inputType="text"
             android:textCursorDrawable="@null"

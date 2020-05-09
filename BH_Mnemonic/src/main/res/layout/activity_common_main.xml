@@ -23,7 +23,7 @@
         android:layout_marginEnd="@dimen/main_padding_left"
         android:text="@string/wallet_create_trusteeship"
         android:background="@drawable/shape_btn_blue"
-        style="@style/main_text_white"
+        style="@style/dark_bg_text"
         />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -33,7 +33,7 @@
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_left"
         android:text="@string/wallet_import_trusteeship"
-        style="@style/main_text_blue"
+        style="@style/border_btn_text_style"
         android:background="@drawable/shape_white_password"
         android:layout_marginTop="16dp"
         />

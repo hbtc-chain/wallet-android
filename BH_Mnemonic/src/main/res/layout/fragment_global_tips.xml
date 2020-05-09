@@ -35,7 +35,7 @@
             android:paddingBottom="2dp"
             android:gravity="center"
             android:text="@string/agreement_index_1"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/global_label_text_color"
             android:textSize="13sp" />
 
         <ScrollView
@@ -58,7 +58,7 @@
             android:paddingRight="24dp"
             android:paddingBottom="2dp"
             android:text="@string/agreement_context"
-            android:textColor="@color/tips_text_black"
+            android:textColor="@color/service_agreement_text_color"
             android:textSize="13sp" />
         </ScrollView>
     </LinearLayout>
@@ -83,7 +83,7 @@
             android:layout_marginBottom="20dp"
             android:text="@string/is_argee_text"
             android:textAlignment="center"
-            android:textColor="@color/dark_black"
+            android:textColor="@color/global_secondary_text_color"
             android:textSize="13sp" />
 
 
@@ -96,7 +96,7 @@
             android:background="@drawable/btn_bg_blue_6_corner"
             android:gravity="center"
             android:text="@string/confirm"
-            android:textColor="@color/white"
+            android:textColor="@color/global_button_text_color"
             android:textSize="17sp" />
 
     </LinearLayout>

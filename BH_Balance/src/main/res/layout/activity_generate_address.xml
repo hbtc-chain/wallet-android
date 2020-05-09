@@ -18,10 +18,10 @@
         android:layout_marginEnd="@dimen/main_margin_right"
         app:cardElevation="0dp"
         app:strokeWidth="2dp"
-        app:strokeColor="@color/tranfer_stoke_color"
+        app:strokeColor="@color/transfer_stoke_color"
         app:cardCornerRadius="@dimen/main_radius_conner"
-        app:cardForegroundColor="@color/trans"
-        app:cardBackgroundColor="@color/main_backgound"
+        app:cardForegroundColor="@color/bg_trans"
+        app:cardBackgroundColor="@color/app_bg"
         app:contentPaddingLeft="10dp"
         app:contentPaddingRight="10dp"
         app:contentPaddingTop="16dp"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="@color/dark_black"
+            android:textColor="@color/global_secondary_text_color"
             android:lineSpacingExtra="3dp"
             android:text="@string/tip_crosslink_generate"
             />
@@ -51,7 +51,7 @@
             android:layout_alignParentStart="true"
             android:text="@string/fee"
             android:textSize="15sp"
-            android:textColor="@color/dark_black"
+            android:textColor="@color/global_secondary_text_color"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -61,7 +61,7 @@
             android:layout_alignParentEnd="true"
             android:text="@string/available"
             android:textSize="15sp"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/global_label_text_color"
             />
     </RelativeLayout>
 
@@ -72,7 +72,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_right"
-        app:rightColor="@color/dark_blue"
+        app:rightColor="@color/global_input_profix_text_color"
         app:leftText="2"
         app:rightText="@string/BH_token"
         />
@@ -92,7 +92,7 @@
             android:layout_alignParentStart="true"
             android:text="加速"
             android:textSize="15sp"
-            android:textColor="@color/dark_black"/>
+            android:textColor="@color/global_secondary_text_color"/>
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:textSize="15sp"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/global_label_text_color"
             />
     </RelativeLayout>
 
@@ -125,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"
-            android:textColor="@color/tip_text_color"
+            android:textColor="@color/secondary_tip_text_color"
             android:text="温馨提示"
             />
 
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="13sp"
-            android:textColor="@color/tip_text_color"
+            android:textColor="@color/secondary_tip_text_color"
             android:text="1.段落文本"
             />
 
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:lineSpacingExtra="2dp"
-            android:textColor="@color/tip_text_color"
+            android:textColor="@color/secondary_tip_text_color"
             android:text="2.段落文本段落文本"
             />
 
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:lineSpacingExtra="2dp"
-            android:textColor="@color/tip_text_color"
+            android:textColor="@color/secondary_tip_text_color"
             android:text="3.段落文本段落文本段落文本段落文本段落文本"
             />
     </LinearLayout>
@@ -166,10 +166,10 @@
         android:layout_marginEnd="@dimen/main_margin_right"
         android:insetBottom="0dp"
         android:insetTop="0dp"
-        app:backgroundTint="@color/blue"
+        app:backgroundTint="@color/global_button_bg_color"
         app:cornerRadius="@dimen/main_radius_conner"
         style="@style/main_material_btn"
-        android:textColor="@color/white"
+        android:textColor="@color/global_button_text_color"
         android:text="@string/genarate_address"
         android:enabled="true"
         />

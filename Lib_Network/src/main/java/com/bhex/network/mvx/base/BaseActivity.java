@@ -67,10 +67,10 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         if(!isNight()){
             if(getStatusColorValue()== BHConstants.STATUS_COLOR_WHITE){
                 //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
-                ImmersionBar.with(this).statusBarColor(R.color.main_backgound).statusBarDarkFont(true).barColor(R.color.main_backgound).fitsSystemWindows(true).init();
+                ImmersionBar.with(this).statusBarColor(R.color.app_bg).statusBarDarkFont(true).barColor(R.color.app_bg).fitsSystemWindows(true).init();
             }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_BLUE){
                 //StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
-                ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).fitsSystemWindows(true).init();
+                ImmersionBar.with(this).statusBarColor(R.color.status_bar_bg_blue).statusBarDarkFont(false).fitsSystemWindows(true).init();
             }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_TRANS){
                 //StatusBarUtil.setStatusColor(this,true,true,R.color.trans);
                 ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
@@ -80,10 +80,10 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         }else{
             if(getStatusColorValue()== BHConstants.STATUS_COLOR_WHITE){
                 //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
-                ImmersionBar.with(this).statusBarColor(R.color.main_backgound).statusBarDarkFont(false).barColor(R.color.main_backgound).fitsSystemWindows(true).init();
+                ImmersionBar.with(this).statusBarColor(R.color.app_bg).statusBarDarkFont(false).barColor(R.color.app_bg).fitsSystemWindows(true).init();
             }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_BLUE){
                 //StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
-                ImmersionBar.with(this).statusBarColor(R.color.blue).statusBarDarkFont(false).fitsSystemWindows(true).init();
+                ImmersionBar.with(this).statusBarColor(R.color.status_bar_bg_blue).statusBarDarkFont(false).fitsSystemWindows(true).init();
             }else if(getStatusColorValue()== BHConstants.STATUS_COLOR_TRANS){
                 //StatusBarUtil.setStatusColor(this,true,true,R.color.trans);
                 ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();

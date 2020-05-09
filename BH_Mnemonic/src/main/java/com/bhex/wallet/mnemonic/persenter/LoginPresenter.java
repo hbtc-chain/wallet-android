@@ -35,10 +35,10 @@ public class LoginPresenter extends BasePresenter {
         flag = RegexUtil.checkPasswd(pwd);
 
         if (flag) {
-            btn_confirm.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.blue));
+            btn_confirm.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.global_button_bg_color));
             btn_confirm.setEnabled(true);
         }else{
-            btn_confirm.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.btn_disable_color));
+            btn_confirm.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.global_button_enable_false_bg));
             btn_confirm.setEnabled(false);
         }
     }

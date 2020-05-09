@@ -19,7 +19,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/blue">
+        android:background="@color/blue_bg">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_back"
@@ -38,7 +38,7 @@
             android:layout_gravity="center"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/dark_bg_text_color"
             android:textSize="17sp"
             android:text="扫描二维码"
             tools:text="@string/wallet_create_trusteeship" />
@@ -51,7 +51,7 @@
             android:layout_alignParentRight="true"
             android:paddingEnd="16dp"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/dark_bg_text_color"
             android:textSize="17sp"
             android:text="@string/album"
             tools:text="相册" />

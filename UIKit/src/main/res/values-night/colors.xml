@@ -1,41 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="main_text_black">#B0BFDB</color>
+    <!--一级文字颜色-->
+    <color name="global_main_text_color">#B0BFDB</color>
 
-    <color name="main_backgound">#141A27</color>
-    <color name="theme_nav_background">#141A27</color>
-    <color name="card_backgound">#1A2233</color>
-    <color name="asset_title_color">#B0BFDB</color>
-    <color name="asset_big_title_color">#E7ECF4</color>
-    <!--分割线颜色-->
-    <color name="divider_line_color">#77202F44</color>
-    <color name="main_text_color">#6E8196</color>
-    <color name="theme_nav_title">#E7ECF4</color>
+    <!--二级文字颜色-->
+    <color name="global_secondary_text_color">#6E8196</color>
 
-    <!--输入框背景色-->
-    <color name="input_hint_background">#1A2233</color>
-    <!--提币边框颜色-->
-    <color name="tranfer_stoke_color">#202F44</color>
-    <!--提币边框文字颜色-->
-    <color name="tranfer_stoke_text_color">#ACB5C3</color>
-    <!--token操作颜色-->
-    <color name="tranfer_action_text_color">#6E8196</color>
-    <!--输入框背景色-->
-    <color name="input_background">#1A2233</color>
-    <!--顶部标题颜色-->
-    <color name="theme_toolbar_title">@color/theme_nav_title</color>
-    <!--dialog背景色-->
-    <color name="dialog_fragment_backgound">#222D42</color>
-    <!--btn-禁用颜色-->
-    <color name="btn_disable_color">#222D42</color>
+    <!--标签文字颜色-->
+    <color name="global_label_text_color">#6E8196</color>
+
     <!--tips-->
-    <color name="tip_text_color">#6E8196</color>
+    <color name="global_tip_text_color">#6E8196</color>
 
-    <color name="light_gray">#222D42</color>
 
-    <!--input hint颜色-->
-    <color name="input_hint_color">#6E8196</color>
-    <!--input text颜色-->
-    <color name="input_text_color">#B0BFDB</color>
+    <color name="light_text">#6E8196</color>
+
+    <color name="mnemonic_input_bg">#141A27</color>
+
+    <color name="mnemonic_input_border">#222D42</color>
+    <color name="mnemonic_input_text">#B0BFDB</color>
+    <color name="mnemonic_filled_text">#475563</color>
+
+
+    <!--dialog背景色-->
+    <color name="dialog_fragment_background">#222D42</color>
+    <color name="dialog_title_color">#E7ECF4</color>
+
+    <!--app背景色-->
+    <color name="app_bg">#141A27</color>
+
+    <!--app次级背景色-->
+    <color name="app_default_bg">#1A2233</color>
+
+    <color name="global_button_enable_false_bg">#475563</color>
+    <color name="global_button_enable_false_text">#0A1825</color>
+
+    <!--水印字色-->
+    <color name="global_input_hint_color">#475563</color>
+    <!--输入字色-->
+    <color name="global_input_text_color">#B0BFDB</color>
+
+    <color name="global_input_profix_text_color">#475563</color>
+
+    <!--输入框背景色-->
+    <color name="global_input_background">#1A2233</color>
+
+
+    <!--全局的色值-->
+    <!--分割线颜色-->
+    <color name="global_divider_color">#222D42</color>
+
+
+    <color name="proposal_desc_length_text">#6E8196</color>
+
+    <color name="theme_toolbar_title">@color/global_main_text_color</color>
+
+
+
+    <color name="seek_bar_bg">#222D42</color>
+
+
+
+    <color name="menu_checked_text_color">#4299FF</color>
+
+
+    <!--提币，投票，验证人等界面说明边框色-->
+    <color name="transfer_stoke_color">#222D42</color>
+
+    <color name="vote_option_text">#B0BFDB</color>
+    <color name="vote_option_selected_text">#141A27</color>
+
 </resources>

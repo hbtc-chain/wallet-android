@@ -80,7 +80,7 @@ public class BHQrScanActivity extends BaseActivity {
     @Override
     protected void initView() {
         tv_center_title.setText("二维码");
-        ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.blue).fitsSystemWindows(true).init();
+        ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.status_bar_bg_blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.status_bar_bg_blue).fitsSystemWindows(true).init();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
