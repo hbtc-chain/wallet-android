@@ -61,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_coin_name"
             tools:text="￥62693.49"
             android:textSize="13sp"
-            android:textColor="@color/main_text_color"
+            android:textColor="@color/global_label_text_color"
             android:layout_marginTop="2dp"
             />
 
@@ -69,7 +69,7 @@
             android:id="@+id/tv_coin_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/asset_big_title_color"
+            android:textColor="@color/global_main_text_color"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_coin_amount"
             tools:text="￥62693.49"
             android:textSize="13sp"
-            android:textColor="@color/main_text_color"
+            android:textColor="@color/global_label_text_color"
             android:layout_marginTop="2dp"
             />
 

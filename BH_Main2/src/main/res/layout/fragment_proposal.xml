@@ -65,6 +65,8 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="right"
                             android:gravity="center_vertical"
+                            android:textSize="17sp"
+                            android:textColor="@color/global_main_text_color"
                             android:paddingEnd="@dimen/main_margin_right"
                             android:text="@string/create_proposals"
                             tools:text="@string/create_proposals" />

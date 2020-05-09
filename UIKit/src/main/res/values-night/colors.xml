@@ -36,6 +36,7 @@
     <color name="global_button_enable_false_bg">#475563</color>
     <color name="global_button_enable_false_text">#0A1825</color>
 
+    <color name="border_button_bg_color">#141A27</color>
     <!--水印字色-->
     <color name="global_input_hint_color">#475563</color>
     <!--输入字色-->

@@ -15,12 +15,12 @@
 
         <path
             android:pathData="M0 0V32H64V0"
-            android:fillColor="#F9F9FB"
+            android:fillColor="@color/app_default_bg"
             />
 
         <path
             android:pathData="M0 0V32H64V0"
-            android:fillColor="#F9F9FB"
+            android:fillColor="@color/app_default_bg"
             />
 
     </group>

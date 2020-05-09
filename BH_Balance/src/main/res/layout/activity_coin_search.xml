@@ -41,8 +41,8 @@
             android:background="@null"
             android:layout_marginEnd="@dimen/main_margin_right"
             android:textSize="15sp"
-            android:textColorHint="@color/main_text_color"
-            android:textColor="@color/main_text_color"
+            android:textColorHint="@color/global_input_hint_color"
+            android:textColor="@color/global_input_text_color"
             android:hint="请输入币种名称"/>
 
     </RelativeLayout>

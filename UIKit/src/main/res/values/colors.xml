@@ -86,7 +86,7 @@
     <color name="secondary_button_bg_color">#B0BFDB</color>
 
     <!--透明底蓝边按钮-->
-    <color name="border_button_bg_color">@color/bg_trans</color>
+    <color name="border_button_bg_color">#FFFFFF</color>
     <color name="border_button_text_color">#3375E0</color>
     <color name="border_button_border_color">#3375E0</color>
 
@@ -130,6 +130,7 @@
 
     <color name="menu_text_color">#6E8196</color>
     <color name="menu_checked_text_color">#3375E0</color>
+    <color name="theme_nav_background">#F9F9FB</color>
 
 
     <!--提币，投票，验证人等界面说明边框色-->
@@ -171,8 +172,6 @@
     <color name="proposal_reject">#F73A46</color>
     <!--提案-募集失败-->
     <color name="proposal_failed">#6E8196</color>
-
-
 
 
     <!--    <color name="white">#ffffff</color>-->

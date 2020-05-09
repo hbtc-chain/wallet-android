@@ -47,7 +47,7 @@
                     android:id="@+id/tv_tranction_text"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/main_text_color"
+                    android:textColor="@color/global_label_text_color"
                     android:textSize="13sp"
                     android:text="TXID"
                     android:layout_marginStart="@dimen/page_margin_start"
@@ -60,7 +60,7 @@
                     android:id="@+id/tv_tranction_hash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/asset_title_color"
+                    android:textColor="@color/global_main_text_color"
                     android:textSize="13sp"
                     tools:text="3233r32r32r32r32r1321r3233r32r32r32r32r1321r3233r32r32r32r32r1321r3233r32r32r32r32r1321r"
                     android:layout_toEndOf="@+id/tv_tranction_text"
@@ -94,7 +94,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:textColor="@color/main_text_color"
+                    android:textColor="@color/global_label_text_color"
                     android:text="@string/status"
                     android:layout_marginStart="@dimen/page_margin_start"
                     app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +126,7 @@
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
                     android:text="@string/time"
-                    android:textColor="@color/main_text_color"
+                    android:textColor="@color/global_label_text_color"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -135,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:textColor="@color/asset_title_color"
+                    android:textColor="@color/global_main_text_color"
                     tools:text="2020-4-8 12:23:22"
                     />
 
