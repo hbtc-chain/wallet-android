@@ -87,6 +87,11 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(isNight()){
+            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(false).init();
+        }else{
+            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
+        }
     }
 
     private void initTab() {

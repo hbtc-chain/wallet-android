@@ -130,6 +130,9 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
                     canvas.drawRect(left, top, right, bottom, mPaint);
                 }
             }else{
+                if(i==childSize-1){
+                    continue;
+                }
                 mDividerHeight = 1;
                 final int bottom = top + mDividerHeight;
                 if (mDivider != null) {

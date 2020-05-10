@@ -2,6 +2,7 @@ package com.bhex.wallet.app;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.webkit.CookieManager;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -25,8 +26,8 @@ public class BHApplication extends BaseApplication {
         //夜间模式
         AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
 
-        //AppFilePath.init(this);
         BHFilePath.initPath(this);
+
         //BlockCanary.install(this, new AppBlockCanaryContext()).start();
 
     }
@@ -34,9 +35,14 @@ public class BHApplication extends BaseApplication {
     /*@Override
     public Resources getResources() {
         Resources resources = super.getResources();
-        Configuration configuration = resources.getConfiguration();
-        configuration.setToDefaults();
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        if (resources != null && (resources.getConfiguration()).fontScale != 1F) {
+            Configuration configuration = resources.getConfiguration();
+            configuration.fontScale = 1F;
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        }
         return resources;
     }*/
+
+
+
 }

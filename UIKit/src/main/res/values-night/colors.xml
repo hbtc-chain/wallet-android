@@ -72,4 +72,6 @@
     <color name="vote_option_text">#B0BFDB</color>
     <color name="vote_option_selected_text">#141A27</color>
 
+    <color name="theme_nav_background">#141A27</color>
+
 </resources>
