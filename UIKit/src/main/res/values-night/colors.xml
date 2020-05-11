@@ -47,6 +47,7 @@
     <!--输入框背景色-->
     <color name="global_input_background">#1A2233</color>
 
+    <color name="total_assert_text_color">#B0BFDB</color>
 
     <!--全局的色值-->
     <!--分割线颜色-->
@@ -58,6 +59,8 @@
     <color name="theme_toolbar_title">@color/global_main_text_color</color>
 
 
+    <!--服务协议字色-->
+    <color name="service_agreement_text_color">#B0BFDB</color>
 
     <color name="seek_bar_bg">#222D42</color>
 

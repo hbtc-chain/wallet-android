@@ -32,7 +32,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.CoinSearchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".BalanceIndexActivity"
             android:screenOrientation="portrait" />

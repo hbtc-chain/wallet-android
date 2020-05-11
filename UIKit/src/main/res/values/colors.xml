@@ -48,7 +48,7 @@
     <color name="global_input_background">#F9F9FB</color>
 
     <!--服务协议字色-->
-    <color name="service_agreement_text_color">#0E1D2C</color>
+    <color name="service_agreement_text_color">#0A1825</color>
 
 
     <color name="theme_toolbar_title">@color/global_main_text_color</color>
@@ -139,6 +139,7 @@
 
     <color name="empty_layout_text_color">#ACB5C3</color>
 
+    <color name="total_assert_text_color">#475563</color>
 
     <!--作用未知-->
     <color name="theme_content">#ff3a476b</color>
@@ -172,85 +173,5 @@
     <color name="proposal_reject">#F73A46</color>
     <!--提案-募集失败-->
     <color name="proposal_failed">#6E8196</color>
-
-
-    <!--    <color name="white">#ffffff</color>-->
-    <!--    <color name="trans_77_white">#77ffffff</color>-->
-    <!--    <color name="line_color">#fff0f0f2</color>-->
-
-    <!--    <color name="gray">#E5E5E5</color>-->
-
-    <!--    <color name="blue">#3375E0</color>-->
-    <!--    <color name="blue_0">#003375E0</color>-->
-    <!--    <color name="dark_blue">#6E8196</color>-->
-    <!--    <color name="dark_20_blue">#406E8196</color>-->
-    <!--    <color name="dark_20_blue">#406E8196</color>-->
-    <!--    <color name="dark">#242b32</color>-->
-    <!--    <color name="dark_black">#475563</color>-->
-    <!--    <color name="gray_f9f9fb">#f9f9fb</color>-->
-    <!--    <color name="gray_B0BFDB">#B0BFDB</color>-->
-    <!--    &lt;!&ndash;<color name="gray_E7ECF4">#E7ECF4</color>&ndash;&gt;-->
-    <!--    <color name="gray_ACB5C3">#ACB5C3</color>-->
-
-    <!--    <color name="color_269A99">#269A99</color>-->
-
-    <!--    <color name="blue5">#0c3375E0</color>-->
-    <!--    <color name="red">#F73A46</color>-->
-
-    <!--    <color name="dark20">#202F44</color>-->
-    <!--    <color name="dark80">#cc242b32</color>-->
-    <!--    <color name="dark50">#80242b32</color>-->
-    <!--&lt;!&ndash;-->
-    <!--    <color name="dark20">#33242b32</color>-->
-    <!--&ndash;&gt;-->
-    <!--    <color name="dark10">#19242b32</color>-->
-    <!--    <color name="dark5">#0c242b32</color>-->
-    <!--    <color name="dark1">#03242b32</color>-->
-    <!--    <color name="blue_356AFC">#356AFC</color>-->
-    <!--    &lt;!&ndash;<color name="color_native_background">#4F51D372</color>-->
-    <!--    <color name="color_native">#51D372</color>&ndash;&gt;-->
-    <!--    <color name="color_green">#51D372</color>-->
-    <!--    <color name="color_20_green">#4051D372</color>-->
-    <!--    <color name="color_red">#F73A46</color>-->
-    <!--    <color name="color_20_red">#40F73A46</color>-->
-
-    <!--    <color name="theme_sub_title">#ff9ea7b4</color>-->
-    <!--    <color name="theme_disable">#ffe1e2e6</color>-->
-    <!--    <color name="theme_color_dark">#ff0062cc</color>-->
-    <!--    <color name="theme_color">#ff007aff</color>-->
-
-    <!--    <color name="color_F9F9FB">#F4F7FF</color>-->
-    <!--    <color name="color_F4F7FF">#F9F9FB</color>-->
-
-    <!--    <color name="switch_compat_bg">#ff9ea7b4</color>-->
-
-    <!--    &lt;!&ndash;黑白版颜色&ndash;&gt;-->
-    <!--    <color name="main_backgound">@color/white</color>-->
-    <!--    <color name="theme_nav_background">#F9F9FB</color>-->
-    <!--    <color name="card_backgound">@color/white</color>-->
-    <!--    <color name="asset_title_color">#475563</color>-->
-    <!--    <color name="asset_big_title_color">#475563</color>-->
-    <!--    <color name="main_text_color">#6E8196</color>-->
-    <!--    <color name="theme_nav_title">@color/main_text_color</color>-->
-    <!--    &lt;!&ndash;顶部标题颜色&ndash;&gt;-->
-    <!--    <color name="theme_toolbar_title">@color/global_main_text_color</color>-->
-
-    <!--    &lt;!&ndash;输入框背景色&ndash;&gt;-->
-    <!--    <color name="input_hint_background">#77F9F9FB</color>-->
-
-    <!--    &lt;!&ndash;提币边框颜色&ndash;&gt;-->
-    <!--    <color name="tranfer_stoke_color">#E7ECF4</color>-->
-    <!--    &lt;!&ndash;提币边框文字颜色&ndash;&gt;-->
-    <!--    <color name="tranfer_stoke_text_color">#475563</color>-->
-    <!--    &lt;!&ndash;token操作颜色&ndash;&gt;-->
-    <!--    <color name="tranfer_action_text_color">#242b32</color>-->
-
-    <!--    &lt;!&ndash;btn-禁用颜色&ndash;&gt;-->
-    <!--    <color name="btn_disable_color">#E7ECF4</color>-->
-
-    <!--    &lt;!&ndash;input hint颜色&ndash;&gt;-->
-    <!--    <color name="input_hint_color">#6E8196</color>-->
-    <!--    &lt;!&ndash;input text颜色&ndash;&gt;-->
-    <!--    <color name="input_text_color">#0A1825</color>-->
 
 </resources>
