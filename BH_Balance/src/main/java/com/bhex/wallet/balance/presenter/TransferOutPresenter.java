@@ -24,27 +24,27 @@ public class TransferOutPresenter extends BasePresenter {
     public boolean checklinkInnerTransfer(String to_address,String transfer_amount,
                                           String available_amount,String fee_amount){
         if(!to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
-            ToastUtils.showToast("链内转账地址错误");
+            ToastUtils.showToast(getActivity().getString(R.string.error_transfer_address));
             return false;
         }
 
         if(TextUtils.isEmpty(available_amount) || Double.valueOf(available_amount)<=0){
-            ToastUtils.showToast("没有可用余额");
+            ToastUtils.showToast(getActivity().getString(R.string.not_available_amount));
             return false;
         }
 
         if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
-            ToastUtils.showToast("请输入转账数量");
+            ToastUtils.showToast(getActivity().getString(R.string.please_transfer_amount));
             return false;
         }
 
         if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast("请输入交易手续费");
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_gasfee));
             return false;
         }
 
         if( Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
-            ToastUtils.showToast("转账数量大于可用余额");
+            ToastUtils.showToast(getActivity().getString(R.string.error_transfer_amout_more_available));
             return false;
         }
 
@@ -65,17 +65,17 @@ public class TransferOutPresenter extends BasePresenter {
         }
 
         if(TextUtils.isEmpty(tx_fee_amount) && Double.valueOf(tx_fee_amount)<=0){
-            ToastUtils.showToast("请输入交易手续费");
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_gasfee));
             return false;
         }
 
         if(TextUtils.isEmpty(fee_amount) && Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast("请输入提币手续费");
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_withdraw_fee));
             return false;
         }
 
         if( Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
-            ToastUtils.showToast("转账数量大于可用余额");
+            ToastUtils.showToast(getActivity().getString(R.string.error_transfer_amout_more_available));
             return false;
         }
 

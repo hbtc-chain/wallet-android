@@ -47,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:visibility="invisible"
             style="@style/tx_cross_link_token"
             app:layout_constraintBottom_toBottomOf="@+id/tv_coin_name"
             app:layout_constraintStart_toEndOf="@+id/tv_coin_name"

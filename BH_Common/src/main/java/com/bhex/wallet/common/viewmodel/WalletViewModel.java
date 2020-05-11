@@ -251,13 +251,15 @@ public class WalletViewModel extends ViewModel {
 
         Observable.create((emitter)->{
             try{
-                BHWallet bhWallet = BHWalletUtils.importMnemonic(BHWalletUtils.BH_CUSTOM_TYPE,words,name,pwd);
+                //验证托管单元地址是否存在
+                String bh_address = BHWalletUtils.memonicToAddress(words);
                 //判断助记词是否已经导入过
-                boolean isWalletExist = BHWalletHelper.isExistBHWallet(bhWallet);
+                boolean isWalletExist = BHWalletHelper.isExistBHWallet(bh_address);
                 if(isWalletExist){
                     emitter.onNext(new BHWallet());
                     emitter.onComplete();
                 }else{
+                    BHWallet bhWallet = BHWalletUtils.importMnemonic(BHWalletUtils.BH_CUSTOM_TYPE,words,name,pwd);
                     int maxId = bhWalletDao.loadMaxId();
                     bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
                     bhWallet.id = maxId+1;
@@ -319,14 +321,15 @@ public class WalletViewModel extends ViewModel {
         Observable.create((emitter)->{
             try{
                 String privateKey = BHUserManager.getInstance().getTmpBhWallet().getPrivateKey();
-                BHWallet bhWallet = BHWalletUtils.importPrivateKey(privateKey,name,pwd);
+                //先判断地址是否存在
+                String bh_address = BHWalletUtils.privatekeyToAddress(privateKey);
+                boolean isWalletExist = BHWalletHelper.isExistBHWallet(bh_address);
 
-                //判断托管单元是否存在
-                boolean isWalletExist = BHWalletHelper.isExistBHWallet(bhWallet);
                 if(isWalletExist){
                     emitter.onNext(new BHWallet());
                     emitter.onComplete();
                 }else{
+                    BHWallet bhWallet = BHWalletUtils.importPrivateKey(privateKey,name,pwd);
                     int maxId = bhWalletDao.loadMaxId();
                     bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
                     bhWallet.id = maxId+1;

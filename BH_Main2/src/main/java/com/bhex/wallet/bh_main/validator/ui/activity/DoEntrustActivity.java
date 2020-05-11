@@ -174,13 +174,13 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             btn_do_entrust.setText(getString(R.string.relieve_entrust));
             tv_center_title.setText(getString(R.string.relieve_entrust));
             tv_fee_available_amount.setVisibility(View.VISIBLE);
-            tv_fee_available_amount.setText("可用 " + getString(R.string.string_placeholder) + token.toUpperCase());
+            tv_fee_available_amount.setText(" " + getString(R.string.string_placeholder) + token.toUpperCase());
         }
         ed_entrust_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_real_entrust_amount.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        tv_available_amount.setText("可用 " + getString(R.string.string_placeholder) + token.toUpperCase());
+        tv_available_amount.setText(" " + getString(R.string.string_placeholder) + token.toUpperCase());
     }
 
     @Override

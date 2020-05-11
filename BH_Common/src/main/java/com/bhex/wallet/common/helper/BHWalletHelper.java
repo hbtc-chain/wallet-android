@@ -28,4 +28,20 @@ public class BHWalletHelper {
         }
         return flag;
     }
+
+    //判断导入或创建的钱包是否已经存在
+    public static boolean isExistBHWallet(String address){
+        boolean flag = false;
+        List<BHWallet> bhWallets = BHUserManager.getInstance().getAllWallet();
+        if(bhWallets==null || bhWallets.size()==0){
+            return flag;
+        }
+
+        for(BHWallet bhWallet:bhWallets){
+            if(bhWallet.address.equals(address)){
+                return true;
+            }
+        }
+        return flag;
+    }
 }

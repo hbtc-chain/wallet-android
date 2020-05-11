@@ -61,7 +61,6 @@
             android:padding="16dp"
             android:inputType="text"
             android:textCursorDrawable="@null"
-            android:text="37ef53a59ca92d983c41c1b6681275637ebb9aa85bb035c39d75b48c77b20baa"
             tools:text="3323r2f2332def"
             >
 

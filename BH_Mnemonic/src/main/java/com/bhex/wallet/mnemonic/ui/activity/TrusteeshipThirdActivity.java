@@ -69,7 +69,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     @Override
     protected void initView() {
         mPresenter.setToolBarTitle();
-
+        mPresenter.setButtonTitle();
         mOldPwd = BHUserManager.getInstance().getTmpBhWallet().getPassword();
         SpannableString highlightText = StringUtils.highlight(this,
                 getString(R.string.bh_register_agreement),
@@ -111,12 +111,12 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                     NavitateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
                     EventBus.getDefault().post(new AccountEvent());
-                    ToastUtils.showToast("助记词导入成功");
+                    ToastUtils.showToast(getResources().getString(R.string.import_mnemonic_success));
                 }else if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.PK.getWay()){
                     NavitateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
                     EventBus.getDefault().post(new AccountEvent());
-                    ToastUtils.showToast("私钥导入成功");
+                    ToastUtils.showToast(getResources().getString(R.string.import_privatekey_success));
                 }else{
                     NavitateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
                     ActivityCache.getInstance().finishActivity();
@@ -124,7 +124,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
             }else if(loadDataModel.loadingStatus== LoadingStatus.ERROR){
                 if(loadDataModel.code==1){
-                    ToastUtils.showToast("托管单元已存在");
+                    ToastUtils.showToast(getResources().getString(R.string.trusteeship_exist));
                 }else{
                     ToastUtils.showToast(getString(R.string.create_fail));
                 }

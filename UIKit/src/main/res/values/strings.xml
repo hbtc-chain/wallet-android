@@ -301,6 +301,15 @@
 
     <string name="update_prepare">准备下载 %s</string>
     <string name="update_progress">下载中 %1$d%2$s</string>
+    <string name="import_mnemonic_success">助记词导入成功</string>
+    <string name="import_privatekey_success">私钥导入成功</string>
+    <string name="trusteeship_exist">托管单元已存在</string>
+    <string name="please_input_gasfee">请输入交易手续费</string>
+    <string name="please_input_withdraw_fee">请输入提币手续费</string>
+    <string name="not_available_amount">没有可用余额</string>
+    <string name="please_transfer_amount">请输入转账数量</string>
+    <string name="error_transfer_address">转账地址错误</string>
+    <string name="error_transfer_amout_more_available">转账数量大于可用余额</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

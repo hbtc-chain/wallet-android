@@ -66,7 +66,7 @@ public class BHWalletUtils {
     public static BHWallet generateMnemonic(String walletName, String pwd) {
         String[] pathArray = BH_CUSTOM_TYPE.split("/");
         String passphrase = "";
-        //long creationTimeSeconds = System.currentTimeMillis() / 1000;
+
         DeterministicSeed ds = new DeterministicSeed(secureRandom, 128, passphrase);
         //种子
         byte[] seeds = ds.getSeedBytes();
@@ -76,7 +76,6 @@ public class BHWalletUtils {
         ECKeyPair keyPair = makeECKeyPair(seeds);
         BHWallet bhWallet = generateWallet(walletName, pwd, keyPair,mnemonic);
 
-        //BHWallet bhWallet = generateWalletByMnemonic(walletName, ds, pathArray, pwd);
         return bhWallet;
     }
 
@@ -94,26 +93,7 @@ public class BHWalletUtils {
         byte[] seedBytes = ds.getSeedBytes();
         //助记词
         List<String> mnemonic = ds.getMnemonicCode();
-        /*System.out.println(Arrays.toString(mnemonic.toArray()));
-
-        if (seedBytes == null)
-            return null;
-
-        DeterministicKey dkKey = HDKeyDerivation.createMasterPrivateKey(seedBytes);
-        for (int i = 1; i < pathArray.length; i++) {
-            ChildNumber childNumber;
-            if (pathArray[i].endsWith("'")) {
-                int number = Integer.parseInt(pathArray[i].substring(0,
-                        pathArray[i].length() - 1));
-                childNumber = new ChildNumber(number, true);
-            } else {
-                int number = Integer.parseInt(pathArray[i]);
-                childNumber = new ChildNumber(number, false);
-            }
-            dkKey = HDKeyDerivation.deriveChildKey(dkKey, childNumber);
-        }
-
-        ECKeyPair keyPair = ECKeyPair.create(dkKey.getPrivKeyBytes());*/
+        //生成密钥对
         ECKeyPair keyPair = makeECKeyPair(seedBytes);
         BHWallet bhWallet = generateWallet(walletName, pwd, keyPair,mnemonic);
 
@@ -137,52 +117,36 @@ public class BHWalletUtils {
     }
 
     /**
-     * @param walletName 钱包名称
-     * @param ds         助记词加密种子
-     * @param pathArray  助记词标准
-     * @param pwd        密码
+     * 从私钥到地址
+     * @param privateKey
      * @return
      */
-    /*private static BHWallet generateWalletByMnemonic(String walletName, DeterministicSeed ds,
-                                                     String[] pathArray, String pwd) {
+    public static String privatekeyToAddress(String privateKey){
+        ECKeyPair keyPair = ECKeyPair.create(Numeric.toBigInt(privateKey));
+        String bh_adress = BHKey.getBhexUserDpAddress(keyPair.getPublicKey());
+        return bh_adress;
+    }
+
+    /**
+     * 助记词到公钥
+     * @return
+     */
+    public static String memonicToAddress( List<String> list){
+        String passphrase = "";
+        long creationTimeSeconds = System.currentTimeMillis() / 1000;
+
+        DeterministicSeed ds = new DeterministicSeed(list, null, passphrase, creationTimeSeconds);
         //种子
-        byte[] seeds = ds.getSeedBytes();
+        byte[] seedBytes = ds.getSeedBytes();
         //助记词
         List<String> mnemonic = ds.getMnemonicCode();
-        *//*if (seeds == null)
-            return null;
+        //生成密钥对
+        ECKeyPair keyPair = makeECKeyPair(seedBytes);
 
-        //创建主私钥
-        DeterministicKey dkKey = HDKeyDerivation.createMasterPrivateKey(seeds);
-        //
-        for (int i = 1; i < pathArray.length; i++) {
-            ChildNumber childNumber;
-            if (pathArray[i].endsWith("'")) {
-                int number = Integer.parseInt(pathArray[i].substring(0, pathArray[i].length() - 1));
-                childNumber = new ChildNumber(number, true);
+        String bh_adress = BHKey.getBhexUserDpAddress(keyPair.getPublicKey());
 
-            } else {
-                int number = Integer.parseInt(pathArray[i]);
-                childNumber = new ChildNumber(number, false);
-            }
-            dkKey = HDKeyDerivation.deriveChildKey(dkKey, childNumber);
-        }
-
-        ECKeyPair keyPair = ECKeyPair.create(dkKey.getPrivKeyBytes());*//*
-        ECKeyPair keyPair = makeECKeyPair(seeds);
-        BHWallet bhWallet = generateWallet(walletName, pwd, keyPair,mnemonic);
-        //bhWallet.setMnemonic(encryptMnemonic(mnemonic,pwd));
-        *//*if (bhWallet != null) {
-            String old_mnemonic =  convertMnemonicList(mnemonic);
-            String encrypt_mnemonic = CryptoUtil.encryptMnemonic(old_mnemonic,pwd);
-            bhWallet.setMnemonic(encrypt_mnemonic);
-            //LogUtils.d(TAG+"==>:","old_mnemonic=="+old_mnemonic);
-        }*//*
-
-        return bhWallet;
-    }*/
-
-
+        return bh_adress;
+    }
 
 
     /**
@@ -194,17 +158,16 @@ public class BHWalletUtils {
     private static BHWallet generateWallet(String walletName, String pwd, ECKeyPair keyPair,List<String> mnemonics) {
         BHWallet bhWallet = null;
         try {
-            WalletFile walletFile = Wallet.create(pwd, keyPair, 1024, 1);
+            //WalletFile walletFile = Wallet.create(pwd, keyPair, 1024, 1);
             // 生成BH-地址
             String bh_adress = BHKey.getBhexUserDpAddress(keyPair.getPublicKey());
-            walletFile.setAddress(bh_adress);
+            //walletFile.setAddress(bh_adress);
             //LogUtils.d(TAG+"==>:","bh_adress:"+bh_adress);
-
             //生成bench32地址
             String bh_bech_pubkey = BHKey.getBhexUserDpPubKey(keyPair.getPublicKey());
             //LogUtils.d(TAG+"==>:","bh_bech_pubkey:"+bh_bech_pubkey);
             //keystore存储
-            String ks_path = save_keystore(walletFile,walletName);
+            //String ks_path = save_keystore(walletFile,walletName);
             //String pk_str = keyPair.getPrivateKey().toString(16);
             //LogUtils.d(TAG+"==>:","pk_str:"+pk_str);
             //私钥加密
@@ -215,7 +178,7 @@ public class BHWalletUtils {
             bhWallet.setAddress(bh_adress);
             bhWallet.setPublicKey(bh_bech_pubkey);
             bhWallet.setPrivateKey(encryptPK);
-            bhWallet.setKeystorePath(ks_path);
+            bhWallet.setKeystorePath("");
             bhWallet.setPassword(MD5.md5(pwd));
             bhWallet.setIsDefault(0);
             bhWallet.setIsBackup(0);

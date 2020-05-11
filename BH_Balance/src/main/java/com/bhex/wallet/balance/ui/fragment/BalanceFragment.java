@@ -229,12 +229,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         tv_balance_txt2.setText(all_asset_label);
         mAccountInfo = accountInfo;
         List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
-        /*if(list==null || list.size()==0){
-            //mBalanceAdapter.setEmptyView(mEmptyLayout);
-            empty_layout.setVisibility(View.VISIBLE);
-        }else{
-            empty_layout.setVisibility(View.GONE);
-        }*/
         mBalanceAdapter.notifyDataSetChanged();
         //计算每一个币种的资产价值 和 总资产
         updateTopTokenAssets();

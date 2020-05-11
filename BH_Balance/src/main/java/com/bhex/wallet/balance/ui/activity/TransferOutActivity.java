@@ -81,7 +81,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         tv_to_address.ed_input.setTextSize(TypedValue.COMPLEX_UNIT_SP,13);
         String available_amount_str =  BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
         available_amount = Double.valueOf(available_amount_str);
-        tv_available_amount.setText("可用 "+available_amount_str + balance.symbol.toUpperCase());
+        tv_available_amount.setText(getString(R.string.available)+" "+available_amount_str + balance.symbol.toUpperCase());
 
         tv_reach_amount.btn_right_text.setText( balance.symbol.toUpperCase());
 
@@ -95,7 +95,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         //初始化可用手续费
         String available_bht_amount_str =  BHBalanceHelper.getAmountForUser(this,bhtBalance.amount,"0",bhtBalance.symbol);
 
-        tv_available_bht_amount.setText("可用 "+available_bht_amount_str+bhtBalance.symbol.toUpperCase());
+        tv_available_bht_amount.setText(getString(R.string.available)+" "+available_bht_amount_str+bhtBalance.symbol.toUpperCase());
 
 
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);

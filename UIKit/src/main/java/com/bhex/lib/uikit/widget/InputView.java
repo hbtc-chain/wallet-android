@@ -114,6 +114,7 @@ public class InputView extends LinearLayout implements View.OnClickListener {
 
                 if (mMode==PWDMODE) {
                     checkPasswdFont(mInputEd.getText().toString());
+                    mInputEd.setSelection(mInputEd.getText().length());
                 }
             }
         });

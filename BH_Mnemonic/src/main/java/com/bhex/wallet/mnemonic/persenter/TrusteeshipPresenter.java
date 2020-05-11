@@ -106,4 +106,20 @@ public class TrusteeshipPresenter extends BasePresenter {
             tv_center_title.setText(getActivity().getResources().getString(R.string.import_private_key));
         }
     }
+
+
+    /**
+     * 设置按钮title
+     */
+    public void setButtonTitle(){
+        AppCompatButton btn = getActivity().findViewById(R.id.btn_create);
+        int way = BHUserManager.getInstance().getTmpBhWallet().way;
+        if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
+            btn.setText(getActivity().getResources().getString(R.string.wallet_create_trusteeship));
+        }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){
+            btn.setText(getActivity().getResources().getString(R.string.import_mnemonic));
+        }else if(way== MAKE_WALLET_TYPE.PK.getWay()){
+            btn.setText(getActivity().getResources().getString(R.string.import_private_key));
+        }
+    }
 }

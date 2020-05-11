@@ -48,9 +48,7 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         if(balanceItem.resId==0){
             //LogUtils.d("BalanceAdapter=2==>:",balanceItem.symbol+"==resid=22="+balanceItem.resId);
             ImageLoaderUtil.loadImageView(getContext(),
-                    balanceItem.logo,
-                    iv,
-                    R.mipmap.ic_default_coin);
+                    balanceItem.logo, iv,R.mipmap.ic_default_coin);
         }else{
             iv.setImageResource(balanceItem.resId);
         }
