@@ -204,7 +204,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(getYActivity());
 
         //资产订阅
-        LiveDataBus.getInstance().with(BHConstants.Account_Label, LoadDataModel.class).observe(this, ldm->{
+        LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
             refreshLayout.finishRefresh();
             if(ldm.loadingStatus==LoadingStatus.SUCCESS){
                 updateAssets((AccountInfo) ldm.getData());
@@ -337,6 +337,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     public void changeAccount(WalletEvent walletEvent){
         //当前钱包用户
         //bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+        AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
+
         //清空原始用户资产
         mBalanceAdapter.getData().clear();
         mOriginBalanceList = mPresenter.makeBalanceList();

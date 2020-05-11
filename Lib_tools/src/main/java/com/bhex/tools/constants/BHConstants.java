@@ -56,7 +56,10 @@ public class BHConstants {
     //夜间模式
     public static final String THEME_MODEL ="theme_model";
     //LiveDataBus 订阅账户信息
-    public static final String Account_Label = "accountLiveData";
+    public static final String Label_Account = "accountLiveData";
+    //助记词备份
+    public static final String Label_Mnemonic_Back = "mnemonicBackLiveData";
+
 
     public static final String VETO_OPTION_YES = "Yes";
     public static final String VETO_OPTION_NO = "No";

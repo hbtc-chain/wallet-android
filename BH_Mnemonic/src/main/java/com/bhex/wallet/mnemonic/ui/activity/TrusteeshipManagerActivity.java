@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.utils.LogUtils;
@@ -103,14 +104,25 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     @Override
     protected void addEvent() {
         walletViewModel.loadWallet(this);
-        walletViewModel.mutableWallentLiveData.observe(this,listLoadDataModel -> {
-            mAllWalletList = mPresenter.getAllBHWalletItem();
+        walletViewModel.mutableWallentLiveData.observe(this,ldm -> {
+            udpatWalletList(ldm);
+        });
 
-            mTrustManagerAdapter.getData().clear();
-            mTrustManagerAdapter.addData(mAllWalletList);
+        walletViewModel.deleteLiveData.observe(this,ldm -> {
+            udpatWalletList(ldm);
         });
     }
 
+    /**
+     * 更新钱包列表
+     */
+    public void udpatWalletList(LoadDataModel ldm){
+        if (ldm.getLoadingStatus()== LoadingStatus.SUCCESS){
+            mAllWalletList = mPresenter.getAllBHWalletItem();
+            mTrustManagerAdapter.getData().clear();
+            mTrustManagerAdapter.addData(mAllWalletList);
+        }
+    }
 
     @OnClick({R2.id.btn_wallet_create, R2.id.btn_wallet_impot})
     public void onViewClicked(View view) {
@@ -193,7 +205,6 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             menuBridge.closeMenu();
             BHWalletItem bhWalletItem = mTrustManagerAdapter.getData().get(position);
             int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-            //int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
             if (direction == SwipeRecyclerView.RIGHT_DIRECTION) {
                 deletBHWallet(bhWalletItem,position);
             }
@@ -219,13 +230,6 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             return;
         }
         walletViewModel.deleteWallet(TrusteeshipManagerActivity.this,deletBHWallet.id);
-        walletViewModel.mutableLiveData.observe(TrusteeshipManagerActivity.this,loadDataModel -> {
-            if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
-                mTrustManagerAdapter.getData().remove(position);
-                mTrustManagerAdapter.notifyItemRemoved(position);
-                mTrustManagerAdapter.notifyItemRangeChanged(position,mTrustManagerAdapter.getData().size()-position);
-            }
-        });
     };
 
 }

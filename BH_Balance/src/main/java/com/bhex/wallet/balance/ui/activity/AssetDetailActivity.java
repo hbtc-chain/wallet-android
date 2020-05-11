@@ -265,7 +265,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
 
         });
 
-        LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).observe(this,ldm->{
+        LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).observe(this,ldm->{
             updateAssest(ldm);
         });
 

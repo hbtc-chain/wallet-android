@@ -4,6 +4,7 @@ import com.bhex.network.utils.Base64;
 import com.bhex.tools.crypto.HexUtils;
 
 import org.bitcoinj.core.ECKey;
+import org.web3j.utils.Numeric;
 
 /**
  * Created by BHEX.
@@ -19,7 +20,8 @@ public class BHCredentials {
 
     public static BHCredentials createBHCredentials(String hexPK){
         BHCredentials bhCredentials = new BHCredentials();
-        bhCredentials.ecKey =  ECKey.fromPrivate(HexUtils.toBytes(hexPK),true);
+        //bhCredentials.ecKey =  ECKey.fromPrivate(HexUtils.toBytes(hexPK),true);
+        bhCredentials.ecKey =  ECKey.fromPrivate(Numeric.toBigInt(hexPK),true);
         bhCredentials.base64Pubkey = Base64.encode(bhCredentials.ecKey.getPubKey());
         bhCredentials.hexPriKey = hexPK;
         bhCredentials.hexPubkey = HexUtils.toHex(bhCredentials.ecKey.getPubKey());

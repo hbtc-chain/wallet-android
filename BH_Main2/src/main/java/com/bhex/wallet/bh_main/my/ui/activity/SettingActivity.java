@@ -147,7 +147,7 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         }
-        //this.getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
+        this.getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
         NavitateUtil.startActivity(this,SettingActivity.class);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();

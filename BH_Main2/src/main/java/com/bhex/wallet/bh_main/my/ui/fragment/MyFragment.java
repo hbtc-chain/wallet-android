@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.network.base.LoadDataModel;
+import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavitateUtil;
@@ -31,8 +34,10 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
+import com.bhex.wallet.common.utils.LiveDataBus;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -131,6 +136,16 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
             }
         });
+
+        //助记词备份订阅
+        LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back, LoadDataModel.class).observe(this, ldm->{
+            if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+                //更新item列表
+                mItems = MyHelper.getAllItems(getYActivity());
+                mMyAdapter.getData().clear();
+                mMyAdapter.addData(mItems);
+            }
+        });
     }
 
     @OnClick({R2.id.tv_setting, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste})
@@ -161,8 +176,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
     }
+
 
     @Override
     public void confirmAction(String password,int position) {

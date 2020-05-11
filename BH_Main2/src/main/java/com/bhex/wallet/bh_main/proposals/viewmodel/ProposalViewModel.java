@@ -58,7 +58,7 @@ public class ProposalViewModel extends ViewModel {
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
                 //accountLiveData.postValue(loadDataModel);
-                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
             }
 
             @Override
@@ -66,7 +66,7 @@ public class ProposalViewModel extends ViewModel {
                 super.onFailure(code, errorMsg);
                 LoadDataModel loadDataModel = new LoadDataModel(code,"");
                 //accountLiveData.postValue(loadDataModel);
-                LiveDataBus.getInstance().with(BHConstants.Account_Label,LoadDataModel.class).postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
 
             }
         };

@@ -292,6 +292,7 @@
                 android:layout_height="wrap_content"
                 android:lineHeight="18dp"
                 android:text="1.段落文本占位符"
+                android:layout_marginTop="3dp"
                 android:textColor="@color/secondary_tip_text_color"
                 android:textSize="13sp"
                 />
@@ -301,6 +302,7 @@
                 android:layout_height="wrap_content"
                 android:text="1.段落文本占位符"
                 android:lineHeight="18dp"
+                android:layout_marginTop="3dp"
                 android:textColor="@color/secondary_tip_text_color"
                 android:textSize="13sp"
                 />
@@ -309,6 +311,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1.段落文本占位符"
+                android:layout_marginTop="3dp"
                 android:lineHeight="18dp"
                 android:textColor="@color/secondary_tip_text_color"
                 android:textSize="13sp"

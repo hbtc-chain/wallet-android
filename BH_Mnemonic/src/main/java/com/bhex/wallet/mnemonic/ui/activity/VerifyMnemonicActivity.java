@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bhex.lib.uikit.widget.recyclerview.GridLayoutItemDecoration;
 import com.bhex.network.app.BaseApplication;
+import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
@@ -19,7 +20,9 @@ import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.utils.ARouterUtil;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -28,6 +31,8 @@ import com.bhex.wallet.mnemonic.adapter.UnderMnemonicAdapter;
 import com.bhex.wallet.mnemonic.helper.MnemonicDataHelper;
 import com.bhex.wallet.mnemonic.persenter.VerifyPresenter;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Collections;
 import java.util.List;
@@ -142,19 +147,14 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     @Override
     protected void addEvent() {
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
-        walletViewModel.walletLiveData.observe(this,lmd->{
-            if(lmd.loadingStatus== LoadingStatus.SUCCESS){
+
+        LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back, LoadDataModel.class).observe(this,ldm->{
+            if(ldm.loadingStatus==LoadingStatus.SUCCESS){
                 gotoTarget();
             }
         });
 
         btn_start_bakcup.setOnClickListener(v -> {
-
-            //
-            /*ToastUtils.showToast(getResources().getString(R.string.mnemonic_backup_success));
-            BaseApplication.getMainHandler().postDelayed(()->{
-                gotoTarget();
-            },800);*/
             walletViewModel.backupMnemonic(this,BHUserManager.getInstance().getCurrentBhWallet());
         });
     }
@@ -165,7 +165,9 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     private void gotoTarget(){
         if(BHUserManager.getInstance().getTargetClass()!=null &&
                 BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
-            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
+            //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
+            NavitateUtil.startMainActivity(this,new String[]{});
+
         }else{
             NavitateUtil.startMainActivity(this,
                     new String[]{BHConstants.BACKUP_TEXT, BHConstants.BACKUP});

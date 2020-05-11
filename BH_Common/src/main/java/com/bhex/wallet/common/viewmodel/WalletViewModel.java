@@ -13,15 +13,18 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.SimpleObserver;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.wallet.common.db.AppDataBase;
 import com.bhex.wallet.common.db.dao.BHWalletDao;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BACK_WALLET_TYPE;
 import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.BHWalletUtils;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
@@ -49,6 +52,8 @@ public class WalletViewModel extends ViewModel {
     public MutableLiveData<LoadDataModel<List<BHWallet>>> mutableWallentLiveData = new MutableLiveData<>();
 
     public MutableLiveData<LoadDataModel<BHWallet>> walletLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<LoadDataModel<BHWallet>> deleteLiveData = new MutableLiveData<>();
 
     public WalletViewModel() {
         bhWalletDao = AppDataBase.getInstance(BaseApplication.getInstance()).bhWalletDao();
@@ -181,20 +186,28 @@ public class WalletViewModel extends ViewModel {
             protected void onSuccess(String str) {
                 //ToastUtils.showToast(str);
                 LoadDataModel loadDataModel = new LoadDataModel("");
-                mutableLiveData.postValue(loadDataModel);
+                deleteLiveData.postValue(loadDataModel);
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel loadDataModel = new LoadDataModel(code,"");
-                mutableLiveData.postValue(loadDataModel);
+                LoadDataModel loadDataModel = new LoadDataModel(code,errorMsg);
+                deleteLiveData.postValue(loadDataModel);
             }
         };
 
         Observable.create((ObservableOnSubscribe<String>)emitter -> {
             //把所有设置非默认
             bhWalletDao.deleteWallet(bh_id);
+            //更新所有用钱包
+            //更新当前默认钱包
+            List<BHWallet> allBhWallet = bhWalletDao.loadAll();
+            if(allBhWallet!=null && allBhWallet.size()>0){
+                BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
+                BHUserManager.getInstance().setAllWallet(allBhWallet);
+            }
+
             emitter.onNext("1");
             emitter.onComplete();
           }
@@ -246,7 +259,7 @@ public class WalletViewModel extends ViewModel {
                     emitter.onComplete();
                 }else{
                     int maxId = bhWalletDao.loadMaxId();
-
+                    bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
                     bhWallet.id = maxId+1;
                     int id = bhWalletDao.insert(bhWallet).intValue();
 
@@ -315,7 +328,7 @@ public class WalletViewModel extends ViewModel {
                     emitter.onComplete();
                 }else{
                     int maxId = bhWalletDao.loadMaxId();
-
+                    bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
                     bhWallet.id = maxId+1;
                     int resId = bhWalletDao.insert(bhWallet).intValue();
 
@@ -416,17 +429,19 @@ public class WalletViewModel extends ViewModel {
         BHProgressObserver pbo = new BHProgressObserver<String>(activity) {
             @Override
             protected void onSuccess(String str) {
-                LoadDataModel loadDataModel = new LoadDataModel("");
-                bhWallet.isBackup = 2;
+                LoadDataModel ldm = new LoadDataModel("");
+                bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
                 BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
-                walletLiveData.postValue(loadDataModel);
+                //walletLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back,LoadDataModel.class).postValue(ldm);
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel loadDataModel = new LoadDataModel();
-                walletLiveData.postValue(loadDataModel);
+                LoadDataModel ldm = new LoadDataModel();
+                //walletLiveData.postValue(loadDataModel);
+                LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back,LoadDataModel.class).postValue(ldm);
             }
         };
 
