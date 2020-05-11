@@ -63,12 +63,7 @@ public class MainPresenter extends BasePresenter {
             SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),"");
         }
 
-    }
-
-    @Override
-    public void onStart(@NotNull LifecycleOwner owner) {
-        super.onStart(owner);
-
+        LogUtils.d("MainPresenter==>:","==onStart==");
         //
         mUpgradeVM = ViewModelProviders.of(getActivity()).get(UpgradeViewModel.class);
         //升级请求
@@ -76,8 +71,6 @@ public class MainPresenter extends BasePresenter {
             processUpgradeInfo(ldm);
         });
         mUpgradeVM.getUpgradeInfo(getActivity());
-
-
     }
 
     /**
@@ -86,7 +79,7 @@ public class MainPresenter extends BasePresenter {
     private void processUpgradeInfo(LoadDataModel<UpgradeInfo> ldm) {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             UpgradeInfo upgradeInfo = ldm.getData();
-            upgradeInfo.needUpdate = true;
+            //upgradeInfo.needUpdate = true;
             if(upgradeInfo.needUpdate){
                 showUpgradeDailog(upgradeInfo);
             }
@@ -99,6 +92,7 @@ public class MainPresenter extends BasePresenter {
      * 显示升级对话框
      */
     private void showUpgradeDailog(UpgradeInfo upgradeInfo){
+        //upgradeInfo.downloadUrl = "https://96d76ceb2c8597be6f857357d0605eb9.dd.cdntips.com/imtt.dd.qq.com/16891/apk/A9E154441A48004FDFAB8E047A84C557.apk";
         //是否强制升级
         if(upgradeInfo.needForceUpdate){
             //

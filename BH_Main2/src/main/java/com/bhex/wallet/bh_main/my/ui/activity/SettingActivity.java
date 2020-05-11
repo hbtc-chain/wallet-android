@@ -12,6 +12,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
+import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.wallet.bh_main.R;
@@ -54,11 +55,11 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
 
     @Override
     protected void initView() {
-        if(MMKVManager.getInstance().getSelectNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+        /*if(MMKVManager.getInstance().getSelectNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        }*/
         mItems = MyHelper.getSettingItems(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -103,7 +104,6 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         switch (position){
             case 0:
                 ARouter.getInstance().build(ARouterConfig.MY_LANGUAE_SET_PAGE).withString("title",myItem.title).navigation();
-
                 break;
             case 1:
                 ARouter.getInstance().build(ARouterConfig.MY_Rate_setting).withString("title",myItem.title).navigation();
@@ -138,18 +138,18 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         SwitchCompat switchCompat = (SwitchCompat) buttonView;
         if(isChecked){
             switchCompat.setThumbResource(R.mipmap.ic_thumb_night);
-            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            //EventBus.getDefault().post(new ThemeEvent(AppCompatDelegate.MODE_NIGHT_YES));
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         }else{
             switchCompat.setThumbResource(R.mipmap.ic_thumb_sun);
-            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            //EventBus.getDefault().post(new ThemeEvent(AppCompatDelegate.MODE_NIGHT_NO));
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         }
+        //this.getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
         NavitateUtil.startActivity(this,SettingActivity.class);
-        overridePendingTransition(R.anim.start_anim, R.anim.out_anim);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
         //recreate();
     }

@@ -47,13 +47,13 @@ class UpgradeFragment : DialogFragment() {
         val mRootView =  inflater.inflate(R.layout.fragment_upgrade, container, false)
         val contentView = mRootView.findViewById<AppCompatTextView>(R.id.tv_upgrade_content)
         contentView.text = upgradeInfo?.newFeatures
-
         mRootView.findViewById<AppCompatButton>(R.id.btn_cancel).setOnClickListener{
             dismiss()
         }
 
         mRootView.findViewById<AppCompatButton>(R.id.btn_confirm).setOnClickListener{
             dismiss()
+            startUpdate();
             dialogOnClickListener?.onDialogNegativeClickListener(it)
         }
         return mRootView
@@ -105,7 +105,7 @@ class UpgradeFragment : DialogFragment() {
 
     fun startUpdate(){
         var intent:Intent = Intent(activity, ApkDownLoadService::class.java)
-        var downloadInfo:DownloadInfo = DownloadInfo(upgradeInfo!!.downloadUrl,BHPhoneInfo.appVersion)
+        var downloadInfo = DownloadInfo(upgradeInfo!!.downloadUrl,BHPhoneInfo.appVersion)
 
         val file = File(context!!.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),downloadInfo.getApkFileName())
         if(file.exists()){

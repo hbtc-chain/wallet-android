@@ -1,6 +1,7 @@
 package com.bhex.wallet.bh_main.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -42,10 +43,7 @@ public class SplashActivity extends AppCompatActivity {
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletViewModel.loadWallet(this);
 
-
-
         boolean flag = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FRIST_BOOT);
-
         //
         Disposable disposable = Observable.just(0).timer(2000, TimeUnit.MILLISECONDS)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
@@ -64,8 +62,7 @@ public class SplashActivity extends AppCompatActivity {
         mCompositeDisposable.add(disposable);
 
         //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
-        ImmersionBar.with(this).statusBarColor(R.color.app_bg).statusBarDarkFont(true).init();
-
+        ImmersionBar.with(this).statusBarColor(android.R.color.white).statusBarDarkFont(true).init();
     }
 
 

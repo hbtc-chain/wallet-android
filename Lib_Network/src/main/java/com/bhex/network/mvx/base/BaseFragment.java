@@ -40,7 +40,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setStatusColor();
         initPresenter();
     }
 
@@ -121,8 +120,4 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public boolean isNight(){
         return (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
     }
-
-
-
-
 }

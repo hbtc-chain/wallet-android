@@ -2,8 +2,11 @@ package com.bhex.network.app;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 
 import com.bhex.tools.toast.BHToastStyle;
 import com.hjq.toast.ToastUtils;
@@ -15,7 +18,6 @@ import java.util.concurrent.Executor;
  * on 2020/2/24
  */
 public class BaseApplication extends Application {
-
     @SuppressLint("StaticFieldLeak")
     private static  BaseApplication _instance;
 
@@ -47,5 +49,4 @@ public class BaseApplication extends Application {
     public Executor getExecutor() {
         return AsyncTask.THREAD_POOL_EXECUTOR;
     }
-
 }

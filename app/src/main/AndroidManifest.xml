@@ -55,6 +55,8 @@
         <!--<meta-data
             android:name="com.bhex.wallet.common.glide.GlideConfiguration"
             android:value="GlideModule" />-->
+
+
     </application>
 
 </manifest>

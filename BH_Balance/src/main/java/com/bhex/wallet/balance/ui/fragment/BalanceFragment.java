@@ -50,6 +50,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.textview.MaterialTextView;
+import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
@@ -139,7 +140,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
+
     }
 
     @Override

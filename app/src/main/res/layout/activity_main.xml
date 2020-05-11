@@ -28,7 +28,7 @@
         android:id="@+id/main_bottom"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/bg_trans"
+        android:background="@color/theme_nav_background"
         app:elevation="3dp"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@color/selector_tab_color"

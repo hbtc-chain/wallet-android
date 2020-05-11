@@ -24,7 +24,7 @@
         android:id="@+id/empty_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dip"
+        android:layout_marginTop="16dip"
         android:textColor="@color/empty_layout_text_color"
         android:textSize="15sp"
         />
@@ -33,7 +33,7 @@
         android:id="@+id/empty_sub_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dip"
+        android:layout_marginTop="16dip"
         android:textColor="@color/empty_layout_text_color"
         android:textSize="13sp"
         android:visibility="gone" />
