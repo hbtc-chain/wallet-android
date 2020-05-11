@@ -85,11 +85,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        style="@style/main_btn_gray_disable"
+        style="@style/main_btn_style"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_left"
         android:layout_marginBottom="16dp"
         android:text="@string/start_backup"
+        android:enabled="false"
         />
 
     <!--<RelativeLayout

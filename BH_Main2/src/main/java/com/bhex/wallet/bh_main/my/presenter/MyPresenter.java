@@ -93,9 +93,11 @@ public class MyPresenter extends BasePresenter {
 
         if(flag){
             mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.global_button_bg_color));
+            mb.setTextColor(getActivity().getResources().getColor(R.color.global_button_text_color));
             mb.setEnabled(true);
         }else{
             mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.global_button_enable_false_bg));
+            mb.setTextColor(getActivity().getResources().getColor(R.color.global_button_enable_false_text));
             mb.setEnabled(false);
         }
 

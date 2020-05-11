@@ -147,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_48"
             android:layout_marginTop="@dimen/dp_24"
-            style="@style/main_btn_gray_disable"
+            style="@style/main_btn_style"
             android:text="@string/wallet_create"
             android:enabled="false"
             />

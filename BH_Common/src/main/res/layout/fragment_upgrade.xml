@@ -29,6 +29,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_confirm"
         app:layout_constraintHorizontal_weight="1"
         app:backgroundTint="@color/global_button_enable_false_bg"
+        android:textColor="@color/global_button_enable_false_text"
         android:text="@string/cancel"
         style="@style/main_material_btn"
         />
@@ -44,6 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:backgroundTint="@color/global_button_bg_color"
+        android:textColor="@color/global_button_enable_false_text"
         app:cornerRadius="@dimen/main_radius_conner"
         style="@style/main_material_btn"
         android:text="确定"/>

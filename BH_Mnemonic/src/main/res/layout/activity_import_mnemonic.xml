@@ -97,7 +97,7 @@
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_right"
         app:layout_constraintTop_toBottomOf="@+id/layout_index_1"
-        style="@style/main_btn_gray_disable"
+        style="@style/main_btn_style"
         android:layout_marginTop="32dp"
         android:text="@string/next"
         android:enabled="false"

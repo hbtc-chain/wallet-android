@@ -36,9 +36,11 @@ public class LoginPresenter extends BasePresenter {
 
         if (flag) {
             btn_confirm.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.global_button_bg_color));
+            btn_confirm.setTextColor(getActivity().getResources().getColor(R.color.global_button_text_color));
             btn_confirm.setEnabled(true);
         }else{
             btn_confirm.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.global_button_enable_false_bg));
+            btn_confirm.setTextColor(getActivity().getResources().getColor(R.color.global_button_enable_false_text));
             btn_confirm.setEnabled(false);
         }
     }

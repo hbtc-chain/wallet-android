@@ -128,9 +128,11 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
             if(RegexUtil.checkNumeric(text)){
                 btn_crosslink_address.setEnabled(true);
                 btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.global_button_bg_color));
+                btn_crosslink_address.setTextColor(getResources().getColor(R.color.global_button_text_color));
             }else{
                 btn_crosslink_address.setEnabled(false);
                 btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.global_button_enable_false_bg));
+                btn_crosslink_address.setTextColor(getResources().getColor(R.color.global_button_enable_false_text));
             }
         }
     };
