@@ -117,7 +117,10 @@ public class MyPresenter extends BasePresenter {
             return false;
         }
 
-        if(TextUtils.isEmpty(newConfrimPwd))
+        if(TextUtils.isEmpty(newConfrimPwd)){
+            ToastUtils.showToast("请输入新秘密确认");
+            return false;
+        }
 
         if(!newPwd.equals(newConfrimPwd)){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.tip_two_password_equal));
