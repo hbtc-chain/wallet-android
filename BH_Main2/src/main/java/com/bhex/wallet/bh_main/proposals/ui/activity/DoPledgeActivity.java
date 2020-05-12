@@ -184,8 +184,8 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
             return;
         }
         String fee = ed_fee.ed_input.getText().toString().trim();
-        double all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-        ed_pledge_amount.ed_input.setText(String.valueOf(all_count));
+        String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
+        ed_pledge_amount.ed_input.setText(all_count);
     };
 
     private void updateAssets(AccountInfo data) {

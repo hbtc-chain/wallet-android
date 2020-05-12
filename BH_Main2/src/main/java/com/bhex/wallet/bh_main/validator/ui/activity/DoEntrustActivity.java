@@ -319,8 +319,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
         String fee = ed_entrust_fee.ed_input.getText().toString().trim();
-        double all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-        ed_entrust_amount.ed_input.setText(String.valueOf(all_count));
+        String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
+        ed_entrust_amount.ed_input.setText(all_count);
     };
 
     private void updateAssets(AccountInfo data) {
@@ -382,7 +382,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
         if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId())  {
 
-            String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+            //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
             String validator_address = validatorAddress;
             BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
             String entrustDrawAmount = ed_entrust_amount.ed_input.getText().toString();
@@ -390,7 +390,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
 
             BHTransactionManager.loadSuquece(suquece -> {
-                BHSendTranscation bhSendTranscation = BHTransactionManager.doEntrust(delegator_address, validator_address, entrustDrawAmount, feeAmount,
+                BHSendTranscation bhSendTranscation = BHTransactionManager.doEntrust( validator_address, entrustDrawAmount, feeAmount,
                         gasPrice,null, suquece, token);
                 mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
                 return 0;
@@ -398,7 +398,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId())  {
 
 
-            String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+            // delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
             String validator_address = validatorAddress;
             BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
             String entrustDrawAmount = ed_entrust_amount.ed_input.getText().toString();
@@ -406,7 +406,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
 
             BHTransactionManager.loadSuquece(suquece -> {
-                BHSendTranscation bhSendTranscation = BHTransactionManager.relieveEntrust(delegator_address, validator_address, entrustDrawAmount, feeAmount,
+                BHSendTranscation bhSendTranscation = BHTransactionManager.relieveEntrust( validator_address, entrustDrawAmount, feeAmount,
                         gasPrice, null, suquece, token);
                 mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
                 return 0;

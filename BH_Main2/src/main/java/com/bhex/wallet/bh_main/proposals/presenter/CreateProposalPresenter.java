@@ -25,8 +25,8 @@ public class CreateProposalPresenter extends BasePresenter {
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
         int decimals = bhToken!=null?bhToken.decimals:2;
         decimals = 0;
-        double tmp = NumberUtil.sub(amount,frozen_amount);
-        double displayAmount = NumberUtil.divide(String.valueOf(tmp), Math.pow(10,decimals)+"");
+        String tmp = NumberUtil.sub(amount,frozen_amount);
+        double displayAmount = NumberUtil.divide(tmp, Math.pow(10,decimals)+"");
 
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
         //DecimalFormat format = new DecimalFormat();

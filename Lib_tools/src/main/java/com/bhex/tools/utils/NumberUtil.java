@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 /**
@@ -70,7 +71,7 @@ public class NumberUtil {
         return b3;
     }
 
-    public static double sub(String number1,String number2){
+    public static String sub(String number1,String number2){
         if(TextUtils.isEmpty(number1)){
             number1 = "0";
         }
@@ -81,7 +82,7 @@ public class NumberUtil {
 
         BigDecimal b1 = new BigDecimal(number1);
         BigDecimal b2 = new BigDecimal(number2);
-        double b3 = b1.subtract(b2).doubleValue();
+        String b3 = b1.subtract(b2).toPlainString();
         return b3;
     }
 
@@ -115,6 +116,13 @@ public class NumberUtil {
         BigDecimal b1 = new BigDecimal(d1);
         BigDecimal b2 = new BigDecimal(d2);
         return b1.multiply(b2).doubleValue();
+
+    }
+
+    public static BigInteger mulExt(String d1, String d2) {
+        BigDecimal b1 = new BigDecimal(d1);
+        BigDecimal b2 = new BigDecimal(d2);
+        return b1.multiply(b2).toBigInteger();
 
     }
 

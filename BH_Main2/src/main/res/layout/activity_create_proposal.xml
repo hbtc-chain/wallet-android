@@ -237,12 +237,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
-
                 android:layout_marginStart="@dimen/main_margin_left"
                 android:layout_marginEnd="@dimen/main_margin_right"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintTop_toBottomOf="@+id/tv_pledge_amount_title"
                 app:leftHint="@string/hint_enter_pledge"
                 app:rightColor="@color/global_input_profix_text_color"
@@ -258,7 +256,6 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/global_secondary_text_color"
                 android:text="@string/fee"
-
                 android:layout_marginTop="@dimen/dp_32"
                 android:layout_marginStart="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
@@ -272,13 +269,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
-
                 android:layout_marginStart="@dimen/main_margin_left"
                 android:layout_marginEnd="@dimen/main_margin_right"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintTop_toBottomOf="@+id/tv_fee_title"
+                app:leftText="2"
                 app:leftHint=""
                 app:rightColor="@color/global_input_profix_text_color"
                 tools:rightText="BHT"

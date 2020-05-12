@@ -58,10 +58,9 @@ public class BHTransactionManager {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
 
-        double double_amount = NumberUtil.mul(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
 
-        //BigInteger long_feeAmount = BigInteger.valueOf((long)(BHConstants.BHT_DECIMALS *Double.valueOf(feeAmount)));
-        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
 
@@ -70,8 +69,8 @@ public class BHTransactionManager {
 
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHRawTransaction(sequence,
-                from,to, BigDecimal.valueOf( double_amount).toBigInteger(),
-                BigDecimal.valueOf( double_feeAmount).toBigInteger()
+                from,to,
+                double_amount,double_feeAmount
                 ,gasPrice,BHConstants.BH_MEMO,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
@@ -156,9 +155,9 @@ public class BHTransactionManager {
 
         BHToken symbolBHToken = SymbolCache.getInstance().getBHToken(symbol);
 
-        double double_amount = NumberUtil.mul(String.valueOf(Math.pow(10,symbolBHToken.decimals)),amount);
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,symbolBHToken.decimals)),amount);
 
-        double double_feeAmount = NumberUtil.mul(String.valueOf(BHConstants.BHT_DECIMALS),feeAmount);
+        BigInteger double_feeAmount = NumberUtil.mulExt(String.valueOf(BHConstants.BHT_DECIMALS),feeAmount);
 
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
@@ -166,8 +165,8 @@ public class BHTransactionManager {
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHCrossWithdrawalTransaction(sequence,
                 from,to,
-                BigDecimal.valueOf( double_amount).toBigInteger(),
-                BigDecimal.valueOf(double_feeAmount).toBigInteger(),
+                double_amount,
+                double_feeAmount,
                 BigDecimal.valueOf(double_gas_fee).toBigInteger(),
                 gasPrice,BHConstants.BH_MEMO,symbol);
 
@@ -181,7 +180,6 @@ public class BHTransactionManager {
 
     /**
      * 委托
-     * @param delegatorAddress
      * @param validatorAddress
      * @param amount
      * @param feeAmount
@@ -192,7 +190,7 @@ public class BHTransactionManager {
      * @return
      */
     public static BHSendTranscation doEntrust(
-                                             String delegatorAddress, String validatorAddress,
+                                             String validatorAddress,
                                              String amount,
                                              String feeAmount,
                                              BigInteger gasPrice,
@@ -207,16 +205,17 @@ public class BHTransactionManager {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
 
-        double double_amount = NumberUtil.mul(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
 
-        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
+        String delegatorAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
 
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHDoEntrustTransaction(sequence,
-                delegatorAddress,validatorAddress, BigDecimal.valueOf( double_amount).toBigInteger(),
-                BigDecimal.valueOf( double_feeAmount).toBigInteger()
+                delegatorAddress,validatorAddress,double_amount,
+                double_feeAmount
                 ,gasPrice,BHConstants.BH_MEMO,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
@@ -230,13 +229,15 @@ public class BHTransactionManager {
     }
 
     public static BHSendTranscation relieveEntrust(
-                                              String delegatorAddress, String validatorAddress,
+                                              String validatorAddress,
                                               String amount,
                                               String feeAmount,
                                               BigInteger gasPrice,
                                               String data,
                                               String sequence,
                                               String symbol){
+
+        String delegatorAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -246,17 +247,17 @@ public class BHTransactionManager {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
 
-        double double_amount = NumberUtil.mul(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
 
         //BigInteger long_feeAmount = BigInteger.valueOf((long)(BHConstants.BHT_DECIMALS *Double.valueOf(feeAmount)));
-        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
 
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHRelieveEntrustTransaction(sequence,
-                delegatorAddress,validatorAddress, BigDecimal.valueOf( double_amount).toBigInteger(),
-                BigDecimal.valueOf( double_feeAmount).toBigInteger()
+                delegatorAddress,validatorAddress,
+                double_amount,double_feeAmount
                 ,gasPrice,BHConstants.BH_MEMO,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
@@ -281,15 +282,15 @@ public class BHTransactionManager {
 
         BHRawTransaction bhRawTransaction = null;
 
-        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
 
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHDoVetoTransaction(sequence,
                 delegatorAddress,option,proposalId,
-                BigDecimal.valueOf( double_feeAmount).toBigInteger()
-                ,gasPrice,BHConstants.BH_MEMO,symbol);
+                double_feeAmount,
+                gasPrice,BHConstants.BH_MEMO,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
@@ -317,17 +318,17 @@ public class BHTransactionManager {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
 
-        double double_amount = NumberUtil.mul(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
 
         //BigInteger long_feeAmount = BigInteger.valueOf((long)(BHConstants.BHT_DECIMALS *Double.valueOf(feeAmount)));
-        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
 
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHDoPledgeTransaction(sequence,
-                delegatorAddress,proposalId, BigDecimal.valueOf( double_amount).toBigInteger(),
-                BigDecimal.valueOf( double_feeAmount).toBigInteger()
+                delegatorAddress,proposalId,
+                double_amount,double_feeAmount
                 ,gasPrice,BHConstants.BH_MEMO,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
@@ -340,7 +341,7 @@ public class BHTransactionManager {
     }
 
     public static BHSendTranscation createProposal(
-                                           String delegatorAddress, String type,
+                                           String type,
                                            String title,String description,
                                            String amount,
                                            String feeAmount,
@@ -355,17 +356,19 @@ public class BHTransactionManager {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
 
-        double double_amount = NumberUtil.mul(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
 
-        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
+        //委托地址
+        String delegatorAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
 
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHCreateProposalTransaction(sequence,
-                delegatorAddress,type,title,description,BigDecimal.valueOf(double_amount).toBigInteger(),
-                BigDecimal.valueOf( double_feeAmount).toBigInteger()
-                ,gasPrice,BHConstants.BH_MEMO,symbol);
+                delegatorAddress,type,title,description,
+                double_amount,double_feeAmount,
+                gasPrice,BHConstants.BH_MEMO,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
@@ -392,12 +395,12 @@ public class BHTransactionManager {
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
         //交易数量
-        double double_amount = NumberUtil.mul(String.valueOf(BHConstants.BHT_DECIMALS),amount);
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(BHConstants.BHT_DECIMALS),amount);
         //手续费数量
-        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         //交易数据构建
-        bhRawTransaction = BHRawTransaction.createBHRawRewardTransaction(sequence,BigDecimal.valueOf(double_amount).toBigInteger(),
-                BigDecimal.valueOf(double_feeAmount).toBigInteger(),gasPrice,BHConstants.BH_MEMO,list);
+        bhRawTransaction = BHRawTransaction.createBHRawRewardTransaction(sequence,double_amount,
+                double_feeAmount,gasPrice,BHConstants.BH_MEMO,list);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         //LogUtils.d("BHTransactionManager===>:","raw_json=="+raw_json);
@@ -429,9 +432,9 @@ public class BHTransactionManager {
         //交易数量
         //double double_amount = NumberUtil.mul(String.valueOf(BHConstants.BHT_DECIMALS),amount);
         //手续费数量
-        double double_feeAmount = NumberUtil.mul(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         //交易数据构建
-        bhRawTransaction = BHRawTransaction.createBHRawReDoEntrust(sequence, BigDecimal.valueOf(double_feeAmount).toBigInteger(),gasPrice,
+        bhRawTransaction = BHRawTransaction.createBHRawReDoEntrust(sequence, double_feeAmount,gasPrice,
                 BHConstants.BH_MEMO,validatorMsgs,doEntrustMsgs);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);

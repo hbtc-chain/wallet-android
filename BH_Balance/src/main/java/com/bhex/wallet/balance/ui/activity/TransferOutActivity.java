@@ -198,13 +198,13 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
     public View.OnClickListener allWithDrawListener = v -> {
         if(way==BHConstants.CROSS_LINK){
-            double all_count = NumberUtil.sub(String.valueOf(available_amount),bhToken.withdrawal_fee);
-            all_count = all_count<0?0:all_count;
-            ed_transfer_amount.ed_input.setText(String.valueOf(all_count));
+            String all_count = NumberUtil.sub(String.valueOf(available_amount),bhToken.withdrawal_fee);
+            all_count = Double.valueOf(all_count)<0?"0":all_count;
+            ed_transfer_amount.ed_input.setText(all_count);
         }else if(balance.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            double all_count = NumberUtil.sub(String.valueOf(available_amount),"2");
-            all_count = all_count<0?0:all_count;
-            ed_transfer_amount.ed_input.setText(String.valueOf(all_count));
+            String all_count = NumberUtil.sub(String.valueOf(available_amount),"2");
+            all_count = Double.valueOf(all_count)<0?"0":all_count;
+            ed_transfer_amount.ed_input.setText(all_count);
         }
     };
 

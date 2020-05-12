@@ -90,9 +90,9 @@ public class BHBalanceHelper {
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
         int decimals = bhToken!=null?bhToken.decimals:2;
         decimals = 0;
-        double tmp = NumberUtil.sub(TextUtils.isEmpty(amount)?"0":amount,TextUtils.isEmpty(frozen_amount)?"0":frozen_amount);
+        String tmp = NumberUtil.sub(TextUtils.isEmpty(amount)?"0":amount,TextUtils.isEmpty(frozen_amount)?"0":frozen_amount);
 
-        double displayAmount = NumberUtil.divide(String.valueOf(tmp), Math.pow(10,decimals)+"");
+        double displayAmount = NumberUtil.divide(tmp, Math.pow(10,decimals)+"");
 
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
         //DecimalFormat format = new DecimalFormat();

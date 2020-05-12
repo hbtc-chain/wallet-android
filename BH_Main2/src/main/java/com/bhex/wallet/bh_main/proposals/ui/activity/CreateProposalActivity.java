@@ -193,8 +193,8 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
             return;
         }
         String fee = ed_fee.ed_input.getText().toString().trim();
-        double all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-        ed_pledge_amount.ed_input.setText(String.valueOf(all_count));
+        String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
+        ed_pledge_amount.ed_input.setText(all_count);
     };
 
     private void updateAssets(AccountInfo data) {
@@ -221,9 +221,7 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
     @Override
     public void confirmAction(String password, int position) {
-
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
-        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+        //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
         String amount = ed_pledge_amount.ed_input.getText().toString();
         String title = ed_proposal_title.getText().toString().trim();
@@ -232,7 +230,7 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
 
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.createProposal(delegator_address,BHConstants.TextProposalType,title,desc, amount, feeAmount,
+            BHSendTranscation bhSendTranscation = BHTransactionManager.createProposal(BHConstants.TextProposalType,title,desc, amount, feeAmount,
                     gasPrice,null, suquece, token);
             mProposalViewModel.sendCreatePorposal(this, bhSendTranscation);
             return 0;

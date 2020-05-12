@@ -110,9 +110,9 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             if (variant.buildType.name == "release") {
-                outputFileName = "${variant.productFlavors[0].name}_Release_V${defaultConfig.versionName}_${releaseTime()}_${defaultConfig.versionCode}_app.apk"
+                outputFileName = "${variant.productFlavors[0].name}_Release_V${defaultConfig.versionName}_${releaseTime()}_app.apk"
             } else if (variant.buildType.name == "debug") {
-                outputFileName = "${variant.productFlavors[0].name}_Debug_V${defaultConfig.versionName}_${releaseTime()}_${defaultConfig.versionCode}_app.apk"
+                outputFileName = "${variant.productFlavors[0].name}_Debug_V${defaultConfig.versionName}_${releaseTime()}_app.apk"
             }
         }
     }
