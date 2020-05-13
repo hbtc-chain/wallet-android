@@ -53,7 +53,7 @@ public class TransferOutPresenter extends BasePresenter {
 
     public boolean checklinkOutterTransfer(String to_address,String transfer_amount,
                                           String available_amount,
-                                           String tx_fee_amount,String fee_amount){
+                                          String tx_fee_amount, String witddraw_fee_amount,String min_withdraw_fee){
         if(TextUtils.isEmpty(to_address)||to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.withdraw_address_error));
             return false;
@@ -69,10 +69,17 @@ public class TransferOutPresenter extends BasePresenter {
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) && Double.valueOf(fee_amount)<=0){
+        if(TextUtils.isEmpty(witddraw_fee_amount) && Double.valueOf(witddraw_fee_amount)<=0){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_withdraw_fee));
             return false;
         }
+
+        if(Double.valueOf(witddraw_fee_amount)<Double.valueOf(min_withdraw_fee)){
+            ToastUtils.showToast("提币手续费不能小于"+min_withdraw_fee);
+            return false;
+        }
+
+
 
         if( Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
             ToastUtils.showToast(getActivity().getString(R.string.error_transfer_amout_more_available));

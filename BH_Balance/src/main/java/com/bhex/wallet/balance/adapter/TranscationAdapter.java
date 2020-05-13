@@ -46,7 +46,7 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             DelegateBean delegateBean = JsonUtils.fromJson(activitiesBean.getValue().toString(),DelegateBean.class);
             int decimals = SymbolCache.getInstance().getDecimals(delegateBean.amount.denom);
             double amount = NumberUtil.divide(delegateBean.amount.amount, String.valueOf(BHConstants.BHT_DECIMALS),decimals);
-            LogUtils.d("TranscationAdapter==>:","提取收益==amount=="+amount);
+            //LogUtils.d("TranscationAdapter==>:","提取收益==amount=="+amount);
             String amount_str = NumberUtil.dispalyForUsertokenAmount(String.valueOf(amount));
             viewHolder.setText(R.id.tv_amount, amount_str+BHConstants.BHT_TOKEN.toUpperCase());
 
@@ -77,14 +77,15 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
                 int decimals = SymbolCache.getInstance().getDecimals(transferBean.getAmount().get(0).getDenom());
 
                 //计算转账数量
-                double amount = NumberUtil.divide(transferBean.getAmount().get(0).getAmount(), String.valueOf(BHConstants.BHT_DECIMALS),decimals);
+
+                double amount = NumberUtil.divide(transferBean.getAmount().get(0).getAmount(), String.valueOf(Math.pow(10,decimals)),decimals);
 
                 String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
                 /*String signal = "-";
                 if(BHUserManager.getInstance().getCurrentBhWallet().address.equals(transferBean.getTo_address())){
                     signal="+";
                 }*/
-                viewHolder.setText(R.id.tv_amount, amount_str+BHConstants.BHT_TOKEN.toUpperCase());
+                viewHolder.setText(R.id.tv_amount, amount_str+transferBean.getAmount().get(0).getDenom().toUpperCase());
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -103,6 +104,31 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             viewHolder.setText(R.id.tv_validator_label,getContext().getString(R.string.transfer_in_ext));
             viewHolder.setText(R.id.tv_delegate_address,depositBean.from_cu);
             viewHolder.setText(R.id.tv_validator_address,depositBean.to_cu);
+
+            //充值数量
+            int decimals = SymbolCache.getInstance().getDecimals(depositBean.symbol);
+            double amount = NumberUtil.divide(depositBean.amount, String.valueOf(Math.pow(10,decimals)),decimals);
+            String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
+
+            viewHolder.setText(R.id.tv_amount, amount_str+depositBean.symbol.toUpperCase());
+
+        }else if(TRANSCATION_BUSI_TYPE.跨链提币.getType().equalsIgnoreCase(activitiesBean.type)){
+            TransactionOrder.ActivitiesBean.WithdrawalBean withdrawalBean = JsonUtils.fromJson(activitiesBean.value.toString(),
+                    TransactionOrder.ActivitiesBean.WithdrawalBean.class);
+
+            viewHolder.setText(R.id.tv_delegate_label,getContext().getString(R.string.transfer_out));
+            viewHolder.setText(R.id.tv_validator_label,getContext().getString(R.string.transfer_in_ext));
+
+            viewHolder.setText(R.id.tv_delegate_address,withdrawalBean.from_cu);
+            viewHolder.setText(R.id.tv_validator_address,withdrawalBean.to_multi_sign_address);
+
+
+            //提币数量
+            int decimals = SymbolCache.getInstance().getDecimals(withdrawalBean.symbol);
+            double amount = NumberUtil.divide(withdrawalBean.amount, String.valueOf(Math.pow(10,decimals)),decimals);
+            String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
+            viewHolder.setText(R.id.tv_amount, amount_str+withdrawalBean.symbol.toUpperCase());
+
         }
 
         viewHolder.getView(R.id.iv_delegate_address_paste).setOnClickListener(v -> {

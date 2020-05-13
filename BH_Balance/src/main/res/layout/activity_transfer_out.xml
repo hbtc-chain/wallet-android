@@ -183,14 +183,14 @@
             android:text="@string/withdraw_fee"
             android:textSize="15sp"
             />
+
         <com.bhex.lib.uikit.widget.editor.WithDrawInput
             android:id="@+id/et_withdraw_fee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            app:leftHint="请输入提币手续费"
-            app:rightColor="@color/global_label_text_color"
-             />
+            app:leftHint="@string/please_input_withdraw_fee"
+            app:rightColor="@color/global_label_text_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -228,7 +228,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            app:leftHint="请输入交易手续费"
+            app:leftHint="@string/hint_input_exchange_fee"
             app:leftText="2"
             app:rightColor="@color/global_input_profix_text_color"
             app:rightText="@string/BH_token" />

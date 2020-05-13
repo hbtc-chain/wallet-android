@@ -8,10 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,24 +20,18 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib_qr.XQRCode;
-import com.bhex.lib_qr.ui.CaptureActivity;
 import com.bhex.lib_qr.ui.CaptureFragment;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.gyf.immersionbar.ImmersionBar;
-import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.xuexiang.xutil.app.IntentUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import io.reactivex.functions.Consumer;
 
 import static com.bhex.lib_qr.ui.CaptureActivity.KEY_CAPTURE_THEME;
 import static com.bhex.lib_qr.ui.CaptureActivity.REQUEST_CODE_REQUEST_PERMISSIONS;
@@ -79,8 +71,11 @@ public class BHQrScanActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        tv_center_title.setText("二维码");
-        ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.status_bar_bg_blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.status_bar_bg_blue).fitsSystemWindows(true).init();
+        tv_center_title.setText(getResources().getString(R.string.qr_code));
+        ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.status_bar_bg_blue)
+                .statusBarDarkFont(false)
+                .barColor(com.bhex.network.R.color.status_bar_bg_blue)
+                .fitsSystemWindows(true).init();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {

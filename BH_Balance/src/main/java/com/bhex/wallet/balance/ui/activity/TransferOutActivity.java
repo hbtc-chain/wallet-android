@@ -97,7 +97,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
         tv_available_bht_amount.setText(getString(R.string.available)+" "+available_bht_amount_str+bhtBalance.symbol.toUpperCase());
 
-
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.mutableLiveData.observe(this,ldm -> {
             updateTransferStatus(ldm);
@@ -108,15 +107,14 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)tv_to_address.ed_input.getLayoutParams();
         lp.addRule(RelativeLayout.LEFT_OF,R.id.iv_right);
         tv_to_address.ed_input.setLayoutParams(lp);
-
     }
-
-
 
 
     private void initTokenView() {
         ed_transfer_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et_tx_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        et_withdraw_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
             tv_center_title.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.transfer));
             tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
@@ -208,25 +206,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         }
     };
 
-    /*public SimpleTextWatcher checkTextWatcher = new SimpleTextWatcher(){
-        @Override
-        public void afterTextChanged(Editable s) {
-            super.afterTextChanged(s);
-            String transfer_amount = ed_transfer_amount.ed_input.getText().toString().trim();
-            String tx_fee_amount = et_tx_fee.ed_input.getText().toString().trim();
-            if(RegexUtil.checkNumeric(transfer_amount) && RegexUtil.checkNumeric(tx_fee_amount)){
-                btn_drawwith_coin.setEnabled(true);
-                btn_drawwith_coin.setBackgroundColor(ContextCompat.getColor(TransferOutActivity.this,R.color.blue));
-            }else{
-                btn_drawwith_coin.setEnabled(false);
-                btn_drawwith_coin.setBackgroundColor(ContextCompat.getColor(TransferOutActivity.this,R.color.gray_E7ECF4));
-
-            }
-
-        }
-    };*/
-
-
     @OnClick({R2.id.btn_drawwith_coin})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_drawwith_coin){
@@ -237,7 +216,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             }else if(way==1){
                 sendTransfer();
             }
-
         }
     }
 
@@ -250,10 +228,9 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 String.valueOf(available_amount),
                 et_tx_fee.ed_input.getText().toString().trim()
         );
-        if(!flag){
+        /*if(!flag){
             return;
-        }
-
+        }*/
         if(flag){
             PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
                     PasswordFragment.class.getName(),
@@ -267,15 +244,16 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
      * 跨链提币
      */
     private void crossLinkWithDraw(){
+        BHToken bhToken = SymbolCache.getInstance().getBHToken(balance.symbol);
+
         boolean flag = mPresenter.checklinkOutterTransfer(tv_to_address.ed_input.getText().toString(),
                 ed_transfer_amount.ed_input.getText().toString(),
                 String.valueOf(available_amount),
                 et_tx_fee.ed_input.getText().toString().trim(),
-                et_withdraw_fee.ed_input.getText().toString().trim()
+                et_withdraw_fee.ed_input.getText().toString().trim(),
+                bhToken.withdrawal_fee
         );
-        if(!flag){
-            return;
-        }
+
 
         if(flag){
             PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
@@ -326,6 +304,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.ed_input.getText().toString().trim();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+        //链内
         if(way==1){
             String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
             String feeAmount = et_tx_fee.ed_input.getText().toString();
@@ -336,13 +315,18 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });
-        }else if(way==2){
+
+        }else if(way==2){//跨链
+            //提币数量
             String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
+            //交易手续费
             String feeAmount = et_tx_fee.ed_input.getText().toString();
+            //提币手续费
+            String withDrawFeeAmount = et_withdraw_fee.ed_input.getText().toString();
 
             BHTransactionManager.loadSuquece(suquece -> {
-                BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(from_address,to_address,withDrawAmount,feeAmount,
-                        gasPrice,null,suquece,balance.symbol);
+                BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(to_address,withDrawAmount,feeAmount,
+                        gasPrice,withDrawFeeAmount,null,suquece,balance.symbol);
 
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;

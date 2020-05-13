@@ -65,6 +65,6 @@ public class BHConstants {
     public static final String VETO_OPTION_NO = "No";
     public static final String VETO_OPTION_ABSTAIN = "Abstain";
     public static final String VETO_OPTION_NOWITHVETO = "NoWithVeto";
-    public static final String TRANSCTION_MODE = "block";
+    public static final String TRANSCTION_MODE = "sync";
     public static String TextProposalType="hbtcchain/gov/TextProposal";
 }

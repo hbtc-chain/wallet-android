@@ -122,7 +122,6 @@
             android:textColor="@color/secondary_tip_text_color"
             android:textSize="14sp"
             android:text="@string/tips_trust_success_index_3"
-            android:drawableLeft="@drawable/ic_dot_blue"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
             android:lineSpacingExtra="@dimen/main_line_spacing_extra"

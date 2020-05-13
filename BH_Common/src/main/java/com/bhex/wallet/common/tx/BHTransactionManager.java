@@ -142,12 +142,15 @@ public class BHTransactionManager {
      * 跨链地址生成
      */
     public static BHSendTranscation crossLinkTransfer(
-                                                     String from, String to,
+                                                     String to,
                                                      String amount,
                                                      String feeAmount,
                                                      BigInteger gasPrice,
+                                                     String withDrawFeeAmount,
                                                      String data,
                                                      String sequence,String symbol){
+
+        String from = BHUserManager.getInstance().getCurrentBhWallet().address;
 
         String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
 
@@ -159,15 +162,21 @@ public class BHTransactionManager {
 
         BigInteger double_feeAmount = NumberUtil.mulExt(String.valueOf(BHConstants.BHT_DECIMALS),feeAmount);
 
+
+        //BigInteger double_withDrawFeeAmount = NumberUtil.mulExt(String.valueOf(Math.pow(10,symbolBHToken.decimals)),withDrawFeeAmount);
+
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
-        double double_gas_fee = Double.parseDouble(symbolBHToken.withdrawal_fee);
+        //提币手续费
+        //double double_gas_fee = Double.parseDouble(symbolBHToken.withdrawal_fee);
+        BigInteger double_gas_fee =  NumberUtil.mulExt(String.valueOf(Math.pow(10,symbolBHToken.decimals)),withDrawFeeAmount);;
+
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHCrossWithdrawalTransaction(sequence,
                 from,to,
                 double_amount,
                 double_feeAmount,
-                BigDecimal.valueOf(double_gas_fee).toBigInteger(),
+                double_gas_fee,
                 gasPrice,BHConstants.BH_MEMO,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);

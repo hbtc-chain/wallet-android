@@ -111,6 +111,17 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         walletViewModel.deleteLiveData.observe(this,ldm -> {
             udpatWalletList(ldm);
         });
+
+        walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
+            if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
+                EventBus.getDefault().post(new WalletEvent());
+                finish();
+            }
+        });
+
+        /*mTrustManagerAdapter.setOnItemClickListener((adapter, view, position) -> {
+
+        });*/
     }
 
     /**
@@ -138,12 +149,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         int status = bhWalletItem.isDefault==0?1:0;
         BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
         walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
-        walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
-            if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
-                EventBus.getDefault().post(new WalletEvent());
-                finish();
-            }
-        });
+
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.lang.annotation.Annotation;
 /**
  * Created by gongdongyang on 2018/9/17.
  */
-
+@GlideModule
 public class GlideConfiguration extends AppGlideModule {
 
     //缓存大小
@@ -45,5 +45,10 @@ public class GlideConfiguration extends AppGlideModule {
     public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
         super.registerComponents(context, glide, registry);
 
+    }
+
+    @Override
+    public boolean isManifestParsingEnabled() {
+        return false;
     }
 }

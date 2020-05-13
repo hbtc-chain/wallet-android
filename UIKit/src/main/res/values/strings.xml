@@ -310,6 +310,8 @@
     <string name="please_transfer_amount">请输入转账数量</string>
     <string name="error_transfer_address">转账地址错误</string>
     <string name="error_transfer_amout_more_available">转账数量大于可用余额</string>
+    <string name="qr_code">二维码</string>
+    <string name="hint_input_exchange_fee">请输入交易手续费</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>
