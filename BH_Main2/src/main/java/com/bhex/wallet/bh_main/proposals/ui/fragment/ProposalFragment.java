@@ -250,6 +250,6 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
     @Override
     public void onResume() {
         super.onResume();
-        getRecord(mOriginProposalInfoList.size()<1, mCurrentPage);
+        getRecord(mProposalAdapter==null||mProposalAdapter.getData()==null||mProposalAdapter.getData().size()<1, mCurrentPage);
     }
 }

@@ -123,7 +123,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     @Override
     public void onResume() {
         super.onResume();
-        getRecord(mOriginValidatorInfoList.size()<1);
+        getRecord(mValidatorAdapter==null||mValidatorAdapter.getData()==null||mValidatorAdapter.getData().size()<1);
     }
 
     public void updateRecord(List<ValidatorInfo> datas) {

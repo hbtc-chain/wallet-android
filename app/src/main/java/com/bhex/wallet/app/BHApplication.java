@@ -22,9 +22,9 @@ public class BHApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         SystemConfig.getInstance().init();
-        TypefaceUtils.replaceSystemDefaultFont(this);
         //夜间模式
         AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
+        TypefaceUtils.replaceSystemDefaultFont(this);
 
         BHFilePath.initPath(this);
 

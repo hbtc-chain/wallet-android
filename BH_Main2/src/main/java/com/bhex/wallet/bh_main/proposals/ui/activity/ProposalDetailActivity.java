@@ -195,6 +195,7 @@ public class ProposalDetailActivity extends BaseActivity {
             updateVetoResult(mProposalInfo.getResult());
         } else if (mProposalInfo.getStatus() == 5) {
             tv_status.setText(getString(R.string.proposal_failed));
+            tv_pledge.setText(mProposalInfo.getTotal_deposit()+ "/"+mProposalInfo.getDeposit_threshold()+mToken.toUpperCase());
             tv_status.setTextColor(getResources().getColor(R.color.proposal_failed));
             btn_do_pledge.setBackgroundColor(ColorUtil.getColor(this, R.color.global_button_enable_false_bg));
             btn_do_pledge.setTextColor(getResources().getColor(R.color.global_button_enable_false_text));
