@@ -18,7 +18,6 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavitateUtil;
 import com.bhex.tools.utils.ToolUtils;
@@ -34,10 +33,10 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.utils.LiveDataBus;
+import com.google.android.material.card.MaterialCardView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -69,6 +68,15 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
     @BindView(R2.id.iv_paste)
     AppCompatImageView iv_paste;
+
+    @BindView(R2.id.iv_edit)
+    AppCompatImageView iv_edit;
+
+    @BindView(R2.id.layout_index_2)
+    MaterialCardView layout_index_2;
+
+    @BindView(R2.id.layout_index_3)
+    MaterialCardView layout_index_3;
 
     private List<MyItem> mItems;
 
@@ -126,8 +134,10 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                             MyFragment.this,position);
                     break;
                 case 1:
-                    //ARouterUtil.startActivity(ARouterConfig.MY_UPDATE_PASSWORD);
                     ARouter.getInstance().build(ARouterConfig.MY_UPDATE_PASSWORD).withString("title",item.title).navigation();
+                    break;
+                case 3:
+                    ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_KEYSTORE).withString("title",item.title).navigation();
                     break;
                 case 4:
                     //设置
@@ -148,13 +158,18 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         });
     }
 
-    @OnClick({R2.id.tv_setting, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste})
+    @OnClick({R2.id.tv_setting, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste,
+            R2.id.iv_edit, R2.id.layout_index_2,R2.id.layout_index_3})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.tv_setting){
             ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
         }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(mBhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));
+        }else if(view.getId()==R.id.iv_edit){
+            //UpdateNameFragment fragment = UpdateNameFragment.showFragment();
+            UpdateNameFragment fragment = UpdateNameFragment.Companion.showFragment();
+            fragment.showNow(getChildFragmentManager(), UpdateNameFragment.class.getName());
         }
     }
 
@@ -168,7 +183,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         mItems = MyHelper.getAllItems(getYActivity());
         mMyAdapter.getData().clear();
         mMyAdapter.addData(mItems);
-        LogUtils.d("MyFragment===>:","mItems=="+mItems.size());
         //mMyAdapter.notifyDataSetChanged();
     }
 

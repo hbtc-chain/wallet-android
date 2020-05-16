@@ -303,6 +303,7 @@
     <string name="update_progress">下载中 %1$d%2$s</string>
     <string name="import_mnemonic_success">助记词导入成功</string>
     <string name="import_privatekey_success">私钥导入成功</string>
+    <string name="import_keystore_success">KeyStore导入成功</string>
     <string name="trusteeship_exist">托管单元已存在</string>
     <string name="please_input_gasfee">请输入交易手续费</string>
     <string name="please_input_withdraw_fee">请输入提币手续费</string>
@@ -312,6 +313,14 @@
     <string name="error_transfer_amout_more_available">转账数量大于可用余额</string>
     <string name="qr_code">二维码</string>
     <string name="hint_input_exchange_fee">请输入交易手续费</string>
+    <string name="origin_password">原密码</string>
+    <string name="input_origin_password">请输入原密码</string>
+    <string name="new_password">新密码</string>
+    <string name="confirm_new_password">重复新密码</string>
+    <string name="password">密码</string>
+    <string name="trustship_manager">托管单元管理</string>
+    <string name="token_release">代币发行申请</string>
+    <string name="update_username">修改用户名</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>

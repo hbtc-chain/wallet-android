@@ -25,7 +25,7 @@ import com.bhex.tools.utils.LogUtils;
 public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
     private Paint mPaint;
     private Drawable mDivider;
-    private int mDividerHeight = 2;//分割线高度，默认为1px
+    private int mDividerHeight = 1;//分割线高度，默认为1px
     private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
@@ -81,8 +81,16 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
+        int position = parent.getChildLayoutPosition(view);
         if (mOrientation == LinearLayoutManager.VERTICAL) {
-            outRect.set(0, 0, 0, mDividerHeight);
+            if(position==2){
+                mDividerHeight = PixelUtils.dp2px(mContext,8);
+                outRect.set(0, 0, 0, mDividerHeight);
+            }else{
+                mDividerHeight = 1;
+                outRect.set(0, 0, 0, mDividerHeight);
+
+            }
         } else {
             outRect.set(0, 0, mDividerHeight, 0);
         }

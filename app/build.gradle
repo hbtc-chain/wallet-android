@@ -3,6 +3,7 @@ apply plugin: 'com.jakewharton.butterknife'
 //apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'walle'
 
 static def releaseTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
@@ -144,7 +145,7 @@ android {
 
     productFlavors {
         bh_wallet {
-            applicationId "com.bhex.wallet"
+            applicationId "com.bluehelix.wallet"
             //resConfigs("en","xxhdpi")
         }
     }
@@ -167,6 +168,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
     implementation 'com.android.support:design:27.1.1'
+
+    //wallet打包
+    implementation 'com.meituan.android.walle:library:1.1.6'
 
     //leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
@@ -207,4 +211,13 @@ dependencies {
     implementation project(path: ':BH_Balance')
     implementation project(path: ':BH_Main2')
 
+}
+
+walle {
+    // 指定渠道包的输出路径
+    apkOutputFolder = new File("${project.buildDir}/outputs/channels");
+    // 定制渠道包的APK的文件名称
+    apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
+    // 渠道配置文件
+    channelFile = new File("${project.getProjectDir()}/channel")
 }

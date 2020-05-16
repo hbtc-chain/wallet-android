@@ -13,6 +13,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -21,6 +22,9 @@ import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -77,6 +81,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     protected void addEvent() {
+        //LogUtils.d("MainActivity===>:","name==="+mBottomNavigationView.getChildAt(0));
+        //BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBottomNavigationView.getChildAt(0);
+
         EventBus.getDefault().register(this);
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){

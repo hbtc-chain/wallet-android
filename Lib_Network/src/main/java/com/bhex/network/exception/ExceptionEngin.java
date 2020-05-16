@@ -6,6 +6,8 @@ import android.util.Log;
 import com.bhex.network.R;
 import com.bhex.network.app.BaseApplication;
 
+import org.web3j.crypto.CipherException;
+
 import retrofit2.HttpException;
 
 public class ExceptionEngin {
@@ -102,10 +104,18 @@ public class ExceptionEngin {
             return new ApiException(throwable, 1005);
         if (throwable instanceof javax.net.ssl.SSLException) {
             ApiException apiException = new ApiException(throwable, 1004);
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(BaseApplication.getInstance().getString(R.string.error_network_later_try));
-            stringBuilder.append("_SSL");
-            apiException.setDisplayMessage(stringBuilder.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append(BaseApplication.getInstance().getString(R.string.error_network_later_try));
+            sb.append("_SSL");
+            apiException.setDisplayMessage(sb.toString());
+            return apiException;
+        }
+
+        if(throwable instanceof CipherException){
+            ApiException apiException = new ApiException(throwable, 1005);
+            StringBuilder sb = new StringBuilder();
+            sb.append("KeyStore或密码不匹配");
+            apiException.setDisplayMessage(sb.toString());
             return apiException;
         }
         if (throwable instanceof java.io.IOException) {

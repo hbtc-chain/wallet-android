@@ -6,31 +6,44 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.PKeyImportActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ImportIndexActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ExportKeyStoreActivity"></activity>
+        <activity android:name=".ui.activity.ImportKeyStoreActivity" />
+        <activity
+            android:name=".ui.activity.ImportPrivateKeyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ImportIndexActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.TrusteeshipManagerActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.TrusteeshipThirdActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TrusteeshipSecActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.LockActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ImportMnemonicActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.VerifyMnemonicActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MnemonicIndexActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TrusteeshipActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.BackupMnemonicActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TrusteeshipSuccessActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.TrusteeshipThirdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TrusteeshipSecActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LockActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ImportMnemonicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.VerifyMnemonicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MnemonicIndexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TrusteeshipActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.BackupMnemonicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TrusteeshipSuccessActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

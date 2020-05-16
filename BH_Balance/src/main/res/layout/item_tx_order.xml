@@ -31,6 +31,7 @@
         android:gravity="center"
         app:layout_constraintStart_toEndOf="@+id/tv_tx_type"
         app:layout_constraintBottom_toBottomOf="@+id/tv_tx_type"
+        app:layout_constraintTop_toTopOf="@+id/tv_tx_type"
         style="@style/tx_status_success"
         tools:text="成功"
         />
@@ -51,13 +52,13 @@
     <com.bhex.lib.uikit.widget.CustomTextView
         android:id="@+id/tv_tx_amount"
         android:layout_width="wrap_content"
-        android:layout_height="22dp"
+        android:layout_height="0dp"
         android:textSize="13sp"
-        android:gravity="bottom"
+        android:gravity="center_vertical"
         android:textColor="@color/global_main_text_color"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_tx_type"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tx_type"
         tools:text="10000.00"
         />
 

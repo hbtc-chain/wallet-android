@@ -82,12 +82,13 @@ public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
         importAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (position){
                 case 0:
-                    ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_MNEMONIC_IMPORT);
+                    ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC);
                     break;
                 case 1:
+                    ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE);
                     break;
                 case 2:
-                    ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_PRIVATEKEY_IMPORT);
+                    ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY);
                     break;
             }
         });

@@ -3,6 +3,7 @@ package com.bhex.wallet.common.utils;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.crypto.Sha256;
@@ -20,6 +21,7 @@ import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
+import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Wallet;
@@ -81,10 +83,7 @@ public class BHWalletUtils {
 
     //助记词导入
     public static BHWallet importMnemonic(String path, List<String> list,String walletName,String pwd) {
-
         //String[] pathArray = path.split("/");
-
-
         String passphrase = "";
         long creationTimeSeconds = System.currentTimeMillis() / 1000;
 
@@ -117,6 +116,32 @@ public class BHWalletUtils {
     }
 
     /**
+     * 导入KeyStroe
+     * @param pwd
+     * @return
+     */
+    public static BHWallet importKeyStore(String keystore,String name,String pwd){
+        BHWallet bhWallet = null;
+        try{
+            Credentials credentials = null;
+            WalletFile walletFile = objectMapper.readValue(keystore, WalletFile.class);
+            credentials = Credentials.create(Wallet.decrypt(pwd, walletFile));
+            String pk = credentials.getEcKeyPair().getPrivateKey().toString(16);
+            //走导入私钥的补助
+            if(credentials!=null){
+                bhWallet = generateWallet(name, pwd, credentials.getEcKeyPair(),null);
+            }
+        }catch (CipherException e){
+            e.printStackTrace();
+            return null;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  bhWallet;
+    }
+
+
+    /**
      * 从私钥到地址
      * @param privateKey
      * @return
@@ -125,6 +150,26 @@ public class BHWalletUtils {
         ECKeyPair keyPair = ECKeyPair.create(Numeric.toBigInt(privateKey));
         String bh_adress = BHKey.getBhexUserDpAddress(keyPair.getPublicKey());
         return bh_adress;
+    }
+
+    /**
+     * 从KeyStore到地址
+     * @param keyStore
+     * @param pwd
+     * @return
+     */
+    public static String keyStoreToAddress(String keyStore,String pwd) throws CipherException,IOException{
+        String bh_address = null;
+        Credentials credentials = null;
+        WalletFile walletFile = objectMapper.readValue(keyStore, WalletFile.class);
+        credentials = Credentials.create(Wallet.decrypt(pwd, walletFile));
+        //String pk = credentials.getEcKeyPair().getPrivateKey().toString(16);
+        if(credentials!=null){
+            bh_address = BHKey.getBhexUserDpAddress(credentials.getEcKeyPair().getPublicKey());
+        }else{
+            return null;
+        }
+        return  bh_address;
     }
 
     /**
@@ -158,10 +203,10 @@ public class BHWalletUtils {
     private static BHWallet generateWallet(String walletName, String pwd, ECKeyPair keyPair,List<String> mnemonics) {
         BHWallet bhWallet = null;
         try {
-            //WalletFile walletFile = Wallet.create(pwd, keyPair, 1024, 1);
+            WalletFile walletFile = Wallet.create(pwd, keyPair, 1024, 1);
             // 生成BH-地址
             String bh_adress = BHKey.getBhexUserDpAddress(keyPair.getPublicKey());
-            //walletFile.setAddress(bh_adress);
+            walletFile.setAddress(bh_adress);
             //LogUtils.d(TAG+"==>:","bh_adress:"+bh_adress);
             //生成bench32地址
             String bh_bech_pubkey = BHKey.getBhexUserDpPubKey(keyPair.getPublicKey());
@@ -172,13 +217,15 @@ public class BHWalletUtils {
             //LogUtils.d(TAG+"==>:","pk_str:"+pk_str);
             //私钥加密
             String encryptPK = CryptoUtil.encryptPK(keyPair.getPrivateKey(),pwd);
+            String raw_json = JsonUtils.toJson(walletFile);
+            LogUtils.d("BHWalletUtils==>:","raw_json=="+raw_json);
 
             bhWallet = BHUserManager.getInstance().getTmpBhWallet();
             bhWallet.setName(walletName);
             bhWallet.setAddress(bh_adress);
             bhWallet.setPublicKey(bh_bech_pubkey);
             bhWallet.setPrivateKey(encryptPK);
-            bhWallet.setKeystorePath("");
+            bhWallet.setKeystorePath(raw_json);
             bhWallet.setPassword(MD5.md5(pwd));
             bhWallet.setIsDefault(0);
             bhWallet.setIsBackup(0);
@@ -195,25 +242,25 @@ public class BHWalletUtils {
         return bhWallet;
     }
 
-    /**
-     * 保存KeyStore 文件
-     * @param walletFile
-     */
-    private static String save_keystore(WalletFile walletFile,String walletName) {
-        String ks_name = "ks_" + SystemClock.elapsedRealtime() + ".json";
-        File ks_path = new File(BHFilePath.PATH_KEYSTORE,  ks_name);
-        //目录不存在则创建目录，创建不了则报错
-        if (!createParentDir(ks_path)) {
-            return null;
-        }
-        try {
-            objectMapper.writeValue(ks_path, walletFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return ks_path.getAbsolutePath();
-    }
+//    /**
+//     * 保存KeyStore 文件
+//     * @param walletFile
+//     */
+//    private static String save_keystore(WalletFile walletFile,String walletName) {
+//        String ks_name = "ks_" + SystemClock.elapsedRealtime() + ".json";
+//        File ks_path = new File(BHFilePath.PATH_KEYSTORE,  ks_name);
+//        //目录不存在则创建目录，创建不了则报错
+//        if (!createParentDir(ks_path)) {
+//            return null;
+//        }
+//        try {
+//            objectMapper.writeValue(ks_path, walletFile);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//        return ks_path.getAbsolutePath();
+//    }
 
     private static boolean createParentDir(File file) {
         //判断目标文件所在的目录是否存在
@@ -228,10 +275,7 @@ public class BHWalletUtils {
         return true;
     }
 
-
-
-
-    /**
+   /**
      * 生成公私钥对
      * @return
      */
@@ -269,4 +313,6 @@ public class BHWalletUtils {
         }
         return sb.toString();
     }
+
+
 }

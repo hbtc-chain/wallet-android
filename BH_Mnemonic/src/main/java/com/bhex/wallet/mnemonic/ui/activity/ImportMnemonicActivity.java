@@ -45,7 +45,7 @@ import butterknife.OnClick;
  * @author gdy
  * 2020-3-11 18:37:15
  */
-@Route(path = ARouterConfig.TRUSTEESHIP_MNEMONIC_IMPORT)
+@Route(path = ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC)
 public class ImportMnemonicActivity extends BaseCacheActivity implements MnemonicInputView.MnemonicInputViewChangeListener {
 
     @BindView(R2.id.btn_next)
@@ -71,11 +71,6 @@ public class ImportMnemonicActivity extends BaseCacheActivity implements Mnemoni
 
     @Override
     protected void initView() {
-        /*mMnemonicWords.add("burst");
-        mMnemonicWords.add("clean");
-        mMnemonicWords.add("range");
-        mMnemonicWords.add("coral");
-        mMnemonicWords.add("dumb");*/
         input_mnemonic.setWordList(mOriginWords);
         input_mnemonic.setInputViewChangeListener(this);
         et_mnemonic.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -129,15 +124,6 @@ public class ImportMnemonicActivity extends BaseCacheActivity implements Mnemoni
     private void importMnemoic(String mnemoicStr) {
         boolean flag = true;
 
-        /*if(!TextUtils.isEmpty(mnemoicStr)){
-            String []array = mnemoicStr.split("\\s+");
-            for (int i = 0; i < array.length; i++) {
-                if(!TextUtils.isEmpty(array[i].trim())){
-                    mnemonicItems.add(array[i].trim());
-                }
-            }
-        }*/
-
         mnemonicItems = input_mnemonic.getAllMnemonic();
 
         for (int i = 0; i < mnemonicItems.size(); i++) {
@@ -153,7 +139,6 @@ public class ImportMnemonicActivity extends BaseCacheActivity implements Mnemoni
             return;
         }
         String mnemonic_text = et_mnemonic.getText().toString().replaceAll("\\s+"," ");
-        LogUtils.d("ImportMnemonicActivity===>:","mnemonic_text=="+mnemonic_text);
 
         BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入助记词.getWay());
         BHUserManager.getInstance().getTmpBhWallet().setMnemonic(mnemonic_text);

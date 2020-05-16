@@ -11,6 +11,7 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.SimpleObserver;
 import com.bhex.tools.constants.BHConstants;
@@ -54,6 +55,7 @@ public class WalletViewModel extends ViewModel {
     public MutableLiveData<LoadDataModel<BHWallet>> walletLiveData = new MutableLiveData<>();
 
     public MutableLiveData<LoadDataModel<BHWallet>> deleteLiveData = new MutableLiveData<>();
+
 
     public WalletViewModel() {
         bhWalletDao = AppDataBase.getInstance(BaseApplication.getInstance()).bhWalletDao();
@@ -360,6 +362,64 @@ public class WalletViewModel extends ViewModel {
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(pbo);
+    }
+
+    /**
+     * 导入KeyStore文件
+     * @param activity
+     * @param keyStore
+     * @param name
+     * @param pwd
+     */
+    public void importKeyStore(BaseActivity activity,String keyStore,String name, String pwd){
+        BHBaseObserver observer = new BHBaseObserver<BHWallet>() {
+            @Override
+            protected void onSuccess(BHWallet bhWallet) {
+                LoadDataModel ldm = new LoadDataModel(bhWallet);
+                mutableLiveData.postValue(ldm);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel ldm = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(ldm);
+            }
+
+
+        };
+
+        Observable.create(emitter -> {
+            //判断地址是否存在
+            String bh_address = BHWalletUtils.keyStoreToAddress(keyStore,pwd);
+            if(BHWalletHelper.isExistBHWallet(bh_address)){
+                emitter.onNext(new BHWallet());
+            }else if(!TextUtils.isEmpty(bh_address)){
+                BHWallet bhWallet = BHWalletUtils.importKeyStore(keyStore,name,pwd);
+                //当前
+                int maxId = bhWalletDao.loadMaxId();
+                bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
+                bhWallet.id = maxId+1;
+                int resId = bhWalletDao.insert(bhWallet).intValue();
+
+                //设置默认钱包
+                //把所有设置非默认
+                int res = bhWalletDao.updateNoDefault(0);
+                //把bh_id设置默认
+                res = bhWalletDao.update(bhWallet.id,1);
+
+                //更新当前默认钱包
+                List<BHWallet> allBhWallet = bhWalletDao.loadAll();
+                if(allBhWallet!=null && allBhWallet.size()>0){
+                    BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
+                    BHUserManager.getInstance().setAllWallet(allBhWallet);
+                }
+                emitter.onNext(bhWallet);
+            }
+
+        }).compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
     }
 
     /**

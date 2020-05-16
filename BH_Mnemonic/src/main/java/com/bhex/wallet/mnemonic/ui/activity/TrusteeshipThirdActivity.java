@@ -180,6 +180,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
      */
     private void importPrivatekey(String name,String pwd){
         walletViewModel.importPrivateKey(this,name,pwd);
+        walletViewModel.importPrivateKey(this,"","");
     }
 
     @Override

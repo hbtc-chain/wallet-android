@@ -37,7 +37,7 @@ class UpgradeFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val style = STYLE_NO_TITLE
-        val theme = R.style.centerDialogStyle
+        //val theme = R.style.centerDialogStyle
         setStyle(style,theme)
     }
 
@@ -73,7 +73,7 @@ class UpgradeFragment : DialogFragment() {
 
         lp.width = dm.widthPixels -PixelUtils.dp2px(context,48f);
         lp.height = ViewGroup.LayoutParams.WRAP_CONTENT
-
+        lp.windowAnimations = R.style.centerDialogStyle
         window.attributes = lp
 
     }
