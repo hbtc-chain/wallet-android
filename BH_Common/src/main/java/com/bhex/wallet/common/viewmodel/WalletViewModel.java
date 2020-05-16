@@ -3,6 +3,7 @@ package com.bhex.wallet.common.viewmodel;
 import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -174,6 +175,42 @@ public class WalletViewModel extends ViewModel {
             return  Observable.just("apply");
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(pbo);
+    }
+
+
+    public void updateWalletName(Fragment fragment, BHWallet bhWallet){
+        BHProgressObserver pbo = new BHProgressObserver<String>(fragment.getContext()) {
+            @Override
+            protected void onSuccess(String str) {
+                LoadDataModel loadDataModel = new LoadDataModel("");
+                bhWallet.isDefault = 1;
+                BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
+                mutableLiveData.postValue(loadDataModel);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel();
+                mutableLiveData.postValue(loadDataModel);
+            }
+        };
+
+
+        Observable.create((ObservableOnSubscribe<String>)emitter -> {
+            //把所有设置非默认
+            //int res = bhWalletDao.updateNoDefault(0);
+            //把bh_id设置默认
+            int res = bhWalletDao.update(bhWallet);
+
+            emitter.onNext("");
+            emitter.onComplete();
+        }).flatMap((Function<String, ObservableSource<String>>)s -> {
+            List<BHWallet> list = bhWalletDao.loadAll();
+            return  Observable.just("apply");
+        }).compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(fragment)))
                 .subscribe(pbo);
     }
 

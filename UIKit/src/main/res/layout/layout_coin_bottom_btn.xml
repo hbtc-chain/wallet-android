@@ -12,13 +12,13 @@
         android:layout_height="48dp"
         android:layout_margin="3dp"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/app_bg"
+        app:cardBackgroundColor="@color/card_bg"
         app:cardForegroundColor="@color/bg_trans"
         app:cardPreventCornerOverlap="true"
         app:cardMaxElevation="5dp"
         app:contentPadding="1dp"
         app:cardElevation="5dp"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="18dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_coin_icon"

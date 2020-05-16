@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/app_bg"
+    android:orientation="vertical"
     tools:context=".ui.fragment.BalanceFragment">
 
     <com.bhex.lib.uikit.widget.StatusBarView
@@ -20,296 +20,290 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-
-        <RelativeLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@mipmap/bg_balance"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="25dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-                app:titleTextAppearance="@style/Toolbar_textsize"
-                xmlns:tools="http://schemas.android.com/tools">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_center_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:drawableStart="@mipmap/ic_bluehelix"
-                    android:drawablePadding="3dp"
-                    android:gravity="center"
-                    android:text="Bluehelix Wallet"
-                    android:textColor="@color/dark_bg_text_color"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    tools:text="Bluehelix Wallet" />
-
-            </androidx.appcompat.widget.Toolbar>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_balance_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_below="@+id/toolbar"
-                android:text="@string/tab_balance_title"
-                android:textColor="@color/dark_bg_text_color"
-                android:textSize="30dp" />
-
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:paddingEnd="24dp"
-                android:src="@mipmap/ic_add_token"
-                android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@+id/tv_balance_txt"
-                android:layout_alignTop="@+id/tv_balance_txt"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_balance_txt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_balance_txt" />
-
-            <LinearLayout
-                android:id="@+id/layout_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_balance_txt"
-                android:layout_alignLeft="@+id/tv_balance_txt"
-                android:layout_marginTop="2dp"
-                android:orientation="horizontal"
-                >
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="#BFFFFFFF"
-                    android:textSize="12sp"
-                    android:layout_gravity="center_vertical"
-                    app:layout_constraintStart_toStartOf="@+id/tv_balance_txt"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_balance_txt"
-                    tools:text="2222eeeeeeeeee" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_paste"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_paste"
-                    android:padding="3dp"
-                    android:layout_gravity="center_vertical"
-                    />
-            </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/layout_balance"
-                android:layout_width="match_parent"
-                android:layout_height="118dp"
-                android:layout_marginStart="@dimen/main_padding_left"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="@dimen/main_padding_right"
-                android:layout_below="@+id/layout_address"
-                app:cardBackgroundColor="@color/app_bg"
-                app:cardCornerRadius="10dp"
-                app:cardForegroundColor="@color/bg_trans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_address">
-
-                <RelativeLayout
-                    android:background="@mipmap/bg_asset_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_balance_txt2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="24dp"
-                        android:text="@string/all_asset"
-                        android:textColor="@color/total_assert_text_color"
-                        android:textSize="17sp" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_eye"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tv_balance_txt2"
-                        android:layout_alignBottom="@+id/tv_balance_txt2"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/tv_balance_txt2"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        android:src="@mipmap/ic_eye"
-                        android:tag="0" />
-
-                    <!--<androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_currency"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/tv_asset"
-                        android:layout_marginStart="40dp"
-                        android:includeFontPadding="false"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        android:src="@mipmap/ic_eye"
-                        android:tag="0"
-                        android:text="￥"
-                        android:textStyle="bold" />-->
-
-                    <com.bhex.lib.uikit.widget.CustomTextView
-                        android:id="@+id/tv_asset"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_balance_txt2"
-                        android:layout_alignLeft="@+id/tv_balance_txt2"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="3dp"
-                        android:includeFontPadding="false"
-                        android:textColor="@color/total_assert_text_color"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        app:cardElevation="5dp"
-                        tools:text="￥123.45678901" />
-
-                </RelativeLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <CheckedTextView
-                android:id="@+id/ck_hidden_small"
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_below="@+id/layout_balance"
-                android:layout_marginStart="@dimen/main_padding_left"
-                android:layout_marginTop="12dp"
-                android:checked="false"
-                android:drawableLeft="@drawable/checkbox_style"
-                android:drawablePadding="4dp"
-                android:gravity="center_vertical"
-                android:text="@string/hidden_small_token"
-                android:textAppearance="@style/ck_hidden_small"
-                app:layout_constraintLeft_toLeftOf="@+id/layout_balance"
-                app:layout_constraintTop_toBottomOf="@+id/layout_balance" />
 
             <RelativeLayout
-                android:id="@+id/layout_search"
-                android:layout_width="120dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="@dimen/main_margin_right"
-                android:background="@drawable/shape_input_corner"
-                android:layout_below="@+id/layout_balance"
-                android:layout_alignParentEnd="true"
-                app:layout_constraintBottom_toBottomOf="@+id/ck_hidden_small"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_balance"
-                app:layout_constraintTop_toTopOf="@+id/ck_hidden_small">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_search_ic"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@mipmap/bg_balance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.Toolbar xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="25dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+                    app:titleTextAppearance="@style/Toolbar_textsize">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_center_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:drawableStart="@mipmap/ic_bluehelix"
+                        android:drawablePadding="3dp"
+                        android:gravity="center"
+                        android:text="Bluehelix Wallet"
+                        android:textColor="@color/dark_bg_text_color"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:text="Bluehelix Wallet" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_balance_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="4dp"
-                    android:src="@mipmap/ic_search_ext" />
+                    android:layout_below="@+id/toolbar"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/tab_balance_title"
+                    android:textColor="@color/dark_bg_text_color"
+                    android:textSize="30dp" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/ed_search_content"
-                    android:layout_width="120dp"
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_toRightOf="@+id/iv_search_ic"
-                    android:layout_centerVertical="true"
-                    android:background="@null"
-                    android:paddingTop="0.5dp"
-                    android:gravity="center_vertical"
-                    android:hint="@string/hint_input_token_name"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/global_input_text_color"
-                    android:textColorHint="@color/global_input_hint_color"
-                    android:textCursorDrawable="@null"
-                    android:textSize="15sp" />
-            </RelativeLayout>
+                    android:layout_alignTop="@+id/tv_balance_txt"
+                    android:layout_alignBottom="@+id/tv_balance_txt"
+                    android:layout_alignParentEnd="true"
+                    android:paddingEnd="24dp"
+                    android:src="@mipmap/ic_add_token"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_balance_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_balance_txt" />
 
-            <View
-                android:id="@+id/view_divider_line"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="@dimen/page_margin_top"
-                android:layout_marginStart="@dimen/main_padding_left"
-                style="@style/divider_line_style"
-                android:layout_below="@+id/ck_hidden_small"/>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="300dp"
-                android:layout_below="@+id/view_divider_line"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small">
-
-                <com.yanzhenjie.recyclerview.SwipeRecyclerView
-                    android:id="@+id/recycler_balance"
+                <LinearLayout
+                    android:id="@+id/layout_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:overScrollMode="never"
+                    android:layout_below="@+id/tv_balance_txt"
+                    android:layout_alignLeft="@+id/tv_balance_txt"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:textColor="#BFFFFFFF"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_balance_txt"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_balance_txt"
+                        tools:text="2222eeeeeeeeee" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_paste"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="3dp"
+                        android:src="@mipmap/ic_paste" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/layout_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="118dp"
+                    android:layout_below="@+id/layout_address"
+                    android:layout_marginStart="@dimen/main_padding_left"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="@dimen/main_padding_right"
+                    app:cardBackgroundColor="@color/app_bg"
+                    app:cardCornerRadius="10dp"
+                    app:cardForegroundColor="@color/bg_trans"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_address">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@mipmap/bg_asset_card"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_balance_txt2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
+                            android:text="@string/all_asset"
+                            android:textColor="@color/total_assert_text_color"
+                            android:textSize="17sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_eye"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/tv_balance_txt2"
+                            android:layout_alignBottom="@+id/tv_balance_txt2"
+                            android:layout_marginTop="0dp"
+                            android:layout_toRightOf="@+id/tv_balance_txt2"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:src="@mipmap/ic_eye"
+                            android:tag="0" />
+
+                        <!--<androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_currency"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/tv_asset"
+                            android:layout_marginStart="40dp"
+                            android:includeFontPadding="false"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:src="@mipmap/ic_eye"
+                            android:tag="0"
+                            android:text="￥"
+                            android:textStyle="bold" />-->
+
+                        <com.bhex.lib.uikit.widget.CustomTextView
+                            android:id="@+id/tv_asset"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_balance_txt2"
+                            android:layout_alignLeft="@+id/tv_balance_txt2"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginTop="3dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/total_assert_text_color"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            app:cardElevation="5dp"
+                            tools:text="￥123.45678901" />
+
+                    </RelativeLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <CheckedTextView
+                    android:id="@+id/ck_hidden_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_below="@+id/layout_balance"
+                    android:layout_marginStart="@dimen/main_padding_left"
+                    android:layout_marginTop="12dp"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/checkbox_style"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/hidden_small_token"
+                    android:textAppearance="@style/ck_hidden_small"
+                    app:layout_constraintLeft_toLeftOf="@+id/layout_balance"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_balance" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_search"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/layout_balance"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="@dimen/main_margin_right"
+                    android:background="@drawable/shape_input_corner"
+                    app:layout_constraintBottom_toBottomOf="@+id/ck_hidden_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_balance"
+                    app:layout_constraintTop_toTopOf="@+id/ck_hidden_small">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_search_ic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:src="@mipmap/ic_search_ext" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/ed_search_content"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_toRightOf="@+id/iv_search_ic"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_input_token_name"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:paddingTop="0.5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/global_input_text_color"
+                        android:textColorHint="@color/global_input_hint_color"
+                        android:textCursorDrawable="@null"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/view_divider_line"
+                    style="@style/divider_line_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_below="@+id/ck_hidden_small"
+                    android:layout_marginStart="@dimen/main_padding_left"
+                    android:layout_marginTop="@dimen/page_margin_top" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/view_divider_line"
+                    android:minHeight="300dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small">
 
-                </com.yanzhenjie.recyclerview.SwipeRecyclerView>
+                    <com.yanzhenjie.recyclerview.SwipeRecyclerView
+                        android:id="@+id/recycler_balance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_divider_line"
+                        android:layout_marginTop="10dp"
+                        android:overScrollMode="never"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small">
 
-                <include
-                    android:id="@+id/empty_layout"
-                    layout="@layout/layout_empty_asset"
-                    android:visibility="gone"
-                    />
+                    </com.yanzhenjie.recyclerview.SwipeRecyclerView>
 
-            </FrameLayout>
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
+                    <include
+                        android:id="@+id/empty_layout"
+                        layout="@layout/layout_empty_asset"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </RelativeLayout>

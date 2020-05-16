@@ -4,12 +4,21 @@ package com.bhex.wallet.bh_main.my.ui.fragment
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.*
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.bhex.lib.uikit.util.PixelUtils
+import com.bhex.lib.uikit.widget.InputView
+import com.bhex.network.utils.ToastUtils
 import com.bhex.wallet.bh_main.R
+import com.bhex.wallet.common.db.entity.BHWallet
+import com.bhex.wallet.common.manager.BHUserManager
+import com.bhex.wallet.common.viewmodel.WalletViewModel
 
 
 /**
@@ -18,6 +27,11 @@ import com.bhex.wallet.bh_main.R
  * 修改用户名称
  */
 class UpdateNameFragment : DialogFragment() {
+
+    val wallet = BHUserManager.getInstance().currentBhWallet
+    var walletViewModel:WalletViewModel? = null
+
+    var walletNameInput: InputView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +50,17 @@ class UpdateNameFragment : DialogFragment() {
             dismiss();
             updateUserName();
         }
+
+        walletNameInput = mRootView.findViewById(R.id.inp_wallet_name)
+        walletNameInput?.inputString = wallet.name
+
         return mRootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        walletViewModel = ViewModelProviders.of(this).get(WalletViewModel::class.java)
+
     }
 
     override fun onStart() {
@@ -60,6 +84,13 @@ class UpdateNameFragment : DialogFragment() {
      * 修改用户名称
      */
     fun updateUserName(){
+        var name:String = walletNameInput!!.inputStringNoTrim
+        if(TextUtils.isEmpty(name)){
+            ToastUtils.showToast("请输入用户名")
+            return
+        }
+        wallet.name = name;
+        walletViewModel.updateWallet(wallet)
 
     }
 

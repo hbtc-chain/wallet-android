@@ -296,6 +296,11 @@ public class InputView extends LinearLayout implements View.OnClickListener {
         return mInputEd.getText().toString().trim();
     }
 
+    public void setInputString(String text) {
+        mInputEd.setText(text);
+
+    }
+
     public String getInputStringNoTrim() {
 //        return mInputLayout.getEditText().getText().toString().trim();
         return mInputEd.getText().toString();

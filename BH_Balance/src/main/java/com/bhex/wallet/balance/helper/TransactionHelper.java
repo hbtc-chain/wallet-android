@@ -76,7 +76,6 @@ public class TransactionHelper {
             statusLabel = context.getResources().getString(R.string.success);
             tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
             tv_status.setBackgroundColor(ContextCompat.getColor(context,R.color.color_20_green));
-            //tv_status.setTextAppearance(context,R.style.tx_status_success);
         }else{
             statusLabel = context.getResources().getString(R.string.fail);
             tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_red));

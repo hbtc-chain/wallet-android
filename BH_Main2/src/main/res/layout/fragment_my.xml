@@ -133,7 +133,7 @@
         app:layout_constraintEnd_toStartOf="@+id/layout_index_3"
         app:cardCornerRadius="@dimen/dp_10"
         app:cardForegroundColor="@color/bg_trans"
-        app:cardBackgroundColor="@color/app_bg"
+        app:cardBackgroundColor="@color/card_bg"
         app:cardElevation="5dp"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -196,7 +196,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:cardCornerRadius="@dimen/dp_10"
         app:cardForegroundColor="@color/bg_trans"
-        app:cardBackgroundColor="@color/app_bg"
+        app:cardBackgroundColor="@color/card_bg"
         app:cardElevation="5dp"
         >
 

@@ -50,7 +50,6 @@
     <!--服务协议字色-->
     <color name="service_agreement_text_color">#0A1825</color>
 
-
     <color name="theme_toolbar_title">@color/global_main_text_color</color>
     <color name="accent_color">#3375E0</color>
     <color name="checkbox_text_color">#6E8196</color>
@@ -61,6 +60,8 @@
 
     <!--app次级背景色-->
     <color name="app_default_bg">#F9F9FB</color>
+    <color name="card_bg">#FFFFFF</color>
+
     <!--app蓝色背景色-->
     <color name="blue_bg">#3375E0</color>
 
