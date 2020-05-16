@@ -32,6 +32,7 @@
 
     <!--app次级背景色-->
     <color name="app_default_bg">#1A2233</color>
+    <color name="card_bg">#1A2233</color>
 
     <color name="global_button_enable_false_bg">#475563</color>
     <color name="global_button_enable_false_text">#0A1825</color>

@@ -14,6 +14,7 @@
         <!--控制各个控件被选中时的颜色-->
         <item name="colorAccent">@color/accent_color</item>
         <item name="android:windowBackground">@color/app_bg</item>
+        <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/theme_content</item>
         <!--<item name="colorControlActivated">@color/colorAccent</item>-->
     </style>

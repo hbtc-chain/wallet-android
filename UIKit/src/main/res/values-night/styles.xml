@@ -5,6 +5,7 @@
 
     <!-- Base application theme. -->
     <style name="BaseTheme" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:typeface">monospace</item>
         <!-- Customize your theme here. -->
         <!--Appbar背景色-->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -15,6 +16,7 @@
         <item name="android:statusBarColor">@color/app_bg</item>
         <item name="android:windowBackground">@color/app_bg</item>
         <item name="android:textColor">@color/theme_content</item>
+        <item name="android:includeFontPadding">false</item>
         <!--<item name="colorControlActivated">@color/colorAccent</item>-->
     </style>
 
