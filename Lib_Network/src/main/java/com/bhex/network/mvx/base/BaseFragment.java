@@ -120,4 +120,5 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public boolean isNight(){
         return (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
     }
+
 }

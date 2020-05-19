@@ -103,8 +103,8 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
             updateGenerateAddress(ldm);
         });
 
-        ed_fee.ed_input.addTextChangedListener(simpleTextWatcher);
-        ed_fee.ed_input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ed_fee.getEditText().addTextChangedListener(simpleTextWatcher);
+        ed_fee.getEditText().setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
         @Override
         public void afterTextChanged(Editable s) {
             super.afterTextChanged(s);
-            String text = ed_fee.ed_input.getText().toString().trim();
+            String text = ed_fee.getInputString();
             if(RegexUtil.checkNumeric(text)){
                 btn_crosslink_address.setEnabled(true);
                 btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.global_button_bg_color));
@@ -147,7 +147,7 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
             return;
         }
 
-        String fee_aumount = ed_fee.ed_input.getText().toString().trim();
+        String fee_aumount = ed_fee.getInputString();
         if(TextUtils.isEmpty(fee_aumount)||Double.valueOf(fee_aumount)<=0){
             ToastUtils.showToast(getResources().getString(R.string.please_input_gas_fee));
             return;
@@ -186,10 +186,8 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
     //密码提示回调
     @Override
     public void confirmAction(String password, int position) {
-        //String from_address = mCurrentWallet.getAddress();
-        //String to_address = mCurrentWallet.getAddress();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-        String feeAmount = ed_fee.ed_input.getText().toString().toString();
+        String feeAmount = ed_fee.getInputString();
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation =
                     BHTransactionManager.crossLinkAddress(feeAmount,gasPrice,null,suquece,balance.symbol);

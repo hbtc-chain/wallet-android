@@ -37,14 +37,10 @@ public class MyPresenter extends BasePresenter {
     public void checkPasswordIsInput(AppCompatButton mb, String oldPwd, String newPwd, String newConfrimPwd, AppCompatTextView... tv){
         boolean flag = true;
         if(TextUtils.isEmpty(oldPwd)){
-            /*mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.btn_disable_color));
-            mb.setEnabled(false);*/
             flag = false;
         }
 
         if(TextUtils.isEmpty(newPwd)){
-            /*mb.setBackgroundColor(ColorUtil.getColor(getActivity(), R.color.btn_disable_color));
-            mb.setEnabled(false);*/
             flag = false;
         }
 

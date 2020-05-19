@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="24dp"
+    tools:context=".ui.fragment.ExportQRFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/global_main_text_color"
+        android:textSize="17sp"
+        android:text="仅供直接扫描"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginTop="24dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_tip_text_color"
+        android:layout_marginTop="3dp"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:text="·二维码禁止保存、截图、拍照"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_tip_text_color"
+        android:layout_marginTop="3dp"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:text="·仅供用户在安全环境下直接扫描导入钱包"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/global_main_text_color"
+        android:textSize="17sp"
+        android:text="在安全环境下使用"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_tip_text_color"
+        android:layout_marginTop="3dp"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:text="·请务必确认在四周无人、无摄像头的环境中使用"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_tip_text_color"
+        android:layout_marginTop="3dp"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:text="·二维码一旦被他人获取将造成不可挽回的资产损失"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="264dp"
+        android:layout_height="264dp"
+        android:layout_gravity="center"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/global_input_background"
+        app:cardCornerRadius="@dimen/main_radius_conner"
+        android:orientation="vertical"
+        android:layout_margin="24dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginTop="16dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_hidden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_qr_hidden"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@+id/btn_show_qr"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_show_qr"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_below="@+id/iv_hidden"
+                android:button="@null"
+                style="@style/main_btn_style"
+                android:text="@string/show_qr"
+                android:paddingEnd="18dp"
+                android:paddingStart="18dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_hidden"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_qr"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</LinearLayout>

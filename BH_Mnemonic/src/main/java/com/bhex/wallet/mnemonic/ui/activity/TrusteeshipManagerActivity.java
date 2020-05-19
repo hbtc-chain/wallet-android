@@ -63,13 +63,11 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     MaterialButton btnWalletImpot;
 
     private TrustManagerAdapter mTrustManagerAdapter;
-    //private TrustManagerExtAdapter trustManagerExtAdapter;
 
     private List<BHWalletItem> mAllWalletList;
 
     //
     WalletViewModel walletViewModel;
-
 
     @Override
     protected int getLayoutId() {
@@ -86,7 +84,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     protected void initView() {
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
 
-        tv_center_title.setText(getString(R.string.trusteeship_manger));
+        tv_center_title.setText(getString(R.string.trustship_manager));
 
         //初始化RecycleView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

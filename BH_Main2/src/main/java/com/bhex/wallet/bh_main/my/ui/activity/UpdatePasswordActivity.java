@@ -115,9 +115,9 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
     public void onViewClicked(View view) {
         if(view.getId() == R.id.btn_next){
             boolean flag = getPresenter().checkPasswordEqual(
-                    inp_old_pwd.getInputString().trim(),
-                    inp_new_pwd.getInputString().trim(),
-                    inp_confrim_pwd.getInputString().trim());
+                    inp_old_pwd.getInputString(),
+                    inp_new_pwd.getInputString(),
+                    inp_confrim_pwd.getInputString());
             if(flag){
                 BHWallet item = getPresenter().makeBhWallet(mCurrentWallet);
                 walletViewModel.updatePassword(this,inp_new_pwd.getInputString(),item);

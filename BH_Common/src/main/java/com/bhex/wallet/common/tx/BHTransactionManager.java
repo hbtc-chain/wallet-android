@@ -43,7 +43,7 @@ public class BHTransactionManager {
      * @return
      */
     public static BHSendTranscation transfer(
-                                      String from, String to,
+                                       String to,
                                       String amount,
                                       String feeAmount,
                                       BigInteger gasPrice,
@@ -66,7 +66,7 @@ public class BHTransactionManager {
 
         //获取交易的笔数
         //String sequence = "";
-
+        String from = BHUserManager.getInstance().getCurrentBhWallet().address;
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHRawTransaction(sequence,
                 from,to,
@@ -203,8 +203,8 @@ public class BHTransactionManager {
                                              String amount,
                                              String feeAmount,
                                              BigInteger gasPrice,
-                                              String data,
-                                              String sequence,
+                                             String data,
+                                             String sequence,
                                              String symbol){
 
         String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
@@ -225,7 +225,7 @@ public class BHTransactionManager {
         bhRawTransaction = BHRawTransaction.createBHDoEntrustTransaction(sequence,
                 delegatorAddress,validatorAddress,double_amount,
                 double_feeAmount
-                ,gasPrice,BHConstants.BH_MEMO,symbol);
+                ,gasPrice,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
@@ -237,6 +237,17 @@ public class BHTransactionManager {
         //
     }
 
+    /**
+     * 解委托
+     * @param validatorAddress
+     * @param amount
+     * @param feeAmount
+     * @param gasPrice
+     * @param data
+     * @param sequence
+     * @param symbol
+     * @return
+     */
     public static BHSendTranscation relieveEntrust(
                                               String validatorAddress,
                                               String amount,
@@ -267,7 +278,7 @@ public class BHTransactionManager {
         bhRawTransaction = BHRawTransaction.createBHRelieveEntrustTransaction(sequence,
                 delegatorAddress,validatorAddress,
                 double_amount,double_feeAmount
-                ,gasPrice,BHConstants.BH_MEMO,symbol);
+                ,gasPrice,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
@@ -279,6 +290,7 @@ public class BHTransactionManager {
         //
     }
 
+    //投票
     public static BHSendTranscation doVeto(
                                              String delegatorAddress, String proposalId,
                                              String option,
@@ -299,7 +311,7 @@ public class BHTransactionManager {
         bhRawTransaction = BHRawTransaction.createBHDoVetoTransaction(sequence,
                 delegatorAddress,option,proposalId,
                 double_feeAmount,
-                gasPrice,BHConstants.BH_MEMO,symbol);
+                gasPrice,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
@@ -313,6 +325,7 @@ public class BHTransactionManager {
         //
     }
 
+    //质押
     public static BHSendTranscation doPledge(String delegatorAddress, String proposalId,
                                              String amount,
                                              String feeAmount,
@@ -338,7 +351,7 @@ public class BHTransactionManager {
         bhRawTransaction = BHRawTransaction.createBHDoPledgeTransaction(sequence,
                 delegatorAddress,proposalId,
                 double_amount,double_feeAmount
-                ,gasPrice,BHConstants.BH_MEMO,symbol);
+                ,gasPrice,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
@@ -349,6 +362,7 @@ public class BHTransactionManager {
         return bhSendTranscation;
     }
 
+    //创建治理提案
     public static BHSendTranscation createProposal(
                                            String type,
                                            String title,String description,
@@ -377,7 +391,7 @@ public class BHTransactionManager {
         bhRawTransaction = BHRawTransaction.createBHCreateProposalTransaction(sequence,
                 delegatorAddress,type,title,description,
                 double_amount,double_feeAmount,
-                gasPrice,BHConstants.BH_MEMO,symbol);
+                gasPrice,symbol);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
@@ -409,7 +423,7 @@ public class BHTransactionManager {
         BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHRawRewardTransaction(sequence,double_amount,
-                double_feeAmount,gasPrice,BHConstants.BH_MEMO,list);
+                double_feeAmount,gasPrice,list);
 
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         //LogUtils.d("BHTransactionManager===>:","raw_json=="+raw_json);
@@ -452,7 +466,25 @@ public class BHTransactionManager {
         //交易请求数据构建
         BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
 
-        //LogUtils.d("BHTransactionManager===>:","raw_json=22="+JsonUtils.toJson(bhSendTranscation));
+        return bhSendTranscation;
+    }
+
+    //代币发行
+    public static BHSendTranscation hrc20TokenRelease(BHTokenRlease tokenRlease,String feeAmount,BigInteger gasPrice,String sequence){
+
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+
+        BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
+
+        BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
+
+        //构建代币发行交易数据
+        BHRawTransaction bhRawTransaction = BHRawTransaction.createBHRawTokenRelease(tokenRlease,double_feeAmount,gasPrice,sequence);
+        String raw_json = JsonUtils.toJson(bhRawTransaction);
+        String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
+
+        //交易请求数据构建
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
         return bhSendTranscation;
     }
 

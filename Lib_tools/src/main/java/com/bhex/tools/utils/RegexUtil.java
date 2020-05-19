@@ -272,4 +272,13 @@ public final class RegexUtil {
 		String regex="^[A-Fa-f0-9]+$";
 		return Pattern.matches(regex, origin);
 	}
+
+	/**
+	 * 是否小写字母和数字
+	 * @return
+	 */
+	public static boolean checkLowerLetterAndNum(String str) {
+		String regex = "^[a-z0-9]+$";
+		return Pattern.matches(regex,str);
+	}
 }

@@ -12,31 +12,33 @@ public class ARouterConfig {
      * Common模块
      */
     public static final String COMMON_MAIN_PAGE ="/common/main";
-
+    //二维码扫描
+    public static final String Commom_scan_qr = "/Common/scan_qr";
 
     /**
      * 我的
      */
     public static final String MINE_MAIN_PAGE = "/my/main";
-
     //语言设置
     public static final String MY_LANGUAE_SET_PAGE = "/my/languageSet";
-
+    //修改密码
     public static final String MY_UPDATE_PASSWORD = "/my/update/password";
 
     //汇率设置
     public static final String MY_Rate_setting = "/my/rate_set";
 
+    //消息中心
+    public static final String MY_Message = "/my/message";
+
+
     /**
      * 助记词模块
      */
     public static final String MNEMONIC_INDEX_PAGE = "/mnemonic/index";
-
+    //托管单元管理
     public static final String MNEMONIC_TRUSTEESHIP_MANAGER_PAGE = "/mnemonic/trusteeship/manager";
 
-    //public static final String MNEMONIC_TRUSTEESHIP_MANAGER_EXT_PAGE = "/mnemonic/trusteeship/managerext";
-
-    //
+    //托管单元创建成功页面
     public static final String TRUSTEESHIP_CREATE_OK_PAGE = "/mnemonic/trusteeship/success";
     //助记词备份
     public static final String MNEMONIC_BACKUP = "/mnemonic/backup";
@@ -50,18 +52,22 @@ public class ARouterConfig {
     //托管单元导入-KeyStore
     public static final String TRUSTEESHIP_IMPORT_KEYSTORE= "/mnemonic/import/keystore";
 
+    //导出KeyStore
+    public static final String TRUSTEESHIP_EXPORT_KEYSTORE = "/mnemonic/export/keystore";
+
     //托管单元导入
     public static final String TRUSTEESHIP_IMPORT_MNEMONIC = "/mnemonic/import/mnemonic";
 
     //私钥导入
     public static final String TRUSTEESHIP_IMPORT_PRIVATEKEY = "/mnemonic/import/privatekey";
 
-    //导出KeyStore
-    public static final String TRUSTEESHIP_EXPORT_KEYSTORE = "/mnemonic/export/keystore";
+    //私钥导出
+    public static final String TRUSTEESHIP_EXPORT_PRIVATEKEY = "/mnemonic/export/privatekey";
+
+    //私钥导出提醒
+    public static final String TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP = "/mnemonic/export/privatekey_tip";
 
 
-    //托管单元导入
-    public static final String MNEMONIC_TEST = "/mnemonic/test";
 
     //资产
     public static final String Balance_Search = "/balance/search";
@@ -75,21 +81,20 @@ public class ARouterConfig {
     //提币
     public static final String Balance_transfer_out = "/balance/transfer/out";
 
-    public static final String Balance_fragment = "/balance/fragment";
-
+    //跨链地址生成页面
     public static final String Balance_cross_address = "/balance/cross_adress";
 
     //转账详情
     public static final String Balance_transcation_detail = "/balance/transcation/detail";
     public static final String Balance_transcation_view = "/balance/transcation/view";
+
+    //代币发行
+    public static final String Token_Release = "/token/release";
+
     //验证人详情页
     public static final String Validator_Detail = "/validator/detail";
     public static final String Do_Entrust = "/validator/do_entrust";
-    public static final String Transfer_Entrust = "/validator/transfer_entrust";
 
-
-    //二维码扫描
-    public static final String Commom_scan_qr = "/Common/scan_qr";
     public static final String Proposal_Detail = "/proposal/detail";
     public static final String Do_Pledge = "/proposal/do_pledge";
     public static final String Do_Veto = "/proposal/do_veto";

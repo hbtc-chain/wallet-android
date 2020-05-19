@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.ExportKeyStoreActivity">
-
+    tools:context=".ui.activity.ExportPrivateKeyActivity">
     <include
         layout="@layout/layout_toolbar"
         />
@@ -41,5 +40,20 @@
             />
 
     </LinearLayout>
+
+    <!--<com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_copy"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/next"
+        android:enabled="true"
+        android:layout_margin="@dimen/main_margin_bottom"
+        app:cornerRadius="@dimen/main_radius_conner"
+        app:backgroundTint="@color/global_button_color_bg"
+        android:textColor="@color/global_button_color"
+        style="@style/main_material_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

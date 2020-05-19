@@ -30,6 +30,7 @@ import com.bhex.wallet.bh_main.my.ui.activity.SettingActivity;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -41,6 +42,7 @@ import com.google.android.material.card.MaterialCardView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -57,8 +59,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @BindView(R2.id.recycler_my)
     RecyclerView recycler_my;
 
-    @BindView(R2.id.tv_setting)
-    AppCompatTextView tv_setting;
+    @BindView(R2.id.iv_message)
+    AppCompatImageView iv_message;
 
     @BindView(R2.id.tv_username)
     AppCompatTextView tv_username;
@@ -97,7 +99,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     protected void initView() {
         mItems = MyHelper.getAllItems(getYActivity());
         mMyAdapter = new MyAdapter(R.layout.item_my, mItems);
-
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getYActivity());
@@ -105,19 +106,14 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         recycler_my.setLayoutManager(layoutManager);
         mMyAdapter.setHasStableIds(true);
 
-
         MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(
                 getYActivity(), DividerItemDecoration.VERTICAL,
-                PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(), R.color.global_divider_color)
+                PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(),
+                R.color.global_divider_color)
         );
-
         recycler_my.addItemDecoration(myRecyclerDivider);
-
         recycler_my.setAdapter(mMyAdapter);
-
         tv_username.setText(mBhWallet.getName());
-        //tv_address.setText(mBhWallet.getAddress());
-
         AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
     }
 
@@ -131,13 +127,24 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                 case 0:
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
-                            MyFragment.this,position);
+                            MyFragment.this,item.id);
                     break;
                 case 1:
-                    ARouter.getInstance().build(ARouterConfig.MY_UPDATE_PASSWORD).withString("title",item.title).navigation();
+                    ARouter.getInstance().build(ARouterConfig.MY_UPDATE_PASSWORD)
+                            .withString("title",item.title)
+                            .navigation();
+                    break;
+                case 2:
+                    //提醒页
+                    PasswordFragment.showPasswordDialog(getChildFragmentManager(),
+                            PasswordFragment.class.getName(),
+                            MyFragment.this,item.id);
                     break;
                 case 3:
-                    ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_KEYSTORE).withString("title",item.title).navigation();
+                    //提醒页
+                    PasswordFragment.showPasswordDialog(getChildFragmentManager(),
+                            PasswordFragment.class.getName(),
+                            MyFragment.this,item.id);
                     break;
                 case 4:
                     //设置
@@ -158,18 +165,21 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         });
     }
 
-    @OnClick({R2.id.tv_setting, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste,
+    @OnClick({R2.id.iv_message, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste,
             R2.id.iv_edit, R2.id.layout_index_2,R2.id.layout_index_3})
     public void onViewClicked(View view) {
-        if(view.getId()==R.id.tv_setting){
-            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
+        if(view.getId()==R.id.iv_message){
+            ARouterUtil.startActivity(ARouterConfig.MY_Message);
         }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(mBhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));
         }else if(view.getId()==R.id.iv_edit){
-            //UpdateNameFragment fragment = UpdateNameFragment.showFragment();
-            UpdateNameFragment fragment = UpdateNameFragment.Companion.showFragment();
+            UpdateNameFragment fragment = UpdateNameFragment.Companion.showFragment(dialogOnClickListener);
             fragment.showNow(getChildFragmentManager(), UpdateNameFragment.class.getName());
+        }else if(view.getId()==R.id.layout_index_2){
+            ARouterUtil.startActivity(ARouterConfig.Token_Release);
+        } else if(view.getId()==R.id.layout_index_3){
+            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
         }
     }
 
@@ -208,7 +218,28 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         //备份助记词
         if(position==0){
             ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
+        }else if(position==2){
+            String title = MyHelper.getTitle(getYActivity(),position);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP)
+                    .withString("title",title)
+                    .withString("flag", BH_BUSI_TYPE.备份私钥.value)
+                    .navigation();
+        }else if(position==3){
+            String title = MyHelper.getTitle(getYActivity(),position);
+            //提醒页
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP)
+                    .withString("title",title)
+                    .withString("flag",BH_BUSI_TYPE.备份KS.value)
+                    .navigation();
         }
 
     }
+
+    /**
+     * 修改用户名
+     */
+    private UpdateNameFragment.DialogOnClickListener dialogOnClickListener = v -> {
+        //
+        tv_username.setText(mBhWallet.getName());
+    };
 }

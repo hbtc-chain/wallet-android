@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/global_input_background"
-        android:layout_marginTop="20dp">
+        >
 
         <View
             android:layout_width="4dp"

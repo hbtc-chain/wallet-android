@@ -86,6 +86,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());
         AssetHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
+        BHKey.test();
     }
 
     @Override
@@ -96,14 +97,6 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
                 //ToastUtils.showToast("==loadingStatus==" + loadDataModel.loadingStatus);
             }
         });
-        /*inp_wallet_pwd.addTextWatch(new SimpleTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                getPresenter().setButtonStatus(btn_confirm, inp_wallet_pwd.getInputString());
-            }
-        });*/
-
     }
 
     @OnClick({R2.id.btn_confirm, R2.id.tv_import_mnemonic, R2.id.tv_forget_pwd, R2.id.tv_bh_address,
@@ -123,7 +116,6 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
             ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST);
         } else if(view.getId() == R.id.btn_wallet_impot){
             ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
-
         }
     }
 
@@ -138,7 +130,6 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
             AssetHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
             iv_username.setText(mCurrentWallet.getName());
         }
-
     }
 
     @Override

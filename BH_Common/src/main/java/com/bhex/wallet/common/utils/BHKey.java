@@ -157,6 +157,23 @@ public class BHKey {
         return result;
     }
 
+    public static String getPocUserAddress(String publicKey){
+        String result = null;
+        //String pubHex = compressPubKey(publicKey);
+        //LogUtils.d("BHWalletUtils==>:","pubHex==>:"+pubHex);
+        //LogUtils.d("BHWalletUtils==>:","pubHex=base64=>:"+Base64.encode(pubHex.getBytes()));
+        //String sumHex = BH_PRE_PUB_KEY + publicKey;
+        byte[] sumHexByte = HexUtils.toBytes(publicKey);
+        try {
+            byte[] converted = convertBits(sumHexByte, 8,5,true);
+            result = bech32Encode("poc".getBytes(), converted);
+        } catch (Exception e) {
+            Log.w(TAG,"getBHUserDpPubKey Error");
+
+        }
+        return result;
+    }
+
     public static String getBhexUserDpAddress(BigInteger publicKey){
         //公钥压缩
         String pubKey_compress = compressPubKey(publicKey);
@@ -249,11 +266,18 @@ public class BHKey {
 
 
     public static void test(){
-       byte[]bhbytes = Base58.decode("B");
+       /*byte[]bhbytes = Base58.decode("B");
 
        byte[]hbcbytes = Base58.decode("H");
 
-       LogUtils.d("BHKey===>:","bhbytes==>:"+Arrays.toString(bhbytes)+"==hbcbytes=="+Arrays.toString(hbcbytes));
+       LogUtils.d("BHKey===>:","bhbytes==>:"+Arrays.toString(bhbytes)+"==hbcbytes=="+Arrays.toString(hbcbytes));*/
+
+       String address = "B5AD24DD9E5D60E1F0734AF2D819FF9A198A2A38";
+       String dp = getPocUserAddress(address);
+       LogUtils.d("BHKey===>:","dp==>:"+dp);
     }
+
+
+
 
 }

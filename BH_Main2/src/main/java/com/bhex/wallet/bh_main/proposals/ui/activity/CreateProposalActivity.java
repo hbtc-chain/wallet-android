@@ -113,9 +113,9 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
     private void initUI() {
         tv_description_length.setText(getString(R.string.description_length_format,0));
-        ed_pledge_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ed_pledge_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_fee.btn_right_text.setText(token.toUpperCase());
-        ed_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ed_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         tv_available_amount.setText(getString(R.string.available_format,getString(R.string.string_placeholder) + token.toUpperCase()));
     }
 
@@ -174,8 +174,8 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
      */
     private void sendSubmit() {
         boolean flag = mPresenter.checkCreateProposal(ed_proposal_title.getText().toString().trim(), ed_description.getText().toString().trim(),
-                String.valueOf(available_amount),ed_pledge_amount.ed_input.getText().toString(),
-                ed_fee.ed_input.getText().toString().trim()
+                String.valueOf(available_amount),ed_pledge_amount.getInputString(),
+                ed_fee.getInputString()
         );
         if (!flag) {
             return;
@@ -189,12 +189,12 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
     public View.OnClickListener allListener = v -> {
         if (available_amount == null || TextUtils.isEmpty(available_amount)) {
-            ed_pledge_amount.ed_input.setText("");
+            ed_pledge_amount.getEditText().setText("");
             return;
         }
-        String fee = ed_fee.ed_input.getText().toString().trim();
+        String fee = ed_fee.getInputString();
         String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-        ed_pledge_amount.ed_input.setText(all_count);
+        ed_pledge_amount.getEditText().setText(all_count);
     };
 
     private void updateAssets(AccountInfo data) {
@@ -223,10 +223,10 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
     public void confirmAction(String password, int position) {
         //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-        String amount = ed_pledge_amount.ed_input.getText().toString();
+        String amount = ed_pledge_amount.getInputString();
         String title = ed_proposal_title.getText().toString().trim();
         String desc = ed_description.getText().toString().trim();
-        String feeAmount = ed_fee.ed_input.getText().toString();
+        String feeAmount = ed_fee.getInputString();
 
 
         BHTransactionManager.loadSuquece(suquece -> {

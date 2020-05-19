@@ -1,8 +1,11 @@
 package com.bhex.wallet.balance.ui.activity;
 
+import android.text.InputType;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -13,6 +16,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
+import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -34,6 +38,11 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     protected TransactionViewModel transactionViewModel;
 
     protected BHWallet mCurrentBhWallet;
+
+    protected  BHToken bhToken;
+
+    protected double available_amount;
+
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -75,6 +84,61 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
         return R.layout.activity_transfer_out;
     }
 
+    protected void initTokenView() {
+        ed_transfer_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        et_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        et_withdraw_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(getBalance().chain)){
+            tv_center_title.setText(getBalance().symbol.toUpperCase()+getResources().getString(R.string.transfer));
+            tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
+            tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
+            layout_transfer_out_tips.setVisibility(View.GONE);
+            btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
+            ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
+            et_withdraw_fee.setVisibility(View.GONE);
+            tv_withdraw_fee.setVisibility(View.GONE);
+            tv_reach.setVisibility(View.GONE);
+            tv_reach_amount.setVisibility(View.GONE);
+
+        }else if(getWay()==BHConstants.INNER_LINK){
+            layout_transfer_out_tips.setVisibility(View.VISIBLE);
+            tv_center_title.setText(getBalance().symbol.toUpperCase()+getResources().getString(R.string.transfer));
+            tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
+            tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
+            btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
+            ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
+
+            tv_transfer_out_tips_1.setText(getResources().getString(R.string.linkinner_withdraw_tip_1));
+            tv_transfer_out_tips_2.setText(getResources().getString(R.string.linkinner_withdraw_tip_2));
+            tv_transfer_out_tips_3.setText(getResources().getString(R.string.linkinner_withdraw_tip_3));
+
+            et_withdraw_fee.setVisibility(View.GONE);
+            tv_withdraw_fee.setVisibility(View.GONE);
+
+            tv_reach.setVisibility(View.GONE);
+            tv_reach_amount.setVisibility(View.GONE);
+
+        }else if(getWay()==BHConstants.CROSS_LINK){
+            layout_transfer_out_tips.setVisibility(View.VISIBLE);
+            tv_center_title.setText(getBalance().symbol.toUpperCase()+getResources().getString(R.string.draw_coin));
+            tv_transfer_out_tips_1.setText(getResources().getString(R.string.crosslink_withdraw_tip_1));
+            tv_transfer_out_tips_2.setText(getResources().getString(R.string.crosslink_withdraw_tip_2));
+            tv_transfer_out_tips_3.setText(getResources().getString(R.string.crosslink_withdraw_tip_3));
+
+            tv_reach.setVisibility(View.GONE);
+            tv_reach_amount.setVisibility(View.GONE);
+
+            //提币手续费单位
+            et_withdraw_fee.btn_right_text.setText(getBalance().symbol.toUpperCase());
+            bhToken = SymbolCache.getInstance().getBHToken(getBalance().symbol.toLowerCase());
+            et_withdraw_fee.getEditText().setText(bhToken.withdrawal_fee);
+        }
+
+    }
 
 
+    public abstract BHBalance getBalance();
+
+    public abstract int getWay();
 }

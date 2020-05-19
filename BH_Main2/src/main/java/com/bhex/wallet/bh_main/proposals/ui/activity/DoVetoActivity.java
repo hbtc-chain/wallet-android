@@ -121,7 +121,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
 
     private void initUI() {
         ed_fee.btn_right_text.setText(token.toUpperCase());
-        ed_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ed_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         tv_available_amount.setText(getString(R.string.available_format,getString(R.string.string_placeholder) + token.toUpperCase()));
     }
 
@@ -222,9 +222,8 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
      */
     private void sendSubmit() {
         boolean flag = mPresenter.checkDoVeto(mProposalInfo, mOption,
-                String.valueOf(available_amount),
-                ed_fee.ed_input.getText().toString().trim()
-        );
+                String.valueOf(available_amount),ed_fee.getInputString());
+
         if (!flag) {
             return;
         }
@@ -261,7 +260,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
         String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-        String feeAmount = ed_fee.ed_input.getText().toString();
+        String feeAmount = ed_fee.getInputString();
 
 
         BHTransactionManager.loadSuquece(suquece -> {

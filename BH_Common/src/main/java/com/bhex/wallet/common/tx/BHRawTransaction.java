@@ -224,15 +224,14 @@ public class BHRawTransaction {
      * @param amount
      * @param feeAmount
      * @param gasPrice
-     * @param memo
      * @param symbol
      * @return
      */
     public static BHRawTransaction createBHDoEntrustTransaction(String sequence, String delegatorAddress, String validatorAddress,
                                                                 BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                                String memo, String symbol) {
+                                                                String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
         bhRawTransaction.sequence = sequence;
 
         bhRawTransaction.msgs = new ArrayList<>();
@@ -278,9 +277,9 @@ public class BHRawTransaction {
 
     public static BHRawTransaction createBHRelieveEntrustTransaction(String sequence, String delegatorAddress, String validatorAddress,
                                                                      BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                                     String memo, String symbol) {
+                                                                      String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
         bhRawTransaction.sequence = sequence;
 
         bhRawTransaction.msgs = new ArrayList<>();
@@ -326,9 +325,9 @@ public class BHRawTransaction {
 
     public static BHRawTransaction createBHDoPledgeTransaction(String sequence, String delegatorAddress, String proposalId,
                                                                BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                               String memo, String symbol) {
+                                                               String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
         bhRawTransaction.sequence = sequence;
 
         bhRawTransaction.msgs = new ArrayList<>();
@@ -374,9 +373,10 @@ public class BHRawTransaction {
         return bhRawTransaction;
     }
 
-    public static BHRawTransaction createBHDoVetoTransaction(String sequence, String delegatorAddress, String option, String proposalId, BigInteger feeAmount, BigInteger gasPrice, String memo, String symbol) {
+    public static BHRawTransaction createBHDoVetoTransaction(String sequence, String delegatorAddress, String option, String proposalId,
+                                                             BigInteger feeAmount, BigInteger gasPrice,  String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
         bhRawTransaction.sequence = sequence;
 
         bhRawTransaction.msgs = new ArrayList<>();
@@ -415,9 +415,9 @@ public class BHRawTransaction {
 
     public static BHRawTransaction createBHCreateProposalTransaction(String sequence, String delegatorAddress, String type, String title,
                                                                      String description, BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                                     String memo, String symbol) {
+                                                                     String symbol) {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
         bhRawTransaction.sequence = sequence;
 
         bhRawTransaction.msgs = new ArrayList<>();
@@ -468,10 +468,10 @@ public class BHRawTransaction {
 
     //构建提取收益
     public static BHRawTransaction createBHRawRewardTransaction(String sequence, BigInteger amount, BigInteger feeAmount,
-                                                                BigInteger gasPrice,String memo,List<ValidatorMsg>list){
+                                                                BigInteger gasPrice,List<ValidatorMsg>list){
 
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
         bhRawTransaction.sequence = sequence;
         bhRawTransaction.msgs = new ArrayList<>();
 
@@ -526,6 +526,37 @@ public class BHRawTransaction {
             bhRawTransaction.msgs.add(msg);
         }
 
+
+        //转账手续费
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxCoin feeCoin = new TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+
+        bhRawTransaction.fee = fee;
+
+        return bhRawTransaction;
+    }
+
+    //代币发行
+    public static BHRawTransaction createBHRawTokenRelease(BHTokenRlease tokenRlease,
+                                                           BigInteger feeAmount,
+                                                           BigInteger gasPrice,
+                                                           String sequence) {
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
+        bhRawTransaction.sequence = sequence;
+        bhRawTransaction.msgs = new ArrayList<>();
+
+        //代币发行数据
+        TxMsg<BHTokenRlease> msg = new TxMsg<BHTokenRlease>();
+        msg.value = tokenRlease;
+        msg.type = TRANSCATION_BUSI_TYPE.代币发行.getType();
+        bhRawTransaction.msgs.add(msg);
 
         //转账手续费
         TxFee fee = new TxFee();

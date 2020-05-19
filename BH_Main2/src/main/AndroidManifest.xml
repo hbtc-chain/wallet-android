@@ -6,31 +6,69 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
-        <activity android:name=".my.ui.activity.RateSettingActivity"
+        android:theme="@style/AppTheme">
+        <activity android:name=".my.ui.activity.MessageActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
-        <activity android:name=".my.ui.activity.UpdatePasswordActivity"
+
+        <activity android:name=".my.ui.activity.TokenReleaseActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
-        <activity android:name=".my.ui.activity.SettingActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".my.ui.activity.LanguageSettingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainIndexActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".validator.ui.activity.ValidatorDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".validator.ui.activity.DoEntrustActivity"
+
+        <activity
+            android:name=".my.ui.activity.RateSettingActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".proposals.ui.activity.ProposalDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".proposals.ui.activity.DoPledgeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".proposals.ui.activity.DoVetoActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".proposals.ui.activity.CreateProposalActivity"
-            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".my.ui.activity.UpdatePasswordActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.ui.activity.SettingActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.ui.activity.LanguageSettingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".MainIndexActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".validator.ui.activity.ValidatorDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".validator.ui.activity.DoEntrustActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".proposals.ui.activity.ProposalDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".proposals.ui.activity.DoPledgeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".proposals.ui.activity.DoVetoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".proposals.ui.activity.CreateProposalActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
     </application>
 

@@ -321,12 +321,31 @@
     <string name="trustship_manager">托管单元管理</string>
     <string name="token_release">代币发行申请</string>
     <string name="update_username">修改用户名</string>
+    <string name="message_center">消息中心</string>
+    <string name="account">账户</string>
+    <string name="apply">申请</string>
+    <string name="decimals">精度</string>
+    <string name="token_release_count">发行总量</string>
+    <string name="new_token_name">新发币种名称</string>
+    <string name="asset_address">资产地址</string>
+    <string name="backup_tips">备份提示</string>
+    <string name="backup_pk_tip_1">·获取私钥等于拥有钱包资产所有权</string>
+    <string name="backup_pk_tip_2">·私钥丢失无法找回，请务必备份</string>
+    <string name="backup_pk_tip_3">·使用纸笔正确抄写，请务必妥善保管私钥</string>
+
+    <string name="backup_ks_tip_1">·获取 Keystore 和密码等于拥有钱包资产所有权</string>
+    <string name="backup_ks_tip_2">·Keystore 丢失无法找回，请务必备份</string>
+    <string name="backup_ks_tip_3">·使用纸笔正确抄写，请务必妥善保管Keystore</string>
+    <string name="copy_privatekey">复制私钥</string>
+    <string name="copy_keystore">复制Keystore</string>
+    <string name="show_qr">显示二维码</string>
+    <string name="privatekey">私钥</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>
-        <item>导出私钥</item>
-        <item>导出KeyStore</item>
+        <item>备份私钥</item>
+        <item>备份Keystore</item>
         <item>设置</item>
         <item>联系我们</item>
         <item>版本号</item>

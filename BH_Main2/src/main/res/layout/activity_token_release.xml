@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".my.ui.activity.TokenReleaseActivity">
+
+    <include
+        layout="@layout/layout_toolbar"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/main_padding_left"
+        android:paddingEnd="@dimen/main_margin_right"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/global_secondary_text_color"
+            android:layout_marginBottom="8dp"
+            android:text="@string/asset_address"
+            />
+
+        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+            android:id="@+id/inp_to_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="0xcEFf80D0175531662aE0084F5a153748C4d7D4cb"
+            app:leftHint="请输入资产地址"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/global_secondary_text_color"
+            android:layout_marginBottom="8dp"
+            android:text="@string/new_token_name"
+            />
+
+        <com.bhex.lib.uikit.widget.InputView
+            android:id="@+id/inp_token_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textType="normal"
+            app:hint="请输入新发币种名称"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/global_secondary_text_color"
+            android:layout_marginBottom="8dp"
+            android:text="@string/token_release_count"
+            />
+
+        <com.bhex.lib.uikit.widget.InputView
+            android:id="@+id/inp_token_release_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textType="normal"
+            app:hint="以最小精度位单位"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/global_secondary_text_color"
+            android:layout_marginBottom="8dp"
+            android:text="@string/decimals"
+            />
+
+        <com.bhex.lib.uikit.widget.InputView
+            android:id="@+id/inp_token_decimals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textType="normal"
+            app:hint="最小精度不能超过18位"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/global_secondary_text_color"
+                android:text="@string/transfer_fee"
+                android:textSize="15sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_available_bht_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/global_label_text_color"
+                android:textSize="15sp"
+                android:text="@string/available_format"/>
+
+        </RelativeLayout>
+
+        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+            android:id="@+id/inp_tx_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:leftHint="@string/hint_input_exchange_fee"
+            app:leftText="2"
+            app:rightColor="@color/global_input_profix_text_color"
+            app:rightText="@string/BH_token"
+            />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_apply"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/apply"
+            android:enabled="false"
+            app:cornerRadius="@dimen/main_radius_conner"
+            app:backgroundTint="@color/global_button_color_bg"
+            android:textColor="@color/global_button_color"
+            style="@style/main_material_btn"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_apply2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/apply"
+            android:enabled="false"
+            app:cornerRadius="@dimen/main_radius_conner"
+            app:backgroundTint="@color/global_button_color_bg"
+            android:textColor="@color/global_button_color"
+            style="@style/main_material_btn"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_apply3"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/apply"
+            android:enabled="false"
+            app:cornerRadius="@dimen/main_radius_conner"
+            app:backgroundTint="@color/global_button_color_bg"
+            android:textColor="@color/global_button_color"
+            style="@style/main_material_btn"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_apply4"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/apply"
+            android:enabled="false"
+            app:cornerRadius="@dimen/main_radius_conner"
+            app:backgroundTint="@color/global_button_color_bg"
+            android:textColor="@color/global_button_color"
+            style="@style/main_material_btn"
+            />
+    </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

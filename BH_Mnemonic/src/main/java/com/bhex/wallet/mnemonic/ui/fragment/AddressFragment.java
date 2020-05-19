@@ -96,16 +96,6 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
         recycler_address.setLayoutManager(lm);
 
         recycler_address.setAdapter(mAddressAdapter);
-
-        /*mAddressAdapter.setOnItemChildClickListener((adapter, view1, position) -> {
-            if(view1.getId()==R.id.ck_ok){
-                ToastUtils.showToast("view1");
-                AppCompatCheckedTextView ck = (AppCompatCheckedTextView)view1;
-
-                ck.setChecked(!ck.isChecked());
-            }
-        });*/
-
     }
 
     @Override
@@ -123,16 +113,17 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
 
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
-        params.width = dm.widthPixels;
-        //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 285);
+        //params.width = dm.widthPixels;
 
         if(mData==null || mData.size()==0 || mData.size()==1){
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 185);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 197);
         }else if(mData.size()==2){
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 235);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 259);
         }else{
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 285);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 321);
         }
+        //params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+
         window.setAttributes(params);
     }
 

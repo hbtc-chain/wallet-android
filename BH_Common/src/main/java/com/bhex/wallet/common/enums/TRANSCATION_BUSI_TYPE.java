@@ -25,6 +25,7 @@ public enum TRANSCATION_BUSI_TYPE {
     治理提案质押("hbtcchain/gov/MsgDeposit"),
     治理提案投票("hbtcchain/gov/MsgVote"),
     复投分红("hbtcchain/reinvest"),
+    代币发行("hbtcchain/hrc20/MsgNewToken"),
     Other("other");
 
     private String type;

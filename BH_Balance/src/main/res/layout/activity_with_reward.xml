@@ -25,11 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_tranction_amount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="31dp"
                 android:layout_marginStart="@dimen/page_margin_start"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
                 android:textColor="@color/theme_toolbar_title"
                 android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +42,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 >
 
@@ -116,6 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
                 >
 
@@ -136,17 +139,14 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="@color/global_main_text_color"
-                    tools:text="2020-4-8 12:23:22"
-                    />
+                    tools:text="2020-4-8 12:23:22"/>
 
             </LinearLayout>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_reward"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 />
 
         </LinearLayout>

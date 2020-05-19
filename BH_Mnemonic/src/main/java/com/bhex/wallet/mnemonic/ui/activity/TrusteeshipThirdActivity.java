@@ -136,12 +136,9 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     @OnClick({R2.id.btn_create,R2.id.tv_agreement})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_create){
-
             //设置密码
             String userName = BHUserManager.getInstance().getTmpBhWallet().getName();
-
             int way = BHUserManager.getInstance().getTmpBhWallet().way;
-
             if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
                 generateMnemonic(userName,mOldPwd);
             }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){
@@ -149,7 +146,6 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
             }else if(way==MAKE_WALLET_TYPE.PK.getWay()){
                 importPrivatekey(userName,mOldPwd);
             }
-
         }else if(view.getId()==R.id.tv_agreement){
             GlobalTipsFragment.showDialog(getSupportFragmentManager(),"",
                     this,ck_agreement.isChecked());

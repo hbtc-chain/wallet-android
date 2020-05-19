@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.FileUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -161,4 +162,19 @@ public class BHUserManager {
         String symbol= "hbc_btc_eth_tusdt_usdt";
         return symbol;
     }
+
+    /**
+     * 解密私钥
+     */
+    public String getOriginContext(String content){
+        String result = "";
+        try{
+            result = CryptoUtil.decryptPK(content,mCurrentBhWallet.password);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 }

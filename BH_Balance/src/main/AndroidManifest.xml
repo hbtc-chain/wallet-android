@@ -14,33 +14,41 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.TranscationDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            />
         <activity
             android:name=".ui.activity.GenerateAddressActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.activity.TransferOutActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.activity.TransferInActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.activity.GatheringActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.activity.AssetDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.activity.CoinSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".BalanceIndexActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
+        <!--<activity
             android:name=".ui.activity.TxBaseActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
     </application>
 
 </manifest>

@@ -186,7 +186,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @Override
     protected void addEvent() {
-
         //资产列表点击事件
         mBalanceAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHBalance bhBalance =  mBalanceAdapter.getData().get(position);
@@ -228,6 +227,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
         mAccountInfo = accountInfo;
+        BHUserManager.getInstance().setAccountInfo(mAccountInfo);
         List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
         mBalanceAdapter.notifyDataSetChanged();
         //计算每一个币种的资产价值 和 总资产
@@ -411,7 +411,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         if(direction == SwipeRecyclerView.RIGHT_DIRECTION){
             BHBalance bthBalance =mPresenter.getBthBalanceWithAccount(mAccountInfo);
-
             ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
                     .withObject("balance", balance)
                     .withObject("bhtBalance",bthBalance)

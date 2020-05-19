@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="24dp"
+    tools:context=".ui.fragment.ExportTextFragment">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/global_main_text_color"
+        android:textSize="17sp"
+        android:text="离线保存"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginTop="24dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_tip_text_color"
+        android:layout_marginTop="3dp"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:text="·切勿保存至邮箱、记事本、网盘、聊天工具等"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/global_main_text_color"
+        android:textSize="17sp"
+        android:text="请勿使用网络传输"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_tip_text_color"
+        android:layout_marginTop="3dp"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:text="·请勿通过网络工具传输，一旦被黑客获取将造成不可挽回的资产损失"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_tip_text_color"
+        android:layout_marginTop="3dp"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:text="·建议离线设备通过扫二维码方式传输 "
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/global_main_text_color"
+        android:textSize="17sp"
+        android:text="密码管理工具保存"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_tip_text_color"
+        android:layout_marginTop="3dp"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/page_margin_start"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:text="·建议使用密码管理工具管理"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="152dp"
+        android:orientation="vertical"
+        android:layout_margin="24dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginTop="16dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/global_input_background"
+        app:cardCornerRadius="@dimen/main_radius_conner"
+        >
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_private_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:background="@null"
+            android:textSize="15sp"
+            android:gravity="top"
+            android:hint="@string/hint_private_key_input"
+            android:textColorHint="@color/global_input_hint_color"
+            android:textColor="@color/global_main_text_color"
+            android:padding="16dp"
+            android:inputType="textMultiLine"
+            android:overScrollMode="ifContentScrolls"
+            android:textCursorDrawable="@null"
+            >
+
+        </androidx.appcompat.widget.AppCompatEditText>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_copy"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/copy_privatekey"
+        android:enabled="true"
+        android:layout_margin="@dimen/main_margin_bottom"
+        android:layout_gravity="bottom"
+        android:textAllCaps="false"
+        app:cornerRadius="@dimen/main_radius_conner"
+        app:backgroundTint="@color/global_button_color_bg"
+        android:textColor="@color/global_button_color"
+        style="@style/main_material_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</LinearLayout>

@@ -1,9 +1,12 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
 
-import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -14,16 +17,22 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
+import com.bhex.wallet.mnemonic.ui.fragment.ExportQRFragment;
+import com.bhex.wallet.mnemonic.ui.fragment.ExportTextFragment;
+import com.google.android.material.button.MaterialButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
 /**
  * @author gongdongyang
- * 导出KeyStore
- * 2020-5-14 13:30:21
+ * 导出私钥
+ * 2020-5-16 16:42:35
  */
-@Route(path = ARouterConfig.TRUSTEESHIP_EXPORT_KEYSTORE)
-public class ExportKeyStoreActivity extends ExportBaseActivity {
+@Route(path = ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY)
+public class ExportPrivateKeyActivity extends ExportBaseActivity {
 
     @Autowired(name="title")
     String title;
@@ -31,10 +40,21 @@ public class ExportKeyStoreActivity extends ExportBaseActivity {
     @Autowired(name="flag")
     String flag;
 
+    /*@BindView(R2.id.tv_center_title)
+    AppCompatTextView tv_center_title;
+
+    @BindView(R2.id.tab)
+    GradientTabLayout tab;
+
+    @BindView(R2.id.viewPager)
+    ViewPager viewPager;*/
+
+    /*@BindView(R2.id.btn_copy)
+    MaterialButton btn_copy;*/
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_export_key_store;
+        return R.layout.activity_export_private_key;
     }
 
     @Override

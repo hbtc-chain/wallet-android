@@ -110,10 +110,10 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
 
 
     private void initUI() {
-        ed_pledge_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ed_pledge_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_real_amount.btn_right_text.setText(token.toUpperCase());
         ed_fee.btn_right_text.setText(token.toUpperCase());
-        ed_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ed_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         tv_available_amount.setText(getString(R.string.available_format,getString(R.string.string_placeholder) + token.toUpperCase()));
     }
 
@@ -164,9 +164,9 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
      */
     private void sendSubmit() {
         boolean flag = mPresenter.checkDoPledge(mProposalInfo,
-                ed_pledge_amount.ed_input.getText().toString(),
+                ed_pledge_amount.getInputString(),
                 String.valueOf(available_amount),
-                ed_fee.ed_input.getText().toString().trim()
+                ed_fee.getInputString()
         );
         if (!flag) {
             return;
@@ -180,12 +180,12 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
 
     public View.OnClickListener allListener = v -> {
         if (available_amount == null || TextUtils.isEmpty(available_amount)) {
-            ed_pledge_amount.ed_input.setText("");
+            ed_pledge_amount.getEditText().setText("");
             return;
         }
-        String fee = ed_fee.ed_input.getText().toString().trim();
+        String fee = ed_fee.getInputString();
         String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-        ed_pledge_amount.ed_input.setText(all_count);
+        ed_pledge_amount.getEditText().setText(all_count);
     };
 
     private void updateAssets(AccountInfo data) {
@@ -213,11 +213,10 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
     @Override
     public void confirmAction(String password, int position) {
 
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-        String pledgeAmount = ed_pledge_amount.ed_input.getText().toString();
-        String feeAmount = ed_fee.ed_input.getText().toString();
+        String pledgeAmount = ed_pledge_amount.getInputString();
+        String feeAmount = ed_fee.getInputString();
 
 
         BHTransactionManager.loadSuquece(suquece -> {

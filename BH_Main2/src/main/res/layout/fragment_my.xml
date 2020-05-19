@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <!--<androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +41,18 @@
         android:background="@drawable/btn_bg_setting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status_bar"
+        />-->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:paddingEnd="@dimen/main_padding_right"
+        android:paddingTop="@dimen/main_margin_top"
+        android:src="@mipmap/ic_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_bar"
         />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -50,7 +62,7 @@
         android:src="@mipmap/ic_default_man"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_setting"
+        app:layout_constraintTop_toBottomOf="@+id/iv_message"
         app:layout_constraintStart_toStartOf="parent"
         />
     <RelativeLayout

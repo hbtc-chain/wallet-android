@@ -18,11 +18,12 @@ import com.bhex.network.observer.SimpleObserver;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.wallet.common.db.AppDataBase;
 import com.bhex.wallet.common.db.dao.BHWalletDao;
 import com.bhex.wallet.common.db.entity.BHWallet;
-import com.bhex.wallet.common.enums.BACK_WALLET_TYPE;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.BHWalletUtils;
@@ -33,7 +34,6 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -178,14 +178,16 @@ public class WalletViewModel extends ViewModel {
                 .subscribe(pbo);
     }
 
-
+    /**
+     * 修改用户名称
+     * @param fragment
+     * @param bhWallet
+     */
     public void updateWalletName(Fragment fragment, BHWallet bhWallet){
-        BHProgressObserver pbo = new BHProgressObserver<String>(fragment.getContext()) {
+        BHBaseObserver pbo = new BHBaseObserver<String>() {
             @Override
             protected void onSuccess(String str) {
                 LoadDataModel loadDataModel = new LoadDataModel("");
-                bhWallet.isDefault = 1;
-                BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 mutableLiveData.postValue(loadDataModel);
             }
 
@@ -195,20 +197,22 @@ public class WalletViewModel extends ViewModel {
                 LoadDataModel loadDataModel = new LoadDataModel();
                 mutableLiveData.postValue(loadDataModel);
             }
+
+            @Override
+            public void onComplete() {
+                super.onComplete();
+                LogUtils.d("WalletViewModel===>","==onComplete==");
+            }
         };
 
 
         Observable.create((ObservableOnSubscribe<String>)emitter -> {
             //把所有设置非默认
-            //int res = bhWalletDao.updateNoDefault(0);
             //把bh_id设置默认
             int res = bhWalletDao.update(bhWallet);
 
             emitter.onNext("");
             emitter.onComplete();
-        }).flatMap((Function<String, ObservableSource<String>>)s -> {
-            List<BHWallet> list = bhWalletDao.loadAll();
-            return  Observable.just("apply");
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(fragment)))
                 .subscribe(pbo);
@@ -250,13 +254,7 @@ public class WalletViewModel extends ViewModel {
             emitter.onNext("1");
             emitter.onComplete();
           }
-        ).flatMap(new Function<String, ObservableSource<String>>() {
-            @Override
-            public ObservableSource<String> apply(String s) throws Exception {
-                List<BHWallet> list = bhWalletDao.loadAll();
-                return  Observable.just("apply");
-            }
-        }).compose(RxSchedulersHelper.io_main())
+        ).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(pbo);
     }
@@ -300,7 +298,7 @@ public class WalletViewModel extends ViewModel {
                 }else{
                     BHWallet bhWallet = BHWalletUtils.importMnemonic(BHWalletUtils.BH_CUSTOM_TYPE,words,name,pwd);
                     int maxId = bhWalletDao.loadMaxId();
-                    bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
+                    bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
                     bhWallet.id = maxId+1;
                     int id = bhWalletDao.insert(bhWallet).intValue();
 
@@ -370,7 +368,7 @@ public class WalletViewModel extends ViewModel {
                 }else{
                     BHWallet bhWallet = BHWalletUtils.importPrivateKey(privateKey,name,pwd);
                     int maxId = bhWalletDao.loadMaxId();
-                    bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
+                    bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
                     bhWallet.id = maxId+1;
                     int resId = bhWalletDao.insert(bhWallet).intValue();
 
@@ -435,7 +433,7 @@ public class WalletViewModel extends ViewModel {
                 BHWallet bhWallet = BHWalletUtils.importKeyStore(keyStore,name,pwd);
                 //当前
                 int maxId = bhWalletDao.loadMaxId();
-                bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
+                bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
                 bhWallet.id = maxId+1;
                 int resId = bhWalletDao.insert(bhWallet).intValue();
 
@@ -530,7 +528,7 @@ public class WalletViewModel extends ViewModel {
             @Override
             protected void onSuccess(String str) {
                 LoadDataModel ldm = new LoadDataModel("");
-                bhWallet.isBackup = BACK_WALLET_TYPE.已备份.value;
+                bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
                 BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 //walletLiveData.postValue(loadDataModel);
                 LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back,LoadDataModel.class).postValue(ldm);

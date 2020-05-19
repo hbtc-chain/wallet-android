@@ -40,6 +40,7 @@ import com.bhex.wallet.balance.presenter.TransferOutPresenter;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
@@ -72,25 +73,20 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     @Autowired(name="way")
     int way;
 
-    private double available_amount;
     BHToken bhToken;
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
         initTokenView();
-        tv_to_address.ed_input.setTextSize(TypedValue.COMPLEX_UNIT_SP,13);
+
         String available_amount_str =  BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
         available_amount = Double.valueOf(available_amount_str);
         tv_available_amount.setText(getString(R.string.available)+" "+available_amount_str + balance.symbol.toUpperCase());
 
         tv_reach_amount.btn_right_text.setText( balance.symbol.toUpperCase());
 
-
         ed_transfer_amount.btn_right_text.setOnClickListener(allWithDrawListener);
-        tv_reach_amount.ed_input.setEnabled(false);
-
-        //ed_transfer_amount.ed_input.addTextChangedListener(checkTextWatcher);
-        //et_tx_fee.ed_input.addTextChangedListener(checkTextWatcher);
+        tv_reach_amount.getEditText().setEnabled(false);
 
         //初始化可用手续费
         String available_bht_amount_str =  BHBalanceHelper.getAmountForUser(this,bhtBalance.amount,"0",bhtBalance.symbol);
@@ -104,66 +100,10 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         tv_to_address.btn_right_text.setVisibility(View.GONE);
         tv_to_address.iv_right.setVisibility(View.VISIBLE);
 
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)tv_to_address.ed_input.getLayoutParams();
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)tv_to_address.getEditText().getLayoutParams();
         lp.addRule(RelativeLayout.LEFT_OF,R.id.iv_right);
-        tv_to_address.ed_input.setLayoutParams(lp);
+        tv_to_address.getEditText().setLayoutParams(lp);
     }
-
-
-    private void initTokenView() {
-        ed_transfer_amount.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et_tx_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        et_withdraw_fee.ed_input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
-        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
-            tv_center_title.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.transfer));
-            tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
-            tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
-            layout_transfer_out_tips.setVisibility(View.GONE);
-            btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
-            ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
-            et_withdraw_fee.setVisibility(View.GONE);
-            tv_withdraw_fee.setVisibility(View.GONE);
-            tv_reach.setVisibility(View.GONE);
-            tv_reach_amount.setVisibility(View.GONE);
-
-        }else if(way==BHConstants.INNER_LINK){
-            layout_transfer_out_tips.setVisibility(View.VISIBLE);
-            tv_center_title.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.transfer));
-            tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
-            tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
-            btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
-            ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
-
-            tv_transfer_out_tips_1.setText(getResources().getString(R.string.linkinner_withdraw_tip_1));
-            tv_transfer_out_tips_2.setText(getResources().getString(R.string.linkinner_withdraw_tip_2));
-            tv_transfer_out_tips_3.setText(getResources().getString(R.string.linkinner_withdraw_tip_3));
-
-            et_withdraw_fee.setVisibility(View.GONE);
-            tv_withdraw_fee.setVisibility(View.GONE);
-
-            tv_reach.setVisibility(View.GONE);
-            tv_reach_amount.setVisibility(View.GONE);
-
-        }else if(way==BHConstants.CROSS_LINK){
-            layout_transfer_out_tips.setVisibility(View.VISIBLE);
-            tv_center_title.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.draw_coin));
-            tv_transfer_out_tips_1.setText(getResources().getString(R.string.crosslink_withdraw_tip_1));
-            tv_transfer_out_tips_2.setText(getResources().getString(R.string.crosslink_withdraw_tip_2));
-            tv_transfer_out_tips_3.setText(getResources().getString(R.string.crosslink_withdraw_tip_3));
-
-            tv_reach.setVisibility(View.GONE);
-            tv_reach_amount.setVisibility(View.GONE);
-
-            //提币手续费单位
-            et_withdraw_fee.btn_right_text.setText(balance.symbol.toUpperCase());
-             bhToken = SymbolCache.getInstance().getBHToken(balance.symbol.toLowerCase());
-            //double withdraw_fee = NumberUtil.divide(bhToken.withdrawal_fee,String.valueOf(Math.pow(10,bhToken.decimals)),10);
-            //double withdraw_fee = Double.
-            et_withdraw_fee.ed_input.setText(bhToken.withdrawal_fee);
-        }
-    }
-
 
 
     @Override
@@ -198,11 +138,11 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         if(way==BHConstants.CROSS_LINK){
             String all_count = NumberUtil.sub(String.valueOf(available_amount),bhToken.withdrawal_fee);
             all_count = Double.valueOf(all_count)<0?"0":all_count;
-            ed_transfer_amount.ed_input.setText(all_count);
+            ed_transfer_amount.getEditText().setText(all_count);
         }else if(balance.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             String all_count = NumberUtil.sub(String.valueOf(available_amount),"2");
             all_count = Double.valueOf(all_count)<0?"0":all_count;
-            ed_transfer_amount.ed_input.setText(all_count);
+            ed_transfer_amount.getEditText().setText(all_count);
         }
     };
 
@@ -211,9 +151,9 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         if(view.getId()==R.id.btn_drawwith_coin){
             if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
                 sendTransfer();
-            }else if(way==2){
+            }else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
                 crossLinkWithDraw();
-            }else if(way==1){
+            }else if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
                 sendTransfer();
             }
         }
@@ -223,21 +163,15 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
      * 发送交易
      */
     private void sendTransfer(){
-        boolean flag = mPresenter.checklinkInnerTransfer(tv_to_address.ed_input.getText().toString(),
-                ed_transfer_amount.ed_input.getText().toString(),
-                String.valueOf(available_amount),
-                et_tx_fee.ed_input.getText().toString().trim()
-        );
-        /*if(!flag){
-            return;
-        }*/
+        boolean flag = mPresenter.checklinkInnerTransfer(tv_to_address.getInputString(),
+                ed_transfer_amount.getInputString(),
+                String.valueOf(available_amount),et_tx_fee.getInputString());
+
         if(flag){
             PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
                     PasswordFragment.class.getName(),
                     this,0);
         }
-
-
     }
 
     /**
@@ -246,11 +180,11 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     private void crossLinkWithDraw(){
         BHToken bhToken = SymbolCache.getInstance().getBHToken(balance.symbol);
 
-        boolean flag = mPresenter.checklinkOutterTransfer(tv_to_address.ed_input.getText().toString(),
-                ed_transfer_amount.ed_input.getText().toString(),
+        boolean flag = mPresenter.checklinkOutterTransfer(tv_to_address.getEditText().getText().toString(),
+                ed_transfer_amount.getInputString(),
                 String.valueOf(available_amount),
-                et_tx_fee.ed_input.getText().toString().trim(),
-                et_withdraw_fee.ed_input.getText().toString().trim(),
+                et_tx_fee.getInputString(),
+                et_withdraw_fee.getInputString(),
                 bhToken.withdrawal_fee
         );
 
@@ -270,7 +204,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             if(resultCode == RESULT_OK){
                 //处理扫描结果（在界面上显示）
                 String qrCode  = data.getExtras().getString(XQRCode.RESULT_DATA);
-                tv_to_address.ed_input.setText(qrCode);
+                tv_to_address.getEditText().setText(qrCode);
             }else if(resultCode == BHQrScanActivity.REQUEST_IMAGE){
                 getAnalyzeQRCodeResult(data.getData());
             }
@@ -283,7 +217,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         XQRCode.analyzeQRCode(PathUtils.getFilePathByUri(this, uri), new QRCodeAnalyzeUtils.AnalyzeCallback() {
             @Override
             public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
-                tv_to_address.ed_input.setText(result);
+                tv_to_address.getEditText().setText(result);
             }
 
             @Override
@@ -302,27 +236,27 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     public void confirmAction(String password, int position) {
 
         String from_address = mCurrentBhWallet.getAddress();
-        String to_address = tv_to_address.ed_input.getText().toString().trim();
+        String to_address = tv_to_address.getInputString();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         //链内
-        if(way==1){
-            String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
-            String feeAmount = et_tx_fee.ed_input.getText().toString();
+        if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
+            String withDrawAmount = ed_transfer_amount.getInputString();
+            String feeAmount = et_tx_fee.getInputString();
 
             BHTransactionManager.loadSuquece(suquece -> {
-                BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(from_address,to_address,withDrawAmount,feeAmount,
+                BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
                         gasPrice,null,suquece,balance.symbol);
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });
 
-        }else if(way==2){//跨链
+        }else if(way== BH_BUSI_TYPE.跨链转账.getIntValue()){//跨链
             //提币数量
-            String withDrawAmount = ed_transfer_amount.ed_input.getText().toString();
+            String withDrawAmount = ed_transfer_amount.getInputString();
             //交易手续费
-            String feeAmount = et_tx_fee.ed_input.getText().toString();
+            String feeAmount = et_tx_fee.getInputString();
             //提币手续费
-            String withDrawFeeAmount = et_withdraw_fee.ed_input.getText().toString();
+            String withDrawFeeAmount = et_withdraw_fee.getInputString();
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(to_address,withDrawAmount,feeAmount,
@@ -332,5 +266,15 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 return 0;
             });
         }
+    }
+
+    @Override
+    public BHBalance getBalance() {
+        return balance;
+    }
+
+    @Override
+    public int getWay() {
+        return way;
     }
 }
