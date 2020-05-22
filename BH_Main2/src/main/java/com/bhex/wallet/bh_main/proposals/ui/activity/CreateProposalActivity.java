@@ -112,6 +112,7 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
     }
 
     private void initUI() {
+        refreshLayout.setEnableLoadMore(false);
         tv_description_length.setText(getString(R.string.description_length_format,0));
         ed_pledge_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_fee.btn_right_text.setText(token.toUpperCase());

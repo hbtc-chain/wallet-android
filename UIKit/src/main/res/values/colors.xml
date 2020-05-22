@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="white">#FFFFFF</color>
     <!--全局的色值-->
     <!--分割线颜色-->
     <color name="global_divider_color">#F4F7FF</color>

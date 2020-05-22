@@ -4,13 +4,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.DateUtil;
-import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.NavitateUtil;
-import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.TransactionHelper;
-import com.bhex.wallet.common.cache.SymbolCache;
-import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -35,7 +30,6 @@ public class TxOrderAdapter extends BaseQuickAdapter<TransactionOrder, BaseViewH
 
     @Override
     protected void convert(@NotNull BaseViewHolder vh, @Nullable TransactionOrder txo) {
-
         TransactionOrder.ActivitiesBean bean = txo.getActivities().get(0);
         String tx_type = TransactionHelper.getTranscationType(getContext(),txo);
 

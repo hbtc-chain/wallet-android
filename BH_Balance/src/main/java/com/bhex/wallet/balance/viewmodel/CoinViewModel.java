@@ -7,15 +7,19 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
+import com.bhex.wallet.common.model.BHPage;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -26,37 +30,38 @@ import java.util.List;
  */
 public class CoinViewModel extends ViewModel {
 
-    public MutableLiveData<LoadDataModel<List<BHTokenItem>>> coinLiveData  = new MutableLiveData<>();
+    public MutableLiveData<LoadDataModel> coinLiveData  = new MutableLiveData<>();
 
     /**
      * 请求所有币种
      */
     public void loadCoin(BaseActivity activity){
 
-        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
-                super.onSuccess(jsonObject);
-                
-                if(JsonUtils.isHasMember(jsonObject,"tokens")){
-                    List<BHTokenItem> coinList = JsonUtils.getListFromJson(jsonObject.toString(),
-                            "tokens", BHTokenItem.class);
+                Type type = new TypeToken<BHPage<BHTokenItem>>() {}.getType();
+                BHPage<BHTokenItem> page = JsonUtils.fromJson(jsonObject.toString(),type);
+                /*List<BHTokenItem> coinList = JsonUtils.getListFromJson(jsonObject.toString(),
+                        "tokens", BHTokenItem.class);*/
 
-                    LoadDataModel loadDataModel = new LoadDataModel(coinList);
-                    coinLiveData.postValue(loadDataModel);
+                LoadDataModel loadDataModel = new LoadDataModel(page);
+                coinLiveData.postValue(loadDataModel);
+
+                /*if(JsonUtils.isHasMember(jsonObject,"tokens")){
+
                 }else{
                     LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                     coinLiveData.postValue(loadDataModel);
-                }
+                }*/
 
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-
-                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
-                coinLiveData.postValue(loadDataModel);
+                LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR,errorMsg);
+                coinLiveData.postValue(ldm);
             }
         };
 

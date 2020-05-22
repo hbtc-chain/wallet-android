@@ -47,7 +47,6 @@ public class LanguageSettingActivity extends BaseActivity {
     
     private List<LanguageItem> mLanguageList;
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_language_setting;

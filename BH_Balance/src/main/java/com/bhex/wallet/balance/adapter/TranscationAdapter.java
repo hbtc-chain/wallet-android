@@ -70,6 +70,13 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
                 TransactionOrder.ActivitiesBean.ValueBean transferBean = JsonUtils.fromJson(activitiesBean.value.toString(),
                         TransactionOrder.ActivitiesBean.ValueBean.class);
 
+                String address = BHUserManager.getInstance().getCurrentBhWallet().address;
+                if(transferBean.getTo_address().equals(address)){
+                    //type_label.delete(0,type_label.length()).append("收款");
+                    viewHolder.setText(R.id.tv_title, R.string.make_collection);
+
+                }
+
                 viewHolder.setText(R.id.tv_delegate_address,transferBean.getFrom_address());
                 viewHolder.setText(R.id.tv_validator_address,transferBean.getTo_address());
                 viewHolder.setText(R.id.tv_delegate_label,getContext().getString(R.string.transfer_out));

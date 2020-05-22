@@ -55,11 +55,11 @@ public class AddressAdapter extends BaseQuickAdapter<BHWalletItem, BaseViewHolde
             tv_wallet_name.setTextColor(ColorUtil.getColor(getContext(),R.color.global_main_text_color));
         }
 
-        ck.setOnClickListener(v -> {
+        /*ck.setOnClickListener(v -> {
             if(mCheckChangeListener!=null){
                 mCheckChangeListener.onCheckedChanged(position,ck.isChecked());
             }
-        });
+        });*/
 
 
         /*ck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

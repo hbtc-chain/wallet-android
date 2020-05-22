@@ -1,6 +1,7 @@
 package com.bhex.wallet.bh_main.my.ui.activity;
 
 import android.view.View;
+import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -12,9 +13,9 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
-import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.SettingAdapter;
@@ -24,6 +25,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.utils.SafeUilts;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,11 +57,6 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
 
     @Override
     protected void initView() {
-        /*if(MMKVManager.getInstance().getSelectNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }*/
         mItems = MyHelper.getSettingItems(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -74,12 +71,9 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
                 this,LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(this,16),0,
-
                 ColorUtil.getColor(this,R.color.global_divider_color));
 
-
         recycler_setting.addItemDecoration(ItemDecoration);
-
         EventBus.getDefault().register(this);
     }
 
@@ -88,6 +82,21 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
 
         mSettingAdapter.setOnItemClickListener((adapter, view, position) -> {
             clickItemAction(adapter, view, position);
+        });
+
+        mSettingAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            if(view.getId()== com.bhex.wallet.balance.R.id.ck_select){
+                CheckedTextView ck = (CheckedTextView) view;
+                if(!ck.isChecked()){
+                    if(SafeUilts.isFinger(this)){
+                        MMKVManager.getInstance().mmkv().encode(BHConstants.FINGER_PWD_KEY,true);
+                        ck.toggle();
+                    }
+                }else{
+                    MMKVManager.getInstance().mmkv().remove(BHConstants.FINGER_PWD_KEY);
+                    ck.toggle();
+                }
+            }
         });
 
 
@@ -108,6 +117,8 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
             case 1:
                 ARouter.getInstance().build(ARouterConfig.MY_Rate_setting).withString("title",myItem.title).navigation();
                 break;
+            /*case 3:
+                ARouter.getInstance().build(ARouterConfig.MY_Recognition).withString("title",myItem.title).navigation();*/
         }
     }
 
@@ -148,7 +159,7 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
 
         }
         this.getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
-        NavitateUtil.startActivity(this,SettingActivity.class);
+        NavigateUtil.startActivity(this,SettingActivity.class);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         //finish();
         //recreate();

@@ -77,28 +77,32 @@ public class TransferInTipFragment extends BaseDialogFragment {
 
         if(way==1){
             String tip1 = getResources().getString(R.string.linkinner_deposit_tip_1);
-            int index1 = tip1.indexOf("链内");
+            String linkInner = getResources().getString(R.string.linkinner);
+            int index1 = tip1.indexOf(linkInner);
             SpannableString spannableStr1 = new SpannableString(tip1);
-            spannableStr1.setSpan(foregroundColorSpan,index1,index1+"链内".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableStr1.setSpan(foregroundColorSpan,index1,index1+linkInner.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tv_tip1.setText(spannableStr1);
 
             String tip2 = getResources().getString(R.string.linkinner_deposit_tip_2);
-            int index2 = tip2.indexOf("非跨链");
+            String noCrossLink = getResources().getString(R.string.no_cross_link);
+            int index2 = tip2.indexOf(noCrossLink);
             SpannableString spannableStr2 = new SpannableString(tip2);
-            spannableStr2.setSpan(foregroundColorSpan,index2,index2+"非跨链".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableStr2.setSpan(foregroundColorSpan,index2,index2+noCrossLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tv_tip2.setText(spannableStr2);
 
         }else if(way==2){
             String tip1 = getResources().getString(R.string.crosslink_deposit_tip_1);
-            int index1 = tip1.indexOf("跨链");
+            String crosslink = getResources().getString(R.string.crosslink);
+            int index1 = tip1.indexOf(crosslink);
             SpannableString spannableStr1 = new SpannableString(tip1);
-            spannableStr1.setSpan(foregroundColorSpan,index1,index1+"跨链".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableStr1.setSpan(foregroundColorSpan,index1,index1+crosslink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tv_tip1.setText(spannableStr1);
 
             String tip2 = getResources().getString(R.string.crosslink_deposit_tip_2);
-            int index2 = tip2.indexOf("OMNI钱包");
+            String nativelink = getResources().getString(R.string.nativelink);
+            int index2 = tip2.indexOf(nativelink);
             SpannableString spannableStr2 = new SpannableString(tip2);
-            spannableStr2.setSpan(foregroundColorSpan,index2,index2+"OMNI钱包".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableStr2.setSpan(foregroundColorSpan,index2,index2+nativelink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tv_tip2.setText(spannableStr2);
         }
     }

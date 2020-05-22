@@ -13,7 +13,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -90,7 +90,7 @@ public class ImportPrivateKeyActivity extends BaseCacheActivity {
         String privateKey = et_private_key.getText().toString();
         BHUserManager.getInstance().getTmpBhWallet().setWay(2);
         BHUserManager.getInstance().getTmpBhWallet().setPrivateKey(privateKey.trim());
-        NavitateUtil.startActivity(this,TrusteeshipActivity.class);
+        NavigateUtil.startActivity(this,TrusteeshipActivity.class);
     }
 
 }

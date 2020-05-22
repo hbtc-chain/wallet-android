@@ -160,9 +160,10 @@ public class BHWalletUtils {
      */
     public static String keyStoreToAddress(String keyStore,String pwd) throws CipherException,IOException{
         String bh_address = null;
-        Credentials credentials = null;
+
         WalletFile walletFile = objectMapper.readValue(keyStore, WalletFile.class);
-        credentials = Credentials.create(Wallet.decrypt(pwd, walletFile));
+
+        Credentials credentials = Credentials.create(Wallet.decrypt(pwd, walletFile));
         //String pk = credentials.getEcKeyPair().getPrivateKey().toString(16);
         if(credentials!=null){
             bh_address = BHKey.getBhexUserDpAddress(credentials.getEcKeyPair().getPublicKey());
@@ -242,38 +243,6 @@ public class BHWalletUtils {
         return bhWallet;
     }
 
-//    /**
-//     * 保存KeyStore 文件
-//     * @param walletFile
-//     */
-//    private static String save_keystore(WalletFile walletFile,String walletName) {
-//        String ks_name = "ks_" + SystemClock.elapsedRealtime() + ".json";
-//        File ks_path = new File(BHFilePath.PATH_KEYSTORE,  ks_name);
-//        //目录不存在则创建目录，创建不了则报错
-//        if (!createParentDir(ks_path)) {
-//            return null;
-//        }
-//        try {
-//            objectMapper.writeValue(ks_path, walletFile);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//        return ks_path.getAbsolutePath();
-//    }
-
-    private static boolean createParentDir(File file) {
-        //判断目标文件所在的目录是否存在
-        if (!file.getParentFile().exists()) {
-            //如果目标文件所在的目录不存在，则创建父目录
-            //LogUtils.d("BHWalletUtils", "目标文件所在目录不存在，准备创建");
-            if (!file.getParentFile().mkdirs()) {
-                //LogUtils.d("BHWalletUtils", "创建目标文件所在目录失败！");
-                return false;
-            }
-        }
-        return true;
-    }
 
    /**
      * 生成公私钥对

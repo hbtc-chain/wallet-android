@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,27 +14,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.widget.CircleView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.MD5;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.MyAdapter;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
+import com.bhex.wallet.bh_main.my.model.BHMessage;
 import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
 import com.bhex.wallet.bh_main.my.ui.activity.SettingActivity;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
+import com.bhex.wallet.bh_main.my.viewmodel.MessageViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.utils.LiveDataBus;
@@ -42,7 +47,6 @@ import com.google.android.material.card.MaterialCardView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -80,11 +84,17 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @BindView(R2.id.layout_index_3)
     MaterialCardView layout_index_3;
 
+    @BindView(R2.id.iv_message_tip)
+    CircleView iv_message_tip;
+
+
     private List<MyItem> mItems;
 
     private MyAdapter mMyAdapter;
 
     private BHWallet mBhWallet;
+
+    private MessageViewModel msgViewModel;
 
     public MyFragment() {
 
@@ -115,6 +125,9 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         recycler_my.setAdapter(mMyAdapter);
         tv_username.setText(mBhWallet.getName());
         AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
+
+        msgViewModel = ViewModelProviders.of(this).get(MessageViewModel.class);
+
     }
 
 
@@ -148,7 +161,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                     break;
                 case 4:
                     //设置
-                    NavitateUtil.startActivity(getYActivity(),SettingActivity.class);
+                    NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
                     break;
 
             }
@@ -163,6 +176,17 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                 mMyAdapter.addData(mItems);
             }
         });
+
+        //消息查询
+        msgViewModel.messageLiveData.observe(this,ldm->{
+            if(ldm.getLoadingStatus()==LoadingStatus.SUCCESS){
+                BHPage<BHMessage> page =  (BHPage<BHMessage>)ldm.getData();
+                if(page.unread>0){
+                    iv_message_tip.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        msgViewModel.loadMessageByAddress(this,1,null);
     }
 
     @OnClick({R2.id.iv_message, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste,

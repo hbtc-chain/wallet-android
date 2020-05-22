@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -72,14 +71,14 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
     @OnClick({R2.id.btn_start_verify})
     public void onViewClicked(View view) {
         if(view.getId()== R.id.btn_start_verify){
-            NavitateUtil.startActivity(this, VerifyMnemonicActivity.class);
+            NavigateUtil.startActivity(this, VerifyMnemonicActivity.class);
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        NavitateUtil.startMainActivity(this,
+        NavigateUtil.startMainActivity(this,
                 new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
         ActivityCache.getInstance().finishActivity();
 
@@ -88,7 +87,7 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
-            NavitateUtil.startMainActivity(this,
+            NavigateUtil.startMainActivity(this,
                     new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
             ActivityCache.getInstance().finishActivity();
         }

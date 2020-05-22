@@ -10,10 +10,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.lib.uikit.widget.toast.BHToast;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -86,7 +88,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());
         AssetHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
-        BHKey.test();
+        //BHKey.test();
     }
 
     @Override
@@ -103,6 +105,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
             R2.id.btn_wallet_create, R2.id.btn_wallet_impot})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.btn_confirm) {
+            ToolUtils.hintKeyBoard(this);
             getPresenter().verifyPassword(inp_wallet_pwd.getInputString(), mCurrentWallet);
         } else if (view.getId() == R.id.tv_import_mnemonic) {
             ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);

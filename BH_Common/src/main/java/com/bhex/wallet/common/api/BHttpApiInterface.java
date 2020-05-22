@@ -8,6 +8,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -75,4 +76,21 @@ public interface BHttpApiInterface {
                                    @Query("device_type") String device_type,
                                    @Query("device_version") String device_version);
 
+
+    //通知查询
+    @GET("/api/v1/cus/{addr}/notifications")
+    Observable<JsonObject> queryNotificationByAddress(@Path("addr") String address,
+                                                      @Query("page") int page,
+                                                      @Query("page_size") int page_size,
+                                                      @Query("type") String type);
+
+    //通知查询
+    @GET("/api/v1/cus/{addr}/notifications")
+    Observable<JsonObject> queryNotificationByAddress(@Path("addr") String address,
+                                                      @Query("page") int page,
+                                                      @Query("page_size") int page_size);
+    //更新通知状态
+    @POST("/api/v1/cus/{addr}/notifications/{id}/read")
+    Observable<JsonObject> updateNotificationStatus(@Path("addr") String address,
+                                                      @Path("id") String id);
 }

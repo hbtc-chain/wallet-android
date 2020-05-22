@@ -71,6 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginTop="25dp"
             android:paddingStart="@dimen/main_margin_left"
             android:paddingEnd="@dimen/main_margin_left"
@@ -79,7 +80,6 @@
             android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="13sp"
             android:autoSizeStepGranularity="1sp"
-            android:maxLines="1"
             tools:text="0xasrgkbkdsvssdvbkewkhksnsafasfds0xasrgkbkdsvssdvbkewkhksnsafasfds" />
 
     </LinearLayout>
@@ -146,6 +146,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_index_2"
+        android:visibility="gone"
         >
 
         <View
@@ -178,6 +179,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="24dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_index_3">
 

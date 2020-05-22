@@ -13,8 +13,7 @@ import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.StringUtils;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
@@ -108,17 +107,17 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
             if (loadDataModel.loadingStatus== LoadingStatus.SUCCESS) {
                 if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.导入助记词.getWay()){
-                    NavitateUtil.startMainActivity(this,new String[]{});
+                    NavigateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
                     EventBus.getDefault().post(new AccountEvent());
                     ToastUtils.showToast(getResources().getString(R.string.import_mnemonic_success));
                 }else if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.PK.getWay()){
-                    NavitateUtil.startMainActivity(this,new String[]{});
+                    NavigateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
                     EventBus.getDefault().post(new AccountEvent());
                     ToastUtils.showToast(getResources().getString(R.string.import_privatekey_success));
                 }else{
-                    NavitateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
+                    NavigateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
                     ActivityCache.getInstance().finishActivity();
                 }
 
@@ -176,7 +175,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
      */
     private void importPrivatekey(String name,String pwd){
         walletViewModel.importPrivateKey(this,name,pwd);
-        walletViewModel.importPrivateKey(this,"","");
+        //walletViewModel.importPrivateKey(this,"","");
     }
 
     @Override

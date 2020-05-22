@@ -3,7 +3,6 @@ package com.bhex.wallet.mnemonic.ui.activity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -13,8 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -60,7 +58,6 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
 
     @Override
     protected void initView() {
-        //LogUtils.d("TrusteeshipActivity===>:","way=="+BHUserManager.getInstance().getTmpBhWallet().getWay());
         mPresenter.setToolBarTitle();
         inp_wallet_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         //inp_wallet_name.getEditText().setText("Bluehelix Wallet");
@@ -68,10 +65,7 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
 
     @Override
     protected void addEvent() {
-        //bhWalletDao = AppDataBase.getInstance(BaseApplication.getInstance()).bhWalletDao();
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
-        //walletViewModel.setmContext(this);
-
         inp_wallet_name.addTextWatch(new SimpleTextWatcher(){
             @Override
             public void afterTextChanged(Editable s) {
@@ -89,15 +83,6 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
             }
         });
 
-        inp_wallet_name.getEditText().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                LogUtils.d("TrusteeshipActivit===","keyCode==="+KeyEvent.keyCodeToString(keyCode));
-                return false;
-            }
-        });
-
-
     }
 
 
@@ -107,7 +92,7 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
             //设置钱包用户名
             BHUserManager.getInstance().getTmpBhWallet()
                     .setName(inp_wallet_name.getInputString());
-            NavitateUtil.startActivity(this,TrusteeshipSecActivity.class);
+            NavigateUtil.startActivity(this,TrusteeshipSecActivity.class);
         }
     }
 
@@ -122,7 +107,7 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
             public void onChanged(String status) {
                 if ("1".equals(status)) {
                     ToastUtils.showToast("创建成功");
-                    NavitateUtil.startActivity(TrusteeshipActivity.this, TrusteeshipSuccessActivity.class);
+                    NavigateUtil.startActivity(TrusteeshipActivity.this, TrusteeshipSuccessActivity.class);
                     MMKVManager.getInstance().mmkv().encode(BHConstants.FRIST_BOOT, true);
                 } else {
                     ToastUtils.showToast("创建失败");

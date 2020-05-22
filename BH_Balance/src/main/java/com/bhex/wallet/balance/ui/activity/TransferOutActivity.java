@@ -62,7 +62,8 @@ import butterknife.OnClick;
  */
 
 @Route(path = ARouterConfig.Balance_transfer_out)
-public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPresenter> implements PasswordFragment.PasswordClickListener{
+public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPresenter>
+        implements PasswordFragment.PasswordClickListener{
 
     @Autowired(name = "balance")
     BHBalance balance;
@@ -164,7 +165,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
      */
     private void sendTransfer(){
         boolean flag = mPresenter.checklinkInnerTransfer(tv_to_address.getInputString(),
-                ed_transfer_amount.getInputString(),
+                ed_transfer_amount.getInputStringTrim(),
                 String.valueOf(available_amount),et_tx_fee.getInputString());
 
         if(flag){
@@ -235,12 +236,12 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     @Override
     public void confirmAction(String password, int position) {
 
-        String from_address = mCurrentBhWallet.getAddress();
+        //String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.getInputString();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         //链内
         if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
-            String withDrawAmount = ed_transfer_amount.getInputString();
+            String withDrawAmount = ed_transfer_amount.getInputStringTrim();
             String feeAmount = et_tx_fee.getInputString();
 
             BHTransactionManager.loadSuquece(suquece -> {
@@ -252,7 +253,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
         }else if(way== BH_BUSI_TYPE.跨链转账.getIntValue()){//跨链
             //提币数量
-            String withDrawAmount = ed_transfer_amount.getInputString();
+            String withDrawAmount = ed_transfer_amount.getInputStringTrim();
             //交易手续费
             String feeAmount = et_tx_fee.getInputString();
             //提币手续费

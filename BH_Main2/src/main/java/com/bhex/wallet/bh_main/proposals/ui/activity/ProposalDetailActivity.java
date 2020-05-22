@@ -118,6 +118,8 @@ public class ProposalDetailActivity extends BaseActivity {
 
 
     private void initProposalView() {
+        swipeRefresh.setEnableLoadMore(false);
+
         if (mProposalInfo == null)
             return;
 

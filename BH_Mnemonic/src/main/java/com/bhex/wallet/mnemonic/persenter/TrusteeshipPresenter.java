@@ -1,5 +1,7 @@
 package com.bhex.wallet.mnemonic.persenter;
 
+import android.text.TextUtils;
+
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -121,5 +123,19 @@ public class TrusteeshipPresenter extends BasePresenter {
         }else if(way== MAKE_WALLET_TYPE.PK.getWay()){
             btn.setText(getActivity().getResources().getString(R.string.import_private_key));
         }
+    }
+
+    public void checkUserName(InputView inp_wallet_name, AppCompatButton btn_next, AppCompatCheckBox ck_agreement){
+        boolean flag = true;
+        if(TextUtils.isEmpty(inp_wallet_name.getInputString())){
+            flag = false;
+        }
+
+        if(!ck_agreement.isChecked()){
+            flag = false;
+        }
+
+
+        btn_next.setEnabled(flag);
     }
 }

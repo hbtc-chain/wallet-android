@@ -110,7 +110,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
         BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
-                String txs = JsonUtils.getAsJsonArray(jsonObject.toString(),"txs").toString();
+                String txs = JsonUtils.getAsJsonArray(jsonObject.toString(),"items").toString();
 
                 if(!TextUtils.isEmpty(txs)){
                     List<TransactionOrder> list = JsonUtils.getListFromJson(txs, TransactionOrder.class);

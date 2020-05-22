@@ -2,14 +2,12 @@ package com.bhex.network.app;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 
 import com.bhex.tools.toast.BHToastStyle;
 import com.hjq.toast.ToastUtils;
+import com.hjq.toast.style.ToastBlackStyle;
 
 import java.util.concurrent.Executor;
 
@@ -26,10 +24,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ToastUtils.init(this);
         _instance = this;
         sHandler = new Handler(_instance.getMainLooper());
-
+        ToastUtils.init(this);
     }
 
     public static BaseApplication getInstance() {

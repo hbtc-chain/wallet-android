@@ -1,19 +1,19 @@
 package com.bhex.wallet.bh_main.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.R;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.MnemonicIndexActivity;
+import com.bhex.wallet.mnemonic.ui.activity.FingerLoginActivity;
 import com.bhex.wallet.mnemonic.ui.activity.LockActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.uber.autodispose.AutoDispose;
@@ -45,23 +45,27 @@ public class SplashActivity extends AppCompatActivity {
 
         boolean flag = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FRIST_BOOT);
         //
-        Disposable disposable = Observable.just(0).timer(2000, TimeUnit.MILLISECONDS)
+        Disposable disposable = Observable.just(0).timer(1000, TimeUnit.MILLISECONDS)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
                 .subscribe(aLong -> {
-                    LogUtils.d("SplashActivity===>:","aLong=="+aLong);
+                    //LogUtils.d("SplashActivity===>:","aLong=="+aLong);
                     //首次启动
                     if(!BHUserManager.getInstance().isHasWallet()){
 
-                        NavitateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
+                        NavigateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
                     }else {
-                        NavitateUtil.startActivity(SplashActivity.this, LockActivity.class);
+                        boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
+                        if(!isFinger){
+                            NavigateUtil.startActivity(SplashActivity.this, LockActivity.class);
+                        }else{
+                            NavigateUtil.startActivity(SplashActivity.this, FingerLoginActivity.class);
+                        }
                     }
                     finish();
                 });
 
         mCompositeDisposable.add(disposable);
 
-        //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
         ImmersionBar.with(this).statusBarColor(android.R.color.white).statusBarDarkFont(true).init();
     }
 

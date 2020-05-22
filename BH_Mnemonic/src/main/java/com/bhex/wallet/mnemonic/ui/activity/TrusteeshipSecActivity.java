@@ -1,6 +1,5 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 
@@ -9,7 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
@@ -17,7 +16,6 @@ import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.persenter.TrusteeshipPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -88,7 +86,7 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
         if (view.getId() == R.id.btn_next) {
             //设置密码
             BHUserManager.getInstance().getTmpBhWallet().setPassword(inp_wallet_pwd.getInputString());
-            NavitateUtil.startActivity(this, TrusteeshipThirdActivity.class);
+            NavigateUtil.startActivity(this, TrusteeshipThirdActivity.class);
         }
     }
 

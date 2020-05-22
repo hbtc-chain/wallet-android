@@ -20,6 +20,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
@@ -31,6 +32,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -83,14 +85,13 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     MaterialTextView tv_balance_txt2;
 
     @BindView(R2.id.recycler_balance)
-    SwipeRecyclerView recycler_balance;
+    RecyclerView recycler_balance;
 
     @BindView(R2.id.tv_address)
     AppCompatTextView tv_address;
 
     @BindView(R2.id.iv_paste)
     AppCompatImageView iv_paste;
-
 
     @BindView(R2.id.iv_eye)
     AppCompatImageView iv_eye;
@@ -158,6 +159,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mBalanceList = mPresenter.getBalanceList(mOriginBalanceList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setSmoothScrollbarEnabled(true);
+        layoutManager.setAutoMeasureEnabled(true);
         recycler_balance.setLayoutManager(layoutManager);
         recycler_balance.setNestedScrollingEnabled(false);
 
@@ -169,13 +172,15 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         recycler_balance.addItemDecoration(ItemDecoration);
 
         mBalanceAdapter = new BalanceAdapter(R.layout.item_balance, mBalanceList);
-        recycler_balance.setSwipeMenuCreator(swipeMenuCreator);
-        recycler_balance.setOnItemMenuClickListener(mMenuItemClickListener);
+        /*recycler_balance.setSwipeMenuCreator(swipeMenuCreator);
+        recycler_balance.setOnItemMenuClickListener(mMenuItemClickListener);*/
         recycler_balance.setAdapter(mBalanceAdapter);
 
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
 
         ed_search_content.addTextChangedListener(balanceTextWatcher);
+
+        refreshLayout.setEnableLoadMore(false);
     }
 
 
@@ -329,8 +334,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeAccount(WalletEvent walletEvent){
+        LogUtils.d("BalanceFragment===>:","===changeAccount==");
         //当前钱包用户
-        //bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+        bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
 
         //清空原始用户资产

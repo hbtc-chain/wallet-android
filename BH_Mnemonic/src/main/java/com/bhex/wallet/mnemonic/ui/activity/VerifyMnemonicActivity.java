@@ -1,7 +1,6 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.ViewModelProviders;
@@ -9,19 +8,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bhex.lib.uikit.widget.recyclerview.GridLayoutItemDecoration;
-import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
-import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
@@ -31,8 +25,6 @@ import com.bhex.wallet.mnemonic.adapter.UnderMnemonicAdapter;
 import com.bhex.wallet.mnemonic.helper.MnemonicDataHelper;
 import com.bhex.wallet.mnemonic.persenter.VerifyPresenter;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Collections;
 import java.util.List;
@@ -166,13 +158,13 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
         if(BHUserManager.getInstance().getTargetClass()!=null &&
                 BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
-            NavitateUtil.startMainActivity(this,new String[]{});
+            NavigateUtil.startMainActivity(this,new String[]{});
 
         }else{
-            NavitateUtil.startMainActivity(this,
+            NavigateUtil.startMainActivity(this,
                     new String[]{BHConstants.BACKUP_TEXT, BHConstants.BACKUP});
         }
-        //NavitateUtil.startMainActivity(VerifyMnemonicActivity.this);
+        //NavigateUtil.startMainActivity(VerifyMnemonicActivity.this);
         //finish();
         ActivityCache.getInstance().finishActivity();
     }

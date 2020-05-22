@@ -60,11 +60,11 @@ public class SymbolCache extends BaseCache {
                 .subscribe(new BHBaseObserver<JsonObject>() {
                     @Override
                     protected void onSuccess(JsonObject jsonObject) {
-                        if(!JsonUtils.isHasMember(jsonObject,"tokens")){
+                        if(!JsonUtils.isHasMember(jsonObject,"items")){
                             return;
                         }
                         symbolMap.clear();
-                        List<BHToken> coinList = JsonUtils.getListFromJson(jsonObject.toString(),"tokens", BHToken.class);
+                        List<BHToken> coinList = JsonUtils.getListFromJson(jsonObject.toString(),"items", BHToken.class);
                         for(BHToken item:coinList){
                             symbolMap.put(item.symbol,item);
                         }

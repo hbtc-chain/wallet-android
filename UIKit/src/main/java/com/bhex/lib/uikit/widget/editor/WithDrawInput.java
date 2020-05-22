@@ -79,4 +79,8 @@ public class WithDrawInput extends RelativeLayout {
         return mInputEd.getText().toString().trim();
     }
 
+    public String getInputStringTrim() {
+        return mInputEd.getText().toString().trim().replaceAll(" ","");
+    }
+
 }

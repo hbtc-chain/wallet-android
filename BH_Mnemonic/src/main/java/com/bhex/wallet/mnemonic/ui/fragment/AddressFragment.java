@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,9 +51,9 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
     @BindView(R2.id.recycler_address)
     RecyclerView recycler_address;
     @BindView(R2.id.btn_cancel)
-    MaterialButton btn_cancel;
-    @BindView(R2.id.btn_confirm)
-    MaterialButton btn_confirm;
+    AppCompatTextView btn_cancel;
+   /* @BindView(R2.id.btn_confirm)
+    MaterialButton btn_confirm;*/
 
     private List<BHWalletItem> mData;
 
@@ -96,6 +97,13 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
         recycler_address.setLayoutManager(lm);
 
         recycler_address.setAdapter(mAddressAdapter);
+
+        mAddressAdapter.setOnItemClickListener((adapter, view1, position) -> {
+            if(changeListener!=null){
+                changeListener.onItemClick(position);
+                dismiss();
+            }
+        });
     }
 
     @Override
@@ -116,11 +124,11 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
         //params.width = dm.widthPixels;
 
         if(mData==null || mData.size()==0 || mData.size()==1){
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 197);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 185);
         }else if(mData.size()==2){
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 259);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 245);
         }else{
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 321);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 309);
         }
         //params.height = ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -128,17 +136,17 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
     }
 
 
-    @OnClick({R2.id.btn_cancel, R2.id.btn_confirm})
+    @OnClick({R2.id.btn_cancel})
     public void onViewClicked(View view) {
         if(view.getId() == R.id.btn_cancel){
             dismiss();
-        }else if(view.getId() == R.id.btn_confirm){
+        }/*else if(view.getId() == R.id.btn_confirm){
             int position = getSelectPosition();
             if(changeListener!=null){
                 changeListener.onItemClick(position);
             }
             dismiss();
-        }
+        }*/
     }
 
     @Override

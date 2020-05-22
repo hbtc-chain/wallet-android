@@ -1,11 +1,17 @@
 package com.bhex.wallet.app;
 
+import android.content.Context;
+
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.app.BaseApplication;
+import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.toast.BHToastStyle;
 import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.manager.MMKVManager;
+import com.hjq.toast.ToastUtils;
+import com.hjq.toast.style.ToastBlackStyle;
 
 /**
  * created by gongdongyang
@@ -39,6 +45,8 @@ public class BHApplication extends BaseApplication {
         return resources;
     }*/
 
-
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocalManageUtil.attachBaseContext(base,""));
+    }
 }

@@ -41,7 +41,9 @@ public class MyHelper {
         String [] res = context.getResources().getStringArray(R.array.my_list_item);
         MyItem item = null;
         for (int i = 0; i < res.length; i++) {
-            if (i == 6) {
+            if(i==5){
+                item = new MyItem(i,res[i], false, BHConstants.EMAIL);
+            } else if (i == 6) {
                 item = new MyItem(i,res[i], false, PackageUtils.getVersionName(context));
             } else {
                 item = new MyItem(i,res[i], true, "");
@@ -81,13 +83,12 @@ public class MyHelper {
         String []langArray = context.getResources().getStringArray(R.array.app_language_type);
 
         String [] res = context.getResources().getStringArray(R.array.set_list_item);
+
         for (int i = 0; i < res.length; i++) {
             MyItem item = new MyItem(i,res[i], true, "");
             myItems.add(item);
         }
-
         myItems.get(0).rightTxt = langArray[selectIndex-1];
-
         //语言
         CURRENCY_TYPE.initCurrency(context);
         String currency_name = MMKVManager.getInstance().mmkv().decodeString(BHConstants.CURRENCY_USED,CURRENCY_TYPE.USD.shortName);

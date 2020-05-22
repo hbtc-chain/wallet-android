@@ -40,18 +40,6 @@ public class ExportPrivateKeyActivity extends ExportBaseActivity {
     @Autowired(name="flag")
     String flag;
 
-    /*@BindView(R2.id.tv_center_title)
-    AppCompatTextView tv_center_title;
-
-    @BindView(R2.id.tab)
-    GradientTabLayout tab;
-
-    @BindView(R2.id.viewPager)
-    ViewPager viewPager;*/
-
-    /*@BindView(R2.id.btn_copy)
-    MaterialButton btn_copy;*/
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_export_private_key;

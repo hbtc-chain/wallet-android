@@ -8,12 +8,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -22,7 +20,7 @@ import android.view.WindowManager;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.ui.activity.BackupMnemonicActivity;
 
@@ -86,7 +84,7 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.btn_at_once){
-            NavitateUtil.startActivity(getActivity(), BackupMnemonicActivity.class);
+            NavigateUtil.startActivity(getActivity(), BackupMnemonicActivity.class);
         }
         dismiss();
     }

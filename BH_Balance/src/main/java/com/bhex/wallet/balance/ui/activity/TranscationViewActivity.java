@@ -29,7 +29,7 @@ import butterknife.BindView;
  * 2020-4-27 17:44:23
  * */
 
-@Route(path = ARouterConfig.Balance_transcation_view)
+@Route(path = ARouterConfig.Balance_transcation_view,name="交易详情")
 public class TranscationViewActivity extends TxBaseActivity {
 
     @Autowired(name = "transactionId")
@@ -60,6 +60,7 @@ public class TranscationViewActivity extends TxBaseActivity {
         recycler_reward.setNestedScrollingEnabled(false);
         mdvAdapter = new TranscationAdapter(R.layout.layout_reward,mList);
         recycler_reward.setAdapter(mdvAdapter);
+        refreshLayout.setEnableLoadMore(false);
     }
 
     @Override

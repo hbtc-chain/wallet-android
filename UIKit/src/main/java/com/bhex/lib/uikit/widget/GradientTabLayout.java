@@ -30,9 +30,8 @@ import androidx.viewpager.widget.ViewPager;
 
 
 import com.bhex.lib.uikit.R;
+import com.bhex.lib.uikit.util.UnreadMsgUtils;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.flyco.tablayout.utils.UnreadMsgUtils;
-import com.flyco.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -259,7 +258,7 @@ public class GradientTabLayout extends HorizontalScrollView implements ViewPager
         this.mTabCount = mTitles == null ? mViewPager.getAdapter().getCount() : mTitles.size();
         View tabView;
         for (int i = 0; i < mTabCount; i++) {
-            tabView = View.inflate(mContext, R.layout.layout_tab, null);
+            tabView = View.inflate(mContext, R.layout.layout_msg_tab, null);
             CharSequence pageTitle = mTitles == null ? mViewPager.getAdapter().getPageTitle(i) : mTitles.get(i);
             addTab(i, pageTitle.toString(), tabView);
         }
@@ -268,7 +267,7 @@ public class GradientTabLayout extends HorizontalScrollView implements ViewPager
     }
 
     public void addNewTab(String title) {
-        View tabView = View.inflate(mContext, R.layout.layout_tab, null);
+        View tabView = View.inflate(mContext, R.layout.layout_msg_tab, null);
         if (mTitles != null) {
             mTitles.add(title);
         }
@@ -284,7 +283,7 @@ public class GradientTabLayout extends HorizontalScrollView implements ViewPager
      * 创建并添加tab
      */
     private void addTab(final int position, String title, View tabView) {
-        TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+        TextView tv_tab_title = tabView.findViewById(R.id.tv_tab_title);
         if (tv_tab_title != null) {
             if (title != null) tv_tab_title.setText(title);
         }
@@ -828,7 +827,7 @@ public class GradientTabLayout extends HorizontalScrollView implements ViewPager
         }
 
         View tabView = mTabsContainer.getChildAt(position);
-        MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
+        MsgView tipView =  tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
             UnreadMsgUtils.show(tipView, num);
 
@@ -883,7 +882,7 @@ public class GradientTabLayout extends HorizontalScrollView implements ViewPager
             float textWidth = mTextPaint.measureText(tv_tab_title.getText().toString());
             float textHeight = mTextPaint.descent() - mTextPaint.ascent();
             MarginLayoutParams lp = (MarginLayoutParams) tipView.getLayoutParams();
-            lp.leftMargin = mTabWidth >= 0 ? (int) (mTabWidth / 2 + textWidth / 2 + dp2px(leftPadding)) : (int) (mTabPadding + textWidth + dp2px(leftPadding));
+            //lp.leftMargin = mTabWidth >= 0 ? (int) (mTabWidth / 2 + textWidth / 2 + dp2px(leftPadding)) : (int) (mTabPadding + textWidth + dp2px(leftPadding));
             lp.topMargin = mHeight > 0 ? (int) (mHeight - textHeight) / 2 - dp2px(bottomPadding) : 0;
             tipView.setLayoutParams(lp);
         }
@@ -897,7 +896,7 @@ public class GradientTabLayout extends HorizontalScrollView implements ViewPager
             position = mTabCount - 1;
         }
         View tabView = mTabsContainer.getChildAt(position);
-        MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
+        MsgView tipView =  tabView.findViewById(R.id.rtv_msg_tip);
         return tipView;
     }
 

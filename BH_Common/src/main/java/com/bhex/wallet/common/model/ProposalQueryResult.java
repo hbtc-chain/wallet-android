@@ -19,7 +19,7 @@ public class ProposalQueryResult {
     private int page;
     private int page_size;
     private int total;
-    private List<ProposalInfo> proposals;
+    public List<ProposalInfo> items;
 
     public int getPage() {
         return page;
@@ -46,10 +46,12 @@ public class ProposalQueryResult {
     }
 
     public List<ProposalInfo> getProposals() {
-        return proposals;
+        return items;
     }
 
     public void setProposals(List<ProposalInfo> proposals) {
-        this.proposals = proposals;
+        this.items = proposals;
     }
+
+
 }

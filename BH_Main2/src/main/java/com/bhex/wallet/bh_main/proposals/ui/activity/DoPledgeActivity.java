@@ -110,6 +110,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
 
 
     private void initUI() {
+        refreshLayout.setEnableLoadMore(false);
         ed_pledge_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_real_amount.btn_right_text.setText(token.toUpperCase());
         ed_fee.btn_right_text.setText(token.toUpperCase());

@@ -407,10 +407,10 @@ public class WalletViewModel extends ViewModel {
      * @param pwd
      */
     public void importKeyStore(BaseActivity activity,String keyStore,String name, String pwd){
-        BHBaseObserver observer = new BHBaseObserver<BHWallet>() {
+        BHBaseObserver observer = new BHBaseObserver<String>() {
             @Override
-            protected void onSuccess(BHWallet bhWallet) {
-                LoadDataModel ldm = new LoadDataModel(bhWallet);
+            protected void onSuccess(String status) {
+                LoadDataModel ldm = new LoadDataModel(status);
                 mutableLiveData.postValue(ldm);
             }
 
@@ -428,7 +428,7 @@ public class WalletViewModel extends ViewModel {
             //判断地址是否存在
             String bh_address = BHWalletUtils.keyStoreToAddress(keyStore,pwd);
             if(BHWalletHelper.isExistBHWallet(bh_address)){
-                emitter.onNext(new BHWallet());
+                emitter.onNext("1");
             }else if(!TextUtils.isEmpty(bh_address)){
                 BHWallet bhWallet = BHWalletUtils.importKeyStore(keyStore,name,pwd);
                 //当前
@@ -449,9 +449,43 @@ public class WalletViewModel extends ViewModel {
                     BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
                     BHUserManager.getInstance().setAllWallet(allBhWallet);
                 }
-                emitter.onNext(bhWallet);
+                emitter.onNext("0");
             }
 
+        }).compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+
+    //验证Keystore
+    public void verifyKeystore(BaseActivity activity,String keyStore,String pwd){
+        BHBaseObserver observer = new BHBaseObserver<String>() {
+            @Override
+            protected void onSuccess(String result) {
+                LoadDataModel ldm = new LoadDataModel(result);
+                mutableLiveData.postValue(ldm);
+                LogUtils.d("WalletModel===>","verifyKeystore==onSuccess");
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel ldm = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(ldm);
+                LogUtils.d("WalletModel===>","verifyKeystore==onFailure"+code);
+
+            }
+
+
+        };
+
+        Observable.create(emitter -> {
+            String bh_address = BHWalletUtils.keyStoreToAddress(keyStore,pwd);
+            if(BHWalletHelper.isExistBHWallet(bh_address)){
+                emitter.onNext("1");
+            }else{
+                emitter.onNext("0");
+            }
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);

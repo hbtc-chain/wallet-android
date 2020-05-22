@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.widget.CheckedTextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,6 +18,7 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.lib.uikit.widget.toast.BHToast;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
@@ -28,7 +30,13 @@ import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.balance.viewmodel.CoinViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHPage;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
+import org.bitcoinj.core.Coin;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -44,7 +52,7 @@ import butterknife.BindView;
  * 币种搜索
  */
 @Route(path = ARouterConfig.Balance_Search)
-public class CoinSearchActivity extends BaseActivity {
+public class CoinSearchActivity extends BaseActivity implements OnRefreshListener {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -52,6 +60,9 @@ public class CoinSearchActivity extends BaseActivity {
     AppCompatEditText ed_search_content;
     @BindView(R2.id.recycler_coin)
     RecyclerView recycler_coin;
+    @BindView(R2.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+
 
     @Autowired
     public List<BHBalance> balanceList;
@@ -65,6 +76,8 @@ public class CoinSearchActivity extends BaseActivity {
     private Map<String, BHBalance> balanceMap = new HashMap<>();
 
     private List<BHTokenItem> originList;
+
+    private BHPage<BHTokenItem> mPage;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_coin_search;
@@ -97,27 +110,35 @@ public class CoinSearchActivity extends BaseActivity {
 
         mCoinViewModel = ViewModelProviders.of(this).get(CoinViewModel.class);
 
-        mCoinViewModel.coinLiveData.observe(this,listLoadDataModel -> {
-            if(listLoadDataModel.loadingStatus != LoadingStatus.SUCCESS){
+        mCoinViewModel.coinLiveData.observe(this,ldm -> {
+            refreshLayout.finishRefresh();
+            if(ldm.loadingStatus != LoadingStatus.SUCCESS){
                 return;
             }
-            originList = listLoadDataModel.getData();
+            mPage = (BHPage) ldm.getData();
+            originList = mPage.items;
             //更新列表
-            updateCoinList(listLoadDataModel.getData());
+            updateCoinList(mPage.items);
 
         });
-        mCoinViewModel.loadCoin(this);
 
         mCoinSearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if(view.getId()==R.id.ck_select){
                 CheckedTextView ck = (CheckedTextView) view;
                 ck.setChecked(!ck.isChecked());
+                if(ck.isChecked()){
+                    BHToast.showDefault(CoinSearchActivity.this,getResources().getString(R.string.add_balance_index)).show();
+                }
                 BHTokenItem bhCoinItem = coinList.get(position);
                 EventBus.getDefault().post(new BHCoinEvent(bhCoinItem,ck.isChecked()));
 
             }
         });
         ed_search_content.addTextChangedListener(searchTextWatcher);
+
+        refreshLayout.autoRefresh();
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setEnableLoadMore(false);
     }
 
     /**
@@ -187,4 +208,9 @@ public class CoinSearchActivity extends BaseActivity {
     };
 
 
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        mCoinViewModel.loadCoin(this);
+    }
 }

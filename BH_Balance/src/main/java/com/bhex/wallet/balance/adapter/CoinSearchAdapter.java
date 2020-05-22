@@ -42,7 +42,7 @@ public class CoinSearchAdapter extends BaseQuickAdapter<BHTokenItem, BaseViewHol
         if(coin.resId==0){
             ImageLoaderUtil.loadImageView(getContext(),coin.logo,iv_coin_ic,R.mipmap.ic_default_coin);
         }else{
-            LogUtils.d("CoinSearchAdapter==>:","logo=="+coin.logo);
+           // LogUtils.d("CoinSearchAdapter==>:","logo=="+coin.logo);
             iv_coin_ic.setImageDrawable(getContext().getResources().getDrawable(coin.resId));
         }
     }

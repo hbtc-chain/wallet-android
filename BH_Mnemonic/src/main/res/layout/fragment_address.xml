@@ -43,11 +43,22 @@
         android:overScrollMode="never"
         >
 
-
-
     </androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        android:text="@string/cancel"
+        android:textSize="17sp"
+        android:textColor="@color/blue_bg"
+        android:gravity="center"
+        />
+    <!--<com.google.android.material.button.MaterialButton
         android:id="@+id/btn_cancel"
         android:layout_width="0dp"
         android:layout_height="48dp"
@@ -76,6 +87,6 @@
         app:backgroundTint="@color/global_button_bg_color"
         app:cornerRadius="@dimen/main_radius_conner"
         style="@style/main_material_btn"
-        android:text="确定"/>
+        android:text="@string/sure"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

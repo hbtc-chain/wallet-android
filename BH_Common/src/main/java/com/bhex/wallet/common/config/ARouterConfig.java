@@ -29,6 +29,8 @@ public class ARouterConfig {
 
     //消息中心
     public static final String MY_Message = "/my/message";
+    //识别设置
+    public static final String MY_Recognition = "/my/Recognition";
 
 
     /**

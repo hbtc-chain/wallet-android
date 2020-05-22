@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activity.ImportKeyStoreActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.ImportKeystoreActivity">
 
     <include
         layout="@layout/layout_toolbar"
@@ -15,7 +16,24 @@
         android:id="@+id/tv_tip_index_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="请复制或粘贴KeyStore文件内容至输入框，"
+        android:text="·复制粘贴 Bluehelix 钱包 Keystore 文件内容"
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="3dp"
+        android:lineSpacingExtra="5dp"
+        style="@style/main_text_tips_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginStart="@dimen/main_padding_left"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tip_index_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="·粘贴至下方“Keystore”输入框"
         android:drawablePadding="5dp"
         android:layout_marginLeft="3dp"
         android:lineSpacingExtra="5dp"
@@ -31,7 +49,7 @@
     <LinearLayout
         android:id="@+id/layout_index_1"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:orientation="vertical"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +65,7 @@
             android:layout_height="match_parent"
             android:singleLine="false"
             android:background="@null"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:gravity="top"
             android:hint="请输入KeyStroe"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +73,10 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_tip_index_1"
             android:textColorHint="@color/global_input_hint_color"
             android:textColor="@color/global_main_text_color"
-            android:padding="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:inputType="text"
             android:textCursorDrawable="@null"
             tools:text="3323r2f2332def"
@@ -67,11 +88,11 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginTop="24dp"
         android:textColor="@color/global_secondary_text_color"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/password"
         />
 
@@ -82,7 +103,7 @@
         app:textType="password"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_right"
-        app:hint="@string/input_origin_password"/>
+        app:hint="@string/please_input_password"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btn_next"
@@ -95,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_index_1"
         style="@style/main_btn_style"
         android:layout_marginTop="32dp"
-        android:text="@string/sure"
+        android:text="@string/next"
         android:enabled="true"
         />
 </LinearLayout>

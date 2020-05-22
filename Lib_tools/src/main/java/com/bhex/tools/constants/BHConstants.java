@@ -66,5 +66,11 @@ public class BHConstants {
     public static final String VETO_OPTION_ABSTAIN = "Abstain";
     public static final String VETO_OPTION_NOWITHVETO = "NoWithVeto";
     public static final String TRANSCTION_MODE = "sync";
+    public static final String EMAIL = "Hbcwallet@hbtc.com";
+
     public static String TextProposalType="hbtcchain/gov/TextProposal";
+
+    //指纹识别
+    public static final String FINGER_PWD_KEY = "fingerpwdkey";
+
 }

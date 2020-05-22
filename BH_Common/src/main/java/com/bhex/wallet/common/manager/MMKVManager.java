@@ -45,4 +45,6 @@ public class MMKVManager {
     public void setSelectNightMode(int model){
         mmkv.encode(BHConstants.THEME_MODEL, model);
     }
+
+
 }

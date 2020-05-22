@@ -120,6 +120,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
 
 
     private void initUI() {
+        refreshLayout.setEnableLoadMore(false);
         ed_fee.btn_right_text.setText(token.toUpperCase());
         ed_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         tv_available_amount.setText(getString(R.string.available_format,getString(R.string.string_placeholder) + token.toUpperCase()));

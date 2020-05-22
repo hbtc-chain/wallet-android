@@ -4,21 +4,26 @@ package com.bhex.wallet.bh_main.my.ui.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
+import com.bhex.lib.uikit.widget.editor.FormatTextWatcher;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
+import com.bhex.lib.uikit.widget.toast.BHToast;
 import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
@@ -37,7 +42,6 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTokenRlease;
 import com.bhex.wallet.common.tx.BHTransactionManager;
@@ -47,7 +51,6 @@ import com.google.android.material.button.MaterialButton;
 import java.math.BigInteger;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -82,7 +85,6 @@ public class TokenReleaseActivity extends BaseActivity {
 
     TransactionViewModel transactionViewModel;
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_token_release;
@@ -90,6 +92,7 @@ public class TokenReleaseActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
         tv_center_title.setText(getString(R.string.token_release));
         mAccountInfo = BHUserManager.getInstance().getAccountInfo();
         bhtBalance = MyHelper.getBthBalanceWithAccount(mAccountInfo);
@@ -99,7 +102,9 @@ public class TokenReleaseActivity extends BaseActivity {
         //设置数值型-输入框
         inp_token_release_count.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         inp_token_decimals.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
+        inp_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        InputFilter[] filters = {new InputFilter.LengthFilter(2)};
+        inp_token_decimals.getEditText().setFilters(filters);
         //初始化可用手续费
         String available_bht_amount_str =  MyHelper.getAmountForUser(this,bhtBalance.amount,"0",bhtBalance.symbol);
 
@@ -112,6 +117,8 @@ public class TokenReleaseActivity extends BaseActivity {
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)inp_to_address.getEditText().getLayoutParams();
         lp.addRule(RelativeLayout.LEFT_OF, com.bhex.wallet.balance.R.id.iv_right);
         inp_to_address.getEditText().setLayoutParams(lp);
+
+        inp_token_release_count.getEditText().addTextChangedListener(new FormatTextWatcher(inp_token_release_count.getEditText()));
 
     }
 
@@ -148,7 +155,7 @@ public class TokenReleaseActivity extends BaseActivity {
         String formAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
         String toAddress = inp_to_address.getInputString();
         String tokenName  = inp_token_name.getInputString();
-        String tokenCount = inp_token_release_count.getInputString();
+        String tokenCount = inp_token_release_count.getInputString().replaceAll(" ","");
         String tokenDecimals = inp_token_decimals.getInputString();
 
         tokenCount = NumberUtil.mulExt(tokenCount,String.valueOf(Math.pow(10,18))).toString(10);
@@ -162,7 +169,7 @@ public class TokenReleaseActivity extends BaseActivity {
 
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,gasPrice, suquece);
-            //transactionViewModel.sendTransaction(this,bhSendTranscation);
+            transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });
     }
@@ -227,11 +234,13 @@ public class TokenReleaseActivity extends BaseActivity {
 
     private void updateTransferStatus(LoadDataModel ldm) {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
-            ToastUtils.showToast("代币申请成功");
+            BHToast.showDefault(this,getResources().getString(R.string.apply_success));
             finish();
         }else{
-            ToastUtils.showToast("代币申请失败");
+            BHToast.showDefault(this,getResources().getString(R.string.apply_fail));
         }
     }
+
+
 
 }

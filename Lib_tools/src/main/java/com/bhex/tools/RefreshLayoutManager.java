@@ -3,12 +3,14 @@ package com.bhex.tools;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 
 /**
  * Created by BHEX.
@@ -30,6 +32,14 @@ public class RefreshLayoutManager {
                         R.color.refresh_cricle_color);
 
             }
+
+
+        });
+
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> {
+            return new BallPulseFooter(context)
+                    .setNormalColor(ContextCompat.getColor(context,R.color.blue_bg))
+                    .setAnimatingColor(ContextCompat.getColor(context,R.color.blue_bg));
         });
     }
 }

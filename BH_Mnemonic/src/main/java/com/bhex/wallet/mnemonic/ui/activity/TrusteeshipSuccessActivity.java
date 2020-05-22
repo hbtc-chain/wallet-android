@@ -7,7 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -63,7 +63,7 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
                     BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
                 EventBus.getDefault().post(new AccountEvent());
             }
-            NavitateUtil.startMainActivity(this,
+            NavigateUtil.startMainActivity(this,
                     new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
             ActivityCache.getInstance().finishActivity();
         }
@@ -72,7 +72,7 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
 
     @Override
     public void clickBtn() {
-        NavitateUtil.startActivity(this, BackupMnemonicActivity.class);
+        NavigateUtil.startActivity(this, BackupMnemonicActivity.class);
         ActivityCache.getInstance().finishActivity();
     }
 
@@ -85,7 +85,7 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
                 BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
         }else{
-            NavitateUtil.startMainActivity(this,
+            NavigateUtil.startMainActivity(this,
                     new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
         }
 

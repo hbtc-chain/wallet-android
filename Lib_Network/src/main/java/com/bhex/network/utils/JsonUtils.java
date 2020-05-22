@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +84,11 @@ public class JsonUtils {
     public static <T> T fromJson(String json, Class<T> classOfT) {
         initG();
         return mG.fromJson(json, classOfT);
+    }
+
+    public static <T> T fromJson(String json, Type type) {
+        initG();
+        return mG.fromJson(json, type);
     }
 
     public static <T> List<T> getListFromJson(String json, String memberName, Class<T> classOfT) {

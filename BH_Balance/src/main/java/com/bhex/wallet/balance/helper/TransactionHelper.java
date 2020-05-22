@@ -40,8 +40,16 @@ public class TransactionHelper {
         TransactionOrder.ActivitiesBean bean = txo.getActivities().get(0);
         StringBuffer type_label = new StringBuffer(TRANSCATION_BUSI_TYPE.getValue(bean.getType()));
 
+        if(bean.getType().equals(TRANSCATION_BUSI_TYPE.转账.getType())){
+            TransactionOrder.ActivitiesBean.ValueBean transferBean = JsonUtils.fromJson(bean.value.toString(),
+                    TransactionOrder.ActivitiesBean.ValueBean.class);
+            String address = BHUserManager.getInstance().getCurrentBhWallet().address;
+            if(transferBean.getTo_address().equals(address)){
+                type_label.delete(0,type_label.length()).append(context.getResources().getString(R.string.make_collection));
+            }
+        }
         if(txo.getActivities().size()>1){
-            String type = bean.getType();
+            //String type = bean.getType();
             for(TransactionOrder.ActivitiesBean bean1:txo.getActivities()){
                 String type_str = TRANSCATION_BUSI_TYPE.getValue(bean1.getType());
                 if(!type_label.toString().contains(type_str)){

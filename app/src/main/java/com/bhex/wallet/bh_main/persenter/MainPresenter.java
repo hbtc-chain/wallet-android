@@ -100,7 +100,8 @@ public class MainPresenter extends BasePresenter {
             fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
         }else{
             long lastTime = MMKVManager.getInstance().mmkv().decodeLong(BHPhoneInfo.appVersion, 0);
-            long diff = DateUtil.getDaysBetweenDate(System.currentTimeMillis(),lastTime);
+            long diff = DateUtil.getDaysBetweenDate(lastTime,System.currentTimeMillis());
+            //LogUtils.d("MainPresenter==>","==="+diff);
             if(diff>1){
                 UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo,dialogOnClickListener);
                 fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());

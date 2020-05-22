@@ -86,7 +86,8 @@
     <string name="copyed">已复制</string>
     <string name="wallet_password">钱包密码</string>
     <string name="hint_import_way">请选择导入方式</string>
-    <string name="import_keystore">导入KeyStore</string>
+    <string name="import_keystore">导入Keystore</string>
+    <string name="string_import">导入</string>
     <string name="bh_register_agreement">我已阅读并同意《Bluehelix服务协议》</string>
     <string name="bh_register_agreement_sub">Bluehelix服务协议</string>
     <string name="copy_address">复制地址</string>
@@ -144,7 +145,7 @@
     <string name="crosslink_address">跨链地址生成</string>
     <string name="cross_deposit">跨链充值</string>
     <string name="cross_withdraw">跨链提币</string>
-    <string name="crosslink_deposit_tip_2">·请提醒转出方，务必使用OMNI钱包提币</string>
+    <string name="crosslink_deposit_tip_2">·请提醒转出方，务必使用原生公链钱包提币</string>
     <string name="linkinner_deposit_tip_1">·您正在进行托管单元链内收款(充币)</string>
     <string name="linkinner_deposit_tip_2">·请提醒转出方，务必使用非跨链的提币通道</string>
 
@@ -340,6 +341,38 @@
     <string name="copy_keystore">复制Keystore</string>
     <string name="show_qr">显示二维码</string>
     <string name="privatekey">私钥</string>
+    <string name="apply_success">申请成功</string>
+    <string name="apply_fail">申请失败</string>
+    <string name="charter1_20">1-20字符</string>
+    <string name="logout">退出</string>
+
+    <string name="string_fingerprint_identify">指纹识别</string>
+    <string name="string_fingerprint_open_success">指纹已开启</string>
+    <string name="fingerprint_identify_hint">请进行指纹识别</string>
+    <string name="fingerprint_hint">点击进行指纹解锁</string>
+    <string name="string_retry">重试一次</string>
+    <string name="fingerprint_success">指纹识别成功</string>
+    <string name="fingerprint_login">正在登录</string>
+    <string name="fingerprint_failed">指纹识别失败</string>
+    <string name="string_fingerprint_errors_retry">多次指纹密码验证错误,请稍后再试</string>
+    <string name="string_no_fingerprint_permission">没有指纹识别权限</string>
+    <string name="fingerprint_no_hardware">您的设备不支持指纹</string>
+    <string name="fingerprint_no_lock_screen_pwd">没有开启锁屏密码</string>
+    <string name="fingerprint_create_finger_first_hint">请先到设备设置中心创建一个指纹，才可以开启指纹验证</string>
+    <string name="upgrade_at_once">立即升级</string>
+    <string name="later_again">稍后再说</string>
+    <string name="verify_pass">验证通过</string>
+    <string name="password_verify">密码验证</string>
+    <string name="system_message">系统消息</string>
+    <string name="transfer_notification">转账通知</string>
+    <string name="linkinner">链内</string>
+    <string name="no_cross_link">非跨链</string>
+    <string name="crosslink">跨链</string>
+    <string name="nativelink">原生公链</string>
+    <string name="please_input_token_name">请输入币种名称</string>
+    <string name="min_decimal_more_18">最小精度不能超过18位</string>
+    <string name="add_balance_index">添加资产至首页</string>
+
 
     <string-array name="my_list_item">
         <item>备份助记词</item>
@@ -355,6 +388,7 @@
         <item>语言</item>
         <item>计价货币</item>
         <item>夜间模式</item>
+        <item>指纹识别</item>
     </string-array>
 
     <string-array name="Currency_list">
@@ -363,5 +397,16 @@
         <item>韩元</item>
         <item>日元</item>
         <item>越南盾</item>
+    </string-array>
+
+    <string-array name="Recongition_list">
+        <item>指纹识别</item>
+    </string-array>
+
+    <string-array name="Message_type">
+        <item>转账</item>
+        <item>收款</item>
+        <item>充值</item>
+        <item>提币</item>
     </string-array>
 </resources>

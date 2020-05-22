@@ -17,6 +17,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
@@ -117,9 +118,9 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             }
         });
 
-        /*mTrustManagerAdapter.setOnItemClickListener((adapter, view, position) -> {
+        mTrustManagerAdapter.setOnItemClickListener((adapter, view, position) -> {
 
-        });*/
+        });
     }
 
     /**
@@ -155,7 +156,6 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         walletViewModel.deleteWallet(this,bhWalletItem.id);
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
             if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
-
             }
         });
     }

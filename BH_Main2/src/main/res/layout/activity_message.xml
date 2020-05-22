@@ -1,11 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".my.ui.activity.MessageActivity">
 
-    <include layout="@layout/layout_toolbar"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize"
+        xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/message_center"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/ic_message_clear"
+            tools:text="@string/wallet_create_trusteeship" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <com.bhex.lib.uikit.widget.GradientTabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:paddingStart="@dimen/dp_8"
+            app:indicator_end_color="@color/indicator_end_color"
+            app:indicator_start_color="@color/indicator_start_color"
+            app:tl_iconVisible="false"
+            app:tl_indicator_corner_radius="0dp"
+            app:tl_indicator_gravity="BOTTOM"
+            app:tl_indicator_height="@dimen/tab_indicator_height"
+            app:tl_indicator_width="@dimen/dp_16"
+            app:tl_tab_space_equal="true"
+            app:tl_textSelectColor="@color/global_main_text_color"
+            app:tl_textUnselectColor="@color/global_label_text_color"
+            app:tl_textsize="@dimen/sp_15" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

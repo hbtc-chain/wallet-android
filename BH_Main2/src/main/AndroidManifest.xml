@@ -7,19 +7,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".my.ui.activity.MessageActivity"
+        <activity android:name=".my.ui.activity.RecognitionActivity"></activity>
+        <activity
+            android:name=".my.ui.activity.MessageActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".my.ui.activity.TokenReleaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.ui.activity.TokenReleaseActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden" />
         <activity
             android:name=".my.ui.activity.RateSettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".my.ui.activity.UpdatePasswordActivity"
             android:launchMode="singleTop"
@@ -29,47 +30,38 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".my.ui.activity.LanguageSettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".MainIndexActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".validator.ui.activity.ValidatorDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".validator.ui.activity.DoEntrustActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".proposals.ui.activity.ProposalDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".proposals.ui.activity.DoPledgeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".proposals.ui.activity.DoVetoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".proposals.ui.activity.CreateProposalActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

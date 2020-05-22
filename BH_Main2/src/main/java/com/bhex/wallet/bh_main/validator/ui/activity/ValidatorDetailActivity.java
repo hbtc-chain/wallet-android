@@ -93,6 +93,7 @@ public class ValidatorDetailActivity extends BaseActivity {
 
 
     private void initValidatorView() {
+        swipeRefresh.setEnableLoadMore(false);
         if (mValidatorInfo == null)
             return;
         if (mValidatorInfo.getDescription() != null) {
@@ -122,6 +123,7 @@ public class ValidatorDetailActivity extends BaseActivity {
             tv_max_change_rate.setText(TextUtils.isEmpty(mValidatorInfo.getCommission().getMax_change_rate()) ? "" : mValidatorInfo.getCommission().getMax_change_rate() + "%");
         }
         tv_address_value.setText(addressReplace(mValidatorInfo.getOperator_address()));
+
     }
 
     private String addressReplace(String originAddress) {

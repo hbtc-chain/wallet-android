@@ -229,6 +229,8 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                 ColorUtil.getColor(this,R.color.global_divider_color));
 
         recycler_order.addItemDecoration(ItemDecoration);
+
+        refreshLayout.setEnableLoadMore(false);
     }
 
     @Override

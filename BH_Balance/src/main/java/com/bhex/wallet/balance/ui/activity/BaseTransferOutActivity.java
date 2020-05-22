@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.widget.editor.FormatTextWatcher;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
@@ -86,6 +87,9 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
 
     protected void initTokenView() {
         ed_transfer_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        ed_transfer_amount.getEditText().addTextChangedListener(new FormatTextWatcher(ed_transfer_amount.getEditText()));
+
         et_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et_withdraw_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
 

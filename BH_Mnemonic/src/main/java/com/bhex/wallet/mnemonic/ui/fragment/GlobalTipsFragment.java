@@ -96,7 +96,7 @@ public class GlobalTipsFragment extends BaseDialogFragment {
 
         mRootView.findViewById(R.id.btn_confirm).setOnClickListener(v -> {
             /*if(check_agreement.isChecked()){
-                //NavitateUtil.startActivity(getActivity(), TrusteeshipActivity.class);
+                //NavigateUtil.startActivity(getActivity(), TrusteeshipActivity.class);
 
 
             }*/

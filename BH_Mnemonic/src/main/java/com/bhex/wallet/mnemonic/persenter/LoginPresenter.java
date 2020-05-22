@@ -1,16 +1,13 @@
 package com.bhex.wallet.mnemonic.persenter;
 
-import android.text.TextUtils;
-
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.MD5;
-import com.bhex.tools.utils.NavitateUtil;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.mnemonic.R;
@@ -51,7 +48,7 @@ public class LoginPresenter extends BasePresenter {
     public void verifyPassword(String inputPwd, BHWallet bhWallet){
         String pwdMd5 = MD5.md5(inputPwd);
         if(pwdMd5.equals(bhWallet.getPassword())){
-            NavitateUtil.startMainActivity(getActivity());
+            NavigateUtil.startMainActivity(getActivity());
             getActivity().finish();
         }else{
             ToastUtils.showToast(getActivity().getString(R.string.error_password));
