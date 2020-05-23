@@ -166,7 +166,7 @@
     <string name="max_rate_limit">最大佣金限制</string>
     <string name="website">网站</string>
     <string name="detail">详情</string>
-    <string name="do_entrust_tip">It will take 21 days to unlock your tokens after they are staked. There is a risk that some tokens will be lost depending on the behaviour of the validator you choose.</string>
+    <string name="do_entrust_tip">质押解锁周期为21天，请谨慎选择质押节点。</string>
     <string name="entrust_to">委托至</string>
     <string name="hint_input_validator">请输入验证人</string>
     <string name="hint_enter_entrust">请输入委托数量</string>
