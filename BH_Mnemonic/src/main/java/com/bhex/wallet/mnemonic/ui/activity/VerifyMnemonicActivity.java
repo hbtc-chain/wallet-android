@@ -167,5 +167,6 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
         //NavigateUtil.startMainActivity(VerifyMnemonicActivity.this);
         //finish();
         ActivityCache.getInstance().finishActivity();
+        BHUserManager.getInstance().clear();
     }
 }

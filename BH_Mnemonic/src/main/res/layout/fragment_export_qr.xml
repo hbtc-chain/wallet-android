@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_marginTop="24dp"
     tools:context=".ui.fragment.ExportQRFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/global_main_text_color"
         android:textSize="17sp"
-        android:text="仅供直接扫描"
+        android:text="@string/backup_qr_tip_1"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginTop="24dp"
         />
@@ -26,7 +25,7 @@
         android:textSize="15sp"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginEnd="@dimen/page_margin_start"
-        android:text="·二维码禁止保存、截图、拍照"
+        android:text="@string/backup_qr_tip_2"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -37,7 +36,7 @@
         android:textSize="15sp"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginEnd="@dimen/page_margin_start"
-        android:text="·仅供用户在安全环境下直接扫描导入钱包"
+        android:text="@string/backup_qr_tip_3"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -45,7 +44,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/global_main_text_color"
         android:textSize="17sp"
-        android:text="在安全环境下使用"
+        android:text="@string/backup_qr_tip_4"
         android:layout_marginTop="12dp"
         android:layout_marginStart="@dimen/page_margin_start"
         />
@@ -58,7 +57,7 @@
         android:textSize="15sp"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginEnd="@dimen/page_margin_start"
-        android:text="·请务必确认在四周无人、无摄像头的环境中使用"
+        android:text="@string/backup_qr_tip_5"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -69,12 +68,12 @@
         android:textSize="15sp"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginEnd="@dimen/page_margin_start"
-        android:text="·二维码一旦被他人获取将造成不可挽回的资产损失"
+        android:text="@string/backup_qr_tip_6"
         />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="264dp"
-        android:layout_height="264dp"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
         android:layout_gravity="center"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/global_input_background"

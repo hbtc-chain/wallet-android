@@ -26,10 +26,13 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.utils.BHKey;
 import com.bhex.wallet.common.utils.BHWalletUtils;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
+
+import org.web3j.crypto.Credentials;
 
 import java.util.List;
 
@@ -93,9 +96,9 @@ public class WalletViewModel extends ViewModel {
 
                 //设置默认钱包
                 //把所有设置非默认
-                int res = bhWalletDao.updateNoDefault(0);
+                int res = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
                 //把bh_id设置默认
-                res = bhWalletDao.update(id,1);
+                res = bhWalletDao.update(id,BH_BUSI_TYPE.默认托管单元.getIntValue());
 
                 BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 emitter.onNext(bhWallet);
@@ -148,7 +151,7 @@ public class WalletViewModel extends ViewModel {
             @Override
             protected void onSuccess(String str) {
                 LoadDataModel loadDataModel = new LoadDataModel("");
-                bhWallet.isDefault = 1;
+                bhWallet.isDefault = BH_BUSI_TYPE.默认托管单元.getIntValue();
                 BHUserManager.getInstance().setCurrentBhWallet(bhWallet);
                 mutableLiveData.postValue(loadDataModel);
             }
@@ -164,7 +167,7 @@ public class WalletViewModel extends ViewModel {
 
         Observable.create((ObservableOnSubscribe<String>)emitter -> {
             //把所有设置非默认
-            int res = bhWalletDao.updateNoDefault(0);
+            int res = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
             //把bh_id设置默认
             res = bhWalletDao.update(bh_id,isDefault);
 
@@ -304,9 +307,9 @@ public class WalletViewModel extends ViewModel {
 
                     //设置默认钱包
                     //把所有设置非默认
-                    int res = bhWalletDao.updateNoDefault(0);
+                    int res = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
                     //把bh_id设置默认
-                    res = bhWalletDao.update(id,1);
+                    res = bhWalletDao.update(id,BH_BUSI_TYPE.默认托管单元.getIntValue());
 
                     //更新当前默认钱包
                     List<BHWallet> allBhWallet = bhWalletDao.loadAll();
@@ -374,9 +377,9 @@ public class WalletViewModel extends ViewModel {
 
                     //设置默认钱包
                     //把所有设置非默认
-                    resId = bhWalletDao.updateNoDefault(0);
+                    resId = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
                     //把bh_id设置默认
-                    resId = bhWalletDao.update(bhWallet.id,1);
+                    resId = bhWalletDao.update(bhWallet.id,BH_BUSI_TYPE.默认托管单元.getIntValue());
 
                     //更新当前默认钱包
                     List<BHWallet> allBhWallet = bhWalletDao.loadAll();
@@ -407,7 +410,7 @@ public class WalletViewModel extends ViewModel {
      * @param pwd
      */
     public void importKeyStore(BaseActivity activity,String keyStore,String name, String pwd){
-        BHBaseObserver observer = new BHBaseObserver<String>() {
+        BHProgressObserver observer = new BHProgressObserver<String>(activity) {
             @Override
             protected void onSuccess(String status) {
                 LoadDataModel ldm = new LoadDataModel(status);
@@ -426,7 +429,7 @@ public class WalletViewModel extends ViewModel {
 
         Observable.create(emitter -> {
             //判断地址是否存在
-            String bh_address = BHWalletUtils.keyStoreToAddress(keyStore,pwd);
+            /*String bh_address = BHWalletUtils.keyStoreToAddress(keyStore,pwd);
             if(BHWalletHelper.isExistBHWallet(bh_address)){
                 emitter.onNext("1");
             }else if(!TextUtils.isEmpty(bh_address)){
@@ -451,6 +454,31 @@ public class WalletViewModel extends ViewModel {
                 }
                 emitter.onNext("0");
             }
+            emitter.onComplete();*/
+            Credentials credentials = BHUserManager.getInstance().getTmpCredentials();
+            BHWallet bhWallet = BHWalletUtils.importKeyStoreExt(credentials,name,pwd);
+
+            //当前
+            int maxId = bhWalletDao.loadMaxId();
+            bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
+            bhWallet.id = maxId+1;
+            int resId = bhWalletDao.insert(bhWallet).intValue();
+
+            //设置默认钱包
+            //把所有设置非默认
+            int res = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
+            //把bh_id设置默认
+            res = bhWalletDao.update(bhWallet.id,BH_BUSI_TYPE.默认托管单元.getIntValue());
+
+            //更新当前默认钱包
+            List<BHWallet> allBhWallet = bhWalletDao.loadAll();
+            if(allBhWallet!=null && allBhWallet.size()>0){
+                BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
+                BHUserManager.getInstance().setAllWallet(allBhWallet);
+            }
+            emitter.onNext(BH_BUSI_TYPE.托管单元不存在.value);
+
+            emitter.onComplete();
 
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
@@ -459,12 +487,12 @@ public class WalletViewModel extends ViewModel {
 
     //验证Keystore
     public void verifyKeystore(BaseActivity activity,String keyStore,String pwd){
-        BHBaseObserver observer = new BHBaseObserver<String>() {
+        BHProgressObserver observer = new BHProgressObserver<String>(activity) {
             @Override
             protected void onSuccess(String result) {
                 LoadDataModel ldm = new LoadDataModel(result);
                 mutableLiveData.postValue(ldm);
-                LogUtils.d("WalletModel===>","verifyKeystore==onSuccess");
+                //LogUtils.d("WalletModel===>","verifyKeystore==onSuccess");
             }
 
             @Override
@@ -472,20 +500,23 @@ public class WalletViewModel extends ViewModel {
                 super.onFailure(code, errorMsg);
                 LoadDataModel ldm = new LoadDataModel(code,errorMsg);
                 mutableLiveData.postValue(ldm);
-                LogUtils.d("WalletModel===>","verifyKeystore==onFailure"+code);
-
+                //LogUtils.d("WalletModel===>","verifyKeystore==onFailure"+code);
             }
-
-
         };
 
         Observable.create(emitter -> {
-            String bh_address = BHWalletUtils.keyStoreToAddress(keyStore,pwd);
-            if(BHWalletHelper.isExistBHWallet(bh_address)){
-                emitter.onNext("1");
-            }else{
-                emitter.onNext("0");
+            String bh_address = "" ;
+            Credentials credentials = BHWalletUtils.verifyKeystore(keyStore,pwd);
+            if(credentials!=null){
+                bh_address = BHKey.getBhexUserDpAddress(credentials.getEcKeyPair().getPublicKey());
             }
+            if(BHWalletHelper.isExistBHWallet(bh_address)){
+                emitter.onNext(BH_BUSI_TYPE.托管单元已存在.value);
+            }else{
+                emitter.onNext(BH_BUSI_TYPE.托管单元不存在.value);
+                BHUserManager.getInstance().setTmpCredentials(credentials);
+            }
+            emitter.onComplete();
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);

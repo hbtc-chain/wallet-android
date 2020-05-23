@@ -13,6 +13,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.kenai.jffi.Main;
 
+import org.web3j.crypto.Credentials;
 import org.web3j.crypto.MnemonicUtils;
 
 import java.io.InputStream;
@@ -34,6 +35,8 @@ public class BHUserManager {
 
     //当前使用的钱包
     private BHWallet mCurrentBhWallet;
+
+    private Credentials tmpCredentials;
 
     //资产账户信息
     private AccountInfo mAccountInfo;
@@ -176,5 +179,16 @@ public class BHUserManager {
         return result;
     }
 
+    public void setTmpCredentials(Credentials tmpCredentials) {
+        this.tmpCredentials = tmpCredentials;
+    }
 
+    public Credentials getTmpCredentials() {
+        return tmpCredentials;
+    }
+
+    public void clear(){
+        tmpCredentials = null;
+        tmpBhWallet = new BHWallet();
+    }
 }

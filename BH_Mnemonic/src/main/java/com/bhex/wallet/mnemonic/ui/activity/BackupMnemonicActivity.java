@@ -15,6 +15,7 @@ import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.MnemonicAdapter;
@@ -81,6 +82,7 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
         NavigateUtil.startMainActivity(this,
                 new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
         ActivityCache.getInstance().finishActivity();
+        BHUserManager.getInstance().clear();
 
     }
 

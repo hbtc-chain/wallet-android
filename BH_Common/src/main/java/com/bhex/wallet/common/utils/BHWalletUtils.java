@@ -12,6 +12,8 @@ import com.bhex.tools.utils.MD5;
 import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.bitcoinj.core.Bech32;
@@ -26,6 +28,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Wallet;
 import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.utils.Numeric;
 
@@ -54,6 +57,12 @@ public class BHWalletUtils {
     private static final SecureRandom secureRandom = SecureRandomUtils.secureRandom();
 
     private Credentials credentials;
+
+    //private static final ObjectMapper objectMapper = new ObjectMapper();
+    /*static {
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }*/
     /**
      * 通用的以太坊基于bip44协议的助记词路径 （
      */
@@ -125,7 +134,7 @@ public class BHWalletUtils {
         try{
             Credentials credentials = null;
             WalletFile walletFile = objectMapper.readValue(keystore, WalletFile.class);
-            credentials = Credentials.create(Wallet.decrypt(pwd, walletFile));
+            credentials = Credentials.create(HLWallet.decrypt(pwd, walletFile));
             String pk = credentials.getEcKeyPair().getPrivateKey().toString(16);
             //走导入私钥的补助
             if(credentials!=null){
@@ -136,6 +145,21 @@ public class BHWalletUtils {
             return null;
         }catch (Exception e){
             e.printStackTrace();
+        }
+        return  bhWallet;
+    }
+
+    public static BHWallet importKeyStoreExt(Credentials credentials,String name,String pwd){
+        BHWallet bhWallet = null;
+        try{
+            //String pk = credentials.getEcKeyPair().getPrivateKey().toString(16);
+            //走导入私钥的补助
+            if(credentials!=null){
+                bhWallet = generateWallet(name, pwd, credentials.getEcKeyPair(),null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
         return  bhWallet;
     }
@@ -163,14 +187,33 @@ public class BHWalletUtils {
 
         WalletFile walletFile = objectMapper.readValue(keyStore, WalletFile.class);
 
-        Credentials credentials = Credentials.create(Wallet.decrypt(pwd, walletFile));
-        //String pk = credentials.getEcKeyPair().getPrivateKey().toString(16);
+        Credentials credentials = Credentials.create(HLWallet.decrypt(pwd, walletFile));
         if(credentials!=null){
             bh_address = BHKey.getBhexUserDpAddress(credentials.getEcKeyPair().getPublicKey());
         }else{
             return null;
         }
         return  bh_address;
+    }
+
+    /**
+     * 验证Keystore
+     * @param keyStore
+     * @param pwd
+     * @return
+     */
+    public static Credentials verifyKeystore(String keyStore,String pwd) throws CipherException,IOException{
+        //String bh_address = null;
+
+        WalletFile walletFile = objectMapper.readValue(keyStore, WalletFile.class);
+
+        Credentials credentials = Credentials.create(HLWallet.decrypt(pwd, walletFile));
+        if(credentials!=null){
+            //bh_address = BHKey.getBhexUserDpAddress(credentials.getEcKeyPair().getPublicKey());
+            return credentials;
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -204,6 +247,7 @@ public class BHWalletUtils {
     private static BHWallet generateWallet(String walletName, String pwd, ECKeyPair keyPair,List<String> mnemonics) {
         BHWallet bhWallet = null;
         try {
+            //WalletUtils.generateLightNewWalletFile("a12345678", file);
             WalletFile walletFile = Wallet.create(pwd, keyPair, 1024, 1);
             // 生成BH-地址
             String bh_adress = BHKey.getBhexUserDpAddress(keyPair.getPublicKey());

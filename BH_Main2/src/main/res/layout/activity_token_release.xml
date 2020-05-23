@@ -39,7 +39,7 @@
                 android:id="@+id/inp_to_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:leftHint="请输入资产地址"
+                app:leftHint="@string/please_input_asset_address"
                 tools:text="0xcEFf80D0175531662aE0084F5a153748C4d7D4cb" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -55,7 +55,7 @@
                 android:id="@+id/inp_token_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hint="请输入新发币种名称"
+                app:hint="@string/hint_token_name_rule"
                 app:textType="normal" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -71,7 +71,7 @@
                 android:id="@+id/inp_token_release_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hint="请输入代币发行量"
+                app:hint="@string/hint_token_release_count"
                 app:textType="normal" />
 
             <androidx.appcompat.widget.AppCompatTextView

@@ -33,6 +33,12 @@
             app:tl_textUnselectColor="@color/global_label_text_color"
             app:tl_textsize="@dimen/sp_16" />
 
+        <View
+            android:id="@+id/divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/global_divider_color"
+            />
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"

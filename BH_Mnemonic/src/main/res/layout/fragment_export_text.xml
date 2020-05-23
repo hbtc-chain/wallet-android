@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_marginTop="24dp"
     tools:context=".ui.fragment.ExportTextFragment">
 
 
@@ -14,9 +13,9 @@
         android:layout_height="wrap_content"
         android:textColor="@color/global_main_text_color"
         android:textSize="17sp"
-        android:text="离线保存"
-        android:layout_marginStart="@dimen/page_margin_start"
+        android:text="@string/backup_text_tip_1"
         android:layout_marginTop="24dp"
+        android:layout_marginStart="@dimen/page_margin_start"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -27,7 +26,7 @@
         android:textSize="15sp"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginEnd="@dimen/page_margin_start"
-        android:text="·切勿保存至邮箱、记事本、网盘、聊天工具等"
+        android:text="@string/backup_text_tip_2"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -35,7 +34,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/global_main_text_color"
         android:textSize="17sp"
-        android:text="请勿使用网络传输"
+        android:text="@string/backup_text_tip_3"
         android:layout_marginTop="12dp"
         android:layout_marginStart="@dimen/page_margin_start"
         />
@@ -48,7 +47,7 @@
         android:textSize="15sp"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginEnd="@dimen/page_margin_start"
-        android:text="·请勿通过网络工具传输，一旦被黑客获取将造成不可挽回的资产损失"
+        android:text="@string/backup_text_tip_4"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -59,7 +58,7 @@
         android:textSize="15sp"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginEnd="@dimen/page_margin_start"
-        android:text="·建议离线设备通过扫二维码方式传输 "
+        android:text="@string/backup_text_tip_5"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -80,7 +79,7 @@
         android:textSize="15sp"
         android:layout_marginStart="@dimen/page_margin_start"
         android:layout_marginEnd="@dimen/page_margin_start"
-        android:text="·建议使用密码管理工具管理"
+        android:text="@string/backup_text_tip_6"
         />
 
     <androidx.cardview.widget.CardView

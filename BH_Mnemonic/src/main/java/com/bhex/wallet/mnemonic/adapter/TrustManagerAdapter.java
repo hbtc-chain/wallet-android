@@ -48,12 +48,12 @@ public class TrustManagerAdapter extends BaseQuickAdapter<BHWalletItem, TrustMan
             ck.setChecked(false);
             viewHolder.getView(R.id.tv_wallet_default).setVisibility(View.INVISIBLE);
         }
-        /*ck.setOnClickListener(v -> {
+        ck.setOnClickListener(v -> {
             ck.setChecked(!ck.isChecked());
             if(mOnCheckClickListener!=null){
                 mOnCheckClickListener.checkClickListener(positoin,bhWalletItem);
             }
-        });*/
+        });
 
     }
 

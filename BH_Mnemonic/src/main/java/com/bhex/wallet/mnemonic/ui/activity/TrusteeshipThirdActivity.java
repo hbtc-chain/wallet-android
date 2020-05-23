@@ -111,11 +111,13 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                     ActivityCache.getInstance().finishActivity();
                     EventBus.getDefault().post(new AccountEvent());
                     ToastUtils.showToast(getResources().getString(R.string.import_mnemonic_success));
+                    BHUserManager.getInstance().clear();
                 }else if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.PK.getWay()){
                     NavigateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
                     EventBus.getDefault().post(new AccountEvent());
                     ToastUtils.showToast(getResources().getString(R.string.import_privatekey_success));
+                    BHUserManager.getInstance().clear();
                 }else{
                     NavigateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
                     ActivityCache.getInstance().finishActivity();

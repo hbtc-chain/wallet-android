@@ -60,11 +60,11 @@
                         android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:drawableStart="@mipmap/ic_bluehelix"
-                        android:drawablePadding="3dp"
+                        android:drawablePadding="6dp"
                         android:gravity="center"
-                        android:text="Bluehelix Wallet"
+                        android:text="@string/app_name"
                         android:textColor="@color/dark_bg_text_color"
-                        android:textSize="13sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         tools:text="Bluehelix Wallet" />
 
@@ -78,7 +78,7 @@
                     android:layout_marginStart="24dp"
                     android:text="@string/tab_balance_title"
                     android:textColor="@color/dark_bg_text_color"
-                    android:textSize="30dp" />
+                    android:textSize="30sp" />
 
 
                 <androidx.appcompat.widget.AppCompatImageView

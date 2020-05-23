@@ -90,5 +90,8 @@ dependencies {
     implementation 'io.github.novacrypto:BIP39:0.1.9'//用于生成助记词
     implementation 'org.bitcoinj:bitcoinj-core:0.15.8'
     implementation 'com.github.xuexiangjys.XUtil:xutil-core:1.1.5'
+    //
+    implementation 'com.lambdaworks:scrypt:1.4.0'
+
 
 }

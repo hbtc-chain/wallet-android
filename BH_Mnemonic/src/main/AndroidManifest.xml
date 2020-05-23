@@ -6,11 +6,16 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.FingerLoginActivity"></activity>
+        <activity android:name=".ui.activity.FingerLoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".ui.activity.ImportKeystoreNextActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden"
+            />
         <activity
             android:name=".ui.activity.ExportPrivateKeyTipActivity"
             android:launchMode="singleTop"
@@ -47,7 +52,8 @@
         <activity
             android:name=".ui.activity.TrusteeshipSecActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ui.activity.LockActivity"
             android:launchMode="singleTop"
@@ -67,7 +73,8 @@
         <activity
             android:name=".ui.activity.TrusteeshipActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ui.activity.BackupMnemonicActivity"
             android:launchMode="singleTop"

@@ -1,6 +1,7 @@
 package com.bhex.wallet.app;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.NetworkApi;
 import com.bhex.network.cache.RxCache;
@@ -11,6 +12,7 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.BuildConfig;
 import com.bhex.wallet.base.BHNetwork;
 import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.model.BHPhoneInfo;
 import com.facebook.stetho.Stetho;
@@ -54,19 +56,16 @@ public class SystemConfig  {
 
     private void syncInit(){
         arouterInit();
-        BHPhoneInfo.initPhoneInfo(BaseApplication.getInstance());
         //异常处理
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(BHApplication.getInstance());
-
         if(BuildConfig.DEBUG){
-            Stetho.initializeWithDefaults(BaseApplication.getInstance());
+            //Stetho.initializeWithDefaults(BaseApplication.getInstance());
+            Stetho.initialize(
+                    Stetho.newInitializerBuilder(BaseApplication.getInstance())
+                            .enableDumpapp(Stetho.defaultDumperPluginsProvider(BaseApplication.getInstance()))
+                            .build());
         }
-
-        Stetho.initialize(
-                Stetho.newInitializerBuilder(BaseApplication.getInstance())
-                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(BaseApplication.getInstance()))
-                        .build());
 
         NetworkApi.init(new BHNetwork(BaseApplication.getInstance()));
 
@@ -91,7 +90,8 @@ public class SystemConfig  {
     }
 
     private void asyncInit() {
-
+        //初始化设备信息
+        BHPhoneInfo.initPhoneInfo(BaseApplication.getInstance());
     }
 
 
@@ -100,7 +100,7 @@ public class SystemConfig  {
      */
 
     private void arouterInit(){
-        if(true){
+        if(BuildConfig.DEBUG){
             ARouter.openLog();     // 打印日志
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }

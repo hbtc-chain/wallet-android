@@ -5,10 +5,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
+import com.bhex.lib.uikit.util.TypefaceUtils;
+import com.bhex.network.RxSchedulersHelper;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.R;
+import com.bhex.wallet.app.BHApplication;
+import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
@@ -92,5 +96,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         BHUserManager.getInstance();
+        TypefaceUtils.replaceSystemDefaultFont(BHApplication.getInstance());
+        BHFilePath.initPath(BHApplication.getInstance());
     }
 }

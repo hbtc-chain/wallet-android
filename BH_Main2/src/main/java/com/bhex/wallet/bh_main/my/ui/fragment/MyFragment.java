@@ -186,6 +186,11 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         msgViewModel.loadMessageByAddress(this,1,null);
     }
 
@@ -193,7 +198,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             R2.id.iv_edit, R2.id.layout_index_2,R2.id.layout_index_3})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_message){
-            ARouterUtil.startActivity(ARouterConfig.MY_Message);
+            //ARouterUtil.startActivity(ARouterConfig.MY_Message);
+            ARouter.getInstance().build(ARouterConfig.MY_Message).navigation();
         }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(mBhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));

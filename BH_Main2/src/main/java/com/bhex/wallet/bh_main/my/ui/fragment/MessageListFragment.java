@@ -130,8 +130,14 @@ public class MessageListFragment extends BaseFragment implements OnRefreshLoadMo
             String text = msgView.getText().toString();
 
             if(!TextUtils.isEmpty(text)){
-                ((MessageActivity)getYActivity()).getTab().showMsg(Integer.valueOf(mType)-1,Integer.valueOf(text)-1);
+                if(Integer.valueOf(text)>1){
+                    ((MessageActivity)getYActivity()).getTab().showMsg(Integer.valueOf(mType)-1,Integer.valueOf(text)-1);
+                }else{
+                    ((MessageActivity)getYActivity()).getTab().hideMsg(Integer.valueOf(mType)-1);
+                }
             }
+
+
 
         }
     }

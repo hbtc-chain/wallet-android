@@ -15,10 +15,12 @@ import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.mvx.base.BaseCoreActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.StringUtils;
 import com.bhex.wallet.common.ActivityCache;
+import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
@@ -37,7 +39,7 @@ import butterknife.OnClick;
  * 2020-5-19 17:40:50
  * 导入Keystore设置用户名
  */
-public class ImportKeystoreNextActivity extends BaseActivity<TrusteeshipPresenter>
+public class ImportKeystoreNextActivity extends BaseCacheActivity<TrusteeshipPresenter>
         implements GlobalTipsFragment.GlobalOnClickListenter{
 
     @BindView(R2.id.tv_center_title)
@@ -72,7 +74,6 @@ public class ImportKeystoreNextActivity extends BaseActivity<TrusteeshipPresente
 
     @Override
     protected void initView() {
-        //btn_next.setEnabled(true);
         inp_wallet_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         inp_wallet_name.addTextWatch(new SimpleTextWatcher(){
             @Override
@@ -140,6 +141,7 @@ public class ImportKeystoreNextActivity extends BaseActivity<TrusteeshipPresente
                 ActivityCache.getInstance().finishActivity();
                 EventBus.getDefault().post(new AccountEvent());
                 ToastUtils.showToast(getResources().getString(R.string.import_keystore_success));
+                BHUserManager.getInstance().clear();
             }
 
         }else if(ldm.getLoadingStatus()== LoadingStatus.ERROR){

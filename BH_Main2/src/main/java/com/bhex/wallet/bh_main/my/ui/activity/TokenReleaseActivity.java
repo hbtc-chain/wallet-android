@@ -152,6 +152,19 @@ public class TokenReleaseActivity extends BaseActivity {
      * 代币申请
      */
     private void tokenApplyAction() {
+        String token_name = inp_token_name.getInputString();
+        if(token_name.length()<2||token_name.length()>16){
+            ToastUtils.showToast(getResources().getString(R.string.token_name_rule_tip));
+            return;
+        }
+
+        String token_decimals = inp_token_decimals.getInputString();
+        if(TextUtils.isDigitsOnly(token_decimals)&&Integer.valueOf(token_decimals)>18){
+            ToastUtils.showToast(getResources().getString(R.string.min_decimal_more_18));
+            return;
+        }
+
+
         String formAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
         String toAddress = inp_to_address.getInputString();
         String tokenName  = inp_token_name.getInputString();
@@ -234,10 +247,10 @@ public class TokenReleaseActivity extends BaseActivity {
 
     private void updateTransferStatus(LoadDataModel ldm) {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
-            BHToast.showDefault(this,getResources().getString(R.string.apply_success));
+            BHToast.showDefault(this,getResources().getString(R.string.apply_success)).show();
             finish();
         }else{
-            BHToast.showDefault(this,getResources().getString(R.string.apply_fail));
+            BHToast.showDefault(this,getResources().getString(R.string.apply_fail)).show();
         }
     }
 

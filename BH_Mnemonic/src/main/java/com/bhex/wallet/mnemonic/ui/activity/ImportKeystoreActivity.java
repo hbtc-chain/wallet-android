@@ -87,7 +87,7 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
         String password = inp_origin_pwd.getInputString();
 
         if(TextUtils.isEmpty(keyStoreStr)){
-            ToastUtils.showToast("请输入KeyStore");
+            ToastUtils.showToast(getResources().getString(R.string.please_input_keystore));
             return ;
         }
 
@@ -111,10 +111,6 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
             if(ldm.getData().equals("1")){
                 ToastUtils.showToast(getResources().getString(R.string.trusteeship_exist));
             }else{
-                /*NavigateUtil.startMainActivity(this,new String[]{});
-                ActivityCache.getInstance().finishActivity();
-                EventBus.getDefault().post(new AccountEvent());
-                ToastUtils.showToast(getResources().getString(R.string.import_keystore_success));*/
                 //跳转下一页
                 NavigateUtil.startActivity(this,ImportKeystoreNextActivity.class);
             }
