@@ -143,8 +143,8 @@ public class BHKey {
     public static String getBhexUserDpPubKey(BigInteger publicKey){
         String result = null;
         String pubHex = compressPubKey(publicKey);
-        LogUtils.d("BHWalletUtils==>:","pubHex==>:"+pubHex);
-        LogUtils.d("BHWalletUtils==>:","pubHex=base64=>:"+Base64.encode(pubHex.getBytes()));
+        //LogUtils.d("BHWalletUtils==>:","pubHex==>:"+pubHex);
+        //LogUtils.d("BHWalletUtils==>:","pubHex=base64=>:"+Base64.encode(pubHex.getBytes()));
         String sumHex = BH_PRE_PUB_KEY + pubHex;
         byte[] sumHexByte = HexUtils.toBytes(sumHex);
         try {
@@ -272,7 +272,7 @@ public class BHKey {
 
        LogUtils.d("BHKey===>:","bhbytes==>:"+Arrays.toString(bhbytes)+"==hbcbytes=="+Arrays.toString(hbcbytes));*/
 
-       String address = "B5AD24DD9E5D60E1F0734AF2D819FF9A198A2A38";
+       String address = "BAE9DB4BACD194FB7F22D803041AC033BD557511";
        String dp = getPocUserAddress(address);
        LogUtils.d("BHKey===>:","dp==>:"+dp);
     }

@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/global_main_text_color"
         android:textSize="17sp"
-        android:text="密码管理工具保存"
+        android:text="@string/backup_text_tip_7"
         android:layout_marginTop="12dp"
         android:layout_marginStart="@dimen/page_margin_start"
         />

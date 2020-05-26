@@ -388,6 +388,7 @@
     <string name="backup_text_tip_3">请勿使用网络传输</string>
     <string name="backup_text_tip_4">·请勿通过网络工具传输，一旦被黑客获取将造成不可挽回的资产损失</string>
     <string name="backup_text_tip_6">·建议使用密码管理工具管理</string>
+    <string name="backup_text_tip_7">密码管理工具保存</string>
 
 
     <string-array name="my_list_item">

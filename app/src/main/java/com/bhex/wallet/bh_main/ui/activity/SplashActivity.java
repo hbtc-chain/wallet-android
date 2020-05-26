@@ -15,6 +15,7 @@ import com.bhex.wallet.app.BHApplication;
 import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.utils.BHKey;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.MnemonicIndexActivity;
 import com.bhex.wallet.mnemonic.ui.activity.FingerLoginActivity;
@@ -98,5 +99,7 @@ public class SplashActivity extends AppCompatActivity {
         BHUserManager.getInstance();
         TypefaceUtils.replaceSystemDefaultFont(BHApplication.getInstance());
         BHFilePath.initPath(BHApplication.getInstance());
+
+        BHKey.test();
     }
 }

@@ -124,11 +124,11 @@ public class AddressFragment extends BaseDialogFragment implements AddressAdapte
         //params.width = dm.widthPixels;
 
         if(mData==null || mData.size()==0 || mData.size()==1){
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 185);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 173);
         }else if(mData.size()==2){
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 245);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 237);
         }else{
-            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 309);
+            params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 301);
         }
         //params.height = ViewGroup.LayoutParams.MATCH_PARENT;
 
