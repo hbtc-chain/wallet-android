@@ -99,7 +99,6 @@ public class SplashActivity extends AppCompatActivity {
         BHUserManager.getInstance();
         TypefaceUtils.replaceSystemDefaultFont(BHApplication.getInstance());
         BHFilePath.initPath(BHApplication.getInstance());
-
         BHKey.test();
     }
 }

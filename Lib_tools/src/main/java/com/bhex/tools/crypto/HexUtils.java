@@ -137,4 +137,15 @@ public class HexUtils {
         }
         sb.append(Integer.toHexString(unsignedByte));
     }
+
+
+    public static String addPreZero(String origin) {
+        int length = origin.length();
+        String s = "";
+        for (int i = 0; i < 64 - length; i++) {
+            s += "0";
+        }
+        return s + origin;
+    }
+
 }

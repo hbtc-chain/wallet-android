@@ -36,9 +36,9 @@ public class CustomTextView extends AppCompatTextView {
     @Override
     public void setTypeface(Typeface tf, int style) {
         if (style == Typeface.BOLD) {
-            TypefaceUtils.setTextWeightTypeface(getContext(),this);
+            //TypefaceUtils.setTextWeightTypeface(getContext(),this);
         } else {
-            TypefaceUtils.setTextTypeface(getContext(),this);
+            //TypefaceUtils.setTextTypeface(getContext(),this);
         }
     }
 }

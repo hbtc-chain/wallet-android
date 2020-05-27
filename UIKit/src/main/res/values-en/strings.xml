@@ -1,25 +1,437 @@
 <resources>
     <string name="app_name">HBTC Wallet</string>
-    <string name="exit_app">再次点击退出应用</string>
+    <string name="exit_app">Click again to Exit</string>
 
-    <string name="action_done">完成</string>
-    <string name="auth_code">验证码</string>
-    <string name="get_auth_code">获取验证码</string>
-    <string name="import_auth_code">输入验证码</string>
-    <string name="resend">重新发送</string>
+    <string name="action_done">Completed</string>
+    <string name="auth_code">Verification code</string>
+    <string name="get_auth_code">Get verification code</string>
+    <string name="import_auth_code">Input verification code</string>
+    <string name="resend">Resend</string>
+    <string name="app_no_data">No records</string>
 
-    <string name="http_loading">数据加载中</string>
+    <string name="http_loading">Data requesting</string>
 
-    <string name="app_try_again">暂无数据，点击重试</string>
-    <string name="net_error_msg">网络异常</string>
-    <string name="app_net_error_msg">网络不给力</string>
-    <string name="app_net_error_msg_check">请检查你的手机是否联网</string>
-    <string name="auth_info_faild">当前登录信息过期,请重新登录</string>
-    <string name="error_network_later_try">网络异常，请稍后再试</string>
-    <string name="error_network_time_out">请求超时</string>
-    <string name="app_account_language">语言</string>
-    <string name="language_setting">language_setting</string>
+    <string name="app_try_again">No data，retry</string>
+    <string name="net_error_msg">Network Error</string>
+    <string name="app_net_error_msg">Network Error</string>
+    <string name="app_net_error_msg_check">Check the Network,retry</string>
+    <string name="auth_info_faild">The login information has expired, please log in again.</string>
+    <string name="error_network_later_try">Network Error,try later</string>
+    <string name="error_network_time_out">Request timeout</string>
+    <string name="app_account_language">Language</string>
+    <string name="language_setting">Language Setting</string>
 
+    <string name="wallet_create_trusteeship">Create Custodian Unit</string>
+    <string name="wallet_import_trusteeship">Import Custodian Unit</string>
+    <string name="wallet_create">Start create</string>
+    <string name="at_once_backup">Backup immediately</string>
+    <string name="later_backup">Backup Later</string>
+    <string name="password_create_success">Created Successfully</string>
+    <string name="backup_nnemonic">Backup Mnemonics</string>
+    <string name="backup_nnemonic_tips">Remember and keep these 12 words safe, if lost, your assets will not be recovered</string>
+    <string name="verify_nnemonic">Verify Mnemonics</string>
+    <string name="start_backup">Start Backup</string>
     <string name="tab_balance_title">Asset</string>
-    <string name="validator_create">创建</string>
+    <string name="tab_validator">Proposer</string>
+
+    <string name="tab_change_title">Exchange</string>
+    <string name="tab_order_title">Order</string>
+    <string name="tab_my_title">My</string>
+    <string name="service_agreement">Service Agreement</string>
+    <string name="agreement_index_1">Service Agreement</string>
+    <string name="agreement_context">勿通过邮箱、通讯工具发送您的助记词记词轻易告知他人 请勿通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘通过邮箱、通讯工具发送您的助记词的助记词 易告知通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘中过邮箱、通讯工具发送您的助记将您的助记词轻易告知他通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘请勿通过邮箱、通讯工具发送您的助记勿将您的助记词轻易告知通过截屏、照相等方式保存于您的移动设备中请勿将助记词 勿通过邮箱、通讯工具发送您的助记词记词轻易告知他人 请勿通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘通过邮箱、通讯工具发送您的助记词的助记词轻易告知通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘中过邮箱、通讯工具发送您的助记将您的助记词轻易告知他通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘请 移动设备中请勿将助记词已文档的保存于您的硬盘、网盘中过邮箱、通讯工具发送您的助记将您的助记词轻易告知他通过截屏、照相等方式保存于您的移动设备中请勿将助记词已文档的保存于您的硬盘、网盘请</string>
+    <string name="confirm">Confirm</string>
+    <string name="import_mnemonic_tips">Please enter 12 mnemonic words for account recovery, separated by spaces</string>
+    <string name="import_mnemonic">Import Mnemonic Phrases</string>
+    <string name="mnemonic_input_hint">Input nemonic phrases,separated by spaces</string>
+    <string name="verify">Verify</string>
+    <string name="login">Login</string>
+    <string name="setting">Setting</string>
+    <string name="next">Next</string>
+    <string name="set_password">Set Password</string>
+    <string name="setup_1_to_3">(Step 1 of 3)</string>
+    <string name="setup_2_to_3">(Step 2 of 3)</string>
+    <string name="setup_3_to_3">(Step 3 of 3)</string>
+    <string name="set_pwd_tip_1">·The security password is an important certificate for protecting the wallet of private key and operating assets</string>
+    <string name="set_pwd_tip_2">·HBTC wallet will not cache, upload, store your password</string>
+    <string name="set_pwd_tip_3">·Please keep the password safe</string>
+    <string name="set_pwd_hint">Please set a wallet password (not less than 8 digits)</string>
+    <string name="pwd_index">%1$d Characters</string>
+    <string name="pwd_rule_tip">To ensure the safety of your assets, please include the password:</string>
+    <string name="pwd_rule_tip_1">·An uppercase letter</string>
+    <string name="pwd_rule_tip_2">·A lowercase letter</string>
+    <string name="pwd_rule_tip_3">·A number</string>
+    <string name="pwd_rule_tip_4">·At least 8 characters</string>
+    <string name="set_username_tip">You are creating a custodian unit for your BlueHelix wallet and will have a cross-chain wallet</string>
+    <string name="tips_secure">Security tips</string>
+    <string name="tips_secure_index_1">Mnemonics can be used for:</string>
+    <string name="tips_secure_index_2">Recover wallet assets</string>
+    <string name="tips_secure_index_3">Avoid losing your password</string>
+    <string name="tips_secure_index_4">App deleted or lost your phone</string>
+    <string name="tips_secure_index_5">ncaused loss of assets</string>
+    <string name="confirm_password">Repeat password</string>
+    <string name="trusteeship_manger">Manage custodian unit</string>
+    <string name="my_trusteeship">My custodian unit</string>
+    <string name="str_default">Default</string>
+    <string name="set_name">Set name</string>
+    <string name="please_be_sure">Please be sure</string>
+    <string name="delete">Delete</string>
+    <string name="error_password">Incorrect password</string>
+    <string name="import_private_key">Import Private Key</string>
+    <string name="hint_private_key_input">Please enter your private key</string>
+    <string name="transfer">Transfer</string>
+    <string name="un_transfer">Cancel transfer</string>
+    <string name="make_collection">Receipt</string>
+    <string name="cancel">Cancel</string>
+    <string name="copyed">Copied</string>
+    <string name="wallet_password">Wallet password</string>
+    <string name="hint_import_way">Please choose the import approach</string>
+    <string name="import_keystore">Import KeyStore</string>
+    <string name="string_import">Import</string>
+    <string name="bh_register_agreement">I have read and accept 《HBTC Wallet Service Agreement》</string>
+    <string name="bh_register_agreement_sub">HBTC Wallet Service Agreement</string>
+    <string name="copy_address">Copy address</string>
+    <string name="transfer_in">Receipt</string>
+    <string name="draw_coin">Withdraw</string>
+    <string name="hint_input_copy_address">Please enter or paste the address</string>
+    <string name="draw_coin_count">Input Amount</string>
+    <string name="hint_withdraw_minAmount">Minimum withdrawal amount %1$s%2$d</string>
+    <string name="all_withdraw_amount">All</string>
+    <string name="all_transfer_amount">All</string>
+    <string name="reach_account_amount">Received</string>
+    <string name="fee">Fee</string>
+    <string name="withdraw_speedup">Accelerate withdrawal</string>
+    <string name="exchange_speedup">Accelerate transactions</string>
+    <string name="native_token">Native</string>
+    <string name="no_native_token">Cross-chain</string>
+    <string name="genarate_address">Generate cross-chain addresses</string>
+    <string name="re_entrust">Transfer delegation</string>
+    <string name="entrust">Delegate</string>
+    <string name="un_entrust">Cancel the delegation</string>
+    <string name="status">Status</string>
+    <string name="time">Time</string>
+    <string name="consigner">Delegator</string>
+    <string name="transfer_in_ext">To</string>
+    <string name="transfer_out">From</string>
+    <string name="withdraw_income">Withdraw income</string>
+    <string name="withdraw_share">Withdraw dividends</string>
+    <string name="verifier">Validator</string>
+    <string name="reminder">Tip</string>
+    <string name="reinvset_share">Reinvestment</string>
+    <string name="success">Success</string>
+    <string name="fail">Failed</string>
+    <string name="add_coin">Add new asset</string>
+    <string name="available">Available</string>
+    <string name="reload_data">Reload</string>
+    <string name="hold_amount">Current holdings</string>
+    <string name="cross_chian_trans_in">Cross-chain deposit</string>
+    <string name="cross_chian_trans_out">Cross-chain withdrawal</string>
+    <string name="genarate_cross_address">Generate cross-chain address</string>
+    <string name="hidden_small_token">Hide petty currency</string>
+    <string name="transfer_address">Enter and copy the address</string>
+    <string name="transfer_amount">Input Amount</string>
+    <string name="crosslink_withdraw_tip_1">·You are withdrawing tokens across chains in your custodian unit</string>
+    <string name="crosslink_withdraw_tip_2">·Be sure to use the cross-chain token withdrawal channel</string>
+    <string name="crosslink_withdraw_tip_3">·Please do confirm that the token withdrawal address is its original public chain address</string>
+
+    <string name="linkinner_withdraw_tip_1">·You are running a custodian unit transfer in the chain.</string>
+    <string name="linkinner_withdraw_tip_2">·Be sure to use the channel in the chain</string>
+    <string name="linkinner_withdraw_tip_3">·Please do confirm that the token withdrawal address start by "HBC"</string>
+    <string name="transfer_fee">Fee</string>
+    <string name="withdraw_fee">Fee</string>
+    <string name="BH_token">HBC</string>
+    <string name="trusteeship_address">Custodian unit address</string>
+    <string name="address">Address</string>
+    <string name="crosslink_address">Generate cross-chain address</string>
+    <string name="cross_deposit">Cross-chain deposit</string>
+    <string name="cross_withdraw">Cross-chain withdrawal</string>
+    <string name="crosslink_deposit_tip_2">·Please remind the sender to make sure to use original wallet</string>
+    <string name="linkinner_deposit_tip_1">·You are running a custodian unit deposit in the chain</string>
+    <string name="linkinner_deposit_tip_2">·Please remind the sender to make sure to use non-cross-chain’s withdrawal channel</string>
+
+    <string name="validator_create">Create</string>
+    <string name="title_validator">Validator</string>
+    <string name="tab_valid">Valid</string>
+    <string name="tab_invalid">Invalid</string>
+    <string name="hint_validator_search">Enter the name of the validator</string>
+    <string name="voting_power_proportion">Voting rights</string>
+    <string name="other_delegate_proportion">Commission rate</string>
+    <string name="self_delegate_proportion">Self-delegation</string>
+    <string name="validate_node">Validator node</string>
+    <string name="transfer_entrust">Transfer delegate</string>
+    <string name="relieve_entrust">Relieve delegate</string>
+    <string name="do_entrust">Delegate</string>
+    <string name="up_time">Weight of online time</string>
+    <string name="update_time">Updated time</string>
+    <string name="max_rate_limit">Maximum commission limits</string>
+    <string name="website">Website</string>
+    <string name="detail">Details</string>
+    <string name="do_entrust_tip">It will take 21 days to unlock your tokens after they are staked. There is a risk that some tokens will be lost depending on the behaviour of the validator you choose.</string>
+    <string name="entrust_to">To</string>
+    <string name="hint_input_validator">Enter the name of the validator</string>
+    <string name="hint_enter_entrust">Input amount</string>
+    <string name="entrust_amount">Amount</string>
+
+    <string name="withdraw_reward">Withdraw income</string>
+    <string name="other">Others</string>
+    <string name="max_rate_change_limit">Maximum daily commission variation limit</string>
+    <string name="speedup">Accelerate</string>
+    <string name="string_placeholder">--</string>
+    <string name="source_address">From</string>
+    <string name="relieve_entrust_to">To</string>
+    <string name="real_entrust_amount">Receive amount</string>
+    <string name="relieve_entrust_amount">Input amount</string>
+    <string name="transfer_entrust_amount">Input amount</string>
+    <string name="do_entrust_succeed">Success</string>
+    <string name="do_entrust_failed">Failed</string>
+    <string name="relieve_entrust_failed">Failed</string>
+    <string name="relieve_entrust_succeed">Success</string>
+    <string name="transfer_entrust_succeed">Success</string>
+    <string name="transfer_entrust_failed">Failed</string>
+    <string name="album">Album</string>
+    <string name="langeuage_setting">Language setting...</string>
+    <string name="hint_input_token_name">Please enter token name</string>
+    <string name="all_asset">Total asset</string>
+    <string name="tips_backup">Backup tips</string>
+    <string name="tips_trust_success_index_1">·You will back up your wallet with the mnemonics</string>
+    <string name="tips_trust_success_index_2">·The mnemonic phrase consists of 12 English words</string>
+    <string name="tips_trust_success_index_3">·The mnemonic can help you restore your wallet</string>
+    <string name="tips_trust_success_index_4">·Do remember your mnemonics</string>
+    <string name="tips_trust_success_index_5">Do not share your mnemonics via email or messaging tools</string>
+    <string name="error_mnemonic_form">Malformed mnemonic</string>
+    <string name="wallet_name">Wallet name</string>
+    <string name="hint_confirm_password">Repeat password</string>
+    <string name="create_fail">Create failed</string>
+    <string name="hint_input_username">Please enter user name</string>
+    <string name="please_input_password">Please enter the password</string>
+
+    <string name="draw_coin_address">Withdraw address</string>
+    <string name="crosslink_deposit_tip_1">·You are running a custodian unit deposit cross-chain.</string>
+    <string name="link_outter_generating">Generate cross-chain address...</string>
+    <string name="not_have_amount">No valid HBC</string>
+
+    <string name="mnemonic_backup_success">Success</string>
+    <string name="transfer_in_success">Success</string>
+    <string name="transfer_in_fail">Failed</string>
+    <string name="encode_qr_fail">Failed to parse QR code</string>
+    <string name="link_outter_address_error">Cross-chain addresses error</string>
+    <string name="withdraw_address_error">Withdrawal address error</string>
+    <string name="input_withdraw_amount">Input amount</string>
+    <string name="please_input_gas_fee">Fee</string>
+    <string name="error_input_gas_fes">Gas fee input error</string>
+    <string name="gas_fee_high_available_fee">Insufficient gas fee</string>
+    <string name="tip_crosslink_generate">For the first cross-chain deposit, you need to generate a deposit address. The fastest process takes only a dozen seconds, please be patient ..</string>
+
+    <string name="tab_governance_title">Proposals</string>
+    <string name="tab_proposals_title">Proposals</string>
+    <string name="create_proposals">Launch</string>
+    <string name="create_proposals1">Launch proposals</string>
+    <string name="proposal_voting">Voting</string>
+    <string name="view_detail">View details</string>
+    <string name="proposal_id_format">ID-%1s</string>
+    <string name="proposal_in_payment">Pledging in progress</string>
+    <string name="proposal_passed">Passed</string>
+    <string name="proposal_reject">Rejected</string>
+    <string name="proposal_failed">Fundraising failed</string>
+    <string name="hint_proposal_search">Please enter the name of the proposal</string>
+    <string name="hint_proposal_description">Please enter a description of the proposal</string>
+    <string name="hint_proposal_title">Please enter the title of the proposal</string>
+    <string name="hint_proposal_type">Please select the proposal type</string>
+    <string name="proposals_detail">Details of the proposal</string>
+    <string name="string_description">Description</string>
+    <string name="veto_yes">Yes</string>
+    <string name="veto_no">No</string>
+    <string name="veto_abstain">Abstain</string>
+    <string name="veto_no_with_veto">No With Veto</string>
+    <string name="veto_rate">Ratio of votes</string>
+    <string name="proposal_id">Proposal ID</string>
+    <string name="proposal_type">Type of proposal</string>
+    <string name="sring_proposal_type">Type</string>
+    <string name="proposal_validator">Proposer</string>
+    <string name="proposal_time">Proposal date</string>
+    <string name="pledge_amount">Pledged</string>
+    <string name="pledge_amount1">Amount</string>
+
+    <string name="veto_end_time">The end date of the vote</string>
+    <string name="string_veto">Vote</string>
+    <string name="string_pledge">Pledge</string>
+    <string name="days_later">%1s days later</string>
+    <string name="days_before">%1s days ago</string>
+    <string name="proposal_title">Title</string>
+    <string name="description_length_format">%1d/2500Character</string>
+    <string name="hint_enter_pledge">Input amount</string>
+    <string name="submit">Submit</string>
+    <string name="do_create_proposal_succeed">Success</string>
+    <string name="do_create_proposal_failed">Failed</string>
+    <string name="do_pledge_succeed">Success</string>
+    <string name="do_pledge_failed">Failed</string>
+    <string name="check_proposal_info">Failed to obtain proposal information</string>
+    <string name="check_empty_fee">Gas fee cannot be empty and greater than 0</string>
+    <string name="check_pledge_amount_and_fee_max">Number of pledge and the fee cannot be greater than the available balance</string>
+    <string name="check_pledge_amount">Number of pledge cannot be empty and greater than 0</string>
+    <string name="do_veto_failed">Failed</string>
+    <string name="do_veto_succeed">Success</string>
+    <string name="check_veto_optin">Voting options cannot be empty</string>
+    <string name="check_fee_max">Insufficient gas fee</string>
+    <string name="available_format">Valid %1s</string>
+    <string name="check_proposal_title">Please enter the title of the proposal</string>
+    <string name="check_proposal_desc">Please enter a description of the proposal</string>
+    <string name="text_proposal">Text</string>
+    <string name="delegate">Delegating</string>
+    <string name="unbonding">Redeeming</string>
+    <string name="claimed_reward">Claimed reward</string>
+
+    <string name="initiate_proposal">Launch a proposal</string>
+    <string name="pledge_proposal">Pledge</string>
+    <string name="vote_proposal">Vote</string>
+    <string name="with_reward_content">Withdrawal of all dividends %1$s HBC，and pay the transaction fee %2$s HBC</string>
+    <string name="reinvert_share_content">Withdraw and delegate all dividends %1$s HBC to the validator nodes and pay the transaction fee %2$s HBC</string>
+    <string name="check_do_entrust_amount_and_fee_max">The total number cannot be greater than the available balance		</string>
+    <string name="check_do_entrust_amount">The number of delegate cannot be empty and greater than 0</string>
+    <string name="check_relive_entrust_amount">Number of redemptions cannot be empty and greater than 0</string>
+    <string name="check_relive_entrust_amount_max">Number of redemptions cannot be empty and greater than the available balance			</string>
+    <string name="error_oldpassword">Incorrect password</string>
+    <string name="please_input_newpassword">Enter the new password</string>
+    <string name="please_input_confrim_newpwd">Confirm the new password</string>
+    <string name="tip_two_password_equal">Passwords does not match!</string>
+    <string name="no_asset">No blance</string>
+    <string name="password_update_success">Password changed successfully</string>
+    <string name="password_update_fail">Password changed failed</string>
+    <string name="sure">Confirm</string>
+    <string name="safe_setting">Security Settings</string>
+
+    <string name="update_prepare">Ready to download %s</string>
+    <string name="update_progress">Downloading %1$d%2$s</string>
+    <string name="import_mnemonic_success">Mnemonic is imported successfully</string>
+    <string name="import_privatekey_success">The private key is imported successfully</string>
+    <string name="import_keystore_success">KeyStore 导入成功</string>
+    <string name="trusteeship_exist">Custodian unit already exists</string>
+    <string name="please_input_gasfee">Gas Fee</string>
+    <string name="please_input_withdraw_fee">Gas Fee</string>
+    <string name="not_available_amount">The blance is not enough</string>
+    <string name="please_transfer_amount">Input Amount</string>
+    <string name="error_transfer_address">Incorrect Wallet address</string>
+    <string name="error_transfer_amout_more_available">The blance is not enough</string>
+    <string name="qr_code">二维码</string>
+    <string name="hint_input_exchange_fee">请输入交易手续费</string>
+    <string name="origin_password">Old password</string>
+    <string name="input_origin_password">Enter the old password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">重复新密码</string>
+    <string name="password">密码</string>
+    <string name="trustship_manager">托管单元管理</string>
+    <string name="token_release">代币发行申请</string>
+    <string name="update_username">修改用户名</string>
+    <string name="message_center">消息中心</string>
+    <string name="account">Account</string>
+    <string name="apply">申请</string>
+    <string name="decimals">精度</string>
+    <string name="token_release_count">发行总量</string>
+    <string name="new_token_name">新发币种名称</string>
+    <string name="asset_address">资产地址</string>
+    <string name="backup_tips">备份提示</string>
+    <string name="backup_pk_tip_1">·获取私钥等于拥有钱包资产所有权</string>
+    <string name="backup_pk_tip_2">·私钥丢失无法找回，请务必备份</string>
+    <string name="backup_pk_tip_3">·使用纸笔正确抄写，请务必妥善保管私钥</string>
+
+    <string name="backup_ks_tip_1">·获取 Keystore 和密码等于拥有钱包资产所有权</string>
+    <string name="backup_ks_tip_2">·Keystore 丢失无法找回，请务必备份</string>
+    <string name="backup_ks_tip_3">·使用纸笔正确抄写，请务必妥善保管Keystore</string>
+    <string name="copy_privatekey">复制私钥</string>
+    <string name="copy_keystore">复制Keystore</string>
+    <string name="show_qr">显示二维码</string>
+    <string name="privatekey">私钥</string>
+    <string name="apply_success">申请成功</string>
+    <string name="apply_fail">申请失败</string>
+    <string name="charter1_20">1-20字符</string>
+    <string name="logout">退出</string>
+
+    <string name="string_fingerprint_identify">指纹识别</string>
+    <string name="string_fingerprint_open_success">指纹已开启</string>
+    <string name="fingerprint_identify_hint">请进行指纹识别</string>
+    <string name="fingerprint_hint">点击进行指纹解锁</string>
+    <string name="string_retry">重试一次</string>
+    <string name="fingerprint_success">指纹识别成功</string>
+    <string name="fingerprint_login">正在登录</string>
+    <string name="fingerprint_failed">指纹识别失败</string>
+    <string name="string_fingerprint_errors_retry">多次指纹密码验证错误,请稍后再试</string>
+    <string name="string_no_fingerprint_permission">没有指纹识别权限</string>
+    <string name="fingerprint_no_hardware">您的设备不支持指纹</string>
+    <string name="fingerprint_no_lock_screen_pwd">没有开启锁屏密码</string>
+    <string name="fingerprint_create_finger_first_hint">请先到设备设置中心创建一个指纹，才可以开启指纹验证</string>
+    <string name="upgrade_at_once">立即升级</string>
+    <string name="later_again">稍后再说</string>
+    <string name="verify_pass">验证通过</string>
+    <string name="password_verify">密码验证</string>
+    <string name="system_message">系统消息</string>
+    <string name="transfer_notification">转账通知</string>
+    <string name="linkinner">链内</string>
+    <string name="no_cross_link">非跨链</string>
+    <string name="crosslink">跨链</string>
+    <string name="nativelink">原生公链</string>
+    <string name="please_input_token_name">Enter the token name</string>
+    <string name="min_decimal_more_18">最小精度不能超过18位</string>
+    <string name="add_balance_index">添加资产至首页</string>
+    <string name="please_input_asset_address">请输入资产地址</string>
+    <string name="hint_token_release_count">请输入代币发行量</string>
+    <string name="hint_token_name_rule">请输入2-16位小写字母及数字</string>
+    <string name="token_name_rule_tip">代币名称长度2-16位</string>
+    <string name="please_input_keystore">请输入KeyStore</string>
+    <string name="backup_qr_tip_1">仅供直接扫描</string>
+    <string name="backup_qr_tip_2">·二维码禁止保存、截图、拍照</string>
+    <string name="backup_qr_tip_3">·仅供用户在安全环境下直接扫描导入钱包</string>
+    <string name="backup_qr_tip_4">在安全环境下使用</string>
+    <string name="backup_qr_tip_5">·请务必在四周无人、无摄像头的环境中使用</string>
+    <string name="backup_qr_tip_6">·二维码一旦被他人获取将造成不可挽回的资产损失</string>
+    <string name="backup_text_tip_1">离线保存</string>
+    <string name="backup_text_tip_2">·切勿保存至邮箱、记事本、网盘、聊天工具等</string>
+    <string name="backup_text_tip_3">请勿使用网络传输</string>
+    <string name="backup_text_tip_4">·请勿通过网络工具传输，一旦被黑客获取将造成不可挽回的资产损失</string>
+    <string name="backup_text_tip_5">·建议离线设备通过扫二维码方式传输</string>
+    <string name="backup_text_tip_6">·建议使用密码管理工具管理</string>
+    <string name="backup_text_tip_7">密码管理工具保存</string>
+    <string name="error_private_key_rule">私钥格式错误</string>
+
+    <string name="hint_please_input_password">Please enter the password</string>
+    <string name="is_argee_text">我已阅读并同意服务协议</string>
+    <string name="forget_password">Forget password</string>
+    <string name="tips_our_suggestion">我们建议</string>
+    <string name="tips_trust_success_index_6">请勿将您的助记词轻易告知他人</string>
+    <string name="tips_trust_success_index_7">请勿将助记词截屏、照相等方式保存于您的移动设备中</string>
+
+    <string-array name="my_list_item">
+        <item>Backup mnemonics</item>
+        <item>Change password</item>
+        <item>Backup private key</item>
+        <item>Backup Keystore</item>
+        <item>Settings</item>
+        <item>Contact us</item>
+        <item>Version</item>
+    </string-array>
+
+    <string-array name="set_list_item">
+        <item>Language</item>
+        <item>Currency Unit</item>
+        <item>Night mode</item>
+        <item>指纹识别</item>
+    </string-array>
+
+    <string-array name="Currency_list">
+        <item>RMB</item>
+        <item>USD</item>
+        <item>KRW</item>
+        <item>JPY</item>
+        <item>VND</item>
+    </string-array>
+
+    <string-array name="Recongition_list">
+        <item>指纹识别</item>
+    </string-array>
+
+    <string-array name="Message_type">
+        <item>Transfer</item>
+        <item>Receipt</item>
+        <item>Deposit</item>
+        <item>Withdrawal</item>
+    </string-array>
 </resources>

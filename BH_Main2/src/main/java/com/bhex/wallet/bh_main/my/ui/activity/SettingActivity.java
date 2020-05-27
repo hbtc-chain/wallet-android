@@ -14,7 +14,9 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -91,6 +93,7 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
                     if(SafeUilts.isFinger(this)){
                         MMKVManager.getInstance().mmkv().encode(BHConstants.FINGER_PWD_KEY,true);
                         ck.toggle();
+                        ToastUtils.showToast(getResources().getString(R.string.set_finger_ok));
                     }
                 }else{
                     MMKVManager.getInstance().mmkv().remove(BHConstants.FINGER_PWD_KEY);
@@ -130,10 +133,10 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeLanguage(LanguageEvent language){
-        mItems = MyHelper.getSettingItems(this);
+        /*mItems = MyHelper.getSettingItems(this);
         mSettingAdapter.getData().clear();
-        mSettingAdapter.addData(mItems);
-
+        mSettingAdapter.addData(mItems);*/
+        recreate();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -161,7 +164,5 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         this.getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
         NavigateUtil.startActivity(this,SettingActivity.class);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        //finish();
-        //recreate();
     }
 }

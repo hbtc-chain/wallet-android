@@ -1,8 +1,10 @@
-package com.bhex.lib.uikit.widget.editor;
+package com.bhex.tools.textwatcher;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
+import com.bhex.tools.utils.RegexUtil;
 
 /**
  * @author gongdongyang
@@ -42,6 +44,11 @@ public class FormatTextWatcher implements TextWatcher {
 
         if(isChanging)
             return;
+        String text = editText.getText().toString().trim();
+
+        if(RegexUtil.checkNumeric(text) && Double.valueOf(text)<1000){
+            return;
+        }
 
         if(beforeTextLength < afterTextLength){// 字符增加
             location = editText.getSelectionEnd();

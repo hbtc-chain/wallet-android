@@ -7,15 +7,34 @@
     android:orientation="vertical"
     tools:context=".MnemonicIndexActivity">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_bluehelix_logo"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="196dp"
-        />
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_hbtc_logo"
+            android:layout_gravity="center"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_marginTop="15dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

@@ -2,22 +2,16 @@ package com.bhex.wallet.balance.ui.activity;
 
 import android.text.InputType;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.widget.editor.FormatTextWatcher;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.NumberUtil;
+import com.bhex.tools.textwatcher.FormatTextWatcher;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
-import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;

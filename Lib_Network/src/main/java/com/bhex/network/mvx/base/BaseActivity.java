@@ -3,6 +3,7 @@ package com.bhex.network.mvx.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -83,8 +84,16 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
                 ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
             }
         }
+    }
 
-
+    @Override
+    public void applyOverrideConfiguration(Configuration overrideConfiguration) {
+        if (overrideConfiguration != null) {
+            int uiMode = overrideConfiguration.uiMode;
+            overrideConfiguration.setTo(getBaseContext().getResources().getConfiguration());
+            overrideConfiguration.uiMode = uiMode;
+        }
+        super.applyOverrideConfiguration(overrideConfiguration);
     }
 
     protected  int getStatusColorValue(){

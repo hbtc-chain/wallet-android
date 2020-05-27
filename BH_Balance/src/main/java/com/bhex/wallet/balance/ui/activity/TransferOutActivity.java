@@ -3,35 +3,22 @@ package com.bhex.wallet.balance.ui.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.crypto.CryptoUtil;
-import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PathUtils;
-import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.event.TransctionEvent;
@@ -79,7 +66,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     protected void initView() {
         ARouter.getInstance().inject(this);
         initTokenView();
-
+        bhToken = SymbolCache.getInstance().getBHToken(balance.symbol.toLowerCase());
         String available_amount_str =  BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
         available_amount = Double.valueOf(available_amount_str);
         tv_available_amount.setText(getString(R.string.available)+" "+available_amount_str + balance.symbol.toUpperCase());

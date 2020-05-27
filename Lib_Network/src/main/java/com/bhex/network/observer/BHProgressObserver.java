@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
 import com.bhex.network.R;
+import com.bhex.network.cache.utils.LogUtils;
 
 import io.reactivex.disposables.Disposable;
 

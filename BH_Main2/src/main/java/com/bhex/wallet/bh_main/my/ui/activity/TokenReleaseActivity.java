@@ -8,19 +8,15 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
-import com.bhex.lib.uikit.widget.editor.FormatTextWatcher;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.lib.uikit.widget.toast.BHToast;
@@ -31,6 +27,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.textwatcher.FormatTextWatcher;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PathUtils;
 import com.bhex.tools.utils.RegexUtil;

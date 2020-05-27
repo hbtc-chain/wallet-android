@@ -78,11 +78,13 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());
         AssetHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
+        startAuthFingerPrint();
+
     }
 
     @Override
     protected void addEvent() {
-        startAuthFingerPrint();
+        //startAuthFingerPrint();
 
         walletVM = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletVM.mutableLiveData.observe(this, loadDataModel -> {
@@ -91,6 +93,8 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
             }
         });
     }
+
+
 
     private void startAuthFingerPrint() {
         if (isFinger()) {

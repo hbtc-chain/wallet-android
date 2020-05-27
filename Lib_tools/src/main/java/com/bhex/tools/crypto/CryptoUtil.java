@@ -1,10 +1,14 @@
 package com.bhex.tools.crypto;
 
+import android.text.TextUtils;
+
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
-import com.subgraph.orchid.encoders.Hex;
+import com.bhex.tools.utils.StringUtils;
 
 import org.spongycastle.jce.provider.BouncyCastleProvider;
+import org.spongycastle.util.encoders.Hex;
+import org.spongycastle.util.encoders.HexEncoder;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
@@ -26,13 +30,15 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class CryptoUtil {
 
-    private static byte[] iv = { 0x38, 0x37, 0x36, 0x35, 0x34, 0x33, 0x32, 0x31, 0x38, 0x37,0x36, 0x35, 0x34, 0x33, 0x32, 0x31 };
+    private static byte[] iv = {0x38, 0x37, 0x36, 0x35, 0x34, 0x33, 0x32, 0x31, 0x38, 0x37, 0x36, 0x35, 0x34, 0x33, 0x32, 0x31};
+
     static {
         Security.addProvider(new BouncyCastleProvider());
     }
 
     /**
      * 加密
+     *
      * @param content  需要加密的内容
      * @param password 加密密码
      * @return
@@ -49,6 +55,7 @@ public class CryptoUtil {
 
     /**
      * 解密
+     *
      * @param content
      * @param password
      * @return
@@ -63,42 +70,41 @@ public class CryptoUtil {
     }
 
 
-
     //助记词加密
-    public static String encryptMnemonic(String origin,String pwd){
+    public static String encryptMnemonic(String origin, String pwd) {
         String encrypt = "";
-        try{
+        try {
             String key = MD5.md5(pwd);
-            byte[] result = CryptoUtil.encrypt(origin.getBytes(),key);
+            byte[] result = CryptoUtil.encrypt(origin.getBytes(), key);
             encrypt = HexUtils.toHex(result);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return encrypt;
     }
 
     //解密助记词
-    public static String decryptMnemonic(String encryptMnemonic,String pwd){
+    public static String decryptMnemonic(String encryptMnemonic, String pwd) {
         String encrypt = "";
-        try{
-            byte[] result = CryptoUtil.decrypt(HexUtils.toBytes(encryptMnemonic),pwd);
+        try {
+            byte[] result = CryptoUtil.decrypt(HexUtils.toBytes(encryptMnemonic), pwd);
             encrypt = new String(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return encrypt;
     }
 
     //加密私钥
-    public static String encryptPK(BigInteger originPK, String pwd){
+    public static String encryptPK(BigInteger originPK, String pwd) {
         String encrypt_PK = "";
-        try{
+        try {
             String pkHex16 = originPK.toString(16);
-            LogUtils.d("CryptoUtil==>:","pkHex16=="+pkHex16+" :length=:"+pkHex16.length());
-            byte []bytes = originPK.toByteArray();
-            byte[] result = CryptoUtil.encrypt(bytes,MD5.md5(pwd));
+            //LogUtils.d("CryptoUtil==>:", "pkHex16==" + pkHex16 + " :length=:" + pkHex16.length());
+            byte[] bytes = originPK.toByteArray();
+            byte[] result = CryptoUtil.encrypt(bytes, MD5.md5(pwd));
             encrypt_PK = HexUtils.toHex(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return encrypt_PK;
@@ -106,22 +112,19 @@ public class CryptoUtil {
 
     /**
      * 解密私钥 - 16进制
+     *
      * @param encryptPK
      * @param pwd
      * @return
      */
-    public static String decryptPK(String encryptPK,String pwd){
+    public static String decryptPK(String encryptPK, String pwd) {
         String decrypt = "";
-        try{
-            byte[] byte_pk = CryptoUtil.decrypt(HexUtils.toBytes(encryptPK),pwd);
+        try {
+            byte[] byte_pk = CryptoUtil.decrypt(HexUtils.toBytes(encryptPK), pwd);
             BigInteger big_pk = Numeric.toBigInt(byte_pk);
             decrypt = big_pk.toString(16);
-
-            //BigInteger big_pk = Numeric.toBigInt(byte_pk);
-            //decrypt = big_pk.toString(16);
-            //LogUtils.d("CryptoUtil==>:","decryptPK=big_pk==>:"+ big_pk.toString());
-            //LogUtils.d("CryptoUtil==>:","decryptPK=big_pk=hex=>:"+ big_pk.toString(16));
-        }catch (Exception e){
+            decrypt = HexUtils.addPreZero(decrypt);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return decrypt;
@@ -138,16 +141,17 @@ public class CryptoUtil {
     }
 
 
-    public static String sha256(String origin){
+    public static String sha256(String origin) {
         String res = "";
-        try{
+        try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(origin.getBytes("UTF-8"));
             res = HexUtils.toHex(md.digest());
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return res;
     }
+
 
 }

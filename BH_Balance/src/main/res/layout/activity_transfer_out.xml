@@ -137,7 +137,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/global_label_text_color"
                 android:textSize="15sp"
-                android:text="可用 3000.00 ABC"
+                android:text="@string/available_format"
                 />
         </RelativeLayout>
 
@@ -146,7 +146,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            app:leftHint="请输入转账数量"
+            app:leftHint="@string/please_transfer_amount"
             app:rightColor="@color/label_button_text_color"
             app:rightText="@string/all_withdraw_amount"
             />
@@ -216,9 +216,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/global_label_text_color"
                 android:textSize="15sp"
-                android:text="可用 3000.00"/>
-
-
+                android:text="@string/available_format"/>
 
         </RelativeLayout>
 

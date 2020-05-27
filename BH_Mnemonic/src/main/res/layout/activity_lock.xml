@@ -103,6 +103,7 @@
             app:backgroundTint="@color/global_button_bg_color"
             app:cornerRadius="@dimen/main_radius_conner"
             android:backgroundTint="@color/global_button_bg_color"
+            android:textAllCaps="false"
             />
     </LinearLayout>
 
@@ -161,7 +162,9 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/border_button_border_color"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="1dp"
+        android:textAllCaps="false"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_wallet_create"
@@ -179,6 +182,7 @@
         android:text="@string/wallet_create_trusteeship"
         style="@style/main_material_btn"
         android:textColor="@color/global_button_text_color"
+        android:textAllCaps="false"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

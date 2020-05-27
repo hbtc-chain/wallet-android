@@ -12,11 +12,14 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -88,7 +91,12 @@ public class ImportPrivateKeyActivity extends BaseCacheActivity {
      */
     private void importPrivateKey() {
         String privateKey = et_private_key.getText().toString();
-        BHUserManager.getInstance().getTmpBhWallet().setWay(2);
+        if(!RegexUtil.checkIsHex(privateKey) || privateKey.length()!=64){
+            ToastUtils.showToast(getResources().getString(R.string.error_private_key_rule));
+            return;
+        }
+
+        BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.PK.getWay());
         BHUserManager.getInstance().getTmpBhWallet().setPrivateKey(privateKey.trim());
         NavigateUtil.startActivity(this,TrusteeshipActivity.class);
     }

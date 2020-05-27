@@ -36,7 +36,7 @@ public class LocalManageUtil {
         applyLanguage(context, locale.getLanguage());
         return  context;*/
         Locale locale = getSetLanguageLocale(context);
-
+        LogUtils.d("LocalManageUtil===>:","locale=="+locale.getLanguage());
         return  createConfigurationResources(context,locale.getLanguage());
     }
 

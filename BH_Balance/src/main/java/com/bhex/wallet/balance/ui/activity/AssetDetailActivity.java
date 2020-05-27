@@ -160,7 +160,9 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
     }
 
     private void initTokenView() {
-
+        if(mAccountInfo==null){
+            return;
+        }
         //计算持有资产
         String []res = BHBalanceHelper.getAmountToCurrencyValue(this,balance.amount,balance.symbol,false);
         tv_coin_amount.setText(res[0]);

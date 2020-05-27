@@ -281,4 +281,5 @@ public final class RegexUtil {
 		String regex = "^[a-z0-9]+$";
 		return Pattern.matches(regex,str);
 	}
+
 }

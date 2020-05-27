@@ -1,13 +1,5 @@
 <resources>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="is_argee_text">我已阅读并同意服务协议</string>
-    <string name="forget_password">忘记密码</string>
-    <string name="hint_please_input_password">请输入密码</string>
-    <string name="tips_our_suggestion">我们建议</string>
-    <string name="tips_trust_success_index_6">请勿将您的助记词轻易告知他人</string>
-    <string name="tips_trust_success_index_7">请勿将助记词截屏、照相等方式保存于您的移动设备中</string>
-    <string name="backup_text_tip_5">·建议离线设备通过扫二维码方式传输</string>
+
 </resources>

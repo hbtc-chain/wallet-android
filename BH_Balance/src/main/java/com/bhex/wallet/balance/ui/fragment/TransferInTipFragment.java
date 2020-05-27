@@ -55,8 +55,6 @@ public class TransferInTipFragment extends BaseDialogFragment {
         WindowManager.LayoutParams params = window.getAttributes();
         params.gravity = Gravity.CENTER;
 
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-
         params.width = dm.widthPixels - PixelUtils.dp2px(BaseApplication.getInstance(), 48);
         params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 220);
         window.setAttributes(params);
@@ -79,31 +77,41 @@ public class TransferInTipFragment extends BaseDialogFragment {
             String tip1 = getResources().getString(R.string.linkinner_deposit_tip_1);
             String linkInner = getResources().getString(R.string.linkinner);
             int index1 = tip1.indexOf(linkInner);
-            SpannableString spannableStr1 = new SpannableString(tip1);
-            spannableStr1.setSpan(foregroundColorSpan,index1,index1+linkInner.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            tv_tip1.setText(spannableStr1);
+            if(index1>=0){
+                SpannableString spannableStr1 = new SpannableString(tip1);
+                spannableStr1.setSpan(foregroundColorSpan,index1,index1+linkInner.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tv_tip1.setText(spannableStr1);
+            }
+
 
             String tip2 = getResources().getString(R.string.linkinner_deposit_tip_2);
             String noCrossLink = getResources().getString(R.string.no_cross_link);
             int index2 = tip2.indexOf(noCrossLink);
-            SpannableString spannableStr2 = new SpannableString(tip2);
-            spannableStr2.setSpan(foregroundColorSpan,index2,index2+noCrossLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            tv_tip2.setText(spannableStr2);
+            if(index2>=0){
+                SpannableString spannableStr2 = new SpannableString(tip2);
+                spannableStr2.setSpan(foregroundColorSpan,index2,index2+noCrossLink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tv_tip2.setText(spannableStr2);
+            }
+
 
         }else if(way==2){
             String tip1 = getResources().getString(R.string.crosslink_deposit_tip_1);
             String crosslink = getResources().getString(R.string.crosslink);
             int index1 = tip1.indexOf(crosslink);
-            SpannableString spannableStr1 = new SpannableString(tip1);
-            spannableStr1.setSpan(foregroundColorSpan,index1,index1+crosslink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            tv_tip1.setText(spannableStr1);
+            if(index1>=0){
+                SpannableString spannableStr1 = new SpannableString(tip1);
+                spannableStr1.setSpan(foregroundColorSpan,index1,index1+crosslink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tv_tip1.setText(spannableStr1);
+            }
 
             String tip2 = getResources().getString(R.string.crosslink_deposit_tip_2);
             String nativelink = getResources().getString(R.string.nativelink);
             int index2 = tip2.indexOf(nativelink);
-            SpannableString spannableStr2 = new SpannableString(tip2);
-            spannableStr2.setSpan(foregroundColorSpan,index2,index2+nativelink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            tv_tip2.setText(spannableStr2);
+            if(index2>=0){
+                SpannableString spannableStr2 = new SpannableString(tip2);
+                spannableStr2.setSpan(foregroundColorSpan,index2,index2+nativelink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tv_tip2.setText(spannableStr2);
+            }
         }
     }
 
