@@ -38,7 +38,7 @@
         android:paddingStart="@dimen/main_padding_left"
         android:paddingEnd="@dimen/main_padding_right"
         android:layout_marginTop="@dimen/dp_8"
-        android:text="请按顺序点击助记词，填入下方表格中"
+        android:text="@string/verify_mnemonices_tip"
         style="@style/main_text_tips_style"
         />
 

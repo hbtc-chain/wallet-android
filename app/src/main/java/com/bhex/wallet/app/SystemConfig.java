@@ -72,15 +72,15 @@ public class SystemConfig  {
         File cacheFile = new File(BaseApplication.getInstance().getCacheDir() + File.separator + "data-cache");
 
         LogUtils.d("SystemConfig===>:","cacheFile===="+cacheFile.getAbsolutePath());
+        RxCache rxCache = new RxCache.Builder()
+                .appVersion(1)
+                .diskDir(cacheFile)
+                .diskConverter(new GsonDiskConverter())
+                .diskMax((20 * 1024 * 1024))
+                .memoryMax(0)
+                .build();
+        RxCache.initializeDefault(rxCache);
 
-        RxCache.initializeDefault(
-                new RxCache.Builder()
-                        .appVersion(1)
-                        .diskDir(cacheFile)
-                        .diskConverter(new GsonDiskConverter())
-                        .diskMax((20 * 1024 * 1024))
-                        .memoryMax(0)
-                        .build());
 
         //网络状态
         NetWorkStatusChangeReceiver.init(BaseApplication.getInstance());

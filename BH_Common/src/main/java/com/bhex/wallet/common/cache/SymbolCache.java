@@ -4,6 +4,7 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
 import com.bhex.network.cache.stategy.CacheStrategy;
+import com.bhex.network.cache.stategy.IStrategy;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
@@ -51,11 +52,11 @@ public class SymbolCache extends BaseCache {
     public void beginLoadCache() {
         Type type = (new TypeToken<List<BHToken>>() {}).getType();
 
-
-
-        BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,200)
+        //RxCache.getDefault().<~>>transformObservable("custom_key", type, strategy)
+        IStrategy strategy = getCacheStrategy();
+        BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,1000)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable("symbol_all", type, getCacheStrategy()))
+                .compose(RxCache.getDefault().<JsonObject>transformObservable("symbol_all", type, strategy))
                 .map(new CacheResult.MapFunc<>())
                 .subscribe(new BHBaseObserver<JsonObject>() {
                     @Override
@@ -75,6 +76,7 @@ public class SymbolCache extends BaseCache {
                     @Override
                     protected void onFailure(int code, String errorMsg) {
                         super.onFailure(code, errorMsg);
+                        LogUtils.d(TAG+"===>:","error==size=="+symbolMap.size());
                     }
                 });
     }

@@ -45,10 +45,10 @@
         android:layout_marginEnd="@dimen/main_padding_right"
         android:layout_marginTop="16dp"
         android:gravity="left"
-        android:text="您的钱包助记词未备份，请务必备份助记词"
+        android:text="@string/tips_secure_index_0"
         android:textColor="@color/global_main_text_color"
         android:textSize="15sp"
-        />
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/layout_mid"

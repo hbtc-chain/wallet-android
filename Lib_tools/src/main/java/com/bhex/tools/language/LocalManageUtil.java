@@ -27,16 +27,7 @@ public class LocalManageUtil {
      * @return
      */
     public static Context attachBaseContext(Context context, String language) {
-        /*Locale locale = getSetLanguageLocale(context);
-        LogUtils.d("MainActivity","locale:"+locale.getLanguage());
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-
-            return createConfigurationResources(context, locale.getLanguage());
-        }
-        applyLanguage(context, locale.getLanguage());
-        return  context;*/
         Locale locale = getSetLanguageLocale(context);
-        LogUtils.d("LocalManageUtil===>:","locale=="+locale.getLanguage());
         return  createConfigurationResources(context,locale.getLanguage());
     }
 

@@ -34,12 +34,11 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="16dp"
             android:textSize="@dimen/sp_20"
             android:textColor="@color/global_main_text_color"
             android:layout_gravity="center"
-            android:text="请勿截屏"
+            android:text="@string/not_screenshot"
             android:textStyle="bold"
             />
 
@@ -49,8 +48,10 @@
             android:textSize="@dimen/sp_15"
             android:textColor="@color/global_tip_text_color"
             android:layout_gravity="center"
-            android:text="截屏可能会被第三方恶意软件收集，造成资产损失"
+            android:text="@string/screenshot_tip_1"
             android:textStyle="normal"
+            android:layout_marginStart="@dimen/main_margin_left"
+            android:layout_marginEnd="@dimen/main_margin_right"
             />
 
 
@@ -64,7 +65,7 @@
             style="@style/main_btn_style"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="我知道了"
+            android:text="@string/i_konw"
             />
     </LinearLayout>
 

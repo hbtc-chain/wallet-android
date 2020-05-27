@@ -2,6 +2,7 @@ package com.bhex.wallet.mnemonic.ui.activity;
 
 import android.text.Editable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -137,6 +138,11 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     @OnClick({R2.id.btn_create,R2.id.tv_agreement})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_create){
+            String confirmPwd = inp_wallet_confirm_pwd.getInputString();
+            if(!mOldPwd.equals(confirmPwd)){
+                ToastUtils.showToast(getResources().getString(R.string.two_password_n_same));
+                return;
+            }
             //设置密码
             String userName = BHUserManager.getInstance().getTmpBhWallet().getName();
             int way = BHUserManager.getInstance().getTmpBhWallet().way;

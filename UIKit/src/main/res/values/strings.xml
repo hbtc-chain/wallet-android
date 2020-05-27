@@ -385,7 +385,7 @@
     <string name="backup_qr_tip_6">·二维码一旦被他人获取将造成不可挽回的资产损失</string>
     <string name="backup_text_tip_1">离线保存</string>
     <string name="backup_text_tip_2">·切勿保存至邮箱、记事本、网盘、聊天工具等</string>
-    <string name="backup_text_tip_3">请勿使用网络传输</string>
+    <string name="backup_text_tip_3">·请勿使用网络传输</string>
     <string name="backup_text_tip_4">·请勿通过网络工具传输，一旦被黑客获取将造成不可挽回的资产损失</string>
     <string name="backup_text_tip_5">·建议离线设备通过扫二维码方式传输</string>
     <string name="backup_text_tip_6">·建议使用密码管理工具管理</string>
@@ -402,6 +402,13 @@
     <string name="set_finger_ok">指纹识别设置成功</string>
     <string name="tips">提示</string>
     <string name="i_konw_danger">我已知晓风险，显示地址</string>
+    <string name="character_1_to_20">1-20字符</string>
+    <string name="tips_secure_index_0">您的钱包助记词未备份，请务必备份助记词</string>
+    <string name="two_password_n_same">两次密码不一致</string>
+    <string name="not_screenshot">请勿截屏</string>
+    <string name="screenshot_tip_1">截屏可能会被第三方恶意软件收集，造成资产损失</string>
+    <string name="i_konw">我知道了</string>
+    <string name="verify_mnemonices_tip">请按顺序点击助记词，填入下方表格中</string>
 
 
     <string-array name="my_list_item">

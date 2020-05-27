@@ -23,8 +23,9 @@ public class BHApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         SystemConfig.getInstance().init();
+        TypefaceUtils.replaceSystemDefaultFont(BHApplication.getInstance());
         //夜间模式
-        //AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
+        AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
         //BlockCanary.install(this, new AppBlockCanaryContext()).start();
     }
 

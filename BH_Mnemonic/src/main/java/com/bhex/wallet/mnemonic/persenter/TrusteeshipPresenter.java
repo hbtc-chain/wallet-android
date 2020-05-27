@@ -75,7 +75,7 @@ public class TrusteeshipPresenter extends BasePresenter {
 
     public void checkConfirmPassword(InputView inpPwd, AppCompatButton btnNext, String oldPwd, AppCompatCheckBox ck){
         String confirmPwd = inpPwd.getInputString();
-        boolean flag = confirmPwd.equals(oldPwd)&& ck.isChecked();
+        boolean flag = !TextUtils.isEmpty(confirmPwd)&& ck.isChecked();
         setBtnIsClick(flag,btnNext);
     }
 

@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:editable="true"
-            app:hint="1-20字符"
+            app:hint="@string/character_1_to_20"
             app:textType="normal" />
 
         <androidx.appcompat.widget.AppCompatTextView

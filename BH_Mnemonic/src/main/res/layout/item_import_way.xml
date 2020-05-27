@@ -67,7 +67,7 @@
             android:layout_marginStart="@dimen/main_margin_left"
             android:textColor="@color/light_text"
             android:textSize="13sp"
-            android:text="请选择导入方式 "
+            android:text="@string/hint_import_way"
             />
 
         <androidx.appcompat.widget.AppCompatImageView
