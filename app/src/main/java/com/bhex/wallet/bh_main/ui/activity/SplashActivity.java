@@ -3,11 +3,14 @@ package com.bhex.wallet.bh_main.ui.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.R;
@@ -73,6 +76,12 @@ public class SplashActivity extends AppCompatActivity {
 
         ImmersionBar.with(this).statusBarColor(android.R.color.white).statusBarDarkFont(true).init();
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocalManageUtil.attachBaseContext(newBase,""));
+    }
+
 
 
     @Override

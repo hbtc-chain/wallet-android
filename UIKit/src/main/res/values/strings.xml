@@ -374,7 +374,7 @@
     <string name="add_balance_index">添加资产至首页</string>
     <string name="please_input_asset_address">请输入资产地址</string>
     <string name="hint_token_release_count">请输入代币发行量</string>
-    <string name="hint_token_name_rule">请输入2-16位小写字母及数字</string>
+    <string name="hint_token_name_rule">请输入2-16位小写字母及数字,且字母开始</string>
     <string name="token_name_rule_tip">代币名称长度2-16位</string>
     <string name="please_input_keystore">请输入KeyStore</string>
     <string name="backup_qr_tip_1">仅供直接扫描</string>
@@ -409,6 +409,8 @@
     <string name="screenshot_tip_1">截屏可能会被第三方恶意软件收集，造成资产损失</string>
     <string name="i_konw">我知道了</string>
     <string name="verify_mnemonices_tip">请按顺序点击助记词，填入下方表格中</string>
+    <string name="token_count_only_integer">代币发行量只能是整数</string>
+    <string name="token_count_more_100B">代币发行量不能超过1000亿</string>
 
 
     <string-array name="my_list_item">

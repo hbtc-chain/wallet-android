@@ -11,6 +11,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="3dp"
+        android:layout_centerHorizontal="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@color/card_bg"
         app:cardForegroundColor="@color/bg_trans"

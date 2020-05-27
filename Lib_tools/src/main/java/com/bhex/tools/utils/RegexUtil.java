@@ -278,7 +278,7 @@ public final class RegexUtil {
 	 * @return
 	 */
 	public static boolean checkLowerLetterAndNum(String str) {
-		String regex = "^[a-z0-9]+$";
+		String regex = "^[a-z]+[a-z0-9]*$";
 		return Pattern.matches(regex,str);
 	}
 

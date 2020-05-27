@@ -43,6 +43,7 @@ import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTokenRlease;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.google.android.material.button.MaterialButton;
 
 import java.math.BigInteger;
@@ -56,7 +57,7 @@ import butterknife.OnClick;
  * 代币发行
  */
 @Route(path = ARouterConfig.Token_Release, name = "代币发行申请")
-public class TokenReleaseActivity extends BaseActivity {
+public class TokenReleaseActivity extends BaseActivity implements PasswordFragment.PasswordClickListener {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -155,33 +156,29 @@ public class TokenReleaseActivity extends BaseActivity {
             return;
         }
 
-        String token_decimals = inp_token_decimals.getInputString();
-        if(TextUtils.isDigitsOnly(token_decimals)&&Integer.valueOf(token_decimals)>18){
+        String tokenDecimals = inp_token_decimals.getInputString();
+        if(TextUtils.isDigitsOnly(tokenDecimals)&&Integer.valueOf(tokenDecimals)>18){
             ToastUtils.showToast(getResources().getString(R.string.min_decimal_more_18));
             return;
         }
 
-
-        String formAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
-        String toAddress = inp_to_address.getInputString();
-        String tokenName  = inp_token_name.getInputString();
         String tokenCount = inp_token_release_count.getInputString().replaceAll(" ","");
-        String tokenDecimals = inp_token_decimals.getInputString();
+        if(!TextUtils.isDigitsOnly(tokenCount)){
+            ToastUtils.showToast(getResources().getString(R.string.token_count_only_integer));
+            return;
+        }
 
-        tokenCount = NumberUtil.mulExt(tokenCount,String.valueOf(Math.pow(10,18))).toString(10);
+        if(Long.parseLong(tokenCount)>Math.pow(10,11)){
+            ToastUtils.showToast(getResources().getString(R.string.token_count_more_100B));
+            return;
+        }
 
-        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+        //密码提示框
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+                PasswordFragment.class.getName(),
+                this,0);
 
-        String feeAmount = inp_tx_fee.getInputString();
 
-        BHTokenRlease tokenRlease = new BHTokenRlease(
-                formAddress,toAddress,tokenName,tokenCount,tokenDecimals);
-
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,gasPrice, suquece);
-            transactionViewModel.sendTransaction(this,bhSendTranscation);
-            return 0;
-        });
     }
 
     private SimpleTextWatcher textWatcher = new SimpleTextWatcher() {
@@ -251,6 +248,28 @@ public class TokenReleaseActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void confirmAction(String password, int position) {
+        String formAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
+        String toAddress = inp_to_address.getInputString();
+        String tokenName  = inp_token_name.getInputString();
+        String tokenCount = inp_token_release_count.getInputString().replaceAll(" ","");
 
+        tokenCount = NumberUtil.mulExt(tokenCount,String.valueOf(Math.pow(10,18))).toString(10);
 
+        String tokenDecimals = inp_token_decimals.getInputString();
+
+        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+
+        String feeAmount = inp_tx_fee.getInputString();
+
+        BHTokenRlease tokenRlease = new BHTokenRlease(
+                formAddress,toAddress,tokenName,tokenCount,tokenDecimals);
+
+        BHTransactionManager.loadSuquece(suquece -> {
+            BHSendTranscation bhSendTranscation = BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,gasPrice, suquece);
+            transactionViewModel.sendTransaction(this,bhSendTranscation);
+            return 0;
+        });
+    }
 }

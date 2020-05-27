@@ -86,7 +86,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         }
     }
 
-    @Override
+    /*@Override
     public void applyOverrideConfiguration(Configuration overrideConfiguration) {
         if (overrideConfiguration != null) {
             int uiMode = overrideConfiguration.uiMode;
@@ -94,7 +94,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
             overrideConfiguration.uiMode = uiMode;
         }
         super.applyOverrideConfiguration(overrideConfiguration);
-    }
+    }*/
 
     protected  int getStatusColorValue(){
         return BHConstants.STATUS_COLOR_WHITE;

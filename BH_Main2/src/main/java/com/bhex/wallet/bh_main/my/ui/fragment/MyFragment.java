@@ -20,6 +20,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.ToolUtils;
@@ -183,9 +184,19 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                 BHPage<BHMessage> page =  (BHPage<BHMessage>)ldm.getData();
                 if(page.unread>0){
                     iv_message_tip.setVisibility(View.VISIBLE);
+                }else{
+                    iv_message_tip.setVisibility(View.GONE);
                 }
             }
         });
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            msgViewModel.loadMessageByAddress(this,1,null);
+        }
     }
 
     @Override
@@ -193,6 +204,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         super.onResume();
         msgViewModel.loadMessageByAddress(this,1,null);
     }
+
 
     @OnClick({R2.id.iv_message, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste,
             R2.id.iv_edit, R2.id.layout_index_2,R2.id.layout_index_3})
@@ -271,5 +283,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     private UpdateNameFragment.DialogOnClickListener dialogOnClickListener = v -> {
         //
         tv_username.setText(mBhWallet.getName());
+        ToolUtils.hintKeyBoard(getYActivity());
     };
 }
