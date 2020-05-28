@@ -168,6 +168,17 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             }
         });
 
+        mMyAdapter.setOnItemLongClickListener((adapter, view, position) -> {
+            MyItem item = mItems.get(position);
+            switch (item.id){
+                case 5:
+                    ToastUtils.showToast(getResources().getString(R.string.copyed));
+                    ToolUtils.copyText(item.rightTxt,getYActivity());
+                    break;
+            }
+            return true;
+        });
+
         //助记词备份订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back, LoadDataModel.class).observe(this, ldm->{
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){

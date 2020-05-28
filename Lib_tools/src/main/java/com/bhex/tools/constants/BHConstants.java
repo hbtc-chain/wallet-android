@@ -28,6 +28,10 @@ public class BHConstants {
 
     public static final String COIN_DEFAULT_LIST = "hbc_btc_eth_usdt";
 
+    //public static final String SYMBOL_DEFAULT_LIST = "hbc,btc,eth,usdt";
+
+    public static final String SYMBOL_DEFAULT_KEY = "SYMBOL_DEFAULT_KEY";
+
     public static final String BHT_TOKEN = "hbc";
     public static final int BHT_DEFAULT_DECIMAL = 3;
 

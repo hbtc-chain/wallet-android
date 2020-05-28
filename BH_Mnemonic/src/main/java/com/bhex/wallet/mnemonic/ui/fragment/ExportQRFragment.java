@@ -73,7 +73,7 @@ public class ExportQRFragment extends BaseFragment {
         }
 
         Bitmap bitmap = QREncodUtil.createQRCode(content,
-                PixelUtils.dp2px(getYActivity(),180),PixelUtils.dp2px(getYActivity(),180),
+                PixelUtils.dp2px(getYActivity(),210),PixelUtils.dp2px(getYActivity(),210),
                 null);
 
         iv_qr.setImageBitmap(bitmap);

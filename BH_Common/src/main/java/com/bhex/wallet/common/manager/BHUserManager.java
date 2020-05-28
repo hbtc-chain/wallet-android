@@ -8,6 +8,8 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.FileUtil;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
@@ -82,9 +84,9 @@ public class BHUserManager {
         return tmpBhWallet;
     }
 
-    public void setTmpBhWallet(BHWallet tmpBhWallet) {
+    /*public void setTmpBhWallet(BHWallet tmpBhWallet) {
         this.tmpBhWallet = tmpBhWallet;
-    }
+    }*/
 
     public void setAllWallet(List<BHWallet> allWallet) {
         this.allWallet = allWallet;
@@ -149,20 +151,19 @@ public class BHUserManager {
             buffer.append(item.symbol).append("_");
         }
         buffer.delete(buffer.length()-1,buffer.length());
-        //LogUtils.d(TAG+"====>:",buffer.toString());
+
         String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
         MMKVManager.getInstance().mmkv().encode(key,buffer.toString());
     }
 
-
     public String getUserBalanceList(){
         String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
         String result = MMKVManager.getInstance().mmkv().decodeString(key, BHConstants.COIN_DEFAULT_LIST);
-        //LogUtils.d(TAG+"====>:","result==="+result);
         return result;
     }
+
     public String getSymbolList(){
-        String symbol= "hbc_btc_eth_tusdt_usdt";
+        String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
         return symbol;
     }
 

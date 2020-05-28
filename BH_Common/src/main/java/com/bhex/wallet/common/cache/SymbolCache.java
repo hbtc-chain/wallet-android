@@ -1,5 +1,7 @@
 package com.bhex.wallet.common.cache;
 
+import android.text.TextUtils;
+
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
@@ -11,6 +13,8 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.model.BHToken;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -66,24 +70,27 @@ public class SymbolCache extends BaseCache {
                         }
                         symbolMap.clear();
                         List<BHToken> coinList = JsonUtils.getListFromJson(jsonObject.toString(),"items", BHToken.class);
+                        //缓存所有的token
+                        StringBuffer sb = new StringBuffer();
                         for(BHToken item:coinList){
                             symbolMap.put(item.symbol,item);
+                            sb.append(item.symbol).append("_");
                         }
-                        LogUtils.d(TAG+"===>:","size=="+symbolMap.size());
+                        if(!TextUtils.isEmpty(sb)){
+                            MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_DEFAULT_KEY,sb.toString());
+                        }
                     }
 
 
                     @Override
                     protected void onFailure(int code, String errorMsg) {
                         super.onFailure(code, errorMsg);
-                        LogUtils.d(TAG+"===>:","error==size=="+symbolMap.size());
                     }
                 });
     }
 
 
     public  BHToken getBHToken(String symbol){
-        //LogUtils.d(TAG+"====>:","size=="+symbolMap.size());
         return symbolMap.get(symbol);
     }
 
@@ -94,4 +101,5 @@ public class SymbolCache extends BaseCache {
             return BHConstants.BHT_DEFAULT_DECIMAL;
         }
     }
+
 }
