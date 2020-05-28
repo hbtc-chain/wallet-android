@@ -75,7 +75,6 @@ public class RatesCache extends BaseCache {
                         for (BHRates rate:ratelist){
                             ratesMap.put(rate.getToken().toLowerCase(),rate.getRates());
                         }
-                        //LogUtils.d(TAG+"===>:","size=="+ratesMap.size());
                     }
 
                     @Override
@@ -86,9 +85,9 @@ public class RatesCache extends BaseCache {
 
 
 
-        Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
+        /*Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe();*/
                 //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(BaseApplication.getInstance()., Lifecycle.Event.ON_PAUSE)))
 
     }
