@@ -150,6 +150,11 @@ android {
         }
     }
 
+    configurations {
+        //这里要排除到这个包，这个包会与 com.google.guava 冲突，导致编译不过
+        all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
+
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 }
@@ -159,6 +164,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha01'
     implementation 'androidx.appcompat:appcompat-resources:1.2.0-alpha01'
+
 
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -203,6 +209,12 @@ dependencies {
     //facebook android调试
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    /*implementation ('androidx.work:work-runtime:2.1.0'){
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
+    implementation 'androidx.work:work-rxjava2:2.1.0'*/
+    //implementation 'androidx.work:work-runtime-ktx:2.3.1'
 
     /*implementation project(path: ':Lib_Network')
     implementation project(path: ':Lib_Tools')

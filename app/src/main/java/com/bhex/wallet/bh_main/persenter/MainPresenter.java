@@ -63,7 +63,6 @@ public class MainPresenter extends BasePresenter {
             SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),"");
         }
 
-        LogUtils.d("MainPresenter==>:","==onStart==");
         //
         mUpgradeVM = ViewModelProviders.of(getActivity()).get(UpgradeViewModel.class);
         //升级请求

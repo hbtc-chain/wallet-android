@@ -4,14 +4,13 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+
 import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.toast.BHToastStyle;
-import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.manager.MMKVManager;
-import com.hjq.toast.ToastUtils;
-import com.hjq.toast.style.ToastBlackStyle;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * created by gongdongyang
@@ -26,6 +25,7 @@ public class BHApplication extends BaseApplication {
         TypefaceUtils.replaceSystemDefaultFont(BHApplication.getInstance());
         //夜间模式
         AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
+        //rateSync();
     }
 
 
@@ -34,5 +34,8 @@ public class BHApplication extends BaseApplication {
         super.attachBaseContext(LocalManageUtil.attachBaseContext(base,""));
     }
 
-
+    /*private void rateSync(){
+        PeriodicWorkRequest.Builder builder = new PeriodicWorkRequest.Builder(RateSyncWork.class,5L, TimeUnit.MILLISECONDS);
+        WorkManager.getInstance(this).enqueue(builder.build());
+    }*/
 }

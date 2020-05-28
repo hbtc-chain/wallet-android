@@ -18,6 +18,7 @@ import com.bhex.network.R;
 import com.bhex.network.receiver.NetWorkStatusChangeReceiver;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.ButterKnife;
@@ -86,7 +87,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         }
     }
 
-    /*@Override
+    @Override
     public void applyOverrideConfiguration(Configuration overrideConfiguration) {
         if (overrideConfiguration != null) {
             int uiMode = overrideConfiguration.uiMode;
@@ -94,7 +95,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
             overrideConfiguration.uiMode = uiMode;
         }
         super.applyOverrideConfiguration(overrideConfiguration);
-    }*/
+    }
 
     protected  int getStatusColorValue(){
         return BHConstants.STATUS_COLOR_WHITE;
@@ -133,6 +134,10 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
             getSupportActionBar().setHomeButtonEnabled(isShowBacking());
             getSupportActionBar().setDisplayHomeAsUpEnabled(isShowBacking());
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+            mToolBar.setNavigationOnClickListener(v -> {
+                finish();
+                ToolUtils.hintKeyBoard(this);
+            });
 
         }
     }

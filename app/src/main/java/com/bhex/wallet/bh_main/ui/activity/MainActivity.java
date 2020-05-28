@@ -2,6 +2,7 @@ package com.bhex.wallet.bh_main.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -111,6 +113,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
 
     }
+
+
 
     @Override
     protected void initPresenter() {

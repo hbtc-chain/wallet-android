@@ -42,7 +42,7 @@ public class UpgradeViewModel extends AndroidViewModel {
      * @param activity
      */
     public void getUpgradeInfo(BaseActivity activity){
-        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
+        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>(false) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 UpgradeInfo upgradeInfo = JsonUtils.fromJson(jsonObject.toString(),UpgradeInfo.class);

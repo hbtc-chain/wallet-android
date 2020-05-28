@@ -20,7 +20,7 @@ public abstract class BHBaseObserver<T>  implements Observer<T> {
 
     public Context context;
 
-    public boolean isNeedShowtoast = false;
+    public boolean isNeedShowtoast = true;
 
     public BHBaseObserver() {
     }

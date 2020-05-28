@@ -31,6 +31,7 @@ import com.bhex.tools.textwatcher.FormatTextWatcher;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PathUtils;
 import com.bhex.tools.utils.RegexUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -271,5 +272,12 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ToolUtils.hintKeyBoard(this);
+        finish();
     }
 }

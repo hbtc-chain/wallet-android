@@ -138,7 +138,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
 
     //获取资产
     public void getAccountInfo(BaseActivity activity,String address){
-        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
+        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>(false) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 //super.onSuccess(jsonObject);

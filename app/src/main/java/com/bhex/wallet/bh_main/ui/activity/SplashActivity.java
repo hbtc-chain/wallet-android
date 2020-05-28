@@ -82,7 +82,15 @@ public class SplashActivity extends AppCompatActivity {
         super.attachBaseContext(LocalManageUtil.attachBaseContext(newBase,""));
     }
 
-
+    @Override
+    public void applyOverrideConfiguration(Configuration overrideConfiguration) {
+        if (overrideConfiguration != null) {
+            int uiMode = overrideConfiguration.uiMode;
+            overrideConfiguration.setTo(getBaseContext().getResources().getConfiguration());
+            overrideConfiguration.uiMode = uiMode;
+        }
+        super.applyOverrideConfiguration(overrideConfiguration);
+    }
 
     @Override
     protected void onDestroy() {
@@ -107,6 +115,5 @@ public class SplashActivity extends AppCompatActivity {
         super.onStop();
         BHUserManager.getInstance();
         BHFilePath.initPath(BHApplication.getInstance());
-        //BHKey.test();
     }
 }

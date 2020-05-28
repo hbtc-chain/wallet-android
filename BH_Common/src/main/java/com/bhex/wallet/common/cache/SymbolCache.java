@@ -62,7 +62,7 @@ public class SymbolCache extends BaseCache {
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxCache.getDefault().<JsonObject>transformObservable("symbol_all", type, strategy))
                 .map(new CacheResult.MapFunc<>())
-                .subscribe(new BHBaseObserver<JsonObject>() {
+                .subscribe(new BHBaseObserver<JsonObject>(false) {
                     @Override
                     protected void onSuccess(JsonObject jsonObject) {
                         if(!JsonUtils.isHasMember(jsonObject,"items")){
