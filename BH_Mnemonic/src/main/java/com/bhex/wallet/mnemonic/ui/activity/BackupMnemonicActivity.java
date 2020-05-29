@@ -100,10 +100,10 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
                 BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             EventBus.getDefault().post(new AccountEvent());
             BHUserManager.getInstance().clear();
+            ActivityCache.getInstance().finishActivity();
         }
         NavigateUtil.startMainActivity(this,
                 new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
-        ActivityCache.getInstance().finishActivity();
 
         return super.onOptionsItemSelected(item);
     }

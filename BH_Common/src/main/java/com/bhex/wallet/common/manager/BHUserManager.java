@@ -190,6 +190,7 @@ public class BHUserManager {
 
     public void clear(){
         tmpCredentials = null;
+        targetClass = null;
         tmpBhWallet = new BHWallet();
         //mAccountInfo =
     }

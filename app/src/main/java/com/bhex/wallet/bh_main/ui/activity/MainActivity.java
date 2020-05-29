@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     private int mCurrentCheckId = 0;
 
     //是否复位
-    public static boolean isReset = false;
+    public static boolean isReset = true;
 
     @Override
     protected int getLayoutId() {
