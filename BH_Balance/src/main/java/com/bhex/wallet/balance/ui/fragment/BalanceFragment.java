@@ -266,8 +266,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             ToastUtils.showToast(getResources().getString(R.string.copyed));
         }else if(view.getId()==R.id.iv_search){
             //币种搜索
-            /*ARouter.getInstance().build(ARouterConfig.Balance_Search).
-                    withObject("balanceList",mOriginBalanceList).navigation();*/
+            ARouter.getInstance().build(ARouterConfig.Balance_Search).
+                    withObject("balanceList",mOriginBalanceList).navigation();
         }else if(view.getId()==R.id.ck_hidden_small){
             //隐藏小额币种
             ck_hidden_small.toggle();
