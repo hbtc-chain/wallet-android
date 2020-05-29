@@ -15,12 +15,15 @@ import com.bhex.wallet.balance.ui.activity.AssetDetailActivity;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.RatesCache;
 import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHRates;
 import com.bhex.wallet.common.model.BHToken;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * Created by BHEX.
@@ -116,5 +119,37 @@ public class BHBalanceHelper {
         }
 
         iv.setImageDrawable(ContextCompat.getDrawable(context,resId));
+    }
+
+    /**
+     * H
+     * @param symbol
+     * @return
+     */
+    public static BHBalance getBHBalanceFromAccount(String symbol){
+        AccountInfo accountInfo = BHUserManager.getInstance().getAccountInfo();
+        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        BHBalance balance = new BHBalance();
+        balance.amount="0";
+        //balance.chain= BHConstants.BHT_TOKEN;
+        balance.symbol = symbol;
+
+        if(list==null || list.size()==0){
+            return balance;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            AccountInfo.AssetsBean assetsBean = list.get(i);
+            if(assetsBean.getSymbol()!=null && assetsBean.getSymbol().equalsIgnoreCase(symbol)){
+
+                balance.symbol = assetsBean.getSymbol();
+                balance.chain = assetsBean.getSymbol();
+                balance.amount = assetsBean.getAmount();
+                balance.frozen_amount = assetsBean.getFrozen_amount();
+                balance.address = assetsBean.getExternal_address();
+                return balance;
+            }
+        }
+        return balance;
     }
 }

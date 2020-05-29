@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.ui.activity;
 
 import android.text.InputType;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
@@ -47,6 +48,13 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     AppCompatTextView tv_transfer_amount;
     @BindView(R2.id.layout_transfer_out_tips)
     MaterialCardView layout_transfer_out_tips;
+
+    @BindView(R2.id.layout_withdraw_fee)
+    RelativeLayout layout_withdraw_fee;
+
+    @BindView(R2.id.tv_withdraw_fee_amount)
+    AppCompatTextView tv_withdraw_fee_amount;
+
     @BindView(R2.id.tv_to_address)
     WithDrawInput tv_to_address;
     @BindView(R2.id.tv_available_amount)
@@ -98,6 +106,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             tv_withdraw_fee.setVisibility(View.GONE);
             tv_reach.setVisibility(View.GONE);
             tv_reach_amount.setVisibility(View.GONE);
+            layout_withdraw_fee.setVisibility(View.GONE);
 
         }else if(getWay()==BHConstants.INNER_LINK){
             layout_transfer_out_tips.setVisibility(View.VISIBLE);
@@ -117,6 +126,9 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             tv_reach.setVisibility(View.GONE);
             tv_reach_amount.setVisibility(View.GONE);
 
+            layout_withdraw_fee.setVisibility(View.GONE);
+
+
         }else if(getWay()==BHConstants.CROSS_LINK){
             layout_transfer_out_tips.setVisibility(View.VISIBLE);
             tv_center_title.setText(getBalance().symbol.toUpperCase()+getResources().getString(R.string.draw_coin));
@@ -127,10 +139,13 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             tv_reach.setVisibility(View.GONE);
             tv_reach_amount.setVisibility(View.GONE);
 
+            layout_withdraw_fee.setVisibility(View.VISIBLE);
+
             //提币手续费单位
-            et_withdraw_fee.btn_right_text.setText(getBalance().symbol.toUpperCase());
+            et_withdraw_fee.btn_right_text.setText(getBalance().chain.toUpperCase());
             bhToken = SymbolCache.getInstance().getBHToken(getBalance().symbol.toLowerCase());
             et_withdraw_fee.getEditText().setText(bhToken.withdrawal_fee);
+
         }
 
     }

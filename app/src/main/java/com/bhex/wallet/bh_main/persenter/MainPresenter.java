@@ -19,12 +19,16 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.R;
+import com.bhex.wallet.app.BHApplication;
 import com.bhex.wallet.balance.ui.fragment.BalanceFragment;
 import com.bhex.wallet.bh_main.exchange.ui.fragment.ExchangeFragment;
 import com.bhex.wallet.bh_main.my.ui.fragment.MyFragment;
 import com.bhex.wallet.bh_main.order.ui.fragment.OrderFragment;
 import com.bhex.wallet.bh_main.proposals.ui.fragment.ProposalFragment;
+import com.bhex.wallet.bh_main.ui.activity.MainActivity;
 import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorFragment;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.model.BHPhoneInfo;
 import com.bhex.wallet.common.model.UpgradeInfo;
@@ -56,21 +60,25 @@ public class MainPresenter extends BasePresenter {
     @Override
     public void onCreate(@NotNull LifecycleOwner owner) {
         super.onCreate(owner);
-        //requestPermissions();
-        String isBackUp = getActivity().getIntent().getStringExtra(BHConstants.BACKUP_TEXT);
-        //LogUtils.d("MainPresenter==>:","isBackUp:"+isBackUp);
-        if(BHConstants.LATER_BACKUP.equals(isBackUp)){
-            SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),"");
+        //owner.getLifecycle().getCurrentState().
+        int isBackUp = BHUserManager.getInstance().getCurrentBhWallet().isBackup;
+        int isShow = ((MainActivity)getActivity()).isShow;
+        if(isBackUp== BH_BUSI_TYPE.未备份.getIntValue() ){
+            BHApplication.getMainHandler().postDelayed(()->{
+                SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),SecureTipsFragment.class.getName());
+            },300);
         }
 
-        //
         mUpgradeVM = ViewModelProviders.of(getActivity()).get(UpgradeViewModel.class);
         //升级请求
         mUpgradeVM.upgradeLiveData.observe(getActivity(),ldm->{
             processUpgradeInfo(ldm);
         });
         mUpgradeVM.getUpgradeInfo(getActivity());
+
     }
+
+
 
     /**
      * 处理升级请求
@@ -111,7 +119,6 @@ public class MainPresenter extends BasePresenter {
     UpgradeFragment.DialogOnClickListener dialogOnClickListener = v -> {
         ToastUtils.showToast("=dialogOnClickListener=");
         //下载升级
-
     };
 
     @Override

@@ -61,7 +61,9 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     @Autowired(name="way")
     int way;
 
-    BHToken bhToken;
+    //跨链提币可用余额
+    BHBalance feeBalance;
+    //BHToken bhToken;
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
@@ -91,6 +93,10 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)tv_to_address.getEditText().getLayoutParams();
         lp.addRule(RelativeLayout.LEFT_OF,R.id.iv_right);
         tv_to_address.getEditText().setLayoutParams(lp);
+
+        feeBalance = BHBalanceHelper.getBHBalanceFromAccount(getBalance().chain);
+        String available_fee_amount_str =  BHBalanceHelper.getAmountForUser(this,feeBalance.amount,"0",feeBalance.symbol);
+        tv_withdraw_fee_amount.setText(getString(R.string.available)+" "+available_fee_amount_str+feeBalance.symbol.toUpperCase());
     }
 
 
@@ -173,7 +179,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 String.valueOf(available_amount),
                 et_tx_fee.getInputString(),
                 et_withdraw_fee.getInputString(),
-                bhToken.withdrawal_fee
+                bhToken.withdrawal_fee,feeBalance
         );
 
 

@@ -1,6 +1,7 @@
 package com.bhex.wallet.mnemonic.ui.fragment;
 
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -86,11 +87,29 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
         if(v.getId()==R.id.btn_at_once){
             NavigateUtil.startActivity(getActivity(), BackupMnemonicActivity.class);
         }
-        dismiss();
+        try{
+            dismiss();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //dismiss();
+
     }
 
     public static void showDialog(FragmentManager fm, String tag){
         SecureTipsFragment fragment = new SecureTipsFragment();
-        fragment.show(fm,tag);
+        try {
+            fragment.show(fm,tag);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        //super.onDismiss(dialog);
+        getDialog().dismiss();
     }
 }

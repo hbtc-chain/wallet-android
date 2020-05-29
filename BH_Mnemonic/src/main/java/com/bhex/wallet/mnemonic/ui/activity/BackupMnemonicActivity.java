@@ -10,17 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.MnemonicAdapter;
 import com.bhex.wallet.mnemonic.helper.MnemonicDataHelper;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -65,8 +69,6 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
 
         recycler_mnemonic.setLayoutManager(layoutManager);
         recycler_mnemonic.setAdapter(mnemonicAdapter);
-
-
     }
 
     @OnClick({R2.id.btn_start_verify})
@@ -78,21 +80,31 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        NavigateUtil.startMainActivity(this,
-                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
-        ActivityCache.getInstance().finishActivity();
-        BHUserManager.getInstance().clear();
+        //super.onBackPressed();
+        if(BHUserManager.getInstance().getTargetClass()!=null &&
+                BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+            EventBus.getDefault().post(new AccountEvent());
+            NavigateUtil.startMainActivity(this,new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
+            ActivityCache.getInstance().finishActivity();
+            BHUserManager.getInstance().clear();
+        }else{
+            finish();
+        }
+
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            NavigateUtil.startMainActivity(this,
-                    new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
-            ActivityCache.getInstance().finishActivity();
+        if(BHUserManager.getInstance().getTargetClass()!=null &&
+                BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+            EventBus.getDefault().post(new AccountEvent());
+            BHUserManager.getInstance().clear();
         }
+        NavigateUtil.startMainActivity(this,
+                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
+        ActivityCache.getInstance().finishActivity();
+
         return super.onOptionsItemSelected(item);
     }
 

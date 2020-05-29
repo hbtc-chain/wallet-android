@@ -374,7 +374,7 @@
     <string name="add_balance_index">Add assets to the home page</string>
     <string name="please_input_asset_address">Please enter the address</string>
     <string name="hint_token_release_count">Total supply</string>
-    <string name="hint_token_name_rule">Please enter 2-16 bit lowercase letters and Numbers</string>
+    <string name="hint_token_name_rule">Please enter 2-16 bit lowercase letters and Numbers starting with letters</string>
     <string name="token_name_rule_tip">Token name length 2-16 bits</string>
     <string name="please_input_keystore">Enter Input KeyStore</string>
     <string name="backup_qr_tip_1">For direct scanning only</string>

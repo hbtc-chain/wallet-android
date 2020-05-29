@@ -134,10 +134,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
             getSupportActionBar().setHomeButtonEnabled(isShowBacking());
             getSupportActionBar().setDisplayHomeAsUpEnabled(isShowBacking());
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-            mToolBar.setNavigationOnClickListener(v -> {
-                finish();
-                ToolUtils.hintKeyBoard(this);
-            });
+
 
         }
     }

@@ -68,6 +68,9 @@ public class BalanceViewModel extends AndroidViewModel implements LifecycleObser
                 //super.onSuccess(jsonObject);
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
+                if(accountInfo!=null){
+                    BHUserManager.getInstance().setAccountInfo(accountInfo);
+                }
                 LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
             }
 

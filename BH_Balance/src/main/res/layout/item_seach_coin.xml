@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/btn_switch"
+        android:background="@drawable/btn_switch_small"
         android:button="@null"
         android:checked="true"
         app:layout_constraintEnd_toEndOf="parent"

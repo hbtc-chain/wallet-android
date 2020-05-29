@@ -3,6 +3,7 @@ package com.bhex.wallet.bh_main.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,15 +16,18 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
+import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
+import com.bhex.wallet.mnemonic.ui.fragment.SecureTipsFragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -53,6 +57,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     //是否复位
     private static boolean isReset = false;
 
+    public int isShow = 0;
 
     @Override
     protected int getLayoutId() {
@@ -68,6 +73,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null){
+            isShow=1;
+        }
         AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
     }
 
@@ -76,7 +84,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         super.onRestoreInstanceState(savedInstanceState);
         if(savedInstanceState!=null && !isReset){
             mCurrentCheckId = savedInstanceState.getInt("index",0);
-            //mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
         }
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
     }
@@ -108,13 +115,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
             }
             return false;
         });
-
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
-
-
     }
-
-
 
     @Override
     protected void initPresenter() {
@@ -165,5 +167,13 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("index",mCurrentCheckId);
+    }
+
+    public void clickAction(View view) {
+        //SecureTipsFragment.showDialog(getSupportFragmentManager(),SecureTipsFragment.class.getName());
+        EventBus.getDefault().post(new AccountEvent());
+        /*NavigateUtil.startMainActivity(this,
+                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});*/
+        ActivityCache.getInstance().finishActivity();
     }
 }

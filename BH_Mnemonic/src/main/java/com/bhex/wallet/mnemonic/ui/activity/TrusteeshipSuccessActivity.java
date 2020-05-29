@@ -36,7 +36,6 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
     @BindView(R2.id.btn_later_backup)
     AppCompatTextView btn_later_backup;
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_trusteeship_success;
@@ -79,17 +78,8 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
-        if(BHUserManager.getInstance().getTargetClass()!=null &&
-                BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
-            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
-        }else{
-            NavigateUtil.startMainActivity(this,
-                    new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
-        }
-
-        ActivityCache.getInstance().finishActivity();
-
+        //super.onBackPressed();
+        ScreenShotTipsFragment fragment = ScreenShotTipsFragment.showDialog(getSupportFragmentManager(),"");
+        fragment.setIKnowListener(TrusteeshipSuccessActivity.this);
     }
 }

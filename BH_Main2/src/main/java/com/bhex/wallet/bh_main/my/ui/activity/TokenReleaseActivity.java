@@ -119,6 +119,10 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
 
         inp_token_release_count.getEditText().addTextChangedListener(new FormatTextWatcher(inp_token_release_count.getEditText()));
 
+        mToolBar.setNavigationOnClickListener(v -> {
+                finish();
+                ToolUtils.hintKeyBoard(this);
+        });
     }
 
     @Override

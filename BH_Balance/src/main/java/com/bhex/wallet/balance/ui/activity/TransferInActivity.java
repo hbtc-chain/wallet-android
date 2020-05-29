@@ -88,7 +88,7 @@ public class TransferInActivity extends BaseActivity {
         //iv_coin_ic.setImageDrawable(ContextCompat.getDrawable(this,R.mipmap.ic_eth));
         BHBalanceHelper.setTokenIcon(this,balance.symbol,iv_coin_ic);
 
-        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
+        /*if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
             ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.status_bar_bg_blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.status_bar_bg_blue).fitsSystemWindows(true).init();
             tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.trusteeship_address));
         }else if(way==1){
@@ -99,8 +99,8 @@ public class TransferInActivity extends BaseActivity {
             ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.tranfer_in_out_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_out_bg).fitsSystemWindows(true).init();
             mRootView.setBackgroundColor(ContextCompat.getColor(this,R.color.tranfer_in_out_bg));
             tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.address));
-        }
-
+        }*/
+        tv_trusteeship_address.setText("HBTC"+getResources().getString(R.string.trusteeship_address));
 
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)||way==BHConstants.INNER_LINK){
             deposit_address = mCurrentWallet.address;
@@ -124,6 +124,12 @@ public class TransferInActivity extends BaseActivity {
                     getSupportFragmentManager(),
                     TransferInTipFragment.class.getSimpleName(),way);
         },300);
+    }
+
+    @Override
+    protected int getStatusColorValue() {
+        return BHConstants.STATUS_COLOR_BLUE;
+
     }
 
     @OnClick({R2.id.tv_paste})

@@ -139,7 +139,7 @@ public class BHTransactionManager {
     }
 
     /**
-     * 跨链地址生成
+     * 跨链提币
      */
     public static BHSendTranscation crossLinkTransfer(
                                                      String to,
@@ -160,6 +160,7 @@ public class BHTransactionManager {
 
         BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,symbolBHToken.decimals)),amount);
 
+        //交易手续费
         BigInteger double_feeAmount = NumberUtil.mulExt(String.valueOf(BHConstants.BHT_DECIMALS),feeAmount);
 
 
@@ -169,7 +170,9 @@ public class BHTransactionManager {
 
         //提币手续费
         //double double_gas_fee = Double.parseDouble(symbolBHToken.withdrawal_fee);
-        BigInteger double_gas_fee =  NumberUtil.mulExt(String.valueOf(Math.pow(10,symbolBHToken.decimals)),withDrawFeeAmount);;
+        BHToken withDrawFeeBHToken = SymbolCache.getInstance().getBHToken(symbolBHToken.chain);
+
+        BigInteger double_gas_fee =  NumberUtil.mulExt(String.valueOf(Math.pow(10,withDrawFeeBHToken.decimals)),withDrawFeeAmount);;
 
         //交易数据构建
         bhRawTransaction = BHRawTransaction.createBHCrossWithdrawalTransaction(sequence,

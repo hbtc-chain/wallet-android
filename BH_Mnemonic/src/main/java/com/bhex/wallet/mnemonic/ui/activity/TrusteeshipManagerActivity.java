@@ -14,6 +14,7 @@ import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -139,7 +140,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         if(view.getId()==R.id.btn_wallet_create){
             ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST,TrusteeshipManagerActivity.class);
         }else if(view.getId()==R.id.btn_wallet_impot){
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
+            ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX,TrusteeshipManagerActivity.class);
         }
     }
 

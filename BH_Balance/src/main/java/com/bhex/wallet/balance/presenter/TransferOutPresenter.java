@@ -8,6 +8,8 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHToken;
 
 /**
  * Created by BHEX.
@@ -51,9 +53,11 @@ public class TransferOutPresenter extends BasePresenter {
         return true;
     }
 
-    public boolean checklinkOutterTransfer(String to_address,String transfer_amount,
-                                          String available_amount,
-                                          String tx_fee_amount, String witddraw_fee_amount,String min_withdraw_fee){
+    public boolean checklinkOutterTransfer(String to_address, String transfer_amount,
+                                           String available_amount,
+                                           String tx_fee_amount,
+                                           String witddraw_fee_amount,
+                                           String min_withdraw_fee, BHBalance available_withdraw_balance){
         if(TextUtils.isEmpty(to_address)||to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.withdraw_address_error));
             return false;
@@ -69,16 +73,22 @@ public class TransferOutPresenter extends BasePresenter {
             return false;
         }
 
+        //有没有足够的提币收费
+        String available_withdraw_fee = available_withdraw_balance.amount;
+        if(Double.valueOf(available_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
+            ToastUtils.showToast(getActivity().getString(R.string.not_enough)+available_withdraw_balance.symbol.toUpperCase());
+        }
+
         if(TextUtils.isEmpty(witddraw_fee_amount) && Double.valueOf(witddraw_fee_amount)<=0){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_withdraw_fee));
             return false;
         }
 
+
         if(Double.valueOf(witddraw_fee_amount)<Double.valueOf(min_withdraw_fee)){
-            ToastUtils.showToast("提币手续费不能小于"+min_withdraw_fee);
+            ToastUtils.showToast(getActivity().getString(R.string.withdraw_fee_less)+min_withdraw_fee);
             return false;
         }
-
 
 
         if( Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
