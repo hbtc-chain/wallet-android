@@ -63,7 +63,6 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
         params.width = dm.widthPixels;
         //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 328);
         window.setAttributes(params);
-
     }
 
 

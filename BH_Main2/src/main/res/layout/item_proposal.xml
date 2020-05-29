@@ -39,7 +39,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_20"
+            android:layout_height="@dimen/dp_22"
             android:layout_marginStart="@dimen/dp_8"
             android:gravity="center_vertical"
             android:text="@string/proposal_voting"

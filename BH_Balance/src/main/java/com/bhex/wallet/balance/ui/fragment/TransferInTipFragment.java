@@ -56,7 +56,8 @@ public class TransferInTipFragment extends BaseDialogFragment {
         params.gravity = Gravity.CENTER;
 
         params.width = dm.widthPixels - PixelUtils.dp2px(BaseApplication.getInstance(), 48);
-        params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 220);
+        //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 220);
+        //params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
     }
 

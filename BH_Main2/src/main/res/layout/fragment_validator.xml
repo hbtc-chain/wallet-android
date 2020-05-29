@@ -83,7 +83,7 @@
                 android:id="@+id/tab"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_40"
-                app:tl_tab_space_equal="true"
+                app:tl_tab_space_equal="false"
                 app:tl_iconVisible="false"
                 android:paddingStart="@dimen/dp_8"
                 app:indicator_start_color="@color/indicator_start_color"

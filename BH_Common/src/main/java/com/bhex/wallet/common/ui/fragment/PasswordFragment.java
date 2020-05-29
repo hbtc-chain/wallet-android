@@ -23,6 +23,7 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.MD5;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -114,6 +115,7 @@ public class PasswordFragment extends BaseDialogFragment {
             if (passwordClickListener != null) {
                 BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
                 String inputPassword = inp_wallet_pwd.getInputString().toString().trim();
+                ToolUtils.hintKeyBoard(getActivity());
 
                 if(TextUtils.isEmpty(inputPassword)){
                     ToastUtils.showToast(getResources().getString(R.string.please_input_password));
