@@ -95,6 +95,8 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
         et_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et_withdraw_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et_tx_fee.btn_right_text.setText(BHConstants.BHT_TOKEN.toUpperCase());
+
+        et_tx_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(getBalance().chain)){
             tv_center_title.setText(getBalance().symbol.toUpperCase()+getResources().getString(R.string.transfer));
             tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));

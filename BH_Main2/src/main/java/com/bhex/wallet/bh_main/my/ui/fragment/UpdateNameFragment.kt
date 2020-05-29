@@ -15,6 +15,7 @@ import com.bhex.lib.uikit.widget.InputView
 import com.bhex.network.base.LoadDataModel
 import com.bhex.network.base.LoadingStatus
 import com.bhex.network.utils.ToastUtils
+import com.bhex.tools.utils.ToolUtils
 import com.bhex.wallet.bh_main.R
 import com.bhex.wallet.common.manager.BHUserManager
 import com.bhex.wallet.common.ui.fragment.UpgradeFragment
@@ -90,6 +91,7 @@ class UpdateNameFragment : DialogFragment() {
             ToastUtils.showToast(getString(R.string.hint_input_username))
             return
         }
+        ToolUtils.hintKeyBoard(activity!!, walletNameInput!!.editText)
         wallet.name = name;
         walletViewModel!!.updateWalletName(this,wallet)
 

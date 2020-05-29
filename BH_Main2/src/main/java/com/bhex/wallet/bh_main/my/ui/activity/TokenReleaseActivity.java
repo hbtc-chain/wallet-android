@@ -95,6 +95,8 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         tv_center_title.setText(getString(R.string.token_release));
         mAccountInfo = BHUserManager.getInstance().getAccountInfo();
         bhtBalance = MyHelper.getBthBalanceWithAccount(mAccountInfo);
+        inp_tx_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+
         //文本型
         inp_to_address.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         inp_token_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);

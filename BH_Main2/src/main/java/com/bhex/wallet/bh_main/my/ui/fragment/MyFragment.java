@@ -258,6 +258,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
     @Override
     public void confirmAction(String password,int position) {
+
         if(TextUtils.isEmpty(password)){
             ToastUtils.showToast(getResources().getString(R.string.please_input_password));
             return;

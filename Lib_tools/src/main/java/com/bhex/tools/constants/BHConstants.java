@@ -40,6 +40,8 @@ public class BHConstants {
     public static final double BHT_GAS_PRICE = Math.pow(10,12);
 
     public static final double BHT_DECIMALS = Math.pow(10,18);
+    //默认手续费
+    public static final String BHT_DEFAULT_FEE = "2";
 
     //链内操作
     public static final int INNER_LINK= 1;

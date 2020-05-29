@@ -2,6 +2,7 @@ package com.bhex.wallet.common.ui.fragment;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -114,8 +116,9 @@ public class PasswordFragment extends BaseDialogFragment {
         } else if (view.getId() == R.id.btn_confirm) {
             if (passwordClickListener != null) {
                 BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
-                String inputPassword = inp_wallet_pwd.getInputString().toString().trim();
-                ToolUtils.hintKeyBoard(getActivity());
+                String inputPassword = inp_wallet_pwd.getInputString().trim();
+
+                ToolUtils.hintKeyBoard(getActivity(),inp_wallet_pwd.getEditText());
 
                 if(TextUtils.isEmpty(inputPassword)){
                     ToastUtils.showToast(getResources().getString(R.string.please_input_password));
@@ -145,4 +148,6 @@ public class PasswordFragment extends BaseDialogFragment {
     public interface PasswordClickListener {
         void confirmAction(String password, int position);
     }
+
+
 }

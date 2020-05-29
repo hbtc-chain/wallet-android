@@ -91,6 +91,7 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
         available_label = getResources().getString(R.string.available);
         ARouter.getInstance().inject(this);
         tv_center_title.setText(getResources().getString(R.string.genarate_cross_address));
+        ed_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
 
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
