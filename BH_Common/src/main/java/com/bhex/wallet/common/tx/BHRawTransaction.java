@@ -18,7 +18,7 @@ import java.util.UUID;
  * Time: 22:45
  */
 public class BHRawTransaction {
-    public String chain_id = "hbtc-testnet";
+    public String chain_id = BHConstants.CHAIN_ID;
     public String cu_number = "0";
     public TxFee fee;
     public String memo;

@@ -25,7 +25,7 @@ public class TransferOutPresenter extends BasePresenter {
 
     public boolean checklinkInnerTransfer(String to_address,String transfer_amount,
                                           String available_amount,String fee_amount){
-        if(!to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
+        if(!to_address.toUpperCase().startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
             ToastUtils.showToast(getActivity().getString(R.string.error_transfer_address));
             return false;
         }
