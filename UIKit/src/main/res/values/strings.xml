@@ -413,6 +413,7 @@
     <string name="token_count_more_100B">代币发行量不能超过1000亿</string>
     <string name="withdraw_fee_less">提币手续费不能小于</string>
     <string name="not_enough">没有足够的</string>
+    <string name="all">全部</string>
 
 
     <string-array name="my_list_item">

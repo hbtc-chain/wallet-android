@@ -413,6 +413,8 @@
     <string name="token_count_more_100B">The number of tokens issued cannot exceed 100 billion</string>
     <string name="withdraw_fee_less">提币手续费不能小于</string>
     <string name="not_enough">Not enough </string>
+    <string name="all">All</string>
+
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>
