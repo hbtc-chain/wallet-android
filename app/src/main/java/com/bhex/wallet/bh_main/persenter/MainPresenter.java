@@ -60,12 +60,14 @@ public class MainPresenter extends BasePresenter {
     @Override
     public void onCreate(@NotNull LifecycleOwner owner) {
         super.onCreate(owner);
-        //owner.getLifecycle().getCurrentState().
         int isBackUp = BHUserManager.getInstance().getCurrentBhWallet().isBackup;
-        int isShow = ((MainActivity)getActivity()).isShow;
-        if(isBackUp== BH_BUSI_TYPE.未备份.getIntValue() ){
+
+        //LogUtils.d("MainPresenter===>:","isShow=="+isShow);
+
+        if(isBackUp== BH_BUSI_TYPE.未备份.getIntValue() && ((MainActivity)getActivity()).isReset){
             BHApplication.getMainHandler().postDelayed(()->{
                 SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),SecureTipsFragment.class.getName());
+                ((MainActivity)getActivity()).isReset = false;
             },300);
         }
 

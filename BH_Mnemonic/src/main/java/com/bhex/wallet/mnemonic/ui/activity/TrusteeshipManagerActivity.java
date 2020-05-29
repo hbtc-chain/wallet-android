@@ -114,7 +114,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
 
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
             if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
-                EventBus.getDefault().post(new WalletEvent());
+                EventBus.getDefault().post(new AccountEvent());
                 finish();
             }
         });

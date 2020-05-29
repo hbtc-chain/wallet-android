@@ -59,12 +59,9 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
 
         WindowManager.LayoutParams params = window.getAttributes();
         params.gravity = Gravity.BOTTOM;
-
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-
+        //params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = dm.widthPixels;
-        params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 328);
-
+        //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 328);
         window.setAttributes(params);
 
     }
@@ -87,29 +84,12 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
         if(v.getId()==R.id.btn_at_once){
             NavigateUtil.startActivity(getActivity(), BackupMnemonicActivity.class);
         }
-        try{
-            dismiss();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        //dismiss();
-
+        dismiss();
     }
 
     public static void showDialog(FragmentManager fm, String tag){
         SecureTipsFragment fragment = new SecureTipsFragment();
-        try {
-            fragment.show(fm,tag);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        fragment.show(fm,tag);
 
-    }
-
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        //super.onDismiss(dialog);
-        getDialog().dismiss();
     }
 }

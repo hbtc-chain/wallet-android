@@ -95,7 +95,6 @@ public abstract class NetworkApi implements IEnvironment {
                 httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                 okHttpClientBuilder.addInterceptor(httpLoggingInterceptor);
             }
-            //okHttpClientBuilder.dns(new TestDns());
             mOkHttpClient = okHttpClientBuilder.build();
         }
         return mOkHttpClient;

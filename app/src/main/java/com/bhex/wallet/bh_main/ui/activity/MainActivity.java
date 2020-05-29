@@ -55,9 +55,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     private int mCurrentCheckId = 0;
 
     //是否复位
-    private static boolean isReset = false;
-
-    public int isShow = 0;
+    public static boolean isReset = false;
 
     @Override
     protected int getLayoutId() {
@@ -73,11 +71,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null){
-            isShow=1;
-        }
-        AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
     }
+
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
@@ -90,9 +85,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     protected void addEvent() {
-        //LogUtils.d("MainActivity===>:","name==="+mBottomNavigationView.getChildAt(0));
-        //BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBottomNavigationView.getChildAt(0);
-
         EventBus.getDefault().register(this);
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -155,7 +147,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
     }
 
     @Override
@@ -169,11 +160,4 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         outState.putInt("index",mCurrentCheckId);
     }
 
-    public void clickAction(View view) {
-        //SecureTipsFragment.showDialog(getSupportFragmentManager(),SecureTipsFragment.class.getName());
-        EventBus.getDefault().post(new AccountEvent());
-        /*NavigateUtil.startMainActivity(this,
-                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});*/
-        ActivityCache.getInstance().finishActivity();
-    }
 }
