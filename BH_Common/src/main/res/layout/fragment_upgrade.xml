@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/v_index_1"
-            android:text="更新内容"
+            android:text="@string/update_content"
             android:layout_marginTop="4dp"
             android:layout_marginStart="24dp"
             android:textSize="17sp"
@@ -72,7 +72,7 @@
             android:minHeight="80dp"
             android:textSize="15dp"
             android:textColor="@color/global_secondary_text_color"
-            android:text=" 1.优化治理提案投票方式\n 2.优化托托管单元管理\n 3.增加指纹验证及人脸识别"
+            tools:text=" 1.优化治理提案投票方式\n 2.优化托托管单元管理\n 3.增加指纹验证及人脸识别"
             />
 
     </RelativeLayout>

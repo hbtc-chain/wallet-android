@@ -415,6 +415,7 @@
     <string name="not_enough">Not enough </string>
     <string name="all">All</string>
     <string name="no_profit">No profit</string>
+    <string name="update_content">Update</string>
 
 
     <string-array name="my_list_item">
