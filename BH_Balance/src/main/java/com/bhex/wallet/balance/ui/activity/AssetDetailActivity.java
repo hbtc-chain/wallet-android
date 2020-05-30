@@ -201,7 +201,6 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
             //转账
             btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
         } else {
-
             //跨链代币
             //转账
             btn_transfer_out.tv_bottom_text.setText(getResources().getString(R.string.transfer));
@@ -410,7 +409,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
 
 
         }else if(ldm.loadingStatus==LoadDataModel.ERROR){
-            ToastUtils.showToast("暂无收益");
+            ToastUtils.showToast(getResources().getString(R.string.no_profit));
         }
     }
 
@@ -420,7 +419,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         //计算所有收益
         double all_reward = mPresenter.calAllReward(dvList);
         if(all_reward==0){
-            ToastUtils.showToast("暂无收益");
+            ToastUtils.showToast(getResources().getString(R.string.no_profit));
         }else {
             mRewardList = dvList;
             WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
@@ -435,7 +434,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
         //计算所有收益
         double all_reward = mPresenter.calAllReward(dvList);
         if(all_reward==0){
-            ToastUtils.showToast("暂无收益");
+            ToastUtils.showToast(getResources().getString(R.string.no_profit));
         }else {
             mRewardList = dvList;
             ReInvestShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
@@ -465,7 +464,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                 List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
                 List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
                 BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
-                        "","2", gasPrice,null,suquece);
+                        "",BHConstants.BHT_DEFAULT_FEE, gasPrice,null,suquece);
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });

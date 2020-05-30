@@ -411,9 +411,10 @@
     <string name="verify_mnemonices_tip">Fill in the form below by clicking on the mnemonic in sequence</string>
     <string name="token_count_only_integer">Token issue can only be an integer</string>
     <string name="token_count_more_100B">The number of tokens issued cannot exceed 100 billion</string>
-    <string name="withdraw_fee_less">提币手续费不能小于</string>
+    <string name="withdraw_fee_less">Withdrawal commission shall not be less than</string>
     <string name="not_enough">Not enough </string>
     <string name="all">All</string>
+    <string name="no_profit">No profit</string>
 
 
     <string-array name="my_list_item">

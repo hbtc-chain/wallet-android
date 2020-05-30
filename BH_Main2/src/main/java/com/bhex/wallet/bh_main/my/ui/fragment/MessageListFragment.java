@@ -102,7 +102,6 @@ public class MessageListFragment extends BaseFragment implements OnRefreshLoadMo
         messageViewModel = ViewModelProviders.of(this).get(MessageViewModel.class);
 
         mType = getArgumentValue(MessageListFragment.Message_Type);
-        LogUtils.d("MessageListFragment==>:","MessageListFragment=="+mType);
 
         LinearLayoutManager llm = new LinearLayoutManager(getYActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);

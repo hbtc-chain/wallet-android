@@ -374,7 +374,7 @@
     <string name="add_balance_index">添加资产至首页</string>
     <string name="please_input_asset_address">请输入资产地址</string>
     <string name="hint_token_release_count">请输入代币发行量</string>
-    <string name="hint_token_name_rule">请输入2-16位小写字母及数字,且字母开始</string>
+    <string name="hint_token_name_rule">请输入2-16位小写字母及数字以字母开始</string>
     <string name="token_name_rule_tip">代币名称长度2-16位</string>
     <string name="please_input_keystore">请输入KeyStore</string>
     <string name="backup_qr_tip_1">仅供直接扫描</string>
@@ -414,6 +414,7 @@
     <string name="withdraw_fee_less">提币手续费不能小于</string>
     <string name="not_enough">没有足够的</string>
     <string name="all">全部</string>
+    <string name="no_profit">暂无收益</string>
 
 
     <string-array name="my_list_item">

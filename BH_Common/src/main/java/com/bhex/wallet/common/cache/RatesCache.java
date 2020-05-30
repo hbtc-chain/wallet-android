@@ -63,7 +63,7 @@ public class RatesCache extends BaseCache {
 
         BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable("rates_all", type, getCacheStrategy()))
+                .compose(RxCache.getDefault().transformObservable(CACHE_KEY, type, getCacheStrategy()))
                 .map(new CacheResult.MapFunc<>())
                 .subscribe(new BHBaseObserver<List<BHRates>>(false) {
                     @Override

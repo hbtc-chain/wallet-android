@@ -8,8 +8,12 @@ import java.io.IOException;
 
 import io.reactivex.functions.Function;
 import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by BHEX.
@@ -68,6 +72,16 @@ public class BHttpApi extends NetworkApi {
     }
     public static  <T> T getService(Class<T> service) {
         return getInstance().getRetrofit(service).create(service);
+    }
+
+    public static  BHttpApiInterface getServiceExt(Class service) {
+        return new Retrofit.Builder()
+                .baseUrl("http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(new OkHttpClient.Builder().build())
+                .build()
+                .create(BHttpApiInterface.class);
     }
 
     @Override

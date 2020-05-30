@@ -10,6 +10,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
+import com.bhex.network.base.viewmodel.CacheAndroidViewModel;
+import com.bhex.network.cache.RxCache;
+import com.bhex.network.cache.data.CacheResult;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.utils.JsonUtils;
@@ -17,6 +20,8 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.bh_main.my.model.BHMessage;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
+import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHPage;
 import com.google.gson.JsonObject;
@@ -31,7 +36,7 @@ import java.lang.reflect.Type;
  * 2020-5-21 14:21:15
  * 消息
  */
-public class MessageViewModel extends AndroidViewModel {
+public class MessageViewModel extends CacheAndroidViewModel {
 
     public  MutableLiveData<LoadDataModel> messageLiveData  = new MutableLiveData<>();
 
@@ -47,6 +52,8 @@ public class MessageViewModel extends AndroidViewModel {
      */
     public void loadMessageByAddress(BaseFragment activity, int page, String type){
         String address = BHUserManager.getInstance().getCurrentBhWallet().address;
+        Type class_type = (new TypeToken<JsonObject>() {}).getType();
+        String key = address+"_"+type+"_"+ BH_BUSI_TYPE.消息缓存.value;
 
         BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
             @Override
@@ -67,6 +74,8 @@ public class MessageViewModel extends AndroidViewModel {
         BHttpApi.getService(BHttpApiInterface.class)
                 .queryNotificationByAddress(address, page,BHConstants.PAGE_SIZE,type)
                 .compose(RxSchedulersHelper.io_main())
+                //.compose(RxCache.getDefault().<JsonObject>transformObservable(key, class_type, getCacheStrategy()))
+                //.map(new CacheResult.MapFunc<JsonObject>())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
 
