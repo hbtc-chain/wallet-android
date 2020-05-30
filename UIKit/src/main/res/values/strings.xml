@@ -312,6 +312,7 @@
     <string name="please_transfer_amount">请输入转账数量</string>
     <string name="error_transfer_address">转账地址错误</string>
     <string name="error_transfer_amout_more_available">转账数量大于可用余额</string>
+    <string name="error_withdraw_amout_more_available">提币数量大于可用余额</string>
     <string name="qr_code">二维码</string>
     <string name="hint_input_exchange_fee">请输入交易手续费</string>
     <string name="origin_password">原密码</string>
@@ -416,6 +417,9 @@
     <string name="all">全部</string>
     <string name="no_profit">暂无收益</string>
     <string name="update_content">更新内容</string>
+    <string name="find_new_version">发现新版本</string>
+    <string name="import_ks_tip_1">·复制粘贴 HBTC wallet 钱包 Keystore 文件内容</string>
+    <string name="import_ks_tip_2">·粘贴至下方“Keystore”输入框</string>
 
 
     <string-array name="my_list_item">

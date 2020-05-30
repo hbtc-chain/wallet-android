@@ -159,7 +159,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     private void sendTransfer(){
         boolean flag = mPresenter.checklinkInnerTransfer(tv_to_address.getInputString(),
                 ed_transfer_amount.getInputStringTrim(),
-                String.valueOf(available_amount),et_tx_fee.getInputString());
+                String.valueOf(available_amount),et_tx_fee.getInputStringTrim());
 
         if(flag){
             PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
@@ -175,10 +175,10 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         BHToken bhToken = SymbolCache.getInstance().getBHToken(balance.symbol);
 
         boolean flag = mPresenter.checklinkOutterTransfer(tv_to_address.getEditText().getText().toString(),
-                ed_transfer_amount.getInputString(),
+                ed_transfer_amount.getInputStringTrim(),
                 String.valueOf(available_amount),
-                et_tx_fee.getInputString(),
-                et_withdraw_fee.getInputString(),
+                et_tx_fee.getInputStringTrim(),
+                et_withdraw_fee.getInputStringTrim(),
                 bhToken.withdrawal_fee,feeBalance
         );
 

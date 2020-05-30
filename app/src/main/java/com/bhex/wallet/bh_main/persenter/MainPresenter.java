@@ -62,12 +62,11 @@ public class MainPresenter extends BasePresenter {
         super.onCreate(owner);
         int isBackUp = BHUserManager.getInstance().getCurrentBhWallet().isBackup;
 
-        //LogUtils.d("MainPresenter===>:","isShow=="+isShow);
+        LogUtils.d("MainPresenter===>:","isReset=="+((MainActivity)getActivity()).isReset);
 
         if(isBackUp== BH_BUSI_TYPE.未备份.getIntValue() && ((MainActivity)getActivity()).isReset){
             BHApplication.getMainHandler().postDelayed(()->{
                 SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),SecureTipsFragment.class.getName());
-                //((MainActivity)getActivity()).isReset = false;
             },300);
         }
 

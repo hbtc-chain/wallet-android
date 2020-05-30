@@ -24,6 +24,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.proposals.presenter.CreateProposalPresenter;
@@ -146,6 +147,12 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
             queryAssetInfo(false);
+        });
+
+        //返回隐藏键盘
+        mToolBar.setNavigationOnClickListener(v -> {
+            finish();
+            ToolUtils.hintKeyBoard(this);
         });
     }
 

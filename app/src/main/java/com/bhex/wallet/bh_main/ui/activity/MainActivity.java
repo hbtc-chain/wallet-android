@@ -25,6 +25,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
+import com.bhex.wallet.common.event.NightEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
 import com.bhex.wallet.mnemonic.ui.fragment.SecureTipsFragment;
@@ -77,6 +78,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        LogUtils.d("MainPresenter===>:","isReset=2="+isReset);
+
         if(savedInstanceState!=null && !isReset){
             mCurrentCheckId = savedInstanceState.getInt("index",0);
         }
@@ -135,6 +138,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Subscribe(threadMode= ThreadMode.MAIN)
     public void changeLanguage(LanguageEvent language){
         isReset = false;
+        LogUtils.d("MainPresenter===>:","isReset=1="+isReset);
+
         recreate();
     }
 
@@ -142,6 +147,12 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     public void changeAccount(AccountEvent language){
         isReset = true;
         recreate();
+    }
+
+    @Subscribe(threadMode= ThreadMode.MAIN)
+    public void changeAccount(NightEvent nightEvent){
+        isReset = false;
+        //recreate();
     }
 
     @Override

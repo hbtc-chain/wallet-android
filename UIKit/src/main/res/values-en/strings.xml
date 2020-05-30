@@ -311,7 +311,8 @@
     <string name="not_available_amount">The blance is not enough</string>
     <string name="please_transfer_amount">Input Amount</string>
     <string name="error_transfer_address">Incorrect Wallet address</string>
-    <string name="error_transfer_amout_more_available">The blance is not enough</string>
+    <string name="error_transfer_amout_more_available">The balance is not enough</string>
+    <string name="error_withdraw_amout_more_available">The balance is not enough</string>
     <string name="qr_code">QR code</string>
     <string name="hint_input_exchange_fee">Please enter the Gas Fee</string>
     <string name="origin_password">Old password</string>
@@ -416,7 +417,9 @@
     <string name="all">All</string>
     <string name="no_profit">No profit</string>
     <string name="update_content">Update</string>
-
+    <string name="find_new_version">Discover version</string>
+    <string name="import_ks_tip_1">·Copy and paste HBTC wallet Keystore file contents</string>
+    <string name="import_ks_tip_2">·paste into the "Keystore" input box below</string>
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>

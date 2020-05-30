@@ -73,12 +73,6 @@ public class TransferOutPresenter extends BasePresenter {
             return false;
         }
 
-        //有没有足够的提币收费
-        String available_withdraw_fee = available_withdraw_balance.amount;
-        if(Double.valueOf(available_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
-            ToastUtils.showToast(getActivity().getString(R.string.not_enough)+available_withdraw_balance.symbol.toUpperCase());
-        }
-
         if(TextUtils.isEmpty(witddraw_fee_amount) && Double.valueOf(witddraw_fee_amount)<=0){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_withdraw_fee));
             return false;
@@ -92,7 +86,14 @@ public class TransferOutPresenter extends BasePresenter {
 
 
         if( Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
-            ToastUtils.showToast(getActivity().getString(R.string.error_transfer_amout_more_available));
+            ToastUtils.showToast(getActivity().getString(R.string.error_withdraw_amout_more_available));
+            return false;
+        }
+
+        //有没有足够的提币收费
+        String available_withdraw_fee = available_withdraw_balance.amount;
+        if(Double.valueOf(available_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
+            ToastUtils.showToast(getActivity().getString(R.string.not_enough)+available_withdraw_balance.symbol.toUpperCase());
             return false;
         }
 

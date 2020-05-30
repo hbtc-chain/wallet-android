@@ -26,6 +26,7 @@ import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
+import com.bhex.wallet.common.event.NightEvent;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.utils.SafeUilts;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -164,5 +165,6 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         this.getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
         NavigateUtil.startActivity(this,SettingActivity.class);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        EventBus.getDefault().post(new NightEvent());
     }
 }

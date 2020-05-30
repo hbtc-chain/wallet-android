@@ -16,7 +16,7 @@
             android:name=".my.ui.activity.TokenReleaseActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden" />
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden"/>
         <activity
             android:name=".my.ui.activity.RateSettingActivity"
             android:launchMode="singleTop"
@@ -64,7 +64,8 @@
             android:name=".proposals.ui.activity.CreateProposalActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustPan|stateHidden" />
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden"/>
+
     </application>
 
 </manifest>

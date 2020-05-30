@@ -115,7 +115,7 @@ public class BHBalanceHelper {
         }else if(symbol.equalsIgnoreCase("usdt")){
             resId = R.mipmap.ic_usdt;
         }else{
-            resId = R.mipmap.ic_usdt;
+            resId = R.mipmap.ic_default_coin;
         }
 
         iv.setImageDrawable(ContextCompat.getDrawable(context,resId));

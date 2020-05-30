@@ -4,6 +4,7 @@ package com.bhex.wallet.bh_main.my.ui.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -11,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -26,6 +28,7 @@ import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.AndroidBug5497Workaround;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.textwatcher.FormatTextWatcher;
 import com.bhex.tools.utils.NumberUtil;
@@ -87,6 +90,12 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
     @Override
     protected int getLayoutId() {
         return R.layout.activity_token_release;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //AndroidBug5497Workaround.assistActivity(this);
     }
 
     @Override
@@ -280,10 +289,10 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         });
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         super.onBackPressed();
         ToolUtils.hintKeyBoard(this);
         finish();
-    }
+    }*/
 }

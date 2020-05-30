@@ -31,7 +31,7 @@
             android:id="@+id/v_index_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发现新版本"
+            android:text="@string/find_new_version"
             android:includeFontPadding="false"
             android:layout_marginTop="70dp"
             android:layout_marginStart="24dp"
@@ -46,7 +46,7 @@
             android:layout_marginStart="24dp"
             android:textSize="13sp"
             android:textColor="@color/white"
-            android:text="v1.8.2"
+            tools:text="v1.8.2"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
