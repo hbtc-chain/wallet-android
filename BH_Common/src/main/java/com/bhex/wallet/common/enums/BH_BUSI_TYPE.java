@@ -13,7 +13,8 @@ public enum BH_BUSI_TYPE {
     转账通知("1"), 系统通知("2"),
     托管单元已存在("1"), 托管单元不存在("0"),
     默认托管单元("1"), 非默认托管单元("0"),
-    账户资产缓存("Account_Balance"),消息缓存("Message_List");
+    账户资产缓存("Account_Balance"),消息缓存("Message_List"),
+    显示("0"),隐藏("1");
     public String value;
 
     BH_BUSI_TYPE(String value) {

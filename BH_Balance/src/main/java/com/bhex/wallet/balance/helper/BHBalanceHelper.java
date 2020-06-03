@@ -8,21 +8,16 @@ import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
-import com.bhex.wallet.balance.ui.activity.AssetDetailActivity;
 import com.bhex.wallet.common.cache.CacheCenter;
-import com.bhex.wallet.common.cache.RatesCache;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.model.BHRates;
 import com.bhex.wallet.common.model.BHToken;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -36,7 +31,7 @@ public class BHBalanceHelper {
     public static BHBalance getBHBalanceBySymbol(String symbol){
         BHBalance item = new BHBalance();
         if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            item.resId = R.mipmap.ic_bht;
+            item.resId = R.mipmap.ic_token;
         }else if(symbol.equalsIgnoreCase("btc")){
             item.resId = R.mipmap.ic_btc;
         }else if(symbol.equalsIgnoreCase("eth")){
@@ -105,7 +100,7 @@ public class BHBalanceHelper {
     public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){
         int resId = 0;
         if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            resId = R.mipmap.ic_bht;
+            resId = R.mipmap.ic_token;
         }else if(symbol.equalsIgnoreCase("btc")){
             resId = R.mipmap.ic_btc;
         }else if(symbol.equalsIgnoreCase("eth")){

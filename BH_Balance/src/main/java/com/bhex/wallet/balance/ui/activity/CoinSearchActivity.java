@@ -34,9 +34,7 @@ import com.bhex.wallet.common.model.BHPage;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
-import org.bitcoinj.core.Coin;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -161,7 +159,7 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
            }else if(coinItem.symbol.equalsIgnoreCase("usdt")){
                coinItem.resId = R.mipmap.ic_usdt;
            }else if(coinItem.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-               coinItem.resId = R.mipmap.ic_bht;
+               coinItem.resId = R.mipmap.ic_token;
            }else{
                coinItem.resId = 0;
            }
