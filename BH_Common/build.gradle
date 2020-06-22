@@ -48,7 +48,6 @@ android {
         //这里要排除到这个包，这个包会与 com.google.guava 冲突，导致编译不过
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
-
 }
 
 dependencies {
@@ -85,13 +84,6 @@ dependencies {
     // For Kotlin use kapt instead of annotationProcessor
     kapt 'androidx.room:room-compiler:2.2.3'
 
-    //annotationProcessor 'androidx.room:room-compiler:2.2.3'
-
-    /*implementation ('androidx.work:work-runtime:2.1.0'){
-        exclude group: 'com.google.guava', module: 'listenablefuture'
-    }
-    implementation 'androidx.work:work-rxjava2:2.1.0'*/
-    //implementation 'androidx.work:work-runtime-ktx:2.3.1'
 
 
     api project(path: ':Lib_Network')

@@ -65,6 +65,7 @@ public class WalletViewModel extends ViewModel {
         bhWalletDao = AppDataBase.getInstance(BaseApplication.getInstance()).bhWalletDao();
     }
 
+
     /**
      * 创建助记词并保存本地
      */
@@ -85,6 +86,7 @@ public class WalletViewModel extends ViewModel {
                 mutableLiveData.postValue(loadDataModel);
             }
         };
+
 
         Observable.create((emitter)->{
             try{

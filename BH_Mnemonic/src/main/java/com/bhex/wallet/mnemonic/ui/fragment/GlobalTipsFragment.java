@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,8 +25,12 @@ import android.widget.CheckedTextView;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
+import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.utils.FileUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.ui.activity.TrusteeshipActivity;
+
+import java.util.Locale;
 
 /**
  *
@@ -33,6 +38,7 @@ import com.bhex.wallet.mnemonic.ui.activity.TrusteeshipActivity;
 public class GlobalTipsFragment extends BaseDialogFragment {
 
     private CheckedTextView check_agreement;
+    private AppCompatTextView tv_agreement;
 
     public GlobalTipsFragment() {
         // Required empty public constructor
@@ -81,7 +87,16 @@ public class GlobalTipsFragment extends BaseDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         check_agreement = mRootView.findViewById(R.id.check_agreement);
+        tv_agreement = mRootView.findViewById(R.id.tv_agreement);
         check_agreement.setChecked(isCheck);
+        Locale locale = LocalManageUtil.getSetLanguageLocale(getActivity());
+        if(locale!=null && locale.getLanguage().contains("zh")){
+            String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"zh_agreement.txt").replace("\\n", "\n");
+            tv_agreement.setText(agreement);
+        }else{
+            String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"en_agreement.txt").replace("\\n", "\n");
+            tv_agreement.setText(agreement);
+        }
         addEvent();
     }
 
