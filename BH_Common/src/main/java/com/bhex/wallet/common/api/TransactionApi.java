@@ -16,7 +16,7 @@ import okhttp3.Response;
  * Date: 2020/4/1
  * Time: 15:33
  */
-public class TransactionApi extends NetworkApi {
+/*public class TransactionApi extends NetworkApi {
 
     private static volatile TransactionApi INSTANCE;
 
@@ -53,12 +53,12 @@ public class TransactionApi extends NetworkApi {
         return new Function<T, T>() {
             @Override
             public T apply(T response) throws Exception {
-                /*if (response instanceof BaseResponse && ((BaseResponse) response).code != 0) {
+                *//*if (response instanceof BaseResponse && ((BaseResponse) response).code != 0) {
                     ExceptionHandler.ServerException exception = new ExceptionHandler.ServerException();
                     exception.code = ((BaseResponse) response).code;
                     exception.message = ((BaseResponse) response).message != null ? ((BaseResponse) response).message : "";
                     throw exception;
-                }*/
+                }*//*
                 return response;
             }
         };
@@ -80,4 +80,4 @@ public class TransactionApi extends NetworkApi {
 //        return "http://public-chain-web-1081294751.ap-northeast-1.elb.amazonaws.com:11994/";
         return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
     }
-}
+}*/

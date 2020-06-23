@@ -1,7 +1,5 @@
 package com.bhex.wallet.bh_main.proposals.viewmodel;
 
-import android.text.TextUtils;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -9,7 +7,6 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.BaseObserver;
 import com.bhex.network.utils.HUtils;
@@ -18,22 +15,15 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
-import com.bhex.wallet.common.api.TransactionApi;
-import com.bhex.wallet.common.api.TransactionApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
 import com.bhex.wallet.common.model.ProposalQueryResult;
-import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.utils.LiveDataBus;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
-
-import java.util.List;
 
 import okhttp3.RequestBody;
 
@@ -149,7 +139,7 @@ public class ProposalViewModel extends ViewModel {
         };
 
         RequestBody txBody = HUtils.createJson(body);
-        TransactionApi.getService(TransactionApiInterface.class)
+        BHttpApi.getService(BHttpApiInterface.class)
                 .sendTransaction(txBody)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
@@ -176,7 +166,7 @@ public class ProposalViewModel extends ViewModel {
         };
 
         RequestBody txBody = HUtils.createJson(body);
-        TransactionApi.getService(TransactionApiInterface.class)
+        BHttpApi.getService(BHttpApiInterface.class)
                 .sendTransaction(txBody)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
@@ -204,7 +194,7 @@ public class ProposalViewModel extends ViewModel {
         };
 
         RequestBody txBody = HUtils.createJson(body);
-        TransactionApi.getService(TransactionApiInterface.class)
+        BHttpApi.getService(BHttpApiInterface.class)
                 .sendTransaction(txBody)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))

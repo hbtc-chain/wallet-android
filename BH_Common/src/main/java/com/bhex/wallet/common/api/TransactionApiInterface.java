@@ -16,7 +16,7 @@ import retrofit2.http.Path;
  * Date: 2020/4/1
  * Time: 15:37
  */
-public interface TransactionApiInterface {
+/*public interface TransactionApiInterface {
 
     @POST("api/v1/txs")
     Observable<JsonObject> sendTransaction(@Body RequestBody body);
@@ -26,4 +26,4 @@ public interface TransactionApiInterface {
 
     @GET("token/listalltokens")
     Observable<JsonObject> loadSymbol();
-}
+}*/

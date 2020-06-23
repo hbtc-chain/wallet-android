@@ -7,6 +7,8 @@ import com.google.gson.JsonObject;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -19,6 +21,9 @@ import retrofit2.http.Query;
  * Time: 20:22
  */
 public interface BHttpApiInterface {
+
+    @POST("api/v1/txs")
+    Observable<JsonObject> sendTransaction(@Body RequestBody body);
 
     @GET("api/v1/tokens")
     Observable<JsonObject> loadSymbol(@Query("page") int page, @Query("page_size") int pageSize);

@@ -23,8 +23,6 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
-import com.bhex.wallet.common.api.TransactionApi;
-import com.bhex.wallet.common.api.TransactionApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
@@ -94,7 +92,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
         };
 
         RequestBody txBody = HUtils.createJson(body);
-        TransactionApi.getService(TransactionApiInterface.class)
+        BHttpApi.getService(BHttpApiInterface.class)
                 .sendTransaction(txBody)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
