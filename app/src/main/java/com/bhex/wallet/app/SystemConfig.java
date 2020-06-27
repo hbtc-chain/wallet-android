@@ -20,6 +20,8 @@ import com.tencent.mmkv.MMKV;
 
 import java.io.File;
 
+import xcrash.XCrash;
+
 /**
  * created by gongdongyang
  * on 2018/9/25
@@ -57,8 +59,8 @@ public class SystemConfig  {
     private void syncInit(){
         arouterInit();
         //异常处理
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(BHApplication.getInstance());
+        //CrashHandler crashHandler = CrashHandler.getInstance();
+        //crashHandler.init(BHApplication.getInstance());
         if(BuildConfig.DEBUG){
             //Stetho.initializeWithDefaults(BaseApplication.getInstance());
             Stetho.initialize(

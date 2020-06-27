@@ -14,6 +14,7 @@ import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import androidx.core.os.CancellationSignal;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
@@ -155,7 +156,8 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
 
     public void showAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
         ToastUtils.showToast(getResources().getString(R.string.verify_pass));
-        NavigateUtil.startMainActivity(this);
+        //NavigateUtil.startMainActivity(this);
+        ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE).navigation();
         finish();
     }
 

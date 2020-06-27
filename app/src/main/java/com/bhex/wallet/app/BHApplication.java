@@ -12,6 +12,8 @@ import com.bhex.wallet.common.manager.MMKVManager;
 
 import java.util.concurrent.TimeUnit;
 
+import xcrash.XCrash;
+
 /**
  * created by gongdongyang
  * on 2020/2/24
@@ -32,6 +34,7 @@ public class BHApplication extends BaseApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocalManageUtil.attachBaseContext(base,""));
+        XCrash.init(this);
     }
 
     /*private void rateSync(){

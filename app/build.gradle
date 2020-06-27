@@ -13,7 +13,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
-        applicationId "com.bluehelix.wallet"
+        //applicationId "com.bluehelix.wallet"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -67,6 +67,7 @@ android {
             v1SigningEnabled true
             v2SigningEnabled true
         }
+
     }
 
     buildTypes {
@@ -85,7 +86,7 @@ android {
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             ndk {
                 //这里要加上，否则debug包会出问题,后面两个为可选，x86建议加上不然部分模拟器回报错
-                abiFilters "armeabi-v7a", 'arm64-v8a', "x86"
+                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
             }
 
         }
@@ -103,7 +104,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             ndk {
                 //这里其实我觉可以直接是用"armeabi-v7a"，但国内大多使用的都是"armeabi"
-                abiFilters "armeabi-v7a"
+                abiFilters  'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+
             }
         }
     }
@@ -227,6 +229,18 @@ dependencies {
     implementation project(path: ':BH_Balance')
     implementation project(path: ':BH_Main2')
 
+}
+
+/**
+ *
+ * @param flavorName
+ * @return
+ */
+Properties loadConfigProperties(flavorName){
+    def configProperties = new Properties();
+    println("loadConfigProperties++++++++++++++  " + "${flavorName}.properties")
+    configProperties.load(new FileInputStream("${flavorName}.properties"))
+    return configProperties;
 }
 
 walle {

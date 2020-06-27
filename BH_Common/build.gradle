@@ -23,7 +23,9 @@ android {
         if (isBuildModule.toBoolean()) {
             applicationId "com.bhex.wallet.core"
         }
-
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         /*javaCompileOptions {
@@ -85,6 +87,7 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.2.3'
 
 
+    api 'com.iqiyi.xcrash:xcrash-android-lib:2.4.9'
 
     api project(path: ':Lib_Network')
     api project(path: ':Lib_Tools')
