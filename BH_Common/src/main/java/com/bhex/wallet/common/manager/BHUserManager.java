@@ -170,10 +170,23 @@ public class BHUserManager {
     /**
      * 解密私钥
      */
-    public String getOriginContext(String content){
+    /*public String getOriginContext(String content){
         String result = "";
         try{
             result = CryptoUtil.decryptPK(content,mCurrentBhWallet.password);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }*/
+
+    /**
+     * 解密私钥
+     */
+    public String getOriginContext(String content,String inputPwd){
+        String result = "";
+        try{
+            result = CryptoUtil.decryptPK(content,inputPwd);
         }catch (Exception e){
             e.printStackTrace();
         }

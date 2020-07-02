@@ -222,7 +222,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
 
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.doPledge(delegator_address,mProposalInfo.getId(), pledgeAmount, feeAmount,
-                    gasPrice, null, suquece, token);
+                    gasPrice, password, suquece, token);
             mProposalViewModel.sendDoPledge(this, bhSendTranscation);
             return 0;
         });

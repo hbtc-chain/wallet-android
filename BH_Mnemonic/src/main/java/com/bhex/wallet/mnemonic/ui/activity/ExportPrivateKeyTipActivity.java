@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.util.TypeUtils;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -32,6 +33,9 @@ public class ExportPrivateKeyTipActivity extends BaseActivity {
 
     @Autowired(name = "flag")
     String flag;
+
+    @Autowired(name=BHConstants.INPUT_PASSWORD)
+    String inputPwd;
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -80,11 +84,13 @@ public class ExportPrivateKeyTipActivity extends BaseActivity {
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY)
                     .withString("title",title)
                     .withString("flag",flag)
+                    .withString(BHConstants.INPUT_PASSWORD,inputPwd)
                     .navigation();
         }else{
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_KEYSTORE)
                     .withString("title",title)
                     .withString("flag",flag)
+                    .withString(BHConstants.INPUT_PASSWORD,inputPwd)
                     .navigation();
         }
     };

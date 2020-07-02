@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.recyclerview.GridLayoutItemDecoration;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
@@ -15,6 +18,7 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
@@ -36,6 +40,7 @@ import butterknife.BindView;
  * 2020年3月8日14:30:00
  * @author gdy
  */
+@Route(path = ARouterConfig.MNEMONIC_VERIFY,name = "验证助记词")
 public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
 
     @BindView(R2.id.recycler_mnemonic_under)
@@ -47,6 +52,8 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     @BindView(R2.id.btn_start_bakcup)
     AppCompatButton btn_start_bakcup;
 
+    @Autowired(name="inputPwd")
+    String inputPwd;
 
     UnderMnemonicAdapter underMnemonicAdapter;
     AboveMnemonicAdapter aboveMnemonicAdapter;
@@ -66,9 +73,10 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
 
     @Override
     protected void initView() {
+        ARouter.getInstance().inject(this);
 
         LogUtils.d("VerifyMnemonicActivity===>","isbackup==="+BHUserManager.getInstance().getCurrentBhWallet().isBackup);
-        orginMnemonicItemList = MnemonicDataHelper.makeMnemonic();
+        orginMnemonicItemList = MnemonicDataHelper.makeMnemonic(inputPwd);
         underMnemonicItemList = MnemonicDataHelper.makeNewMnemonicList(orginMnemonicItemList);
 
         Collections.shuffle(underMnemonicItemList);

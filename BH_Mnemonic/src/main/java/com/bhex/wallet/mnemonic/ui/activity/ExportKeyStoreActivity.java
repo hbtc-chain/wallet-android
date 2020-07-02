@@ -31,6 +31,8 @@ public class ExportKeyStoreActivity extends ExportBaseActivity {
     @Autowired(name="flag")
     String flag;
 
+    @Autowired(name="inputPwd")
+    String inputPwd;
 
     @Override
     protected int getLayoutId() {
@@ -52,5 +54,10 @@ public class ExportKeyStoreActivity extends ExportBaseActivity {
     @Override
     protected String getFlag() {
         return flag;
+    }
+
+    @Override
+    protected String getInputPwd() {
+        return inputPwd;
     }
 }

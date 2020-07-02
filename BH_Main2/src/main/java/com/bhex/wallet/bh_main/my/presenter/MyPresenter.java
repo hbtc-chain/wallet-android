@@ -11,6 +11,7 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.RegexUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -103,7 +104,11 @@ public class MyPresenter extends BasePresenter {
     public boolean checkPasswordEqual(String oldPwd,String newPwd,String newConfrimPwd){
         boolean flag = true;
         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
-        if(!bhWallet.password.equals(MD5.md5(oldPwd))){
+        /*if(!bhWallet.password.equals(MD5.md5(oldPwd))){
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.error_oldpassword));
+            return false;
+        }*/
+        if(!ToolUtils.isVerifyPass(oldPwd,bhWallet.getPassword())){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.error_oldpassword));
             return false;
         }
@@ -137,6 +142,8 @@ public class MyPresenter extends BasePresenter {
         item.isDefault = wallet.isDefault;
         item.privateKey = wallet.privateKey;
         item.way = wallet.way;
+        item.keystorePath = wallet.keystorePath;
+        item.publicKey = wallet.publicKey;
         return item;
     }
 }

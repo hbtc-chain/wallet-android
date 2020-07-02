@@ -191,7 +191,7 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
         String feeAmount = ed_fee.getInputString();
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation =
-                    BHTransactionManager.crossLinkAddress(feeAmount,gasPrice,null,suquece,balance.symbol);
+                    BHTransactionManager.crossLinkAddress(feeAmount,gasPrice,password,suquece,balance.symbol);
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });

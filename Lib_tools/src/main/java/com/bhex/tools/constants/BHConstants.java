@@ -80,4 +80,7 @@ public class BHConstants {
     //指纹识别
     public static final String FINGER_PWD_KEY = "fingerpwdkey";
 
+    public static final String INPUT_PASSWORD = "inputPwd";
+
+
 }

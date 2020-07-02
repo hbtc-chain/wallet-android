@@ -48,8 +48,8 @@ public class LoginPresenter extends BasePresenter {
      * 密码验证
      */
     public void verifyPassword(String inputPwd, BHWallet bhWallet){
-        String pwdMd5 = MD5.md5(inputPwd);
-        if(pwdMd5.equals(bhWallet.getPassword())){
+        //String passwrod = MD5.generate(inputPwd);
+        if(MD5.verify(inputPwd,bhWallet.getPassword())){
             //NavigateUtil.startMainActivity(getActivity());
             ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE).navigation();
             getActivity().finish();

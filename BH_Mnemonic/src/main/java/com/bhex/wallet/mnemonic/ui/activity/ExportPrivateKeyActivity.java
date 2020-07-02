@@ -40,6 +40,9 @@ public class ExportPrivateKeyActivity extends ExportBaseActivity {
     @Autowired(name="flag")
     String flag;
 
+    @Autowired(name="inputPwd")
+    String inputPwd;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_export_private_key;
@@ -60,5 +63,10 @@ public class ExportPrivateKeyActivity extends ExportBaseActivity {
     @Override
     protected String getFlag() {
         return flag;
+    }
+
+    @Override
+    protected String getInputPwd() {
+        return inputPwd;
     }
 }

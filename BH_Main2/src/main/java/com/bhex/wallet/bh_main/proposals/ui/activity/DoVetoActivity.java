@@ -266,7 +266,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
 
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.doVeto(delegator_address, mProposalInfo.getId(), mOption, feeAmount,
-                    gasPrice,null, suquece, token);
+                    gasPrice,password, suquece, token);
             mProposalViewModel.sendDoVeto(this, bhSendTranscation);
             return 0;
         });

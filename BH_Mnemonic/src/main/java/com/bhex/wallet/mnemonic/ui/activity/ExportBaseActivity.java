@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bhex.lib.uikit.widget.GradientTabLayout;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -47,6 +48,7 @@ public abstract class ExportBaseActivity extends BaseActivity {
         ExportTextFragment exportTextFragment = new ExportTextFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ExportTextFragment.KEY_FLAG,getFlag());
+        bundle.putString(BHConstants.INPUT_PASSWORD,getInputPwd());
         exportTextFragment.setArguments(bundle);
 
         //二维码导出
@@ -81,5 +83,5 @@ public abstract class ExportBaseActivity extends BaseActivity {
 
     protected abstract String getFlag();
 
-
+    protected abstract String getInputPwd();
 }

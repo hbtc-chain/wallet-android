@@ -18,10 +18,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
+import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.ui.activity.BackupMnemonicActivity;
 
@@ -30,7 +34,7 @@ import com.bhex.wallet.mnemonic.ui.activity.BackupMnemonicActivity;
  * 2020-3-13 15:14:52
  * 安全提醒
  */
-public class SecureTipsFragment extends BaseDialogFragment implements View.OnClickListener {
+public class SecureTipsFragment extends BaseDialogFragment implements View.OnClickListener,PasswordFragment.PasswordClickListener {
 
     private AppCompatTextView btn_at_once;
 
@@ -81,7 +85,11 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.btn_at_once){
-            NavigateUtil.startActivity(getActivity(), BackupMnemonicActivity.class);
+            //NavigateUtil.startActivity(getActivity(), BackupMnemonicActivity.class);
+            PasswordFragment.showPasswordDialog(getChildFragmentManager(),
+                    PasswordFragment.class.getName(),
+                    SecureTipsFragment.this,0);
+            return;
         }
         dismiss();
     }
@@ -90,5 +98,13 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
         SecureTipsFragment fragment = new SecureTipsFragment();
         fragment.show(fm,tag);
 
+    }
+
+    @Override
+    public void confirmAction(String password, int position) {
+        ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
+                .withString(BHConstants.INPUT_PASSWORD,password)
+                .navigation();
+        dismiss();
     }
 }

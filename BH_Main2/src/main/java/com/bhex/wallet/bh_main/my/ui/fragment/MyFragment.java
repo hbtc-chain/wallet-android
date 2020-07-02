@@ -259,7 +259,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @Override
     public void confirmAction(String password,int position) {
 
-        if(TextUtils.isEmpty(password)){
+        /*if(TextUtils.isEmpty(password)){
             ToastUtils.showToast(getResources().getString(R.string.please_input_password));
             return;
         }
@@ -267,15 +267,19 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         if(!MD5.md5(password).equals(mBhWallet.getPassword())){
             ToastUtils.showToast(getResources().getString(R.string.error_password));
             return;
-        }
+        }*/
 
         //备份助记词
         if(position==0){
-            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
+            //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
+            ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
+                    .navigation();
         }else if(position==2){
             String title = MyHelper.getTitle(getYActivity(),position);
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP)
                     .withString("title",title)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
                     .withString("flag", BH_BUSI_TYPE.备份私钥.value)
                     .navigation();
         }else if(position==3){
@@ -283,6 +287,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             //提醒页
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP)
                     .withString("title",title)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
                     .withString("flag",BH_BUSI_TYPE.备份KS.value)
                     .navigation();
         }

@@ -11,7 +11,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.QREncodUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -41,6 +43,7 @@ public class ExportQRFragment extends BaseFragment {
     BHWallet mCurrentWallet;
 
     private String flag;
+    private String inptPwd;
 
     @Override
     public int getLayoutId() {
@@ -51,6 +54,7 @@ public class ExportQRFragment extends BaseFragment {
     protected void initView() {
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         flag = getArgumentValue(ExportTextFragment.KEY_FLAG);
+        inptPwd = getArgumentValue(BHConstants.INPUT_PASSWORD);
 
     }
 
@@ -67,7 +71,7 @@ public class ExportQRFragment extends BaseFragment {
     private void showQR() {
         String content = "";
         if(BH_BUSI_TYPE.备份私钥.value.equals(flag)){
-            content = BHUserManager.getInstance().getOriginContext(mCurrentWallet.privateKey);
+            content = BHUserManager.getInstance().getOriginContext(mCurrentWallet.privateKey, MD5.md5(inptPwd));
         }else{
             content = mCurrentWallet.keystorePath;
         }
@@ -85,7 +89,7 @@ public class ExportQRFragment extends BaseFragment {
     private String getArgumentValue(String key){
         String result = "";
         if(getArguments()!=null){
-            result = getArguments().getString(ExportTextFragment.KEY_FLAG,"1");
+            result = getArguments().getString(key,"1");
         }
         return result;
     }
