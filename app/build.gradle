@@ -147,7 +147,7 @@ android {
 
     productFlavors {
         bh_wallet {
-            applicationId "com.bluehelix.wallet"
+            applicationId application_id
             //resConfigs("en","xxhdpi")
         }
     }
