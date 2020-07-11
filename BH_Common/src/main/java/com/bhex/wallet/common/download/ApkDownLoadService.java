@@ -21,6 +21,7 @@ import androidx.core.content.FileProvider;
 import androidx.lifecycle.Lifecycle;
 
 import com.bhex.network.app.BaseApplication;
+import com.bhex.tools.BuildConfig;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.R;
 import com.uber.autodispose.AutoDispose;
@@ -224,7 +225,7 @@ public class ApkDownLoadService  extends IntentService {
         File file = new File(dlInfo.getApkLocalPath());
 
         LogUtils.d("ApkDownLoadService===>","file===="+file.getAbsolutePath());
-        Uri  data = FileProvider.getUriForFile(getApplication(), "com.bluehelix.wallet.fileprovider", file);
+        Uri  data = FileProvider.getUriForFile(getApplication(), BuildConfig.K_APPLICATION_ID +".fileprovider", file);
         // 给目标应用一个临时授权
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 

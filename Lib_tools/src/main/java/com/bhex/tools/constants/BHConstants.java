@@ -1,5 +1,7 @@
 package com.bhex.tools.constants;
 
+import com.bhex.tools.BuildConfig;
+
 /**
  * Created by BHEX.
  * User: gdy
@@ -12,7 +14,7 @@ public class BHConstants {
 
     public static final String FRIST_BOOT = "frist_boot";
     //"com.jrmf360.action.ENTER"
-    public static final String  MAIN_PATH = "com.bhex.wallet.action.main";
+    public static final String  MAIN_PATH = BuildConfig.K_APPLICATION_ID +".action.main";
 
     //选择的货币
     public static final String CURRENCY_USED = "currency";

@@ -148,6 +148,7 @@ android {
     productFlavors {
         bh_wallet {
             applicationId application_id
+            manifestPlaceholders = [APPLICATION_ID: application_id]
             //resConfigs("en","xxhdpi")
         }
     }
