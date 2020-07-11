@@ -36,6 +36,7 @@ import com.bhex.wallet.bh_main.my.viewmodel.MessageViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -238,7 +239,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void changeAccount(WalletEvent walletEvent){
+    public void changeAccount(AccountEvent walletEvent){
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_username.setText(mBhWallet.getName());
         MyHelper.proccessAddress(tv_address,mBhWallet.getAddress());

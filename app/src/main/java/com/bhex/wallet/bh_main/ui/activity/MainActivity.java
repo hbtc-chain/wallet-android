@@ -146,7 +146,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Subscribe(threadMode= ThreadMode.MAIN)
     public void changeAccount(AccountEvent language){
         isReset = true;
-        recreate();
+        //recreate();
     }
 
     @Subscribe(threadMode= ThreadMode.MAIN)
