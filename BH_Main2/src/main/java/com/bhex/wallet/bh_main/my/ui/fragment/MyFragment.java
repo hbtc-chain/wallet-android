@@ -1,7 +1,6 @@
 package com.bhex.wallet.bh_main.my.ui.fragment;
 
 
-import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -20,8 +19,6 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
@@ -37,13 +34,15 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
-import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHPage;
+import com.bhex.wallet.common.model.UpgradeInfo;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.utils.LiveDataBus;
+import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
 import com.google.android.material.card.MaterialCardView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -98,6 +97,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
     private MessageViewModel msgViewModel;
 
+    private UpgradeViewModel mUpgradeVM;
+
     public MyFragment() {
 
     }
@@ -129,6 +130,11 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
         msgViewModel = ViewModelProviders.of(this).get(MessageViewModel.class);
+
+        mUpgradeVM = ViewModelProviders.of(this).get(UpgradeViewModel.class);
+        mUpgradeVM.upgradeLiveData.observe(getActivity(),ldm->{
+            processUpgradeInfo(ldm);
+        });
 
     }
 
@@ -164,6 +170,9 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                 case 4:
                     //设置
                     NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
+                    break;
+                case 6:
+                    mUpgradeVM.getUpgradeInfoExt(getYActivity());
                     break;
 
             }
@@ -217,12 +226,28 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         msgViewModel.loadMessageByAddress(this,1,null);
     }
 
+    /**
+     * 处理升级请求
+     */
+    private void processUpgradeInfo(LoadDataModel<UpgradeInfo> ldm) {
+        if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+            UpgradeInfo upgradeInfo = ldm.getData();
+            if(upgradeInfo.needUpdate){
+                showUpgradeDailog(upgradeInfo);
+            }else{
+                ToastUtils.showToast(getString(R.string.app_up_to_minute_version));
+            }
+        }else if(ldm.loadingStatus== LoadingStatus.ERROR){
+
+        }
+    }
+
+
 
     @OnClick({R2.id.iv_message, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste,
             R2.id.iv_edit, R2.id.layout_index_2,R2.id.layout_index_3})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_message){
-            //ARouterUtil.startActivity(ARouterConfig.MY_Message);
             ARouter.getInstance().build(ARouterConfig.MY_Message).navigation();
         }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(mBhWallet.getAddress(),getYActivity());
@@ -259,17 +284,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
     @Override
     public void confirmAction(String password,int position) {
-
-        /*if(TextUtils.isEmpty(password)){
-            ToastUtils.showToast(getResources().getString(R.string.please_input_password));
-            return;
-        }
-
-        if(!MD5.md5(password).equals(mBhWallet.getPassword())){
-            ToastUtils.showToast(getResources().getString(R.string.error_password));
-            return;
-        }*/
-
         //备份助记词
         if(position==0){
             //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
@@ -303,4 +317,19 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         tv_username.setText(mBhWallet.getName());
         ToolUtils.hintKeyBoard(getYActivity());
     };
+
+    /**
+     * 显示升级对话框
+     */
+    private void showUpgradeDailog(UpgradeInfo upgradeInfo){
+        //是否强制升级
+        UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo,upgradeDialogListener);
+        fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
+    }
+
+    UpgradeFragment.DialogOnClickListener upgradeDialogListener = v -> {
+        ToastUtils.showToast(getActivity().getResources().getString(R.string.app_loading_now));
+    };
+
+
 }

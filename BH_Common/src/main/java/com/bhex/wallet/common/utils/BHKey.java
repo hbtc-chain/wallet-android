@@ -4,14 +4,10 @@ import android.util.Log;
 
 import com.bhex.network.utils.Base64;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.crypto.Sha256;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.MD5;
-import com.fasterxml.jackson.databind.ser.Serializers;
 
-import org.bitcoinj.core.Base58;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Utils;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
@@ -19,7 +15,8 @@ import org.bouncycastle.crypto.digests.RIPEMD160Digest;
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.util.Arrays;
+
+import static com.bhex.tools.constants.BHConstants.PUBLIC_KEY_LENGTH;
 
 /**
  * Created by BHEX.
@@ -214,6 +211,7 @@ public class BHKey {
     public static String compressPubKey(BigInteger pubKey) {
         String pubKeyYPrefix = pubKey.testBit(0) ? "03" : "02";
         String pubKeyHex = pubKey.toString(16);
+        pubKeyHex = HexUtils.addPreZero(pubKeyHex,PUBLIC_KEY_LENGTH);
         String pubKeyX = pubKeyHex.substring(0, 64);
         return pubKeyYPrefix + pubKeyX;
     }

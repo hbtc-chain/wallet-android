@@ -252,19 +252,14 @@ public class BHWalletUtils {
             // 生成BH-地址
             String bh_adress = BHKey.getBhexUserDpAddress(keyPair.getPublicKey());
             walletFile.setAddress(bh_adress);
-            //LogUtils.d(TAG+"==>:","bh_adress:"+bh_adress);
             //生成bench32地址
             String bh_bech_pubkey = BHKey.getBhexUserDpPubKey(keyPair.getPublicKey());
-            //LogUtils.d(TAG+"==>:","bh_bech_pubkey:"+bh_bech_pubkey);
             //keystore存储
             //String ks_path = save_keystore(walletFile,walletName);
-            //String pk_str = keyPair.getPrivateKey().toString(16);
-            //LogUtils.d(TAG+"==>:","pk_str:"+pk_str);
             //私钥加密
             String encryptPK = CryptoUtil.encryptPK(keyPair.getPrivateKey(),pwd);
             String raw_json = JsonUtils.toJson(walletFile);
-            LogUtils.d("BHWalletUtils==>:","raw_json=="+raw_json);
-
+            //LogUtils.d("BHWalletUtils==>:","raw_json=="+raw_json);
             bhWallet = BHUserManager.getInstance().getTmpBhWallet();
             bhWallet.setName(walletName);
             bhWallet.setAddress(bh_adress);

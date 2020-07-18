@@ -60,26 +60,26 @@ public class MainPresenter extends BasePresenter {
     @Override
     public void onCreate(@NotNull LifecycleOwner owner) {
         super.onCreate(owner);
-        int isBackUp = BHUserManager.getInstance().getCurrentBhWallet().isBackup;
-
-        LogUtils.d("MainPresenter===>:","isReset=="+((MainActivity)getActivity()).isReset);
-
-        if(isBackUp== BH_BUSI_TYPE.未备份.getIntValue() && ((MainActivity)getActivity()).isReset){
-            BHApplication.getMainHandler().postDelayed(()->{
-                SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),SecureTipsFragment.class.getName());
-            },300);
-        }
-
+        showIsBackup();
         mUpgradeVM = ViewModelProviders.of(getActivity()).get(UpgradeViewModel.class);
         //升级请求
         mUpgradeVM.upgradeLiveData.observe(getActivity(),ldm->{
             processUpgradeInfo(ldm);
         });
         mUpgradeVM.getUpgradeInfo(getActivity());
-
     }
 
-
+    /**
+     * 是否备份助记词
+     */
+    public void showIsBackup(){
+        int isBackUp = BHUserManager.getInstance().getCurrentBhWallet().isBackup;
+        if(isBackUp== BH_BUSI_TYPE.未备份.getIntValue() && ((MainActivity)getActivity()).isReset){
+            BHApplication.getMainHandler().postDelayed(()->{
+                SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),SecureTipsFragment.class.getName());
+            },300);
+        }
+    }
 
     /**
      * 处理升级请求
@@ -100,9 +100,8 @@ public class MainPresenter extends BasePresenter {
      * 显示升级对话框
      */
     private void showUpgradeDailog(UpgradeInfo upgradeInfo){
-        //upgradeInfo.downloadUrl = "https://96d76ceb2c8597be6f857357d0605eb9.dd.cdntips.com/imtt.dd.qq.com/16891/apk/A9E154441A48004FDFAB8E047A84C557.apk";
         //是否强制升级
-        if(upgradeInfo.needForceUpdate){
+        /*if(upgradeInfo.needForceUpdate){
             //
             UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo,dialogOnClickListener);
             fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
@@ -114,7 +113,9 @@ public class MainPresenter extends BasePresenter {
                 UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo,dialogOnClickListener);
                 fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
             }
-        }
+        }*/
+        UpgradeFragment fragment = UpgradeFragment.Companion.showUpgradeDialog(upgradeInfo,dialogOnClickListener);
+        fragment.show(getActivity().getSupportFragmentManager(),UpgradeFragment.class.getName());
     }
 
     UpgradeFragment.DialogOnClickListener dialogOnClickListener = v -> {

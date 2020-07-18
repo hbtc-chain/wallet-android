@@ -147,6 +147,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     public void changeAccount(AccountEvent language){
         isReset = true;
         //recreate();
+        mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
+        getPresenter().showIsBackup();
+
     }
 
     @Subscribe(threadMode= ThreadMode.MAIN)

@@ -139,13 +139,15 @@ public class HexUtils {
     }
 
 
-    public static String addPreZero(String origin) {
+    public static String addPreZero(String origin,int size) {
         int length = origin.length();
         String s = "";
-        for (int i = 0; i < 64 - length; i++) {
+        for (int i = 0; i < size - length; i++) {
             s += "0";
         }
         return s + origin;
     }
+
+
 
 }

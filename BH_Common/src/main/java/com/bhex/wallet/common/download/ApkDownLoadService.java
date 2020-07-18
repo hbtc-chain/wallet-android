@@ -127,7 +127,7 @@ public class ApkDownLoadService  extends IntentService {
         //下载请求
         DownloadManager.Request request = new DownloadManager.Request(uri);
         //
-        request.setTitle(getString(R.string.update_prepare, new Object[] { "Bluehelix" }));
+        request.setTitle(getString(R.string.update_prepare, new Object[] { getString(R.string.app_name) }));
 
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE);
 

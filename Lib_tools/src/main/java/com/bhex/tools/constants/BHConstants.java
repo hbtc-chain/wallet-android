@@ -84,5 +84,8 @@ public class BHConstants {
 
     public static final String INPUT_PASSWORD = "inputPwd";
 
+    public static final int PRIVATE_KEY_LENGTH = 64;
+
+    public static final int PUBLIC_KEY_LENGTH = 128;
 
 }

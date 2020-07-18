@@ -17,8 +17,8 @@ import com.bhex.wallet.common.R
 import com.bhex.wallet.common.download.ApkDownLoadService
 import com.bhex.wallet.common.download.DownloadInfo
 import com.bhex.wallet.common.manager.MMKVManager
-import com.bhex.wallet.common.model.BHPhoneInfo
 import com.bhex.wallet.common.model.UpgradeInfo
+import com.google.android.material.button.MaterialButton
 import java.io.File
 
 
@@ -34,6 +34,7 @@ class UpgradeFragment : DialogFragment() {
 
     private var upgradeInfo:UpgradeInfo?=null
 
+    private var mRootView:View?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val style = STYLE_NO_TITLE
@@ -46,8 +47,16 @@ class UpgradeFragment : DialogFragment() {
         val mRootView =  inflater.inflate(R.layout.fragment_upgrade, container, false)
         val contentView = mRootView.findViewById<AppCompatTextView>(R.id.tv_upgrade_content)
         contentView.text = upgradeInfo?.newFeatures
+
+        val tv_version = mRootView.findViewById<AppCompatTextView>(R.id.tv_version)
+        tv_version.text = "v"+upgradeInfo?.apkVersion
+
         mRootView.findViewById<AppCompatButton>(R.id.btn_cancel).setOnClickListener{
             dismiss()
+        }
+
+        if(upgradeInfo?.needForceUpdate==true){
+            mRootView.findViewById<MaterialButton>(R.id.btn_cancel).visibility = View.GONE
         }
 
         mRootView.findViewById<AppCompatButton>(R.id.btn_confirm).setOnClickListener{
@@ -75,10 +84,14 @@ class UpgradeFragment : DialogFragment() {
         //lp.windowAnimations = R.style.centerDialogStyle
         window.attributes = lp
 
+        //
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(upgradeInfo?.needForceUpdate==true){
+
+        }
         MMKVManager.getInstance().mmkv().encode("update_cancel_time", System.currentTimeMillis());
     }
 
@@ -90,7 +103,7 @@ class UpgradeFragment : DialogFragment() {
     }
 
     companion object{
-        fun showUpgradeDialog(upgradeInfo: UpgradeInfo,listener: DialogOnClickListener):UpgradeFragment{
+        fun showUpgradeDialog(upgradeInfo: UpgradeInfo, listener: DialogOnClickListener):UpgradeFragment{
             val fragment = UpgradeFragment()
             fragment.dialogOnClickListener = listener
             fragment.upgradeInfo = upgradeInfo
@@ -104,7 +117,7 @@ class UpgradeFragment : DialogFragment() {
 
     fun startUpdate(){
         var intent:Intent = Intent(activity, ApkDownLoadService::class.java)
-        var downloadInfo = DownloadInfo(upgradeInfo!!.downloadUrl,BHPhoneInfo.appVersion)
+        var downloadInfo = DownloadInfo(upgradeInfo!!.downloadUrl,upgradeInfo!!.apkVersion)
 
         val file = File(context!!.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),downloadInfo.getApkFileName())
         if(file.exists()){

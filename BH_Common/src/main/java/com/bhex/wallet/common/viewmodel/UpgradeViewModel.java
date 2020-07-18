@@ -10,6 +10,7 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
+import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -43,6 +44,33 @@ public class UpgradeViewModel extends AndroidViewModel {
      */
     public void getUpgradeInfo(BaseActivity activity){
         BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>(false) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                UpgradeInfo upgradeInfo = JsonUtils.fromJson(jsonObject.toString(),UpgradeInfo.class);
+                LoadDataModel ldm = new LoadDataModel(upgradeInfo);
+                upgradeLiveData.postValue(ldm);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel ldm = new LoadDataModel(code,errorMsg);
+                upgradeLiveData.postValue(ldm);
+            }
+        };
+
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .getUpgradeInfo(BHPhoneInfo.appId,BHPhoneInfo.appVersion,BHPhoneInfo.deviceType,BHPhoneInfo.deviceVersion)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+
+    }
+
+
+    public void getUpgradeInfoExt(BaseActivity activity){
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 UpgradeInfo upgradeInfo = JsonUtils.fromJson(jsonObject.toString(),UpgradeInfo.class);

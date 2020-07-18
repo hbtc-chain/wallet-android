@@ -2,6 +2,7 @@ package com.bhex.tools.crypto;
 
 import android.text.TextUtils;
 
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.StringUtils;
@@ -123,7 +124,7 @@ public class CryptoUtil {
             byte[] byte_pk = CryptoUtil.decrypt(HexUtils.toBytes(encryptPK), pwd);
             BigInteger big_pk = Numeric.toBigInt(byte_pk);
             decrypt = big_pk.toString(16);
-            decrypt = HexUtils.addPreZero(decrypt);
+            decrypt = HexUtils.addPreZero(decrypt, BHConstants.PRIVATE_KEY_LENGTH);
         } catch (Exception e) {
             e.printStackTrace();
         }

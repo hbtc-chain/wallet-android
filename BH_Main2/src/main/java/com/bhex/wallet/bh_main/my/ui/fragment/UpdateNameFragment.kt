@@ -3,6 +3,7 @@ package com.bhex.wallet.bh_main.my.ui.fragment
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.*
@@ -53,6 +54,8 @@ class UpdateNameFragment : DialogFragment() {
 
         walletNameInput = mRootView.findViewById(R.id.inp_wallet_name)
         walletNameInput?.inputString = wallet.name
+
+        walletNameInput?.editText?.inputType = InputType.TYPE_CLASS_TEXT
 
         return mRootView
     }
