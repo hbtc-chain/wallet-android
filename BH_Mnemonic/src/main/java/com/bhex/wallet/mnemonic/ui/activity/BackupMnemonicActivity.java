@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
@@ -44,6 +46,9 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
     @BindView(R2.id.btn_start_verify)
     AppCompatButton btn_start_verify;
 
+    @Autowired(name="inputPwd")
+    String inputPwd;
+
     private List<MnemonicItem> mnemonicItemList;
 
     private MnemonicAdapter mnemonicAdapter;
@@ -55,12 +60,12 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
 
     @Override
     protected void initView() {
-
+        ARouter.getInstance().inject(this);
     }
 
     @Override
     protected void addEvent() {
-        mnemonicItemList = MnemonicDataHelper.makeMnemonic();
+        mnemonicItemList = MnemonicDataHelper.makeMnemonic(inputPwd);
 
         mnemonicAdapter = new MnemonicAdapter(R.layout.item_mnemonic,mnemonicItemList);
 
@@ -74,7 +79,10 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
     @OnClick({R2.id.btn_start_verify})
     public void onViewClicked(View view) {
         if(view.getId()== R.id.btn_start_verify){
-            NavigateUtil.startActivity(this, VerifyMnemonicActivity.class);
+            //NavigateUtil.startActivity(this, VerifyMnemonicActivity.class);
+            ARouter.getInstance().build(ARouterConfig.MNEMONIC_VERIFY)
+                    .withString(BHConstants.INPUT_PASSWORD,inputPwd)
+                    .navigation();
         }
     }
 

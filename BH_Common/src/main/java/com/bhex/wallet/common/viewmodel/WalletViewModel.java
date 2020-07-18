@@ -528,7 +528,7 @@ public class WalletViewModel extends ViewModel {
      * 修改密码
      * @param newPwd
      */
-    public void updatePassword(BaseActivity activity,String newPwd,BHWallet bhWallet) {
+    public void updatePassword(BaseActivity activity,String oldPwd,String newPwd,BHWallet bhWallet) {
         BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
             public void onSuccess(BHWallet str) {
@@ -547,19 +547,19 @@ public class WalletViewModel extends ViewModel {
 
         Observable.create((emitter)->{
             try{
-                String pwdMd5 = MD5.md5(newPwd);
+                String pwdMd5 = MD5.generate(newPwd);
                 //bhWallet.password = pwdMd5;
                 //解密私钥
-                byte[] originPK = CryptoUtil.decrypt(HexUtils.toBytes(bhWallet.privateKey),bhWallet.password);
+                byte[] originPK = CryptoUtil.decrypt(HexUtils.toBytes(bhWallet.privateKey),MD5.md5(oldPwd));
                 //加密私钥
-                byte[] newEnPK = CryptoUtil.encrypt(originPK,pwdMd5);
+                byte[] newEnPK = CryptoUtil.encrypt(originPK,MD5.md5(newPwd));
                 bhWallet.privateKey = HexUtils.toHex(newEnPK);
                 //解密助记词
                 if(!TextUtils.isEmpty(bhWallet.mnemonic)){
                     //解密助记词
-                    byte [] originMnemonic = CryptoUtil.decrypt(HexUtils.toBytes(bhWallet.mnemonic),bhWallet.password);
+                    byte [] originMnemonic = CryptoUtil.decrypt(HexUtils.toBytes(bhWallet.mnemonic),MD5.md5(oldPwd));
                     //加密助记词
-                    byte [] newEnMnemonic = CryptoUtil.encrypt(originMnemonic,pwdMd5);
+                    byte [] newEnMnemonic = CryptoUtil.encrypt(originMnemonic,MD5.md5(newPwd));
                     bhWallet.mnemonic = HexUtils.toHex(newEnMnemonic);
                 }
 

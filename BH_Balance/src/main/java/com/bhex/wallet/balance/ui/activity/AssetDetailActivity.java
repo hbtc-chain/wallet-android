@@ -452,7 +452,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                 BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
 
                 BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), "2",
-                        gasPrice, null, suquece);
+                        gasPrice, password, suquece);
 
                 transactionViewModel.sendTransaction(this, bhSendTranscation);
                 return 0;
@@ -464,7 +464,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
                 List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
                 List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
                 BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
-                        "",BHConstants.BHT_DEFAULT_FEE, gasPrice,null,suquece);
+                        "",BHConstants.BHT_DEFAULT_FEE, gasPrice,password,suquece);
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });

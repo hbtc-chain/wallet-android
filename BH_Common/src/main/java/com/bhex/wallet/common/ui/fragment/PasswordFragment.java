@@ -125,7 +125,11 @@ public class PasswordFragment extends BaseDialogFragment {
                     return;
                 }
 
-                if(!currentWallet.password.equals(MD5.md5(inputPassword))){
+                /*if(!currentWallet.password.equals(MD5.md5(inputPassword))){
+                    ToastUtils.showToast(getResources().getString(R.string.error_password));
+                    return;
+                }*/
+                if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
                     ToastUtils.showToast(getResources().getString(R.string.error_password));
                     return;
                 }

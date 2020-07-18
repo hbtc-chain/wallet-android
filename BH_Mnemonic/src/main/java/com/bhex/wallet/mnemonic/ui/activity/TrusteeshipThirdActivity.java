@@ -10,14 +10,17 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.StringUtils;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -120,7 +123,11 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                     ToastUtils.showToast(getResources().getString(R.string.import_privatekey_success));
                     BHUserManager.getInstance().clear();
                 }else{
-                    NavigateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
+                    //NavigateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
+                    ARouter.getInstance()
+                            .build(ARouterConfig.TRUSTEESHIP_CREATE_OK_PAGE)
+                            .withString(BHConstants.INPUT_PASSWORD,inp_wallet_confirm_pwd.getInputString())
+                            .navigation();
                     ActivityCache.getInstance().finishActivity();
                 }
 

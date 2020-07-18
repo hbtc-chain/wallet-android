@@ -8,6 +8,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.Sha256;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -51,7 +52,8 @@ public class BHTransactionManager {
                                       String sequence,
                                       String symbol){
 
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -116,7 +118,8 @@ public class BHTransactionManager {
                                              BigInteger gasPrice,
                                              String data,
                                              String sequence,String symbol){
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -152,7 +155,8 @@ public class BHTransactionManager {
 
         String from = BHUserManager.getInstance().getCurrentBhWallet().address;
 
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -210,7 +214,8 @@ public class BHTransactionManager {
                                              String sequence,
                                              String symbol){
 
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -264,8 +269,8 @@ public class BHTransactionManager {
 
         BHRawTransaction bhRawTransaction = null;
 
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
-
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
@@ -302,7 +307,8 @@ public class BHTransactionManager {
                                              String data,
                                              String sequence,
                                              String symbol){
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -336,7 +342,8 @@ public class BHTransactionManager {
                                              String data,
                                              String sequence,
                                              String symbol){
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -376,7 +383,8 @@ public class BHTransactionManager {
                                            String sequence,
                                            String symbol){
 
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
@@ -414,7 +422,8 @@ public class BHTransactionManager {
                                       String data,
                                       String sequence){
 
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -449,7 +458,8 @@ public class BHTransactionManager {
                                                    String data,
                                                    String sequence){
 
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         BHRawTransaction bhRawTransaction = null;
 
@@ -473,9 +483,10 @@ public class BHTransactionManager {
     }
 
     //代币发行
-    public static BHSendTranscation hrc20TokenRelease(BHTokenRlease tokenRlease,String feeAmount,BigInteger gasPrice,String sequence){
+    public static BHSendTranscation hrc20TokenRelease(BHTokenRlease tokenRlease,String feeAmount,BigInteger gasPrice,String sequence,String data){
 
-        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        //String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey,BHUserManager.getInstance().getCurrentBhWallet().password);
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
 
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 

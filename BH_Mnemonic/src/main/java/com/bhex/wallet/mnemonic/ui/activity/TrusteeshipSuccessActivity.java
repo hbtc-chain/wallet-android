@@ -5,7 +5,9 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.ActivityCache;
@@ -36,6 +38,9 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
     @BindView(R2.id.btn_later_backup)
     AppCompatTextView btn_later_backup;
 
+    @Autowired(name=BHConstants.INPUT_PASSWORD)
+    String inputPwd;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_trusteeship_success;
@@ -43,7 +48,7 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
 
     @Override
     protected void initView() {
-
+        ARouter.getInstance().inject(this);
     }
 
     @Override
@@ -72,7 +77,8 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
 
     @Override
     public void clickBtn() {
-        NavigateUtil.startActivity(this, BackupMnemonicActivity.class);
+        //NavigateUtil.startActivity(this, BackupMnemonicActivity.class);
+        ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP).withString(BHConstants.INPUT_PASSWORD,inputPwd).navigation();
         ActivityCache.getInstance().finishActivity();
     }
 

@@ -271,7 +271,7 @@ public class BHWalletUtils {
             bhWallet.setPublicKey(bh_bech_pubkey);
             bhWallet.setPrivateKey(encryptPK);
             bhWallet.setKeystorePath(raw_json);
-            bhWallet.setPassword(MD5.md5(pwd));
+            bhWallet.setPassword(MD5.generate(pwd));
             bhWallet.setIsDefault(0);
             bhWallet.setIsBackup(0);
 

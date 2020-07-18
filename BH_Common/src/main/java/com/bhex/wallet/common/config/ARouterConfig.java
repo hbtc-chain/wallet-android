@@ -44,6 +44,8 @@ public class ARouterConfig {
     public static final String TRUSTEESHIP_CREATE_OK_PAGE = "/mnemonic/trusteeship/success";
     //助记词备份
     public static final String MNEMONIC_BACKUP = "/mnemonic/backup";
+    //助记词验证
+    public static final String MNEMONIC_VERIFY = "/mnemonic/verify";
 
     //托管单元创建
     public static final String TRUSTEESHIP_IMPORT_INDEX = "/mnemonic/trusteeship/index";

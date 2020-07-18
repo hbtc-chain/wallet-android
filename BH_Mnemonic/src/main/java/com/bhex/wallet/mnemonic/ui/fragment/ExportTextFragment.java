@@ -5,6 +5,8 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
@@ -34,6 +36,7 @@ public class ExportTextFragment extends BaseFragment {
     BHWallet mCurrentWallet;
 
     private String flag;
+    private String inptPwd;
 
     @Override
     public int getLayoutId() {
@@ -47,9 +50,10 @@ public class ExportTextFragment extends BaseFragment {
 
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         flag = getArgumentValue(ExportTextFragment.KEY_FLAG);
+        inptPwd = getArgumentValue(BHConstants.INPUT_PASSWORD);
 
         if(BH_BUSI_TYPE.备份私钥.value.equals(flag)){
-            et_private_key.setText(BHUserManager.getInstance().getOriginContext(mCurrentWallet.privateKey));
+            et_private_key.setText(BHUserManager.getInstance().getOriginContext(mCurrentWallet.privateKey, MD5.md5(inptPwd)));
             btn_copy.setText(getString(R.string.copy_privatekey));
         }else{
             et_private_key.setText(mCurrentWallet.keystorePath);
@@ -69,7 +73,7 @@ public class ExportTextFragment extends BaseFragment {
     private String getArgumentValue(String key){
         String result = "";
         if(getArguments()!=null){
-            result = getArguments().getString(ExportTextFragment.KEY_FLAG,"1");
+            result = getArguments().getString(key,"1");
         }
         return result;
     }

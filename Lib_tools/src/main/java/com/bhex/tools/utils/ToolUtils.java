@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
@@ -127,10 +128,36 @@ public class ToolUtils {
     //生成随机数
     /*public static String getRandomString(int length) {
         StringBuffer sb = new StringBuffer();
-        int len = BHConstants.RANDOMSTR.length();
+        int len = POCConstants.RANDOMSTR.length();
         for (int i = 0; i < length; i++) {
-            sb.append(BHConstants.RANDOMSTR.charAt(getRandom(len - 1)));
+            sb.append(POCConstants.RANDOMSTR.charAt(getRandom(len - 1)));
         }
         return sb.toString();
     }*/
+
+    public static  boolean checkListIsEmpty(List list){
+        if(list==null || list.size()==0){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean codeStatusError(int code){
+        if(code<530){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 验证content
+     * @return
+     */
+    public static boolean isVerifyPass(String originContent,String verifyContent){
+        boolean flag = false;
+        if(MD5.verify(originContent,verifyContent)){
+            flag = true;
+        }
+        return flag;
+    }
 }

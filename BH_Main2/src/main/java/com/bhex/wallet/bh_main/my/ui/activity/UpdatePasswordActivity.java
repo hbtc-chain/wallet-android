@@ -120,7 +120,7 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
                     inp_confrim_pwd.getInputString());
             if(flag){
                 BHWallet item = getPresenter().makeBhWallet(mCurrentWallet);
-                walletViewModel.updatePassword(this,inp_new_pwd.getInputString(),item);
+                walletViewModel.updatePassword(this,inp_old_pwd.getInputString(),inp_new_pwd.getInputString(),item);
             }
         }
     }

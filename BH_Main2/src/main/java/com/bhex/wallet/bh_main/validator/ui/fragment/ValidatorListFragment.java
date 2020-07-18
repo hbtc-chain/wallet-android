@@ -16,6 +16,7 @@ import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.adapter.ValidatorAdapter;
@@ -123,6 +124,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     @Override
     public void onResume() {
         super.onResume();
+        LogUtils.d("ValidatorFragment==","===onResume===");
         getRecord(mValidatorAdapter==null||mValidatorAdapter.getData()==null||mValidatorAdapter.getData().size()<1);
     }
 

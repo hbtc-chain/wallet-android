@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.MD5;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
 
@@ -19,22 +20,22 @@ import java.util.List;
  * Time: 20:43
  */
 public class MnemonicDataHelper {
-    public static List<MnemonicItem> makeMnemonic(){
+    public static List<MnemonicItem> makeMnemonic(String inputPassword){
         List<MnemonicItem> list = new ArrayList<>();
         try{
             String encryptMnemonic = BHUserManager.getInstance().getTmpBhWallet().getMnemonic();
             String pwd = "";
             if(!TextUtils.isEmpty(encryptMnemonic)){
                 encryptMnemonic = BHUserManager.getInstance().getTmpBhWallet().getMnemonic();
-                pwd = BHUserManager.getInstance().getTmpBhWallet().getPassword();
+                //pwd = BHUserManager.getInstance().getTmpBhWallet().getPassword();
             }else{
                 encryptMnemonic = BHUserManager.getInstance().getCurrentBhWallet().getMnemonic();
-                pwd = BHUserManager.getInstance().getCurrentBhWallet().getPassword();
+                //pwd = BHUserManager.getInstance().getCurrentBhWallet().getPassword();
             }
             /*byte [] bytes = CryptoUtil.decrypt(HexUtils.toBytes(encryptMnemonic),pwd);
             String  mnemonic  = new String(bytes);*/
 
-            String mnemonic = CryptoUtil.decryptMnemonic(encryptMnemonic,pwd);
+            String mnemonic = CryptoUtil.decryptMnemonic(encryptMnemonic, MD5.md5(inputPassword));
             String []array = mnemonic.split(" ");
 
             for (int i = 0; i < array.length; i++) {
