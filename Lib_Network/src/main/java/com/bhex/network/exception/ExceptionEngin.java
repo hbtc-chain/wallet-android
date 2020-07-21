@@ -114,7 +114,7 @@ public class ExceptionEngin {
         if(throwable instanceof CipherException){
             ApiException apiException = new ApiException(throwable, 1005);
             StringBuilder sb = new StringBuilder();
-            sb.append("KeyStore或密码不匹配");
+            sb.append(BaseApplication.getInstance().getString(R.string.keystore_or_pwd_nomatch));
             apiException.setDisplayMessage(sb.toString());
             return apiException;
         }

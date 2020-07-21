@@ -18,6 +18,7 @@
     <string name="auth_info_faild">The login information has expired, please log in again.</string>
     <string name="error_network_later_try">Network Error,try later</string>
     <string name="error_network_time_out">Request timeout</string>
+    <string name="keystore_or_pwd_nomatch">KeyStore or password not match</string>
     <string name="app_account_language">Language</string>
     <string name="language_setting">Language Setting</string>
 

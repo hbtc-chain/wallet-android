@@ -23,6 +23,7 @@ import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.utils.BHKey;
+import com.bhex.wallet.common.utils.BHWalletUtils;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -106,7 +107,8 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
     public void onViewClicked(View view) {
         if (view.getId() == R.id.btn_confirm) {
             ToolUtils.hintKeyBoard(this);
-            getPresenter().verifyPassword(inp_wallet_pwd.getInputString(), mCurrentWallet);
+            BHWalletUtils.test3(this);
+            //getPresenter().verifyPassword(inp_wallet_pwd.getInputString(), mCurrentWallet);
         } else if (view.getId() == R.id.tv_import_mnemonic) {
             ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
         } else if (view.getId() == R.id.tv_forget_pwd) {

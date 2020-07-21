@@ -1,12 +1,18 @@
 package com.bhex.wallet.common.utils;
 
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.bhex.network.RxSchedulersHelper;
+import com.bhex.network.app.BaseApplication;
+import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.crypto.Sha256;
+import com.bhex.tools.utils.FileUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.wallet.common.config.BHFilePath;
@@ -15,6 +21,8 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import org.bitcoinj.core.Bech32;
 import org.bitcoinj.core.SegwitAddress;
@@ -41,6 +49,8 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
  * Created by BHEX.
@@ -320,6 +330,61 @@ public class BHWalletUtils {
             sb.append(" ");
         }
         return sb.toString();
+    }
+
+
+    /**
+     * void
+     */
+    public static void test3(BaseActivity activity){
+
+        BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
+            @Override
+            public void onSuccess(BHWallet bhWallet) {
+
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+            }
+        };
+
+        Observable.create((emitter)->{
+
+            emitter.onNext(null);
+            emitter.onComplete();
+
+        }).compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(pbo);
+        String addressArray = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"address.txt");
+        int count = 0;
+        if(!TextUtils.isEmpty(addressArray)){
+            List<String> list  = Arrays.asList(addressArray.split(" "));
+            if(list!=null && list.size()>0){
+                for (int i = 0; i < list.size(); i++) {
+                    String itemString = list.get(i);
+                    String [] itemArray = itemString.split(",");
+                    //私钥
+                    String privatekeyHex = itemArray[0];
+                    String publicKey = itemArray[1].substring(2);
+                    BigInteger publicInt = new BigInteger(publicKey,16);
+                    String address = BHKey.getBhexUserDpAddress(publicInt);
+
+                    String compressPub = BHKey.compressPubKey(publicInt);
+                    if(address.equals(itemArray[3])){
+                        LogUtils.d("BHWalletUtil===>:",i+"privatekeyHex =="+privatekeyHex+"==address=="+address+"=true=");
+                    }else{
+                        LogUtils.d("BHWalletUtil===>:",i+"privatekeyHex == "+privatekeyHex+"==address=="+compressPub+"=false=");
+                        count++;
+                    }
+                }
+                LogUtils.d("BHWalletUtil===>:","==count=="+count);
+
+            }
+        }
+
     }
 
 
