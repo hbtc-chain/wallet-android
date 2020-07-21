@@ -422,6 +422,7 @@
     <string name="import_ks_tip_2">·粘贴至下方“Keystore”输入框</string>
     <string name="app_up_to_minute_version">已更新至最新版本</string>
     <string name="app_loading_now">正在后台下载</string>
+    <string name="deleted">已删除</string>
 
 
     <string-array name="my_list_item">

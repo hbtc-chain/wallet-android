@@ -444,7 +444,7 @@ public class AssetDetailActivity extends BaseActivity<AssetPresenter> {
     }
 
 
-    PasswordFragment.PasswordClickListener withDrawPwdListener = (password, position) -> {
+    PasswordFragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
         if(position==1){
             BHTransactionManager.loadSuquece(suquece -> {
                 List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);

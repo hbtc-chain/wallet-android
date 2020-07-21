@@ -8,6 +8,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.FileUtil;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -88,16 +89,25 @@ public class BHUserManager {
         this.tmpBhWallet = tmpBhWallet;
     }*/
 
-    public void setAllWallet(List<BHWallet> allWallet) {
+    public synchronized void setAllWallet(List<BHWallet> allWallet) {
         this.allWallet = allWallet;
+        if(ToolUtils.checkListIsEmpty(allWallet)){
+            return;
+        }
+
+        for (BHWallet bhWallet:allWallet) {
+            if(bhWallet.isDefault==1){
+                mCurrentBhWallet = bhWallet;
+            }
+        }
     }
 
-    public List<BHWallet> getAllWallet() {
+    public synchronized List<BHWallet> getAllWallet() {
         return allWallet;
     }
 
-    public boolean isHasWallet(){
-        if(mCurrentBhWallet.id>0){
+    public synchronized boolean isHasWallet(){
+        if(mCurrentBhWallet.id>0 || !ToolUtils.checkListIsEmpty(allWallet)){
             return true;
         }
         return false;
@@ -111,11 +121,11 @@ public class BHUserManager {
         this.targetClass = targetClass;
     }
 
-    public BHWallet getCurrentBhWallet() {
+    public synchronized BHWallet getCurrentBhWallet() {
         return mCurrentBhWallet;
     }
 
-    public void setCurrentBhWallet(BHWallet mCurrentBhWallet) {
+    public synchronized void setCurrentBhWallet(BHWallet mCurrentBhWallet) {
         this.mCurrentBhWallet = mCurrentBhWallet;
         if(allWallet==null || allWallet.size()<=0){
             return;
@@ -130,11 +140,11 @@ public class BHUserManager {
         }
     }
 
-    public AccountInfo getAccountInfo() {
+    public synchronized AccountInfo getAccountInfo() {
         return mAccountInfo;
     }
 
-    public void setAccountInfo(AccountInfo accountInfo) {
+    public synchronized void setAccountInfo(AccountInfo accountInfo) {
         this.mAccountInfo = accountInfo;
     }
 
@@ -142,7 +152,7 @@ public class BHUserManager {
         return mWordList;
     }
 
-    public void saveUserBalanceList(List<BHBalance> list){
+    public synchronized void saveUserBalanceList(List<BHBalance> list){
         if(list==null || list.size()==0){
             return;
         }
@@ -156,29 +166,16 @@ public class BHUserManager {
         MMKVManager.getInstance().mmkv().encode(key,buffer.toString());
     }
 
-    public String getUserBalanceList(){
+    public synchronized String getUserBalanceList(){
         String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
         String result = MMKVManager.getInstance().mmkv().decodeString(key, BHConstants.COIN_DEFAULT_LIST);
         return result;
     }
 
-    public String getSymbolList(){
+    public synchronized String getSymbolList(){
         String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
         return symbol;
     }
-
-    /**
-     * 解密私钥
-     */
-    /*public String getOriginContext(String content){
-        String result = "";
-        try{
-            result = CryptoUtil.decryptPK(content,mCurrentBhWallet.password);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return result;
-    }*/
 
     /**
      * 解密私钥

@@ -101,7 +101,7 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
     }
 
     @Override
-    public void confirmAction(String password, int position) {
+    public void confirmAction(String password, int position,int way) {
         ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
                 .withString(BHConstants.INPUT_PASSWORD,password)
                 .navigation();

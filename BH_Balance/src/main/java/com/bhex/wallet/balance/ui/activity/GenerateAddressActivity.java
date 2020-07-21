@@ -186,7 +186,7 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
 
     //密码提示回调
     @Override
-    public void confirmAction(String password, int position) {
+    public void confirmAction(String password, int position,int way) {
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         String feeAmount = ed_fee.getInputString();
         BHTransactionManager.loadSuquece(suquece -> {

@@ -29,6 +29,7 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.google.android.material.button.MaterialButton;
 
@@ -54,6 +55,8 @@ public class PasswordFragment extends BaseDialogFragment {
     private PasswordClickListener passwordClickListener;
 
     private int position;
+
+    private int  verifyPwdWay = BH_BUSI_TYPE.校验当前账户密码.getIntValue();
 
     @Override
     public int getLayout() {
@@ -102,11 +105,12 @@ public class PasswordFragment extends BaseDialogFragment {
      * @param fm
      * @param tag
      */
-    public static void showPasswordDialog(FragmentManager fm, String tag,PasswordClickListener listener,int position) {
+    public static PasswordFragment showPasswordDialog(FragmentManager fm, String tag,PasswordClickListener listener,int position) {
         PasswordFragment pfrag = new PasswordFragment();
         pfrag.passwordClickListener = listener;
         pfrag.position = position;
         pfrag.show(fm, tag);
+        return pfrag;
     }
 
     @OnClick({R2.id.btn_cancel, R2.id.btn_confirm})
@@ -125,17 +129,18 @@ public class PasswordFragment extends BaseDialogFragment {
                     return;
                 }
 
-                /*if(!currentWallet.password.equals(MD5.md5(inputPassword))){
-                    ToastUtils.showToast(getResources().getString(R.string.error_password));
-                    return;
-                }*/
-                if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
-                    ToastUtils.showToast(getResources().getString(R.string.error_password));
-                    return;
+                if(verifyPwdWay== BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
+                    if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
+                        ToastUtils.showToast(getResources().getString(R.string.error_password));
+                        return;
+                    }
+
+                    passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+                    dismiss();
+                }else {
+                    passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
                 }
 
-                passwordClickListener.confirmAction(inputPassword,position);
-                dismiss();
             }
 
         }
@@ -150,8 +155,14 @@ public class PasswordFragment extends BaseDialogFragment {
     }
 
     public interface PasswordClickListener {
-        void confirmAction(String password, int position);
+        void confirmAction(String password, int position,int way);
     }
 
+    public int getVerifyPwdWay() {
+        return verifyPwdWay;
+    }
 
+    public void setVerifyPwdWay(int verifyPwdWay) {
+        this.verifyPwdWay = verifyPwdWay;
+    }
 }

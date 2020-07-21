@@ -16,8 +16,10 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -105,11 +107,11 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     protected void addEvent() {
         walletViewModel.loadWallet(this);
         walletViewModel.mutableWallentLiveData.observe(this,ldm -> {
-            udpatWalletList(ldm);
+            udpatWalletList(ldm,null);
         });
 
         walletViewModel.deleteLiveData.observe(this,ldm -> {
-            udpatWalletList(ldm);
+            udpatWalletList(ldm,"delete");
         });
 
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
@@ -127,8 +129,11 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     /**
      * 更新钱包列表
      */
-    public void udpatWalletList(LoadDataModel ldm){
+    public void udpatWalletList(LoadDataModel ldm,String flag){
         if (ldm.getLoadingStatus()== LoadingStatus.SUCCESS){
+            if("delete".equals(flag)){
+                ToastUtils.showToast(getString(R.string.deleted));
+            }
             mAllWalletList = mPresenter.getAllBHWalletItem();
             mTrustManagerAdapter.getData().clear();
             mTrustManagerAdapter.addData(mAllWalletList);
@@ -187,7 +192,8 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     private SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
         @Override
         public void onCreateMenu(SwipeMenu leftMenu, SwipeMenu swipeRightMenu, int position) {
-            if(position!=0){
+            BHWalletItem bhWalletItem = mTrustManagerAdapter.getData().get(position);
+            if(bhWalletItem.isDefault!=BH_BUSI_TYPE.默认托管单元.getIntValue()){
                 int width = PixelUtils.dp2px(TrusteeshipManagerActivity.this,80);
                 int height = ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -222,17 +228,29 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
      * @param bhWalletItem
      */
     private BHWalletItem deletBHWallet;
+    PasswordFragment passwordFrag;
     public void deletBHWallet(BHWalletItem bhWalletItem,int position){
 
         deletBHWallet = bhWalletItem;
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
+        passwordFrag = PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
                 passwordClickListener,position);
+        passwordFrag.setVerifyPwdWay(BH_BUSI_TYPE.校验选择账户密码.getIntValue());
     }
 
-    PasswordFragment.PasswordClickListener passwordClickListener = (password, position) -> {
+    PasswordFragment.PasswordClickListener passwordClickListener = (password, position,way) -> {
         if(deletBHWallet==null){
             return;
+        }
+        if(way == BH_BUSI_TYPE.校验选择账户密码.getIntValue()){
+            BHWalletItem bhWalletItem = mTrustManagerAdapter.getData().get(position);
+            if(!ToolUtils.isVerifyPass(password,bhWalletItem.password)){
+                ToastUtils.showToast(getResources().getString(com.bhex.wallet.common.R.string.error_password));
+                return;
+            }
+            if(passwordFrag.getShowsDialog()){
+                passwordFrag.dismiss();
+            }
         }
         walletViewModel.deleteWallet(TrusteeshipManagerActivity.this,deletBHWallet.id);
     };

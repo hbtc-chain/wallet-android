@@ -31,7 +31,10 @@ public interface BHWalletDao {
     @Delete
     void delete(BHWallet wallet);
 
-    @Query("SELECT * FROM tab_wallet ORDER BY isDefault DESC")
+    @Query("SELECT * FROM tab_wallet where id=:bh_id")
+    BHWallet findById(int bh_id);
+
+    @Query("SELECT * FROM tab_wallet ORDER BY id ASC")
     List<BHWallet> loadAll();
 
     @Query("SELECT max(id) FROM tab_wallet")

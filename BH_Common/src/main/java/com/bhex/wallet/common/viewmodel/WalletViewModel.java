@@ -136,7 +136,7 @@ public class WalletViewModel extends ViewModel {
             List<BHWallet> list = bhWalletDao.loadAll();
             if(list!=null && list.size()>0){
                 BHUserManager.getInstance().setAllWallet(list);
-                BHUserManager.getInstance().setCurrentBhWallet(list.get(0));
+                //BHUserManager.getInstance().setCurrentBhWallet(list.get(0));
             }
             emitter.onNext(list);
         }).subscribeOn(AndroidSchedulers.mainThread())
@@ -252,7 +252,7 @@ public class WalletViewModel extends ViewModel {
             //更新当前默认钱包
             List<BHWallet> allBhWallet = bhWalletDao.loadAll();
             if(allBhWallet!=null && allBhWallet.size()>0){
-                BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
+                //BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
                 BHUserManager.getInstance().setAllWallet(allBhWallet);
             }
 
@@ -316,7 +316,7 @@ public class WalletViewModel extends ViewModel {
                     //更新当前默认钱包
                     List<BHWallet> allBhWallet = bhWalletDao.loadAll();
                     if(allBhWallet!=null && allBhWallet.size()>0){
-                        BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
+                        //BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
                         BHUserManager.getInstance().setAllWallet(allBhWallet);
                     }
                     emitter.onNext(bhWallet);
@@ -386,7 +386,7 @@ public class WalletViewModel extends ViewModel {
                     //更新当前默认钱包
                     List<BHWallet> allBhWallet = bhWalletDao.loadAll();
                     if(allBhWallet!=null && allBhWallet.size()>0){
-                        BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
+                        //BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
                         BHUserManager.getInstance().setAllWallet(allBhWallet);
                     }
 
@@ -475,7 +475,7 @@ public class WalletViewModel extends ViewModel {
             //更新当前默认钱包
             List<BHWallet> allBhWallet = bhWalletDao.loadAll();
             if(allBhWallet!=null && allBhWallet.size()>0){
-                BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
+                //BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
                 BHUserManager.getInstance().setAllWallet(allBhWallet);
             }
             emitter.onNext(BH_BUSI_TYPE.托管单元不存在.value);
@@ -571,7 +571,7 @@ public class WalletViewModel extends ViewModel {
                     //更新钱包列表
                     List<BHWallet> list = bhWalletDao.loadAll();
                     BHUserManager.getInstance().setAllWallet(list);
-                    BHUserManager.getInstance().setCurrentBhWallet(list.get(0));
+                    //BHUserManager.getInstance().setCurrentBhWallet(list.get(0));
                     emitter.onNext(bhWallet);
                 }
                 emitter.onComplete();

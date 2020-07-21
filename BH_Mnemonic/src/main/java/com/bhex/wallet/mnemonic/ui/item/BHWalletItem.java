@@ -28,6 +28,8 @@ public class BHWalletItem {
 
     public int isDefault;//1默认 0默认
 
+    public String password;
+
     public boolean isSelect;
 
     public String headUrl;
@@ -40,6 +42,7 @@ public class BHWalletItem {
         item.name = bhWallet.getName();
         item.isBackup = bhWallet.getIsBackup();
         item.isDefault = bhWallet.getIsDefault();
+        item.password = bhWallet.getPassword();
         return item;
 
     }

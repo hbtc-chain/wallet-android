@@ -227,7 +227,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
      * @param position
      */
     @Override
-    public void confirmAction(String password, int position) {
+    public void confirmAction(String password, int position,int way) {
 
         //String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.getInputString();

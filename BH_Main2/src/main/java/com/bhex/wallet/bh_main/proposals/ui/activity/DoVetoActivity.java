@@ -257,7 +257,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
 
 
     @Override
-    public void confirmAction(String password, int position) {
+    public void confirmAction(String password, int position,int way) {
         String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
