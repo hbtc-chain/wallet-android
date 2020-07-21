@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
@@ -18,6 +20,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -146,5 +149,39 @@ public class BHBalanceHelper {
             }
         }
         return balance;
+    }
+
+    public static void removeCoinSeachBalance(List<BHBalance>originList,String symbol){
+        if(ToolUtils.checkListIsEmpty(originList)||TextUtils.isEmpty(symbol)){
+            return;
+        }
+        Iterator<BHBalance> iter = originList.iterator();
+        while(iter.hasNext()){
+            BHBalance bhBalance = iter.next();
+            if(!TextUtils.isEmpty(bhBalance.symbol) && bhBalance.symbol.equalsIgnoreCase(symbol)){
+                iter.remove();
+            }
+        }
+    }
+
+    public static void addCoinSeachBalance(List<BHBalance>originList,BHBalance bhBalance){
+        if(originList==null||bhBalance==null){
+            return;
+        }
+        if(originList.size()==0 && bhBalance!=null){
+            originList.add(bhBalance);
+            return;
+        }
+        //boolean flag = false;
+        for (BHBalance item:originList) {
+            if(!TextUtils.isEmpty(item.symbol) && item.symbol.equalsIgnoreCase(bhBalance.symbol)){
+                //flag = true;
+                LogUtils.d("CoinSearchActivity==>:","addCoinSeachBalance=33=");
+                return;
+            }
+        }
+        LogUtils.d("CoinSearchActivity==>:","addCoinSeachBalance==");
+
+        originList.add(bhBalance);
     }
 }

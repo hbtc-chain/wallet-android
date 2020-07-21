@@ -6,7 +6,10 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.NetworkApi;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.diskconverter.GsonDiskConverter;
+import com.bhex.network.exception.ApiException;
+import com.bhex.network.exception.ExceptionEngin;
 import com.bhex.network.receiver.NetWorkStatusChangeReceiver;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.CrashHandler;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.BuildConfig;
@@ -20,6 +23,7 @@ import com.tencent.mmkv.MMKV;
 
 import java.io.File;
 
+import io.reactivex.plugins.RxJavaPlugins;
 import xcrash.XCrash;
 
 /**
@@ -58,6 +62,10 @@ public class SystemConfig  {
 
     private void syncInit(){
         arouterInit();
+        RxJavaPlugins.setErrorHandler(throwable -> {
+            ApiException apiException = ExceptionEngin.handleException(throwable);
+            ToastUtils.showToast(apiException.getDisplayMessage());
+        });
         //异常处理
         //CrashHandler crashHandler = CrashHandler.getInstance();
         //crashHandler.init(BHApplication.getInstance());

@@ -26,6 +26,7 @@ import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.CoinSearchAdapter;
 import com.bhex.wallet.balance.event.BHCoinEvent;
+import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.balance.viewmodel.CoinViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -122,12 +123,20 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
 
         mCoinSearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if(view.getId()==R.id.ck_select){
+                BHTokenItem bhCoinItem = coinList.get(position);
+
                 CheckedTextView ck = (CheckedTextView) view;
                 ck.setChecked(!ck.isChecked());
                 if(ck.isChecked()){
                     BHToast.showDefault(CoinSearchActivity.this,getResources().getString(R.string.add_balance_index)).show();
+                    //添加至balanceMap
+                    BHBalance item = bhCoinItem.getBHBalance();
+                    balanceMap.put(bhCoinItem.getSymbol().toLowerCase(),item);
+                    BHBalanceHelper.addCoinSeachBalance(balanceList,item);
+                }else{
+                    balanceMap.remove(bhCoinItem.getSymbol().toLowerCase());
+                    BHBalanceHelper.removeCoinSeachBalance(balanceList,bhCoinItem.getSymbol().toLowerCase());
                 }
-                BHTokenItem bhCoinItem = coinList.get(position);
                 EventBus.getDefault().post(new BHCoinEvent(bhCoinItem,ck.isChecked()));
 
             }

@@ -11,6 +11,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.wallet.bh_main.BuildConfig;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.cache.CacheCenter;
@@ -44,7 +45,11 @@ public class MyHelper {
             if(i==5){
                 item = new MyItem(i,res[i], false, BHConstants.EMAIL);
             } else if (i == 6) {
-                item = new MyItem(i,res[i], false, PackageUtils.getVersionName(context));
+                if(BuildConfig.DEBUG){
+                    item = new MyItem(i,res[i], false, "v"+PackageUtils.getVersionName(context)+"_"+PackageUtils.getVersionCode(context));
+                }else{
+                    item = new MyItem(i,res[i], false, "v"+PackageUtils.getVersionName(context));
+                }
             } else {
                 item = new MyItem(i,res[i], true, "");
             }
