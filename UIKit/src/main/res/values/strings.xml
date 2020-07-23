@@ -314,6 +314,7 @@
     <string name="error_transfer_address">转账地址错误</string>
     <string name="error_transfer_amout_more_available">转账数量大于可用余额</string>
     <string name="error_withdraw_amout_more_available">提币数量大于可用余额</string>
+    <string name="input_add_fee_more_availabe">转账数量与手续费之和大于可用余额</string>
     <string name="qr_code">二维码</string>
     <string name="hint_input_exchange_fee">请输入交易手续费</string>
     <string name="origin_password">原密码</string>

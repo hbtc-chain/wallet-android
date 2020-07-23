@@ -314,6 +314,7 @@
     <string name="error_transfer_address">Incorrect Wallet address</string>
     <string name="error_transfer_amout_more_available">The balance is not enough</string>
     <string name="error_withdraw_amout_more_available">The balance is not enough</string>
+    <string name="input_add_fee_more_availabe">The sum of input quantity and fee is greater than the available</string>
     <string name="qr_code">QR code</string>
     <string name="hint_input_exchange_fee">Please enter the Gas Fee</string>
     <string name="origin_password">Old password</string>

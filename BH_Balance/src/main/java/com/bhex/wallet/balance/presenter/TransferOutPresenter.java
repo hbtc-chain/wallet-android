@@ -7,6 +7,8 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.NumberUtil;
+import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
@@ -30,25 +32,28 @@ public class TransferOutPresenter extends BasePresenter {
             return false;
         }
 
-        if(TextUtils.isEmpty(available_amount) || Double.valueOf(available_amount)<=0){
+        if(TextUtils.isEmpty(available_amount)|| Double.valueOf(available_amount)<=0){
             ToastUtils.showToast(getActivity().getString(R.string.not_available_amount));
             return false;
         }
 
-        if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
+        if(TextUtils.isEmpty(transfer_amount) || !RegexUtil.checkNumeric(transfer_amount)  || Double.valueOf(transfer_amount)<=0){
             ToastUtils.showToast(getActivity().getString(R.string.please_transfer_amount));
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
+        if(TextUtils.isEmpty(fee_amount) || !RegexUtil.checkNumeric(fee_amount) || Double.valueOf(fee_amount)<=0){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_gasfee));
             return false;
         }
 
-        if( Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
-            ToastUtils.showToast(getActivity().getString(R.string.error_transfer_amout_more_available));
+        //手续费+输入小于
+        Double inputAllAmount = NumberUtil.add(transfer_amount,fee_amount);
+        if(Double.valueOf(inputAllAmount) > Double.valueOf(available_amount)){
+            ToastUtils.showToast(getActivity().getString(R.string.input_add_fee_more_availabe));
             return false;
         }
+
 
         return true;
     }

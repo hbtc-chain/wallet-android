@@ -107,8 +107,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
     public void onViewClicked(View view) {
         if (view.getId() == R.id.btn_confirm) {
             ToolUtils.hintKeyBoard(this);
-            BHWalletUtils.test3(this);
-            //getPresenter().verifyPassword(inp_wallet_pwd.getInputString(), mCurrentWallet);
+            getPresenter().verifyPassword(inp_wallet_pwd.getInputString(), mCurrentWallet);
         } else if (view.getId() == R.id.tv_import_mnemonic) {
             ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
         } else if (view.getId() == R.id.tv_forget_pwd) {

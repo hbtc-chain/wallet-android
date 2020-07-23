@@ -44,8 +44,9 @@ public abstract class NetworkApi implements IEnvironment {
     public NetworkApi() {
         if (!mIsFormal) {
             mBaseUrl = getTest();
+        }else{
+            mBaseUrl = getFormal();
         }
-        mBaseUrl = getFormal();
     }
 
     public static void init(INetworkRequiredInfo networkRequiredInfo) {

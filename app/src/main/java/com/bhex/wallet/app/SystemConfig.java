@@ -67,10 +67,7 @@ public class SystemConfig  {
             ToastUtils.showToast(apiException.getDisplayMessage());
         });
         //异常处理
-        //CrashHandler crashHandler = CrashHandler.getInstance();
-        //crashHandler.init(BHApplication.getInstance());
         if(BuildConfig.DEBUG){
-            //Stetho.initializeWithDefaults(BaseApplication.getInstance());
             Stetho.initialize(
                     Stetho.newInitializerBuilder(BaseApplication.getInstance())
                             .enableDumpapp(Stetho.defaultDumperPluginsProvider(BaseApplication.getInstance()))

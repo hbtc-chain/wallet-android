@@ -43,7 +43,7 @@ public class BHConstants {
 
     public static final double BHT_DECIMALS = Math.pow(10,18);
     //默认手续费
-    public static final String BHT_DEFAULT_FEE = "2";
+    public static final String BHT_DEFAULT_FEE = "0.01";
 
     //链内操作
     public static final int INNER_LINK= 1;
@@ -88,4 +88,5 @@ public class BHConstants {
 
     public static final int PUBLIC_KEY_LENGTH = 128;
 
+    public static final String API_BASE_URL = "https://explorer.hbtc.com/";
 }

@@ -19,7 +19,7 @@ import java.util.UUID;
  */
 public class BHRawTransaction {
     public String chain_id = BHConstants.CHAIN_ID;
-    public String cu_number = "0";
+    //public String cu_number = "0";
     public TxFee fee;
     public String memo;
     public List<TxMsg> msgs;
@@ -81,8 +81,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
 
@@ -143,8 +143,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
 
@@ -207,8 +207,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
 
@@ -267,8 +267,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
 
@@ -316,8 +316,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
 
@@ -367,8 +367,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
     }
@@ -407,8 +407,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
     }
@@ -459,8 +459,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
         return bhRawTransaction;
     }
@@ -492,8 +492,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
 
         return bhRawTransaction;
@@ -535,8 +535,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
 
         return bhRawTransaction;
@@ -566,8 +566,8 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-
+        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
         bhRawTransaction.fee = fee;
 
         return bhRawTransaction;
@@ -580,9 +580,8 @@ public class BHRawTransaction {
     }
 
     public static class Builder {
-        //public String chain_id = "bhchain-testnet";
-        public String chain_id = "hbtc-testnet";
-        public String cu_number = "0";
+        public String chain_id = BHConstants.CHAIN_ID;
+        //public String cu_number = "0";
         public TxFee fee;
         public String memo;
         public List<TxMsg> msgs;

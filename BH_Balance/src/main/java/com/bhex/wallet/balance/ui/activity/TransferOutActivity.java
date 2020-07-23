@@ -134,7 +134,8 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             all_count = Double.valueOf(all_count)<0?"0":all_count;
             ed_transfer_amount.getEditText().setText(all_count);
         }else if(balance.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            String all_count = NumberUtil.sub(String.valueOf(available_amount),"2");
+            //交易手续费
+            String all_count = NumberUtil.sub(String.valueOf(available_amount),et_tx_fee.getInputString());
             all_count = Double.valueOf(all_count)<0?"0":all_count;
             ed_transfer_amount.getEditText().setText(all_count);
         }

@@ -10,7 +10,6 @@ import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.textwatcher.FormatTextWatcher;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
@@ -90,7 +89,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     protected void initTokenView() {
         ed_transfer_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
-        ed_transfer_amount.getEditText().addTextChangedListener(new FormatTextWatcher(ed_transfer_amount.getEditText()));
+        //ed_transfer_amount.getEditText().addTextChangedListener(new FormatTextWatcher(ed_transfer_amount.getEditText()));
 
         et_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et_withdraw_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);

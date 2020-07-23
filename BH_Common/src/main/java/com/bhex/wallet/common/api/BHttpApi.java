@@ -1,6 +1,7 @@
 package com.bhex.wallet.common.api;
 
 import com.bhex.network.base.NetworkApi;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.DateUtil;
 import com.bhex.wallet.common.interceptor.AuthInterceptor;
 
@@ -74,25 +75,15 @@ public class BHttpApi extends NetworkApi {
         return getInstance().getRetrofit(service).create(service);
     }
 
-    public static  BHttpApiInterface getServiceExt(Class service) {
-        return new Retrofit.Builder()
-                .baseUrl("http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(new OkHttpClient.Builder().build())
-                .build()
-                .create(BHttpApiInterface.class);
-    }
-
     @Override
     public String getFormal() {
-        return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
-        //return "http://public-bhchain-167244571.ap-northeast-1.elb.amazonaws.com:26657";
+        //return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
+        return BHConstants.API_BASE_URL;
     }
 
     @Override
     public String getTest() {
-        return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
-        //return "http://public-bhchain-167244571.ap-northeast-1.elb.amazonaws.com:26657";
+        //return "http://public-chain-mainnet-631149863.ap-northeast-1.elb.amazonaws.com:26657/";
+        return BHConstants.API_BASE_URL;
     }
 }

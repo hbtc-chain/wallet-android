@@ -233,6 +233,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/global_label_text_color"
                 android:textSize="15sp"
+                android:visibility="gone"
                 android:text="@string/available_format"/>
 
         </RelativeLayout>
