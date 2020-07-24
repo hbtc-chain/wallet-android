@@ -119,6 +119,7 @@ dependencies {
     configurations {
         //这里要排除到这个包，这个包会与 com.google.guava 冲突，导致编译不过
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+        all*.exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
 
     //api 'com.uber.autodispose:autodispose-android-archcomponents:2.0.0-RC2'
