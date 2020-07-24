@@ -1,0 +1,7 @@
+hbtc
+#myapp
+# ./gradlew clean assembleReleaseChannels
+# ./gradlew clean assembleDebugChannels
+
+# 生成单个渠道包: ./gradlew clean assembleReleaseChannels -PchannelList=meituan
+# 生成多个渠道包: ./gradlew clean assembleReleaseChannels -PchannelList=meituan,dianping

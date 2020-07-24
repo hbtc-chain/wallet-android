@@ -127,9 +127,11 @@ dependencies {
     api 'com.uber.autodispose:autodispose-android-archcomponents:1.0.0-RC2'
 
 
-    api 'org.web3j:core:3.3.1-android'
+    api 'org.web3j:core:4.1.0-android'
     api 'io.github.novacrypto:BIP39:0.1.9'//用于生成助记词
-    api 'org.bitcoinj:bitcoinj-core:0.14.3'
+    api 'org.bitcoinj:bitcoinj-core:0.15.8'
+    api 'com.lambdaworks:scrypt:1.4.0'
+
     //api 'org.bitcoinj:bitcoinj-core:0.15.2'
 
     api 'commons-codec:commons-codec:1.3'

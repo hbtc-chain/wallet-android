@@ -18,14 +18,10 @@ import android.os.Environment;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
-import androidx.lifecycle.Lifecycle;
 
-import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.BuildConfig;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.R;
-import com.uber.autodispose.AutoDispose;
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -35,9 +31,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
-import rx.functions.Func1;
 
 
 /**

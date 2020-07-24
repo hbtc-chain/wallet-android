@@ -59,7 +59,25 @@ android {
     }
 
     signingConfigs {
+        debug {
+            storeFile file("${STORE_FILE}")
+            storePassword "${STORE_PWD}"
+            keyAlias "${KEY_ALIAS}"
+            keyPassword "${KEY_PWD}"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
         release {
+            storeFile file("${STORE_FILE}")
+            storePassword "${STORE_PWD}"
+            keyAlias "${KEY_ALIAS}"
+            keyPassword "${KEY_PWD}"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
+        alpha {
             storeFile file("${STORE_FILE}")
             storePassword "${STORE_PWD}"
             keyAlias "${KEY_ALIAS}"
@@ -108,6 +126,27 @@ android {
 
             }
         }
+
+        alpha.initWith(release)
+        alpha  {
+            //不要忘了要在release的时候加入我么的签名配置信息
+            signingConfig signingConfigs.alpha
+            //不显示Log　Zipalign优化
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources true
+            //启用混淆
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                //这里其实我觉可以直接是用"armeabi-v7a"，但国内大多使用的都是"armeabi"
+                abiFilters  'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+
+            }
+            matchingFallbacks = ['alpha', 'debug', 'release']
+            //matchingFallbacks = ['release', 'debug']
+            //buildConfigField 'String', 'APPLICATIOIN_ID', "\"$application_id\""
+        }
     }
 
     applicationVariants.all { variant ->
@@ -116,7 +155,10 @@ android {
                 outputFileName = "${variant.productFlavors[0].name}_Release_V${defaultConfig.versionName}_${releaseTime()}_app.apk"
             } else if (variant.buildType.name == "debug") {
                 outputFileName = "${variant.productFlavors[0].name}_Debug_V${defaultConfig.versionName}_${releaseTime()}_app.apk"
+            } else if(variant.buildType.name == "alpha") {
+                outputFileName = "${variant.productFlavors[0].name}_Alpha_V${defaultConfig.versionName}_${releaseTime()}_app.apk"
             }
+
         }
     }
 
@@ -248,7 +290,8 @@ walle {
     // 指定渠道包的输出路径
     apkOutputFolder = new File("${project.buildDir}/outputs/channels");
     // 定制渠道包的APK的文件名称
-    apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
+    //apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
+    apkFileNameFormat = '${channel}-${buildType}-v${versionName}-${versionCode}.apk';
     // 渠道配置文件
     channelFile = new File("${project.getProjectDir()}/channel")
 }

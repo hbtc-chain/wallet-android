@@ -1,22 +1,15 @@
 package com.bhex.tools.crypto;
 
-import android.text.TextUtils;
-
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
-import com.bhex.tools.utils.StringUtils;
 
-import org.spongycastle.jce.provider.BouncyCastleProvider;
-import org.spongycastle.util.encoders.Hex;
-import org.spongycastle.util.encoders.HexEncoder;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.Security;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.crypto.Cipher;
