@@ -46,10 +46,10 @@ android {
         enabled true
     }
 
-    configurations {
+    /*configurations {
         //这里要排除到这个包，这个包会与 com.google.guava 冲突，导致编译不过
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
-    }
+    }*/
 }
 
 dependencies {
@@ -78,11 +78,13 @@ dependencies {
     api 'com.alibaba:fastjson:1.2.61'
     api 'com.alibaba:fastjson:1.1.71.android'
 
-
+    implementation 'com.google.guava:guava:28.0.3'
     //room数据库
     implementation 'androidx.room:room-runtime:2.2.3'
     // RxJava2
     implementation 'androidx.room:room-rxjava2:2.2.3'
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation 'androidx.room:room-guava:2.2.3'
     // For Kotlin use kapt instead of annotationProcessor
     kapt 'androidx.room:room-compiler:2.2.3'
 
@@ -93,6 +95,9 @@ dependencies {
     api project(path: ':Lib_Tools')
     api project(path: ':UIKit')
     api project(path: ':Lib_Qr')
+
+    api 'androidx.work:work-runtime:2.3.4'
+    api 'androidx.work:work-rxjava2:2.3.4'
 
     //implementation 'org.web3j:core:3.3.1-android'
     //implementation 'io.github.novacrypto:BIP39:0.1.9'//用于生成助记词

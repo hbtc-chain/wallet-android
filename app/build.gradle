@@ -197,7 +197,7 @@ android {
 
     configurations {
         //这里要排除到这个包，这个包会与 com.google.guava 冲突，导致编译不过
-        all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+        //all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
 
     aaptOptions.cruncherEnabled = false
@@ -220,8 +220,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.google.guava:guava:27.1-android'
+    //implementation 'com.android.support:design:27.1.1'
+    //implementation 'com.google.guava:guava:27.1-android'
 
     //wallet打包
     implementation 'com.meituan.android.walle:library:1.1.6'

@@ -70,8 +70,8 @@ class UpdateNameFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        val window:Window = dialog!!.window
-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val window = dialog!!.window
+        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //获取屏幕的宽度
         val dm  = DisplayMetrics()
         activity!!.windowManager.defaultDisplay.getMetrics(dm)
