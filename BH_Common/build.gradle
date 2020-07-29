@@ -78,7 +78,8 @@ dependencies {
     api 'com.alibaba:fastjson:1.2.61'
     api 'com.alibaba:fastjson:1.1.71.android'
 
-    implementation 'com.google.guava:guava:28.0.3'
+    implementation 'com.google.guava:guava:29.0-android'
+    //implementation 'com.google.guava:guava:28.0.3'
     //room数据库
     implementation 'androidx.room:room-runtime:2.2.3'
     // RxJava2
