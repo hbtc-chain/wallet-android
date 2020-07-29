@@ -2,8 +2,11 @@ package com.bhex.wallet.bh_main.proposals.ui.fragment;
 
 
 import android.text.Editable;
+import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -88,6 +91,12 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
 
     @Override
     protected void initView() {
+        ed_search_content.setInputType(InputType.TYPE_CLASS_TEXT);
+        ed_search_content.setSingleLine(true);
+        ed_search_content.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+
+        ed_search_content.setOnEditorActionListener(onEditorActionListener);
+
         LinearLayoutManager layoutManager = new MyLinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_proposal.setLayoutManager(layoutManager);
@@ -180,7 +189,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
 
             }
         });
-        Observable.create(new ObservableOnSubscribe<String>() {
+        /*Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) {
                 ed_search_content.addTextChangedListener(new SimpleTextWatcher() {
@@ -201,7 +210,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
                 getRecord(true, mQueryCurrentPage);
 
             }
-        });
+        });*/
     }
 
     private void updateOriginRecord(ProposalQueryResult data) {
@@ -236,4 +245,16 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
         super.onResume();
         getRecord(mProposalAdapter==null||mProposalAdapter.getData()==null||mProposalAdapter.getData().size()<1, mCurrentPage);
     }
+
+    TextView.OnEditorActionListener onEditorActionListener = (v, actionId, event) -> {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            mQueryCurrentPage = 1;
+            mCurrentPage = 1;
+            smartRefreshLayout.resetNoMoreData();
+            getRecord(true, mQueryCurrentPage);
+            return true;
+        }
+        return false;
+
+    };
 }
