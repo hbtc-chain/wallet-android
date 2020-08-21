@@ -238,17 +238,63 @@
 
         </RelativeLayout>
 
-
         <com.bhex.lib.uikit.widget.editor.WithDrawInput
             android:id="@+id/et_tx_fee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             app:leftHint="@string/hint_input_exchange_fee"
-            app:leftText="2"
+            app:leftText="0.01"
             app:rightColor="@color/global_input_profix_text_color"
-            app:rightText="@string/BH_token" />
+            app:rightText="@string/BH_token"
+            app:isEditable="false"
+            />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/exchange_speedup"
+                android:textColor="@color/global_secondary_text_color"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="0.002~1"
+                android:textColor="@color/global_label_text_color"
+                android:textSize="15sp"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <com.warkiz.widget.IndicatorSeekBar
+            android:id="@+id/sb_tx_fee"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:isb_indicator_color="@color/blue_bg"
+            app:isb_progress_value_float="true"
+            app:isb_max="1.000"
+            app:isb_min="0.002"
+            app:isb_progress="0.01"
+            app:isb_seek_smoothly="true"
+            app:isb_thumb_color="@color/blue_bg"
+            app:isb_track_background_color="#E7ECF4"
+            app:isb_track_progress_size="2dp"
+            app:isb_track_background_size="2dp"
+            app:isb_track_progress_color="@color/blue_bg"
+            app:isb_thumb_size="25dp"
+            app:isb_show_indicator="none"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"

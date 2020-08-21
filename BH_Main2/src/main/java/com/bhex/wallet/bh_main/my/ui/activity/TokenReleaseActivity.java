@@ -29,6 +29,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.indicator.OnSampleSeekChangeListener;
 import com.bhex.tools.textwatcher.FormatTextWatcher;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PathUtils;
@@ -48,6 +49,8 @@ import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.google.android.material.button.MaterialButton;
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.SeekParams;
 
 import java.math.BigInteger;
 
@@ -76,6 +79,8 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
     AppCompatTextView tv_available_bht_amount;
     @BindView(R2.id.inp_tx_fee)
     WithDrawInput inp_tx_fee;
+    @BindView(R2.id.sb_tx_fee)
+    IndicatorSeekBar sb_tx_fee;
 
     @BindView(R2.id.btn_apply)
     MaterialButton btn_apply;
@@ -99,8 +104,9 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
 
     @Override
     protected void initView() {
-
         tv_center_title.setText(getString(R.string.token_release));
+        sb_tx_fee.setDecimalScale(4);
+
         mAccountInfo = BHUserManager.getInstance().getAccountInfo();
         bhtBalance = MyHelper.getBthBalanceWithAccount(mAccountInfo);
         inp_tx_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
@@ -151,6 +157,14 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         //二维码扫描
         inp_to_address.iv_right.setOnClickListener(v -> {
             ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
+        });
+
+        sb_tx_fee.setOnSeekChangeListener(new OnSampleSeekChangeListener() {
+            @Override
+            public void onSeeking(SeekParams seekParams) {
+                super.onSeeking(seekParams);
+                inp_tx_fee.setInputString(seekParams.progressFloat+"");
+            }
         });
     }
 

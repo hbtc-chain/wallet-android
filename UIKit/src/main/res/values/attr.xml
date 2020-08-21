@@ -58,6 +58,7 @@
         <attr name="rightText" format="reference|string" />
         <attr name="leftHint" format="reference|string" />
         <attr name="leftText" format="reference|string" />
+        <attr name="isEditable" format="reference|boolean" />
     </declare-styleable>
 
     <declare-styleable name="Circle">

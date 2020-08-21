@@ -18,6 +18,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
+import com.bhex.tools.indicator.OnSampleSeekChangeListener;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -35,6 +36,8 @@ import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.SeekParams;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -54,33 +57,24 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
     ValidatorInfo mValidatorInfo;
     @Autowired(name = "bussiType")
     int mBussiType;
-
-
     @BindView(R2.id.tv_tips)
     AppCompatTextView tv_tips;
-
     @BindView(R2.id.tv_to_address)
     WithDrawInput tv_to_address;
-
     @BindView(R2.id.tv_available_amount)
     CustomTextView tv_available_amount;
-
     @BindView(R2.id.ed_entrust_amount)
     WithDrawInput ed_entrust_amount;
-
     @BindView(R2.id.ed_entrust_fee)
     WithDrawInput ed_entrust_fee;
-
     @BindView(R2.id.ed_real_entrust_amount)
     WithDrawInput ed_real_entrust_amount;
-
     @BindView(R2.id.tv_tips_1)
     AppCompatTextView tv_tips_1;
     @BindView(R2.id.tv_tips_2)
     AppCompatTextView tv_tips_2;
     @BindView(R2.id.tv_tips_3)
     AppCompatTextView tv_tips_3;
-
     @BindView(R2.id.btn_do_entrust)
     MaterialButton btn_do_entrust;
     @BindView(R2.id.refreshLayout)
@@ -93,6 +87,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
     AppCompatTextView tv_center_title;
     @BindView(R2.id.tv_fee_available_amount)
     CustomTextView tv_fee_available_amount;
+    @BindView(R2.id.sb_tx_fee)
+    IndicatorSeekBar sb_tx_fee;
 
     private String token = BHConstants.BHT_TOKEN;
 
@@ -116,8 +112,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
     @Override
     protected void initView() {
-
         ARouter.getInstance().inject(this);
+        sb_tx_fee.setDecimalScale(4);
         initValidatorView();
     }
 
@@ -217,6 +213,14 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
             queryAssetInfo(false);
+        });
+
+        sb_tx_fee.setOnSeekChangeListener(new OnSampleSeekChangeListener() {
+            @Override
+            public void onSeeking(SeekParams seekParams) {
+                super.onSeeking(seekParams);
+                ed_entrust_fee.setInputString(seekParams.progressFloat+"");
+            }
         });
     }
 

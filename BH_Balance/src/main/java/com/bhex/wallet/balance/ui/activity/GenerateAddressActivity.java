@@ -21,6 +21,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
+import com.bhex.tools.indicator.OnSampleSeekChangeListener;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
@@ -36,6 +37,8 @@ import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.google.android.material.button.MaterialButton;
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.SeekParams;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -68,6 +71,8 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
 
     @BindView(R2.id.ed_fee)
     WithDrawInput ed_fee;
+    @BindView(R2.id.sb_tx_fee)
+    IndicatorSeekBar sb_tx_fee;
 
     @BindView(R2.id.btn_crosslink_address)
     MaterialButton btn_crosslink_address;
@@ -89,6 +94,7 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
     @Override
     protected void initView() {
         available_label = getResources().getString(R.string.available);
+        sb_tx_fee.setDecimalScale(4);
         ARouter.getInstance().inject(this);
         tv_center_title.setText(getResources().getString(R.string.genarate_cross_address));
         ed_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
@@ -110,7 +116,13 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
 
     @Override
     protected void addEvent() {
-
+        sb_tx_fee.setOnSeekChangeListener(new OnSampleSeekChangeListener() {
+            @Override
+            public void onSeeking(SeekParams seekParams) {
+                super.onSeeking(seekParams);
+                ed_fee.setInputString(seekParams.progressFloat+"");
+            }
+        });
     }
 
 

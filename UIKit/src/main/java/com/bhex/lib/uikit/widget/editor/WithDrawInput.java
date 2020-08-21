@@ -33,6 +33,7 @@ public class WithDrawInput extends RelativeLayout {
 
     public AppCompatImageView iv_right;
 
+
     public WithDrawInput(Context context) {
         this(context,null);
     }
@@ -68,6 +69,9 @@ public class WithDrawInput extends RelativeLayout {
 
         String leftText = ta.getString(R.styleable.With_Coin_Input_leftText);
         mInputEd.setText(leftText);
+
+        boolean isEnble = ta.getBoolean(R.styleable.With_Coin_Input_isEditable,true);
+        mInputEd.setEnabled(isEnble);
         ta.recycle();
     }
 
@@ -81,6 +85,10 @@ public class WithDrawInput extends RelativeLayout {
 
     public String getInputStringTrim() {
         return mInputEd.getText().toString().trim().replaceAll(" ","");
+    }
+
+    public void setInputString(String value) {
+        mInputEd.setText(value);
     }
 
 }

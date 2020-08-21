@@ -17,6 +17,7 @@ import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.indicator.OnSampleSeekChangeListener;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PathUtils;
 import com.bhex.wallet.balance.R;
@@ -35,6 +36,7 @@ import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.warkiz.widget.SeekParams;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -125,6 +127,14 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         //二维码扫描
         tv_to_address.iv_right.setOnClickListener(v -> {
             ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
+        });
+
+        sb_tx_fee.setOnSeekChangeListener(new OnSampleSeekChangeListener() {
+            @Override
+            public void onSeeking(SeekParams seekParams) {
+                super.onSeeking(seekParams);
+                et_tx_fee.setInputString(seekParams.progressFloat+"");
+            }
         });
     }
 

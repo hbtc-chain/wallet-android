@@ -19,6 +19,7 @@ import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.warkiz.widget.IndicatorSeekBar;
 
 import butterknife.BindView;
 
@@ -80,6 +81,8 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     AppCompatTextView tv_transfer_out_tips_3;
     @BindView(R2.id.btn_drawwith_coin)
     MaterialButton btn_drawwith_coin;
+    @BindView(R2.id.sb_tx_fee)
+    IndicatorSeekBar sb_tx_fee;
 
     @Override
     protected int getLayoutId() {
@@ -87,8 +90,9 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     }
 
     protected void initTokenView() {
+        //refreshLayout.setEnableLoadMore(false);
+        sb_tx_fee.setDecimalScale(4);
         ed_transfer_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
         //ed_transfer_amount.getEditText().addTextChangedListener(new FormatTextWatcher(ed_transfer_amount.getEditText()));
 
         et_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
