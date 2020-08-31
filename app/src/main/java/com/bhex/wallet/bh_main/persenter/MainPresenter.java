@@ -2,7 +2,6 @@ package com.bhex.wallet.bh_main.persenter;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.os.SystemClock;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,22 +14,17 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.app.BHApplication;
 import com.bhex.wallet.balance.ui.fragment.BalanceFragment;
 import com.bhex.wallet.bh_main.exchange.ui.fragment.ExchangeFragment;
 import com.bhex.wallet.bh_main.my.ui.fragment.MyFragment;
-import com.bhex.wallet.bh_main.order.ui.fragment.OrderFragment;
 import com.bhex.wallet.bh_main.proposals.ui.fragment.ProposalFragment;
 import com.bhex.wallet.bh_main.ui.activity.MainActivity;
 import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorFragment;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.manager.MMKVManager;
-import com.bhex.wallet.common.model.BHPhoneInfo;
 import com.bhex.wallet.common.model.UpgradeInfo;
 import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
@@ -40,7 +34,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.functions.Consumer;
@@ -168,9 +161,7 @@ public class MainPresenter extends BasePresenter {
         setCurrentFragment(ValidatorFragment.class, null);
     }
 
-    public void goOrderFragment() {
-        setCurrentFragment(OrderFragment.class,null);
-    }
+
     public void goProposalFragment() {
         setCurrentFragment(ProposalFragment.class,null);
     }

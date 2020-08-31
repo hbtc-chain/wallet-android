@@ -37,10 +37,6 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainIndexActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".validator.ui.activity.ValidatorDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />

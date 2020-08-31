@@ -8,48 +8,45 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.TranscationViewActivity"/>
+        <activity android:name=".ui.activity.HBCTokenActivity"></activity>
+        <activity android:name=".ui.activity.TranscationViewActivity" />
         <activity
             android:name=".ui.activity.DelegateActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.TranscationDetailActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.GenerateAddressActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.TransferOutActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden"
-            android:launchMode="singleTop"/>
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden" />
         <activity
             android:name=".ui.activity.TransferInActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.GatheringActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.AssetDetailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.CoinSearchActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:launchMode="singleTop"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".BalanceIndexActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
-        <!--<activity
-            android:name=".ui.activity.TxBaseActivity"
-            android:screenOrientation="portrait" />-->
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
