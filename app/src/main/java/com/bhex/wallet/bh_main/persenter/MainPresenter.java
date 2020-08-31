@@ -28,6 +28,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.UpgradeInfo;
 import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
+import com.bhex.wallet.market.ui.fragment.MarketFragment;
 import com.bhex.wallet.mnemonic.ui.fragment.SecureTipsFragment;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -153,8 +154,8 @@ public class MainPresenter extends BasePresenter {
     }
 
 
-    public void goExchangeFragment() {
-        setCurrentFragment(ExchangeFragment.class, null);
+    public void goMarketFragment() {
+        setCurrentFragment(MarketFragment.class, null);
     }
 
     public void goValidatorFragment() {

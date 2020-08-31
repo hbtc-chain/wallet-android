@@ -15,6 +15,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.BottomNavigationViewUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.ToolUtils;
@@ -97,7 +98,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                     return true;
                 case R.id.tab_validator:
                     mCurrentCheckId = 1;
-                    getPresenter().goValidatorFragment();
+                    getPresenter().goMarketFragment();
                     return true;
                 case R.id.tab_proposals:
                     mCurrentCheckId = 2;
@@ -111,6 +112,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
             return false;
         });
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
+        BottomNavigationViewUtil.hideToast(mBottomNavigationView);
     }
 
     @Override

@@ -425,6 +425,7 @@
     <string name="app_up_to_minute_version">已更新至最新版本</string>
     <string name="app_loading_now">正在后台下载</string>
     <string name="deleted">已删除</string>
+    <string name="market">市场</string>
 
 
     <string-array name="my_list_item">
@@ -463,4 +464,15 @@
         <item>提币</item>
     </string-array>
 
+    <string-array name="Cross_operator_list">
+        <item>跨链充币</item>
+        <item>跨链提币</item>
+    </string-array>
+
+    <string-array name="Exchnge_operator_list">
+        <item>兑换</item>
+        <item>交易</item>
+    </string-array>
+
+    <string name="exchange_coin">兑换</string>
 </resources>

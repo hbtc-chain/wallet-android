@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.Menu;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
@@ -16,10 +17,12 @@ import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
+import com.bhex.wallet.common.menu.MenuItem;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -183,5 +186,25 @@ public class BHBalanceHelper {
         LogUtils.d("CoinSearchActivity==>:","addCoinSeachBalance==");
 
         originList.add(bhBalance);
+    }
+
+    public static ArrayList<MenuItem> loadCrossActionList(Context context){
+        String []operator_list = context.getResources().getStringArray(R.array.Cross_operator_list);
+        ArrayList<MenuItem> list = new ArrayList<>();
+        for (String item:operator_list) {
+            MenuItem menuItem = new MenuItem(item,false);
+            list.add(menuItem);
+        }
+        return list;
+    }
+
+    public static ArrayList<MenuItem> loadExchangeActionList(Context context){
+        String []operator_list = context.getResources().getStringArray(R.array.Exchnge_operator_list);
+        ArrayList<MenuItem> list = new ArrayList<>();
+        for (String item:operator_list) {
+            MenuItem menuItem = new MenuItem(item,false);
+            list.add(menuItem);
+        }
+        return list;
     }
 }

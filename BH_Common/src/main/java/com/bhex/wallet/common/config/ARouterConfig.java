@@ -105,4 +105,5 @@ public class ARouterConfig {
     public static final String Create_Proposal = "/proposal/create_proposal";
 
 
+    public static final String Market_exchange_coin = "/market/exchange/coin";
 }

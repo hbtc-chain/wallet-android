@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.AssetDetailActivity">
+    tools:context=".ui.activity.TokenDetailActivity">
 
     <include layout="@layout/layout_toolbar" />
 
@@ -237,7 +237,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
-            android:id="@+id/btn_transfer_in"
+            android:id="@+id/btn_item1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -247,7 +247,7 @@
             app:actionText="@string/transfer_in" />
 
         <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
-            android:id="@+id/btn_transfer_out"
+            android:id="@+id/btn_item2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -257,7 +257,7 @@
             app:actionText="@string/transfer_out" />
 
         <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
-            android:id="@+id/btn_draw_share"
+            android:id="@+id/btn_item3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -267,7 +267,7 @@
             app:actionText="@string/withdraw_share" />
 
         <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
-            android:id="@+id/btn_reinvest_share"
+            android:id="@+id/btn_item4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

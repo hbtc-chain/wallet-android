@@ -425,6 +425,7 @@
     <string name="app_up_to_minute_version">you already have the latest version</string>
     <string name="app_loading_now">Downloading in the background</string>
     <string name="deleted">Deleted</string>
+    <string name="market">市场</string>
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>

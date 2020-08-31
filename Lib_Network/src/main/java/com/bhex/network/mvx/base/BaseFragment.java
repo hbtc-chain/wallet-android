@@ -71,8 +71,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         addEvent();
     }
 
-    protected abstract void addEvent();
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -82,6 +80,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public abstract int getLayoutId();
 
     protected abstract void initView();
+
+    protected abstract void addEvent();
 
     public BaseActivity getYActivity() {
         return mActivity;

@@ -61,10 +61,8 @@ public class SplashActivity extends AppCompatActivity {
         Disposable disposable = Observable.just(0).timer(1000, TimeUnit.MILLISECONDS)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
                 .subscribe(aLong -> {
-                    //LogUtils.d("SplashActivity===>:","aLong=="+aLong);
                     //首次启动
                     if(!BHUserManager.getInstance().isHasWallet()){
-
                         NavigateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
                     }else {
                         boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
