@@ -53,17 +53,6 @@ public class NavigateUtil {
         context.startActivity(intent);
     }
 
-
-    /**
-     * 启动Main
-     * @param context
-     */
-    public static void startMainActivity(Context context){
-        Intent intent = new Intent(BHConstants.MAIN_PATH);
-        context.startActivity(intent);
-    }
-
-
     /**
      * 启动Main
      * @param context

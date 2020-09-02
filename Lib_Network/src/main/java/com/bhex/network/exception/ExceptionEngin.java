@@ -50,23 +50,27 @@ public class ExceptionEngin {
             HttpException httpException = (HttpException)throwable;
             ApiException apiException = new ApiException(throwable, httpException.code());
 
-            int i = httpException.code();
-            if (i != 401) {
-                if (i != 408 && i != 500 && i != 502 && i != 504 && i != 512) {
-                    if (i != 403 && i != 404) {
-                        apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.net_error_msg));
-                        return apiException;
-                    }
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append("404:");
-                    stringBuilder.append(BaseApplication.getInstance().getString(R.string.app_net_error_msg));
-                    apiException.setDisplayMessage(stringBuilder.toString());
-                    return apiException;
-                }
+            int code = httpException.code();
+
+            /*if(code == 401){
+                apiException.setDisplayMessage(BaseApplication.getInstance().getResources().getString(R.string.auth_info_faild));
+                return apiException;
+            }*/
+
+            if (code == 408 || code == 500 || code == 502 || code == 504 || code == 512) {
                 apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.app_net_error_msg));
                 return apiException;
             }
-            apiException.setDisplayMessage(BaseApplication.getInstance().getResources().getString(R.string.auth_info_faild));
+
+            if (code == 403 || code == 404) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(code+":");
+                stringBuilder.append(BaseApplication.getInstance().getString(R.string.app_net_error_msg));
+                apiException.setDisplayMessage(stringBuilder.toString());
+                return apiException;
+            }
+
+            apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.net_error_msg));
             return apiException;
         }
 
@@ -114,7 +118,7 @@ public class ExceptionEngin {
         if(throwable instanceof CipherException){
             ApiException apiException = new ApiException(throwable, 1005);
             StringBuilder sb = new StringBuilder();
-            sb.append(BaseApplication.getInstance().getString(R.string.keystore_or_pwd_nomatch));
+            sb.append("KeyStore或密码不匹配");
             apiException.setDisplayMessage(sb.toString());
             return apiException;
         }
@@ -123,8 +127,17 @@ public class ExceptionEngin {
             apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.error_network_later_try));
             return apiException;
         }
+
+        if(throwable instanceof io.reactivex.exceptions.OnErrorNotImplementedException){
+            ApiException apiException = new ApiException(throwable, 1006);
+            apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.traffic_network_later_try));
+            return apiException;
+        }
+        //String name = throwable.getClass().getName();
+        //LogUtils.d("ExceptionEngin===>:","name=="+name);
         ApiException apiException = new ApiException(throwable, 1000);
         apiException.setDisplayMessage(apiException.getMessage());
         return apiException;
     }
+
 }

@@ -77,7 +77,7 @@ public class ARouterConfig {
     public static final String Balance_Search = "/balance/search";
 
     //资产详情页
-    public static final String Balance_Assets_Detail = "/balance/assets";
+    public static final String Balance_Token_Detail = "/balance/token/detail";
 
     //充币
     public static final String Balance_transfer_in = "/balance/transfer/in";
@@ -91,6 +91,7 @@ public class ARouterConfig {
     //转账详情
     public static final String Balance_transcation_detail = "/balance/transcation/detail";
     public static final String Balance_transcation_view = "/balance/transcation/view";
+    public static final String Balance_chain_tokens = "/balance/chain/tokens";
 
     //代币发行
     public static final String Token_Release = "/token/release";
@@ -98,6 +99,7 @@ public class ARouterConfig {
     //验证人详情页
     public static final String Validator_Detail = "/validator/detail";
     public static final String Do_Entrust = "/validator/do_entrust";
+    public static final String Validator_Index = "/validator/index";
 
     public static final String Proposal_Detail = "/proposal/detail";
     public static final String Do_Pledge = "/proposal/do_pledge";
@@ -106,4 +108,6 @@ public class ARouterConfig {
 
 
     public static final String Market_exchange_coin = "/market/exchange/coin";
+
+
 }

@@ -28,8 +28,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             style="@style/toolbar_layout_title_style"
-            android:text="@string/market"
-            tools:text="@string/market" />
+            android:text="@string/tab_market"
+            tools:text="@string/tab_market" />
 
     </androidx.appcompat.widget.Toolbar>
 

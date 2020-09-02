@@ -7,7 +7,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".my.ui.activity.RecognitionActivity"/>
+        <activity android:name=".validator.ui.activity.ValidatorIndexActivity"></activity>
+        <activity android:name=".my.ui.activity.RecognitionActivity" />
         <activity
             android:name=".my.ui.activity.MessageActivity"
             android:launchMode="singleTop"
@@ -16,7 +17,7 @@
             android:name=".my.ui.activity.TokenReleaseActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden"/>
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden" />
         <activity
             android:name=".my.ui.activity.RateSettingActivity"
             android:launchMode="singleTop"
@@ -25,8 +26,7 @@
             android:name=".my.ui.activity.UpdatePasswordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden"
-            />
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden" />
         <activity
             android:name=".my.ui.activity.SettingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -60,8 +60,7 @@
             android:name=".proposals.ui.activity.CreateProposalActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden"/>
-
+            android:windowSoftInputMode="stateUnchanged|adjustResize|stateHidden" />
     </application>
 
 </manifest>

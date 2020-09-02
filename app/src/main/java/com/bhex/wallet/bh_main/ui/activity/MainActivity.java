@@ -10,7 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.RefreshLayoutManager;
@@ -52,6 +54,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @BindView(R.id.main_bottom)
     BottomNavigationView mBottomNavigationView;
 
+    /*@Autowired(name="go_position")
+    String go_position;*/
+
     private long mExitTime = 0L;
 
     private int mCurrentCheckId = 0;
@@ -66,13 +71,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     protected void initView() {
+        ARouter.getInstance().inject(this);
         RefreshLayoutManager.init();
         TRANSCATION_BUSI_TYPE.init(this);
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
 
@@ -100,10 +101,10 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                     mCurrentCheckId = 1;
                     getPresenter().goMarketFragment();
                     return true;
-                case R.id.tab_proposals:
+                /*case R.id.tab_proposals:
                     mCurrentCheckId = 2;
                     getPresenter().goProposalFragment();
-                    return true;
+                    return true;*/
                 case R.id.tab_my:
                     mCurrentCheckId = 3;
                     getPresenter().goMyFragment();
@@ -140,8 +141,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Subscribe(threadMode= ThreadMode.MAIN)
     public void changeLanguage(LanguageEvent language){
         isReset = false;
-        LogUtils.d("MainPresenter===>:","isReset=1="+isReset);
-
         recreate();
     }
 
@@ -163,6 +162,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        String go_position = intent.getStringExtra("go_position");
+        getPresenter().gotoTarget(mBottomNavigationView,go_position);
+
     }
 
     @Override

@@ -30,6 +30,7 @@ import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
 import com.bhex.wallet.bh_main.my.ui.activity.SettingActivity;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.bh_main.my.viewmodel.MessageViewModel;
+import com.bhex.wallet.bh_main.my.viewmodel.TestTokenViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
@@ -88,7 +89,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @BindView(R2.id.iv_message_tip)
     CircleView iv_message_tip;
 
-
     private List<MyItem> mItems;
 
     private MyAdapter mMyAdapter;
@@ -98,6 +98,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     private MessageViewModel msgViewModel;
 
     private UpgradeViewModel mUpgradeVM;
+
+    private TestTokenViewModel mTestTokenVM;
 
     public MyFragment() {
 
@@ -136,6 +138,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             processUpgradeInfo(ldm);
         });
 
+        mTestTokenVM = ViewModelProviders.of(this).get(TestTokenViewModel.class);
+
     }
 
 
@@ -168,10 +172,14 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                             MyFragment.this,item.id);
                     break;
                 case 4:
+                    //申请测试币
+                    mTestTokenVM.send_test_token(this);
+                    break;
+                case 5:
                     //设置
                     NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
                     break;
-                case 6:
+                case 7:
                     mUpgradeVM.getUpgradeInfoExt(getYActivity());
                     break;
 

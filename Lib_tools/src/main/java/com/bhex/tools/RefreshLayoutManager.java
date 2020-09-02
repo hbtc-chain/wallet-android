@@ -37,9 +37,11 @@ public class RefreshLayoutManager {
         });
 
         SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> {
+            //layout.setEnableLoadMore(false);
             return new BallPulseFooter(context)
                     .setNormalColor(ContextCompat.getColor(context,R.color.blue_bg))
                     .setAnimatingColor(ContextCompat.getColor(context,R.color.blue_bg));
         });
+
     }
 }

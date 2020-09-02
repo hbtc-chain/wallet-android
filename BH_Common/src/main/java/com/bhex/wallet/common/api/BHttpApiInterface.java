@@ -98,4 +98,7 @@ public interface BHttpApiInterface {
     @POST("/api/v1/cus/{addr}/notifications/{id}/read")
     Observable<JsonObject> updateNotificationStatus(@Path("addr") String address,
                                                       @Path("id") String id);
+
+    @GET("https://explorer.hbtc.com/api/v1/cus/{addr}/send_test_token")
+    Observable<JsonObject> send_test_token(@Path("addr") String address);
 }

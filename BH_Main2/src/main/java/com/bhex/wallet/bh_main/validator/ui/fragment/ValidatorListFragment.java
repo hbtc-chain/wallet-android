@@ -65,7 +65,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
 
     @Override
     protected void initView() {
-
+        swipeRefresh.setEnableLoadMore(true);
         LinearLayoutManager layoutManager = new MyLinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_validator.setLayoutManager(layoutManager);

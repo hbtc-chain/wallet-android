@@ -28,6 +28,8 @@ public class CoinBottomBtn extends RelativeLayout {
 
     public AppCompatTextView tv_bottom_text;
 
+    public AppCompatImageView iv_arrow;
+
     public CoinBottomBtn(Context context) {
         this(context,null);
     }
@@ -50,14 +52,22 @@ public class CoinBottomBtn extends RelativeLayout {
         mRootView = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.layout_coin_bottom_btn,this);
         iv_coin_icon = mRootView.findViewById(R.id.iv_coin_icon);
         tv_bottom_text = mRootView.findViewById(R.id.tv_bottom_text);
+        iv_arrow = mRootView.findViewById(R.id.iv_arrow);
 
         TypedArray ta = context.obtainStyledAttributes(attrs,R.styleable.Coin_Button);
         int actionImage = ta.getResourceId(R.styleable.Coin_Button_actionImage,0);
         iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(mContext,actionImage));
+
+        boolean actionMore = ta.getBoolean(R.styleable.Coin_Button_actionMore,false);
+        iv_arrow.setVisibility(actionMore?VISIBLE:GONE);
         String actionText = ta.getString(R.styleable.Coin_Button_actionText);
         tv_bottom_text.setText(actionText);
     }
 
+
+    public void setActionMore(int visibility){
+        iv_arrow.setVisibility(visibility);
+    }
 
 
 

@@ -1,14 +1,11 @@
 package com.bhex.wallet.balance.ui.fragment;
 
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import android.widget.RelativeLayout;
 
@@ -32,15 +29,14 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.BalanceAdapter;
+import com.bhex.wallet.balance.adapter.ChainAdapter;
 import com.bhex.wallet.balance.event.BHCoinEvent;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
-import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.CurrencyEvent;
@@ -54,10 +50,6 @@ import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.textview.MaterialTextView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
-import com.yanzhenjie.recyclerview.SwipeMenuCreator;
-import com.yanzhenjie.recyclerview.SwipeMenuItem;
-import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -75,63 +67,43 @@ import butterknife.OnClick;
  * 2020-3-12
  */
 public class BalanceFragment extends BaseFragment<BalancePresenter> {
-
-    private static  final String TAG = BalanceFragment.class.getSimpleName();
-
     @BindView(value = R2.id.toolbar)
     Toolbar mToolBar;
-
     @BindView(R2.id.tv_balance_txt2)
     MaterialTextView tv_balance_txt2;
-
     @BindView(R2.id.recycler_balance)
     RecyclerView recycler_balance;
-
     @BindView(R2.id.tv_address)
     AppCompatTextView tv_address;
-
     @BindView(R2.id.iv_paste)
     AppCompatImageView iv_paste;
-
     @BindView(R2.id.iv_eye)
     AppCompatImageView iv_eye;
-
     @BindView(R2.id.tv_asset)
     AppCompatTextView tv_asset;
-
     @BindView(R2.id.iv_search)
     AppCompatImageView iv_search;
-
     @BindView(R2.id.ed_search_content)
     AppCompatEditText ed_search_content;
-
     @BindView(R2.id.ck_hidden_small)
     CheckedTextView ck_hidden_small;
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-
     @BindView(R2.id.empty_layout)
     RelativeLayout empty_layout;
 
-    private BalanceAdapter mBalanceAdapter;
-
+    private ChainAdapter mChainAdapter;
     private List<BHBalance> mBalanceList;
-
     private List<BHBalance> mOriginBalanceList;
-
     private BHWallet bhWallet;
-
     private AccountInfo mAccountInfo;
-
+    private BalanceViewModel balanceViewModel;
     //总资产
     private double allTokenAssets;
 
     public BalanceFragment() {
 
     }
-
-    private TransactionViewModel transactionViewModel;
-    private BalanceViewModel balanceViewModel;
 
     @Override
     public int getLayoutId() {
@@ -142,7 +114,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
-
     }
 
     @Override
@@ -171,15 +142,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         recycler_balance.addItemDecoration(ItemDecoration);
 
-        mBalanceAdapter = new BalanceAdapter(R.layout.item_balance, mBalanceList);
+        mChainAdapter = new ChainAdapter(mBalanceList);
         /*recycler_balance.setSwipeMenuCreator(swipeMenuCreator);
         recycler_balance.setOnItemMenuClickListener(mMenuItemClickListener);*/
-        recycler_balance.setAdapter(mBalanceAdapter);
-
+        recycler_balance.setAdapter(mChainAdapter);
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
-
         ed_search_content.addTextChangedListener(balanceTextWatcher);
-
         refreshLayout.setEnableLoadMore(false);
     }
 
@@ -192,17 +160,15 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @Override
     protected void addEvent() {
         //资产列表点击事件
-        mBalanceAdapter.setOnItemClickListener((adapter, view, position) -> {
-            BHBalance bhBalance =  mBalanceAdapter.getData().get(position);
-            ARouter.getInstance().build(ARouterConfig.Balance_Assets_Detail)
+        mChainAdapter.setOnItemClickListener((adapter, view, position) -> {
+            BHBalance bhBalance =  mChainAdapter.getData().get(position);
+            /*ARouter.getInstance().build(ARouterConfig.Balance_Token_Detail)
                     .withObject("balance",bhBalance)
                     .withObject("accountInfo",mAccountInfo)
+                    .navigation();*/
+            ARouter.getInstance().build(ARouterConfig.Balance_chain_tokens)
+                    .withObject("balance",bhBalance)
                     .navigation();
-        });
-
-        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
-        transactionViewModel.mutableLiveData.observe(this,loadDataModel -> {
-
         });
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(getYActivity());
@@ -214,11 +180,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
                 updateAssets((AccountInfo) ldm.getData());
             }
         });
-
         getLifecycle().addObserver(balanceViewModel);
-
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
-            balanceViewModel.getAccountInfo(getYActivity(),bhWallet.address);
+            balanceViewModel.getAccountInfo(getYActivity());
         });
         refreshLayout.autoRefresh();
     }
@@ -233,8 +197,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         tv_balance_txt2.setText(all_asset_label);
         mAccountInfo = accountInfo;
         BHUserManager.getInstance().setAccountInfo(mAccountInfo);
-        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
-        mBalanceAdapter.notifyDataSetChanged();
+        //List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        mChainAdapter.notifyDataSetChanged();
         //计算每一个币种的资产价值 和 总资产
         updateTopTokenAssets();
     }
@@ -260,7 +224,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_eye){
             //隐藏资产
-            mPresenter.hiddenAsset(getYActivity(),tv_asset,iv_eye,mBalanceAdapter);
+            mPresenter.hiddenAssetExt(getYActivity(),tv_asset,iv_eye);
         }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(bhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));
@@ -280,9 +244,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             }else{
                 empty_layout.setVisibility(View.GONE);
             }
-            mBalanceAdapter.getData().clear();
-            mBalanceAdapter.addData(result);
-
+            mChainAdapter.getData().clear();
+            mChainAdapter.addData(result);
         }
     }
 
@@ -309,18 +272,18 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
                 mBalanceList.add(balance);
             }
             empty_layout.setVisibility(View.GONE);
-            mBalanceAdapter.notifyDataSetChanged();
+            mChainAdapter.notifyDataSetChanged();
         }else{
             int rv_index= mPresenter.getIndexByCoin(mBalanceList,event.bhCoinItem);
             int org_index= mPresenter.getIndexByCoin(mOriginBalanceList,event.bhCoinItem);
             if(rv_index>=0){
                 mBalanceList.remove(rv_index);
-                if(mBalanceAdapter.getData().size()==0){
+                if(mChainAdapter.getData().size()==0){
                     empty_layout.setVisibility(View.VISIBLE);
                 }else{
                     empty_layout.setVisibility(View.GONE);
                 }
-                mBalanceAdapter.notifyDataSetChanged();
+                mChainAdapter.notifyDataSetChanged();
             }
             if(org_index>=0){
                 mOriginBalanceList.remove(org_index);
@@ -340,42 +303,20 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
 
         //清空原始用户资产
-        mBalanceAdapter.getData().clear();
+        mChainAdapter.getData().clear();
         mOriginBalanceList = mPresenter.makeBalanceList();
         mBalanceList = mPresenter.getBalanceList(mOriginBalanceList);
-        mBalanceAdapter.addData(mBalanceList);
-        mBalanceAdapter.notifyDataSetChanged();
+        mChainAdapter.addData(mBalanceList);
+        mChainAdapter.notifyDataSetChanged();
 
         //更新资产
-        balanceViewModel.getAccountInfo(getYActivity(),bhWallet.address);
+        balanceViewModel.getAccountInfo(getYActivity());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(CurrencyEvent currencyEvent){
         updateAssets(mAccountInfo);
     }
-
-    private SwipeMenuCreator swipeMenuCreator = (leftMenu, rightMenu, position) -> {
-        int width = PixelUtils.dp2px(getContext(),80);
-        int height = ViewGroup.LayoutParams.MATCH_PARENT;
-
-        SwipeMenuItem transferItem = new SwipeMenuItem(getContext())
-                .setBackground(R.drawable.btn_0_blue)
-                .setText(getResources().getString(R.string.transfer))
-                .setTextColor(getResources().getColor(R.color.global_button_text_color))
-                .setWidth(width)
-                .setHeight(height);
-        rightMenu.addMenuItem(transferItem);
-
-
-        SwipeMenuItem makeCollectItem = new SwipeMenuItem(getContext())
-                .setBackground(R.drawable.btn_0_blue)
-                .setText(getResources().getString(R.string.make_collection))
-                .setTextColor(getResources().getColor(R.color.global_button_text_color))
-                .setWidth(width)
-                .setHeight(height);
-        leftMenu.addMenuItem(makeCollectItem);
-    };
 
     private SimpleTextWatcher balanceTextWatcher = new SimpleTextWatcher(){
         @Override
@@ -389,8 +330,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             }else{
                 empty_layout.setVisibility(View.GONE);
             }
-            mBalanceAdapter.getData().clear();
-            mBalanceAdapter.addData(result);
+            mChainAdapter.getData().clear();
+            mChainAdapter.addData(result);
 
         }
     };
@@ -411,22 +352,4 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         return super.onOptionsItemSelected(item);
     }
 
-    private OnItemMenuClickListener mMenuItemClickListener = (menuBridge, adapterPosition) -> {
-        int direction = menuBridge.getDirection();
-        BHBalance balance = mBalanceAdapter.getData().get(adapterPosition);
-
-        if(direction == SwipeRecyclerView.RIGHT_DIRECTION){
-            BHBalance bthBalance =mPresenter.getBthBalanceWithAccount(mAccountInfo);
-            ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
-                    .withObject("balance", balance)
-                    .withObject("bhtBalance",bthBalance)
-                    .withInt("way",1)
-                    .navigation();
-        }else{
-            ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
-                    .withObject("balance", balance)
-                    .withInt("way",1)
-                    .navigation();
-        }
-    };
 }

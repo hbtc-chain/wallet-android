@@ -10,8 +10,10 @@ import com.bhex.network.cache.stategy.IStrategy;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BaseObserver;
 import com.bhex.network.utils.JsonUtils;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
@@ -21,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -89,12 +92,25 @@ public class SymbolCache extends BaseCache {
                         super.onFailure(code, errorMsg);
                     }
                 });
-
     }
-
 
     public  BHToken getBHToken(String symbol){
         return symbolMap.get(symbol);
+    }
+
+    public  List<BHToken> loadTokenByChain(String chain){
+        //LogUtils.d("SymbolCache===>:","size=="+symbolMap.size());
+        List<BHToken> list = new ArrayList();
+        if(ToolUtils.checkMapEmpty(symbolMap)){
+            return null;
+        }
+
+        for (Map.Entry<String,BHToken> item : symbolMap.entrySet()){
+            if(item.getValue().chain.equalsIgnoreCase(chain)){
+                list.add(item.getValue());
+            }
+        }
+        return list;
     }
 
     public int getDecimals(String symbol){

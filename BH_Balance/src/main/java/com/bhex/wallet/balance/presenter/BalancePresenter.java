@@ -23,6 +23,7 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
@@ -60,6 +61,7 @@ public class BalancePresenter extends BasePresenter {
 
     public List<BHBalance> makeBalanceList(){
         List<BHBalance> list = new ArrayList<>();
+        BHWallet wallet = BHUserManager.getInstance().getCurrentBhWallet();
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         String[] coin_list = BHUserManager.getInstance().getUserBalanceList().split("_");
         for (int i = 0; i < coin_list.length; i++) {
@@ -69,6 +71,9 @@ public class BalancePresenter extends BasePresenter {
             if(bhToken!=null){
                 bhBalance.chain = bhToken.chain;
                 bhBalance.logo = bhToken.logo;
+            }
+            if(BHConstants.BHT_TOKEN.equalsIgnoreCase(bhBalance.chain)){
+                bhBalance.address = wallet.address;
             }
             list.add(bhBalance);
         }
@@ -275,6 +280,22 @@ public class BalancePresenter extends BasePresenter {
             eyeIv.setTag(BH_BUSI_TYPE.显示.value);
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye));
             balanceAdapter.setIsHidden(BH_BUSI_TYPE.显示.value);
+        }
+    }
+
+    public void hiddenAssetExt(BaseActivity context, AppCompatTextView tv_asset, AppCompatImageView eyeIv){
+        String tag = (String) eyeIv.getTag();
+        if(tag.equals(BH_BUSI_TYPE.显示.value)){
+            tv_asset.setText("***");
+            eyeIv.setTag(BH_BUSI_TYPE.隐藏.value);
+            eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_close));
+        }else{
+            String unhiddenText = tv_asset.getTag(R.id.tag_first).toString();
+            SpannableString spanStr = new SpannableString(unhiddenText);
+            spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            tv_asset.setText(spanStr);
+            eyeIv.setTag(BH_BUSI_TYPE.显示.value);
+            eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye));
         }
     }
 

@@ -6,7 +6,7 @@
     <style name="AppTheme.Splash" parent="@style/AppTheme">
         <item name="android:windowBackground">@drawable/splash_bg</item>
         <item name="android:statusBarColor">@android:color/white</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 

@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.HBCTokenActivity" />
+        <activity android:name=".ui.activity.ChainTokenActivity" />
         <activity android:name=".ui.activity.TranscationViewActivity" />
         <activity
             android:name=".ui.activity.DelegateActivity"

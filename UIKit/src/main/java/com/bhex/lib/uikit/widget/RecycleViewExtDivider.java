@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bhex.lib.uikit.util.PixelUtils;
+
 /**
  * Created by gdy on 2018/11/13
  * Describe:
@@ -78,7 +80,7 @@ public class RecycleViewExtDivider extends RecyclerView.ItemDecoration {
 
     public RecycleViewExtDivider(Context context, int orientation, int paddingLeft,int mPaddingRight, int dividerColor) {
         this(context, orientation);
-        //mDividerHeight = dividerHeight;
+        mDividerHeight = PixelUtils.dp2px(context,1);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(dividerColor);
         mPaint.setDither(true);

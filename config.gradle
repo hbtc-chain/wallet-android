@@ -38,9 +38,7 @@ ext {
             //阿里路由框架
             "arouter-api"             : "com.alibaba:arouter-api:1.4.1",
             "arouter-compiler"        : "com.alibaba:arouter-compiler:1.2.2",
-            "workx"            : "androidx.work:work-runtime:2.3.4",
-
-
+            "workx"            : "androidx.work:work-runtime:2.3.4"
     ]
 
     //4.指定Java version

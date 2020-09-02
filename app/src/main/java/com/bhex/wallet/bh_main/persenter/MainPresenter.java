@@ -2,6 +2,7 @@ package com.bhex.wallet.bh_main.persenter;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,12 +25,14 @@ import com.bhex.wallet.bh_main.proposals.ui.fragment.ProposalFragment;
 import com.bhex.wallet.bh_main.ui.activity.MainActivity;
 import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorFragment;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.enums.MAIN_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.UpgradeInfo;
 import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
 import com.bhex.wallet.market.ui.fragment.MarketFragment;
 import com.bhex.wallet.mnemonic.ui.fragment.SecureTipsFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -117,13 +120,16 @@ public class MainPresenter extends BasePresenter {
         //下载升级
     };
 
-    @Override
-    public void onResume(@NotNull LifecycleOwner owner) {
-        super.onResume(owner);
+    public void gotoTarget(BottomNavigationView bnv,String goto_position){
 
-
+        if(TextUtils.isEmpty(goto_position)){
+            return;
+        }
+        if(goto_position.equals(MAIN_BUSI_TYPE.市场.label)){
+            //goMarketFragment();
+            bnv.setSelectedItemId(bnv.getMenu().getItem(1).getItemId());
+        }
     }
-
     /**
      * 动态权限申请
      */

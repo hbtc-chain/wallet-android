@@ -9,8 +9,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
@@ -36,10 +34,7 @@ import com.bhex.wallet.balance.ui.fragment.ReInvestShareFragment;
 import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
 import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
-import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.menu.MenuItem;
-import com.bhex.wallet.common.menu.MenuListFragment;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.BHSendTranscation;
@@ -56,11 +51,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author gongdongyang
@@ -69,6 +62,7 @@ import butterknife.OnClick;
  */
 public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     BHBalance bthBalance;
+
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
     @BindView(R2.id.btn_item1)
@@ -113,8 +107,8 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     TransactionViewModel transactionViewModel;
     List<TransactionOrder> mOrderList;
 
-    int mCurrentPage = 1;
     BalanceViewModel balanceViewModel;
+    int mCurrentPage = 1;
 
     @Override
     protected int getLayoutId() {
@@ -142,6 +136,14 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         recycler_order.setAdapter(mTxOrderAdapter);
 
         recycler_order.setNestedScrollingEnabled(false);
+        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
+                this,LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(this,24),0,
+                ColorUtil.getColor(this,R.color.global_divider_color));
+
+        recycler_order.addItemDecoration(ItemDecoration);
+
+        refreshLayout.setEnableLoadMore(false);
 
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
@@ -149,35 +151,15 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         transactionViewModel.initData(this,getBHBalance().symbol);
         //根据token 显示View
         initTokenView();
+        initTokenAsset();
     }
 
     private void initTokenView() {
-        if(getAccountInfo()==null){
-            return;
-        }
-        //计算持有资产
-        String []res = BHBalanceHelper.getAmountToCurrencyValue(this,getBHBalance().amount,getBHBalance().symbol,false);
-        tv_coin_amount.setText(res[0]);
-        //对应法币实际值
-        tv_coin_currency.setText(res[1]);
-
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(getBHBalance().symbol)){
-            //可用数量
-            String available_value = BHBalanceHelper.getAmountForUser(this,getBHBalance().amount,"0",getBHBalance().symbol);
-            tv_available_value.setText(available_value);
-            //委托中
-            String bonded_value = NumberUtil.dispalyForUsertokenAmount(getAccountInfo().getBonded());
-            tv_entrust_value.setText(bonded_value);
-            //赎回中
-            String unbonding_value = NumberUtil.dispalyForUsertokenAmount(getAccountInfo().getUnbonding());
-            tv_redemption_value.setText(unbonding_value);
-            //已收益
-            String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount(getAccountInfo().getClaimed_reward());
-            tv_income_value.setText(claimed_reward_value);
-
             //转账
             btn_item2.tv_bottom_text.setText(getResources().getString(R.string.transfer));
-
+            btn_item3.setActionMore(View.GONE);
+            btn_item4.setActionMore(View.GONE);
         } else if (BHConstants.BHT_TOKEN.equalsIgnoreCase(getBHBalance().chain)) {
             //原生代币
             btn_item3.setVisibility(View.GONE);
@@ -197,15 +179,16 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             //转账
             btn_item2.tv_bottom_text.setText(getResources().getString(R.string.transfer));
             //跨链充币
-            btn_item3.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_in));
+            btn_item3.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_link));
             btn_item3.tv_bottom_text.setText(getResources().getString(R.string.crosslink));
+            btn_item3.setActionMore(View.VISIBLE);
 
             btn_item3.setId(R.id.cross_chian_transfer_in);
             //跨链提币
             btn_item4.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));
             btn_item4.tv_bottom_text.setText(getResources().getString(R.string.exchange_coin));
             btn_item4.setId(R.id.cross_chian_withdraw);
-
+            btn_item4.setActionMore(View.VISIBLE);
             tv_available_text.setVisibility(View.GONE);
             tv_available_value.setVisibility(View.GONE);
             tv_entrust_text.setVisibility(View.GONE);
@@ -216,14 +199,34 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             tv_income_value.setVisibility(View.GONE);
         }
 
-        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
-                this,LinearLayoutManager.VERTICAL,
-                PixelUtils.dp2px(this,24),0,
-                ColorUtil.getColor(this,R.color.global_divider_color));
 
-        recycler_order.addItemDecoration(ItemDecoration);
+    }
 
-        refreshLayout.setEnableLoadMore(false);
+    private void initTokenAsset(){
+        if(getAccountInfo()==null){
+            return;
+        }
+        //计算持有资产
+        String []res = BHBalanceHelper.getAmountToCurrencyValue(this,getBHBalance().amount,getBHBalance().symbol,false);
+        tv_coin_amount.setText(res[0]);
+        //对应法币实际值
+        tv_coin_currency.setText(res[1]);
+        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(getBHBalance().symbol)){
+            //可用数量
+            String available_value = BHBalanceHelper.getAmountForUser(this,getBHBalance().amount,"0",getBHBalance().symbol);
+            tv_available_value.setText(available_value);
+            //委托中
+            String bonded_value = NumberUtil.dispalyForUsertokenAmount(getAccountInfo().getBonded());
+            tv_entrust_value.setText(bonded_value);
+            //赎回中
+            String unbonding_value = NumberUtil.dispalyForUsertokenAmount(getAccountInfo().getUnbonding());
+            tv_redemption_value.setText(unbonding_value);
+            //已收益
+            String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount(getAccountInfo().getClaimed_reward());
+            tv_income_value.setText(claimed_reward_value);
+        }
+
+
     }
 
     @Override
@@ -257,15 +260,14 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             TransactionOrder txo = mOrderList.get(position);
             TxOrderItem txOrderItem = TransactionHelper.getTxOrderItem(txo);
             TransactionHelper.gotoTranscationDetail(txOrderItem);
-
         });
 
         LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).observe(this,ldm->{
             updateAssest(ldm);
         });
 
-        refreshLayout.setOnRefreshListener(refreshLayout1 -> {
-            balanceViewModel.getAccountInfo(TokenDetailActivity.this,bthBalance.address);
+        refreshLayout.setOnRefreshListener(refreshLayout -> {
+            balanceViewModel.getAccountInfo(TokenDetailActivity.this);
             transactionViewModel.queryTransctionByAddress(this,
                     BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, getBHBalance().symbol, null);
         });
@@ -273,6 +275,8 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         transactionViewModel.validatorLiveData.observe(this,ldm->{
             updateValidatorAddress(ldm);
         });
+
+        balanceViewModel.getAccountInfo(TokenDetailActivity.this);
         EventBus.getDefault().register(this);
     }
 
@@ -285,8 +289,9 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         refreshLayout.finishRefresh();
         if(ldm.loadingStatus==LoadingStatus.SUCCESS){
             setAccountInfo(ldm.getData());
+            bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
             mPresenter.updateBalance(getAccountInfo(),getBHBalance());
-            initTokenView();
+            initTokenAsset();
         }
     }
 
@@ -309,10 +314,6 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         mOrderList = data;
         mTxOrderAdapter.addData(data);
     }
-
-
-
-
 
     /**
      * 更新验证人列表

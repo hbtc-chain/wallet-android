@@ -244,7 +244,8 @@
             android:gravity="center_horizontal"
             android:paddingBottom="16dp"
             app:actionImage="@mipmap/ic_transfer_in"
-            app:actionText="@string/transfer_in" />
+            app:actionText="@string/transfer_in"
+            />
 
         <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
             android:id="@+id/btn_item2"
@@ -264,7 +265,7 @@
             android:gravity="center_horizontal"
             android:paddingBottom="16dp"
             app:actionImage="@mipmap/ic_draw_share"
-            app:actionText="@string/withdraw_share" />
+            app:actionText="@string/withdraw_income" />
 
         <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
             android:id="@+id/btn_item4"
@@ -273,8 +274,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_re_inverst"
-            app:actionText="@string/reinvset_share" />
+            app:actionImage="@mipmap/ic_cross_trans_in"
+            app:actionText="@string/entrust_relive_entrust" />
     </LinearLayout>
 
 

@@ -9,18 +9,173 @@
     tools:context=".ui.activity.ExchangeCoinActivity">
 
     <include
-        layout="@layout/layout_toolbar"
-        />
+        layout="@layout/layout_toolbar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="232dp"
-        android:layout_marginStart="@dimen/page_margin_start"
-        android:layout_marginEnd="@dimen/page_margin_start"
+        android:layout_height="304dp"
+        android:maxHeight="304dp"
+        android:orientation="vertical"
         android:background="@mipmap/bg_exchange_coin">
 
+        <RelativeLayout
+            android:id="@+id/layout_index_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginTop="36dp">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/ic_btc"
+                    android:layout_marginEnd="8dp"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BTC"
+                    android:textColor="@color/global_main_text_color"
+                    android:textSize="17sp"
+                    android:drawableRight="@mipmap/ic_arrow_down"
+                    android:drawablePadding="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_exchange"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true"
+                >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/ic_btc"
+                    android:layout_marginEnd="8dp"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CBTC"
+                    android:textColor="@color/global_main_text_color"
+                    android:textSize="17sp"
+                    android:drawableRight="@mipmap/ic_arrow_down"
+                    android:drawablePadding="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_index_2"
+            android:layout_below="@+id/layout_index_1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/shape_input_corner">
+
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/layout_index_3"
+            android:layout_below="@+id/layout_index_2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layerType="software"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shape_dash_line"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_index_4"
+            android:layout_below="@+id/layout_index_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/global_secondary_text_color"
+                android:textSize="15sp"
+                android:text="汇率"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_rate_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/global_secondary_text_color"
+                android:textSize="15sp"
+                android:text="汇率"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/global_main_text_color"
+                android:textSize="15sp"
+                android:text="1:1"
+                android:layout_toEndOf="@+id/tv_rate_label"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_rate_mark"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_exchange_action"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/btn_bg_blue_6_corner"
+            android:text="@string/exchange_coin"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="32dp"
+            />
     </RelativeLayout>
 
 </LinearLayout>

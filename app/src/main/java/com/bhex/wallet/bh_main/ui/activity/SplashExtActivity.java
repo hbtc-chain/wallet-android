@@ -30,7 +30,7 @@ public class SplashExtActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_ext);
 
         lottieAnimationView = findViewById(R.id.animationView);
-        lottieAnimationView.setAnimation("splash/cn.json");
+        lottieAnimationView.setAnimation("splash/data_2.json");
         lottieAnimationView.playAnimation();
 
         //文字动画

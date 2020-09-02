@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
 
@@ -141,6 +142,14 @@ public class ToolUtils {
         }
         return false;
     }
+
+    public static  boolean checkMapEmpty(Map map){
+        if(map==null || map.size()==0){
+            return true;
+        }
+        return false;
+    }
+
 
     public static boolean codeStatusError(int code){
         if(code<530){

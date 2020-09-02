@@ -207,4 +207,25 @@ public class BHBalanceHelper {
         }
         return list;
     }
+
+    public static List<BHBalance> loadBalanceByChain(String chainName){
+        List<BHBalance> list = new ArrayList<>();
+        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
+        List<BHToken> tokenList =  symbolCache.loadTokenByChain(chainName);
+        if(ToolUtils.checkListIsEmpty(tokenList)){
+            return list;
+        }
+
+        for (BHToken token:tokenList){
+            if(!token.chain.equalsIgnoreCase(chainName)){
+                continue;
+            }
+            BHBalance balance = new BHBalance();
+            balance.chain = chainName;
+            balance.symbol = token.symbol;
+            balance.logo = token.logo;
+            list.add(balance);
+        }
+        return list;
+    }
 }

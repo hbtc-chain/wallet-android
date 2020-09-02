@@ -17,6 +17,7 @@
     <declare-styleable name="Coin_Button">
         <attr name="actionImage" format="reference|integer" />
         <attr name="actionText" format="reference|string" />
+        <attr name="actionMore" format="boolean" />
     </declare-styleable>
 
 

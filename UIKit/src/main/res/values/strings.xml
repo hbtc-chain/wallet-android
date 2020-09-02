@@ -17,6 +17,7 @@
     <string name="app_net_error_msg_check">请检查网络设置后重新加载</string>
     <string name="auth_info_faild">当前登录信息过期,请重新登录</string>
     <string name="error_network_later_try">网络异常，请稍后再试</string>
+    <string name="traffic_network_later_try">网络拥堵，请稍后再试</string>
     <string name="error_network_time_out">请求超时</string>
     <string name="keystore_or_pwd_nomatch">KeyStore或密码不匹配</string>
     <string name="app_account_language">语言</string>
@@ -34,6 +35,7 @@
     <string name="start_backup">开始备份</string>
     <string name="tab_balance_title">资产</string>
     <string name="tab_validator">验证人</string>
+    <string name="tab_market">市场</string>
 
     <string name="tab_change_title">兑换</string>
     <string name="tab_order_title">订单</string>
@@ -119,6 +121,7 @@
     <string name="verifier">验证人</string>
     <string name="reminder">温馨提示</string>
     <string name="reinvset_share">复投分红</string>
+    <string name="entrust_relive_entrust">委托/解委托</string>
     <string name="success">成功</string>
     <string name="fail">失败</string>
     <string name="add_coin">添加新资产</string>
@@ -425,14 +428,13 @@
     <string name="app_up_to_minute_version">已更新至最新版本</string>
     <string name="app_loading_now">正在后台下载</string>
     <string name="deleted">已删除</string>
-    <string name="market">市场</string>
-
 
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>
         <item>备份私钥</item>
         <item>备份Keystore</item>
+        <item>申请测试币</item>
         <item>设置</item>
         <item>联系我们</item>
         <item>版本号</item>

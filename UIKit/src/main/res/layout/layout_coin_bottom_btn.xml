@@ -8,7 +8,7 @@
     
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/layout_top"
-        android:layout_width="48dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_margin="3dp"
         android:layout_centerHorizontal="true"
@@ -21,17 +21,34 @@
         app:cardElevation="5dp"
         app:cardCornerRadius="18dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_coin_icon"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:src="@mipmap/ic_transfer_in"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true"
-            />
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_coin_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@mipmap/ic_transfer_in"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_arrow_down"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:visibility="visible"
+                android:layout_centerInParent="true"/>
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_bottom_text"

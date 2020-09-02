@@ -28,7 +28,7 @@ public class BHConstants {
     public static final String BACKUP = "1";
     public static final String LATER_BACKUP = "2";
 
-    public static final String COIN_DEFAULT_LIST = "hbc_btc";
+    public static final String COIN_DEFAULT_LIST = "hbc_btc_eth_trx";
 
     //public static final String SYMBOL_DEFAULT_LIST = "hbc,btc,eth,usdt";
 
