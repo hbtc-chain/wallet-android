@@ -15,10 +15,11 @@
     <RelativeLayout
         android:id="@+id/layout_index_1"
         android:layout_width="match_parent"
-        android:layout_height="88dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_right"
         android:paddingLeft="16dp"
+        android:paddingBottom="16dp"
         tools:background="@drawable/shape_btn_blue"
         >
 
@@ -36,12 +37,22 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_token_address"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:maxWidth="250dp"
+            android:layout_below="@+id/tv_token_name"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:textColor="@color/white"
             android:textSize="13sp"
-            android:gravity="center_vertical"
-            android:layout_below="@+id/tv_token_name"
-            tools:text="HBC2iohoihsfiohsxxx "
+            tools:text="HBC2iohoihsfiohHBC2iohoihsfiohHBC2iohoihsfiohHBC2iohoihsfioh"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_paste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_token_address"
+            android:layout_alignTop="@+id/tv_token_address"
+            android:layout_marginEnd="@dimen/page_margin_start"
+            android:src="@mipmap/ic_paste"
             />
 
         <androidx.appcompat.widget.AppCompatImageView

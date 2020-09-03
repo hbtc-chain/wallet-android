@@ -1,5 +1,7 @@
 package com.bhex.wallet.balance.adapter;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -11,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.cache.CacheCenter;
@@ -42,14 +45,20 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
 
     @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
-        AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
+        /*AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
         iv.setImageResource(0);
         if(balanceItem.resId==0){
             ImageLoaderUtil.loadImageView(getContext(),
                     balanceItem.logo, iv,R.mipmap.ic_default_coin);
         }else{
             iv.setImageResource(balanceItem.resId);
-        }
+        }*/
+        FrameLayout frame = viewHolder.getView(R.id.layout_index_1);
+        GradientDrawable drawable = ShapeUtils.getOvalDrawable(20, Color.parseColor("#3E3A50"),true,0);
+        frame.setBackground(drawable);
+        char initial = balanceItem.symbol.charAt(0);
+        viewHolder.setText(R.id.tv_short_name,String.valueOf(initial).toUpperCase());
+
         viewHolder.setText(R.id.tv_coin_name,balanceItem.symbol.toUpperCase());
 
         AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);

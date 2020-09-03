@@ -426,6 +426,8 @@
     <string name="app_loading_now">Downloading in the background</string>
     <string name="deleted">Deleted</string>
     <string name="market">市场</string>
+    <string name="pay_detail">支付详情</string>
+    <string name="pay_info">支付信息</string>
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>

@@ -1,6 +1,8 @@
 package com.bhex.lib.uikit.widget;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -21,6 +23,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import com.bhex.lib.uikit.R;
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 
 import java.util.ArrayList;
@@ -41,7 +44,10 @@ public class MnemonicInputView extends ViewGroup {
     private List<AppCompatEditText> mListViews;
 
     private int mItemWidth,mItemHeight;
+
     private Context mContext;
+
+    private GradientDrawable mWhiteDrawable,mRedDrawable;
 
     public MnemonicInputView(Context context) {
         this(context,null);
@@ -58,6 +64,11 @@ public class MnemonicInputView extends ViewGroup {
 
     public void init(Context context){
         mContext = context;
+        mWhiteDrawable = getRoundRectDrawable(2,
+                ColorUtil.getColor(context,R.color.mnemonic_input_bg),0,true,0);
+
+        mRedDrawable = getRoundRectDrawable(2,
+                ColorUtil.getColor(context,R.color.mnemonic_input_bg),ColorUtil.getColor(context,R.color.mnemonic_input_error_border),true,1);
     }
 
     @Override
@@ -161,10 +172,13 @@ public class MnemonicInputView extends ViewGroup {
             et.setText(context.trim());
         }
         et.requestFocus();
+
         if(mWordList.contains(context)){
-            et.setBackground(getResources().getDrawable(R.drawable.shape_white_2_corner));
+            et.setBackground(mRedDrawable);
+            //et.setBackground(getResources().getDrawable(R.drawable.shape_white_2_corner));
         }else{
-            et.setBackground(getResources().getDrawable(R.drawable.shape_white_red_2_corner));
+            et.setBackground(mWhiteDrawable);
+            //et.setBackground(getResources().getDrawable(R.drawable.shape_white_red_2_corner));
         }
 
         //设置光标
@@ -290,9 +304,11 @@ public class MnemonicInputView extends ViewGroup {
             AppCompatEditText et = (AppCompatEditText)getChildAt(i);
             String context = et.getText().toString().trim();
             if(mWordList.contains(context)){
-                et.setBackground(getResources().getDrawable(R.drawable.shape_white_2_corner));
+                et.setBackground(mWhiteDrawable);
+                //et.setBackground(getResources().getDrawable(R.drawable.shape_white_2_corner));
             }else{
-                et.setBackground(getResources().getDrawable(R.drawable.shape_white_red_2_corner));
+                et.setBackground(mRedDrawable);
+                //et.setBackground(getResources().getDrawable(R.drawable.shape_white_red_2_corner));
             }
         }
     }
@@ -311,5 +327,19 @@ public class MnemonicInputView extends ViewGroup {
 
     public void setWordList(List<String> wordList) {
         this.mWordList = wordList;
+    }
+
+
+    public static GradientDrawable getRoundRectDrawable(int radius, int fillColor, int strokeColor, boolean isFill, int strokeWidth) {
+        float[] radius_f = {radius, radius, radius, radius, radius, radius, radius, radius};
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setCornerRadii(radius_f);
+        drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setColor(isFill ? fillColor : Color.TRANSPARENT);
+        if(strokeWidth>0){
+            drawable.setStroke(strokeWidth, strokeColor);
+        }
+        return drawable;
     }
 }

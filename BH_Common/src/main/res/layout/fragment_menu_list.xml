@@ -6,6 +6,7 @@
     android:clipToPadding="false"
     android:paddingBottom="13dp"
     android:orientation="vertical"
+    android:background="@drawable/shape_white_password"
     tools:context=".menu.MenuListFragment"
     tools:listitem="@layout/item_menu_list" >
 

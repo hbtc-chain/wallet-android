@@ -1,11 +1,12 @@
 package com.bhex.wallet.balance.ui.activity;
 
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,23 +15,31 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
+import com.bhex.network.base.LoadDataModel;
+import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ShapeUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.BalanceAdapter;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
+import com.bhex.wallet.balance.presenter.BalancePresenter;
+import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.utils.LiveDataBus;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -38,7 +47,7 @@ import butterknife.OnClick;
  * 2020-8-31 10:57:14
  */
 @Route(path = ARouterConfig.Balance_chain_tokens, name = "链下Token")
-public class ChainTokenActivity extends BaseActivity {
+public class ChainTokenActivity extends BaseActivity<BalancePresenter> {
 
     @Autowired(name = "balance")
     BHBalance mBalance;
@@ -55,7 +64,13 @@ public class ChainTokenActivity extends BaseActivity {
     AppCompatImageView iv_token_qr;
     @BindView(R2.id.rcv_token_list)
     RecyclerView rcv_token_list;
+    @BindView(R2.id.iv_paste)
+    AppCompatImageView iv_paste;
+
     BalanceAdapter mBalanceAdapter;
+
+    private BHWallet mCurrentWallet;
+    private BalanceViewModel balanceViewModel;
 
     @Override
     protected int getLayoutId() {
@@ -65,6 +80,8 @@ public class ChainTokenActivity extends BaseActivity {
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
+        mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
+
         tv_center_title.setText(mBalance.symbol.toUpperCase());
         layout_index_1.setBackground(ShapeUtils.getRoundRectDrawable(
                 10, ColorUtil.getColor(this, R.color.blue_bg),
@@ -74,8 +91,17 @@ public class ChainTokenActivity extends BaseActivity {
         if (BHConstants.BHT_TOKEN.equalsIgnoreCase(mBalance.chain)) {
             tv_token_address.setText(mBalance.address);
         } else  {
-            tv_token_address.setText(mBalance.external_address);
+            if(!TextUtils.isEmpty(mBalance.external_address)){
+                tv_token_address.setText(mBalance.external_address);
+            }else{
+                tv_token_address.setText(mCurrentWallet.address);
+            }
         }
+
+        iv_paste.setOnClickListener(v -> {
+            ToolUtils.copyText(tv_token_address.getText().toString(),this);
+            ToastUtils.showToast(getString(R.string.copyed));
+        });
     }
 
     @Override
@@ -101,11 +127,33 @@ public class ChainTokenActivity extends BaseActivity {
                     .withObject("balance",bhBalance)
                     .navigation();
         });
+
+        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(this);
+        //资产订阅
+        LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
+            //refreshLayout.finishRefresh();
+            if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+                updateAssets((AccountInfo) ldm.getData());
+            }
+        });
+        balanceViewModel.getAccountInfo(this);
+    }
+
+    @Override
+    protected void initPresenter() {
+        mPresenter = new BalancePresenter(this);
     }
 
     @OnClick({R2.id.tv_token_address, R2.id.iv_token_qr})
     public void onViewClicked(View view) {
 
+    }
+
+
+    private void updateAssets(AccountInfo accountInfo) {
+        BHUserManager.getInstance().setAccountInfo(accountInfo);
+        mPresenter.calculateAllTokenPrice(accountInfo,mBalanceAdapter.getData());
+        mBalanceAdapter.notifyDataSetChanged();
     }
 
 }

@@ -78,7 +78,6 @@ public class BHBalanceHelper {
         //DecimalFormat format = new DecimalFormat();
         //result[0] = NumberUtil.formatValue(displayAmount,3);
         result[0] = NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
-
         //法币价值
         //BHRates.RatesBean ratesBean = ratesCache.getBHRate(symbol.toLowerCase());
         double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,symbol);

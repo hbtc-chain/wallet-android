@@ -477,4 +477,6 @@
     </string-array>
 
     <string name="exchange_coin">兑换</string>
+    <string name="pay_detail">支付详情</string>
+    <string name="pay_info">支付信息</string>
 </resources>

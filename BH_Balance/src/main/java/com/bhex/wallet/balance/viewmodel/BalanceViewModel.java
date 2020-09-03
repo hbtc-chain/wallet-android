@@ -12,6 +12,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
+import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.base.viewmodel.CacheAndroidViewModel;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
@@ -65,12 +66,14 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
 
     //获取资产
     public void getAccountInfo(BaseActivity activity){
+
         Type type = (new TypeToken<JsonObject>() {}).getType();
         String cache_key = BHUserManager.getInstance().getCurrentBhWallet().address+"_"+BH_BUSI_TYPE.账户资产缓存.value;
         BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>(false) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 //super.onSuccess(jsonObject);
+                LogUtils.d("ChainTokenActivity==>:","==onSuccess==");
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
                 if(accountInfo!=null){
@@ -82,7 +85,8 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel loadDataModel = new LoadDataModel(0,"");
+                LogUtils.d("ChainTokenActivity==>:","==onFailure==");
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
             }
         };
@@ -90,8 +94,8 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         BHttpApi.getService(BHttpApiInterface.class)
                 .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(cache_key,type,getCacheStrategy()))
-                .map(new CacheResult.MapFunc<JsonObject>())
+                //.compose(RxCache.getDefault().transformObservable(cache_key,type,getCacheStrategy()))
+                //.map(new CacheResult.MapFunc<JsonObject>())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
     }

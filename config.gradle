@@ -10,8 +10,8 @@ ext {
             applicationId    : "com.bluehelix.wallet",
             minSdkVersion    : 21,
             targetSdkVersion : 29,
-            versionCode      : 10001,
-            versionName      : "1.0.0"
+            versionCode      : 501,
+            versionName      : "1.1.0"
     ]
     //version配置
     versions = [
@@ -38,7 +38,7 @@ ext {
             //阿里路由框架
             "arouter-api"             : "com.alibaba:arouter-api:1.4.1",
             "arouter-compiler"        : "com.alibaba:arouter-compiler:1.2.2",
-            "workx"            : "androidx.work:work-runtime:2.3.4"
+            "workx"                   : "androidx.work:work-runtime:2.3.4"
     ]
 
     //4.指定Java version

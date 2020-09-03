@@ -3,6 +3,7 @@ package com.bhex.wallet.mnemonic.ui.fragment;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,11 +23,13 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.FileUtil;
+import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.ui.activity.TrusteeshipActivity;
 
@@ -86,6 +89,8 @@ public class GlobalTipsFragment extends BaseDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        GradientDrawable drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getContext(),6), ColorUtil.getColor(getContext(),R.color.app_bg),true,0);
+        mRootView.setBackground(drawable);
         check_agreement = mRootView.findViewById(R.id.check_agreement);
         tv_agreement = mRootView.findViewById(R.id.tv_agreement);
         check_agreement.setChecked(isCheck);

@@ -243,7 +243,6 @@ public class BalancePresenter extends BasePresenter {
         Map<String,AccountInfo.AssetsBean> map = new HashMap<>();
         for(AccountInfo.AssetsBean bean:list){
             map.put(bean.getSymbol(),bean);
-
             //计算每一个币种的资产价值
             double b1 = CurrencyManager.getInstance().getSymbolBalancePrice(mBaseActivity,bean.getSymbol(),bean.getAmount(),false);
             allTokenPrice = NumberUtil.add(b1,allTokenPrice);

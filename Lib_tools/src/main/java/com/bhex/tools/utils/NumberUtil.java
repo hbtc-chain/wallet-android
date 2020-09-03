@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**
@@ -147,9 +148,23 @@ public class NumberUtil {
      * @return
      */
     public static String formatValue(double val,int digit){
-        return String.format("%."+digit + "f", val);
-        //DecimalFormat format = new DecimalFormat("#.00");
+        //val = 5.860474783807;
+        int index = String.valueOf(val).indexOf(".");
+        if(index>0){
+            int dotLenght = String.valueOf(val).substring(index+1).length();
+            digit = dotLenght>digit?digit:dotLenght;
+        }
+        DecimalFormat df = new DecimalFormat();
+        df.setGroupingUsed(false);
+        df.setRoundingMode(RoundingMode.DOWN);
+        df.setMaximumFractionDigits(digit);
+        String  result = df.format(val);
+        return result;
+        //BigDecimal decimal  = new BigDecimal(5.86047478);
+        //double  result = decimal.setScale(8,BigDecimal.ROUND_DOWN).doubleValue();
+        //return  String.valueOf(result);
     }
+
 
     public static String formatValueByString(String val,int digit){
         if(TextUtils.isEmpty(val)){

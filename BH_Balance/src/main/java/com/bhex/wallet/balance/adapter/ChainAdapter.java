@@ -34,7 +34,7 @@ public class ChainAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
 
     private String isHidden = "0";
     public ChainAdapter(@Nullable List<BHBalance> data) {
-        super(R.layout.item_balance, data);
+        super(R.layout.item_chain, data);
     }
 
     @Override

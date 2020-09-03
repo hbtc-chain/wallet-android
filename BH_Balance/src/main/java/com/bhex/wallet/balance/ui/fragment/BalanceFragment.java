@@ -198,9 +198,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mAccountInfo = accountInfo;
         BHUserManager.getInstance().setAccountInfo(mAccountInfo);
         //List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
-        mChainAdapter.notifyDataSetChanged();
         //计算每一个币种的资产价值 和 总资产
         updateTopTokenAssets();
+        mChainAdapter.notifyDataSetChanged();
     }
 
     //更新头部资产

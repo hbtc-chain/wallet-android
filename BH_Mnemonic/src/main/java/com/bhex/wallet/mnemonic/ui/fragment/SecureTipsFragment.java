@@ -4,6 +4,7 @@ package com.bhex.wallet.mnemonic.ui.fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,11 +20,13 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
+import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.mnemonic.R;
@@ -74,12 +77,16 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        GradientDrawable drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getContext(),6), ColorUtil.getColor(getContext(),R.color.app_bg),true,0);
+        mRootView.setBackground(drawable);
 
         btn_at_once = mRootView.findViewById(R.id.btn_at_once);
         btn_later = mRootView.findViewById(R.id.btn_later);
         btn_at_once.setOnClickListener(this);
         btn_later.setOnClickListener(this);
         mRootView.findViewById(R.id.iv_close).setOnClickListener(this);
+
+
     }
 
     @Override
