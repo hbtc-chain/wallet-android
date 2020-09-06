@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/divider_line"
-        tools:background="#3E3A50"
+        tools:background="@color/token_icon_color"
         >
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_short_name"

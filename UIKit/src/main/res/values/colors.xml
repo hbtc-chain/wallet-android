@@ -72,6 +72,8 @@
 
     <color name="bg_trans">#00000000</color>
 
+    <!--币种图标颜色-->
+    <color name="token_icon_color">#3E3A50</color>
 
     <color name="global_button_enable_false_bg">#E7ECF4</color>
     <color name="global_button_enable_false_text">#FFFFFF</color>

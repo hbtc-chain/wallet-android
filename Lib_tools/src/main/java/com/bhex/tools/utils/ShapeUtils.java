@@ -23,6 +23,18 @@ public class ShapeUtils {
         return drawable;
     }
 
+    public static GradientDrawable getRingDrawable(int radius, int storkeColor, int size, int strokeWidth) {
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setCornerRadius(radius);
+        drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+        drawable.setShape(GradientDrawable.OVAL);
+        drawable.setSize(size,size);
+        drawable.setColor(Color.TRANSPARENT);
+        drawable.setStroke( strokeWidth, storkeColor);
+
+        return drawable;
+    }
+
     public static GradientDrawable getRoundRectTopDrawable(int radius, int color, boolean isFill, int strokeWidth) {
         float[] radius_f = {radius, radius, radius, radius, 0, 0, 0, 0};
         GradientDrawable drawable = new GradientDrawable();

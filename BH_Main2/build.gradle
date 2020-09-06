@@ -63,5 +63,5 @@ dependencies {
     api project(path: ':Lib_Tools')
     api project(path: ':UIKit')*/
     implementation project(path: ':BH_Common')
-    compile project(path: ':BH_Balance')
+    implementation project(path: ':BH_Balance')
 }

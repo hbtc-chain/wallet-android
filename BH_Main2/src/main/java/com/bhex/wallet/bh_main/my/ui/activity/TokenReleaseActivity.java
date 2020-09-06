@@ -296,7 +296,7 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
                 formAddress,toAddress,tokenName,tokenCount,tokenDecimals);
 
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,gasPrice, suquece,password);
+            BHSendTranscation bhSendTranscation = BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,suquece,password);
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
         });

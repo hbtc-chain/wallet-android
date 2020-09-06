@@ -178,17 +178,20 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             //跨链代币
             //转账
             btn_item2.tv_bottom_text.setText(getResources().getString(R.string.transfer));
-            //跨链充币
+            //跨链充币/跨链提币
             btn_item3.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_link));
             btn_item3.tv_bottom_text.setText(getResources().getString(R.string.crosslink));
             btn_item3.setActionMore(View.VISIBLE);
 
             btn_item3.setId(R.id.cross_chian_transfer_in);
-            //跨链提币
+            //兑币功能
+            if(!getBHBalance().symbol.equalsIgnoreCase("btc")){
+                btn_item4.setVisibility(View.GONE);
+            }
             btn_item4.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));
             btn_item4.tv_bottom_text.setText(getResources().getString(R.string.exchange_coin));
             btn_item4.setId(R.id.cross_chian_withdraw);
-            btn_item4.setActionMore(View.VISIBLE);
+            btn_item4.setActionMore(View.GONE);
             tv_available_text.setVisibility(View.GONE);
             tv_available_value.setVisibility(View.GONE);
             tv_entrust_text.setVisibility(View.GONE);
@@ -267,7 +270,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         });
 
         refreshLayout.setOnRefreshListener(refreshLayout -> {
-            balanceViewModel.getAccountInfo(TokenDetailActivity.this);
+            balanceViewModel.getAccountInfo(TokenDetailActivity.this,null);
             transactionViewModel.queryTransctionByAddress(this,
                     BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, getBHBalance().symbol, null);
         });
@@ -276,7 +279,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             updateValidatorAddress(ldm);
         });
 
-        balanceViewModel.getAccountInfo(TokenDetailActivity.this);
+        balanceViewModel.getAccountInfo(TokenDetailActivity.this,null);
         EventBus.getDefault().register(this);
     }
 

@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
@@ -54,7 +55,7 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
             iv.setImageResource(balanceItem.resId);
         }*/
         FrameLayout frame = viewHolder.getView(R.id.layout_index_1);
-        GradientDrawable drawable = ShapeUtils.getOvalDrawable(20, Color.parseColor("#3E3A50"),true,0);
+        GradientDrawable drawable = ShapeUtils.getOvalDrawable(20, ColorUtil.getColor(getContext(),R.color.token_icon_color),true,0);
         frame.setBackground(drawable);
         char initial = balanceItem.symbol.charAt(0);
         viewHolder.setText(R.id.tv_short_name,String.valueOf(initial).toUpperCase());

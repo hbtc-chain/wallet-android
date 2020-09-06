@@ -29,18 +29,18 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
-import com.bhex.wallet.balance.adapter.BalanceAdapter;
 import com.bhex.wallet.balance.adapter.ChainAdapter;
 import com.bhex.wallet.balance.event.BHCoinEvent;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.CurrencyEvent;
-import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
@@ -182,7 +182,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         });
         getLifecycle().addObserver(balanceViewModel);
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
-            balanceViewModel.getAccountInfo(getYActivity());
+            balanceViewModel.getAccountInfo(getYActivity(),null);
         });
         refreshLayout.autoRefresh();
     }
@@ -296,8 +296,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void changeAccount(WalletEvent walletEvent){
-        //LogUtils.d("BalanceFragment===>:","===changeAccount==");
+    public void changeAccount(AccountEvent walletEvent){
+        LogUtils.d("BalanceFragment===>:","===changeAccount==");
         //当前钱包用户
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
@@ -310,7 +310,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mChainAdapter.notifyDataSetChanged();
 
         //更新资产
-        balanceViewModel.getAccountInfo(getYActivity());
+        balanceViewModel.getAccountInfo(getYActivity(),null);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

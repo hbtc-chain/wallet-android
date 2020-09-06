@@ -78,10 +78,11 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
             menuFragment.setMenuListListener(crossOperatorListener);
             menuFragment.show(getSupportFragmentManager(),MenuListFragment.class.getSimpleName());
         }else if(view.getId() == R.id.cross_chian_withdraw){
-            ArrayList<MenuItem> list = BHBalanceHelper.loadExchangeActionList(this);
+            /*ArrayList<MenuItem> list = BHBalanceHelper.loadExchangeActionList(this);
             MenuListFragment menuFragment = MenuListFragment.newInstance(list);
             menuFragment.setMenuListListener(exchagneOperatorListener);
-            menuFragment.show(getSupportFragmentManager(),MenuListFragment.class.getSimpleName());
+            menuFragment.show(getSupportFragmentManager(),MenuListFragment.class.getSimpleName());*/
+            ARouter.getInstance().build(ARouterConfig.Market_exchange_coin).withString("symbol",balance.symbol).navigation();
         }
     }
 

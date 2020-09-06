@@ -5,17 +5,13 @@ import android.graphics.Bitmap;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageHelper;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseFragment;
-import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.QREncodUtil;
-import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;

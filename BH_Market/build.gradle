@@ -46,11 +46,11 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
 
     implementation 'com.jakewharton:butterknife:10.2.0'
-    //annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     kapt 'com.jakewharton:butterknife-compiler:10.2.0'
 
     implementation 'com.alibaba:arouter-api:1.4.1'
     kapt 'com.alibaba:arouter-compiler:1.2.1'
 
     implementation project(path: ':BH_Common')
+    implementation project(path: ':BH_Balance')
 }

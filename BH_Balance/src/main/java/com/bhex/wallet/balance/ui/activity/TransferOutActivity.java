@@ -81,10 +81,10 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         tv_reach_amount.getEditText().setEnabled(false);
 
         //初始化可用手续费
-        String available_bht_amount_str =  BHBalanceHelper.getAmountForUser(this,bhtBalance.amount,"0",bhtBalance.symbol);
-
-        tv_available_bht_amount.setText(getString(R.string.available)+" "+available_bht_amount_str+bhtBalance.symbol.toUpperCase());
-
+        if(bhtBalance!=null){
+            String available_bht_amount_str =  BHBalanceHelper.getAmountForUser(this,bhtBalance.amount,"0",bhtBalance.symbol);
+            tv_available_bht_amount.setText(getString(R.string.available)+" "+available_bht_amount_str+bhtBalance.symbol.toUpperCase());
+        }
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.mutableLiveData.observe(this,ldm -> {
             updateTransferStatus(ldm);

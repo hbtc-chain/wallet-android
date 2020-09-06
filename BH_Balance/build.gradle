@@ -52,7 +52,6 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.4.1'
     kapt 'com.alibaba:arouter-compiler:1.2.1'
 
-
     /*api project(path: ':Lib_Network')
     api project(path: ':Lib_Tools')
     api project(path: ':UIKit')*/

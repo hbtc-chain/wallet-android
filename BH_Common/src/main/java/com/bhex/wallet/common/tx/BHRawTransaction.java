@@ -27,7 +27,6 @@ public class BHRawTransaction {
 
     /**
      * 创建交易
-     *
      * @param sequence
      * @param from
      * @param to
@@ -45,13 +44,8 @@ public class BHRawTransaction {
         bhRawTransaction.sequence = sequence;
 
         bhRawTransaction.msgs = new ArrayList<>();
-
         //开始创建一个交易TxMsg
         TxMsg<TransferMsg> msg = new TxMsg<TransferMsg>();
-
-
-        //msg.type = "cosmos-sdk/MsgSend";
-        //msg.type = "hbtcchain/transfer/MsgSend";
         msg.type = TRANSCATION_BUSI_TYPE.转账.getType();
 
         TransferMsg transferMsg = new TransferMsg();
@@ -74,16 +68,7 @@ public class BHRawTransaction {
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
 
     }
@@ -136,16 +121,7 @@ public class BHRawTransaction {
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
 
     }
@@ -166,14 +142,10 @@ public class BHRawTransaction {
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = memo;
         bhRawTransaction.sequence = sequence;
-
         bhRawTransaction.msgs = new ArrayList<>();
 
         //开始创建一个交易TxMsg
         TxMsg<WithdrawalMsg> msg = new TxMsg<WithdrawalMsg>();
-
-
-        //msg.type = "hbtcchain/transfer/MsgWithdrawal";
         msg.type = TRANSCATION_BUSI_TYPE.跨链提币.getType();
         WithdrawalMsg withdrawalMsg = new WithdrawalMsg();
         msg.value = withdrawalMsg;
@@ -185,31 +157,11 @@ public class BHRawTransaction {
         withdrawalMsg.gas_fee = gasFeeAmount.toString(10);
         withdrawalMsg.order_id = UUID.randomUUID().toString();
 
-        /*//转账Amount
-        TxCoin coin = new TxCoin();
-        coin.denom = symbol;
-        coin.amount = amount.toString(10);
-
-        transferMsg.amount.add(coin);
-
-
-        transferMsg.from_address = from;
-        transferMsg.to_address = to;*/
-
         //完成创建一个交易TxMsg
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
 
     }
@@ -238,8 +190,6 @@ public class BHRawTransaction {
 
         //开始创建一个委托TxMsg
         TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
-
-        //msg.type = "hbtcchain/MsgDelegate";
         msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
 
         DoEntrustMsg doEntrustMsg = new DoEntrustMsg();
@@ -260,16 +210,7 @@ public class BHRawTransaction {
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
 
     }
@@ -287,9 +228,6 @@ public class BHRawTransaction {
         //开始创建一个委托TxMsg
         TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
 
-
-        //msg.type = "cosmos-sdk/MsgSend";
-        //msg.type = "hbtcchain/MsgUndelegate";
         msg.type = TRANSCATION_BUSI_TYPE.取消委托.getType();
         DoEntrustMsg doEntrustMsg = new DoEntrustMsg();
         msg.value = doEntrustMsg;
@@ -309,16 +247,7 @@ public class BHRawTransaction {
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
 
     }
@@ -334,10 +263,6 @@ public class BHRawTransaction {
 
         //开始创建一个交易TxMsg
         TxMsg<PledgeMsg> msg = new TxMsg<PledgeMsg>();
-
-
-        //msg.type = "cosmos-sdk/MsgSend";
-        //msg.type = "hbtcchain/gov/MsgDeposit";
         msg.type = TRANSCATION_BUSI_TYPE.治理提案质押.getType();
 
         PledgeMsg pledgeMsg = new PledgeMsg();
@@ -360,16 +285,7 @@ public class BHRawTransaction {
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
     }
 
@@ -384,8 +300,6 @@ public class BHRawTransaction {
         //开始创建一个交易TxMsg
         TxMsg<VetoMsg> msg = new TxMsg<VetoMsg>();
 
-
-        //msg.type = "hbtcchain/gov/MsgVote";
         msg.type = TRANSCATION_BUSI_TYPE.治理提案投票.getType();
 
         VetoMsg vetoMsg = new VetoMsg();
@@ -400,16 +314,7 @@ public class BHRawTransaction {
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
     }
 
@@ -425,9 +330,6 @@ public class BHRawTransaction {
         //开始创建一个交易TxMsg
         TxMsg<CreateProposalMsg> msg = new TxMsg<CreateProposalMsg>();
 
-
-        //msg.type = "cosmos-sdk/MsgSend";
-        //msg.type = "hbtcchain/gov/MsgSubmitProposal";
         msg.type = TRANSCATION_BUSI_TYPE.发起治理提案.getType();
         CreateProposalMsg createProposalMsg = new CreateProposalMsg();
         msg.value = createProposalMsg;
@@ -452,16 +354,7 @@ public class BHRawTransaction {
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
     }
 
@@ -483,19 +376,8 @@ public class BHRawTransaction {
             bhRawTransaction.msgs.add(msg);
         }
 
-
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
-
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
     }
 
@@ -528,26 +410,16 @@ public class BHRawTransaction {
 
 
         //转账手续费
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
-
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
-
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;
     }
 
     //代币发行
     public static BHRawTransaction createBHRawTokenRelease(BHTokenRlease tokenRlease,
                                                            BigInteger feeAmount,
-                                                           BigInteger gasPrice,
+                                                           //BigInteger gasPrice,
                                                            String sequence) {
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        BHRawTransaction bhRawTransaction =  new BHRawTransaction();
         bhRawTransaction.memo = BHConstants.BH_MEMO;
         bhRawTransaction.sequence = sequence;
         bhRawTransaction.msgs = new ArrayList<>();
@@ -559,6 +431,37 @@ public class BHRawTransaction {
         bhRawTransaction.msgs.add(msg);
 
         //转账手续费
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
+        return bhRawTransaction;
+    }
+
+    //映射
+    public static BHRawTransaction createBHRawMappingSwap(String fromUser, String to_symbol, String fromSymbol, BigInteger amount, BigInteger feeAmount,String sequence){
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
+        bhRawTransaction.sequence = sequence;
+        bhRawTransaction.msgs = new ArrayList<>();
+        TxMsg<MappingSwapMsg> txMsg = new TxMsg();
+        bhRawTransaction.msgs.add(txMsg);
+
+        txMsg.type = TRANSCATION_BUSI_TYPE.映射.getType();
+
+        MappingSwapMsg mappingSwapMsg = new MappingSwapMsg();
+        txMsg.value = mappingSwapMsg;
+
+        mappingSwapMsg.from = fromUser;
+        mappingSwapMsg.issue_symbol = to_symbol;
+
+        TxCoin txCoin = new TxCoin();
+        txCoin.amount = amount.toString(10);
+        txCoin.denom = fromSymbol;
+        mappingSwapMsg.coins.add(txCoin);
+
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
+        return bhRawTransaction;
+    }
+
+    public static TxFee getTransactionFee(BigInteger feeAmount){
         TxFee fee = new TxFee();
         fee.amount = new ArrayList<>();
 
@@ -566,29 +469,21 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        //fee.gas = (long) NumberUtil.divide(feeAmount.toString(10), gasPrice.toString(10)) + "";
         fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
-        bhRawTransaction.fee = fee;
-
-        return bhRawTransaction;
-    }
-
-
-    public BHRawTransaction addTransferMsg(TxMsg txMsg) {
-        this.msgs.add(txMsg);
-        return this;
+        return  fee;
     }
 
     public static class Builder {
         public String chain_id = BHConstants.CHAIN_ID;
-        //public String cu_number = "0";
         public TxFee fee;
         public String memo;
         public List<TxMsg> msgs;
         public String sequence;
 
-        public BHRawTransaction build() {
-            return new BHRawTransaction();
+        public BHRawTransaction build(BigInteger feeAmount) {
+            BHRawTransaction rawTransaction = new BHRawTransaction();
+            rawTransaction.fee = getTransactionFee(feeAmount);
+            return rawTransaction;
         }
     }
 }

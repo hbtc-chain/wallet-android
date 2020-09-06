@@ -212,7 +212,7 @@
     <string name="draw_coin_address">提币地址</string>
     <string name="crosslink_deposit_tip_1">·您正在进行托管单元跨链收款(充币)</string>
     <string name="link_outter_generating">跨链地址生成中...</string>
-    <string name="not_have_amount">没有可用HBC</string>
+    <string name="not_have_amount">没有足够的</string>
 
     <string name="mnemonic_backup_success">助记词备份成功</string>
     <string name="transfer_in_success">转账成功</string>
@@ -479,4 +479,8 @@
     <string name="exchange_coin">兑换</string>
     <string name="pay_detail">支付详情</string>
     <string name="pay_info">支付信息</string>
+    <string name="click_copy_address">点击复制地址</string>
+    <string name="please_input_exchange_amount">请输入兑换数量</string>
+    <string name="agreen">同意</string>
+    <string name="reject">拒绝</string>
 </resources>

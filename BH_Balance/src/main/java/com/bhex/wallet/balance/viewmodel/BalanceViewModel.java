@@ -65,7 +65,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
     }
 
     //获取资产
-    public void getAccountInfo(BaseActivity activity){
+    public void getAccountInfo(BaseActivity activity,IStrategy strategy){
 
         Type type = (new TypeToken<JsonObject>() {}).getType();
         String cache_key = BHUserManager.getInstance().getCurrentBhWallet().address+"_"+BH_BUSI_TYPE.账户资产缓存.value;
@@ -73,7 +73,6 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 //super.onSuccess(jsonObject);
-                LogUtils.d("ChainTokenActivity==>:","==onSuccess==");
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
                 if(accountInfo!=null){
@@ -94,8 +93,8 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         BHttpApi.getService(BHttpApiInterface.class)
                 .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
                 .compose(RxSchedulersHelper.io_main())
-                //.compose(RxCache.getDefault().transformObservable(cache_key,type,getCacheStrategy()))
-                //.map(new CacheResult.MapFunc<JsonObject>())
+                .compose(RxCache.getDefault().transformObservable(cache_key,type,getCacheStrategy(strategy)))
+                .map(new CacheResult.MapFunc<JsonObject>())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
     }
@@ -150,7 +149,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                     @Override
                     public void onNext(Long aLong) {
                         super.onNext(aLong);
-                        BalanceViewModel.this.getAccountInfo(mContext);
+                        BalanceViewModel.this.getAccountInfo(mContext,null);
                     }
 
                     @Override

@@ -38,6 +38,7 @@
                     android:layout_marginEnd="8dp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_from_token"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BTC"
@@ -75,17 +76,17 @@
                     android:layout_marginEnd="8dp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_to_token"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CBTC"
-                    android:textColor="@color/global_main_text_color"
-                    android:textSize="17sp"
-                    android:drawableRight="@mipmap/ic_arrow_down"
-                    android:drawablePadding="5dp"
+                    android:layout_height="24dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
+                    android:drawableRight="@mipmap/ic_arrow_down"
+                    android:drawablePadding="5dp"
                     android:gravity="center_vertical"
-                    />
+                    android:text="CBTC"
+                    android:textColor="@color/global_main_text_color"
+                    android:textSize="17sp" />
 
             </LinearLayout>
         </RelativeLayout>
@@ -100,6 +101,31 @@
             android:layout_marginStart="32dp"
             android:background="@drawable/shape_input_corner">
 
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/inp_amount"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:textSize="15sp"
+                android:textCursorDrawable="@null"
+                android:background="@null"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:hint="@string/please_input_exchange_amount"
+                android:textColorHint="@color/light_text"
+                android:layout_marginStart="8dp"
+                android:inputType="numberDecimal"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_token_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BTC"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                />
 
         </RelativeLayout>
 
@@ -122,16 +148,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginTop="24dp"
-            android:orientation="horizontal"
-            >
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/global_secondary_text_color"
-                android:textSize="15sp"
-                android:text="汇率"
-                />
+            android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_rate_label"
@@ -139,8 +156,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/global_secondary_text_color"
                 android:textSize="15sp"
-                android:text="汇率"
-                />
+                android:text="汇率"/>
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_rate"
@@ -157,10 +174,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_rate_mark"
-                android:layout_alignParentEnd="true"
-                />
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/btn_exchange_action"
             android:layout_width="match_parent"

@@ -128,12 +128,14 @@ public class BHBalanceHelper {
      */
     public static BHBalance getBHBalanceFromAccount(String symbol){
         AccountInfo accountInfo = BHUserManager.getInstance().getAccountInfo();
-        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
         BHBalance balance = new BHBalance();
         balance.amount="0";
         //balance.chain= BHConstants.BHT_TOKEN;
         balance.symbol = symbol;
-
+        if(accountInfo==null){
+            return balance;
+        }
+        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
         if(list==null || list.size()==0){
             return balance;
         }
@@ -147,6 +149,8 @@ public class BHBalanceHelper {
                 balance.amount = assetsBean.getAmount();
                 balance.frozen_amount = assetsBean.getFrozen_amount();
                 balance.address = assetsBean.getExternal_address();
+                balance.external_address = assetsBean.getExternal_address();
+                //LogUtils.d("ChainTokenActivity==>","==mBalance="+balance.address);
                 return balance;
             }
         }

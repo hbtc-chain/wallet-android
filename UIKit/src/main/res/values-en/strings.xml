@@ -428,6 +428,10 @@
     <string name="market">市场</string>
     <string name="pay_detail">支付详情</string>
     <string name="pay_info">支付信息</string>
+    <string name="click_copy_address">点击复制地址</string>
+    <string name="please_input_exchange_amount">请输入兑换数量</string>
+    <string name="agreen">同意</string>
+    <string name="reject">拒绝</string>
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>
