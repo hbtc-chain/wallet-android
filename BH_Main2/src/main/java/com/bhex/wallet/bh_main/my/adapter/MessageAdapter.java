@@ -1,5 +1,7 @@
 package com.bhex.wallet.bh_main.my.adapter;
 
+import android.util.Log;
+
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
@@ -23,8 +25,8 @@ import java.util.List;
  */
 public class MessageAdapter extends BaseQuickAdapter<BHMessage, BaseViewHolder> {
 
-    public MessageAdapter(int layoutResId, @Nullable List<BHMessage> data) {
-        super(layoutResId, data);
+    public MessageAdapter( @Nullable List<BHMessage> data) {
+        super(R.layout.item_message, data);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class MessageAdapter extends BaseQuickAdapter<BHMessage, BaseViewHolder> 
 
             //时间格式化
             String tv_time = DateUtil.transTimeWithPattern(bhm.time*1000,DateUtil.DATA_TIME_STYLE);
-            vh.setText(com.bhex.wallet.balance.R.id.tv_tx_time,tv_time);
+            vh.setText(R.id.tv_tx_time,tv_time);
 
             if(bhm.read){
                 vh.setTextColorRes(R.id.tv_tx_type, R.color.global_label_text_color);

@@ -87,7 +87,7 @@ public class LogUtils {
      */
     public static void e(String msg) {
         if (DEBUG) {
-            Log.d(TAG+" "+getClassName(), msg);
+            Log.e(TAG+" "+getClassName(), msg);
         }
     }
 

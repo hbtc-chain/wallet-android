@@ -27,6 +27,7 @@
             android:layout_marginTop="36dp">
 
             <LinearLayout
+                android:id="@+id/layout_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -54,6 +55,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_exchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_exchange"
@@ -63,6 +65,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layout_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

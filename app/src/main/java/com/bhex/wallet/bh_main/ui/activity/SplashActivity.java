@@ -62,6 +62,7 @@ public class SplashActivity extends AppCompatActivity {
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
                 .subscribe(aLong -> {
                     //首次启动
+                    LogUtils.d("SplashActivity===>:","aLong=="+aLong);
                     if(!BHUserManager.getInstance().isHasWallet()){
                         NavigateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
                     }else {

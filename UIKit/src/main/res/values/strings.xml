@@ -477,6 +477,7 @@
     </string-array>
 
     <string name="exchange_coin">兑换</string>
+    <string name="mapping">映射</string>
     <string name="pay_detail">支付详情</string>
     <string name="pay_info">支付信息</string>
     <string name="click_copy_address">点击复制地址</string>

@@ -4,6 +4,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.DateUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.TransactionHelper;
 import com.bhex.wallet.common.tx.TransactionOrder;
@@ -38,6 +39,7 @@ public class TxOrderAdapter extends BaseQuickAdapter<TransactionOrder, BaseViewH
         TransactionHelper.setTranscationStatus(getContext(),txo.isSuccess(),tv_status);
 
         //时间格式化
+        LogUtils.d("long=="+(txo.getTime()*1000));
         String tv_time = DateUtil.transTimeWithPattern(txo.getTime()*1000,DateUtil.DATA_TIME_STYLE);
         vh.setText(R.id.tv_tx_time,tv_time);
 

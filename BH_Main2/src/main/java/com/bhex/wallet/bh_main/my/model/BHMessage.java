@@ -26,7 +26,7 @@ public class BHMessage {
     public String tx_hash;
     public String address;
     public boolean read;
-    public int time;
+    public long time;
     public String amount;
     public String symbol;
 

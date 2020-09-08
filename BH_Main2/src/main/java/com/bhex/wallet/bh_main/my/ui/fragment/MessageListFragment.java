@@ -107,7 +107,7 @@ public class MessageListFragment extends BaseFragment implements OnRefreshLoadMo
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_message.setLayoutManager(llm);
 
-        messageAdapter = new MessageAdapter(R.layout.item_message,mList);
+        messageAdapter = new MessageAdapter(mList);
         recycler_message.setAdapter(messageAdapter);
 
         refreshLayout.setOnRefreshLoadMoreListener(this);

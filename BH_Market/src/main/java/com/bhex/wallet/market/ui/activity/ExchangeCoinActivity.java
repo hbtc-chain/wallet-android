@@ -1,7 +1,11 @@
 package com.bhex.wallet.market.ui.activity;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -9,11 +13,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
@@ -26,6 +33,8 @@ import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
+import com.bhex.wallet.market.ui.model.MappingSymbol;
+import com.bhex.wallet.market.ui.model.MappingSymbolManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -46,7 +55,6 @@ public class ExchangeCoinActivity extends BaseActivity implements PasswordFragme
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
-
     @BindView(R2.id.tv_from_token)
     AppCompatTextView tv_from_token;
     @BindView(R2.id.tv_to_token)
@@ -58,8 +66,18 @@ public class ExchangeCoinActivity extends BaseActivity implements PasswordFragme
     @BindView(R2.id.btn_exchange_action)
     AppCompatTextView btn_exchange_action;
 
+    @BindView(R2.id.layout_left)
+    LinearLayout layout_left;
+
+    @BindView(R2.id.layout_right)
+    LinearLayout layout_right;
+
+
     protected TransactionViewModel mTransactionViewModel;
     protected BalanceViewModel mBalanceViewModel;
+    //private String mFromToken = "BTC";
+    //private String mToToken = "CBTC";
+    private MappingSymbol mappingSymbol;
 
     @Override
     protected int getLayoutId() {
@@ -68,6 +86,8 @@ public class ExchangeCoinActivity extends BaseActivity implements PasswordFragme
 
     @Override
     protected void initView() {
+        ARouter.getInstance().inject(this);
+        mappingSymbol = MappingSymbolManager.getInstance().mappingSymbolMap.get(mSymbol.toUpperCase());
         tv_center_title.setText(getString(R.string.exchange_coin));
     }
 
@@ -85,13 +105,23 @@ public class ExchangeCoinActivity extends BaseActivity implements PasswordFragme
                 updateAssets((AccountInfo) ldm.getData());
             }
         });
-
+        mBalanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
+    }
+    int view_left_left,view_right_left;
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        view_left_left = layout_left.getLeft();
+        view_right_left = layout_right.getLeft();
+        LogUtils.d("ExchangeCoinActivity==>:","view_left_left=="+view_left_left+"=view_right_left="+view_right_left);
     }
 
-    @OnClick({R2.id.btn_exchange_action})
+    @OnClick({R2.id.btn_exchange_action,R2.id.iv_exchange})
     public void onClickView(View view){
         if(view.getId()==R.id.btn_exchange_action){
             exchangeAction();
+        }else if(view.getId()==R.id.iv_exchange){
+            exchangeAnimatorAction();
         }
     }
 
@@ -123,10 +153,78 @@ public class ExchangeCoinActivity extends BaseActivity implements PasswordFragme
                 this,0);
     }
 
+    boolean flag = true;
+    public void exchangeAnimatorAction(){
+        leftAnimator();
+        rightAnimator();
+        flag = !flag;
+    }
+
+    private void leftAnimator(){
+        int offset = view_right_left-view_left_left;
+        LogUtils.d("left====="+offset);
+        ObjectAnimator left_animator = null;
+        if(flag){
+            left_animator = ObjectAnimator.ofFloat(layout_left,"x",view_right_left);
+        }else{
+            left_animator = ObjectAnimator.ofFloat(layout_left,"x",view_left_left);
+        }
+        left_animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if(flag){
+                    //mFromToken = "BTC";
+                    //mToToken = "CBTC";
+                    mSymbol = "BTC";
+                    mappingSymbol = MappingSymbolManager.getInstance().mappingSymbolMap.get(mSymbol);
+                    tv_token_name.setText(mappingSymbol.fromToken);
+                }else{
+                    //mFromToken = "CBTC";
+                    //mToToken = "CBTC";
+                    mSymbol = "CBTC";
+                    mappingSymbol = MappingSymbolManager.getInstance().mappingSymbolMap.get(mSymbol);
+                    tv_token_name.setText(mappingSymbol.fromToken);
+                }
+
+                mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        left_animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        left_animator.setDuration(800);
+        left_animator.start();
+    }
+
+    private void rightAnimator(){
+        ObjectAnimator right_animator = null;
+        if(flag){
+            right_animator = ObjectAnimator.ofFloat(layout_right,"x",view_left_left);
+        }else{
+            right_animator = ObjectAnimator.ofFloat(layout_right,"x",view_right_left);
+        }
+        right_animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        right_animator.setDuration(800);
+        right_animator.start();
+    }
+
     @Override
     public void confirmAction(String password, int position, int way) {
-        String from_token = tv_from_token.getText().toString();
-        String to_token = tv_to_token.getText().toString();
+        String from_token = mappingSymbol.fromToken;
+        String to_token = mappingSymbol.issueToken;
         String map_amount = inp_amount.getText().toString().trim();
         BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.createMappingSwap(to_token,from_token,map_amount,
@@ -139,9 +237,9 @@ public class ExchangeCoinActivity extends BaseActivity implements PasswordFragme
     //更新兑换状态
     private void updateTransferStatus(LoadDataModel ldm) {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
-            ToastUtils.showToast("兑换成功");
+            ToastUtils.showToast("请求成功");
         }else{
-            ToastUtils.showToast("兑换失败");
+            ToastUtils.showToast("请求失败");
         }
     }
 

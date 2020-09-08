@@ -425,13 +425,8 @@
     <string name="app_up_to_minute_version">you already have the latest version</string>
     <string name="app_loading_now">Downloading in the background</string>
     <string name="deleted">Deleted</string>
-    <string name="market">市场</string>
-    <string name="pay_detail">支付详情</string>
-    <string name="pay_info">支付信息</string>
-    <string name="click_copy_address">点击复制地址</string>
-    <string name="please_input_exchange_amount">请输入兑换数量</string>
-    <string name="agreen">同意</string>
-    <string name="reject">拒绝</string>
+    <string name="market">Market</string>
+
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>
@@ -468,4 +463,13 @@
         <item>Deposit</item>
         <item>Withdrawal</item>
     </string-array>
+
+    <string name="exchange_coin">Exchange</string>
+    <string name="mapping">Mapping</string>
+    <string name="pay_detail">Pay Detail</string>
+    <string name="pay_info">Pay Info</string>
+    <string name="click_copy_address">点击复制地址</string>
+    <string name="please_input_exchange_amount">请输入兑换数量</string>
+    <string name="agreen">Agreen</string>
+    <string name="reject">Reject</string>
 </resources>

@@ -70,6 +70,7 @@ public enum TRANSCATION_BUSI_TYPE {
         治理提案质押.label=context.getResources().getString(R.string.pledge_proposal);
         治理提案投票.label=context.getResources().getString(R.string.vote_proposal);
         复投分红.label = context.getResources().getString(R.string.reinvset_share);
+        映射.label = "映射";
         Other.label = context.getResources().getString(R.string.other);
     }
 

@@ -38,7 +38,12 @@ public class TransactionHelper {
      */
     public static String getTranscationType(Context context, TransactionOrder txo){
         TransactionOrder.ActivitiesBean bean = txo.getActivities().get(0);
-        StringBuffer type_label = new StringBuffer(TRANSCATION_BUSI_TYPE.getValue(bean.getType()));
+        //LogUtils.e("bean.getType()=="+bean.getType());
+        StringBuffer type_label = new StringBuffer(
+                TRANSCATION_BUSI_TYPE
+                        .getValue(
+                        bean.getType())
+        );
 
         if(bean.getType().equals(TRANSCATION_BUSI_TYPE.转账.getType())){
             TransactionOrder.ActivitiesBean.ValueBean transferBean = JsonUtils.fromJson(bean.value.toString(),
