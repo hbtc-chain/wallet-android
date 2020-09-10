@@ -171,15 +171,15 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
                     break;
-                case 4:
+                /*case 4:
                     //申请测试币
                     mTestTokenVM.send_test_token(this);
-                    break;
-                case 5:
+                    break;*/
+                case 4:
                     //设置
                     NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
                     break;
-                case 7:
+                case 6:
                     mUpgradeVM.getUpgradeInfoExt(getYActivity());
                     break;
 

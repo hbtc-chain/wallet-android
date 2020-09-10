@@ -220,8 +220,8 @@ public class BalancePresenter extends BasePresenter {
     }
 
 
-    public List<BHBalance> getBalanceList(List<BHBalance> list){
-        List<BHBalance> res = new ArrayList<>();
+    public List<BHBalance> getBalanceList(List<BHBalance> list,List<BHBalance> res){
+        //List<BHBalance> res = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             res.add(list.get(i));
 

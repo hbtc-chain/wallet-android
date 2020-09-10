@@ -55,6 +55,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -93,7 +94,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     RelativeLayout empty_layout;
 
     private ChainAdapter mChainAdapter;
-    private List<BHBalance> mBalanceList;
+    private List<BHBalance> mBalanceList = new ArrayList<>();
     private List<BHBalance> mOriginBalanceList;
     private BHWallet bhWallet;
     private AccountInfo mAccountInfo;
@@ -127,7 +128,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         tv_balance_txt2.setText(all_asset_label);
 
         mOriginBalanceList = mPresenter.makeBalanceList();
-        mBalanceList = mPresenter.getBalanceList(mOriginBalanceList);
+        mBalanceList = mPresenter.getBalanceList(mOriginBalanceList,mBalanceList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.setSmoothScrollbarEnabled(true);
@@ -305,10 +306,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         //清空原始用户资产
         mChainAdapter.getData().clear();
         mOriginBalanceList = mPresenter.makeBalanceList();
-        mBalanceList = mPresenter.getBalanceList(mOriginBalanceList);
-        mChainAdapter.addData(mBalanceList);
+        mBalanceList = mPresenter.getBalanceList(mOriginBalanceList,mBalanceList);
+        //mChainAdapter.addData(mBalanceList);
         mChainAdapter.notifyDataSetChanged();
-
         //更新资产
         balanceViewModel.getAccountInfo(getYActivity(),null);
     }
