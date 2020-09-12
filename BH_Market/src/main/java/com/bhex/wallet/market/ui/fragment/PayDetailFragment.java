@@ -58,6 +58,9 @@ public class PayDetailFragment extends BaseDialogFragment {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         GradientDrawable drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getContext(), 6), ColorUtil.getColor(getContext(), R.color.app_bg), true, 0);
         mRootView.setBackground(drawable);
+        view.findViewById(R.id.iv_close).setOnClickListener(v->{
+            dismiss();
+        });
     }
 
     public static void showDialog(FragmentManager fm, String tag){
