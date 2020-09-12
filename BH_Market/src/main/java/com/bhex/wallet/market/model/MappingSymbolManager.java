@@ -1,4 +1,4 @@
-package com.bhex.wallet.market.ui.model;
+package com.bhex.wallet.market.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ public class MappingSymbolManager {
 
     private static MappingSymbolManager _instance = new MappingSymbolManager();
 
-    public Map<String,MappingSymbol> mappingSymbolMap;
+    public Map<String, MappingSymbol> mappingSymbolMap;
 
     private MappingSymbolManager(){
         mappingSymbolMap = new HashMap<>();

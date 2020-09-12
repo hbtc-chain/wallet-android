@@ -33,8 +33,8 @@ import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
-import com.bhex.wallet.market.ui.model.MappingSymbol;
-import com.bhex.wallet.market.ui.model.MappingSymbolManager;
+import com.bhex.wallet.market.model.MappingSymbol;
+import com.bhex.wallet.market.model.MappingSymbolManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;

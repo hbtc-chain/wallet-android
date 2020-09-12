@@ -4,7 +4,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.mnemonic.ui.item.BHWalletItem;
+import com.bhex.wallet.common.model.BHWalletItem;
 
 import java.util.ArrayList;
 import java.util.List;

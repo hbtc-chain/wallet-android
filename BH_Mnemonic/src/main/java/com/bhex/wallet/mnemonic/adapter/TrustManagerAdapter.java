@@ -6,8 +6,8 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
 
 import com.bhex.wallet.common.helper.AssetHelper;
+import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.mnemonic.R;
-import com.bhex.wallet.mnemonic.ui.item.BHWalletItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 

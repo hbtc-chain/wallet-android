@@ -10,11 +10,20 @@
     <include
         layout="@layout/layout_toolbar"
         />
-
-    <ScrollView
-        android:id="@+id/layout_index_1"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/btn_drawwith_coin"
+        >
+    <ScrollView
+        android:id="@+id/layout_index_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -385,7 +394,8 @@
     </LinearLayout>
 
     </ScrollView>
-    
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_drawwith_coin"
         android:layout_width="0dp"

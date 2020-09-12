@@ -12,6 +12,7 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
+import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -19,6 +20,7 @@ import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.warkiz.widget.IndicatorSeekBar;
 
 import butterknife.BindView;
@@ -32,6 +34,7 @@ import butterknife.BindView;
 public abstract class BaseTransferOutActivity<P extends BasePresenter> extends BaseActivity<P> {
 
     protected TransactionViewModel transactionViewModel;
+    protected BalanceViewModel balanceViewModel;
 
     protected BHWallet mCurrentBhWallet;
 
@@ -84,13 +87,16 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     @BindView(R2.id.sb_tx_fee)
     IndicatorSeekBar sb_tx_fee;
 
+    @BindView(R2.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_transfer_out;
     }
 
     protected void initTokenView() {
-        //refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setEnableLoadMore(false);
         sb_tx_fee.setDecimalScale(4);
         ed_transfer_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         //ed_transfer_amount.getEditText().addTextChangedListener(new FormatTextWatcher(ed_transfer_amount.getEditText()));

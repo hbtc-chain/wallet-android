@@ -74,8 +74,8 @@
         android:layout_height="wrap_content"
         android:background="@color/app_default_bg"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp">
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -167,26 +167,27 @@
             />
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_generate_wallet"
-            android:layout_width="match_parent"
-            android:layout_marginTop="24dp"
-            android:layout_height="48dp"
-            android:insetBottom="0dp"
-            android:insetTop="0dp"
-            android:layout_marginStart="@dimen/main_padding_left"
-            android:layout_marginEnd="@dimen/main_padding_left"
-            app:backgroundTint="@color/global_button_bg_color"
-            app:cornerRadius="@dimen/main_radius_conner"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fee"
-            android:layout_marginBottom="24dp"
-            android:text="@string/confirm"
-            android:background="@drawable/shape_btn_blue"
-            style="@style/main_material_btn"
-            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_generate_wallet"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:layout_height="48dp"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_left"
+        app:backgroundTint="@color/global_button_bg_color"
+        app:cornerRadius="@dimen/main_radius_conner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fee"
+        android:layout_marginBottom="24dp"
+        android:text="@string/confirm"
+        android:background="@drawable/shape_btn_blue"
+        style="@style/main_material_btn"
+        />
 </LinearLayout>

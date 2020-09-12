@@ -1,8 +1,4 @@
-package com.bhex.wallet.mnemonic.ui.item;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.PrimaryKey;
+package com.bhex.wallet.common.model;
 
 import com.bhex.wallet.common.db.entity.BHWallet;
 

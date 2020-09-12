@@ -25,17 +25,20 @@ import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.presenter.TransferOutPresenter;
+import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.utils.LiveDataBus;
 import com.warkiz.widget.SeekParams;
 
 import org.greenrobot.eventbus.EventBus;
@@ -136,6 +139,15 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 et_tx_fee.setInputString(seekParams.progressFloat+"");
             }
         });
+
+        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(this);
+        //资产订阅
+        LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
+            if(ldm.loadingStatus==LoadingStatus.SUCCESS){
+                updateAssets((AccountInfo) ldm.getData());
+            }
+            refreshLayout.finishRefresh();
+        });
     }
 
     public View.OnClickListener allWithDrawListener = v -> {
@@ -162,6 +174,14 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 sendTransfer();
             }
         }
+    }
+
+    private void updateAssets(AccountInfo accountInfo) {
+        BHUserManager.getInstance().setAccountInfo(accountInfo);
+        balance = BHBalanceHelper.getBHBalanceFromAccount(balance.symbol);
+        String available_amount_str =  BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
+        available_amount = Double.valueOf(available_amount_str);
+        tv_available_amount.setText(getString(R.string.available)+" "+available_amount_str + balance.symbol.toUpperCase());
     }
 
     /**

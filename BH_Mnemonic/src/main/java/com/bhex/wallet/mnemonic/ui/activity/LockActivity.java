@@ -1,7 +1,5 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
-import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -9,33 +7,23 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bhex.lib.uikit.widget.InputView;
-import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.lib.uikit.widget.toast.BHToast;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.common.utils.ARouterUtil;
-import com.bhex.wallet.common.utils.BHKey;
-import com.bhex.wallet.common.utils.BHWalletUtils;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.persenter.LoginPresenter;
 import com.bhex.wallet.mnemonic.ui.fragment.AddressFragment;
-import com.bhex.wallet.mnemonic.ui.item.BHWalletItem;
 import com.google.android.material.button.MaterialButton;
 
-import org.bitcoinj.core.Base58;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

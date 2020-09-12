@@ -4,10 +4,8 @@ import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.wallet.common.db.entity.BHWallet;
-import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.mnemonic.R;
-import com.bhex.wallet.mnemonic.ui.item.BHWalletItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 

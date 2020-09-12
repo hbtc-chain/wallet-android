@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -117,7 +118,7 @@ public class WalletViewModel extends ViewModel {
     /**
      * 获取所有的钱包
      */
-    public void loadWallet(AppCompatActivity activity){
+    public void loadWallet(FragmentActivity activity){
         SimpleObserver<List<BHWallet>> observer = new SimpleObserver<List<BHWallet>>() {
             @Override
             public void onNext(List<BHWallet> bhWalletList) {

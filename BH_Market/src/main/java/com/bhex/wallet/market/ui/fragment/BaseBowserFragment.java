@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.bridge.AndroidJsInterface;
 import com.bhex.wallet.common.browse.MiddlewareChromeClient;
 import com.bhex.wallet.common.browse.MiddlewareWebViewClient;
 import com.bhex.wallet.common.browse.UIController;
@@ -65,7 +66,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 .createAgentWeb()//创建AgentWeb。
                 .ready()//设置 WebSettings。
                 .get();
-
+        mAgentWeb.getJsInterfaceHolder().addJavaObject("android",new AndroidJsInterface(getYActivity()));
         WebSettings webSettings = mAgentWeb.getAgentWebSettings().getWebSettings();
         String ua = webSettings.getUserAgentString();
         webSettings.setUserAgentString(ua+";bluehelixWallet");

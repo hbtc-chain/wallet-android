@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxHeight="300dp"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.ChooseWalletFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:text="切换托管单元"
+        android:layout_centerInParent="true"
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@color/global_main_text_color"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/global_divider_color"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="168dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="17sp"
+        android:text="@string/cancel"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@color/label_button_text_color"
+        />
+</LinearLayout>

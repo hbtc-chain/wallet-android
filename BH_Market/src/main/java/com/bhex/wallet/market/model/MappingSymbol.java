@@ -1,4 +1,4 @@
-package com.bhex.wallet.market.ui.model;
+package com.bhex.wallet.market.model;
 
 import java.util.Map;
 

@@ -38,9 +38,11 @@ public class MarketFragment extends BaseBowserFragment implements DexAuthorizeFr
 
     @Override
     protected void addEvent() {
-        if(!mFlag){
-            DexAuthorizeFragment.showDialog(getChildFragmentManager(),DexAuthorizeFragment.class.getSimpleName(),this);
-        }
+        /*if(!mFlag){
+            //DexAuthorizeFragment.showDialog(getChildFragmentManager(),DexAuthorizeFragment.class.getSimpleName(),this);
+        }*/
+        //ChooseWalletFragment.showDialog(getChildFragmentManager(),ChooseWalletFragment.class.getSimpleName());
+        PayDetailFragment.showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName());
     }
 
     @Override

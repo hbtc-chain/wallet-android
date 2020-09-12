@@ -1,7 +1,6 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,14 +14,13 @@ import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
-import com.bhex.wallet.common.event.WalletEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
@@ -30,7 +28,6 @@ import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.TrustManagerAdapter;
 import com.bhex.wallet.mnemonic.persenter.TrustManagerPresenter;
-import com.bhex.wallet.mnemonic.ui.item.BHWalletItem;
 import com.google.android.material.button.MaterialButton;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
 import com.yanzhenjie.recyclerview.SwipeMenu;

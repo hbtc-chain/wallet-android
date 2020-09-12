@@ -3,8 +3,6 @@ package com.bhex.tools.utils;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 
-import com.airbnb.lottie.model.content.GradientType;
-
 /**
  * @author gongdongyang
  * 2020年9月1日16:51:06
@@ -31,7 +29,6 @@ public class ShapeUtils {
         drawable.setSize(size,size);
         drawable.setColor(Color.TRANSPARENT);
         drawable.setStroke( strokeWidth, storkeColor);
-
         return drawable;
     }
 
