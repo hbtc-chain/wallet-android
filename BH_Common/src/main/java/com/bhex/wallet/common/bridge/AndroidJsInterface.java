@@ -3,6 +3,7 @@ package com.bhex.wallet.common.bridge;
 import android.content.Context;
 import android.webkit.JavascriptInterface;
 
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.manager.BHUserManager;
 
 public class AndroidJsInterface {
@@ -13,7 +14,13 @@ public class AndroidJsInterface {
     }
 
     @JavascriptInterface
-    public String loadCurrentWallet(){
-       return BHUserManager.getInstance().getCurrentBhWallet().address;
+    public String get_account(){
+        LogUtils.d("AndroidJsInterface==>:","get_account===");
+        return BHUserManager.getInstance().getCurrentBhWallet().address;
+    }
+
+    @JavascriptInterface
+    public String sign(String data){
+        return "";
     }
 }

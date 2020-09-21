@@ -23,6 +23,7 @@ import com.bhex.wallet.common.browse.MiddlewareChromeClient;
 import com.bhex.wallet.common.browse.MiddlewareWebViewClient;
 import com.bhex.wallet.common.browse.UIController;
 import com.bhex.wallet.market.R;
+import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
@@ -44,10 +45,15 @@ public abstract class BaseBowserFragment extends BaseFragment {
     private MiddlewareWebClientBase mMiddleWareWebClient;
     private MiddlewareWebChromeBase mMiddleWareWebChrome;
 
+    private BridgeWebView mBridgeWebView;
+
     public abstract  View getWebRootView();
 
     @Override
     protected void initView() {
+
+        mBridgeWebView = new BridgeWebView(getActivity());
+
         mAgentWeb = AgentWeb.with(this)//
                 .setAgentWebParent((LinearLayout) getWebRootView(), -1, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//传入AgentWeb的父控件。
                 .useDefaultIndicator(ContextCompat.getColor(getContext(),R.color.blue_bg), 3)//设置进度条颜色与高度，-1为默认值，高度为2，单位为dp。
@@ -66,10 +72,15 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 .createAgentWeb()//创建AgentWeb。
                 .ready()//设置 WebSettings。
                 .get();
-        mAgentWeb.getJsInterfaceHolder().addJavaObject("android",new AndroidJsInterface(getYActivity()));
+
+        mAgentWeb.getWebCreator().getWebView().setWebContentsDebuggingEnabled(true);
+        mAgentWeb.getJsInterfaceHolder().addJavaObject("HBC_wallet",new AndroidJsInterface(getYActivity()));
         WebSettings webSettings = mAgentWeb.getAgentWebSettings().getWebSettings();
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         String ua = webSettings.getUserAgentString();
-        webSettings.setUserAgentString(ua+";bluehelixWallet");
+        webSettings.setUserAgentString(ua+";hbtcchainwallet");
     }
 
     //abstract public String getUrl();

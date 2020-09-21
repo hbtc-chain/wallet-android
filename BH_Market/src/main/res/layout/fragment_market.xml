@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_trans"/>
 
-    <androidx.appcompat.widget.Toolbar
+    <!--<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -31,7 +31,11 @@
             android:text="@string/tab_market"
             tools:text="@string/tab_market" />
 
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>-->
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toorbar_wv"/>
 
 
 </LinearLayout>

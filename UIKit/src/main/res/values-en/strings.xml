@@ -425,7 +425,7 @@
     <string name="app_up_to_minute_version">you already have the latest version</string>
     <string name="app_loading_now">Downloading in the background</string>
     <string name="deleted">Deleted</string>
-    <string name="market">Market</string>
+    <string name="tab_market">Market</string>
 
 
     <string-array name="my_list_item">
