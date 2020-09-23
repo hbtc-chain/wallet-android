@@ -39,7 +39,7 @@ public class NumberUtil {
 
         BigDecimal b1 = new BigDecimal(number1);
         BigDecimal b2 = new BigDecimal(number2);
-        double b3 = b1.divide(b2, 4, BigDecimal.ROUND_HALF_UP).doubleValue();
+        double b3 = b1.divide(b2, 4, BigDecimal.ROUND_HALF_DOWN).doubleValue();
         return mul(Double.toString(b3),100+"");
     }
 
@@ -52,7 +52,7 @@ public class NumberUtil {
         }
         BigDecimal b1 = new BigDecimal(number1);
         BigDecimal b2 = new BigDecimal(number2);
-        double b3 = b1.divide(b2,BigDecimal.ROUND_HALF_UP).doubleValue();
+        double b3 = b1.divide(b2,BigDecimal.ROUND_HALF_DOWN).doubleValue();
 
         return b3;
     }
@@ -67,7 +67,7 @@ public class NumberUtil {
         }
         BigDecimal b1 = new BigDecimal(number1);
         BigDecimal b2 = new BigDecimal(number2);
-        b3 = b1.divide(b2, digit, BigDecimal.ROUND_HALF_UP).doubleValue();
+        b3 = b1.divide(b2, digit, BigDecimal.ROUND_HALF_DOWN).doubleValue();
 
         return b3;
     }
@@ -207,6 +207,10 @@ public class NumberUtil {
         BigDecimal res=new BigDecimal(result);
 
         return res.stripTrailingZeros().toPlainString();
+    }
+
+    public static String toPlainString(double f){
+        return BigDecimal.valueOf(f).stripTrailingZeros().toPlainString();
     }
 
 }

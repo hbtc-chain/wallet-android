@@ -4,6 +4,7 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -73,7 +74,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
      * @param activity
      * @param bhSendTranscation
      */
-    public void sendTransaction(BaseActivity activity, final BHSendTranscation bhSendTranscation){
+    public void sendTransaction(FragmentActivity activity, final BHSendTranscation bhSendTranscation){
         String body = JsonUtils.toJson(bhSendTranscation);
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override

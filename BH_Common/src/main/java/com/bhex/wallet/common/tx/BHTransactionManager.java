@@ -18,6 +18,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.utils.BHKey;
+import com.google.gson.JsonObject;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
@@ -154,13 +155,9 @@ public class BHTransactionManager {
         //交易手续费
         BigInteger double_feeAmount = NumberUtil.mulExt(String.valueOf(BHConstants.BHT_DECIMALS),feeAmount);
 
-
-        //BigInteger double_withDrawFeeAmount = NumberUtil.mulExt(String.valueOf(Math.pow(10,symbolBHToken.decimals)),withDrawFeeAmount);
-
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
         //提币手续费
-        //double double_gas_fee = Double.parseDouble(symbolBHToken.withdrawal_fee);
         BHToken withDrawFeeBHToken = SymbolCache.getInstance().getBHToken(symbolBHToken.chain);
 
         BigInteger double_gas_fee =  NumberUtil.mulExt(String.valueOf(Math.pow(10,withDrawFeeBHToken.decimals)),withDrawFeeAmount);;
@@ -412,8 +409,6 @@ public class BHTransactionManager {
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
         //交易请求数据构建
         BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
-
-        //LogUtils.d("BHTransactionManager===>:","raw_json=22="+JsonUtils.toJson(bhSendTranscation));
         return bhSendTranscation;
     }
 
@@ -485,6 +480,24 @@ public class BHTransactionManager {
                 double_amount,double_feeAmount,sequence);
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         LogUtils.d("BHSendTranscation===>:","raw_json=="+raw_json);
+        String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
+        //交易请求数据构建
+        BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);
+        return bhSendTranscation;
+    }
+
+    /**
+     * 增加流动性
+     * @return
+     */
+    public static BHSendTranscation create_dex_transcation(String type,JsonObject json, String sequence, String data){
+        String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
+        BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
+        BigInteger double_feeAmount = NumberUtil.mulExt(BHConstants.BHT_DEFAULT_FEE,String.valueOf(BHConstants.BHT_DECIMALS));
+        BHRawTransaction bhRawTransaction = BHRawTransaction.createBHRaw_transcation(type,json,double_feeAmount,sequence);
+        String raw_json = JsonUtils.toJson(bhRawTransaction);
+        LogUtils.d("BHSendTranscation===>:","raw_json=="+raw_json);
+
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
         //交易请求数据构建
         BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);

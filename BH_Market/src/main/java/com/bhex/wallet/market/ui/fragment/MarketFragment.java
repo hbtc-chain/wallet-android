@@ -46,7 +46,9 @@ public class MarketFragment extends BaseBowserFragment  {
             //DexAuthorizeFragment.showDialog(getChildFragmentManager(),DexAuthorizeFragment.class.getSimpleName(),this);
         }*/
         //ChooseWalletFragment.showDialog(getChildFragmentManager(),ChooseWalletFragment.class.getSimpleName());
-        //PayDetailFragment.showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName());
+        /*H5Sign sign = new H5Sign();
+        sign.type = TRANSCATION_BUSI_TYPE.添加流动性.getType();
+        PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),sign);*/
     }
 
 

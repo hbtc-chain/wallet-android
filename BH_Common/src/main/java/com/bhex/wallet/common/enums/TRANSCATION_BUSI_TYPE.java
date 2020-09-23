@@ -27,7 +27,8 @@ public enum TRANSCATION_BUSI_TYPE {
     复投分红("hbtcchain/reinvest"),
     代币发行("hbtcchain/hrc20/MsgNewToken"),
     映射("hbtcchain/mapping/MsgMappingSwap"),
-    兑换("hbtcchain/openswap/MsgSwap"),
+    兑换_输入确定("hbtcchain/openswap/MsgSwapExactIn"),
+    兑换_输出确定("hbtcchain/openswap/MsgSwapExactOut"),
     添加流动性("hbtcchain/openswap/MsgAddLiquidity"),
     移除流动性("hbtcchain/openswap/MsgRemoveLiquidity"),
     Other("other");
@@ -74,7 +75,8 @@ public enum TRANSCATION_BUSI_TYPE {
         治理提案投票.label=context.getResources().getString(R.string.vote_proposal);
         复投分红.label = context.getResources().getString(R.string.reinvset_share);
         映射.label = "映射";
-        兑换.label = "兑换";
+        兑换_输入确定.label = "兑换_输入确定";
+        兑换_输出确定.label = "兑换_输出确定";
         添加流动性.label = "添加流动性";
         移除流动性.label = "移除流动性";
         Other.label = context.getResources().getString(R.string.other);

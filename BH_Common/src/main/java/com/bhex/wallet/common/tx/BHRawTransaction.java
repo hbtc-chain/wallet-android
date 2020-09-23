@@ -3,6 +3,7 @@ package com.bhex.wallet.common.tx;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
+import com.google.gson.JsonObject;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -456,6 +457,22 @@ public class BHRawTransaction {
         txCoin.amount = amount.toString(10);
         txCoin.denom = fromSymbol;
         mappingSwapMsg.coins.add(txCoin);
+
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
+        return bhRawTransaction;
+    }
+
+    //流动性
+    public static BHRawTransaction createBHRaw_transcation(String type, JsonObject json, BigInteger feeAmount, String sequence){
+        BHRawTransaction bhRawTransaction = new BHRawTransaction();
+        bhRawTransaction.memo = BHConstants.BH_MEMO;
+        bhRawTransaction.sequence = sequence;
+        bhRawTransaction.msgs = new ArrayList<>();
+        TxMsg<JsonObject> txMsg = new TxMsg();
+        bhRawTransaction.msgs.add(txMsg);
+
+        txMsg.type = type;
+        txMsg.value = json;
 
         bhRawTransaction.fee = getTransactionFee(feeAmount);
         return bhRawTransaction;

@@ -10,22 +10,17 @@ import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.JsonUtils;
-import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.model.H5Sign;
 import com.bhex.wallet.market.wv.WVJBWebViewClient;
-import com.google.gson.JsonObject;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
 import com.just.agentweb.IAgentWebSettings;
-import com.just.agentweb.MiddlewareWebChromeBase;
-import com.just.agentweb.MiddlewareWebClientBase;
 import com.just.agentweb.WebChromeClient;
-import com.just.agentweb.WebViewClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,8 +33,8 @@ public abstract class BaseBowserFragment extends BaseFragment {
 
     protected AgentWeb mAgentWeb;
 
-    private MiddlewareWebClientBase mMiddleWareWebClient;
-    private MiddlewareWebChromeBase mMiddleWareWebChrome;
+    //private MiddlewareWebClientBase mMiddleWareWebClient;
+    //private MiddlewareWebChromeBase mMiddleWareWebChrome;
 
     public abstract  View getWebRootView();
 
@@ -83,13 +78,19 @@ public abstract class BaseBowserFragment extends BaseFragment {
     };
 
 
-
     public IAgentWebSettings getSettings() {
         AbsAgentWebSettings webSettings =  new AbsAgentWebSettings() {
             private AgentWeb mAgentWeb;
             @Override
             protected void bindAgentWebSupport(AgentWeb agentWeb) {
                 this.mAgentWeb = agentWeb;
+            }
+
+            @Override
+            public IAgentWebSettings toSetting(WebView webView) {
+                IAgentWebSettings iAgentWebSettings = super.toSetting(webView);
+                iAgentWebSettings.getWebSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+                return iAgentWebSettings;
             }
         };
         return  webSettings;
@@ -107,7 +108,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
             }));
 
             registerHandler("get_account",(data,callback) -> {
-                LogUtils.d("BaseBowserFragment==","=get_account=data=="+data);
+                //LogUtils.d("BaseBowserFragment==","=get_account=data=="+data);
                 Map<String,String> map = new HashMap<>();
                 map.put("address", BHUserManager.getInstance().getCurrentBhWallet().address);
                 callback.callback(JsonUtils.toJson(map));
@@ -117,7 +118,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 if(data!=null){
                     LogUtils.d("BaseBowserFragment==","=sign=data=="+data);
                     H5Sign h5Sign = JsonUtils.fromJson(data.toString(), H5Sign.class);
-                    PayDetailFragment.showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);
+                    PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);
                 }
             });
         }

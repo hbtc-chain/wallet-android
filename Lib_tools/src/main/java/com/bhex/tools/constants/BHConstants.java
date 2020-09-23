@@ -91,6 +91,6 @@ public class BHConstants {
     //public static final String API_BASE_URL = "https://explorer.hbtc.com/";
     public static final String API_BASE_URL = "http://juswap.io/";
 
-    public static final String MARKET_URL = "https://10.197.58.241:8080/swap";
-
+    //public static final String MARKET_URL = "http://172.24.0.5:8080/swap";
+    public static final String MARKET_URL = "http://juswap.io/swap";
 }
