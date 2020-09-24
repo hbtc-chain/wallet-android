@@ -51,7 +51,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他页面时，弹窗质询用户前往其他应用 AgentWeb 3.0.0 加入。
                 .createAgentWeb()//创建AgentWeb。
                 .ready()//设置 WebSettings。
-                .go(BHConstants.MARKET_URL);
+                .go(getUrl());
                 //.get();
 
         mAgentWeb.getWebCreator().getWebView().setWebContentsDebuggingEnabled(true);
@@ -76,6 +76,9 @@ public abstract class BaseBowserFragment extends BaseFragment {
             super.onReceivedTitle(view, title);
         }
     };
+
+
+    public abstract String getUrl();
 
 
     public IAgentWebSettings getSettings() {
@@ -108,7 +111,6 @@ public abstract class BaseBowserFragment extends BaseFragment {
             }));
 
             registerHandler("get_account",(data,callback) -> {
-                //LogUtils.d("BaseBowserFragment==","=get_account=data=="+data);
                 Map<String,String> map = new HashMap<>();
                 map.put("address", BHUserManager.getInstance().getCurrentBhWallet().address);
                 callback.callback(JsonUtils.toJson(map));
@@ -116,6 +118,10 @@ public abstract class BaseBowserFragment extends BaseFragment {
 
             registerHandler("sign",(data, callback) -> {
                 if(data!=null){
+                    data = data.toString().replace("amount_int","amount_in")
+                            .replace(":1",": \"1")
+                            .replace("0,","0\",")
+                            .replace("88425683849.54263","88425683849");
                     LogUtils.d("BaseBowserFragment==","=sign=data=="+data);
                     H5Sign h5Sign = JsonUtils.fromJson(data.toString(), H5Sign.class);
                     PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);

@@ -90,8 +90,8 @@ public class PayDetailHelper {
         兑换_Entitiy v_兑换_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 兑换_Entitiy.class);
         BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_兑换_Entitiy.swap_path.get(0).toLowerCase());
 
-        double amount_int = NumberUtil.divide(v_兑换_Entitiy.amount_int, Math.pow(10, bhToken_a.decimals) + "");
-        String amount_int_info = NumberUtil.toPlainString(amount_int).concat(v_兑换_Entitiy.swap_path.get(0).toUpperCase());
+        double amount_in = NumberUtil.divide(v_兑换_Entitiy.amount_in, Math.pow(10, bhToken_a.decimals) + "");
+        String amount_int_info = NumberUtil.toPlainString(amount_in).concat(v_兑换_Entitiy.swap_path.get(0).toUpperCase());
         PayDetailItem item1 = new PayDetailItem("支付数量",amount_int_info);
         list.add(item1);
 
@@ -119,7 +119,7 @@ public class PayDetailHelper {
         public String referer;
         public String receiver;
         public int expired_at;
-        public String amount_int;
+        public String amount_in;
         public String min_amount_out;
         public List<String> swap_path;
 

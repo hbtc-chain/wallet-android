@@ -185,7 +185,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
             btn_item3.setId(R.id.cross_chian_transfer_in);
             //兑币功能
-            if(!getBHBalance().symbol.equalsIgnoreCase("btc")){
+            if(!(getBHBalance().symbol.equalsIgnoreCase("btc"))){
                 btn_item4.setVisibility(View.GONE);
             }
             btn_item4.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));
@@ -401,7 +401,6 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
             BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), "2",
                     gasPrice, null, suquece);
-
             transactionViewModel.sendTransaction(this, bhSendTranscation);
             return 0;
         });

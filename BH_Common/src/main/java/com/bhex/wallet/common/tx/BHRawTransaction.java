@@ -465,7 +465,7 @@ public class BHRawTransaction {
     //流动性
     public static BHRawTransaction createBHRaw_transcation(String type, JsonObject json, BigInteger feeAmount, String sequence){
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
+        bhRawTransaction.memo = "";
         bhRawTransaction.sequence = sequence;
         bhRawTransaction.msgs = new ArrayList<>();
         TxMsg<JsonObject> txMsg = new TxMsg();

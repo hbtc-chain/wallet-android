@@ -2,11 +2,15 @@ package com.bhex.wallet.common.tx;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.Sha256;
+import com.bhex.tools.utils.JsonSortUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NumberUtil;
@@ -26,6 +30,7 @@ import org.bitcoinj.core.Sha256Hash;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by BHEX.
@@ -44,7 +49,7 @@ public class BHTransactionManager {
      * @return
      */
     public static BHSendTranscation transfer(
-                                       String to,
+                                      String to,
                                       String amount,
                                       String feeAmount,
                                       BigInteger gasPrice,
@@ -494,8 +499,11 @@ public class BHTransactionManager {
         String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
         BigInteger double_feeAmount = NumberUtil.mulExt(BHConstants.BHT_DEFAULT_FEE,String.valueOf(BHConstants.BHT_DECIMALS));
+
         BHRawTransaction bhRawTransaction = BHRawTransaction.createBHRaw_transcation(type,json,double_feeAmount,sequence);
         String raw_json = JsonUtils.toJson(bhRawTransaction);
+
+        raw_json = JSONObject.toJSONString(JSONObject.parseObject(raw_json), SerializerFeature.SortField.MapSortField);
         LogUtils.d("BHSendTranscation===>:","raw_json=="+raw_json);
 
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);

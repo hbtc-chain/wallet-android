@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                     getPresenter().goProposalFragment();
                     return true;*/
                 case R.id.tab_my:
-                    mCurrentCheckId = 3;
+                    mCurrentCheckId = 2;
                     getPresenter().goMyFragment();
                     return true;
             }

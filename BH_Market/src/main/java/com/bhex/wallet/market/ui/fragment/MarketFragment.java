@@ -1,13 +1,18 @@
 package com.bhex.wallet.market.ui.fragment;
 
+import android.os.SystemClock;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
+
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,6 +56,22 @@ public class MarketFragment extends BaseBowserFragment  {
         PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),sign);*/
     }
 
+    @Override
+    public String getUrl() {
+        StringBuffer url = new StringBuffer(BHConstants.MARKET_URL);
+        Locale locale = LocalManageUtil.getSetLanguageLocale(getActivity());
+        long time = new Date().getTime();
+        if(locale!=null){
+            if(locale.getLanguage().contains("en")){
+                url.append("?lang=en-us&t="+time);
+            }else{
+                url.append("?lang=zh-cn&t="+time);
+            }
+        }else{
+            url.append("?lang=zh-cn&t="+time);
+        }
+        return url.toString();
+    }
 
     @OnClick({R2.id.iv_refresh})
     public void onClickView(View view) {
