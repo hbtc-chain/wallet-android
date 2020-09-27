@@ -34,6 +34,7 @@
     <string name="start_backup">Start Backup</string>
     <string name="tab_balance_title">Asset</string>
     <string name="tab_validator">Proposer</string>
+    <string name="tab_trade">Trade</string>
 
     <string name="tab_change_title">Exchange</string>
     <string name="tab_order_title">Order</string>
@@ -426,13 +427,15 @@
     <string name="app_loading_now">Downloading in the background</string>
     <string name="deleted">Deleted</string>
     <string name="tab_market">Market</string>
-
+    <string name="please_input_memo_or_tag">Please input memo or tag</string>
+    <string name="meno_or_tag">Memo or tag</string>
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>
         <item>Change password</item>
         <item>Backup private key</item>
         <item>Backup Keystore</item>
+        <item>Proposals</item>
         <item>Settings</item>
         <item>Contact us</item>
         <item>Version</item>

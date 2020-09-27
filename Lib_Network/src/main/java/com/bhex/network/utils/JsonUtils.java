@@ -2,6 +2,8 @@ package com.bhex.network.utils;
 
 import androidx.annotation.NonNull;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -116,6 +118,12 @@ public class JsonUtils {
             list.add(item);
         }
         return list;
+    }
+
+
+    public static String sortJson(String raw_json){
+        String  res = JSONObject.toJSONString(JSONObject.parseObject(raw_json), SerializerFeature.SortField.MapSortField);
+        return  res;
     }
 
 }

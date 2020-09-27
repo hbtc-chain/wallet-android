@@ -84,6 +84,8 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     AppCompatTextView tv_transfer_out_tips_3;
     @BindView(R2.id.btn_drawwith_coin)
     MaterialButton btn_drawwith_coin;
+    @BindView(R2.id.input_memo)
+    WithDrawInput input_memo;
     @BindView(R2.id.sb_tx_fee)
     IndicatorSeekBar sb_tx_fee;
 
@@ -155,7 +157,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             //提币手续费单位
             et_withdraw_fee.btn_right_text.setText(getBalance().chain.toUpperCase());
             bhToken = SymbolCache.getInstance().getBHToken(getBalance().symbol.toLowerCase());
-            et_withdraw_fee.getEditText().setText(bhToken.withdrawal_fee);
+            et_withdraw_fee.getEditText().setText(bhToken.withdrawal_fee_rate);
 
         }
 

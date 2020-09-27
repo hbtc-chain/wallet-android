@@ -31,6 +31,8 @@ public enum TRANSCATION_BUSI_TYPE {
     兑换_输出确定("hbtcchain/openswap/MsgSwapExactOut"),
     添加流动性("hbtcchain/openswap/MsgAddLiquidity"),
     移除流动性("hbtcchain/openswap/MsgRemoveLiquidity"),
+    撤单("hbtcchain/openswap/MsgCancelLimitSwap"),
+    限价单兑换("hbtcchain/openswap/MsgLimitSwap"),
     Other("other");
 
     private String type;
@@ -79,6 +81,8 @@ public enum TRANSCATION_BUSI_TYPE {
         兑换_输出确定.label = "兑换_输出确定";
         添加流动性.label = "添加流动性";
         移除流动性.label = "移除流动性";
+        撤单.label = "撤单";
+        限价单兑换.label = "限价单兑换";
         Other.label = context.getResources().getString(R.string.other);
     }
 

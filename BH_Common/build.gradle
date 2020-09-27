@@ -76,9 +76,7 @@ dependencies {
     kapt 'com.alibaba:arouter-compiler:1.2.1'
     //annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     //implementation"androidx.room:room-runtime:$room_version"
-    //fastJson
-    api 'com.alibaba:fastjson:1.2.61'
-    api 'com.alibaba:fastjson:1.1.71.android'
+
 
     implementation 'com.google.guava:guava:29.0-android'
     //implementation 'com.google.guava:guava:28.0.3'

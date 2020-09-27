@@ -91,6 +91,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void addEvent() {
         EventBus.getDefault().register(this);
+        LogUtils.d("MainActivity===>:","==addEvent=");
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.tab_balance:
@@ -147,16 +148,13 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Subscribe(threadMode= ThreadMode.MAIN)
     public void changeAccount(AccountEvent language){
         isReset = true;
-        //recreate();
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
         getPresenter().showIsBackup();
-
     }
 
     @Subscribe(threadMode= ThreadMode.MAIN)
     public void changeAccount(NightEvent nightEvent){
         isReset = false;
-        //recreate();
     }
 
     @Override

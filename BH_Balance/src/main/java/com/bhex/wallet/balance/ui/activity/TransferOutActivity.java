@@ -152,7 +152,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
     public View.OnClickListener allWithDrawListener = v -> {
         if(way==BHConstants.CROSS_LINK){
-            String all_count = NumberUtil.sub(String.valueOf(available_amount),bhToken.withdrawal_fee);
+            String all_count = NumberUtil.sub(String.valueOf(available_amount),bhToken.withdrawal_fee_rate);
             all_count = Double.valueOf(all_count)<0?"0":all_count;
             ed_transfer_amount.getEditText().setText(all_count);
         }else if(balance.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
@@ -210,7 +210,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 String.valueOf(available_amount),
                 et_tx_fee.getInputStringTrim(),
                 et_withdraw_fee.getInputStringTrim(),
-                bhToken.withdrawal_fee,feeBalance
+                bhToken.withdrawal_fee_rate,feeBalance
         );
 
 
@@ -263,6 +263,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         //String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.getInputString();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+        String memo = input_memo.getInputString();
         //链内
         if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
             String withDrawAmount = ed_transfer_amount.getInputStringTrim();
@@ -270,7 +271,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
-                        gasPrice,password,suquece,balance.symbol);
+                        gasPrice,password,suquece,memo,balance.symbol);
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });
@@ -285,7 +286,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(to_address,withDrawAmount,feeAmount,
-                        gasPrice,withDrawFeeAmount,password,suquece,balance.symbol);
+                        gasPrice,withDrawFeeAmount,password,suquece,memo,balance.symbol);
 
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;

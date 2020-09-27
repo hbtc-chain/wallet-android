@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.JsonUtils;
-import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.market.R;
@@ -54,9 +53,9 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 .go(getUrl());
                 //.get();
 
-        mAgentWeb.getWebCreator().getWebView().setWebContentsDebuggingEnabled(true);
+        //mAgentWeb.getWebCreator().getWebView().setWebContentsDebuggingEnabled(true);
         WebSettings webSettings = mAgentWeb.getAgentWebSettings().getWebSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        //webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         mAgentWeb.getWebCreator().getWebView().setWebViewClient(getWebViewClient(mAgentWeb.getWebCreator().getWebView()));
@@ -117,15 +116,13 @@ public abstract class BaseBowserFragment extends BaseFragment {
             });
 
             registerHandler("sign",(data, callback) -> {
-                if(data!=null){
-                    data = data.toString().replace("amount_int","amount_in")
-                            .replace(":1",": \"1")
-                            .replace("0,","0\",")
-                            .replace("88425683849.54263","88425683849");
-                    LogUtils.d("BaseBowserFragment==","=sign=data=="+data);
-                    H5Sign h5Sign = JsonUtils.fromJson(data.toString(), H5Sign.class);
-                    PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);
+                if(data==null){
+                    return;
                 }
+                LogUtils.d("BaseBrowseFragment==>:","data=="+data.toString());
+                //LogUtils.d("BaseBowserFragment==","=sign=data=="+data);
+                H5Sign h5Sign = JsonUtils.fromJson(data.toString(), H5Sign.class);
+                PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);
             });
         }
     }

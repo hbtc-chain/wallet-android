@@ -121,6 +121,24 @@
             tools:text="0xcEFf80D0175531662aE0084F5a153748C4d7D4cb"
             app:leftHint="@string/hint_input_copy_address"/>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_memo"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meno_or_tag"
+            android:textColor="@color/global_secondary_text_color"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+            android:id="@+id/input_memo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:leftHint="@string/please_input_memo_or_tag" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,6 +177,7 @@
             app:rightColor="@color/label_button_text_color"
             app:rightText="@string/all_withdraw_amount"
             />
+
 
 
         <androidx.appcompat.widget.AppCompatTextView

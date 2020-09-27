@@ -14,26 +14,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.network.base.LoadDataModel;
-import com.bhex.network.base.LoadingStatus;
+import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ShapeUtils;
-import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
+import com.bhex.wallet.market.event.H5SignEvent;
 import com.bhex.wallet.market.helper.PayDetailHelper;
 import com.bhex.wallet.market.model.H5Sign;
 import com.bhex.wallet.market.model.PayDetailItem;
@@ -72,7 +68,7 @@ public class PayDetailFragment extends BaseDialogFragment {
 
     private PayDetailAdapter mPayDetailAdapter;
 
-    private TransactionViewModel transactionViewModel;
+    //private TransactionViewModel transactionViewModel;
     @Override
     public int getLayout() {
         return R.layout.fragment_pay_detail;
@@ -95,15 +91,6 @@ public class PayDetailFragment extends BaseDialogFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
-        transactionViewModel.mutableLiveData.observe(this,ldm -> {
-            updateTransferStatus(ldm);
-        });
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -114,9 +101,7 @@ public class PayDetailFragment extends BaseDialogFragment {
         });
 
         tv_pay_origin.setText(BHConstants.MARKET_URL);
-
         mDatas = PayDetailHelper.loadPayItemByType(getContext(), mH5Sign);
-
         mPayDetailAdapter = new PayDetailAdapter(mDatas);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -132,9 +117,16 @@ public class PayDetailFragment extends BaseDialogFragment {
     }
 
     public void showDialog(FragmentManager fm, String tag, H5Sign sign) {
-        PayDetailFragment fragment = new PayDetailFragment();
-        fragment.mH5Sign = sign;
-        fragment.show(fm, tag);
+        if(PayDetailHelper.isShowPayDetail(sign.type)){
+            PayDetailFragment fragment = new PayDetailFragment();
+            fragment.mH5Sign = sign;
+            fragment.show(fm, tag);
+        }else if(!PayDetailHelper.isHasOrders(sign)){
+            ToastUtils.showToast(BaseApplication.getInstance().getString(R.string.no_order));
+        }else{
+            mH5Sign = sign;
+            PasswordFragment.showPasswordDialog(fm,PasswordFragment.class.getName(),passwordClickListener,0);
+        }
     }
 
     @OnClick({R2.id.btn_confrim})
@@ -151,25 +143,19 @@ public class PayDetailFragment extends BaseDialogFragment {
         @Override
         protected void convert(@NotNull BaseViewHolder holder, PayDetailItem pdi) {
             holder.setText(R.id.tv_title, pdi.label);
-            LogUtils.d("");
             holder.setText(R.id.tv_info, pdi.info);
         }
     }
 
     PasswordFragment.PasswordClickListener passwordClickListener = (password, position, way) -> {
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.create_dex_transcation(mH5Sign.type,mH5Sign.value,suquece,password);
-            transactionViewModel.sendTransaction(getActivity(),bhSendTranscation);
-            return 0;
-        });
+        /*if(!isHidden()){
+            dismiss();
+        }*/
+        if(isAdded() && !isHidden()){
+            dismiss();
+        }
+        EventBus.getDefault().post(new H5SignEvent(mH5Sign,password));
     };
 
-    private void updateTransferStatus(LoadDataModel ldm) {
-        if(ldm.loadingStatus== LoadingStatus.SUCCESS){
-            ToastUtils.showToast(getResources().getString(com.bhex.wallet.balance.R.string.transfer_in_success));
 
-        }else{
-            ToastUtils.showToast(getResources().getString(com.bhex.wallet.balance.R.string.transfer_in_fail));
-        }
-    }
 }

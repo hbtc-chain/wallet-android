@@ -36,6 +36,7 @@
     <string name="tab_balance_title">资产</string>
     <string name="tab_validator">验证人</string>
     <string name="tab_market">市场</string>
+    <string name="tab_trade">交易</string>
 
     <string name="tab_change_title">兑换</string>
     <string name="tab_order_title">订单</string>
@@ -215,8 +216,8 @@
     <string name="not_have_amount">没有足够的</string>
 
     <string name="mnemonic_backup_success">助记词备份成功</string>
-    <string name="transfer_in_success">转账成功</string>
-    <string name="transfer_in_fail">转账失败</string>
+    <string name="transfer_in_success">交易发送成功</string>
+    <string name="transfer_in_fail">交易发送失败</string>
     <string name="encode_qr_fail">解析二维码失败</string>
     <string name="link_outter_address_error">跨链地址错误</string>
     <string name="withdraw_address_error">提币地址错误</string>
@@ -428,12 +429,15 @@
     <string name="app_up_to_minute_version">已更新至最新版本</string>
     <string name="app_loading_now">正在后台下载</string>
     <string name="deleted">已删除</string>
+    <string name="please_input_memo_or_tag">请输入 memo or tag</string>
+    <string name="meno_or_tag">备注(请输入memo or tag)</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>
         <item>修改安全密码</item>
         <item>备份私钥</item>
         <item>备份Keystore</item>
+        <item>治理提案</item>
         <item>设置</item>
         <item>联系我们</item>
         <item>版本号</item>
@@ -483,4 +487,6 @@
     <string name="please_input_exchange_amount">请输入兑换数量</string>
     <string name="agreen">同意</string>
     <string name="reject">拒绝</string>
+
+
 </resources>

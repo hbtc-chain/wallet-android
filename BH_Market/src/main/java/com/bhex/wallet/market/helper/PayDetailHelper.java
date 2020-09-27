@@ -1,6 +1,7 @@
 package com.bhex.wallet.market.helper;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
@@ -28,6 +29,8 @@ public class PayDetailHelper {
             list = make_添加流动性_list(context, h5Sign);
         }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType())){
             list = make_兑换_输入确定_list(context, h5Sign);
+        }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.移除流动性.getType())){
+            list = make_移除流动性_list(context, h5Sign);
         }
         return list;
     }
@@ -60,6 +63,8 @@ public class PayDetailHelper {
         list.add(item4);
         return list;
     }
+
+
 
     public static class 流动性_Entitiy {
 
@@ -123,5 +128,85 @@ public class PayDetailHelper {
         public String min_amount_out;
         public List<String> swap_path;
 
+    }
+
+    /**
+     * 移除流动性
+     * @param context
+     * @param h5Sign
+     * @return
+     */
+    public static List<PayDetailItem> make_移除流动性_list(Context context, H5Sign h5Sign) {
+        List<PayDetailItem> list = new ArrayList<>();
+        PayDetailItem item0 = new PayDetailItem(context.getString(R.string.pay_info), TRANSCATION_BUSI_TYPE.getValue(h5Sign.type));
+        list.add(item0);
+
+        移除流动性_Entitiy v_移除流动性_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 移除流动性_Entitiy.class);
+
+        PayDetailItem item2 = new PayDetailItem("付款地址", v_移除流动性_Entitiy.from);
+        list.add(item2);
+
+        PayDetailItem item3 = new PayDetailItem("矿工费用", BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        list.add(item3);
+        return list;
+    }
+
+
+    public static class 移除流动性_Entitiy {
+
+
+        /**
+         * from : HBCPCkU7Hhi45YwaMZ1jg1LxCse3gojFnTqb
+         * expired_at : -1
+         * token_a : dot
+         * token_b : hbc
+         * liquidity : 167266584349216.5
+         */
+        public String from;
+        public String expired_at;
+        public String token_a;
+        public String token_b;
+        public String liquidity;
+
+
+    }
+
+
+    public static class 撤单_Entitiy{
+
+        /**
+         * from : HBCPCkU7Hhi45YwaMZ1jg1LxCse3gojFnTqb
+         * order_ids :
+         */
+
+        public String from;
+        public String order_ids;
+    }
+
+
+    //判断是否弹出支付详情
+    public static boolean isShowPayDetail(String tx_type){
+        boolean flag = true;
+        if(TextUtils.isEmpty(tx_type)){
+            return false;
+        }
+        if(tx_type.equals(TRANSCATION_BUSI_TYPE.撤单.getType())||tx_type.equals(TRANSCATION_BUSI_TYPE.撤单.getType())
+                || tx_type.equals(TRANSCATION_BUSI_TYPE.限价单兑换.getType())){
+            return false;
+        }
+        return flag;
+    }
+
+    //判断是否有订单
+    public static boolean isHasOrders(H5Sign h5Sign) {
+        boolean flag = true;
+
+        if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.撤单.getType())){
+            撤单_Entitiy v_撤单_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 撤单_Entitiy.class);
+            if(TextUtils.isEmpty(v_撤单_Entitiy.order_ids)){
+                return false;
+            }
+        }
+        return flag;
     }
 }

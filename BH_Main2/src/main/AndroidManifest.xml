@@ -7,7 +7,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".validator.ui.activity.ValidatorIndexActivity"></activity>
+        <activity android:name=".validator.ui.activity.ValidatorIndexActivity" />
         <activity android:name=".my.ui.activity.RecognitionActivity" />
         <activity
             android:name=".my.ui.activity.MessageActivity"

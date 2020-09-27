@@ -99,7 +99,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
     private UpgradeViewModel mUpgradeVM;
 
-    private TestTokenViewModel mTestTokenVM;
+    //private TestTokenViewModel mTestTokenVM;
 
     public MyFragment() {
 
@@ -138,7 +138,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             processUpgradeInfo(ldm);
         });
 
-        mTestTokenVM = ViewModelProviders.of(this).get(TestTokenViewModel.class);
+        //mTestTokenVM = ViewModelProviders.of(this).get(TestTokenViewModel.class);
 
     }
 

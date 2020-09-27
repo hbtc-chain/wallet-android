@@ -24,11 +24,10 @@ public class JsonSortUtil {
         return sortMap;
     }*/
 
-    /*public static String sortJson(String raw_json){
-        //SerializerFeature.SortField.MapSortField
+    public static String sortJson(String raw_json){
         String  res = JSONObject.toJSONString(JSONObject.parseObject(raw_json), SerializerFeature.SortField.MapSortField);
         return  res;
-    }*/
+    }
 
     static class MapComparator implements Comparator<String> {
 
