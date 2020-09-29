@@ -1,13 +1,17 @@
 package com.bhex.wallet.market.ui.fragment;
 
+import android.os.Build;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.LogUtils;
@@ -15,6 +19,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.model.H5Sign;
 import com.bhex.wallet.market.wv.WVJBWebViewClient;
+import com.google.gson.JsonObject;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
@@ -31,6 +36,8 @@ import java.util.Map;
 public abstract class BaseBowserFragment extends BaseFragment {
 
     protected AgentWeb mAgentWeb;
+
+    public Map<String, WVJBWebViewClient.WVJBResponseCallback> callbackMaps;
 
     //private MiddlewareWebClientBase mMiddleWareWebClient;
     //private MiddlewareWebChromeBase mMiddleWareWebChrome;
@@ -61,6 +68,11 @@ public abstract class BaseBowserFragment extends BaseFragment {
         mAgentWeb.getWebCreator().getWebView().setWebViewClient(getWebViewClient(mAgentWeb.getWebCreator().getWebView()));
         String ua = webSettings.getUserAgentString();
         webSettings.setUserAgentString(ua+";hbtcchainwallet");
+
+        /*MyWebViewClient myWebViewClient = (MyWebViewClient) mAgentWeb.getWebCreator().getWebView().getWebViewClient();
+        myWebViewClient.responseCallbacks.get()*/
+
+        callbackMaps = new HashMap<>();
     }
 
     //abstract public String getUrl();
@@ -110,20 +122,31 @@ public abstract class BaseBowserFragment extends BaseFragment {
             }));
 
             registerHandler("get_account",(data,callback) -> {
-                Map<String,String> map = new HashMap<>();
-                map.put("address", BHUserManager.getInstance().getCurrentBhWallet().address);
-                callback.callback(JsonUtils.toJson(map));
+                DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
+                dexResponse.data = new JSONObject();
+                dexResponse.data.put("address", BHUserManager.getInstance().getCurrentBhWallet().address);
+                callback.callback(JsonUtils.toJson(dexResponse));
             });
 
             registerHandler("sign",(data, callback) -> {
                 if(data==null){
                     return;
                 }
-                LogUtils.d("BaseBrowseFragment==>:","data=="+data.toString());
-                //LogUtils.d("BaseBowserFragment==","=sign=data=="+data);
                 H5Sign h5Sign = JsonUtils.fromJson(data.toString(), H5Sign.class);
                 PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);
+                callbackMaps.put(h5Sign.type,callback);
             });
+        }
+    }
+
+    public static class DexResponse<T>{
+        public int code;
+        public String msg;
+        public T data;
+
+        public DexResponse(int code, String msg) {
+            this.code = code;
+            this.msg = msg;
         }
     }
 

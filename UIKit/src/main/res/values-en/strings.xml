@@ -435,7 +435,9 @@
         <item>Change password</item>
         <item>Backup private key</item>
         <item>Backup Keystore</item>
+<!--
         <item>Proposals</item>
+-->
         <item>Settings</item>
         <item>Contact us</item>
         <item>Version</item>

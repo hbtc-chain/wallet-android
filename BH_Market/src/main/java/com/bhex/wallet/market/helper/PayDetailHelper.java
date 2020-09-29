@@ -7,6 +7,7 @@ import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.RegexUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.model.BHToken;
@@ -43,7 +44,7 @@ public class PayDetailHelper {
 
         BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_流动性_Entitiy.token_a.toLowerCase());
         if (RegexUtil.checkNumeric(v_流动性_Entitiy.min_token_a_amount)) {
-            double min_token_a_amount = NumberUtil.divide(v_流动性_Entitiy.min_token_a_amount, Math.pow(10, bhToken_a.decimals) + "");
+            double min_token_a_amount = NumberUtil.divide(v_流动性_Entitiy.min_token_a_amount, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
             PayDetailItem item1 = new PayDetailItem("支付币种", NumberUtil.toPlainString(min_token_a_amount) + "  " + v_流动性_Entitiy.token_a.toUpperCase());
             list.add(item1);
         }
@@ -51,7 +52,7 @@ public class PayDetailHelper {
         BHToken bhToken_b = CacheCenter.getInstance().getSymbolCache().getBHToken(v_流动性_Entitiy.token_b.toLowerCase());
 
         if (RegexUtil.checkNumeric(v_流动性_Entitiy.min_token_b_amount)) {
-            double min_token_b_amount = NumberUtil.divide(v_流动性_Entitiy.min_token_b_amount, Math.pow(10, bhToken_b.decimals) + "");
+            double min_token_b_amount = NumberUtil.divide(v_流动性_Entitiy.min_token_b_amount, Math.pow(10, bhToken_b.decimals) + "",bhToken_b.decimals);
             PayDetailItem item2 = new PayDetailItem("支付币种", NumberUtil.toPlainString(min_token_b_amount) + "  " + v_流动性_Entitiy.token_b.toUpperCase());
             list.add(item2);
         }
@@ -95,7 +96,7 @@ public class PayDetailHelper {
         兑换_Entitiy v_兑换_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 兑换_Entitiy.class);
         BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_兑换_Entitiy.swap_path.get(0).toLowerCase());
 
-        double amount_in = NumberUtil.divide(v_兑换_Entitiy.amount_in, Math.pow(10, bhToken_a.decimals) + "");
+        double amount_in = NumberUtil.divide(v_兑换_Entitiy.amount_in, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
         String amount_int_info = NumberUtil.toPlainString(amount_in).concat(v_兑换_Entitiy.swap_path.get(0).toUpperCase());
         PayDetailItem item1 = new PayDetailItem("支付数量",amount_int_info);
         list.add(item1);
@@ -180,7 +181,7 @@ public class PayDetailHelper {
          */
 
         public String from;
-        public String order_ids;
+        public List<String> order_ids;
     }
 
 
@@ -203,7 +204,7 @@ public class PayDetailHelper {
 
         if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.撤单.getType())){
             撤单_Entitiy v_撤单_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 撤单_Entitiy.class);
-            if(TextUtils.isEmpty(v_撤单_Entitiy.order_ids)){
+            if(TextUtils.isEmpty(v_撤单_Entitiy.order_ids.toString())|| ToolUtils.checkListIsEmpty(v_撤单_Entitiy.order_ids)){
                 return false;
             }
         }

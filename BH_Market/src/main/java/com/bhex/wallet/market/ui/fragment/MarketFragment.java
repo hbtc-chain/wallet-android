@@ -1,14 +1,18 @@
 package com.bhex.wallet.market.ui.fragment;
 
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.network.exception.ExceptionEngin;
+import com.bhex.network.utils.JsonUtils;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
@@ -20,6 +24,7 @@ import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
 import com.bhex.wallet.market.event.H5SignEvent;
 import com.bhex.wallet.market.model.H5Sign;
+import com.bhex.wallet.market.wv.WVJBWebViewClient;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,6 +46,7 @@ public class MarketFragment extends BaseBowserFragment  {
     AppCompatImageView ivRefresh;
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
+    private H5Sign mH5Sign;
 
     private TransactionViewModel transactionViewModel;
 
@@ -69,13 +75,6 @@ public class MarketFragment extends BaseBowserFragment  {
     protected void addEvent() {
         LogUtils.d("MarketFragment===>:","==addEvent==");
         EventBus.getDefault().register(this);
-        /*if(!mFlag){
-            //DexAuthorizeFragment.showDialog(getChildFragmentManager(),DexAuthorizeFragment.class.getSimpleName(),this);
-        }*/
-        //ChooseWalletFragment.showDialog(getChildFragmentManager(),ChooseWalletFragment.class.getSimpleName());
-        /*H5Sign sign = new H5Sign();
-        sign.type = TRANSCATION_BUSI_TYPE.添加流动性.getType();
-        PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),sign);*/
     }
 
     @Override
@@ -110,18 +109,31 @@ public class MarketFragment extends BaseBowserFragment  {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void signMessage(H5SignEvent h5SignEvent){
-       BHTransactionManager.loadSuquece(suquece -> {
+        mH5Sign = h5SignEvent.h5Sign;
+        BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.create_dex_transcation(h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,suquece,h5SignEvent.data);
             transactionViewModel.sendTransaction(getActivity(),bhSendTranscation);
             return 0;
         });
     }
     private void updateTransferStatus(LoadDataModel ldm) {
-        if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+        /*if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             ToastUtils.showToast(getResources().getString(R.string.transfer_in_success));
-            //dismiss();
         }else{
-            ToastUtils.showToast(getResources().getString(com.bhex.wallet.balance.R.string.transfer_in_fail));
+            //ToastUtils.showToast(getResources().getString(com.bhex.wallet.balance.R.string.transfer_in_fail));
+        }*/
+
+        if(mH5Sign==null || TextUtils.isEmpty(mH5Sign.type)) {
+            return;
         }
+
+        WVJBWebViewClient.WVJBResponseCallback callback = callbackMaps.get(mH5Sign.type);
+        if(callback==null){
+            return;
+        }
+
+        DexResponse<JSONObject> dexResponse = new DexResponse(ldm.code,ldm.msg);
+        callback.callback(JsonUtils.toJson(dexResponse));
+        callbackMaps.remove(mH5Sign.type);
     }
 }

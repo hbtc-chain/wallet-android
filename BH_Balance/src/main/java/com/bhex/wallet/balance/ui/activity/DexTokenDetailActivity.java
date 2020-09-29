@@ -13,6 +13,7 @@ import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.enums.MAIN_BUSI_TYPE;
 import com.bhex.wallet.common.menu.MenuItem;
 import com.bhex.wallet.common.menu.MenuListFragment;
@@ -56,13 +57,13 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
         if (view.getId() == R.id.btn_item1) {
             ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
                     .withObject("balance", getBHBalance())
-                    .withInt("way",1)
+                    .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
                     .navigation();
         } else if (view.getId() == R.id.btn_item2) {
             ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
                     .withObject("balance", getBHBalance())
                     .withObject("bhtBalance",bthBalance)
-                    .withInt("way",1)
+                    .withInt("way",BH_BUSI_TYPE.链内转账.getIntValue())
                     .navigation();
         } else if (view.getId() == R.id.btn_item3) {
             //提取收益
@@ -107,13 +108,13 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                         .withObject("balance", balance)
                         .withObject("bhtBalance",bthBalance)
-                        .withInt("way",2)
+                        .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                         .navigation();
             }else{
 
                 ARouter.getInstance().build(ARouterConfig.Balance_transfer_in)
                         .withObject("balance", balance)
-                        .withInt("way",2)
+                        .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                         .navigation();
             }
         }else if(position==1){
@@ -123,21 +124,21 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                         .withObject("balance", balance)
                         .withObject("bhtBalance",bthBalance)
-                        .withInt("way",2)
+                        .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                         .navigation();
 
             }else{
                 ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
                         .withObject("balance", balance)
                         .withObject("bhtBalance",bthBalance)
-                        .withInt("way",2)
+                        .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                         .navigation();
             }
         }
     };
 
 
-    public MenuListFragment.MenuListListener exchagneOperatorListener  = (item, itemView, position) -> {
+    /*public MenuListFragment.MenuListListener exchagneOperatorListener  = (item, itemView, position) -> {
         if(position==0){
             ARouter.getInstance().build(ARouterConfig.Market_exchange_coin).navigation();
         }else{
@@ -148,5 +149,5 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
             intent.putExtras(postcard.getExtras());
             startActivity(intent);
         }
-    };
+    };*/
 }

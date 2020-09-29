@@ -6,11 +6,15 @@ import android.util.Log;
 import com.bhex.network.R;
 import com.bhex.network.app.BaseApplication;
 
+import org.json.JSONObject;
 import org.web3j.crypto.CipherException;
 
+import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
 public class ExceptionEngin {
+
+    public static final int OK = 200;
 
     public static final int BAD_GATEWAY = 502;
 
@@ -40,7 +44,7 @@ public class ExceptionEngin {
 
     public static final int UNKNOWN = 1000;
 
-    public static ApiException handleException(Throwable throwable) {
+    public static ApiException handleException(Throwable throwable) throws Exception {
         if (throwable != null) {
             throwable.printStackTrace();
             Log.e("error:", throwable.toString());
@@ -52,10 +56,17 @@ public class ExceptionEngin {
 
             int code = httpException.code();
 
-            /*if(code == 401){
-                apiException.setDisplayMessage(BaseApplication.getInstance().getResources().getString(R.string.auth_info_faild));
+            if(code == 400 ){
+                ResponseBody response = httpException.response().errorBody();
+                if (response != null) {
+                    JSONObject json = new JSONObject(response.string());
+                    String error = (String) json.get("error");
+                    apiException.setDisplayMessage(error);
+                }else{
+                    apiException.setDisplayMessage(throwable.getMessage());
+                }
                 return apiException;
-            }*/
+            }
 
             if (code == 408 || code == 500 || code == 502 || code == 504 || code == 512) {
                 apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.app_net_error_msg));
@@ -133,8 +144,7 @@ public class ExceptionEngin {
             apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.traffic_network_later_try));
             return apiException;
         }
-        //String name = throwable.getClass().getName();
-        //LogUtils.d("ExceptionEngin===>:","name=="+name);
+
         ApiException apiException = new ApiException(throwable, 1000);
         apiException.setDisplayMessage(apiException.getMessage());
         return apiException;

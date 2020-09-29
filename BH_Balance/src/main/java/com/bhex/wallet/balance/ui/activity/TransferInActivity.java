@@ -24,6 +24,7 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.ui.fragment.TransferInTipFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.gyf.immersionbar.ImmersionBar;
@@ -85,29 +86,14 @@ public class TransferInActivity extends BaseActivity {
 
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        //iv_coin_ic.setImageDrawable(ContextCompat.getDrawable(this,R.mipmap.ic_eth));
         BHBalanceHelper.setTokenIcon(this,balance.symbol,iv_coin_ic);
 
-        /*if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
-            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.status_bar_bg_blue).statusBarDarkFont(false).barColor(com.bhex.network.R.color.status_bar_bg_blue).fitsSystemWindows(true).init();
-            tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.trusteeship_address));
-        }else if(way==1){
-            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.tranfer_in_inner_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_inner_bg).fitsSystemWindows(true).init();
-            mRootView.setBackgroundColor(ContextCompat.getColor(this,R.color.tranfer_in_inner_bg));
-            tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.trusteeship_address));
-        }else if(way==2){
-            ImmersionBar.with(this).statusBarColor(com.bhex.network.R.color.tranfer_in_out_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_out_bg).fitsSystemWindows(true).init();
-            mRootView.setBackgroundColor(ContextCompat.getColor(this,R.color.tranfer_in_out_bg));
-            tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.address));
-        }*/
-        tv_trusteeship_address.setText("HBTC"+getResources().getString(R.string.trusteeship_address));
-
-        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)||way==BHConstants.INNER_LINK){
+        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)||way== BH_BUSI_TYPE.链内转账.getIntValue()){
             deposit_address = mCurrentWallet.address;
-
-        }else if(way==BHConstants.CROSS_LINK){
+            tv_trusteeship_address.setText(BHConstants.BHT_TOKEN.toUpperCase()+getResources().getString(R.string.trusteeship_address));
+        }else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
             deposit_address = balance.external_address;
-
+            tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.trusteeship_address));
         }
 
         Bitmap bitmap = QREncodUtil.createQRCode(deposit_address,

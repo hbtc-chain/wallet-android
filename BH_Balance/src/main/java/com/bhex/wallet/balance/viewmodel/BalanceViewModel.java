@@ -84,7 +84,6 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LogUtils.d("ChainTokenActivity==>:","==onFailure==");
                 LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
             }
@@ -161,7 +160,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume(){
-        //beginReloadData();
+        beginReloadData();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

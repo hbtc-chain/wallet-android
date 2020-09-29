@@ -23,8 +23,8 @@
     <string name="app_account_language">语言</string>
     <string name="language_setting">语言设置</string>
 
-    <string name="wallet_create_trusteeship">创建托管单元</string>
-    <string name="wallet_import_trusteeship">导入托管单元</string>
+    <string name="wallet_create_trusteeship">创建账户</string>
+    <string name="wallet_import_trusteeship">导入账户</string>
     <string name="wallet_create">开始创建</string>
     <string name="at_once_backup">立即备份</string>
     <string name="later_backup">稍后备份</string>
@@ -66,7 +66,7 @@
     <string name="pwd_rule_tip_2">·1个小写字母</string>
     <string name="pwd_rule_tip_3">·1个数字</string>
     <string name="pwd_rule_tip_4">·至少8位字符</string>
-    <string name="set_username_tip">您正在创建BHTC Wallet钱包的托管单元，并将拥有一份跨链钱包</string>
+    <string name="set_username_tip">您正在创建BHTC Wallet钱包的账户，并将拥有一份跨链钱包</string>
     <string name="tips_secure">安全提醒</string>
     <string name="tips_secure_index_1">助记词可用于：</string>
     <string name="tips_secure_index_2">恢复钱包下的钱包资产</string>
@@ -74,8 +74,8 @@
     <string name="tips_secure_index_4">应用删除、手机丢失</string>
     <string name="tips_secure_index_5">等情况导致的资产损失</string>
     <string name="confirm_password">重复密码</string>
-    <string name="trusteeship_manger">管理托管单元</string>
-    <string name="my_trusteeship">我的托管单元</string>
+    <string name="trusteeship_manger">管理账户</string>
+    <string name="my_trusteeship">我的账户</string>
     <string name="str_default">默认</string>
     <string name="set_name">设置名称</string>
     <string name="please_be_sure">请务必</string>
@@ -145,7 +145,7 @@
     <string name="transfer_fee">交易手续费</string>
     <string name="withdraw_fee">提币手续费</string>
     <string name="BH_token">HBC</string>
-    <string name="trusteeship_address">托管单元地址</string>
+    <string name="trusteeship_address">账户地址</string>
     <string name="address">地址</string>
     <string name="crosslink_address">跨链地址生成</string>
     <string name="cross_deposit">跨链充值</string>
@@ -310,7 +310,7 @@
     <string name="import_mnemonic_success">助记词导入成功</string>
     <string name="import_privatekey_success">私钥导入成功</string>
     <string name="import_keystore_success">KeyStore导入成功</string>
-    <string name="trusteeship_exist">托管单元已存在</string>
+    <string name="trusteeship_exist">账户已存在</string>
     <string name="please_input_gasfee">请输入交易手续费</string>
     <string name="please_input_withdraw_fee">请输入提币手续费</string>
     <string name="not_available_amount">没有可用余额</string>
@@ -326,7 +326,7 @@
     <string name="new_password">新密码</string>
     <string name="confirm_new_password">重复新密码</string>
     <string name="password">密码</string>
-    <string name="trustship_manager">托管单元管理</string>
+    <string name="trustship_manager">账户管理</string>
     <string name="token_release">代币发行申请</string>
     <string name="update_username">修改用户名</string>
     <string name="message_center">消息中心</string>
@@ -437,7 +437,9 @@
         <item>修改安全密码</item>
         <item>备份私钥</item>
         <item>备份Keystore</item>
+<!--
         <item>治理提案</item>
+-->
         <item>设置</item>
         <item>联系我们</item>
         <item>版本号</item>

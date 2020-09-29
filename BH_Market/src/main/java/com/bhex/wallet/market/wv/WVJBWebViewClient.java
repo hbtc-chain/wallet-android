@@ -33,7 +33,7 @@ public class WVJBWebViewClient extends WebViewClient {
 	protected WebView webView;
 
 	private ArrayList<WVJBMessage> startupMessageQueue = null;
-	private Map<String, WVJBResponseCallback> responseCallbacks = null;
+	public Map<String, WVJBResponseCallback> responseCallbacks = null;
 	private Map<String, WVJBHandler> messageHandlers = null;
 	private long uniqueId = 0;
 	private WVJBHandler messageHandler;

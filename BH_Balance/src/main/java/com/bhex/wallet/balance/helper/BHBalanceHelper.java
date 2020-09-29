@@ -66,20 +66,15 @@ public class BHBalanceHelper {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
 
-        //RatesCache ratesCache = CacheCenter.getInstance().getRatesCache();
-
         int decimals = bhToken!=null?bhToken.decimals:2;
         if(!flag){
             decimals = 0;
         }
 
         double displayAmount = NumberUtil.divide(amount, Math.pow(10,decimals)+"");
-        //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
-        //DecimalFormat format = new DecimalFormat();
-        //result[0] = NumberUtil.formatValue(displayAmount,3);
+
         result[0] = NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
         //法币价值
-        //BHRates.RatesBean ratesBean = ratesCache.getBHRate(symbol.toLowerCase());
         double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,symbol);
         double asset = NumberUtil.mul(String.valueOf(displayAmount),String.valueOf(symbolPrice));
         result[1] = CurrencyManager.getInstance().getCurrencyDecription(context,asset);
@@ -96,10 +91,7 @@ public class BHBalanceHelper {
         String tmp = NumberUtil.sub(TextUtils.isEmpty(amount)?"0":amount,TextUtils.isEmpty(frozen_amount)?"0":frozen_amount);
 
         double displayAmount = NumberUtil.divide(tmp, Math.pow(10,decimals)+"");
-
-        //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
-        //DecimalFormat format = new DecimalFormat();
-       return NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
+        return NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
     }
 
     public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){
@@ -130,7 +122,6 @@ public class BHBalanceHelper {
         AccountInfo accountInfo = BHUserManager.getInstance().getAccountInfo();
         BHBalance balance = new BHBalance();
         balance.amount="0";
-        //balance.chain= BHConstants.BHT_TOKEN;
         balance.symbol = symbol;
         if(accountInfo==null){
             return balance;
@@ -178,16 +169,13 @@ public class BHBalanceHelper {
             originList.add(bhBalance);
             return;
         }
-        //boolean flag = false;
+
         for (BHBalance item:originList) {
             if(!TextUtils.isEmpty(item.symbol) && item.symbol.equalsIgnoreCase(bhBalance.symbol)){
                 //flag = true;
-                LogUtils.d("CoinSearchActivity==>:","addCoinSeachBalance=33=");
                 return;
             }
         }
-        LogUtils.d("CoinSearchActivity==>:","addCoinSeachBalance==");
-
         originList.add(bhBalance);
     }
 
@@ -227,6 +215,10 @@ public class BHBalanceHelper {
             balance.chain = chainName;
             balance.symbol = token.symbol;
             balance.logo = token.logo;
+            BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(chainName);
+            if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){
+                balance.external_address = chainBalance.external_address;
+            }
             list.add(balance);
         }
         return list;

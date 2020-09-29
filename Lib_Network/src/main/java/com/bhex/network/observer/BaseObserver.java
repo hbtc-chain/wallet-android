@@ -40,7 +40,6 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
-        //onSuccess(t);
         if(t instanceof BaseResponse){
             BaseResponse baseResponse = (BaseResponse)t;
             if(baseResponse.code==0){
@@ -50,19 +49,18 @@ public abstract class BaseObserver<T> implements Observer<T> {
             }
         }else{
             onSuccess(t);
-            //return;
         }
-        /*BaseResponse baseResponse = (BaseResponse)t;
-        onFailure(baseResponse.getCode(), baseResponse.getMessage());*/
-        //onSuccess(t);
     }
 
     @Override
     public void onError(Throwable e) {
         //需要toast提示
-
-        ApiException apiException = ExceptionEngin.handleException(e);
-        onFailure(apiException.getCode(), apiException.getDisplayMessage());
+        try{
+            ApiException apiException = ExceptionEngin.handleException(e);
+            onFailure(apiException.getCode(), apiException.getDisplayMessage());
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override

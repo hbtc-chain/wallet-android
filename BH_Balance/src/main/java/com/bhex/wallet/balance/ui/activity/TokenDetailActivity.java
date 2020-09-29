@@ -229,7 +229,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             tv_income_value.setText(claimed_reward_value);
         }
 
-
+        //链上资产
     }
 
     @Override
@@ -329,8 +329,6 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             }else{
                 toDoReDelegate(ldm);
             }
-
-
         }else if(ldm.loadingStatus==LoadDataModel.ERROR){
             ToastUtils.showToast(getResources().getString(R.string.no_profit));
         }

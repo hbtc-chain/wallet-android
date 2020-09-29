@@ -14,6 +14,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.network.exception.ExceptionEngin;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
@@ -21,6 +22,7 @@ import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.HUtils;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -80,14 +82,16 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
-                LoadDataModel lmd = new LoadDataModel();
+                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
+                lmd.loadingStatus = LoadingStatus.SUCCESS;
                 mutableLiveData.postValue(lmd);
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel lmd = new LoadDataModel(code,"");
+                LogUtils.d("TransactionViewModel===>:","code=="+code);
+                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
                 mutableLiveData.postValue(lmd);
             }
         };

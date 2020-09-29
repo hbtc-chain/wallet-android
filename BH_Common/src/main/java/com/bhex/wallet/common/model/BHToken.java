@@ -48,8 +48,8 @@ public class BHToken {
     public String deposit_threshold;
     public String open_fee;
     public String sys_open_fee;
-    //public String withdrawal_fee;
-    public String withdrawal_fee_rate;
+    public String withdrawal_fee;
+    //public String withdrawal_fee_rate;
     public int max_op_cu_number;
     public String systransfer_amount;
     public String op_cu_systransfer_amount;
@@ -162,12 +162,12 @@ public class BHToken {
         this.sys_open_fee = sys_open_fee;
     }
 
-    public String getWithdrawal_fee_rate() {
-        return withdrawal_fee_rate;
+    public String getWithdrawal_fee() {
+        return withdrawal_fee;
     }
 
-    public void setWithdrawal_fee_rate(String withdrawal_fee_rate) {
-        this.withdrawal_fee_rate = withdrawal_fee_rate;
+    public void setWithdrawal_fee(String withdrawal_fee) {
+        this.withdrawal_fee = withdrawal_fee;
     }
 
     public int getMax_op_cu_number() {
