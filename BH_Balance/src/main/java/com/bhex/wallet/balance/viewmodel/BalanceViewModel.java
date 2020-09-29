@@ -4,11 +4,15 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
@@ -18,11 +22,13 @@ import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
 import com.bhex.network.cache.stategy.IStrategy;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.wallet.balance.ui.fragment.BalanceFragment;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
@@ -56,13 +62,25 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private BaseActivity mContext;
-
+    private BaseFragment mFragment;
 
     public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
 
     public BalanceViewModel(@NonNull Application application) {
         super(application);
     }
+
+    /*public class ViewModeFactory implements ViewModelProvider.Factory{
+
+        public ViewModeFactory() {
+        }
+
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return new BalanceViewModel(mContext);
+        }
+    }*/
 
     //获取资产
     public void getAccountInfo(BaseActivity activity,IStrategy strategy){
@@ -142,6 +160,9 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                     @Override
                     public void onSubscribe(Disposable d) {
                         super.onSubscribe(d);
+                        if(compositeDisposable==null){
+                            compositeDisposable = new CompositeDisposable();
+                        }
                         compositeDisposable.add(d);
                     }
 
@@ -160,13 +181,17 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume(){
-        beginReloadData();
+        Fragment frag = mContext.getSupportFragmentManager().findFragmentByTag(BalanceFragment.class.getSimpleName());
+        if(frag!=null && frag.getUserVisibleHint() && !frag.isHidden()){
+            beginReloadData();
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void onPause(){
         if(compositeDisposable!=null && !compositeDisposable.isDisposed()){
-            compositeDisposable.isDisposed();
+            compositeDisposable.dispose();
+            compositeDisposable = null;
         }
     }
 
@@ -174,5 +199,6 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         mContext = context;
         return this;
     }
+
 
 }

@@ -42,36 +42,106 @@
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        tools:text="HBC" />
+                        tools:text="HBC"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_token_address"
+                        android:id="@+id/tv_hbc_addr_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_token_name"
                         android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
+                        android:text="账户地址"
+                        android:layout_marginRight="5dp"
+                        tools:ignore="EllipsizeMaxLines" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_hbc_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_token_name"
+                        android:layout_toRightOf="@+id/tv_hbc_addr_label"
+                        android:layout_toLeftOf="@+id/iv_paste"
+                        android:gravity="center_vertical"
                         android:maxWidth="250dp"
                         android:textColor="@color/white"
                         android:textSize="13sp"
-                        tools:text="HBC2iohoihsfiohHBC2iohoihsfiohHBC2iohoihsfiohHBC2iohoihsfioh" />
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
+                        tools:text="HBC2iohoihsfiohHBC2ioho"
+                        tools:ignore="EllipsizeMaxLines" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_paste"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tv_token_address"
-                        android:layout_marginEnd="@dimen/page_margin_start"
-                        android:layout_toRightOf="@+id/tv_token_address"
+                        android:layout_alignTop="@+id/tv_hbc_address"
+                        android:layout_toLeftOf="@+id/iv_qr"
                         android:src="@mipmap/ic_paste" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_token_qr"
+                        android:id="@+id/iv_qr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_alignTop="@+id/iv_paste"
+                        android:layout_marginEnd="12dp"
                         android:src="@mipmap/ic_qr_code" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_index_2"
+                        android:layout_below="@+id/tv_hbc_addr_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_token_addr_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginRight="4dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:text="@string/crosslink_address"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_token_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_toRightOf="@+id/tv_token_addr_label"
+                            android:layout_toLeftOf="@+id/iv_token_paste"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            tools:text="HBC2iohoihsfiohHBC2ioho"
+
+                            />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_token_paste"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/tv_token_addr_label"
+                            android:layout_toLeftOf="@+id/iv_token_qr"
+                            android:src="@mipmap/ic_paste" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_token_qr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignTop="@+id/iv_token_paste"
+                            android:layout_marginEnd="12dp"
+                            android:src="@mipmap/ic_qr_code" />
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 

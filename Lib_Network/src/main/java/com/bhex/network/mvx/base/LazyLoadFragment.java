@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+import com.bhex.network.cache.utils.LogUtils;
+
 /**
  * Created by gongdongyang
  * on 2019/12/13
@@ -35,6 +37,7 @@ public abstract  class LazyLoadFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        LogUtils.debug("event==setUserVisibleHint=="+isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (isVisibleToUser) {
             prepareFetchData();

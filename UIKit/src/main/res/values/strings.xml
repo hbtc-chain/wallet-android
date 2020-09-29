@@ -147,7 +147,8 @@
     <string name="BH_token">HBC</string>
     <string name="trusteeship_address">账户地址</string>
     <string name="address">地址</string>
-    <string name="crosslink_address">跨链地址生成</string>
+    <string name="crosslink_make_address">跨链地址生成</string>
+    <string name="crosslink_address">跨链地址</string>
     <string name="cross_deposit">跨链充值</string>
     <string name="cross_withdraw">跨链提币</string>
     <string name="crosslink_deposit_tip_2">·请提醒转出方，务必使用原生公链钱包提币</string>

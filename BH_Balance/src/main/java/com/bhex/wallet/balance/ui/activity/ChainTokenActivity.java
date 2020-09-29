@@ -40,6 +40,7 @@ import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
 import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
@@ -63,16 +64,23 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @Autowired(name = "balance")
     BHBalance mBalance;
 
+    @BindView(R2.id.layout_index_2)
+    RelativeLayout layout_index_2;
+
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
     @BindView(R2.id.layout_index_1)
     RelativeLayout layout_index_1;
     @BindView(R2.id.tv_token_name)
     AppCompatTextView tv_token_name;
-    @BindView(R2.id.tv_token_address)
-    AppCompatTextView tv_token_address;
+    @BindView(R2.id.tv_hbc_address)
+    AppCompatTextView tv_hbc_address;
     @BindView(R2.id.iv_token_qr)
     AppCompatImageView iv_token_qr;
+    @BindView(R2.id.tv_token_address)
+    AppCompatTextView tv_token_address;
+    @BindView(R2.id.iv_qr)
+    AppCompatImageView iv_qr;
     @BindView(R2.id.rcv_token_list)
     RecyclerView rcv_token_list;
     @BindView(R2.id.iv_paste)
@@ -81,8 +89,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     SmartRefreshLayout refreshLayout;
     @BindView(R2.id.layout_scroll)
     NestedScrollView layout_scroll;
-
-
     BalanceAdapter mBalanceAdapter;
 
     private BHWallet mCurrentWallet;
@@ -107,24 +113,17 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         tv_token_name.setText(mBalance.symbol.toUpperCase());
         //设置地址
         setTokenAddress();
-        iv_paste.setOnClickListener(v -> {
-            ToolUtils.copyText(tv_token_address.getText().toString(),this);
-            ToastUtils.showToast(getString(R.string.copyed));
-        });
-
         refreshLayout.setOnRefreshListener(this);
     }
 
     //设置地址
     private void setTokenAddress() {
-        if (BHConstants.BHT_TOKEN.equalsIgnoreCase(mBalance.chain)) {
-            tv_token_address.setText(mBalance.address);
-        } else  {
-            if(!TextUtils.isEmpty(mBalance.external_address)){
-                tv_token_address.setText(mBalance.external_address);
-            }else{
-                tv_token_address.setText(mCurrentWallet.address);
-            }
+        tv_hbc_address.setTag(BHUserManager.getInstance().getCurrentBhWallet().address);
+        AssetHelper.proccessAddress(tv_hbc_address,BHUserManager.getInstance().getCurrentBhWallet().address);
+        tv_token_address.setTag(mBalance.external_address);
+        AssetHelper.proccessAddress(tv_token_address,mBalance.external_address);
+        if(mBalance.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            layout_index_2.setVisibility(View.GONE);
         }
     }
 
@@ -147,9 +146,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
         mBalanceAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHBalance bhBalance = mBalanceAdapter.getData().get(position);
-            /*ARouter.getInstance().build(ARouterConfig.Balance_Token_Detail)
-                    .withObject("balance",bhBalance)
-                    .navigation();*/
             Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance_Token_Detail)
                     .withObject("balance",bhBalance);
             LogisticsCenter.completion(postcard);
@@ -175,15 +171,26 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         mPresenter = new BalancePresenter(this);
     }
 
-    @OnClick({R2.id.tv_token_address, R2.id.iv_token_qr})
+    @OnClick({R2.id.iv_paste,R2.id.iv_qr,R2.id.iv_token_paste,R2.id.iv_token_qr})
     public void onViewClicked(View view) {
-        if(R.id.iv_token_qr==view.getId()){
-
+        if(R.id.iv_qr == view.getId()){
             AddressQRFragment.showFragment(getSupportFragmentManager(),
                     AddressQRFragment.class.getSimpleName(),
                     mBalance.symbol.toUpperCase(),
-                    tv_token_address.getText().toString());
+                    tv_hbc_address.getTag().toString());
+        }else if(R.id.iv_paste == view.getId()){
+            ToolUtils.copyText(tv_hbc_address.getText().toString(),this);
+            ToastUtils.showToast(getString(R.string.copyed));
+        }else if(R.id.iv_token_qr==view.getId()){
+            AddressQRFragment.showFragment(getSupportFragmentManager(),
+                    AddressQRFragment.class.getSimpleName(),
+                    mBalance.symbol.toUpperCase(),
+                    tv_token_address.getTag().toString());
+        }else if(R.id.iv_token_paste == view.getId()){
+            ToolUtils.copyText(tv_token_address.getText().toString(),this);
+            ToastUtils.showToast(getString(R.string.copyed));
         }
+
     }
 
 

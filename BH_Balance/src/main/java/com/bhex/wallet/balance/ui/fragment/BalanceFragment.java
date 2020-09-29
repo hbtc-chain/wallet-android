@@ -27,6 +27,7 @@ import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.network.mvx.base.LazyLoadFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
@@ -144,8 +145,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         recycler_balance.addItemDecoration(ItemDecoration);
 
         mChainAdapter = new ChainAdapter(mBalanceList);
-        /*recycler_balance.setSwipeMenuCreator(swipeMenuCreator);
-        recycler_balance.setOnItemMenuClickListener(mMenuItemClickListener);*/
         recycler_balance.setAdapter(mChainAdapter);
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         ed_search_content.addTextChangedListener(balanceTextWatcher);
@@ -163,17 +162,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         //资产列表点击事件
         mChainAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHBalance bhBalance =  mChainAdapter.getData().get(position);
-            /*ARouter.getInstance().build(ARouterConfig.Balance_Token_Detail)
-                    .withObject("balance",bhBalance)
-                    .withObject("accountInfo",mAccountInfo)
-                    .navigation();*/
             ARouter.getInstance().build(ARouterConfig.Balance_chain_tokens)
                     .withObject("balance",bhBalance)
                     .navigation();
         });
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(getYActivity());
-
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
             refreshLayout.finishRefresh();
@@ -187,6 +181,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         });
         refreshLayout.autoRefresh();
     }
+
 
     /**
      * 更新用户资产
@@ -352,4 +347,14 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            balanceViewModel.onPause();
+        }else{
+            balanceViewModel.onResume();
+        }
+    }
 }
