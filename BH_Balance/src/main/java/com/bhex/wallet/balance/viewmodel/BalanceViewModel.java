@@ -181,10 +181,15 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume(){
-        Fragment frag = mContext.getSupportFragmentManager().findFragmentByTag(BalanceFragment.class.getSimpleName());
-        if(frag!=null && frag.getUserVisibleHint() && !frag.isHidden()){
+        if(mContext.getClass().getName().equals("com.bhex.wallet.bh_main.ui.activity.MainActivity")){
+            Fragment frag = mContext.getSupportFragmentManager().findFragmentByTag(BalanceFragment.class.getSimpleName());
+            if(frag!=null && frag.getUserVisibleHint() && !frag.isHidden()){
+                beginReloadData();
+            }
+        }else{
             beginReloadData();
         }
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

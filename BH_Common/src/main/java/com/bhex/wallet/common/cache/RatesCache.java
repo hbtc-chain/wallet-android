@@ -87,8 +87,9 @@ public class RatesCache extends BaseCache {
 
         /*Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
+                //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(BaseApplication.getInstance(), Lifecycle.Event.ON_PAUSE)))
                 .subscribe();*/
-                //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(BaseApplication.getInstance()., Lifecycle.Event.ON_PAUSE)))
+
 
     }
 

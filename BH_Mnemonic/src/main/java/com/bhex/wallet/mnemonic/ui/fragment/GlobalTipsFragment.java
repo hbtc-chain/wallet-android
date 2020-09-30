@@ -96,7 +96,7 @@ public class GlobalTipsFragment extends BaseDialogFragment {
         check_agreement.setChecked(isCheck);
         Locale locale = LocalManageUtil.getSetLanguageLocale(getActivity());
         if(locale!=null && locale.getLanguage().contains("zh")){
-            String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"zh_agreement.txt").replace("\\n", "\n");
+            String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"zh.txt").replace("\\n", "\n");
             tv_agreement.setText(agreement);
         }else{
             String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"en_agreement.txt").replace("\\n", "\n");
@@ -117,8 +117,6 @@ public class GlobalTipsFragment extends BaseDialogFragment {
         mRootView.findViewById(R.id.btn_confirm).setOnClickListener(v -> {
             /*if(check_agreement.isChecked()){
                 //NavigateUtil.startActivity(getActivity(), TrusteeshipActivity.class);
-
-
             }*/
             dismiss();
             if(globalOnClickListenter!=null){

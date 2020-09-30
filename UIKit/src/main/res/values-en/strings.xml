@@ -142,9 +142,10 @@
     <string name="transfer_fee">Fee</string>
     <string name="withdraw_fee">Fee</string>
     <string name="BH_token">HBC</string>
-    <string name="trusteeship_address">Custodian unit address</string>
+    <string name="trusteeship_address">Account address</string>
     <string name="address">Address</string>
-    <string name="crosslink_address">Generate cross-chain address</string>
+    <string name="crosslink_make_address">Generate cross-chain address</string>
+    <string name="crosslink_address">Cross-chain address</string>
     <string name="cross_deposit">Cross-chain deposit</string>
     <string name="cross_withdraw">Cross-chain withdrawal</string>
     <string name="crosslink_deposit_tip_2">·Please remind the sender to make sure to use original wallet</string>
@@ -307,7 +308,7 @@
     <string name="import_mnemonic_success">Mnemonic is imported successfully</string>
     <string name="import_privatekey_success">The private key is imported successfully</string>
     <string name="import_keystore_success">KeyStore Import Success</string>
-    <string name="trusteeship_exist">Custodian unit already exists</string>
+    <string name="trusteeship_exist">Account already exists</string>
     <string name="please_input_gasfee">Gas Fee</string>
     <string name="please_input_withdraw_fee">Gas Fee</string>
     <string name="not_available_amount">The blance is not enough</string>

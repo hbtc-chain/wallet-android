@@ -9,7 +9,7 @@
     android:background="?android:selectableItemBackground"
     >
 
-    <FrameLayout
+    <!--<FrameLayout
         android:id="@+id/layout_index_1"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -30,8 +30,8 @@
             android:layout_gravity="center"
             android:includeFontPadding="false"
             tools:text="H" />
-    </FrameLayout>
-    <!--<androidx.appcompat.widget.AppCompatImageView
+    </FrameLayout>-->
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_coin"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -40,12 +40,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/divider_line"
         tools:src="@mipmap/ic_btc"
-        />-->
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/layout_index_1"
+        app:layout_constraintStart_toEndOf="@+id/iv_coin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"

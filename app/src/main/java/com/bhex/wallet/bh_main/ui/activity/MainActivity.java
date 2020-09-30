@@ -53,17 +53,13 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @BindView(R.id.main_bottom)
     BottomNavigationView mBottomNavigationView;
-
     /*@Autowired(name="go_position")
     String go_position;*/
 
     private long mExitTime = 0L;
-
     private int mCurrentCheckId = 0;
-
     //是否复位
     public static boolean isReset = true;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;

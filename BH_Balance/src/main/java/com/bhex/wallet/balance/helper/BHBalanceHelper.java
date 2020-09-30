@@ -95,21 +95,7 @@ public class BHBalanceHelper {
     }
 
     public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){
-        int resId = 0;
-        if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            resId = R.mipmap.ic_token;
-        }else if(symbol.equalsIgnoreCase("btc")){
-            resId = R.mipmap.ic_btc;
-        }else if(symbol.equalsIgnoreCase("eth")){
-            resId = R.mipmap.ic_eth;
-        }else if(symbol.equalsIgnoreCase("eos")){
-            resId = R.mipmap.ic_eos;
-        }else if(symbol.equalsIgnoreCase("usdt")){
-            resId = R.mipmap.ic_usdt;
-        }else{
-            resId = R.mipmap.ic_default_coin;
-        }
-
+        int resId = getDefaultResId(symbol);
         iv.setImageDrawable(ContextCompat.getDrawable(context,resId));
     }
 
@@ -136,7 +122,9 @@ public class BHBalanceHelper {
             if(assetsBean.getSymbol()!=null && assetsBean.getSymbol().equalsIgnoreCase(symbol)){
 
                 balance.symbol = assetsBean.getSymbol();
-                balance.chain = assetsBean.getSymbol();
+                BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
+                balance.chain = bhToken.chain;
+                LogUtils.d("BHBalanceHelper==>:","balance===="+balance.chain);
                 balance.amount = assetsBean.getAmount();
                 balance.frozen_amount = assetsBean.getFrozen_amount();
                 balance.address = assetsBean.getExternal_address();
@@ -215,6 +203,7 @@ public class BHBalanceHelper {
             balance.chain = chainName;
             balance.symbol = token.symbol;
             balance.logo = token.logo;
+            balance.resId = getDefaultResId(balance.symbol);
             BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(chainName);
             if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){
                 balance.external_address = chainBalance.external_address;
@@ -224,5 +213,24 @@ public class BHBalanceHelper {
         return list;
     }
 
+    public static int getDefaultResId(String symbol){
+        int resId = 0;
+
+        if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            resId = R.mipmap.ic_token;
+        }else if(symbol.equalsIgnoreCase("btc")){
+            resId = R.mipmap.ic_btc;
+        }else if(symbol.equalsIgnoreCase("eth")){
+            resId = R.mipmap.ic_eth;
+        }else if(symbol.equalsIgnoreCase("eos")){
+            resId = R.mipmap.ic_eos;
+        }else if(symbol.equalsIgnoreCase("usdt")){
+            resId = R.mipmap.ic_usdt;
+        }else{
+            resId = 0;
+        }
+        return resId;
+
+    }
 
 }

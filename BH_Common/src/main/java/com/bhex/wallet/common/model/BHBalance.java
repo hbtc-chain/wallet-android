@@ -20,7 +20,7 @@ public class BHBalance {
     //币的地址
     public String address;
 
-    public String chain;
+    public String chain = "";
 
     public String external_address;
 

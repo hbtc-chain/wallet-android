@@ -46,19 +46,19 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
 
     @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
-        /*AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
+        AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
         iv.setImageResource(0);
         if(balanceItem.resId==0){
             ImageLoaderUtil.loadImageView(getContext(),
                     balanceItem.logo, iv,R.mipmap.ic_default_coin);
         }else{
             iv.setImageResource(balanceItem.resId);
-        }*/
-        FrameLayout frame = viewHolder.getView(R.id.layout_index_1);
+        }
+        /*FrameLayout frame = viewHolder.getView(R.id.layout_index_1);
         GradientDrawable drawable = ShapeUtils.getOvalDrawable(20, ColorUtil.getColor(getContext(),R.color.token_icon_color),true,0);
         frame.setBackground(drawable);
         char initial = balanceItem.symbol.charAt(0);
-        viewHolder.setText(R.id.tv_short_name,String.valueOf(initial).toUpperCase());
+        viewHolder.setText(R.id.tv_short_name,String.valueOf(initial).toUpperCase());*/
 
         viewHolder.setText(R.id.tv_coin_name,balanceItem.symbol.toUpperCase());
 

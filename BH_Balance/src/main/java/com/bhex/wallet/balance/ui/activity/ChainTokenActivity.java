@@ -3,6 +3,7 @@ package com.bhex.wallet.balance.ui.activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
 import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
@@ -64,13 +66,25 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @Autowired(name = "balance")
     BHBalance mBalance;
 
+
+    @BindView(R2.id.layout_out_0)
+    RelativeLayout layout_out_0;
+    @BindView(R2.id.layout_index_1)
+    RelativeLayout layout_index_1;
     @BindView(R2.id.layout_index_2)
     RelativeLayout layout_index_2;
+    @BindView(R2.id.layout_index_3)
+    RelativeLayout layout_index_3;
+    @BindView(R2.id.layout_line)
+    View layout_line;
+
+
+    @BindView(R2.id.btn_make_address)
+    AppCompatTextView btn_make_address;
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
-    @BindView(R2.id.layout_index_1)
-    RelativeLayout layout_index_1;
+
     @BindView(R2.id.tv_token_name)
     AppCompatTextView tv_token_name;
     @BindView(R2.id.tv_hbc_address)
@@ -89,9 +103,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     SmartRefreshLayout refreshLayout;
     @BindView(R2.id.layout_scroll)
     NestedScrollView layout_scroll;
-    BalanceAdapter mBalanceAdapter;
 
-    private BHWallet mCurrentWallet;
+    BalanceAdapter mBalanceAdapter;
     private BalanceViewModel balanceViewModel;
 
     @Override
@@ -103,11 +116,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     protected void initView() {
         ARouter.getInstance().inject(this);
         refreshLayout.setEnableLoadMore(false);
-
-        mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
-
         tv_center_title.setText(mBalance.symbol.toUpperCase());
-        layout_index_1.setBackground(ShapeUtils.getRoundRectDrawable(
+        layout_out_0.setBackground(ShapeUtils.getRoundRectTopDrawable(
                 10, ColorUtil.getColor(this, R.color.blue_bg),
                 true, 0));
         tv_token_name.setText(mBalance.symbol.toUpperCase());
@@ -122,8 +132,15 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         AssetHelper.proccessAddress(tv_hbc_address,BHUserManager.getInstance().getCurrentBhWallet().address);
         tv_token_address.setTag(mBalance.external_address);
         AssetHelper.proccessAddress(tv_token_address,mBalance.external_address);
-        if(mBalance.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(mBalance.chain)){
+            layout_index_3.setVisibility(View.GONE);
+            layout_line.setVisibility(View.GONE);
+        } else if(TextUtils.isEmpty(mBalance.external_address)){
             layout_index_2.setVisibility(View.GONE);
+            btn_make_address.setVisibility(View.VISIBLE);
+        } else {
+            layout_index_2.setVisibility(View.VISIBLE);
+            btn_make_address.setVisibility(View.GONE);
         }
     }
 
@@ -155,15 +172,14 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         });
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(this);
+        getLifecycle().addObserver(balanceViewModel);
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
-            //refreshLayout.finishRefresh();
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){
                 updateAssets((AccountInfo) ldm.getData());
             }
         });
         refreshLayout.autoRefresh();
-        //balanceViewModel.getAccountInfo(this);
     }
 
     @Override
@@ -171,7 +187,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         mPresenter = new BalancePresenter(this);
     }
 
-    @OnClick({R2.id.iv_paste,R2.id.iv_qr,R2.id.iv_token_paste,R2.id.iv_token_qr})
+    @OnClick({R2.id.iv_paste,R2.id.iv_qr,R2.id.iv_token_paste,R2.id.iv_token_qr,R2.id.btn_make_address})
     public void onViewClicked(View view) {
         if(R.id.iv_qr == view.getId()){
             AddressQRFragment.showFragment(getSupportFragmentManager(),
@@ -179,7 +195,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
                     mBalance.symbol.toUpperCase(),
                     tv_hbc_address.getTag().toString());
         }else if(R.id.iv_paste == view.getId()){
-            ToolUtils.copyText(tv_hbc_address.getText().toString(),this);
+            ToolUtils.copyText(tv_hbc_address.getTag().toString(),this);
             ToastUtils.showToast(getString(R.string.copyed));
         }else if(R.id.iv_token_qr==view.getId()){
             AddressQRFragment.showFragment(getSupportFragmentManager(),
@@ -187,8 +203,23 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
                     mBalance.symbol.toUpperCase(),
                     tv_token_address.getTag().toString());
         }else if(R.id.iv_token_paste == view.getId()){
-            ToolUtils.copyText(tv_token_address.getText().toString(),this);
+            ToolUtils.copyText(tv_token_address.getTag().toString(),this);
             ToastUtils.showToast(getString(R.string.copyed));
+        }else if(R.id.btn_make_address == view.getId()){
+            BHBalance bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+            /*ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
+                    .withObject("balance", mBalance)
+                    .withObject("bhtBalance",bthBalance)
+                    .withInt("way", BH_BUSI_TYPE.跨链转账.getIntValue())
+                    .navigation();*/
+            Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
+                    .withObject("balance", mBalance)
+                    .withObject("bhtBalance",bthBalance)
+                    .withInt("way", BH_BUSI_TYPE.跨链转账.getIntValue());
+            LogisticsCenter.completion(postcard);
+            Intent intent = new Intent(this, postcard.getDestination());
+            intent.putExtras(postcard.getExtras());
+            startActivityForResult(intent,100);
         }
 
     }
