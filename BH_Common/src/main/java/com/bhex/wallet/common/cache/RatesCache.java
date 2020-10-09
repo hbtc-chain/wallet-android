@@ -6,7 +6,9 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
+import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
+import com.bhex.network.observer.SimpleObserver;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
@@ -25,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by BHEX.
@@ -56,32 +60,33 @@ public class RatesCache extends BaseCache {
     @Override
     public void beginLoadCache() {
         super.beginLoadCache();
-
-        Type type = (new TypeToken<List<BHRates>>() {}).getType();
-        String balacne_list = BHUserManager.getInstance().getSymbolList();
-        balacne_list = balacne_list.replace("_",",").toUpperCase();
-
-        BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)
-                .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(CACHE_KEY, type, getCacheStrategy()))
-                .map(new CacheResult.MapFunc<>())
-                .subscribe(new BHBaseObserver<List<BHRates>>(false) {
+        getRateToken();
+        /*Observable.interval(2000,5000L, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(BaseApplication.getInstance(), Lifecycle.Event.ON_PAUSE)))
+                .subscribe(new SimpleObserver<Long>(){
                     @Override
-                    protected void onSuccess(List<BHRates> ratelist) {
-                        if(ratelist==null || ratelist.size()==0){
-                            return;
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        *//*if(compositeDisposable==null){
+                            compositeDisposable = new CompositeDisposable();
                         }
-                        ratesMap.clear();
-                        for (BHRates rate:ratelist){
-                            ratesMap.put(rate.getToken().toLowerCase(),rate.getRates());
-                        }
+                        compositeDisposable.add(d);*//*
                     }
 
                     @Override
-                    protected void onFailure(int code, String errorMsg) {
-                        super.onFailure(code, errorMsg);
+                    public void onNext(Long aLong) {
+                        super.onNext(aLong);
+                        *//*BalanceViewModel.this.getAccountInfo(mContext,null);
+                        BalanceViewModel.this.getRateToken(mContext);*//*
+                        getRateToken();
                     }
-                });
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                });*/
 
 
 
@@ -93,6 +98,34 @@ public class RatesCache extends BaseCache {
 
     }
 
+    public void getRateToken(){
+        Type type = (new TypeToken<List<BHRates>>() {}).getType();
+        String balacne_list = BHUserManager.getInstance().getSymbolList();
+        balacne_list = balacne_list.replace("_",",").toUpperCase();
+
+        BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy()))
+                .map(new CacheResult.MapFunc<>())
+                .subscribe(new BHBaseObserver<List<BHRates>>(false) {
+                    @Override
+                    protected void onSuccess(List<BHRates> ratelist) {
+                        if(ratelist==null || ratelist.size()==0){
+                            return;
+                        }
+                        RatesCache.getInstance().getRatesMap().clear();
+                        for (BHRates rate:ratelist){
+                            RatesCache.getInstance().getRatesMap().put(rate.getToken().toLowerCase(),rate.getRates());
+                        }
+                    }
+
+                    @Override
+                    protected void onFailure(int code, String errorMsg) {
+                        super.onFailure(code, errorMsg);
+                    }
+                });
+    }
+
 
     /**
      * 获取汇率
@@ -100,5 +133,9 @@ public class RatesCache extends BaseCache {
      */
     public BHRates.RatesBean getBHRate(String symbol){
         return ratesMap.get(symbol);
+    }
+
+    public Map<String, BHRates.RatesBean> getRatesMap() {
+        return ratesMap;
     }
 }

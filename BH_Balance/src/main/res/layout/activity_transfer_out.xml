@@ -121,7 +121,7 @@
             tools:text="0xcEFf80D0175531662aE0084F5a153748C4d7D4cb"
             app:leftHint="@string/hint_input_copy_address"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <!--<androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_memo"
             android:layout_marginTop="24dp"
             android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:leftHint="@string/please_input_memo_or_tag" />
+            app:leftHint="@string/please_input_memo_or_tag" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"

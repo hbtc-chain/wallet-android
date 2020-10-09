@@ -31,10 +31,12 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.ui.fragment.BalanceFragment;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
+import com.bhex.wallet.common.cache.RatesCache;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.model.AccountInfo;
+import com.bhex.wallet.common.model.BHRates;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonObject;
@@ -116,42 +118,37 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 .subscribe(observer);
     }
 
-    /*public void getRateToken(BaseActivity activity){
-        Type type = (new TypeToken<List<BHToken>>() {}).getType();
+    public void getRateToken(BaseActivity activity,IStrategy strategy){
+        Type type = (new TypeToken<List<BHRates>>() {}).getType();
+        String balacne_list = BHUserManager.getInstance().getSymbolList();
+        balacne_list = balacne_list.replace("_",",").toUpperCase();
 
-        BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,1000)
+        BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().<JsonObject>transformObservable("symbol_all", type, strategy))
+                .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy(strategy)))
                 .map(new CacheResult.MapFunc<>())
-                .subscribe(new BHBaseObserver<JsonObject>(false) {
+                .subscribe(new BHBaseObserver<List<BHRates>>(false) {
                     @Override
-                    protected void onSuccess(JsonObject jsonObject) {
-                        if(!JsonUtils.isHasMember(jsonObject,"items")){
+                    protected void onSuccess(List<BHRates> ratelist) {
+                        if(ratelist==null || ratelist.size()==0){
                             return;
                         }
-                        symbolMap.clear();
-                        List<BHToken> coinList = JsonUtils.getListFromJson(jsonObject.toString(),"items", BHToken.class);
-                        //缓存所有的token
-                        StringBuffer sb = new StringBuffer();
-                        for(BHToken item:coinList){
-                            symbolMap.put(item.symbol,item);
-                            sb.append(item.symbol).append("_");
-                        }
-                        if(!TextUtils.isEmpty(sb)){
-                            MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_DEFAULT_KEY,sb.toString());
+                        RatesCache.getInstance().getRatesMap().clear();
+                        for (BHRates rate:ratelist){
+                            RatesCache.getInstance().getRatesMap().put(rate.getToken().toLowerCase(),rate.getRates());
                         }
                     }
-
 
                     @Override
                     protected void onFailure(int code, String errorMsg) {
                         super.onFailure(code, errorMsg);
                     }
                 });
-    }*/
+    }
 
 
     private void beginReloadData() {
+        BalanceViewModel.this.getRateToken(mContext,null);
         Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mContext, Lifecycle.Event.ON_PAUSE)))
@@ -169,6 +166,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                     public void onNext(Long aLong) {
                         super.onNext(aLong);
                         BalanceViewModel.this.getAccountInfo(mContext,null);
+                        BalanceViewModel.this.getRateToken(mContext,null);
                     }
 
                     @Override

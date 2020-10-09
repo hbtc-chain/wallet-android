@@ -84,8 +84,8 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     AppCompatTextView tv_transfer_out_tips_3;
     @BindView(R2.id.btn_drawwith_coin)
     MaterialButton btn_drawwith_coin;
-    @BindView(R2.id.input_memo)
-    WithDrawInput input_memo;
+    /*@BindView(R2.id.input_memo)
+    WithDrawInput input_memo;*/
     @BindView(R2.id.sb_tx_fee)
     IndicatorSeekBar sb_tx_fee;
 

@@ -55,7 +55,7 @@ public class BHTransactionManager {
                                       BigInteger gasPrice,
                                       String data,
                                       String sequence,
-                                      String memo,
+                                      //String memo,
                                       String symbol){
         String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
@@ -148,7 +148,8 @@ public class BHTransactionManager {
                                                      BigInteger gasPrice,
                                                      String withDrawFeeAmount,
                                                      String data,
-                                                     String sequence,String memo,String symbol){
+                                                     String sequence,//String memo,
+                                                     String symbol){
 
         String from = BHUserManager.getInstance().getCurrentBhWallet().address;
 

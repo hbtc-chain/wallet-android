@@ -263,7 +263,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         //String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.getInputString();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-        String memo = input_memo.getInputString();
+        //String memo = input_memo.getInputString();
         //链内
         if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
             String withDrawAmount = ed_transfer_amount.getInputStringTrim();
@@ -271,7 +271,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
-                        gasPrice,password,suquece,memo,balance.symbol);
+                        gasPrice,password,suquece,balance.symbol);
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });
@@ -286,7 +286,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
             BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(to_address,withDrawAmount,feeAmount,
-                        gasPrice,withDrawFeeAmount,password,suquece,memo,balance.symbol);
+                        gasPrice,withDrawFeeAmount,password,suquece,balance.symbol);
 
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
