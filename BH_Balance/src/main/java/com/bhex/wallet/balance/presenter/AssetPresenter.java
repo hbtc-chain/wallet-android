@@ -7,6 +7,7 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
@@ -87,7 +88,11 @@ public class AssetPresenter extends BasePresenter {
         balance.isHasToken = 1;
         balance.amount = assetsBean.getAmount();
         balance.is_native = assetsBean.isIs_native();
-        balance.external_address = assetsBean.getExternal_address();
+        //balance.external_address = assetsBean.getExternal_address();
+        BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(balance.chain);
+        if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){
+            balance.external_address = chainBalance.external_address;
+        }
         balance.frozen_amount = assetsBean.getFrozen_amount();
     }
 

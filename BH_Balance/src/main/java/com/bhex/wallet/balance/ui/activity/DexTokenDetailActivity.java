@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
@@ -105,6 +106,7 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
         if(position==0){
             if(TextUtils.isEmpty(balance.external_address)){
                 //请求用户资产 获取链外地址
+                //balanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                         .withObject("balance", balance)
                         .withObject("bhtBalance",bthBalance)
@@ -120,7 +122,7 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
         }else if(position==1){
             if(TextUtils.isEmpty(balance.external_address)){
                 //请求用户资产 获取链外地址
-                //balanceViewModel.getAccountInfo(this,bthBalance.address);
+                //balanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                         .withObject("balance", balance)
                         .withObject("bhtBalance",bthBalance)

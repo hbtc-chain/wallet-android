@@ -96,6 +96,9 @@ public class BHBalanceHelper {
 
     public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){
         int resId = getDefaultResId(symbol);
+        if(resId==0){
+            resId = R.mipmap.ic_default_coin;
+        }
         iv.setImageDrawable(ContextCompat.getDrawable(context,resId));
     }
 

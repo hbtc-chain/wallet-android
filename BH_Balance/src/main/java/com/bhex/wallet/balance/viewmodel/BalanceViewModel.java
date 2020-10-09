@@ -62,7 +62,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private BaseActivity mContext;
-    private BaseFragment mFragment;
+    //private BaseFragment mFragment;
 
     public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
 
@@ -115,7 +115,6 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
     }
-
 
     /*public void getRateToken(BaseActivity activity){
         Type type = (new TypeToken<List<BHToken>>() {}).getType();
