@@ -34,9 +34,11 @@ import com.bhex.wallet.balance.ui.fragment.ReInvestShareFragment;
 import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
 import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
+import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.tx.DoEntrustMsg;
@@ -185,13 +187,13 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
             btn_item3.setId(R.id.cross_chian_transfer_in);
             //兑币功能
-            if(!(getBHBalance().symbol.equalsIgnoreCase("btc"))){
-                btn_item4.setVisibility(View.GONE);
-            }
+            /*BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(getBHBalance().symbol);
+            btn_item4.setVisibility((tokenMapping==null)?View.GONE:View.VISIBLE);
+
             btn_item4.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));
             btn_item4.tv_bottom_text.setText(getResources().getString(R.string.exchange_coin));
             btn_item4.setId(R.id.cross_chian_withdraw);
-            btn_item4.setActionMore(View.GONE);
+            btn_item4.setActionMore(View.GONE);*/
             tv_available_text.setVisibility(View.GONE);
             tv_available_value.setVisibility(View.GONE);
             tv_entrust_text.setVisibility(View.GONE);
@@ -202,6 +204,16 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             tv_income_value.setVisibility(View.GONE);
         }
 
+        //兑币功能
+        BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(getBHBalance().symbol);
+        btn_item4.setVisibility((tokenMapping==null)?View.GONE:View.VISIBLE);
+
+        if(tokenMapping!=null){
+            btn_item4.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));
+            btn_item4.tv_bottom_text.setText(getResources().getString(R.string.exchange_coin));
+            btn_item4.setId(R.id.cross_chian_withdraw);
+            btn_item4.setActionMore(View.GONE);
+        }
 
     }
 

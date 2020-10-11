@@ -64,25 +64,12 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private BaseActivity mContext;
-    //private BaseFragment mFragment;
 
     public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
 
     public BalanceViewModel(@NonNull Application application) {
         super(application);
     }
-
-    /*public class ViewModeFactory implements ViewModelProvider.Factory{
-
-        public ViewModeFactory() {
-        }
-
-        @NonNull
-        @Override
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return new BalanceViewModel(mContext);
-        }
-    }*/
 
     //获取资产
     public void getAccountInfo(BaseActivity activity,IStrategy strategy){
@@ -176,21 +163,21 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 });
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    public void onResume(){
-        if(mContext.getClass().getName().equals("com.bhex.wallet.bh_main.ui.activity.MainActivity")){
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    public void onStart(){
+        /*if(mContext.getClass().getName().equals("com.bhex.wallet.bh_main.ui.activity.MainActivity")){
             Fragment frag = mContext.getSupportFragmentManager().findFragmentByTag(BalanceFragment.class.getSimpleName());
             if(frag!=null && frag.getUserVisibleHint() && !frag.isHidden()){
                 beginReloadData();
             }
         }else{
             beginReloadData();
-        }
-
+        }*/
+        beginReloadData();
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    public void onPause(){
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy(){
         if(compositeDisposable!=null && !compositeDisposable.isDisposed()){
             compositeDisposable.dispose();
             compositeDisposable = null;

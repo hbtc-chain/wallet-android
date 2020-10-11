@@ -490,6 +490,7 @@
     <string name="please_input_exchange_amount">请输入兑换数量</string>
     <string name="agreen">同意</string>
     <string name="reject">拒绝</string>
+    <string name="choose_token">选择币种</string>
 
 
 </resources>

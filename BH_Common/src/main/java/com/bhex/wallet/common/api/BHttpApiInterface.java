@@ -1,5 +1,6 @@
 package com.bhex.wallet.common.api;
 
+import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.model.BHRates;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -101,4 +102,8 @@ public interface BHttpApiInterface {
 
     @GET("https://explorer.hbtc.com/api/v1/cus/{addr}/send_test_token")
     Observable<JsonObject> send_test_token(@Path("addr") String address);
+
+    //映射币对
+    @GET("/api/v1/mappings")
+    Observable<JsonObject> loadTokenMappings();
 }

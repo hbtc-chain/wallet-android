@@ -5,10 +5,12 @@ import android.text.TextUtils;
 import android.view.Menu;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.ToolUtils;
@@ -234,6 +236,16 @@ public class BHBalanceHelper {
         }
         return resId;
 
+    }
+
+    public static void loadTokenIcon(Context context, AppCompatImageView iv,String symbol){
+        BHBalance balanceItem = getBHBalanceBySymbol(symbol);
+        if(balanceItem.resId==0){
+            ImageLoaderUtil.loadImageView(context,
+                    balanceItem.logo, iv,R.mipmap.ic_default_coin);
+        }else{
+            iv.setImageResource(balanceItem.resId);
+        }
     }
 
 }

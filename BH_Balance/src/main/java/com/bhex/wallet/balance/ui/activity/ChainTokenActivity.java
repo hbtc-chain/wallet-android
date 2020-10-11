@@ -172,7 +172,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         });
 
         balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(this);
-        getLifecycle().addObserver(balanceViewModel);
+        //getLifecycle().addObserver(balanceViewModel);
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){
@@ -207,11 +207,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             ToastUtils.showToast(getString(R.string.copyed));
         }else if(R.id.btn_make_address == view.getId()){
             BHBalance bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
-            /*ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
-                    .withObject("balance", mBalance)
-                    .withObject("bhtBalance",bthBalance)
-                    .withInt("way", BH_BUSI_TYPE.跨链转账.getIntValue())
-                    .navigation();*/
+
             Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
                     .withObject("balance", mBalance)
                     .withObject("bhtBalance",bthBalance)

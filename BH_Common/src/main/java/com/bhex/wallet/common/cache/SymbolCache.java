@@ -61,6 +61,10 @@ public class SymbolCache extends BaseCache {
 
     @Override
     public void beginLoadCache() {
+        loadSymbol();
+    }
+
+    public void loadSymbol(){
         Type type = (new TypeToken<JsonObject>() {}).getType();
 
         BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,1000)
@@ -99,7 +103,6 @@ public class SymbolCache extends BaseCache {
     }
 
     public  List<BHToken> loadTokenByChain(String chain){
-        //LogUtils.d("SymbolCache===>:","size=="+symbolMap.size());
         List<BHToken> list = new ArrayList();
         if(ToolUtils.checkMapEmpty(symbolMap)){
             return null;

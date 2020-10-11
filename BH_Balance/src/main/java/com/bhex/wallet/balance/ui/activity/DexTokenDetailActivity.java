@@ -120,7 +120,7 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
                         .navigation();
             }
         }else if(position==1){
-            if(TextUtils.isEmpty(balance.external_address)){
+            /*if(TextUtils.isEmpty(balance.external_address)){
                 //请求用户资产 获取链外地址
                 //balanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
                 ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
@@ -135,7 +135,13 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
                         .withObject("bhtBalance",bthBalance)
                         .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                         .navigation();
-            }
+            }*/
+
+            ARouter.getInstance().build(ARouterConfig.Balance_transfer_out)
+                    .withObject("balance", balance)
+                    .withObject("bhtBalance",bthBalance)
+                    .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
+                    .navigation();
         }
     };
 

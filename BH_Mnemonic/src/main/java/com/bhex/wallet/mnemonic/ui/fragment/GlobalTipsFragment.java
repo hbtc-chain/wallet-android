@@ -72,7 +72,7 @@ public class GlobalTipsFragment extends BaseDialogFragment {
 
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
-        params.width = dm.widthPixels;
+        //params.width = dm.widthPixels;
         params.height = dm.heightPixels- PixelUtils.dp2px(BaseApplication.getInstance(),60);
 
         window.setAttributes(params);

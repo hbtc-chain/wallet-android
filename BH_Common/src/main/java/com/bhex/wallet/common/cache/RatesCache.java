@@ -61,41 +61,6 @@ public class RatesCache extends BaseCache {
     public void beginLoadCache() {
         super.beginLoadCache();
         getRateToken();
-        /*Observable.interval(2000,5000L, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(BaseApplication.getInstance(), Lifecycle.Event.ON_PAUSE)))
-                .subscribe(new SimpleObserver<Long>(){
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        super.onSubscribe(d);
-                        *//*if(compositeDisposable==null){
-                            compositeDisposable = new CompositeDisposable();
-                        }
-                        compositeDisposable.add(d);*//*
-                    }
-
-                    @Override
-                    public void onNext(Long aLong) {
-                        super.onNext(aLong);
-                        *//*BalanceViewModel.this.getAccountInfo(mContext,null);
-                        BalanceViewModel.this.getRateToken(mContext);*//*
-                        getRateToken();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                    }
-                });*/
-
-
-
-        /*Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(BaseApplication.getInstance(), Lifecycle.Event.ON_PAUSE)))
-                .subscribe();*/
-
-
     }
 
     public void getRateToken(){

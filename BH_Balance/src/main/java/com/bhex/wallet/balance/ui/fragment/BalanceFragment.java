@@ -293,7 +293,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeAccount(AccountEvent walletEvent){
-        LogUtils.d("BalanceFragment===>:","===changeAccount==");
         //当前钱包用户
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
@@ -348,7 +347,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
 
-    @Override
+    /*@Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if(hidden){
@@ -356,5 +355,5 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }else{
             balanceViewModel.onResume();
         }
-    }
+    }*/
 }

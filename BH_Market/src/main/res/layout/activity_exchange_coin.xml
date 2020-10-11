@@ -33,23 +33,30 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_issue"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@mipmap/ic_btc"
+                    android:src="@mipmap/ic_default_coin"
                     android:layout_marginEnd="8dp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_from_token"
+                    android:id="@+id/tv_issue_token"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BTC"
+                    tools:text="BTC"
                     android:textColor="@color/global_main_text_color"
                     android:textSize="17sp"
-                    android:drawableRight="@mipmap/ic_arrow_down"
-                    android:drawablePadding="5dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
+                    android:layout_marginEnd="5dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_arrow_down"
                     />
 
             </LinearLayout>
@@ -73,24 +80,31 @@
                 >
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_target"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@mipmap/ic_btc"
+                    android:src="@mipmap/ic_default_coin"
                     android:layout_marginEnd="8dp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_to_token"
+                    android:id="@+id/tv_target_token"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
-                    android:drawableRight="@mipmap/ic_arrow_down"
-                    android:drawablePadding="5dp"
                     android:gravity="center_vertical"
-                    android:text="CBTC"
+                    android:text=""
                     android:textColor="@color/global_main_text_color"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:layout_marginEnd="5dp"/>
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_arrow_down"
+                    android:visibility="gone"
+                    />
             </LinearLayout>
         </RelativeLayout>
 
@@ -124,7 +138,7 @@
                 android:id="@+id/tv_token_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BTC"
+                android:text=""
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"

@@ -27,6 +27,7 @@ public class CacheCenter {
     private CacheCenter(){
         cacheLisenterMap.put(SymbolCache.CACHE_KEY, SymbolCache.getInstance());
         cacheLisenterMap.put(RatesCache.CACHE_KEY, RatesCache.getInstance());
+        cacheLisenterMap.put(TokenMapCache.CACHE_KEY,TokenMapCache.getInstance());
     }
 
     /**
@@ -46,9 +47,16 @@ public class CacheCenter {
         if (cacheLisenterMap.containsKey(RatesCache.CACHE_KEY)){
             return (RatesCache)cacheLisenterMap.get(RatesCache.CACHE_KEY);
         }
-        //RatesCache ratesCache = new RatesCache();
         cacheLisenterMap.put(RatesCache.CACHE_KEY, RatesCache.getInstance());
         return (RatesCache)cacheLisenterMap.get(RatesCache.CACHE_KEY);
+    }
+
+    public TokenMapCache getTokenMapCache(){
+        if (cacheLisenterMap.containsKey(TokenMapCache.CACHE_KEY)){
+            return (TokenMapCache)cacheLisenterMap.get(TokenMapCache.CACHE_KEY);
+        }
+        cacheLisenterMap.put(RatesCache.CACHE_KEY, TokenMapCache.getInstance());
+        return (TokenMapCache)cacheLisenterMap.get(TokenMapCache.CACHE_KEY);
     }
 
     /**
