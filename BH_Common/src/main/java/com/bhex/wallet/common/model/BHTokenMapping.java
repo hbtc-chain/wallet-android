@@ -1,5 +1,7 @@
 package com.bhex.wallet.common.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author gongdongyang
  * 2020-10-10 14:18:36
@@ -21,6 +23,9 @@ public class BHTokenMapping {
     public String total_supply;
     public String issue_pool;
     public boolean enabled;
+
+    @Expose(serialize = false, deserialize = false)
+    public String coin_symbol;
 
     public BHTokenMapping() {
     }

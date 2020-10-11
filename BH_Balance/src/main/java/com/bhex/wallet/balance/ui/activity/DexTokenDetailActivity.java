@@ -1,21 +1,16 @@
 package com.bhex.wallet.balance.ui.activity;
 
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.alibaba.android.arouter.core.LogisticsCenter;
-import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
-import com.bhex.wallet.common.enums.MAIN_BUSI_TYPE;
 import com.bhex.wallet.common.menu.MenuItem;
 import com.bhex.wallet.common.menu.MenuListFragment;
 import com.bhex.wallet.common.model.AccountInfo;

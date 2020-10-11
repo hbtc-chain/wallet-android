@@ -82,9 +82,11 @@ public class TokenMapCache extends BaseCache {
                         }
 
                         for (BHTokenMapping item:tokens) {
+                            item.coin_symbol = item.issue_symbol;
                             mTokenMappings.put(item.issue_symbol,item);
-                            BHTokenMapping reverseItem = new BHTokenMapping(item.target_symbol,item.issue_symbol,item.total_supply,item.issue_pool,item.enabled);
-                            mTokenMappings.put(reverseItem.issue_symbol,reverseItem);
+                            BHTokenMapping reverseItem = new BHTokenMapping(item.issue_symbol,item.issue_symbol,item.total_supply,item.issue_pool,item.enabled);
+                            reverseItem.coin_symbol = item.target_symbol;
+                            mTokenMappings.put(reverseItem.coin_symbol,reverseItem);
                         }
 
                         LogUtils.d("TokenMapCache==>:","=mTokenMappings="+mTokenMappings.size());

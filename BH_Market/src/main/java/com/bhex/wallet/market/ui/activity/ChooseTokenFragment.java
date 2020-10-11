@@ -115,8 +115,8 @@ public class ChooseTokenFragment extends BaseDialogFragment {
         fragment.show(fm, tag);
     }
 
-
     public interface ChooseTokenListener{
         void clickTokenPosition(BHTokenMapping position);
     }
+
 }

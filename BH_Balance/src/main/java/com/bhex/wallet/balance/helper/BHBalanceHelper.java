@@ -129,7 +129,6 @@ public class BHBalanceHelper {
                 balance.symbol = assetsBean.getSymbol();
                 BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
                 balance.chain = bhToken.chain;
-                LogUtils.d("BHBalanceHelper==>:","balance===="+balance.chain);
                 balance.amount = assetsBean.getAmount();
                 balance.frozen_amount = assetsBean.getFrozen_amount();
                 balance.address = assetsBean.getExternal_address();

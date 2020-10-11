@@ -138,7 +138,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         BalanceViewModel.this.getRateToken(mContext,null);
         Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mContext, Lifecycle.Event.ON_PAUSE)))
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mContext, Lifecycle.Event.ON_DESTROY)))
                 .subscribe(new SimpleObserver<Long>(){
                     @Override
                     public void onSubscribe(Disposable d) {

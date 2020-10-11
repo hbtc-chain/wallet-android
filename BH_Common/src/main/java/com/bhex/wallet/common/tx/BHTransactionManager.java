@@ -471,19 +471,19 @@ public class BHTransactionManager {
      * 映射
      * @return
      */
-    public static BHSendTranscation createMappingSwap(String to_symbol,String fromSymbol,String mappingAmount,
+    public static BHSendTranscation createMappingSwap(String issue_symbol,String coin_symbol,String mappingAmount,
                                                 String feeAmount,String sequence,String data){
         String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
         //mappingAmount
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
-        BHToken bhToken = symbolCache.getBHToken(fromSymbol.toLowerCase());
+        BHToken bhToken = symbolCache.getBHToken(coin_symbol.toLowerCase());
         BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),mappingAmount);
         //手续费数量
         BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         //构建映射交易数据类型
         String address = BHUserManager.getInstance().getCurrentBhWallet().address;
-        BHRawTransaction bhRawTransaction = BHRawTransaction.createBHRawMappingSwap(address,to_symbol.toLowerCase(),fromSymbol.toLowerCase(),
+        BHRawTransaction bhRawTransaction = BHRawTransaction.createBHRawMappingSwap(address,issue_symbol.toLowerCase(),coin_symbol.toLowerCase(),
                 double_amount,double_feeAmount,sequence);
         String raw_json = JsonUtils.toJson(bhRawTransaction);
         LogUtils.d("BHSendTranscation===>:","raw_json=="+raw_json);

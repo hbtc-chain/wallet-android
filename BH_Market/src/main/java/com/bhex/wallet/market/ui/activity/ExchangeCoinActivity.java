@@ -2,7 +2,6 @@ package com.bhex.wallet.market.ui.activity;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -22,6 +21,7 @@ import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
@@ -36,10 +36,8 @@ import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
-import com.bhex.wallet.market.adapter.ChooseTokenAdapter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -53,7 +51,7 @@ public class ExchangeCoinActivity extends BaseActivity
         ChooseTokenFragment.ChooseTokenListener {
 
     @Autowired(name = "symbol")
-    String mIssueSymbol;
+    String mSymbol;
 
 
     private BHBalance mBhtBalance;
@@ -99,13 +97,13 @@ public class ExchangeCoinActivity extends BaseActivity
         ARouter.getInstance().inject(this);
         //mappingSymbol = MappingSymbolManager.getInstance().mappingSymbolMap.get(mSymbol.toUpperCase());
         tv_center_title.setText(getString(R.string.exchange_coin));
-        mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mIssueSymbol.toUpperCase());
+        mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
 
         //
-        tv_issue_token.setText(mTokenMapping.issue_symbol.toUpperCase());
+        tv_issue_token.setText(mTokenMapping.coin_symbol.toUpperCase());
         tv_target_token.setText(mTokenMapping.target_symbol.toUpperCase());
-        tv_token_name.setText(mTokenMapping.issue_symbol.toUpperCase());
-        BHBalanceHelper.loadTokenIcon(this,iv_issue,mTokenMapping.issue_symbol.toUpperCase());
+        tv_token_name.setText(mTokenMapping.coin_symbol.toUpperCase());
+        BHBalanceHelper.loadTokenIcon(this,iv_issue,mTokenMapping.coin_symbol.toUpperCase());
         BHBalanceHelper.loadTokenIcon(this,iv_target,mTokenMapping.target_symbol.toUpperCase());
     }
 
@@ -119,6 +117,7 @@ public class ExchangeCoinActivity extends BaseActivity
         mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(this);
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm -> {
+            LogUtils.d("ExchangeCoinActivity===>:","==LiveDataBus==");
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 updateAssets((AccountInfo) ldm.getData());
             }
@@ -142,7 +141,7 @@ public class ExchangeCoinActivity extends BaseActivity
         } else if (view.getId() == R.id.iv_exchange) {
             exchangeAnimatorAction();
         } else if(view.getId() == R.id.tv_issue_token){
-            ChooseTokenFragment.showDialog(getSupportFragmentManager(),ChooseTokenFragment.class.getName(),mIssueSymbol,this);
+            ChooseTokenFragment.showDialog(getSupportFragmentManager(),ChooseTokenFragment.class.getName(),mSymbol,this);
         }
     }
 
@@ -155,12 +154,12 @@ public class ExchangeCoinActivity extends BaseActivity
         }
 
         if (mTokenBalance == null || Double.valueOf(mTokenBalance.amount) <= 0) {
-            ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + mIssueSymbol.toUpperCase());
+            ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + mSymbol.toUpperCase());
             return;
         }
 
         if (Double.valueOf(mTokenBalance.amount) < Double.valueOf(map_amount)) {
-            ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + mIssueSymbol.toUpperCase());
+            ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + mSymbol.toUpperCase());
             return;
         }
 
@@ -199,8 +198,13 @@ public class ExchangeCoinActivity extends BaseActivity
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                tv_token_name.setText(mTokenMapping.issue_symbol.toUpperCase());
-                mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mIssueSymbol);
+                if(flag){
+
+                }
+                mSymbol = mTokenMapping.target_symbol;
+                mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
+                tv_token_name.setText(mTokenMapping.coin_symbol.toUpperCase());
+                mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
             }
 
             @Override
@@ -232,11 +236,11 @@ public class ExchangeCoinActivity extends BaseActivity
 
     @Override
     public void confirmAction(String password, int position, int way) {
-        String from_token = mTokenMapping.issue_symbol;
-        String to_token = mTokenMapping.target_symbol;
+        String coin_symbol = mTokenMapping.coin_symbol;
+        String issue_symbol = mTokenMapping.issue_symbol;
         String map_amount = inp_amount.getText().toString().trim();
         BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.createMappingSwap(to_token, from_token, map_amount,
+            BHSendTranscation bhSendTranscation = BHTransactionManager.createMappingSwap(issue_symbol, coin_symbol, map_amount,
                     BHConstants.BHT_DEFAULT_FEE, suquece, password);
             mTransactionViewModel.sendTransaction(this, bhSendTranscation);
             return 0;
@@ -258,17 +262,17 @@ public class ExchangeCoinActivity extends BaseActivity
             return;
         }
         mBhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
-        mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mIssueSymbol);
+        mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
     }
 
     @Override
     public void clickTokenPosition(BHTokenMapping tokenMapping) {
         flag = true;
         mTokenMapping = tokenMapping;
-        mIssueSymbol = mTokenMapping.issue_symbol;
-        mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mIssueSymbol);
-        tv_issue_token.setText(mTokenMapping.issue_symbol.toUpperCase());
+        mSymbol = mTokenMapping.issue_symbol;
+        mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
+        tv_issue_token.setText(mTokenMapping.coin_symbol.toUpperCase());
         tv_target_token.setText(mTokenMapping.target_symbol.toUpperCase());
-        tv_token_name.setText(mTokenMapping.issue_symbol.toUpperCase());
+        tv_token_name.setText(mTokenMapping.coin_symbol.toUpperCase());
     }
 }

@@ -437,7 +437,7 @@ public class BHRawTransaction {
     }
 
     //映射
-    public static BHRawTransaction createBHRawMappingSwap(String fromUser, String to_symbol, String fromSymbol, BigInteger amount, BigInteger feeAmount,String sequence){
+    public static BHRawTransaction createBHRawMappingSwap(String fromUser, String issue_symbol, String coinSymbol, BigInteger amount, BigInteger feeAmount,String sequence){
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = BHConstants.BH_MEMO;
         bhRawTransaction.sequence = sequence;
@@ -451,11 +451,11 @@ public class BHRawTransaction {
         txMsg.value = mappingSwapMsg;
 
         mappingSwapMsg.from = fromUser;
-        mappingSwapMsg.issue_symbol = to_symbol;
+        mappingSwapMsg.issue_symbol = issue_symbol;
 
         TxCoin txCoin = new TxCoin();
         txCoin.amount = amount.toString(10);
-        txCoin.denom = fromSymbol;
+        txCoin.denom = coinSymbol;
         mappingSwapMsg.coins.add(txCoin);
 
         bhRawTransaction.fee = getTransactionFee(feeAmount);

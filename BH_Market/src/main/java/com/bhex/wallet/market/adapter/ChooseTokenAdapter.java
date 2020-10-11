@@ -35,11 +35,11 @@ public class ChooseTokenAdapter extends BaseQuickAdapter<BHTokenMapping, BaseVie
 
     @Override
     protected void convert(@NotNull BaseViewHolder holder, BHTokenMapping item) {
-        holder.setText(R.id.tv_token_name,item.issue_symbol.toUpperCase());
+        holder.setText(R.id.tv_token_name,item.coin_symbol.toUpperCase());
         AppCompatImageView iv_token_icon = holder.getView(R.id.iv_token_icon);
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(item.issue_symbol.toLowerCase());
 
-        int resId = BHBalanceHelper.getDefaultResId(item.issue_symbol);
+        int resId = BHBalanceHelper.getDefaultResId(item.coin_symbol);
         if(resId==0){
             ImageLoaderUtil.loadImageView(getContext(),
                     bhToken.logo, iv_token_icon, R.mipmap.ic_default_coin);
@@ -48,12 +48,12 @@ public class ChooseTokenAdapter extends BaseQuickAdapter<BHTokenMapping, BaseVie
         }
 
         AppCompatTextView tv_token_amount = holder.getView(R.id.tv_token_amount);
-        BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(item.issue_symbol.toLowerCase());
+        BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(item.coin_symbol.toLowerCase());
 
-        String[]  res = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balance.amount,item.issue_symbol.toLowerCase(),false);
+        String[]  res = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balance.amount,item.coin_symbol.toLowerCase(),false);
         tv_token_amount.setText(res[0]);
 
-        if(item.issue_symbol.equalsIgnoreCase(mSymbol)){
+        if(item.coin_symbol.equalsIgnoreCase(mSymbol)){
             holder.getView(R.id.ck_token).setVisibility(View.VISIBLE);
         }else{
             holder.getView(R.id.ck_token).setVisibility(View.INVISIBLE);
