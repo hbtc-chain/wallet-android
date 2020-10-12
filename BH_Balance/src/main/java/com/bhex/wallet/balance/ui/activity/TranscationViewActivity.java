@@ -58,7 +58,7 @@ public class TranscationViewActivity extends TxBaseActivity {
         recycler_reward.setLayoutManager(lm);
 
         recycler_reward.setNestedScrollingEnabled(false);
-        mdvAdapter = new TranscationAdapter(R.layout.layout_reward,mList);
+        mdvAdapter = new TranscationAdapter(mList);
         recycler_reward.setAdapter(mdvAdapter);
         refreshLayout.setEnableLoadMore(false);
     }

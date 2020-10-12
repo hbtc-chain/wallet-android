@@ -32,10 +32,10 @@ import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.balance.presenter.AssetPresenter;
 import com.bhex.wallet.balance.ui.fragment.ReInvestShareFragment;
 import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
-import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHTokenMapping;
@@ -46,6 +46,7 @@ import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.tx.ValidatorMsg;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -126,7 +127,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     protected void initView() {
 
         ARouter.getInstance().inject(this);
-        tv_center_title.setText(getBHBalance().symbol.toUpperCase());
+        tv_center_title.setText(getBHBalance().name.toUpperCase());
 
         bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
 
@@ -148,7 +149,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         refreshLayout.setEnableLoadMore(false);
 
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
-        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
+        balanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class);
 
         transactionViewModel.initData(this,getBHBalance().symbol);
         //根据token 显示View

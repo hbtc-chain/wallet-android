@@ -34,7 +34,7 @@ public class BHToken {
      * logo :
      * opcus : ["HBCZAhTS5fknRkD69SgxARzTy5FViBHkt1qh","HBCM2s43tEC77x2yfycYUxPwKSjTxHYsMkSy","HBChzkC1FpVhJV24Kaw26wPcxJntPPCjQVx2","HBCjHfVzoupu8FAGVkg1NKqrPHt3brxMbUu7"]
      */
-
+    public String name;
     public String symbol;
     public String issuer;
     public String chain;
@@ -58,7 +58,7 @@ public class BHToken {
     public String logo;
     public List<String> opcus;
 
-    public String getSymbol() {
+    /*public String getSymbol() {
         return symbol;
     }
 
@@ -224,5 +224,5 @@ public class BHToken {
 
     public void setOpcus(List<String> opcus) {
         this.opcus = opcus;
-    }
+    }*/
 }

@@ -204,6 +204,7 @@ public class BHBalanceHelper {
                 continue;
             }
             BHBalance balance = new BHBalance();
+            balance.name = token.name;
             balance.chain = chainName;
             balance.symbol = token.symbol;
             balance.logo = token.logo;

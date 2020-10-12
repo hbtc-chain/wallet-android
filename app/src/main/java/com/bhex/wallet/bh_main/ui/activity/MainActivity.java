@@ -2,15 +2,10 @@ package com.bhex.wallet.bh_main.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.mvx.base.BaseActivity;
@@ -19,22 +14,15 @@ import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.BottomNavigationViewUtil;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.NavigateUtil;
-import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
-import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.event.NightEvent;
-import com.bhex.wallet.common.manager.MMKVManager;
-import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
-import com.bhex.wallet.mnemonic.ui.fragment.SecureTipsFragment;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.badge.BadgeUtils;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.bhex.wallet.common.manager.MainActivityManager;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,13 +41,14 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @BindView(R.id.main_bottom)
     BottomNavigationView mBottomNavigationView;
-    /*@Autowired(name="go_position")
-    String go_position;*/
 
     private long mExitTime = 0L;
     private int mCurrentCheckId = 0;
     //是否复位
     public static boolean isReset = true;
+
+    private BalanceViewModel balanceViewModel;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -68,6 +57,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
+        MainActivityManager._instance.mainActivity = this;
         RefreshLayoutManager.init();
         TRANSCATION_BUSI_TYPE.init(this);
     }
@@ -86,8 +76,10 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     protected void addEvent() {
+        balanceViewModel = ViewModelProviders.of(MainActivity.this).get(BalanceViewModel.class).build(MainActivity.this);
+        getLifecycle().addObserver(balanceViewModel);
+
         EventBus.getDefault().register(this);
-        LogUtils.d("MainActivity===>:","==addEvent=");
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.tab_balance:

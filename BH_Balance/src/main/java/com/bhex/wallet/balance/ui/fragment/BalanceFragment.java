@@ -27,17 +27,14 @@ import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
-import com.bhex.network.mvx.base.LazyLoadFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.ChainAdapter;
 import com.bhex.wallet.balance.event.BHCoinEvent;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
-import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.AccountEvent;
@@ -45,9 +42,11 @@ import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.utils.LiveDataBus;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.textview.MaterialTextView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -167,7 +166,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
                     .navigation();
         });
 
-        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(getYActivity());
+        balanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(getYActivity());
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
             refreshLayout.finishRefresh();
@@ -175,7 +174,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
                 updateAssets((AccountInfo) ldm.getData());
             }
         });
-        getLifecycle().addObserver(balanceViewModel);
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
             balanceViewModel.getAccountInfo(getYActivity(),null);
         });

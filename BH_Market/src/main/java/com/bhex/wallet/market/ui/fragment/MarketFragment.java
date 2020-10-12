@@ -73,7 +73,6 @@ public class MarketFragment extends BaseBowserFragment  {
 
     @Override
     protected void addEvent() {
-        LogUtils.d("MarketFragment===>:","==addEvent==");
         EventBus.getDefault().register(this);
     }
 

@@ -25,7 +25,6 @@ import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.presenter.TransferOutPresenter;
-import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -39,6 +38,7 @@ import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.warkiz.widget.SeekParams;
 
 import org.greenrobot.eventbus.EventBus;

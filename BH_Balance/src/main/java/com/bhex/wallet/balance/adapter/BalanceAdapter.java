@@ -60,7 +60,7 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         char initial = balanceItem.symbol.charAt(0);
         viewHolder.setText(R.id.tv_short_name,String.valueOf(initial).toUpperCase());*/
 
-        viewHolder.setText(R.id.tv_coin_name,balanceItem.symbol.toUpperCase());
+        viewHolder.setText(R.id.tv_coin_name,balanceItem.name.toUpperCase());
 
         AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);
 

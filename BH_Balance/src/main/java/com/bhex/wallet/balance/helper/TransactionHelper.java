@@ -269,4 +269,18 @@ public class TransactionHelper {
 
         }
     }
+
+
+    public  static boolean transactionIsProccess(String txType){
+        boolean flag = false;
+        if(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.兑换_输出确定.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.添加流动性.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.移除流动性.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.撤单.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.限价单兑换.getType().equalsIgnoreCase(txType)){
+            return flag;
+        }
+        return true;
+    }
 }

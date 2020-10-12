@@ -3,7 +3,6 @@ package com.bhex.wallet.balance.ui.activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,6 @@ import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
@@ -38,15 +36,15 @@ import com.bhex.wallet.balance.adapter.BalanceAdapter;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
-import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.utils.LiveDataBus;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -104,8 +102,9 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @BindView(R2.id.layout_scroll)
     NestedScrollView layout_scroll;
 
-    BalanceAdapter mBalanceAdapter;
     private BalanceViewModel balanceViewModel;
+
+    BalanceAdapter mBalanceAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -171,7 +170,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             startActivityForResult(intent,100);
         });
 
-        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(this);
+        balanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(this);
         //getLifecycle().addObserver(balanceViewModel);
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{

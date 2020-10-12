@@ -77,8 +77,8 @@ public enum TRANSCATION_BUSI_TYPE {
         治理提案投票.label=context.getResources().getString(R.string.vote_proposal);
         复投分红.label = context.getResources().getString(R.string.reinvset_share);
         映射.label = "映射";
-        兑换_输入确定.label = "兑换_输入确定";
-        兑换_输出确定.label = "兑换_输出确定";
+        兑换_输入确定.label = "兑换";
+        兑换_输出确定.label = "兑换";
         添加流动性.label = "添加流动性";
         移除流动性.label = "移除流动性";
         撤单.label = "撤单";

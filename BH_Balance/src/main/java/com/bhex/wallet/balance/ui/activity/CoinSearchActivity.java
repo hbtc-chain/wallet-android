@@ -131,11 +131,11 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
                     BHToast.showDefault(CoinSearchActivity.this,getResources().getString(R.string.add_balance_index)).show();
                     //添加至balanceMap
                     BHBalance item = bhCoinItem.getBHBalance();
-                    balanceMap.put(bhCoinItem.getSymbol().toLowerCase(),item);
+                    balanceMap.put(bhCoinItem.symbol.toLowerCase(),item);
                     BHBalanceHelper.addCoinSeachBalance(balanceList,item);
                 }else{
-                    balanceMap.remove(bhCoinItem.getSymbol().toLowerCase());
-                    BHBalanceHelper.removeCoinSeachBalance(balanceList,bhCoinItem.getSymbol().toLowerCase());
+                    balanceMap.remove(bhCoinItem.symbol.toLowerCase());
+                    BHBalanceHelper.removeCoinSeachBalance(balanceList,bhCoinItem.symbol.toLowerCase());
                 }
                 EventBus.getDefault().post(new BHCoinEvent(bhCoinItem,ck.isChecked()));
 

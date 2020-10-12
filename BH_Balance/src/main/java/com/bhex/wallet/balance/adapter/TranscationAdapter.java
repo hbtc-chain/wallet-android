@@ -1,5 +1,7 @@
 package com.bhex.wallet.balance.adapter;
 
+import android.view.View;
+
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.network.utils.JsonUtils;
@@ -9,6 +11,7 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.balance.helper.TransactionHelper;
 import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
@@ -30,8 +33,8 @@ import java.util.List;
  */
 public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.ActivitiesBean, BaseViewHolder> {
 
-    public TranscationAdapter(int layoutResId, @Nullable List<TransactionOrder.ActivitiesBean> data) {
-        super(layoutResId, data);
+    public TranscationAdapter(@Nullable List<TransactionOrder.ActivitiesBean> data) {
+        super(R.layout.layout_reward, data);
     }
     //BaseBean baseBean;
     @Override
@@ -88,10 +91,7 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
                 double amount = NumberUtil.divide(transferBean.getAmount().get(0).getAmount(), String.valueOf(Math.pow(10,decimals)),decimals);
 
                 String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
-                /*String signal = "-";
-                if(BHUserManager.getInstance().getCurrentBhWallet().address.equals(transferBean.getTo_address())){
-                    signal="+";
-                }*/
+
                 viewHolder.setText(R.id.tv_amount, amount_str+transferBean.getAmount().get(0).getDenom().toUpperCase());
             }catch (Exception e){
                 e.printStackTrace();
@@ -135,9 +135,9 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             double amount = NumberUtil.divide(withdrawalBean.amount, String.valueOf(Math.pow(10,decimals)),decimals);
             String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
             viewHolder.setText(R.id.tv_amount, amount_str+withdrawalBean.symbol.toUpperCase());
-
+        } else if(!TransactionHelper.transactionIsProccess(activitiesBean.type)){
+            viewHolder.itemView.setVisibility(View.GONE);
         }
-
         viewHolder.getView(R.id.iv_delegate_address_paste).setOnClickListener(v -> {
             ToolUtils.copyText(tv_delegate_address.getText().toString(),getContext());
             ToastUtils.showToast(getContext().getResources().getString(R.string.copyed));

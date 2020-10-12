@@ -1,7 +1,11 @@
 package com.bhex.wallet.app;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -10,6 +14,7 @@ import androidx.work.WorkManager;
 import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.work.RateSyncWork;
 
@@ -31,6 +36,7 @@ public class BHApplication extends BaseApplication {
         //夜间模式
         AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
         //rateSync();
+        registerActivityLifecycleCallbacks(new ActivityLifecycleListener());
     }
 
 
@@ -43,5 +49,49 @@ public class BHApplication extends BaseApplication {
     private void rateSync(){
         PeriodicWorkRequest.Builder builder = new PeriodicWorkRequest.Builder(RateSyncWork.class,15L,TimeUnit.SECONDS);
         WorkManager.getInstance().enqueue(builder.build());
+    }
+
+    class ActivityLifecycleListener implements ActivityLifecycleCallbacks{
+        private int refCount = 0;
+        @Override
+        public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+
+        }
+
+        @Override
+        public void onActivityStarted(@NonNull Activity activity) {
+            if(refCount==0){
+                LogUtils.d("BHApplication","========onActivityStarted=========");
+            }
+            refCount++;
+        }
+
+        @Override
+        public void onActivityResumed(@NonNull Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityPaused(@NonNull Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityStopped(@NonNull Activity activity) {
+            refCount--;
+            if(refCount == 0){
+                LogUtils.d("BHApplication","========onActivityStopped=========");
+            }
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+
+        }
+
+        @Override
+        public void onActivityDestroyed(@NonNull Activity activity) {
+
+        }
     }
 }

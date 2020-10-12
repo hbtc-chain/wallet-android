@@ -12,12 +12,12 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
-import com.bhex.wallet.balance.viewmodel.BalanceViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -34,6 +34,7 @@ import butterknife.BindView;
 public abstract class BaseTransferOutActivity<P extends BasePresenter> extends BaseActivity<P> {
 
     protected TransactionViewModel transactionViewModel;
+
     protected BalanceViewModel balanceViewModel;
 
     protected BHWallet mCurrentBhWallet;

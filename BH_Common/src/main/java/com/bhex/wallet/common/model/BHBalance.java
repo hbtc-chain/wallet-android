@@ -8,6 +8,7 @@ package com.bhex.wallet.common.model;
  */
 public class BHBalance {
     public int resId;
+    public String name;
     //币种
     public String symbol;
     //当前价格

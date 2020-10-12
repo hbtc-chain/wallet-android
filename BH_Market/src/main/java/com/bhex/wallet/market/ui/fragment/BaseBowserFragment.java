@@ -132,6 +132,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 if(data==null){
                     return;
                 }
+                LogUtils.d("BaseBrowseFragment===>:","sign=="+data.toString());
                 H5Sign h5Sign = JsonUtils.fromJson(data.toString(), H5Sign.class);
                 PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);
                 callbackMaps.put(h5Sign.type,callback);

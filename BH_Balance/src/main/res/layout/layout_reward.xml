@@ -20,7 +20,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/withdraw_income"
+            tools:text="@string/withdraw_income"
             android:textSize="17sp"
             android:textColor="@color/global_main_text_color"
             android:layout_centerVertical="true"
