@@ -34,6 +34,8 @@ public class TranscationViewActivity extends TxBaseActivity {
 
     @Autowired(name = "transactionId")
     public String transactionId;
+    @Autowired(name = "symbol")
+    public String mSymbol;
 
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
@@ -91,10 +93,8 @@ public class TranscationViewActivity extends TxBaseActivity {
             mList = mtxo.activities;
             mdvAdapter.getData().clear();
             mdvAdapter.addData(mtxo.activities);
-            TransactionHelper.displayTranscationAmount(this, tv_tranction_amount,
-                    mtxo.getActivities().get(0).getType(),
-                    mtxo.getActivities().get(0).getValue().toString(),
-                    JsonUtils.toJson(mtxo.getActivities()));
+            TransactionHelper.displayTranscationAmount( tv_tranction_amount,mSymbol,mtxo);
+
         }else if(ldm.loadingStatus == LoadingStatus.ERROR){
 
         }

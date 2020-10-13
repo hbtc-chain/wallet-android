@@ -30,7 +30,7 @@ public class CreateProposalPresenter extends BasePresenter {
 
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
         //DecimalFormat format = new DecimalFormat();
-        return NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
+        return NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
     }
 
     public boolean checkCreateProposal(String title, String desc, String available_amount, String amount, String fee_amount) {

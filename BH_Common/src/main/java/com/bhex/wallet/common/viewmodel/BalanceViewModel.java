@@ -76,6 +76,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 if(accountInfo!=null){
                     BHUserManager.getInstance().setAccountInfo(accountInfo);
                 }
+                //LogUtils.d("BalanceViewModel===>:","==getAccountInfo==");
                 LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
             }
 

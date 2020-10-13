@@ -75,7 +75,7 @@ public class BHBalanceHelper {
 
         double displayAmount = NumberUtil.divide(amount, Math.pow(10,decimals)+"");
 
-        result[0] = NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
+        result[0] = NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
         //法币价值
         double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,symbol);
         double asset = NumberUtil.mul(String.valueOf(displayAmount),String.valueOf(symbolPrice));
@@ -93,7 +93,7 @@ public class BHBalanceHelper {
         String tmp = NumberUtil.sub(TextUtils.isEmpty(amount)?"0":amount,TextUtils.isEmpty(frozen_amount)?"0":frozen_amount);
 
         double displayAmount = NumberUtil.divide(tmp, Math.pow(10,decimals)+"");
-        return NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
+        return NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
     }
 
     public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){

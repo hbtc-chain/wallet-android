@@ -22,7 +22,7 @@ public class TranscationDetailPresenter extends BasePresenter {
     }
 
     public void setTitle(Context context, TransactionOrder txo,AppCompatTextView tv_center_title){
-        TransactionOrder.ActivitiesBean activitiesBean = txo.getActivities().get(0);
+        TransactionOrder.ActivitiesBean activitiesBean = txo.activities.get(0);
 
     }
 }

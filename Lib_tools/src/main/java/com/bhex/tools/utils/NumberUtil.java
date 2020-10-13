@@ -148,7 +148,6 @@ public class NumberUtil {
      * @return
      */
     public static String formatValue(double val,int digit){
-        //val = 5.860474783807;
         int index = String.valueOf(val).indexOf(".");
         if(index>0){
             int dotLenght = String.valueOf(val).substring(index+1).length();
@@ -160,9 +159,6 @@ public class NumberUtil {
         df.setMaximumFractionDigits(digit);
         String  result = df.format(val);
         return result;
-        //BigDecimal decimal  = new BigDecimal(5.86047478);
-        //double  result = decimal.setScale(8,BigDecimal.ROUND_DOWN).doubleValue();
-        //return  String.valueOf(result);
     }
 
 
@@ -211,6 +207,18 @@ public class NumberUtil {
 
     public static String toPlainString(double f){
         return BigDecimal.valueOf(f).stripTrailingZeros().toPlainString();
+    }
+
+
+    public static String dispalyForUsertokenAmount4Level(String amount){
+        if(TextUtils.isEmpty(amount) || Double.valueOf(amount)==0){
+            return "0";
+        }
+        String result = formatValue(Double.valueOf(amount),4);
+
+        BigDecimal res=new BigDecimal(result);
+
+        return res.stripTrailingZeros().toPlainString();
     }
 
 }

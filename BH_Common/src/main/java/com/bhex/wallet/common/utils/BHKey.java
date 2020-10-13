@@ -136,7 +136,6 @@ public class BHKey {
         return ret;
     }
 
-
     public static String getBhexUserDpPubKey(BigInteger publicKey){
         String result = null;
         String pubHex = compressPubKey(publicKey);
@@ -145,20 +144,6 @@ public class BHKey {
         try {
             byte[] converted = convertBits(sumHexByte, 8,5,true);
             result = bech32Encode("hbtcpub".getBytes(), converted);
-        } catch (Exception e) {
-            Log.w(TAG,"getBHUserDpPubKey Error");
-
-        }
-        return result;
-    }
-
-    public static String getPocUserAddress(String publicKey){
-        String result = null;
-
-        byte[] sumHexByte = HexUtils.toBytes(publicKey);
-        try {
-            byte[] converted = convertBits(sumHexByte, 8,5,true);
-            result = bech32Encode("poc".getBytes(), converted);
         } catch (Exception e) {
             Log.w(TAG,"getBHUserDpPubKey Error");
 
@@ -175,17 +160,6 @@ public class BHKey {
         String address = base58Address(pubKeyHash);
         return address;
     }
-
-    public static String getBhexUserDpAddress2(BigInteger publicKey){
-        //公钥压缩
-        //String pubKey_compress = compressPubKey(publicKey);
-        //公钥hash
-        byte[] pubKeyHash = pubKeyCompressToHash(HexUtils.toHex(publicKey.toByteArray()));
-        //base58编码
-        String address = base58Address(pubKeyHash);
-        return address;
-    }
-
 
     /**
      * pubkey- 2次 hash
@@ -256,19 +230,5 @@ public class BHKey {
         String base64_signData = Base64.encode(sigData);
         return base64_signData;
     }
-
-
-    public static void test(){
-       /*byte[]bhbytes = Base58.decode("B");
-
-       byte[]hbcbytes = Base58.decode("H");
-
-       LogUtils.d("BHKey===>:","bhbytes==>:"+Arrays.toString(bhbytes)+"==hbcbytes=="+Arrays.toString(hbcbytes));*/
-
-       String address = "BAE9DB4BACD194FB7F22D803041AC033BD557511";
-       String dp = getPocUserAddress(address);
-       LogUtils.d("BHKey===>:","dp==>:"+dp);
-    }
-
 
 }

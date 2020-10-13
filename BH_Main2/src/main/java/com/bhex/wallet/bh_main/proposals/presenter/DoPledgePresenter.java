@@ -55,7 +55,7 @@ public class DoPledgePresenter extends BasePresenter {
 
         //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
         //DecimalFormat format = new DecimalFormat();
-        return NumberUtil.dispalyForUsertokenAmount(String.valueOf(displayAmount));
+        return NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
     }
 
 }

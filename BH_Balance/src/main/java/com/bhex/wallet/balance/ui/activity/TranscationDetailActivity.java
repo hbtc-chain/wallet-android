@@ -60,9 +60,8 @@ public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailP
         initBaseData();
 
 
-        TransactionHelper.displayTranscationAmount(this, tv_tranction_amount,
-                txo.activities.get(0).type,
-                txo.activities.get(0).value.toString(), JsonUtils.toJson(txo.activities));
+        //TransactionHelper.displayTranscationAmount( tv_tranction_amount,txo.activities.get(0).type,txo);
+
 
         TransactionHelper.displayTranscationFromTo(this, tv_from, tv_to,
                 txo.activities.get(0).type,

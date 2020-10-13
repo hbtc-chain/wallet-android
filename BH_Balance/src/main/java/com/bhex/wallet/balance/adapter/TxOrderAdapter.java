@@ -23,31 +23,29 @@ import java.util.List;
  * Time: 16:33
  */
 public class TxOrderAdapter extends BaseQuickAdapter<TransactionOrder, BaseViewHolder> {
-
-    public TxOrderAdapter(int layoutResId, @Nullable List<TransactionOrder> data) {
-        super(layoutResId, data);
+    private String mSymbol;
+    public TxOrderAdapter( @Nullable List<TransactionOrder> data,String symbol) {
+        super(R.layout.item_tx_order, data);
+        this.mSymbol = symbol;
     }
 
 
     @Override
     protected void convert(@NotNull BaseViewHolder vh, @Nullable TransactionOrder txo) {
-        TransactionOrder.ActivitiesBean bean = txo.getActivities().get(0);
         String tx_type = TransactionHelper.getTranscationType(getContext(),txo);
-
         vh.setText(R.id.tv_tx_type,tx_type);
         AppCompatTextView tv_status = vh.getView(R.id.tv_tx_status);
-        TransactionHelper.setTranscationStatus(getContext(),txo.isSuccess(),tv_status);
+        TransactionHelper.setTranscationStatus(getContext(),txo.success,tv_status);
 
         //时间格式化
         //LogUtils.d("long=="+(txo.getTime()*1000));
-        String tv_time = DateUtil.transTimeWithPattern(txo.getTime()*1000,DateUtil.DATA_TIME_STYLE);
+        String tv_time = DateUtil.transTimeWithPattern(txo.time*1000,DateUtil.DATA_TIME_STYLE);
         vh.setText(R.id.tv_tx_time,tv_time);
 
         //转账金额
         AppCompatTextView tv_tx = vh.getView(R.id.tv_tx_amount);
         tv_tx.setText("");
-        TransactionHelper.displayTranscationAmount(getContext(),tv_tx,bean.getType(),bean.getValue().toString(),
-                JsonUtils.toJson(txo.getActivities()));
+        TransactionHelper.displayTranscationAmount(tv_tx,mSymbol,txo);
 
     }
 

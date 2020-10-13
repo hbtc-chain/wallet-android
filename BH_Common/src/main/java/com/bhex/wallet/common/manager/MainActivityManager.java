@@ -1,6 +1,9 @@
 package com.bhex.wallet.common.manager;
 
+import androidx.lifecycle.ViewModelProviders;
+
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 
 /**
  * @author gongdongyang
@@ -13,6 +16,24 @@ public class MainActivityManager {
     public  BaseActivity mainActivity;
     private MainActivityManager(){
 
+    }
+
+    public void stopAssetRequest(){
+        if(mainActivity==null){
+            return;
+        }
+        BalanceViewModel balanceViewModel = ViewModelProviders.of(mainActivity).get(BalanceViewModel.class).build(mainActivity);
+
+        balanceViewModel.onDestroy();
+    }
+
+    public void startAssetRequest(){
+        if(mainActivity==null){
+            return;
+        }
+        BalanceViewModel balanceViewModel = ViewModelProviders.of(mainActivity).get(BalanceViewModel.class).build(mainActivity);
+
+        balanceViewModel.onCreate();
     }
 
 }

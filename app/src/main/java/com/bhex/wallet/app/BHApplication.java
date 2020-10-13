@@ -16,6 +16,8 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.bhex.wallet.common.work.RateSyncWork;
 
 import java.util.concurrent.TimeUnit;
@@ -62,6 +64,7 @@ public class BHApplication extends BaseApplication {
         public void onActivityStarted(@NonNull Activity activity) {
             if(refCount==0){
                 LogUtils.d("BHApplication","========onActivityStarted=========");
+                MainActivityManager._instance.startAssetRequest();
             }
             refCount++;
         }
@@ -81,6 +84,7 @@ public class BHApplication extends BaseApplication {
             refCount--;
             if(refCount == 0){
                 LogUtils.d("BHApplication","========onActivityStopped=========");
+                MainActivityManager._instance.stopAssetRequest();
             }
         }
 

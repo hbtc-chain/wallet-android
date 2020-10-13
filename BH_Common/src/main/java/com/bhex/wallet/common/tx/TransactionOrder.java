@@ -13,20 +13,18 @@ import java.util.List;
  */
 public class TransactionOrder implements Serializable {
 
-    public TransactionOrder() {
-    }
-
     /**
-     * hash : A2BB12B074A23339D0C072551F7B96B1949882B89B2139B67A180ABC08A26E88
-     * height : 369283
-     * fee : 2 bht
+     * hash : D0DBCDBE1E336E6D751F35FA6ED73B6B75A9BB7D6B0A6025F61DE846BE752E55
+     * height : 614
+     * fee : 2 hbc
      * success : true
      * error_message : null
-     * activities : [{"type":"cosmos-sdk/MsgSend","value":{"amount":[{"amount":"9223372036854775807","denom":"bht"}],"from_address":"BHYc5BsYgne5SPNKYreBGpjYY9jyXAHLGbK","to_address":"BHj2wujKtAxw9XZMA7zDDvjGqKjoYUdw1FZ"}}]
-     * time : 1586503293
-     * gas_used : 42276
+     * activities : [{"type":"hbtcchain/transfer/MsgSend","value":{"amount":[{"amount":"1000000000000000000000","denom":"hbc"}],"from_address":"HBCWa9Bsss6ufcrYAo7mQAUJ4duZiQHso5fn","to_address":"HBCU4g4vvvyCTpsMzGe2vW36Bp26g1fSEyFd"}}]
+     * time : 1602557644
+     * gas_used : 42460
      * gas_wanted : 2000000
-     * memo : test memo
+     * memo :
+     * balance_flows : [{"address":"HBCWa9Bsss6ufcrYAo7mQAUJ4duZiQHso5fn","symbol":"hbc","amount":"-1000"},{"address":"HBCU4g4vvvyCTpsMzGe2vW36Bp26g1fSEyFd","symbol":"hbc","amount":"1000"}]
      */
 
     public String hash;
@@ -39,85 +37,9 @@ public class TransactionOrder implements Serializable {
     public int gas_wanted;
     public String memo;
     public List<ActivitiesBean> activities;
+    public List<BalanceFlowsBean> balance_flows;
 
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public String getFee() {
-        return fee;
-    }
-
-    public void setFee(String fee) {
-        this.fee = fee;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public Object getError_message() {
-        return error_message;
-    }
-
-    public void setError_message(Object error_message) {
-        this.error_message = error_message;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public int getGas_used() {
-        return gas_used;
-    }
-
-    public void setGas_used(int gas_used) {
-        this.gas_used = gas_used;
-    }
-
-    public int getGas_wanted() {
-        return gas_wanted;
-    }
-
-    public void setGas_wanted(int gas_wanted) {
-        this.gas_wanted = gas_wanted;
-    }
-
-    public String getMemo() {
-        return memo;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
-
-    public List<ActivitiesBean> getActivities() {
-        return activities;
-    }
-
-    public void setActivities(List<ActivitiesBean> activities) {
-        this.activities = activities;
+    public TransactionOrder() {
     }
 
     public static class ActivitiesBean {
@@ -354,5 +276,17 @@ public class TransactionOrder implements Serializable {
                 public String denom;
             }
         }
+    }
+
+    public static class BalanceFlowsBean {
+        /**
+         * address : HBCWa9Bsss6ufcrYAo7mQAUJ4duZiQHso5fn
+         * symbol : hbc
+         * amount : -1000
+         */
+
+        public String address;
+        public String symbol;
+        public String amount;
     }
 }

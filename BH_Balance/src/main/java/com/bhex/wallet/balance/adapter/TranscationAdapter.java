@@ -50,7 +50,7 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             int decimals = SymbolCache.getInstance().getDecimals(delegateBean.amount.denom);
             double amount = NumberUtil.divide(delegateBean.amount.amount, String.valueOf(BHConstants.BHT_DECIMALS),decimals);
             //LogUtils.d("TranscationAdapter==>:","提取收益==amount=="+amount);
-            String amount_str = NumberUtil.dispalyForUsertokenAmount(String.valueOf(amount));
+            String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(amount));
             viewHolder.setText(R.id.tv_amount, amount_str+BHConstants.BHT_TOKEN.toUpperCase());
 
             viewHolder.setText(R.id.tv_delegate_address,delegateBean.delegator_address);
@@ -63,7 +63,7 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             int decimals = SymbolCache.getInstance().getDecimals(delegateBean.amount.denom);
 
             double amount = NumberUtil.divide(delegateBean.amount.amount, String.valueOf(BHConstants.BHT_DECIMALS),decimals);
-            String amount_str = NumberUtil.dispalyForUsertokenAmount(String.valueOf(amount));
+            String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(amount));
 
             viewHolder.setText(R.id.tv_amount, amount_str+BHConstants.BHT_TOKEN.toUpperCase());
             viewHolder.setText(R.id.tv_delegate_address,delegateBean.delegator_address);
@@ -90,7 +90,7 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
 
                 double amount = NumberUtil.divide(transferBean.getAmount().get(0).getAmount(), String.valueOf(Math.pow(10,decimals)),decimals);
 
-                String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
+                String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(amount+"");
 
                 viewHolder.setText(R.id.tv_amount, amount_str+transferBean.getAmount().get(0).getDenom().toUpperCase());
             }catch (Exception e){
@@ -115,7 +115,7 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             //充值数量
             int decimals = SymbolCache.getInstance().getDecimals(depositBean.symbol);
             double amount = NumberUtil.divide(depositBean.amount, String.valueOf(Math.pow(10,decimals)),decimals);
-            String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
+            String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(amount+"");
 
             viewHolder.setText(R.id.tv_amount, amount_str+depositBean.symbol.toUpperCase());
 
@@ -133,7 +133,7 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             //提币数量
             int decimals = SymbolCache.getInstance().getDecimals(withdrawalBean.symbol);
             double amount = NumberUtil.divide(withdrawalBean.amount, String.valueOf(Math.pow(10,decimals)),decimals);
-            String amount_str = NumberUtil.dispalyForUsertokenAmount(amount+"");
+            String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(amount+"");
             viewHolder.setText(R.id.tv_amount, amount_str+withdrawalBean.symbol.toUpperCase());
         } else if(!TransactionHelper.transactionIsProccess(activitiesBean.type)){
             viewHolder.itemView.setVisibility(View.GONE);
