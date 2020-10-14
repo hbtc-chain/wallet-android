@@ -40,9 +40,13 @@ public class QREncodUtil {
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
             // 容错级别
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+            hints.put(EncodeHintType.MARGIN, 1);
             // 图像数据转换，使用了矩阵转换
             BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, widthPix,
                     heightPix, hints);
+            bitMatrix = deleteWhite(bitMatrix);
+            widthPix = bitMatrix.getWidth();
+            heightPix = bitMatrix.getHeight();
             int[] pixels = new int[widthPix * heightPix];
             // 下面这里按照二维码的算法，逐个生成二维码的图片，
             // 两个for循环是图片横列扫描的结果
@@ -67,6 +71,22 @@ public class QREncodUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static BitMatrix deleteWhite(BitMatrix matrix) {
+        int[] rec = matrix.getEnclosingRectangle();
+        int resWidth = rec[2] + 1;
+        int resHeight = rec[3] + 1;
+
+        BitMatrix resMatrix = new BitMatrix(resWidth, resHeight);
+        resMatrix.clear();
+        for (int i = 0; i < resWidth; i++) {
+            for (int j = 0; j < resHeight; j++) {
+                if (matrix.get(i + rec[0], j + rec[1]))
+                    resMatrix.set(i, j);
+            }
+        }
+        return resMatrix;
     }
 
     /**
@@ -108,3 +128,4 @@ public class QREncodUtil {
         return bitmap;
     }
 }
+

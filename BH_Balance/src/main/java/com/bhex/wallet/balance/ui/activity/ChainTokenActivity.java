@@ -21,6 +21,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
@@ -64,7 +65,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @Autowired(name = "balance")
     BHBalance mBalance;
 
-
     @BindView(R2.id.layout_out_0)
     RelativeLayout layout_out_0;
     @BindView(R2.id.layout_index_1)
@@ -75,7 +75,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     RelativeLayout layout_index_3;
     @BindView(R2.id.layout_line)
     View layout_line;
-
+    @BindView(R2.id.empty_layout)
+    EmptyLayout empty_layout;
 
     @BindView(R2.id.btn_make_address)
     AppCompatTextView btn_make_address;
@@ -146,6 +147,10 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @Override
     protected void addEvent() {
         List<BHBalance> balanceList = BHBalanceHelper.loadBalanceByChain(mBalance.chain);
+        if(ToolUtils.checkListIsEmpty(balanceList)){
+            empty_layout.showNoData();
+            return;
+        }
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -177,6 +182,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){
                 updateAssets((AccountInfo) ldm.getData());
             }
+            refreshLayout.finishRefresh();
         });
         refreshLayout.autoRefresh();
     }
@@ -229,7 +235,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         }
         mPresenter.calculateAllTokenPrice(accountInfo,mBalanceAdapter.getData());
         mBalanceAdapter.notifyDataSetChanged();
-        refreshLayout.finishRefresh();
     }
 
     @Override

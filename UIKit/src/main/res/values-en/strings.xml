@@ -430,6 +430,7 @@
     <string name="tab_market">Market</string>
     <string name="please_input_memo_or_tag">Please input memo or tag</string>
     <string name="meno_or_tag">Memo or tag</string>
+    <string name="cross_link_transfer_tips">提示：充值非主链代币需要HBTC Chain账户拥有一定的对应主链代币作为归集手续费才可以入账。</string>
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>

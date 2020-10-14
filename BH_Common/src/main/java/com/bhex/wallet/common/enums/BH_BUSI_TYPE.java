@@ -1,5 +1,7 @@
 package com.bhex.wallet.common.enums;
 
+import com.bhex.tools.utils.RegexUtil;
+
 /**
  * @author gongdongyang
  * 2020-5-11 14:46:24
@@ -15,7 +17,8 @@ public enum BH_BUSI_TYPE {
     默认托管单元("1"), 非默认托管单元("0"),
     账户资产缓存("Account_Balance"),消息缓存("Message_List"),
     显示("0"),隐藏("1"),
-    校验当前账户密码("1"),校验选择账户密码("2");
+    校验当前账户密码("1"),校验选择账户密码("2"),
+    市场("market");
     public String value;
 
     BH_BUSI_TYPE(String value) {
@@ -23,6 +26,9 @@ public enum BH_BUSI_TYPE {
     }
 
     public int getIntValue(){
-        return Integer.valueOf(value);
+        if(RegexUtil.checkDigit(value)){
+            return Integer.valueOf(value);
+        }
+        return -999;
     }
 }

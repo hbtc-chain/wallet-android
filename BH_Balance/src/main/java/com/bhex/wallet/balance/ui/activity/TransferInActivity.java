@@ -7,10 +7,12 @@ import androidx.core.content.ContextCompat;
 
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseActivity;
@@ -43,6 +45,8 @@ public class TransferInActivity extends BaseActivity {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
+    @BindView(R2.id.layout_index_0)
+    LinearLayout layout_index_0;
 
     @BindView(R2.id.root_view)
     ConstraintLayout mRootView;
@@ -88,12 +92,23 @@ public class TransferInActivity extends BaseActivity {
 
         BHBalanceHelper.setTokenIcon(this,balance.symbol,iv_coin_ic);
 
-        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)||way== BH_BUSI_TYPE.链内转账.getIntValue()){
+        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
             deposit_address = mCurrentWallet.address;
             tv_trusteeship_address.setText(BHConstants.BHT_TOKEN.toUpperCase()+getResources().getString(R.string.trusteeship_address));
-        }else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
+            mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.blue_bg));
+            layout_index_0.setVisibility(View.GONE);
+        }else if( way == BH_BUSI_TYPE.链内转账.getIntValue()){
+            deposit_address = mCurrentWallet.address;
+            tv_trusteeship_address.setText(BHConstants.BHT_TOKEN.toUpperCase()+getResources().getString(R.string.trusteeship_address));
+            mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.tranfer_in_inner_bg));
+            ImmersionBar.with(this).statusBarColor(R.color.tranfer_in_inner_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_inner_bg).fitsSystemWindows(true).init();
+            layout_index_0.setVisibility(View.GONE);
+        } else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
             deposit_address = balance.external_address;
-            tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.trusteeship_address));
+            tv_trusteeship_address.setText(balance.symbol.toUpperCase()+getResources().getString(R.string.address));
+            mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.tranfer_in_out_bg));
+            ImmersionBar.with(this).statusBarColor(R.color.tranfer_in_out_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_out_bg).fitsSystemWindows(true).init();
+            layout_index_0.setVisibility(View.VISIBLE);
         }
 
         Bitmap bitmap = QREncodUtil.createQRCode(deposit_address,

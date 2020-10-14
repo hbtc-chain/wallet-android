@@ -3,6 +3,7 @@ package com.bhex.wallet.balance.helper;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
@@ -143,12 +144,12 @@ public class TransactionHelper {
 
     public static void displayTranscationAmount(AppCompatTextView tv,String symbol,TransactionOrder txo){
         if(ToolUtils.checkListIsEmpty(txo.balance_flows)){
+            tv.setVisibility(View.GONE);
             return;
         }
         String currentAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
         String txType = txo.activities.get(0).type;
-        /*LogUtils.d("TransactionHelper==>",TRANSCATION_BUSI_TYPE.兑换_输入确定.getType()+"=txType="+txType+"=="
-                +txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType()));*/
+
         for (TransactionOrder.BalanceFlowsBean bean:txo.balance_flows) {
             if(!bean.address.equalsIgnoreCase(currentAddress)){
                 continue;
@@ -157,7 +158,10 @@ public class TransactionHelper {
             String fmt_amount = NumberUtil.dispalyForUsertokenAmount4Level(bean.amount);
 
             if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType())
-                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.兑换_输出确定.getType())){
+                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.兑换_输出确定.getType())
+                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.添加流动性.getType())
+                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.移除流动性.getType())
+                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.限价单兑换.getType())){
                 if(bean.symbol.equalsIgnoreCase(symbol)){
                     tv.setText(fmt_amount+bean.symbol.toUpperCase());
                 }

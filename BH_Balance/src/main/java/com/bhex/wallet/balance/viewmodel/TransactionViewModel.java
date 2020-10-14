@@ -90,7 +90,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LogUtils.d("TransactionViewModel===>:","code=="+code);
                 LoadDataModel lmd = new LoadDataModel(code,errorMsg);
                 mutableLiveData.postValue(lmd);
             }

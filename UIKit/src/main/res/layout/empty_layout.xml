@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -13,11 +14,20 @@
         android:src="@mipmap/ic_net_work_error"
         android:visibility="gone" />
 
-    <ProgressBar
+    <!--<ProgressBar
         android:id="@+id/empty_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
+        />-->
+
+    <com.bhex.lib.uikit.widget.load.HwLoadingView
+        android:id="@+id/empty_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:hlv_color = "@color/blue_bg"
+        app:hlv_duration = "1500"
+        app:hlv_size="72dp"
         />
 
     <TextView

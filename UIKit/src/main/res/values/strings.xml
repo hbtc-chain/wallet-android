@@ -57,7 +57,7 @@
     <string name="setup_2_to_3">(第2步，共3步)</string>
     <string name="setup_3_to_3">(第3步，共3步)</string>
     <string name="set_pwd_tip_1">·安全密码是保护钱包私钥和操作资产的重要凭证</string>
-    <string name="set_pwd_tip_2">·BHTC Wallet钱包不会缓存、上传、存储您的密码</string>
+    <string name="set_pwd_tip_2">·HBTC Wallet钱包不会缓存、上传、存储您的密码</string>
     <string name="set_pwd_tip_3">·请务必妥善保管密码</string>
     <string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>
     <string name="pwd_index">%1$d个字符</string>
@@ -92,8 +92,8 @@
     <string name="hint_import_way">请选择导入方式</string>
     <string name="import_keystore">导入Keystore</string>
     <string name="string_import">导入</string>
-    <string name="bh_register_agreement">我已阅读并同意《BHTC Wallet服务协议》</string>
-    <string name="bh_register_agreement_sub">BHTC Wallet服务协议</string>
+    <string name="bh_register_agreement">我已阅读并同意《HBTC Wallet服务协议》</string>
+    <string name="bh_register_agreement_sub">HBTC Wallet服务协议</string>
     <string name="copy_address">复制地址</string>
     <string name="transfer_in">收款</string>
     <string name="draw_coin">提币</string>
@@ -432,6 +432,7 @@
     <string name="deleted">已删除</string>
     <string name="please_input_memo_or_tag">请输入 memo or tag</string>
     <string name="meno_or_tag">备注(请输入memo or tag)</string>
+    <string name="cross_link_transfer_tips">提示：充值非主链代币需要HBTC Chain账户拥有一定的对应主链代币作为归集手续费才可以入账。</string>
 
     <string-array name="my_list_item">
         <item>备份助记词</item>
@@ -491,6 +492,5 @@
     <string name="agreen">同意</string>
     <string name="reject">拒绝</string>
     <string name="choose_token">选择币种</string>
-
 
 </resources>
