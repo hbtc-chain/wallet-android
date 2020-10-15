@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
+    android:maxHeight="350dp"
     android:orientation="vertical"
     android:background="@drawable/shape_white_16_corner"
     tools:context=".ui.activity.ChooseTokenFragment">
@@ -12,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        >
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -84,10 +86,11 @@
             android:textSize="15sp" />
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.bhex.lib.uikit.widget.recyclerview.MaxHeightRecyclerView
         android:id="@+id/rec_token_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:maxHeight="320dp"
         tools:listitem="@layout/item_choose_token"
         />
 

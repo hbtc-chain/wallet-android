@@ -224,7 +224,7 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
             }
 
             //tokenName的格式[a-z0-9]
-            if(!RegexUtil.checkLowerLetterAndNum(inp_token_name.getInputString())){
+            if(!RegexUtil.checkLowerLetterAndNum(inp_token_name.getInputString().toLowerCase())){
                 flag = false;
             }
 

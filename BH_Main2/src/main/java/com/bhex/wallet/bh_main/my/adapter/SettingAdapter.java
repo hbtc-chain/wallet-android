@@ -29,8 +29,8 @@ public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
 
     private SwitchCheckListener switchCheckListener;
 
-    public SettingAdapter(int layoutResId, @Nullable List<MyItem> data,SwitchCheckListener listener) {
-        super(layoutResId, data);
+    public SettingAdapter( @Nullable List<MyItem> data,SwitchCheckListener listener) {
+        super(R.layout.item_setting, data);
         this.switchCheckListener = listener;
         //addChildClickViewIds(R.id.sc_theme);
         addChildClickViewIds(R.id.ck_select);

@@ -452,6 +452,12 @@
         <item>计价货币</item>
         <item>夜间模式</item>
         <item>指纹识别</item>
+        <item>安全设置</item>
+    </string-array>
+
+    <string-array name="security_list">
+        <item>每次操作都要密码(默认)</item>
+        <item>30分钟内免密码输入</item>
     </string-array>
 
     <string-array name="Currency_list">

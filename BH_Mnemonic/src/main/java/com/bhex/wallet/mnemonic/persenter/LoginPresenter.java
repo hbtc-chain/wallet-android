@@ -8,10 +8,10 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.MD5;
-import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.mnemonic.R;
 
 /**
@@ -48,9 +48,8 @@ public class LoginPresenter extends BasePresenter {
      * 密码验证
      */
     public void verifyPassword(String inputPwd, BHWallet bhWallet){
-        //String passwrod = MD5.generate(inputPwd);
         if(MD5.verify(inputPwd,bhWallet.getPassword())){
-            //NavigateUtil.startMainActivity(getActivity());
+            SecuritySettingManager.getInstance().recordPwd(inputPwd);
             ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE).navigation();
             getActivity().finish();
         }else{

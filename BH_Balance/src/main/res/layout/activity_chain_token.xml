@@ -19,178 +19,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
-                <LinearLayout
-                    android:id="@+id/layout_out_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingLeft="32dp"
-                    android:paddingBottom="32dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/shape_chain_shadow"
-                    >
-
-                    <RelativeLayout
-                        android:id="@+id/layout_index_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_hbc_addr_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/global_label_text_color"
-                            android:textSize="13sp"
-                            android:singleLine="true"
-                            android:maxLines="1"
-                            android:ellipsize="middle"
-                            android:text="@string/trusteeship_address"
-                            android:layout_marginRight="5dp"
-                            tools:ignore="EllipsizeMaxLines" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_hbc_address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:layout_below="@+id/tv_hbc_addr_label"
-                            android:layout_alignParentStart="true"
-                            android:layout_toLeftOf="@+id/iv_paste"
-                            android:gravity="center_vertical"
-                            android:maxWidth="250dp"
-                            android:textColor="@color/global_label_text_color"
-                            android:textSize="13sp"
-                            android:singleLine="true"
-                            android:maxLines="1"
-                            android:ellipsize="middle"
-                            tools:text="HBC2iohoihsfiohHBC2ioho"
-                            tools:ignore="EllipsizeMaxLines" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/iv_paste"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/tv_hbc_address"
-                            android:layout_toLeftOf="@+id/iv_qr"
-                            android:src="@mipmap/ic_paste_gray" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/iv_qr"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignTop="@+id/iv_paste"
-                            android:layout_marginEnd="12dp"
-                            android:src="@mipmap/ic_qr_code" />
-                    </RelativeLayout>
-                    <View
-                        android:id="@+id/layout_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@color/secondary_button_bg_color"
-                        />
-                    <RelativeLayout
-                        android:id="@+id/layout_index_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        >
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_token_addr_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="4dp"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/global_label_text_color"
-                            android:textSize="13sp"
-                            android:text="@string/crosslink_address"/>
-                        <RelativeLayout
-                            android:id="@+id/layout_index_2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_token_addr_label">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_token_address"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_toLeftOf="@+id/iv_token_paste"
-                                android:textColor="@color/global_label_text_color"
-                                android:textSize="13sp"
-                                tools:text="HBC2iohoihsfiohHBC2ioho"
-
-                                />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/iv_token_paste"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignTop="@+id/tv_token_address"
-                                android:layout_toLeftOf="@+id/iv_token_qr"
-                                android:src="@mipmap/ic_paste_gray" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/iv_token_qr"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignTop="@+id/iv_token_paste"
-                                android:layout_marginEnd="12dp"
-                                android:src="@mipmap/ic_qr_code" />
-                        </RelativeLayout>
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/btn_make_address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/blue_bg"
-                            android:textSize="13sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_below="@+id/tv_token_addr_label"
-                            android:text="点击生成跨链地址"
-                            />
-                    </RelativeLayout>
+                <include
+                    android:id="@+id/layout_index_0"
+                    layout="@layout/layout_hbc"
+                    />
 
 
+                <include
+                    android:id="@+id/layout_index_1"
+                    layout="@layout/layout_btc"
+                    />
 
-                </LinearLayout>
 
-                <RelativeLayout
-                    android:id="@+id/layout_out_0"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:paddingLeft="16dp"
-                    android:paddingBottom="16dp"
-                    tools:background="@drawable/shape_btn_blue">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_token_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        tools:text="HBC"/>
-
-                </RelativeLayout>
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/layout_out_1"
                     android:layout_marginTop="16dp"
                     android:minHeight="300dp"
                     >
@@ -209,7 +57,7 @@
                         tools:visibility="visible"
                         />
                 </FrameLayout>
-            </RelativeLayout>
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

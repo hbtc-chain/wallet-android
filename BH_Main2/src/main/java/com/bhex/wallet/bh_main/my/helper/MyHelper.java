@@ -9,9 +9,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.PackageUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
-import com.bhex.wallet.bh_main.BuildConfig;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.cache.CacheCenter;
@@ -23,6 +21,7 @@ import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.manager.SecuritySettingManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,8 +146,22 @@ public class MyHelper {
 
         double displayAmount = NumberUtil.divide(tmp, Math.pow(10,decimals)+"");
 
-        //LogUtils.d("BHBalanceHelper==>:","displayAmount==="+displayAmount);
-        //DecimalFormat format = new DecimalFormat();
         return NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
+    }
+
+    //安全设置
+    public static List<MyItem> getSecSettingItems(Context context){
+        List<MyItem> myItems = new ArrayList<>();
+        String [] res = context.getResources().getStringArray(R.array.security_list);
+        for (int i = 0; i < res.length; i++) {
+            if(i==0){
+                MyItem item = new MyItem(i,res[i], SecuritySettingManager.getInstance().every_time_pwd, "");
+                myItems.add(item);
+            }else if(i==1){
+                MyItem item = new MyItem(i,res[i], SecuritySettingManager.getInstance().thirty_in_time, "");
+                myItems.add(item);
+            }
+        }
+        return myItems;
     }
 }

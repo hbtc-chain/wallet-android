@@ -266,7 +266,7 @@ public class ExchangeCoinActivity extends BaseActivity
     public void clickTokenPosition(BHTokenMapping tokenMapping) {
         flag = true;
         mTokenMapping = tokenMapping;
-        mSymbol = mTokenMapping.issue_symbol;
+        mSymbol = mTokenMapping.coin_symbol;
         mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
         initMappingTokenView();
     }
@@ -301,6 +301,8 @@ public class ExchangeCoinActivity extends BaseActivity
     }
     private ChooseTokenFragment.ChooseTokenListener chooseTokenListener = item -> {
         tv_target_token.setText(item.target_symbol.toUpperCase());
-        mTokenMapping.target_symbol = item.target_symbol;
+        mTokenMapping = item;
+        //mTokenMapping.target_symbol = item.target_symbol;
+        BHBalanceHelper.loadTokenIcon(this,iv_target,mTokenMapping.target_symbol.toUpperCase());
     };
 }

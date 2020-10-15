@@ -65,9 +65,8 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_setting.setLayoutManager(layoutManager);
-        //mMyAdapter.setHasStableIds(true);
 
-        mSettingAdapter = new SettingAdapter(R.layout.item_setting,mItems,this);
+        mSettingAdapter = new SettingAdapter(mItems,this);
 
         recycler_setting.setAdapter(mSettingAdapter);
 
@@ -121,8 +120,8 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
             case 1:
                 ARouter.getInstance().build(ARouterConfig.MY_Rate_setting).withString("title",myItem.title).navigation();
                 break;
-            /*case 3:
-                ARouter.getInstance().build(ARouterConfig.MY_Recognition).withString("title",myItem.title).navigation();*/
+            case 4:
+                ARouter.getInstance().build(ARouterConfig.MY_Security_Setting).withString("title",myItem.title).navigation();
         }
     }
 

@@ -1,26 +1,18 @@
 package com.bhex.wallet.common.manager;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.FileUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
-import com.bhex.wallet.common.cache.CacheCenter;
-import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
-import com.kenai.jffi.Main;
 
 import org.web3j.crypto.Credentials;
-import org.web3j.crypto.MnemonicUtils;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,6 +25,8 @@ import java.util.List;
 public class BHUserManager {
 
     private final static String TAG = BHUserManager.class.getSimpleName();
+
+    private static volatile BHUserManager  _INSTANCE;
 
     private BHWallet tmpBhWallet;
 
@@ -48,10 +42,6 @@ public class BHUserManager {
 
     //助记词列表
     private List<String> mWordList;
-
-    private Class targetClass;
-
-    private static volatile BHUserManager  _INSTANCE;
 
     private BHUserManager(){
         tmpBhWallet = new BHWallet();
@@ -85,10 +75,6 @@ public class BHUserManager {
         return tmpBhWallet;
     }
 
-    /*public void setTmpBhWallet(BHWallet tmpBhWallet) {
-        this.tmpBhWallet = tmpBhWallet;
-    }*/
-
     public synchronized void setAllWallet(List<BHWallet> allWallet) {
         this.allWallet = allWallet;
         if(ToolUtils.checkListIsEmpty(allWallet)){
@@ -111,14 +97,6 @@ public class BHUserManager {
             return true;
         }
         return false;
-    }
-
-    public Class getTargetClass() {
-        return targetClass;
-    }
-
-    public void setTargetClass(Class targetClass) {
-        this.targetClass = targetClass;
     }
 
     public synchronized BHWallet getCurrentBhWallet() {
@@ -200,8 +178,8 @@ public class BHUserManager {
 
     public void clear(){
         tmpCredentials = null;
-        targetClass = null;
+        //targetClass = null;
+        MainActivityManager._instance.setTargetClass(null);
         tmpBhWallet = new BHWallet();
-        //mAccountInfo =
     }
 }

@@ -100,7 +100,7 @@ public interface BHttpApiInterface {
     Observable<JsonObject> updateNotificationStatus(@Path("addr") String address,
                                                       @Path("id") String id);
 
-    @GET("https://explorer.hbtc.com/api/v1/cus/{addr}/send_test_token")
+    @GET("/api/v1/cus/{addr}/send_test_token")
     Observable<JsonObject> send_test_token(@Path("addr") String address);
 
     //映射币对

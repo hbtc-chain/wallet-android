@@ -15,6 +15,7 @@ import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -63,8 +64,8 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
             fragment.setIKnowListener(TrusteeshipSuccessActivity.this);
         }else if(view.getId()== R.id.btn_later_backup){
 
-            if(BHUserManager.getInstance().getTargetClass()!=null &&
-                    BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+            if(MainActivityManager.getInstance().getTargetClass()!=null &&
+                    MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
                 EventBus.getDefault().post(new AccountEvent());
                 //BHUserManager.getInstance().clear();
             }

@@ -37,7 +37,6 @@ public class BHApplication extends BaseApplication {
         TypefaceUtils.replaceSystemDefaultFont(BHApplication.getInstance());
         //夜间模式
         AppCompatDelegate.setDefaultNightMode(MMKVManager.getInstance().getSelectNightMode());
-        //rateSync();
         registerActivityLifecycleCallbacks(new ActivityLifecycleListener());
     }
 
@@ -48,10 +47,10 @@ public class BHApplication extends BaseApplication {
         XCrash.init(this,new XCrash.InitParameters().setLogDir(getExternalFilesDir("tombstone").getAbsolutePath()));
     }
 
-    private void rateSync(){
+    /*private void rateSync(){
         PeriodicWorkRequest.Builder builder = new PeriodicWorkRequest.Builder(RateSyncWork.class,15L,TimeUnit.SECONDS);
         WorkManager.getInstance().enqueue(builder.build());
-    }
+    }*/
 
     class ActivityLifecycleListener implements ActivityLifecycleCallbacks{
         private int refCount = 0;
@@ -63,7 +62,6 @@ public class BHApplication extends BaseApplication {
         @Override
         public void onActivityStarted(@NonNull Activity activity) {
             if(refCount==0){
-                LogUtils.d("BHApplication","========onActivityStarted=========");
                 MainActivityManager._instance.startAssetRequest();
             }
             refCount++;
@@ -83,7 +81,6 @@ public class BHApplication extends BaseApplication {
         public void onActivityStopped(@NonNull Activity activity) {
             refCount--;
             if(refCount == 0){
-                LogUtils.d("BHApplication","========onActivityStopped=========");
                 MainActivityManager._instance.stopAssetRequest();
             }
         }

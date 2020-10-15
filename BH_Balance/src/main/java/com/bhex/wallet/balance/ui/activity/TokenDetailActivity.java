@@ -107,11 +107,10 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     AppCompatImageView iv_coin_ic;
 
     TxOrderAdapter mTxOrderAdapter;
-    TransactionViewModel transactionViewModel;
     List<TransactionOrder> mOrderList;
-
     BalanceViewModel balanceViewModel;
     int mCurrentPage = 1;
+    TransactionViewModel transactionViewModel;
 
     @Override
     protected int getLayoutId() {

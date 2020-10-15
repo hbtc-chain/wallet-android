@@ -15,6 +15,7 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHWalletItem;
+import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
@@ -82,6 +83,8 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
 
     @Override
     protected void addEvent() {
+        SecuritySettingManager.getInstance().initSecuritySetting();
+
         walletVM = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletVM.mutableLiveData.observe(this, loadDataModel -> {
             if (loadDataModel.loadingStatus == LoadingStatus.SUCCESS) {

@@ -33,7 +33,8 @@ public class BHTokenMapping {
     public BHTokenMapping() {
     }
 
-    public BHTokenMapping(String issue_symbol, String target_symbol, String total_supply, String issue_pool, boolean enabled) {
+    public BHTokenMapping(String coin_symbol, String issue_symbol, String target_symbol, String total_supply, String issue_pool, boolean enabled) {
+        this.coin_symbol = coin_symbol;
         this.issue_symbol = issue_symbol;
         this.target_symbol = target_symbol;
         this.total_supply = total_supply;

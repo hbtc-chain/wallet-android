@@ -20,6 +20,7 @@ import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
@@ -163,8 +164,8 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
      *
      */
     private void gotoTarget(){
-        if(BHUserManager.getInstance().getTargetClass()!=null &&
-                BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+        if(MainActivityManager.getInstance().getTargetClass()!=null &&
+                MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
             NavigateUtil.startMainActivity(this,new String[]{});
 

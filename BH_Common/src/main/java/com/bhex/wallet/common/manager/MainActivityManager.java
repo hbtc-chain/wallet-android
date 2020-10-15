@@ -14,8 +14,15 @@ public class MainActivityManager {
     public static volatile  MainActivityManager _instance = new MainActivityManager();
 
     public  BaseActivity mainActivity;
+
+    private Class targetClass;
+
     private MainActivityManager(){
 
+    }
+
+    public static MainActivityManager getInstance(){
+        return _instance;
     }
 
     public void stopAssetRequest(){
@@ -36,4 +43,12 @@ public class MainActivityManager {
         balanceViewModel.onCreate();
     }
 
+
+    public Class getTargetClass() {
+        return targetClass;
+    }
+
+    public void setTargetClass(Class targetClass) {
+        this.targetClass = targetClass;
+    }
 }

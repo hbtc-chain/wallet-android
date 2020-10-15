@@ -450,6 +450,7 @@
         <item>Currency Unit</item>
         <item>Night mode</item>
         <item>Touch ID</item>
+        <item>Security setting</item>
     </string-array>
 
     <string-array name="Currency_list">
@@ -462,6 +463,11 @@
 
     <string-array name="Recongition_list">
         <item>指纹识别</item>
+    </string-array>
+
+    <string-array name="security_list">
+        <item>每次操作都要密码(默认)</item>
+        <item>30分钟内免密码输入</item>
     </string-array>
 
     <string-array name="Message_type">

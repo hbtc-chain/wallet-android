@@ -82,10 +82,12 @@ public class TokenMapCache extends BaseCache {
                         }
 
                         for (BHTokenMapping item:tokens) {
+                            if(!item.enabled){
+                                continue;
+                            }
                             item.coin_symbol = item.issue_symbol;
                             mTokenMappings.add(item);
-                            BHTokenMapping reverseItem = new BHTokenMapping(item.issue_symbol,item.issue_symbol,item.total_supply,item.issue_pool,item.enabled);
-                            reverseItem.coin_symbol = item.target_symbol;
+                            BHTokenMapping reverseItem = new BHTokenMapping(item.target_symbol,item.issue_symbol,item.issue_symbol,item.total_supply,item.issue_pool,item.enabled);
                             mTokenMappings.add(reverseItem);
                         }
 

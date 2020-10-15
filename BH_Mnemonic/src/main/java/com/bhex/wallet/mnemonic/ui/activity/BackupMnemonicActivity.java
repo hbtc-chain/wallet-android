@@ -20,6 +20,7 @@ import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.MnemonicAdapter;
@@ -89,8 +90,8 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if(BHUserManager.getInstance().getTargetClass()!=null &&
-                BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+        if(MainActivityManager.getInstance().getTargetClass()!=null &&
+                MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             EventBus.getDefault().post(new AccountEvent());
             NavigateUtil.startMainActivity(this,new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
             ActivityCache.getInstance().finishActivity();
@@ -104,8 +105,8 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(BHUserManager.getInstance().getTargetClass()!=null &&
-                BHUserManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+        if(MainActivityManager.getInstance().getTargetClass()!=null &&
+                MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             EventBus.getDefault().post(new AccountEvent());
             BHUserManager.getInstance().clear();
             ActivityCache.getInstance().finishActivity();

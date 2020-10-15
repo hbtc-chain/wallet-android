@@ -1,5 +1,6 @@
 package com.bhex.wallet.balance.ui.activity;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.indicator.OnSampleSeekChangeListener;
@@ -31,6 +33,7 @@ import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
@@ -94,8 +97,12 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         lp.addRule(RelativeLayout.LEFT_OF,R.id.iv_right);
         tv_to_address.getEditText().setLayoutParams(lp);
 
-
-        initTokenView();
+        refreshLayout.setOnRefreshListener(refreshLayout -> {
+            balanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
+            SymbolCache.getInstance().beginLoadCache();
+        });
+        refreshLayout.autoRefresh();
+        updateAvailableView();
     }
 
     @Override
@@ -133,7 +140,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             }
         });
 
-        balanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class).build(this);
+        balanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(MainActivityManager._instance.mainActivity);
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
             if(ldm.loadingStatus==LoadingStatus.SUCCESS){
@@ -183,7 +190,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         feeBalance = BHBalanceHelper.getBHBalanceFromAccount(getBalance().chain);
         bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
         updateAvailableView();
-
     }
 
     private void updateAvailableView(){
@@ -228,7 +234,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 et_withdraw_fee.getInputStringTrim(),
                 bhToken.withdrawal_fee,feeBalance
         );
-
 
         if(flag){
             PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
@@ -279,7 +284,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         //String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.getInputString();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-        //String memo = input_memo.getInputString();
         //链内
         if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
             String withDrawAmount = ed_transfer_amount.getInputStringTrim();

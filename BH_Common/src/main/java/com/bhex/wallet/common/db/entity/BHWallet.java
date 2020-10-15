@@ -53,6 +53,9 @@ public class BHWallet {
     @Ignore
     public List<String> mWords;
 
+    @Ignore
+    public String pwd;
+
     @ColumnInfo(name = "way")
     public int way;//0 生成 1 助记词导入 2 导入keystore 3.私钥
 

@@ -31,7 +31,8 @@ public class ARouterConfig {
     public static final String MY_Message = "/my/message";
     //识别设置
     public static final String MY_Recognition = "/my/Recognition";
-
+    //安全设置
+    public static final String MY_Security_Setting = "/my/Security_Setting";
 
     /**
      * 助记词模块
@@ -108,6 +109,5 @@ public class ARouterConfig {
 
 
     public static final String Market_exchange_coin = "/market/exchange/coin";
-
 
 }

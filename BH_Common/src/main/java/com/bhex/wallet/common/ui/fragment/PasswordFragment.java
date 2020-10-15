@@ -2,7 +2,6 @@ package com.bhex.wallet.common.ui.fragment;
 
 
 import android.app.Dialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,13 +22,13 @@ import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.google.android.material.button.MaterialButton;
 
 import butterknife.BindView;
@@ -109,7 +107,13 @@ public class PasswordFragment extends BaseDialogFragment {
         PasswordFragment pfrag = new PasswordFragment();
         pfrag.passwordClickListener = listener;
         pfrag.position = position;
-        pfrag.show(fm, tag);
+        if(SecuritySettingManager.getInstance().notNeedPwd()){
+            pfrag.passwordClickListener.confirmAction(
+                    BHUserManager.getInstance().getCurrentBhWallet().pwd,
+                    position,BH_BUSI_TYPE.校验当前账户密码.getIntValue());
+        }else{
+            pfrag.show(fm, tag);
+        }
         return pfrag;
     }
 
@@ -118,36 +122,31 @@ public class PasswordFragment extends BaseDialogFragment {
         if (view.getId() == R.id.btn_cancel) {
             dismiss();
         } else if (view.getId() == R.id.btn_confirm) {
-            if (passwordClickListener != null) {
-                BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
-                String inputPassword = inp_wallet_pwd.getInputString().trim();
-
-                ToolUtils.hintKeyBoard(getActivity(),inp_wallet_pwd.getEditText());
-
-                if(TextUtils.isEmpty(inputPassword)){
-                    ToastUtils.showToast(getResources().getString(R.string.please_input_password));
-                    return;
-                }
-
-                if(verifyPwdWay== BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
-                    if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
-                        ToastUtils.showToast(getResources().getString(R.string.error_password));
-                        return;
-                    }
-
-                    passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
-                    dismiss();
-                }else {
-                    passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
-                }
-
+            if (passwordClickListener == null) {
+                return;
             }
 
-        }
-    }
+            BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
+            String inputPassword = inp_wallet_pwd.getInputString().trim();
 
-    public PasswordClickListener getPasswordClickListener() {
-        return passwordClickListener;
+            ToolUtils.hintKeyBoard(getActivity(),inp_wallet_pwd.getEditText());
+
+            if(TextUtils.isEmpty(inputPassword)){
+                ToastUtils.showToast(getResources().getString(R.string.please_input_password));
+                return;
+            }
+
+            if(verifyPwdWay== BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
+                if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
+                    ToastUtils.showToast(getResources().getString(R.string.error_password));
+                    return;
+                }
+                passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+                dismiss();
+            }else {
+                passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+            }
+        }
     }
 
     public void setPasswordClickListener(PasswordClickListener passwordClickListener) {

@@ -64,7 +64,7 @@ public class SymbolCache extends BaseCache {
         loadSymbol();
     }
 
-    public void loadSymbol(){
+    private void loadSymbol(){
         Type type = (new TypeToken<JsonObject>() {}).getType();
 
         BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,1000)

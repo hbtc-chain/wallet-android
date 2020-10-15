@@ -86,4 +86,9 @@
         <attr name="hlv_duration" format="integer"/>
     </declare-styleable>
 
+    <!--可设置最大高度的RecycleView-->
+    <declare-styleable name="MaxHeightRecyclerView">
+        <attr name="maxHeight" format="dimension"></attr>
+    </declare-styleable>
+
 </resources>

@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         app:hlv_color = "@color/blue_bg"
         app:hlv_duration = "1500"
-        app:hlv_size="72dp"
+        app:hlv_size="56dp"
         />
 
     <TextView

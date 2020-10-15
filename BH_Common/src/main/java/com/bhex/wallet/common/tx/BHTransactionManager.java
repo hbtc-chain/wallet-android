@@ -40,6 +40,31 @@ import java.util.Map;
  */
 public class BHTransactionManager {
 
+    public static String signBHRawTranscation(BHCredentials bhCredentials,String message){
+        Sha256Hash input = Sha256Hash.wrap(Sha256.from(message.getBytes()).toString());
+        ECKey.ECDSASignature signature =  bhCredentials.ecKey.sign(input);
+        String sign = BHKey.signECDSA(signature);
+        return sign;
+    }
+
+    public static void loadSuquece(CallbackSuquece callback){
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .compose(RxSchedulersHelper.io_main())
+                .subscribe(jsonObject -> {
+                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                    if(TextUtils.isEmpty(accountInfo.getSequence())){
+                        return;
+                    }
+                    if(callback!=null){
+                        callback.onSuquece(accountInfo.getSequence());
+                    }
+
+                });
+    }
+
+
     /**
      * @param to
      * @param amount
@@ -57,6 +82,7 @@ public class BHTransactionManager {
                                       String sequence,
                                       //String memo,
                                       String symbol){
+
         String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
@@ -83,29 +109,7 @@ public class BHTransactionManager {
         //
     }
 
-    public static String signBHRawTranscation(BHCredentials bhCredentials,String message){
-        Sha256Hash input = Sha256Hash.wrap(Sha256.from(message.getBytes()).toString());
-        ECKey.ECDSASignature signature =  bhCredentials.ecKey.sign(input);
-        String sign = BHKey.signECDSA(signature);
-        return sign;
-    }
 
-    public static void loadSuquece(CallbackSuquece callback){
-
-        BHttpApi.getService(BHttpApiInterface.class)
-                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
-                .compose(RxSchedulersHelper.io_main())
-                .subscribe(jsonObject -> {
-                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
-                    if(TextUtils.isEmpty(accountInfo.getSequence())){
-                        return;
-                    }
-                    if(callback!=null){
-                        callback.onSuquece(accountInfo.getSequence());
-                    }
-
-                });
-    }
 
 
     /**
