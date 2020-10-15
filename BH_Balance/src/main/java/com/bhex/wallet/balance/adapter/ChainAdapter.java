@@ -41,12 +41,13 @@ public class ChainAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
         AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
         iv.setImageResource(0);
-        if(balanceItem.resId==0){
-            ImageLoaderUtil.loadImageView(getContext(),
-                    balanceItem.logo, iv,R.mipmap.ic_default_coin);
+        /*if(balanceItem.resId==0){
+
         }else{
             iv.setImageResource(balanceItem.resId);
-        }
+        }*/
+        ImageLoaderUtil.loadImageView(getContext(),
+                balanceItem.logo, iv,R.mipmap.ic_default_coin);
         viewHolder.setText(R.id.tv_coin_name,balanceItem.symbol.toUpperCase());
 
         AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);

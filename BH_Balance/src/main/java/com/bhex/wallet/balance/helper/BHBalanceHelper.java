@@ -114,6 +114,8 @@ public class BHBalanceHelper {
         BHBalance balance = new BHBalance();
         balance.amount="0";
         balance.symbol = symbol;
+        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
+        balance.chain = bhToken.chain;
         if(accountInfo==null){
             return balance;
         }
@@ -127,8 +129,7 @@ public class BHBalanceHelper {
             if(assetsBean.getSymbol()!=null && assetsBean.getSymbol().equalsIgnoreCase(symbol)){
 
                 balance.symbol = assetsBean.getSymbol();
-                BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
-                balance.chain = bhToken.chain;
+
                 balance.amount = assetsBean.getAmount();
                 balance.frozen_amount = assetsBean.getFrozen_amount();
                 balance.address = assetsBean.getExternal_address();
@@ -235,17 +236,11 @@ public class BHBalanceHelper {
             resId = 0;
         }
         return resId;
-
     }
 
     public static void loadTokenIcon(Context context, AppCompatImageView iv,String symbol){
-        BHBalance balanceItem = getBHBalanceBySymbol(symbol);
-        if(balanceItem.resId==0){
-            ImageLoaderUtil.loadImageView(context,
-                    balanceItem.logo, iv,R.mipmap.ic_default_coin);
-        }else{
-            iv.setImageResource(balanceItem.resId);
-        }
+        BHToken item = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol.toLowerCase());
+        ImageLoaderUtil.loadImageView(context,item.logo, iv,R.mipmap.ic_default_coin);
     }
 
 }

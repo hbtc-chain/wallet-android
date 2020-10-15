@@ -38,7 +38,7 @@ public class TokenMapCache extends BaseCache {
 
     public static final String CACHE_KEY = "TokenMapCache";
 
-    private LinkedHashMap<String,BHTokenMapping> mTokenMappings = new LinkedHashMap<>();
+    private List<BHTokenMapping> mTokenMappings = new ArrayList<>();
 
 
     private static volatile TokenMapCache _instance;
@@ -83,10 +83,10 @@ public class TokenMapCache extends BaseCache {
 
                         for (BHTokenMapping item:tokens) {
                             item.coin_symbol = item.issue_symbol;
-                            mTokenMappings.put(item.issue_symbol,item);
+                            mTokenMappings.add(item);
                             BHTokenMapping reverseItem = new BHTokenMapping(item.issue_symbol,item.issue_symbol,item.total_supply,item.issue_pool,item.enabled);
                             reverseItem.coin_symbol = item.target_symbol;
-                            mTokenMappings.put(reverseItem.coin_symbol,reverseItem);
+                            mTokenMappings.add(reverseItem);
                         }
 
                         LogUtils.d("TokenMapCache==>:","=mTokenMappings="+mTokenMappings.size());
@@ -100,11 +100,30 @@ public class TokenMapCache extends BaseCache {
                 });
     }
 
-    public  BHTokenMapping getTokenMapping(String symbol){
-        return  mTokenMappings.get(symbol.toLowerCase());
+    public  List<BHTokenMapping> getTokenMapping(String symbol){
+        List<BHTokenMapping> res = new ArrayList<>();
+        for(BHTokenMapping item:mTokenMappings){
+            if(item.coin_symbol.equalsIgnoreCase(symbol)){
+                res.add(item);
+            }
+        }
+        return res;
+    }
+
+    public  BHTokenMapping getTokenMappingOne(String symbol){
+        for(BHTokenMapping item:mTokenMappings){
+            if(item.coin_symbol.equalsIgnoreCase(symbol)){
+                return item;
+            }
+        }
+        return null;
     }
 
     public List<BHTokenMapping> getTokenMappings() {
-        return new ArrayList<>(mTokenMappings.values());
+        LinkedHashMap<String,BHTokenMapping> maps = new LinkedHashMap<>();
+        for (BHTokenMapping item:mTokenMappings) {
+            maps.put(item.coin_symbol,item);
+        }
+        return new ArrayList<>(maps.values());
     }
 }

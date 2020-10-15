@@ -27,37 +27,42 @@ import java.util.List;
  */
 public class ChooseTokenAdapter extends BaseQuickAdapter<BHTokenMapping, BaseViewHolder> {
     private String mSymbol;
+    private int mOrigin;
 
-    public ChooseTokenAdapter( @Nullable List<BHTokenMapping> data,String symbol) {
+    public ChooseTokenAdapter( @Nullable List<BHTokenMapping> data,String symbol,int origin) {
         super(R.layout.item_choose_token, data);
         this.mSymbol = symbol;
+        this.mOrigin = origin;
     }
 
     @Override
     protected void convert(@NotNull BaseViewHolder holder, BHTokenMapping item) {
-        holder.setText(R.id.tv_token_name,item.coin_symbol.toUpperCase());
+        holder.setText(R.id.tv_token_name,(mOrigin==0)?item.coin_symbol.toUpperCase():item.target_symbol.toUpperCase());
         AppCompatImageView iv_token_icon = holder.getView(R.id.iv_token_icon);
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(item.issue_symbol.toLowerCase());
-
-        int resId = BHBalanceHelper.getDefaultResId(item.coin_symbol);
-        if(resId==0){
-            ImageLoaderUtil.loadImageView(getContext(),
-                    bhToken.logo, iv_token_icon, R.mipmap.ic_default_coin);
-        }else{
-            iv_token_icon.setImageResource(resId);
-        }
+        ImageLoaderUtil.loadImageView(getContext(),
+                bhToken.logo, iv_token_icon, R.mipmap.ic_default_coin);
 
         AppCompatTextView tv_token_amount = holder.getView(R.id.tv_token_amount);
-        BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(item.coin_symbol.toLowerCase());
 
+        BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount((mOrigin==0)?item.coin_symbol.toLowerCase():item.target_symbol.toLowerCase());
         String[]  res = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balance.amount,item.coin_symbol.toLowerCase(),false);
         tv_token_amount.setText(res[0]);
 
-        if(item.coin_symbol.equalsIgnoreCase(mSymbol)){
-            holder.getView(R.id.ck_token).setVisibility(View.VISIBLE);
+        if(mOrigin==0){
+            if(item.coin_symbol.equalsIgnoreCase(mSymbol)){
+                holder.getView(R.id.ck_token).setVisibility(View.VISIBLE);
+            }else{
+                holder.getView(R.id.ck_token).setVisibility(View.INVISIBLE);
+            }
         }else{
-            holder.getView(R.id.ck_token).setVisibility(View.INVISIBLE);
+            if(item.target_symbol.equalsIgnoreCase(mSymbol)){
+                holder.getView(R.id.ck_token).setVisibility(View.VISIBLE);
+            }else{
+                holder.getView(R.id.ck_token).setVisibility(View.INVISIBLE);
+            }
         }
+
     }
 
 

@@ -75,10 +75,6 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
             menuFragment.setMenuListListener(crossOperatorListener);
             menuFragment.show(getSupportFragmentManager(),MenuListFragment.class.getSimpleName());
         }else if(view.getId() == R.id.cross_chian_withdraw){
-            /*ArrayList<MenuItem> list = BHBalanceHelper.loadExchangeActionList(this);
-            MenuListFragment menuFragment = MenuListFragment.newInstance(list);
-            menuFragment.setMenuListListener(exchagneOperatorListener);
-            menuFragment.show(getSupportFragmentManager(),MenuListFragment.class.getSimpleName());*/
             ARouter.getInstance().build(ARouterConfig.Market_exchange_coin).withString("symbol",balance.symbol).navigation();
         }
     }
@@ -139,18 +135,4 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
                     .navigation();
         }
     };
-
-
-    /*public MenuListFragment.MenuListListener exchagneOperatorListener  = (item, itemView, position) -> {
-        if(position==0){
-            ARouter.getInstance().build(ARouterConfig.Market_exchange_coin).navigation();
-        }else{
-            Postcard postcard = ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE);
-            LogisticsCenter.completion(postcard);
-            Intent intent = new Intent(this, postcard.getDestination());
-            intent.putExtra("go_position", MAIN_BUSI_TYPE.市场.label);
-            intent.putExtras(postcard.getExtras());
-            startActivity(intent);
-        }
-    };*/
 }

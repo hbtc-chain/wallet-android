@@ -9,9 +9,11 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.DelegateValidator;
+import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.DoEntrustMsg;
 import com.bhex.wallet.common.tx.TxCoin;
 import com.bhex.wallet.common.tx.TxSignature;
@@ -52,7 +54,8 @@ public class AssetPresenter extends BasePresenter {
         for(AccountInfo.AssetsBean assetsBean:assetsBeanList){
             if(assetsBean.getSymbol().equalsIgnoreCase(BHConstants.BHT_TOKEN)){
                 balance.symbol = assetsBean.getSymbol();
-                balance.chain = assetsBean.getSymbol();
+                BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
+                balance.chain = bhToken.chain;
                 balance.amount = assetsBean.getAmount();
                 balance.frozen_amount = assetsBean.getFrozen_amount();
                 balance.address = assetsBean.getExternal_address();
@@ -93,6 +96,8 @@ public class AssetPresenter extends BasePresenter {
         if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){
             balance.external_address = chainBalance.external_address;
         }
+        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
+        balance.chain = bhToken.chain;
         balance.frozen_amount = assetsBean.getFrozen_amount();
     }
 

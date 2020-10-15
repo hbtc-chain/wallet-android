@@ -45,11 +45,13 @@ public class MyHelper {
             if(i==5){
                 item = new MyItem(i,res[i], false, BHConstants.EMAIL);
             } else if (i == 6) {
-                if(!BuildConfig.BUILD_TYPE.equals("release")){
+                /*if(!BuildConfig.BUILD_TYPE.equals("release")){
                     item = new MyItem(i,res[i], false, "v"+PackageUtils.getVersionName(context)+"_"+PackageUtils.getVersionCode(context));
                 }else{
                     item = new MyItem(i,res[i], false, "v"+PackageUtils.getVersionName(context));
-                }
+                }*/
+                item = new MyItem(i,res[i], false, "v"+PackageUtils.getVersionName(context)+"_"+PackageUtils.getVersionCode(context));
+
             } else {
                 item = new MyItem(i,res[i], true, "");
             }

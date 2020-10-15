@@ -30,14 +30,10 @@ public class ImageLoaderUtil {
            mImageView.setImageResource(resId);
            return;
         }
-        if(!path.equals(mImageView.getTag())){
-            mImageView.setTag(null);
-            Glide.with(mContext).load(path)
-                    .placeholder(resId)
-                    .error(resId)
-                    .into(mImageView);
-
-            mImageView.setTag(path);
-        }
+        //LogUtils.d("ImageLoaderUtil==>","path=="+path);
+        Glide.with(mContext).load(path)
+                .placeholder(resId)
+                .error(resId)
+                .into(mImageView);
     }
 }

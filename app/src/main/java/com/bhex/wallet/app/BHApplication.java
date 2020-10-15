@@ -45,7 +45,7 @@ public class BHApplication extends BaseApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocalManageUtil.attachBaseContext(base,""));
-        XCrash.init(this);
+        XCrash.init(this,new XCrash.InitParameters().setLogDir(getExternalFilesDir("tombstone").getAbsolutePath()));
     }
 
     private void rateSync(){

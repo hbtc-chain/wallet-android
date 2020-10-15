@@ -20,6 +20,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.indicator.OnSampleSeekChangeListener;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PathUtils;
+import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.event.TransctionEvent;
@@ -74,20 +75,14 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         ARouter.getInstance().inject(this);
         initTokenView();
         bhToken = SymbolCache.getInstance().getBHToken(balance.symbol.toLowerCase());
-        String available_amount_str =  BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
-        available_amount = Double.valueOf(available_amount_str);
-        tv_available_amount.setText(getString(R.string.available)+" "+available_amount_str + balance.symbol.toUpperCase());
+        feeBalance = BHBalanceHelper.getBHBalanceFromAccount(getBalance().chain);
 
         tv_reach_amount.btn_right_text.setText( balance.symbol.toUpperCase());
 
         ed_transfer_amount.btn_right_text.setOnClickListener(allWithDrawListener);
         tv_reach_amount.getEditText().setEnabled(false);
 
-        //初始化可用手续费
-        if(bhtBalance!=null){
-            String available_bht_amount_str =  BHBalanceHelper.getAmountForUser(this,bhtBalance.amount,"0",bhtBalance.symbol);
-            tv_available_bht_amount.setText(getString(R.string.available)+" "+available_bht_amount_str+bhtBalance.symbol.toUpperCase());
-        }
+
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.mutableLiveData.observe(this,ldm -> {
             updateTransferStatus(ldm);
@@ -99,11 +94,9 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         lp.addRule(RelativeLayout.LEFT_OF,R.id.iv_right);
         tv_to_address.getEditText().setLayoutParams(lp);
 
-        feeBalance = BHBalanceHelper.getBHBalanceFromAccount(getBalance().chain);
-        String available_fee_amount_str =  BHBalanceHelper.getAmountForUser(this,feeBalance.amount,"0",feeBalance.symbol);
-        tv_withdraw_fee_amount.setText(getString(R.string.available)+" "+available_fee_amount_str+feeBalance.symbol.toUpperCase());
-    }
 
+        initTokenView();
+    }
 
     @Override
     protected void initPresenter() {
@@ -151,37 +144,60 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     }
 
     public View.OnClickListener allWithDrawListener = v -> {
-        if(way==BHConstants.CROSS_LINK){
-            String all_count = NumberUtil.sub(String.valueOf(available_amount),bhToken.withdrawal_fee);
-            all_count = Double.valueOf(all_count)<0?"0":all_count;
-            ed_transfer_amount.getEditText().setText(all_count);
+        if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
+            if(balance.symbol.equalsIgnoreCase(balance.chain) ){
+                if(RegexUtil.checkNumeric(et_withdraw_fee.getInputString()) && Double.valueOf(et_withdraw_fee.getInputString())<Double.valueOf(bhToken.withdrawal_fee)){
+                    et_withdraw_fee.getEditText().setText(bhToken.withdrawal_fee);
+                }
+                String all_count = NumberUtil.sub(String.valueOf(available_amount),et_withdraw_fee.getInputString());
+                all_count = Double.valueOf(all_count)<0?"0":all_count;
+                ed_transfer_amount.getEditText().setText(all_count);
+            }else{
+                ed_transfer_amount.getEditText().setText(NumberUtil.toPlainString(available_amount));
+            }
         }else if(balance.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             //交易手续费
             String all_count = NumberUtil.sub(String.valueOf(available_amount),et_tx_fee.getInputString());
             all_count = Double.valueOf(all_count)<0?"0":all_count;
             ed_transfer_amount.getEditText().setText(all_count);
+        }else {
+            ed_transfer_amount.getEditText().setText(NumberUtil.toPlainString(available_amount));
         }
+
     };
 
     @OnClick({R2.id.btn_drawwith_coin})
     public void onViewClicked(View view) {
-        if(view.getId()==R.id.btn_drawwith_coin){
-            if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
-                sendTransfer();
-            }else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
-                crossLinkWithDraw();
-            }else if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
-                sendTransfer();
-            }
+        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
+            sendTransfer();
+        }else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
+            crossLinkWithDraw();
+        }else if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
+            sendTransfer();
         }
     }
 
     private void updateAssets(AccountInfo accountInfo) {
         BHUserManager.getInstance().setAccountInfo(accountInfo);
         balance = BHBalanceHelper.getBHBalanceFromAccount(balance.symbol);
+        feeBalance = BHBalanceHelper.getBHBalanceFromAccount(getBalance().chain);
+        bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+        updateAvailableView();
+
+    }
+
+    private void updateAvailableView(){
         String available_amount_str =  BHBalanceHelper.getAmountForUser(this,balance.amount,"0",balance.symbol);
         available_amount = Double.valueOf(available_amount_str);
-        tv_available_amount.setText(getString(R.string.available)+" "+available_amount_str + balance.symbol.toUpperCase());
+        tv_available_amount.setText(getString(R.string.available)+" "+available_amount_str);
+
+        String available_fee_amount_str =  BHBalanceHelper.getAmountForUser(this,feeBalance.amount,"0",feeBalance.symbol);
+        tv_withdraw_fee_amount.setText(getString(R.string.available)+" "+available_fee_amount_str);
+
+        if(bhtBalance!=null){
+            String available_bht_amount_str =  BHBalanceHelper.getAmountForUser(this,bhtBalance.amount,"0",bhtBalance.symbol);
+            tv_available_bht_amount.setText(getString(R.string.available)+" "+available_bht_amount_str);
+        }
     }
 
     /**
@@ -258,7 +274,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
      * @param position
      */
     @Override
-    public void confirmAction(String password, int position,int way) {
+    public void confirmAction(String password, int position,int verifyPwdWay) {
 
         //String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.getInputString();

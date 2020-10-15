@@ -3,6 +3,8 @@ package com.bhex.wallet.market.ui.activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
+import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.model.BHTokenMapping;
@@ -27,6 +31,7 @@ import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
 import com.bhex.wallet.market.adapter.ChooseTokenAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,15 +46,21 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     RecyclerView rec_token_list;
     @BindView(R2.id.iv_close)
     AppCompatImageView iv_close;
-
+    @BindView(R2.id.ed_search_content)
+    AppCompatEditText ed_search_content;
 
     ChooseTokenAdapter mChooseTokenAdapter;
 
     private List<BHTokenMapping> mDatas;
+    private List<BHTokenMapping> mSearchDatas;
 
-    private String mSymbol;
+    private String mIssueSymbol;
+
+    public String mTargetSymbol;
 
     private ChooseTokenListener mChooseTokenListener;
+
+    private int mOrigin;
 
     @Override
     public int getLayout() {
@@ -69,10 +80,7 @@ public class ChooseTokenFragment extends BaseDialogFragment {
 
         WindowManager.LayoutParams params = window.getAttributes();
         params.gravity = Gravity.BOTTOM;
-
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
         window.setAttributes(params);
     }
@@ -80,8 +88,16 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDatas = CacheCenter.getInstance().getTokenMapCache().getTokenMappings();
-        mChooseTokenAdapter = new ChooseTokenAdapter(mDatas,mSymbol);
+        if(mOrigin==0){
+            mDatas = CacheCenter.getInstance().getTokenMapCache().getTokenMappings();
+            mChooseTokenAdapter = new ChooseTokenAdapter(mDatas,mIssueSymbol,mOrigin);
+
+        }else{
+            mDatas = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mIssueSymbol);
+            mChooseTokenAdapter = new ChooseTokenAdapter(mDatas,mTargetSymbol,mOrigin);
+        }
+        mSearchDatas = new ArrayList<>(mDatas);
+
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rec_token_list.setLayoutManager(llm);
@@ -106,17 +122,52 @@ public class ChooseTokenFragment extends BaseDialogFragment {
             BHTokenMapping tokenMapping = mDatas.get(position);
             mChooseTokenListener.clickTokenPosition(tokenMapping);
         });
+
+        ed_search_content.addTextChangedListener(new SimpleTextWatcher(){
+            @Override
+            public void afterTextChanged(Editable s) {
+                super.afterTextChanged(s);
+                String keys = ed_search_content.getText().toString().trim();
+                if(!TextUtils.isEmpty(keys)){
+                    List<BHTokenMapping> resList = ChooseTokenFragment.this.filterKeysWord(keys);
+                    ChooseTokenFragment.this.mChooseTokenAdapter.getData().clear();
+                    mChooseTokenAdapter.addData(resList);
+                }else{
+                    mChooseTokenAdapter.getData().clear();
+                    mDatas = new ArrayList<>(mSearchDatas);
+                    mChooseTokenAdapter.addData(mDatas);
+                }
+            }
+        });
     }
 
-    public static void showDialog(FragmentManager fm, String tag,String symbol,ChooseTokenListener listener) {
+    public static ChooseTokenFragment showDialog(String symbol,int origin,ChooseTokenListener listener) {
         ChooseTokenFragment fragment = new ChooseTokenFragment();
-        fragment.mSymbol = symbol;
+        fragment.mIssueSymbol = symbol;
+        fragment.mOrigin = origin;
         fragment.mChooseTokenListener = listener;
-        fragment.show(fm, tag);
+        return fragment;
     }
 
     public interface ChooseTokenListener{
         void clickTokenPosition(BHTokenMapping position);
+    }
+
+    public List<BHTokenMapping> filterKeysWord(String keys){
+        List<BHTokenMapping> resList = new ArrayList<>();
+        for(BHTokenMapping item: mSearchDatas){
+            if(mOrigin==0){
+                if(item.coin_symbol.toLowerCase().contains(keys.toLowerCase())){
+                    resList.add(item);
+                }
+            }else{
+                if(item.target_symbol.toLowerCase().contains(keys.toLowerCase())){
+                    resList.add(item);
+                }
+            }
+
+        }
+        return resList;
     }
 
 }

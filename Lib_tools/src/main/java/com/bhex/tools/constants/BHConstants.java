@@ -48,7 +48,7 @@ public class BHConstants {
     //链内操作
     public static final int INNER_LINK= 1;
     //跨链操作
-    public static final int CROSS_LINK= 2;
+    //public static final int CROSS_LINK= 2;
 
 
     public static final byte []BH = new byte[]{5,-54};
@@ -87,9 +87,8 @@ public class BHConstants {
     public static final int PRIVATE_KEY_LENGTH = 64;
 
     public static final int PUBLIC_KEY_LENGTH = 128;
-
-    //public static final String API_BASE_URL = "https://explorer.hbtc.com/";
-    public static final String API_BASE_URL = "http://hbtc.yym.plus/";
+    public static final String API_BASE_URL = "http://explorer.hbtcchain.io/";
+    //public static final String API_BASE_URL = "http://hbtc.yym.plus/";
     //http://10.197.61.45:8080 http://juswap.io/swap
     public static final String MARKET_URL = "http://juswap.io";
 }

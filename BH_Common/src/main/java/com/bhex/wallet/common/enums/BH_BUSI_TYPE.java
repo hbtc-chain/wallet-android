@@ -1,5 +1,7 @@
 package com.bhex.wallet.common.enums;
 
+import android.text.TextUtils;
+
 import com.bhex.tools.utils.RegexUtil;
 
 /**
@@ -26,9 +28,10 @@ public enum BH_BUSI_TYPE {
     }
 
     public int getIntValue(){
-        if(RegexUtil.checkDigit(value)){
+        if(TextUtils.isDigitsOnly(value)){
             return Integer.valueOf(value);
         }
         return -999;
+
     }
 }

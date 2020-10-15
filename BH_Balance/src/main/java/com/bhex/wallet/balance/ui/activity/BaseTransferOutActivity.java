@@ -15,6 +15,7 @@ import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -122,7 +123,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             tv_reach_amount.setVisibility(View.GONE);
             layout_withdraw_fee.setVisibility(View.GONE);
 
-        }else if(getWay()==BHConstants.INNER_LINK){
+        }else if(getWay()==BH_BUSI_TYPE.链内转账.getIntValue()){
             layout_transfer_out_tips.setVisibility(View.VISIBLE);
             tv_center_title.setText(getBalance().symbol.toUpperCase()+getResources().getString(R.string.transfer));
             tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
@@ -143,7 +144,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             layout_withdraw_fee.setVisibility(View.GONE);
 
 
-        }else if(getWay()==BHConstants.CROSS_LINK){
+        }else if(getWay()== BH_BUSI_TYPE.跨链转账.getIntValue()){
             layout_transfer_out_tips.setVisibility(View.VISIBLE);
             tv_center_title.setText(getBalance().symbol.toUpperCase()+getResources().getString(R.string.draw_coin));
             tv_transfer_out_tips_1.setText(getResources().getString(R.string.crosslink_withdraw_tip_1));

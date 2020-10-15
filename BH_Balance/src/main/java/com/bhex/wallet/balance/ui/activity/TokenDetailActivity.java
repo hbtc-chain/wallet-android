@@ -204,7 +204,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
         if(!BHConstants.BHT_TOKEN.equalsIgnoreCase(getBHBalance().symbol)){
             //兑币功能
-            BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(getBHBalance().symbol);
+            BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(getBHBalance().symbol);
             btn_item4.setVisibility((tokenMapping==null)?View.GONE:View.VISIBLE);
             if(tokenMapping!=null){
                 btn_item4.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));

@@ -63,7 +63,7 @@ public class TransferOutPresenter extends BasePresenter {
                                            String tx_fee_amount,
                                            String witddraw_fee_amount,
                                            String min_withdraw_fee, BHBalance available_withdraw_balance){
-        if(TextUtils.isEmpty(to_address)||to_address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
+        if(TextUtils.isEmpty(to_address)){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.withdraw_address_error));
             return false;
         }

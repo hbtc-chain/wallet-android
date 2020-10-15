@@ -158,10 +158,6 @@ public class PasswordFragment extends BaseDialogFragment {
         void confirmAction(String password, int position,int way);
     }
 
-    public int getVerifyPwdWay() {
-        return verifyPwdWay;
-    }
-
     public void setVerifyPwdWay(int verifyPwdWay) {
         this.verifyPwdWay = verifyPwdWay;
     }
