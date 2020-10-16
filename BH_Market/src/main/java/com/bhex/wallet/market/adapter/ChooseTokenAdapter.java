@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.model.BHBalance;
@@ -46,8 +47,11 @@ public class ChooseTokenAdapter extends BaseQuickAdapter<BHTokenMapping, BaseVie
         AppCompatTextView tv_token_amount = holder.getView(R.id.tv_token_amount);
         //LogUtils.d("ChooseTokenActivity==>:","coin_symbol=="+item.coin_symbol.toLowerCase());
         BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount((mOrigin==0)?item.coin_symbol.toLowerCase():item.target_symbol.toLowerCase());
-        String[]  res = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balance.amount,item.coin_symbol.toLowerCase(),false);
-        tv_token_amount.setText(res[0]);
+
+        //String[]  res = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balance.amount,item.coin_symbol.toLowerCase(),false);
+        //tv_token_amount.setText(res[0]);
+
+        tv_token_amount.setText(getContext().getString(R.string.balance)+": "+NumberUtil.dispalyForUsertokenAmount4Level(balance.amount));
 
         if(mOrigin==0){
             if(item.coin_symbol.equalsIgnoreCase(mSymbol)){

@@ -122,6 +122,7 @@
     <string name="reinvset_share">Reinvestment</string>
     <string name="success">Success</string>
     <string name="fail">Failed</string>
+    <string name="processing">Processing</string>
     <string name="add_coin">Add new asset</string>
     <string name="available">Available</string>
     <string name="reload_data">Reload</string>
@@ -146,6 +147,7 @@
     <string name="address">Address</string>
     <string name="crosslink_make_address">Generate cross-chain address</string>
     <string name="crosslink_address">Cross-chain address</string>
+    <string name="crosslink_deposit_address">Cross-chain deposit address</string>
     <string name="cross_deposit">Cross-chain deposit</string>
     <string name="cross_withdraw">Cross-chain withdrawal</string>
     <string name="crosslink_deposit_tip_2">·Please remind the sender to make sure to use original wallet</string>
@@ -462,11 +464,11 @@
     </string-array>
 
     <string-array name="Recongition_list">
-        <item>指纹识别</item>
+        <item>Touch ID</item>
     </string-array>
 
     <string-array name="security_list">
-        <item>每次操作都要密码(默认)</item>
+        <item>每次操作免密码输入</item>
         <item>30分钟内免密码输入</item>
     </string-array>
 
@@ -477,12 +479,30 @@
         <item>Withdrawal</item>
     </string-array>
 
+    <string-array name="Cross_operator_list">
+        <item>跨链充币</item>
+        <item>跨链提币</item>
+    </string-array>
+
+    <string-array name="Exchnge_operator_list">
+        <item>兑换</item>
+        <item>交易</item>
+    </string-array>
+
+    <string name="native_token_list">Native Token List</string>
+    <string name="cross_chain_token_list">Cross-chain Token List</string>
     <string name="exchange_coin">Exchange</string>
     <string name="mapping">Mapping</string>
     <string name="pay_detail">Pay Detail</string>
     <string name="pay_info">Pay Info</string>
-    <string name="click_copy_address">点击复制地址</string>
+    <string name="click_copy_address">Copy address</string>
     <string name="please_input_exchange_amount">请输入兑换数量</string>
     <string name="agreen">Agreen</string>
     <string name="reject">Reject</string>
+
+    <string name="choose_token">Choose Token</string>
+    <string name="security_setting_tips">以下选项不支持同时开启</string>
+    <string name="balance">Balance</string>
+    <string name="hbc_chain_address">HBC Chain地址</string>
+    <string name="click_make_cross_address">点击生成跨链地址</string>
 </resources>

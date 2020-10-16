@@ -1,5 +1,6 @@
 package com.bhex.wallet.balance.presenter;
 
+import android.content.Context;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -65,7 +66,6 @@ public class BalancePresenter extends BasePresenter {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         String[] coin_list = BHUserManager.getInstance().getUserBalanceList().split("_");
         for (int i = 0; i < coin_list.length; i++) {
-            //String symbol = coin_list[i];
             BHBalance bhBalance = BHBalanceHelper.getBHBalanceBySymbol(coin_list[i]);
             BHToken bhToken = symbolCache.getBHToken(bhBalance.symbol.toLowerCase());
             if(bhToken!=null){
@@ -115,7 +115,7 @@ public class BalancePresenter extends BasePresenter {
      * 计算所有Token价值
      * @return
      */
-    public double calculateAllTokenPrice(AccountInfo accountInfo,List<BHBalance> mOriginBalanceList){
+    public double calculateAllTokenPrice(Context context,AccountInfo accountInfo, List<BHBalance> mOriginBalanceList){
         double allTokenPrice = 0;
 
         List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
@@ -126,8 +126,14 @@ public class BalancePresenter extends BasePresenter {
         for(AccountInfo.AssetsBean bean:list){
             map.put(bean.getSymbol(),bean);
             //计算每一个币种的资产价值
-            double b1 = CurrencyManager.getInstance().getSymbolBalancePrice(mBaseActivity,bean.getSymbol(),bean.getAmount(),false);
-            allTokenPrice = NumberUtil.add(b1,allTokenPrice);
+            double amount = TextUtils.isEmpty(bean.getAmount())?0:Double.valueOf(bean.getAmount());
+
+            //法币价值
+            double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,bean.getSymbol());
+            double asset = NumberUtil.mul(String.valueOf(amount),String.valueOf(symbolPrice));
+            allTokenPrice = NumberUtil.add(asset,allTokenPrice);
+            //double b1 = CurrencyManager.getInstance().getSymbolBalancePrice(mBaseActivity,bean.getSymbol(),bean.getAmount(),false);
+            //allTokenPrice = NumberUtil.add(b1,allTokenPrice);
         }
         for(BHBalance balance:mOriginBalanceList){
             AccountInfo.AssetsBean assetsBean = map.get(balance.symbol.toLowerCase());
@@ -137,7 +143,6 @@ public class BalancePresenter extends BasePresenter {
             balance.isHasToken = 1;
             balance.amount = assetsBean.getAmount();
             balance.is_native = assetsBean.isIs_native();
-            //balance.external_address = assetsBean.getExternal_address();
 
             BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(balance.chain);
             if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){

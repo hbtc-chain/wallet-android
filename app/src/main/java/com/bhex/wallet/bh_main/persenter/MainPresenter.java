@@ -83,7 +83,7 @@ public class MainPresenter extends BasePresenter {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             UpgradeInfo upgradeInfo = ldm.getData();
             //upgradeInfo.needUpdate = true;
-            if(upgradeInfo.needUpdate){
+            if(upgradeInfo.needUpdate==1){
                 showUpgradeDailog(upgradeInfo);
             }
         }else if(ldm.loadingStatus== LoadingStatus.ERROR){

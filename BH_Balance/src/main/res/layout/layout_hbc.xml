@@ -39,7 +39,7 @@
             android:singleLine="true"
             android:maxLines="1"
             android:ellipsize="middle"
-            android:text="@string/trusteeship_address"
+            android:text="@string/hbc_chain_address"
             android:layout_marginRight="5dp"
             tools:ignore="EllipsizeMaxLines" />
 
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/tv_hbc_address"
             android:layout_toLeftOf="@+id/iv_hbc_qr"
-            android:src="@mipmap/ic_paste" />
+            android:src="@mipmap/ic_hbc_paste" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_hbc_qr"

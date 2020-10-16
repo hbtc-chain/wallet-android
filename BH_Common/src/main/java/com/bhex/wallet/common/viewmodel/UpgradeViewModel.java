@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.MutableLiveData;
 
 import com.bhex.network.RxSchedulersHelper;
@@ -12,6 +13,7 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -46,6 +48,7 @@ public class UpgradeViewModel extends AndroidViewModel {
         BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>(false) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
+                //LogUtils.d("UpgradeViewModel==>","jsonObject=="+jsonObject.toString());
                 UpgradeInfo upgradeInfo = JsonUtils.fromJson(jsonObject.toString(),UpgradeInfo.class);
                 LoadDataModel ldm = new LoadDataModel(upgradeInfo);
                 upgradeLiveData.postValue(ldm);
@@ -63,7 +66,7 @@ public class UpgradeViewModel extends AndroidViewModel {
         BHttpApi.getService(BHttpApiInterface.class)
                 .getUpgradeInfo(BHPhoneInfo.appId,BHPhoneInfo.appVersion,BHPhoneInfo.deviceType,BHPhoneInfo.deviceVersion)
                 .compose(RxSchedulersHelper.io_main())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity, Lifecycle.Event.ON_DESTROY)))
                 .subscribe(observer);
 
     }

@@ -51,7 +51,7 @@
                 android:singleLine="true"
                 android:maxLines="1"
                 android:ellipsize="middle"
-                android:text="@string/trusteeship_address"
+                android:text="@string/hbc_chain_address"
                 android:layout_marginRight="5dp"
                 tools:ignore="EllipsizeMaxLines" />
 
@@ -113,7 +113,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/global_label_text_color"
                 android:textSize="13sp"
-                android:text="@string/crosslink_address"/>
+                android:text="@string/crosslink_deposit_address"/>
 
             <RelativeLayout
                 android:id="@+id/layout_btc_address"
@@ -158,7 +158,7 @@
                 android:textSize="13sp"
                 android:layout_marginTop="4dp"
                 android:layout_below="@+id/tv_token_addr_label"
-                android:text="点击生成跨链地址"/>
+                android:text="@string/click_make_cross_address"/>
 
         </RelativeLayout>
 

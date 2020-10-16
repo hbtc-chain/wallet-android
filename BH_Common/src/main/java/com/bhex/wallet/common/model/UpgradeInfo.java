@@ -12,18 +12,19 @@ public class UpgradeInfo {
     @SerializedName("download_url")
     public String downloadUrl;
 
-    @SerializedName("ndownload_webview_url")
-    public String downloadWebviewUrl;
+   /* @SerializedName("download_webview_url")
+    public String downloadWebviewUrl;*/
 
     @SerializedName("need_force_update")
-    public boolean needForceUpdate;
+    public int needForceUpdate;
 
     @SerializedName("need_update")
-    public boolean needUpdate;
+    public int needUpdate;
 
     @SerializedName("new_features")
     public String newFeatures;
 
+    @SerializedName("apk_version")
     public String apkVersion;
 
 }

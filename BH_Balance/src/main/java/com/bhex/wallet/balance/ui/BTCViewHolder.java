@@ -59,7 +59,6 @@ public class BTCViewHolder {
         tv_token_address = view.findViewById(R.id.tv_token_address);
         btn_make_address = view.findViewById(R.id.btn_make_address);
 
-
         this.mBalance = balance;
 
         view.findViewById(R.id.iv_hbc_qr).setOnClickListener(v -> {
@@ -75,7 +74,7 @@ public class BTCViewHolder {
             showBTCQRDialog();
         });
 
-        view.findViewById(R.id.iv_hbc_paste).setOnClickListener(v->{
+        view.findViewById(R.id.iv_token_paste).setOnClickListener(v->{
             ToolUtils.copyText(tv_token_address.getTag().toString(),mContext);
             ToastUtils.showToast(mContext.getString(R.string.copyed));
         });
@@ -87,7 +86,8 @@ public class BTCViewHolder {
         return _instance;
     }
 
-    public void setTokenAddress() {
+    public void setTokenAddress(BHBalance balance) {
+        this.mBalance = balance;
         if(mBalance.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             viewHolder.setVisibility(View.GONE);
         }

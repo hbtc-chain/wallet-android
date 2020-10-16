@@ -20,6 +20,7 @@ import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHToken;
@@ -83,16 +84,35 @@ public class TransactionHelper {
     }
 
 
-    public static void setTranscationStatus(Context context, boolean status, AppCompatTextView tv_status){
+    public static void setTranscationStatus(Context context, boolean status, AppCompatTextView tv_status,TransactionOrder txo){
         String statusLabel = "";
-        if(status){
-            statusLabel = context.getResources().getString(R.string.success);
-            tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
-            tv_status.setBackgroundColor(ContextCompat.getColor(context,R.color.color_20_green));
+        TransactionOrder.ActivitiesBean bean = txo.activities.get(0);
+        if(bean.type.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链充值.getType())
+                || bean.type.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链提币.getType()) ){
+            if(txo.ibc_status==1||txo.ibc_status==2){
+                statusLabel = context.getResources().getString(R.string.processing);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_orange));
+                tv_status.setBackgroundColor(ContextCompat.getColor(context,R.color.color_20_orange));
+
+            }else if(txo.ibc_status==3){
+                statusLabel = context.getResources().getString(R.string.fail);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_red));
+                tv_status.setBackgroundColor(ContextCompat.getColor(context,R.color.color_20_red));
+            }else if(txo.ibc_status==4){
+                statusLabel = context.getResources().getString(R.string.success);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+                tv_status.setBackgroundColor(ContextCompat.getColor(context,R.color.color_20_green));
+            }
         }else{
-            statusLabel = context.getResources().getString(R.string.fail);
-            tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_red));
-            tv_status.setBackgroundColor(ContextCompat.getColor(context,R.color.color_20_red));
+            if(status){
+                statusLabel = context.getResources().getString(R.string.success);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+                tv_status.setBackgroundColor(ContextCompat.getColor(context,R.color.color_20_green));
+            }else{
+                statusLabel = context.getResources().getString(R.string.fail);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_red));
+                tv_status.setBackgroundColor(ContextCompat.getColor(context,R.color.color_20_red));
+            }
         }
         tv_status.setText(statusLabel);
     }
@@ -100,18 +120,33 @@ public class TransactionHelper {
     /**
      * 交易详情用
      * @param context
-     * @param status
      * @param tv_status
      */
-    public static void setTranscationStatusExt(Context context, boolean status, AppCompatTextView tv_status){
+    public static void setTranscationStatusExt(Context context, TransactionOrder txo, AppCompatTextView tv_status){
         String statusLabel = "";
-        if(status){
-            statusLabel = context.getResources().getString(R.string.success);
-            tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+        TransactionOrder.ActivitiesBean bean = txo.activities.get(0);
+        if(bean.type.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链充值.getType())
+                || bean.type.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.跨链提币.getType()) ){
+            if(txo.ibc_status==1||txo.ibc_status==2){
+                statusLabel = context.getResources().getString(R.string.processing);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_orange));
+            }else if(txo.ibc_status==3){
+                statusLabel = context.getResources().getString(R.string.fail);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_red));
+            }else if(txo.ibc_status==4){
+                statusLabel = context.getResources().getString(R.string.success);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+            }
         }else{
-            statusLabel = context.getResources().getString(R.string.fail);
-            tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_red));
+            if(txo.success){
+                statusLabel = context.getResources().getString(R.string.success);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+            }else{
+                statusLabel = context.getResources().getString(R.string.fail);
+                tv_status.setTextColor(ContextCompat.getColor(context,R.color.color_red));
+            }
         }
+
         tv_status.setText(statusLabel);
     }
 
@@ -144,9 +179,11 @@ public class TransactionHelper {
 
     public static void displayTranscationAmount(AppCompatTextView tv,String symbol,TransactionOrder txo){
         if(ToolUtils.checkListIsEmpty(txo.balance_flows)){
+            LogUtils.d("TransactionHelper===>:","txo.height=="+txo.height);
             tv.setVisibility(View.GONE);
             return;
         }
+        tv.setVisibility(View.VISIBLE);
         String currentAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
         String txType = txo.activities.get(0).type;
 

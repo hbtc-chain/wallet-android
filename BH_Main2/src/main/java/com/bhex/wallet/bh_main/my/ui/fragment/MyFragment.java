@@ -240,7 +240,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     private void processUpgradeInfo(LoadDataModel<UpgradeInfo> ldm) {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             UpgradeInfo upgradeInfo = ldm.getData();
-            if(upgradeInfo.needUpdate){
+            if(upgradeInfo.needUpdate==1){
                 showUpgradeDailog(upgradeInfo);
             }else{
                 ToastUtils.showToast(getString(R.string.app_up_to_minute_version));

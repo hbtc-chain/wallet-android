@@ -38,6 +38,7 @@ public class TransactionOrder implements Serializable {
     public String memo;
     public List<ActivitiesBean> activities;
     public List<BalanceFlowsBean> balance_flows;
+    public int ibc_status;
 
     public TransactionOrder() {
     }

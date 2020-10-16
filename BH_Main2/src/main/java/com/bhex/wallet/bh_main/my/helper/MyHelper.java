@@ -11,6 +11,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.bh_main.R;
+import com.bhex.wallet.bh_main.my.model.SecuritySettingItem;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
@@ -100,6 +101,10 @@ public class MyHelper {
         String currency_name = MMKVManager.getInstance().mmkv().decodeString(BHConstants.CURRENCY_USED,CURRENCY_TYPE.USD.shortName);
 
         myItems.get(1).rightTxt = CURRENCY_TYPE.getValue(currency_name).name+"("+CURRENCY_TYPE.getValue(currency_name)+")";
+
+        //
+        String []secTipsArray = context.getResources().getStringArray(R.array.security_list);
+        myItems.get(4).rightTxt = SecuritySettingManager.getInstance().thirty_in_time?secTipsArray[1]:secTipsArray[0];
         return myItems;
     }
 
@@ -150,15 +155,15 @@ public class MyHelper {
     }
 
     //安全设置
-    public static List<MyItem> getSecSettingItems(Context context){
-        List<MyItem> myItems = new ArrayList<>();
+    public static List<SecuritySettingItem> getSecSettingItems(Context context){
+        List<SecuritySettingItem> myItems = new ArrayList<>();
         String [] res = context.getResources().getStringArray(R.array.security_list);
         for (int i = 0; i < res.length; i++) {
             if(i==0){
-                MyItem item = new MyItem(i,res[i], SecuritySettingManager.getInstance().every_time_pwd, "");
+                SecuritySettingItem item = new SecuritySettingItem(i,res[i],!SecuritySettingManager.getInstance().thirty_in_time);
                 myItems.add(item);
             }else if(i==1){
-                MyItem item = new MyItem(i,res[i], SecuritySettingManager.getInstance().thirty_in_time, "");
+                SecuritySettingItem item = new SecuritySettingItem(i,res[i], SecuritySettingManager.getInstance().thirty_in_time);
                 myItems.add(item);
             }
         }

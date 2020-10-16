@@ -93,7 +93,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxCache.getDefault().transformObservable(cache_key,type,getCacheStrategy(strategy)))
                 .map(new CacheResult.MapFunc<JsonObject>())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity,Lifecycle.Event.ON_DESTROY)))
+                //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity,Lifecycle.Event.ON_DESTROY)))
                 .subscribe(observer);
     }
 
@@ -165,7 +165,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         }else{
             beginReloadData();
         }*/
-        beginReloadData();
+        //beginReloadData();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

@@ -66,8 +66,7 @@
             tools:text="￥62693.49"
             android:textSize="13sp"
             android:textColor="@color/global_label_text_color"
-            android:layout_marginTop="2dp"
-            />
+            android:layout_marginTop="2dp"/>
 
         <com.bhex.lib.uikit.widget.CustomTextView
             android:id="@+id/tv_coin_amount"

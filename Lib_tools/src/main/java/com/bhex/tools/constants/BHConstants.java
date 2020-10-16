@@ -35,6 +35,8 @@ public class BHConstants {
     public static final String SYMBOL_DEFAULT_KEY = "SYMBOL_DEFAULT_KEY";
 
     public static final String BHT_TOKEN = "hbc";
+    public static final String HBTC = "hbtc";
+
     public static final int BHT_DEFAULT_DECIMAL = 3;
 
     public static final int PAGE_SIZE = 30;
@@ -73,7 +75,7 @@ public class BHConstants {
     public static final String VETO_OPTION_NO = "No";
     public static final String VETO_OPTION_ABSTAIN = "Abstain";
     public static final String VETO_OPTION_NOWITHVETO = "NoWithVeto";
-    public static final String TRANSCTION_MODE = "sync";
+    public static final String TRANSCTION_MODE = "async";
     public static final String EMAIL = "Hbcwallet@hbtc.com";
     public static final String CHAIN_ID = "hbtc-testnet";
 
@@ -87,8 +89,8 @@ public class BHConstants {
     public static final int PRIVATE_KEY_LENGTH = 64;
 
     public static final int PUBLIC_KEY_LENGTH = 128;
-    public static final String API_BASE_URL = "http://explorer.hbtcchain.io/";
+    public static final String API_BASE_URL = "https://explorer.hbtcchain.io/";
     //public static final String API_BASE_URL = "http://hbtc.yym.plus/";
     //http://10.197.61.45:8080 http://juswap.io/swap
-    public static final String MARKET_URL = "http://juswap.io";
+    public static final String MARKET_URL = "https://juswap.io";
 }

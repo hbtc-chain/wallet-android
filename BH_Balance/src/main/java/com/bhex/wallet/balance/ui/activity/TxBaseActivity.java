@@ -64,7 +64,7 @@ public abstract class TxBaseActivity<T extends IPresenter> extends BaseActivity<
 
         tv_tranction_hash.setText(mtxo.hash);
 
-        TransactionHelper.setTranscationStatusExt(this, mtxo.success, tv_transcation_status);
+        TransactionHelper.setTranscationStatusExt(this, mtxo, tv_transcation_status);
         String tv_time = DateUtil.transTimeWithPattern(mtxo.time * 1000, DateUtil.DATA_TIME_STYLE);
         tv_transcation_time.setText(tv_time);
 

@@ -18,6 +18,7 @@
         app:titleTextAppearance="@style/Toolbar_textsize">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -37,7 +38,7 @@
         android:paddingBottom="10dp"
         android:textColor="@color/light_text"
         android:background="@color/global_input_background"
-        android:text="以下选项不支持同时开启"
+        android:text="@string/security_setting_tips"
         />
 
     <androidx.recyclerview.widget.RecyclerView

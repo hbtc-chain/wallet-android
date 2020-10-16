@@ -56,7 +56,8 @@ public class HBCViewHolder {
         return _instance;
     }
 
-    public void setTokenAddress() {
+    public void setTokenAddress(BHBalance balance) {
+        this.mBalance = balance;
         if(!mBalance.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             viewHolder.setVisibility(View.GONE);
         }

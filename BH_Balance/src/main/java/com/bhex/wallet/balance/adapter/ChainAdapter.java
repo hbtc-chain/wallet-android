@@ -41,25 +41,39 @@ public class ChainAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
         AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
         iv.setImageResource(0);
-        /*if(balanceItem.resId==0){
 
-        }else{
-            iv.setImageResource(balanceItem.resId);
-        }*/
-        ImageLoaderUtil.loadImageView(getContext(),
-                balanceItem.logo, iv,R.mipmap.ic_default_coin);
+        ImageLoaderUtil.loadImageView(getContext(),balanceItem.logo, iv,R.mipmap.ic_default_coin);
+
         viewHolder.setText(R.id.tv_coin_name,balanceItem.symbol.toUpperCase());
 
         AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);
 
         SymbolCache symbolCache  = CacheCenter.getInstance().getSymbolCache();
 
-        BHToken bhCoin = symbolCache.getBHToken(balanceItem.symbol.toLowerCase());
+        //BHToken bhCoin = symbolCache.getBHToken(balanceItem.symbol.toLowerCase());
 
         //实时价格
-        String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);
+        //String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);
 
-        viewHolder.setText(R.id.tv_coin_price, symbol_prices);
+        viewHolder.setText(R.id.tv_coin_price, BHBalanceHelper.getShortName(balanceItem.symbol));
+
+        //价格
+        double value_double = BHBalanceHelper.getAssetByChain(getContext(),balanceItem.symbol);
+        String value_str = CurrencyManager.getInstance().getCurrencyDecription(getContext(),value_double);
+        if(isHidden.equals("0")){
+            viewHolder.setText(R.id.tv_coin_count,"≈"+value_str);
+        }else {
+            viewHolder.setText(R.id.tv_coin_count, "***");
+        }
+
+        tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);
+        tv_coin_type.setVisibility(View.VISIBLE);
+
+        if(balanceItem.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            tv_coin_type.setText(getContext().getString(R.string.native_token_list));
+        }else{
+            tv_coin_type.setText(getContext().getString(R.string.cross_chain_token_list));
+        }
 
         //币的数量
         /*if(isHidden.equals("0")){

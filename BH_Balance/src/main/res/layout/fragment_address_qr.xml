@@ -109,8 +109,8 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center"
-            tools:background="@color/token_icon_color">
-
+            tools:background="@color/token_icon_color"
+            android:visibility="gone">
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_short_name"
                 android:layout_width="wrap_content"
@@ -123,6 +123,14 @@
                 android:includeFontPadding="false"
                 tools:text="H" />
         </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_token_icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            tools:background="@color/token_icon_color"
+            />
 
     </FrameLayout>
 

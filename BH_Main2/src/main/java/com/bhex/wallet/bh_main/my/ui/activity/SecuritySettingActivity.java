@@ -1,10 +1,15 @@
 package com.bhex.wallet.bh_main.my.ui.activity;
 
+import android.view.View;
+
 import androidx.appcompat.widget.AppCompatCheckedTextView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
@@ -14,10 +19,11 @@ import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.SecuritySettingAdapter;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
+import com.bhex.wallet.bh_main.my.model.SecuritySettingItem;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import java.util.List;
@@ -29,15 +35,19 @@ import butterknife.BindView;
  * 2020-10-15 20:27:22
  * 安全设置
  */
-@Route(path = ARouterConfig.MY_Security_Setting,name = "安全设置")
-public class SecuritySettingActivity extends BaseActivity implements SecuritySettingAdapter.CheckItemListener {
+@Route(path = ARouterConfig.MY_Security_Setting, name = "安全设置")
+public class SecuritySettingActivity extends BaseActivity implements PasswordFragment.PasswordClickListener {
+
+    @Autowired(name = "title")
+    String mTitle;
 
     @BindView(R2.id.rcy_choose_list)
     RecyclerView rcy_choose_list;
+    @BindView(R2.id.tv_center_title)
+    AppCompatTextView tv_center_title;
 
     private SecuritySettingAdapter mSecSetAdapter;
-    private List<MyItem> mItems;
-
+    private List<SecuritySettingItem> mItems;
 
     @Override
     protected int getLayoutId() {
@@ -46,8 +56,10 @@ public class SecuritySettingActivity extends BaseActivity implements SecuritySet
 
     @Override
     protected void initView() {
+        ARouter.getInstance().inject(this);
+        tv_center_title.setText(mTitle);
         mItems = MyHelper.getSecSettingItems(this);
-        mSecSetAdapter = new SecuritySettingAdapter(mItems,this);
+        mSecSetAdapter = new SecuritySettingAdapter(mItems,null);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -55,44 +67,57 @@ public class SecuritySettingActivity extends BaseActivity implements SecuritySet
         rcy_choose_list.setLayoutManager(llm);
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
-                this,LinearLayoutManager.VERTICAL,
-                PixelUtils.dp2px(this,16),0,
-                ColorUtil.getColor(this,R.color.global_divider_color));
+                this, LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(this, 16), 0,
+                ColorUtil.getColor(this, R.color.global_divider_color));
 
         rcy_choose_list.addItemDecoration(ItemDecoration);
     }
 
     @Override
     protected void addEvent() {
-
+        mSecSetAdapter.setOnItemClickListener((adapter, view, position) -> {
+            updateItemStatus(position);
+        });
     }
 
-    @Override
-    public void checkItemStatus(int position, boolean isChecked) {
-        int count = 0;
-        for(int i=0;i<mItems.size();i++){
-            BaseViewHolder holder = (BaseViewHolder)rcy_choose_list.findViewHolderForAdapterPosition(i);
-            AppCompatCheckedTextView ck = holder.getView(R.id.ck_select);
-            if(ck.isChecked()){
-                count++;
-            }
-        }
-
-        if(count>0 && !isChecked){
-            ToastUtils.showToast("不能同时开启");
+    //设置
+    private void updateItemStatus(int position){
+        SecuritySettingItem item = mItems.get(position);
+        if(item.isSelected){
             return;
         }
 
-        BaseViewHolder holder = (BaseViewHolder)rcy_choose_list.findViewHolderForAdapterPosition(position);
-        AppCompatCheckedTextView ck = holder.getView(R.id.ck_select);
-        ck.toggle();
+        if(position==0){
+            //每次都输入密码
+            updateViewStatus(position,"");
+        }else if(position==1){
+            //免密码输入
+            PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getName(),this,position);
+        }
+    }
+
+    @Override
+    public void confirmAction(String password, int position, int way) {
+        updateViewStatus(position,password);
+    }
+
+    private void updateViewStatus(int position,String pwd){
+        for(int i=0;i<mItems.size();i++){
+            if(i==position){
+                mItems.get(i).isSelected = true;
+            }else{
+                mItems.get(i).isSelected = false;
+            }
+        }
+        mSecSetAdapter.notifyDataSetChanged();
 
         switch (position){
             case 0:
-                SecuritySettingManager.getInstance().save_every_time_pwd(ck.isChecked());
+                SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
                 break;
             case 1:
-                SecuritySettingManager.getInstance().save_thirty_in_time(ck.isChecked());
+                SecuritySettingManager.getInstance().request_thirty_in_time(true,pwd);
                 break;
             default:
                 break;

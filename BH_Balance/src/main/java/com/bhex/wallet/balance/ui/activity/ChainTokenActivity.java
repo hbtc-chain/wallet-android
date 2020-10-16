@@ -94,8 +94,9 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     //设置地址
     private void setTokenAddress() {
-        mHbcViewHolder.setTokenAddress();
-        mBtcViewHolder.setTokenAddress();
+
+        mHbcViewHolder.setTokenAddress(mBalance);
+        mBtcViewHolder.setTokenAddress(mBalance);
     }
 
     @Override
@@ -152,7 +153,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             mBalance = BHBalanceHelper.getBHBalanceFromAccount(mBalance.symbol);
             setTokenAddress();
         }
-        mPresenter.calculateAllTokenPrice(accountInfo,mBalanceAdapter.getData());
+        mPresenter.calculateAllTokenPrice(this,accountInfo,mBalanceAdapter.getData());
         mBalanceAdapter.notifyDataSetChanged();
     }
 

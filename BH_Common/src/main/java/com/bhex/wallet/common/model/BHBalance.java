@@ -1,5 +1,7 @@
 package com.bhex.wallet.common.model;
 
+import androidx.room.Ignore;
+
 /**
  * Created by BHEX.
  * User: gdy
@@ -35,6 +37,9 @@ public class BHBalance {
     public String frozen_amount;
 
     public int isHasToken;
+
+    @Ignore
+    public String shortName;
 
     public BHBalance() {
     }

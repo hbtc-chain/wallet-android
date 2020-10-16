@@ -202,7 +202,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         if(mAccountInfo==null){
             return;
         }
-        allTokenAssets = mPresenter.calculateAllTokenPrice(mAccountInfo,mOriginBalanceList);
+        allTokenAssets = mPresenter.calculateAllTokenPrice(getYActivity(),mAccountInfo,mOriginBalanceList);
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
         //设置第一字符15sp
         String tag = iv_eye.getTag().toString();
@@ -219,6 +219,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         if(view.getId()==R.id.iv_eye){
             //隐藏资产
             mPresenter.hiddenAssetExt(getYActivity(),tv_asset,iv_eye);
+            mChainAdapter.setIsHidden(iv_eye.getTag().toString());
         }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(bhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));

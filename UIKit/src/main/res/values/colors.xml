@@ -130,6 +130,8 @@
 
     <color name="color_green">#51D372</color>
     <color name="color_red">#F73A46</color>
+    <color name="color_orange">#FF922E</color>
+    <color name="color_20_orange">#40FF922E</color>
 
     <color name="menu_text_color">#6E8196</color>
     <color name="menu_checked_text_color">#3375E0</color>

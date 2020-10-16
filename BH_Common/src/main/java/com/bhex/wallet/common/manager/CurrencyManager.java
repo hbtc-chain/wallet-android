@@ -144,6 +144,8 @@ public class CurrencyManager {
     }
 
 
+
+
     public void setCurrency(String currency) {
         this.mCurrency = currency;
     }

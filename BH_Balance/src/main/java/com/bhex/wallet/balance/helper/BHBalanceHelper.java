@@ -74,7 +74,6 @@ public class BHBalanceHelper {
         }
 
         double displayAmount = NumberUtil.divide(amount, Math.pow(10,decimals)+"");
-
         result[0] = NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
         //法币价值
         double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,symbol);
@@ -97,11 +96,13 @@ public class BHBalanceHelper {
     }
 
     public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){
-        int resId = getDefaultResId(symbol);
+        /*int resId = getDefaultResId(symbol);
         if(resId==0){
             resId = R.mipmap.ic_default_coin;
         }
-        iv.setImageDrawable(ContextCompat.getDrawable(context,resId));
+        iv.setImageDrawable(ContextCompat.getDrawable(context,resId));*/
+        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol);
+        ImageLoaderUtil.loadImageView(context, bhToken.logo, iv,R.mipmap.ic_default_coin);
     }
 
     /**
@@ -127,9 +128,7 @@ public class BHBalanceHelper {
         for (int i = 0; i < list.size(); i++) {
             AccountInfo.AssetsBean assetsBean = list.get(i);
             if(assetsBean.getSymbol()!=null && assetsBean.getSymbol().equalsIgnoreCase(symbol)){
-
                 balance.symbol = assetsBean.getSymbol();
-
                 balance.amount = assetsBean.getAmount();
                 balance.frozen_amount = assetsBean.getFrozen_amount();
                 balance.address = assetsBean.getExternal_address();
@@ -242,5 +241,48 @@ public class BHBalanceHelper {
         BHToken item = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol.toLowerCase());
         ImageLoaderUtil.loadImageView(context,item.logo, iv,R.mipmap.ic_default_coin);
     }
+
+    public static String getShortName(String symbol){
+        String res = "";
+        if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            res = "HBTC Chain";
+        }else if(symbol.equalsIgnoreCase("btc")){
+            res = "Bitcoin";
+        }else if(symbol.equalsIgnoreCase("eth")){
+            res = "Ethereum";
+        }else if(symbol.equalsIgnoreCase("trx")){
+            res = "Tron";
+        }
+        return res;
+    }
+
+    //获取链下的资产
+    public static double getAssetByChain(Context context,String chain){
+        double res = 0;
+        AccountInfo accountInfo = BHUserManager.getInstance().getAccountInfo();
+        if(accountInfo==null){
+            return res;
+        }
+        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        if(ToolUtils.checkListIsEmpty(list)){
+            return res;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            AccountInfo.AssetsBean assetsBean = list.get(i);
+            BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(assetsBean.getSymbol());
+            if(!bhToken.chain.equalsIgnoreCase(chain)){
+                continue;
+            }
+
+            //
+            double displayAmount = TextUtils.isEmpty(assetsBean.getAmount())?0:Double.valueOf(assetsBean.getAmount());
+            //法币价值
+            double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,assetsBean.getSymbol());
+            double asset = NumberUtil.mul(String.valueOf(displayAmount),String.valueOf(symbolPrice));
+            res +=asset;
+        }
+        return res;
+    }
+
 
 }

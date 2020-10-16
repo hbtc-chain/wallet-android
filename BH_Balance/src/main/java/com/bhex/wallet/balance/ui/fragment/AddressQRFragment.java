@@ -25,11 +25,14 @@ import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.QREncodUtil;
 import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
+import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.model.BHToken;
 
 import butterknife.BindView;
 
@@ -42,7 +45,7 @@ public class AddressQRFragment extends BaseDialogFragment {
 
     @BindView(R2.id.tv_address_label)
     AppCompatTextView tv_address_label;
-    private String tokenName;
+    private String symbol;
     private String address;
 
     @Override
@@ -55,10 +58,13 @@ public class AddressQRFragment extends BaseDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-        FrameLayout frame = view.findViewById(R.id.layout_index_1);
+        /*FrameLayout frame = view.findViewById(R.id.layout_index_1);
         GradientDrawable drawable = ShapeUtils.getOvalDrawable(36, ColorUtil.getColor(getContext(), R.color.token_icon_color), true, 0);
-        frame.setBackground(drawable);
+        frame.setBackground(drawable);*/
+        AppCompatImageView iv = view.findViewById(R.id.iv_token_icon);
+        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol.toLowerCase());
 
+        ImageLoaderUtil.loadImageView(getContext(),bhToken.logo, iv,R.mipmap.ic_default_coin);
         AppCompatImageView iv_qr_code = view.findViewById(R.id.iv_qr_code);
         AppCompatTextView tv_token_address = view.findViewById(R.id.tv_token_address);
         Bitmap bitmap = QREncodUtil.createQRCode(address, PixelUtils.dp2px(getContext(), 181), PixelUtils.dp2px(getContext(), 181), null);
@@ -70,7 +76,7 @@ public class AddressQRFragment extends BaseDialogFragment {
         layout_token_icon.setBackground(ringDrawable);
 
         AppCompatTextView tv_short_name = view.findViewById(R.id.tv_short_name);
-        char initial = tokenName.charAt(0);
+        char initial = symbol.charAt(0);
         tv_short_name.setText(String.valueOf(initial).toUpperCase());
 
         view.findViewById(R.id.iv_close).setOnClickListener(v -> {
@@ -87,10 +93,17 @@ public class AddressQRFragment extends BaseDialogFragment {
             ToastUtils.showToast(getString(R.string.copyed));
         });
 
-        if(address.toLowerCase().startsWith(BHConstants.BHT_TOKEN)){
-            tv_address_label.setText(BHConstants.BHT_TOKEN.toUpperCase()+getString(R.string.trusteeship_address));
-        }else{
-            tv_address_label.setText(tokenName.toUpperCase()+getString(R.string.address));
+        /*if(bhToken.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            tv_address_label.setText(BHConstants.HBTC.toUpperCase()+getString(R.string.trusteeship_address));
+        }else if(address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
+            tv_address_label.setText(BHConstants.HBTC.toUpperCase()+getString(R.string.trusteeship_address));
+        }else {
+            tv_address_label.setText(bhToken.name.toUpperCase()+getString(R.string.address));
+        }*/
+        if(address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
+            tv_address_label.setText(getString(R.string.hbc_chain_address));
+        }else {
+            tv_address_label.setText(getString(R.string.crosslink_deposit_address));
         }
     }
 
@@ -113,7 +126,7 @@ public class AddressQRFragment extends BaseDialogFragment {
     public static AddressQRFragment showFragment(FragmentManager fm, String tag, String tokenName, String address) {
         AddressQRFragment fragment = new AddressQRFragment();
         fragment.address = address;
-        fragment.tokenName = tokenName;
+        fragment.symbol = tokenName;
         fragment.show(fm, tag);
         return fragment;
     }

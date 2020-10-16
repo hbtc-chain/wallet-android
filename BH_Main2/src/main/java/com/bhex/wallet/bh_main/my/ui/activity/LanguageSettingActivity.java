@@ -103,7 +103,6 @@ public class LanguageSettingActivity extends BaseActivity {
 
     @Override
     protected void addEvent() {
-
         mLanguageAdapter.setOnItemClickListener((adapter, view, position) -> {
             changeLanguage(position);
         });

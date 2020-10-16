@@ -55,7 +55,7 @@ class UpgradeFragment : DialogFragment() {
             dismiss()
         }
 
-        if(upgradeInfo?.needForceUpdate==true){
+        if(upgradeInfo?.needForceUpdate==1){
             mRootView.findViewById<MaterialButton>(R.id.btn_cancel).visibility = View.GONE
         }
 
@@ -89,7 +89,7 @@ class UpgradeFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(upgradeInfo?.needForceUpdate==true){
+        if(upgradeInfo?.needForceUpdate==1){
 
         }
         MMKVManager.getInstance().mmkv().encode("update_cancel_time", System.currentTimeMillis());

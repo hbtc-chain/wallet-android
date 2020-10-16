@@ -35,7 +35,7 @@ public class TxOrderAdapter extends BaseQuickAdapter<TransactionOrder, BaseViewH
         String tx_type = TransactionHelper.getTranscationType(getContext(),txo);
         vh.setText(R.id.tv_tx_type,tx_type);
         AppCompatTextView tv_status = vh.getView(R.id.tv_tx_status);
-        TransactionHelper.setTranscationStatus(getContext(),txo.success,tv_status);
+        TransactionHelper.setTranscationStatus(getContext(),txo.success,tv_status,txo);
 
         //时间格式化
         //LogUtils.d("long=="+(txo.getTime()*1000));

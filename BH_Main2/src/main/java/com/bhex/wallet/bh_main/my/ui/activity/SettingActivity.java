@@ -166,4 +166,12 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         EventBus.getDefault().post(new NightEvent());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mItems = MyHelper.getSettingItems(this);
+        mSettingAdapter.getData().clear();
+        mSettingAdapter.addData(mItems);
+    }
 }

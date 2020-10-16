@@ -94,7 +94,7 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         }else if(bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setVisibility(View.VISIBLE);
             tv_coin_type.setText(R.string.native_token);
-            tv_coin_type.setTextAppearance(getContext(),R.style.tx_status_success);
+            tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);
         }else if(!bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setVisibility(View.VISIBLE);
             tv_coin_type.setText(R.string.no_native_token);
