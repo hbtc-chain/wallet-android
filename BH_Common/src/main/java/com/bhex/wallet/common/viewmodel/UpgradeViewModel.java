@@ -66,7 +66,7 @@ public class UpgradeViewModel extends AndroidViewModel {
         BHttpApi.getService(BHttpApiInterface.class)
                 .getUpgradeInfo(BHPhoneInfo.appId,BHPhoneInfo.appVersion,BHPhoneInfo.deviceType,BHPhoneInfo.deviceVersion)
                 .compose(RxSchedulersHelper.io_main())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity, Lifecycle.Event.ON_DESTROY)))
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
 
     }
