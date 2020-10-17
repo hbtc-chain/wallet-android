@@ -1,4 +1,16 @@
 <resources>
-
     <string name="no_order">暂无订单</string>
+    <string name="do_entrust">委托</string>
+    <string name="re_entrust">转委托</string>
+    <string name="relieve_entrust">解委托</string>
+    <string name="reinvset_share">复投分红</string>
+    <string name="entrust_relive_entrust">委托/解委托</string>
+    <string name="withdraw_reward">提取收益</string>
+    <string name="swap">兑换</string>
+    <string name="mapping_swap">映射兑换</string>
+    <string name="add_liquidity">添加流动性</string>
+    <string name="remove_liquidity">移除流动性</string>
+    <string name="limit_swap">限价单兑换</string>
+    <string name="cancel_limit_swap">撤单</string>
+    <string name="other">其它</string>
 </resources>

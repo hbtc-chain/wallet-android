@@ -179,7 +179,6 @@ public class TransactionHelper {
 
     public static void displayTranscationAmount(AppCompatTextView tv,String symbol,TransactionOrder txo){
         if(ToolUtils.checkListIsEmpty(txo.balance_flows)){
-            LogUtils.d("TransactionHelper===>:","txo.height=="+txo.height);
             tv.setVisibility(View.GONE);
             return;
         }
@@ -194,16 +193,12 @@ public class TransactionHelper {
 
             String fmt_amount = NumberUtil.dispalyForUsertokenAmount4Level(bean.amount);
 
-            if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType())
-                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.兑换_输出确定.getType())
-                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.添加流动性.getType())
-                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.移除流动性.getType())
-                    || txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.限价单兑换.getType())){
-                if(bean.symbol.equalsIgnoreCase(symbol)){
-                    tv.setText(fmt_amount+bean.symbol.toUpperCase());
-                }
-            }else{
+            tv.setVisibility(View.VISIBLE);
+            if(bean.symbol.equalsIgnoreCase(symbol)){
                 tv.setText(fmt_amount+bean.symbol.toUpperCase());
+                tv.setVisibility(View.VISIBLE);
+            }else{
+                tv.setVisibility(View.GONE);
             }
         }
     }
@@ -262,15 +257,16 @@ public class TransactionHelper {
 
 
     public  static boolean transactionIsProccess(String txType){
-        boolean flag = false;
-        if(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType().equalsIgnoreCase(txType)
-                || TRANSCATION_BUSI_TYPE.兑换_输出确定.getType().equalsIgnoreCase(txType)
-                || TRANSCATION_BUSI_TYPE.添加流动性.getType().equalsIgnoreCase(txType)
-                || TRANSCATION_BUSI_TYPE.移除流动性.getType().equalsIgnoreCase(txType)
-                || TRANSCATION_BUSI_TYPE.撤单.getType().equalsIgnoreCase(txType)
-                || TRANSCATION_BUSI_TYPE.限价单兑换.getType().equalsIgnoreCase(txType)){
-            return flag;
+        if(TRANSCATION_BUSI_TYPE.转账.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.委托.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.跨链地址生成.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.提取收益.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.跨链充值.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.跨链提币.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.复投分红.getType().equalsIgnoreCase(txType)
+                || TRANSCATION_BUSI_TYPE.取消委托.getType().equalsIgnoreCase(txType)){
+            return true;
         }
-        return true;
+        return false;
     }
 }

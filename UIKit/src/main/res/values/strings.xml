@@ -108,9 +108,6 @@
     <string name="exchange_speedup">交易加速</string>
     <string name="native_token">原生代币</string>
     <string name="no_native_token">跨链代币</string>
-    <string name="genarate_address">生成跨链地址</string>
-    <string name="re_entrust">转委托</string>
-    <string name="entrust">委托</string>
     <string name="un_entrust">取消委托</string>
     <string name="status">状态</string>
     <string name="time">时间</string>
@@ -121,8 +118,7 @@
     <string name="withdraw_share">提取分红</string>
     <string name="verifier">验证人</string>
     <string name="reminder">温馨提示</string>
-    <string name="reinvset_share">复投分红</string>
-    <string name="entrust_relive_entrust">委托/解委托</string>
+
     <string name="success">成功</string>
     <string name="fail">失败</string>
     <string name="processing">处理中</string>
@@ -166,9 +162,6 @@
     <string name="other_delegate_proportion">佣金率</string>
     <string name="self_delegate_proportion">自我委托</string>
     <string name="validate_node">验证节点</string>
-    <string name="transfer_entrust">转委托</string>
-    <string name="relieve_entrust">解委托</string>
-    <string name="do_entrust">委托</string>
     <string name="up_time">上线时间比重</string>
     <string name="update_time">更新时间</string>
     <string name="max_rate_limit">最大佣金限制</string>
@@ -180,8 +173,6 @@
     <string name="hint_enter_entrust">请输入委托数量</string>
     <string name="entrust_amount">委托数量</string>
 
-    <string name="withdraw_reward">提取收益</string>
-    <string name="other">其它</string>
     <string name="max_rate_change_limit">每天最大佣金变化限制</string>
     <string name="speedup">加速</string>
     <string name="string_placeholder">--</string>
@@ -452,7 +443,7 @@
     <string-array name="set_list_item">
         <item>语言</item>
         <item>计价货币</item>
-        <item>夜间模式</item>
+        <item>暗色模式</item>
         <item>指纹识别</item>
         <item>安全设置</item>
     </string-array>
@@ -494,7 +485,6 @@
     <string name="native_token_list">原生代币列表</string>
     <string name="cross_chain_token_list">跨链代币列表</string>
 
-    <string name="exchange_coin">兑换</string>
     <string name="mapping">映射</string>
     <string name="pay_detail">支付详情</string>
     <string name="pay_info">支付信息</string>
@@ -503,11 +493,18 @@
     <string name="agreen">同意</string>
     <string name="reject">拒绝</string>
     <string name="choose_token">选择币种</string>
-    <string name="security_setting_tips">以下选项不支持同时开启</string>
+    <string name="security_setting_tips">如果程序在后台超过指定的时间，再次打开将需要重新验证密码</string>
     <string name="security_setting_pwd_tips">下次密码登录时有效</string>
     <string name="balance">余额</string>
     <string name="cross_link_trusteeship_address">跨链托管地址</string>
-    <string name="hbc_chain_address">HBC Chain地址</string>
+    <string name="hbc_chain_address">HBTC Chain 地址</string>
     <string name="click_make_cross_address">点击生成跨链地址</string>
+    <string name="fingerprint_verify">指纹验证</string>
+    <string name="exchage_rate">汇率</string>
+    <string name="exxternal_link_txid">外链TXID</string>
+    <string name="friend_tips">温馨提示:</string>
+    <string name="string_deposit_threshold">· 最小充值数量 %1$s</string>
+    <string name="set_pwd_period">设置密码有效期：</string>
+    <string name="string_deposit_threshold_2">温馨提示：最小充值数量</string>
 
 </resources>

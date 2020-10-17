@@ -5,7 +5,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -18,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.bhex.lib.uikit.util.ColorUtil;
@@ -92,18 +96,20 @@ public class AddressQRFragment extends BaseDialogFragment {
             ToolUtils.copyText(address, getContext());
             ToastUtils.showToast(getString(R.string.copyed));
         });
+        AppCompatTextView tv_friend_tips = view.findViewById(R.id.tv_friend_tips);
 
-        /*if(bhToken.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_address_label.setText(BHConstants.HBTC.toUpperCase()+getString(R.string.trusteeship_address));
-        }else if(address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
-            tv_address_label.setText(BHConstants.HBTC.toUpperCase()+getString(R.string.trusteeship_address));
-        }else {
-            tv_address_label.setText(bhToken.name.toUpperCase()+getString(R.string.address));
-        }*/
         if(address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
             tv_address_label.setText(getString(R.string.hbc_chain_address));
+            tv_friend_tips.setVisibility(View.GONE);
         }else {
+
             tv_address_label.setText(getString(R.string.crosslink_deposit_address));
+            ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(ContextCompat.getColor(getContext(),R.color.blue_bg));
+            String tips = getString(R.string.string_deposit_threshold_2);
+            String amount_str = bhToken.deposit_threshold+bhToken.symbol.toUpperCase();
+            SpannableString spannableStr = new SpannableString(tips+" "+amount_str);
+            spannableStr.setSpan(foregroundColorSpan,tips.length(),tips.length()+amount_str.length()+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            tv_friend_tips.setText(spannableStr);
         }
     }
 

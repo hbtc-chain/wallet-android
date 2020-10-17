@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/global_secondary_text_color"
                 android:textSize="15sp"
-                android:text="汇率"/>
+                android:text="@string/exchage_rate"/>
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -205,7 +205,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginStart="32dp"
             android:background="@drawable/btn_bg_blue_6_corner"
-            android:text="@string/exchange_coin"
+            android:text="@string/swap"
             android:textColor="@color/white"
             android:textSize="17sp"
             android:gravity="center"

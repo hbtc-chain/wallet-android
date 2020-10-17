@@ -214,7 +214,7 @@
         app:cornerRadius="@dimen/main_radius_conner"
         style="@style/main_material_btn"
         android:textColor="@color/global_button_text_color"
-        android:text="@string/genarate_address"
+        android:text="@string/genarate_cross_address"
         android:enabled="true"
         />
 

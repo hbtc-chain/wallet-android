@@ -28,7 +28,6 @@ import butterknife.OnClick;
 
 /**
  * @author gongdongyang
- * 转委托界面
  * 2020-4-8 11:21:16
  */
 @Route(path = ARouterConfig.Balance_transcation_detail)
@@ -46,6 +45,7 @@ public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailP
 
 
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_transcation;
@@ -58,10 +58,6 @@ public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailP
         mtxo = txo;
 
         initBaseData();
-
-
-        //TransactionHelper.displayTranscationAmount( tv_tranction_amount,txo.activities.get(0).type,txo);
-
 
         TransactionHelper.displayTranscationFromTo(this, tv_from, tv_to,
                 txo.activities.get(0).type,

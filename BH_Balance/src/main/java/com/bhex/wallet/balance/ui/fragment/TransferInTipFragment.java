@@ -27,6 +27,7 @@ import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 
 /**
  * @author gongdongyang
@@ -74,7 +75,7 @@ public class TransferInTipFragment extends BaseDialogFragment {
         AppCompatTextView tv_tip2 = mRootView.findViewById(R.id.tv_transfer_in_tips_2);
         ForegroundColorSpan foregroundColorSpan=new ForegroundColorSpan(ContextCompat.getColor(getContext(),R.color.alarm_highlight_text_color));
 
-        if(way==1){
+        if(way== BH_BUSI_TYPE.链内转账.getIntValue()){
             String tip1 = getResources().getString(R.string.linkinner_deposit_tip_1);
             String linkInner = getResources().getString(R.string.linkinner);
             int index1 = tip1.indexOf(linkInner);
@@ -83,7 +84,6 @@ public class TransferInTipFragment extends BaseDialogFragment {
                 spannableStr1.setSpan(foregroundColorSpan,index1,index1+linkInner.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 tv_tip1.setText(spannableStr1);
             }
-
 
             String tip2 = getResources().getString(R.string.linkinner_deposit_tip_2);
             String noCrossLink = getResources().getString(R.string.no_cross_link);
@@ -94,8 +94,7 @@ public class TransferInTipFragment extends BaseDialogFragment {
                 tv_tip2.setText(spannableStr2);
             }
 
-
-        }else if(way==2){
+        }else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
             String tip1 = getResources().getString(R.string.crosslink_deposit_tip_1);
             String crosslink = getResources().getString(R.string.crosslink);
             int index1 = tip1.indexOf(crosslink);

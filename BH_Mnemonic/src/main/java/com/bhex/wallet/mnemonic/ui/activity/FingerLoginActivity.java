@@ -1,9 +1,11 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.view.View;
 import android.widget.Toast;
@@ -30,6 +32,8 @@ import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.ui.fragment.AddressFragment;
 
+import org.spongycastle.util.Fingerprint;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -39,6 +43,7 @@ import butterknife.OnClick;
  * 指纹或面容登录
  */
 public class FingerLoginActivity extends BaseActivity  implements AddressFragment.AddressChangeListener{
+    protected final static String TAG = FingerLoginActivity.class.getSimpleName();
 
     @BindView(R2.id.tv_bh_address)
     AppCompatTextView tv_bh_address;
@@ -48,7 +53,6 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
 
     @BindView(R2.id.tv_password_verify)
     AppCompatTextView tv_password_verify;
-
 
     FingerprintManagerCompat manager;
     KeyguardManager mKeyManager;
@@ -166,6 +170,7 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
              fragment.show(getSupportFragmentManager(), "");
         }else if(view.getId() == R.id.tv_password_verify){
              NavigateUtil.startActivity(this, LockActivity.class);
+             mCancellationSignal.cancel();
         }
     }
 
@@ -181,6 +186,7 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
         }
     }
 
+    @SuppressLint("MissingPermission")
     public boolean isFinger() {
 
         //android studio 上，没有这个会报错

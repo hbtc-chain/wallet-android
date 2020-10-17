@@ -462,7 +462,7 @@
             android:layout_weight="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="@string/transfer_entrust"
+            android:text="@string/re_entrust"
             android:textColor="@color/border_button_text_color"
             app:backgroundTint="@color/border_button_bg_color"
             app:cornerRadius="@dimen/main_radius_conner"

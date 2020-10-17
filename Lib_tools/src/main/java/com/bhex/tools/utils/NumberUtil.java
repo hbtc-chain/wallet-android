@@ -214,7 +214,7 @@ public class NumberUtil {
         if(TextUtils.isEmpty(amount) || Double.valueOf(amount)==0){
             return "0";
         }
-        String result = formatValue(Double.valueOf(amount),4);
+        String result = formatValue(Double.valueOf(amount),5);
 
         BigDecimal res=new BigDecimal(result);
 

@@ -1,5 +1,6 @@
 package com.bhex.wallet.balance.ui.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -49,6 +50,11 @@ public abstract class TxBaseActivity<T extends IPresenter> extends BaseActivity<
     @BindView(R2.id.iv_txid_paste)
     public AppCompatImageView iv_txid_paste;
 
+    @BindView(R2.id.iv_ibc_txid_paste)
+    AppCompatImageView iv_ibc_txid_paste;
+    @BindView(R2.id.tv_ibc_txhash)
+    AppCompatTextView tv_ibc_txhash;
+
     @BindView(R2.id.recycler_reward)
     RecyclerView recycler_reward;
 
@@ -59,25 +65,36 @@ public abstract class TxBaseActivity<T extends IPresenter> extends BaseActivity<
 
     public void initBaseData(){
         String tx_type = TransactionHelper.getTranscationType(this, mtxo);
-
         tv_center_title.setText(tx_type);
-
         tv_tranction_hash.setText(mtxo.hash);
+        tv_ibc_txhash.setText(mtxo.ibc_tx_hash);
 
         TransactionHelper.setTranscationStatusExt(this, mtxo, tv_transcation_status);
         String tv_time = DateUtil.transTimeWithPattern(mtxo.time * 1000, DateUtil.DATA_TIME_STYLE);
         tv_transcation_time.setText(tv_time);
 
-        if(TRANSCATION_BUSI_TYPE.发起治理提案.getLabel().equals(tx_type)
-            ||TRANSCATION_BUSI_TYPE.治理提案质押.getLabel().equals(tx_type)){
-            recycler_reward.setVisibility(View.GONE);
+        if(TextUtils.isEmpty(mtxo.ibc_tx_hash)){
+            findViewById(R.id.layout_index_0).setVisibility(View.GONE);
         }
+
+
+        /*if(TransactionHelper.transactionIsProccess(tx_type)){
+            recycler_reward.setVisibility(View.VISIBLE);
+        }else{
+            recycler_reward.setVisibility(View.GONE);
+        }*/
     }
 
     @Override
     protected void addEvent() {
         iv_txid_paste.setOnClickListener(v -> {
             String text = tv_tranction_hash.getText().toString();
+            ToolUtils.copyText(text, this);
+            ToastUtils.show(getResources().getString(R.string.copyed));
+        });
+
+        iv_ibc_txid_paste.setOnClickListener(v->{
+            String text = tv_ibc_txhash.getText().toString();
             ToolUtils.copyText(text, this);
             ToastUtils.show(getResources().getString(R.string.copyed));
         });

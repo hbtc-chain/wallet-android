@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="32dp"
+        android:paddingBottom="32dp"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/shape_white_16_corner">
 
@@ -74,7 +75,6 @@
             android:layout_height="56dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="32dp"
             android:insetBottom="0dp"
             android:insetTop="0dp"
             app:iconPadding="0dp"
@@ -92,6 +92,17 @@
             android:gravity="center"
             style="@style/border_btn_text_style"
             android:layout_marginTop="16dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_friend_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/global_main_text_color"
+            android:textSize="13sp"
+            android:text="@string/string_deposit_threshold_2"
             />
 
     </LinearLayout>

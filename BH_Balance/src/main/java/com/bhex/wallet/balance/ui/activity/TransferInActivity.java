@@ -24,11 +24,13 @@ import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.ui.fragment.TransferInTipFragment;
+import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHToken;
 import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
@@ -47,6 +49,8 @@ public class TransferInActivity extends BaseActivity {
     AppCompatTextView tv_center_title;
     @BindView(R2.id.layout_index_0)
     LinearLayout layout_index_0;
+    @BindView(R2.id.layout_index_5)
+    LinearLayout layout_index_5;
 
     @BindView(R2.id.root_view)
     ConstraintLayout mRootView;
@@ -109,6 +113,12 @@ public class TransferInActivity extends BaseActivity {
             mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.tranfer_in_out_bg));
             ImmersionBar.with(this).statusBarColor(R.color.tranfer_in_out_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_out_bg).fitsSystemWindows(true).init();
             layout_index_0.setVisibility(View.VISIBLE);
+            layout_index_5.setVisibility(View.VISIBLE);
+            AppCompatTextView tv_tip_context = findViewById(R.id.tv_tip_context);
+            BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
+            String deposit_threshold_str = String.format(getString(R.string.string_deposit_threshold),bhToken.deposit_threshold+bhToken.symbol.toUpperCase());
+            tv_tip_context.setText(deposit_threshold_str);
+
         }
 
         Bitmap bitmap = QREncodUtil.createQRCode(deposit_address,

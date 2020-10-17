@@ -114,13 +114,9 @@ public class MarketFragment extends BaseBowserFragment  {
             transactionViewModel.sendTransaction(getActivity(),bhSendTranscation);
             return 0;
         });
+        //transactionViewModel.create_dex_transcation(getYActivity(),h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,h5SignEvent.data);
     }
     private void updateTransferStatus(LoadDataModel ldm) {
-        /*if(ldm.loadingStatus== LoadingStatus.SUCCESS){
-            ToastUtils.showToast(getResources().getString(R.string.transfer_in_success));
-        }else{
-            //ToastUtils.showToast(getResources().getString(com.bhex.wallet.balance.R.string.transfer_in_fail));
-        }*/
 
         if(mH5Sign==null || TextUtils.isEmpty(mH5Sign.type)) {
             return;

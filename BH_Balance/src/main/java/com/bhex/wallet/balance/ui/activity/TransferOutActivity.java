@@ -254,7 +254,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             }else if(resultCode == BHQrScanActivity.REQUEST_IMAGE){
                 getAnalyzeQRCodeResult(data.getData());
             }
-
         }
     }
 
@@ -280,7 +279,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
      */
     @Override
     public void confirmAction(String password, int position,int verifyPwdWay) {
-
         //String from_address = mCurrentBhWallet.getAddress();
         String to_address = tv_to_address.getInputString();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
@@ -289,12 +287,14 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             String withDrawAmount = ed_transfer_amount.getInputStringTrim();
             String feeAmount = et_tx_fee.getInputString();
 
-            BHTransactionManager.loadSuquece(suquece -> {
+            /*BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
                         gasPrice,password,suquece,balance.symbol);
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
-            });
+            });*/
+            transactionViewModel.transferInner(this,to_address,withDrawAmount,feeAmount,
+                    withDrawAmount,password,balance.symbol);
 
         }else if(way== BH_BUSI_TYPE.跨链转账.getIntValue()){//跨链
             //提币数量
@@ -304,13 +304,15 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             //提币手续费
             String withDrawFeeAmount = et_withdraw_fee.getInputString();
 
-            BHTransactionManager.loadSuquece(suquece -> {
+            /*BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.crossLinkTransfer(to_address,withDrawAmount,feeAmount,
                         gasPrice,withDrawFeeAmount,password,suquece,balance.symbol);
 
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
-            });
+            });*/
+            transactionViewModel.transferCrossLink(this,to_address,withDrawAmount,feeAmount,
+                    withDrawFeeAmount,password,balance.symbol);
         }
     }
 

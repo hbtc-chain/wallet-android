@@ -1,8 +1,5 @@
 package com.bhex.wallet.bh_main.my.ui.activity;
 
-import android.view.View;
-
-import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,17 +11,14 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.utils.ToastUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.SecuritySettingAdapter;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.model.SecuritySettingItem;
-import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
-import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import java.util.List;
 

@@ -164,6 +164,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             btn_item4.setActionMore(View.GONE);
             btn_item4.setVisibility(View.VISIBLE);
             btn_item4.tv_bottom_text.setText(getString(R.string.entrust_relive_entrust));
+            findViewById(R.id.layout_divider).setVisibility(View.VISIBLE);
         } else if (BHConstants.BHT_TOKEN.equalsIgnoreCase(getBHBalance().chain)) {
             //原生代币
             btn_item3.setVisibility(View.GONE);
@@ -207,7 +208,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             btn_item4.setVisibility((tokenMapping==null)?View.GONE:View.VISIBLE);
             if(tokenMapping!=null){
                 btn_item4.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));
-                btn_item4.tv_bottom_text.setText(getResources().getString(R.string.exchange_coin));
+                btn_item4.tv_bottom_text.setText(getResources().getString(R.string.mapping_swap));
                 btn_item4.setId(R.id.cross_chian_withdraw);
                 btn_item4.setActionMore(View.GONE);
             }

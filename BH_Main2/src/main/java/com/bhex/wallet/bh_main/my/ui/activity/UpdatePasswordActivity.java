@@ -26,6 +26,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.config.ARouterUrls;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.google.android.material.button.MaterialButton;
 
@@ -98,6 +99,8 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
             if(loadDataModel.loadingStatus== LoadingStatus.SUCCESS){
                 ToastUtils.showToast(getResources().getString(R.string.password_update_success));
                 finish();
+                //取消定时
+                SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
             }else{
                 ToastUtils.showToast(getResources().getString(R.string.password_update_fail));
             }

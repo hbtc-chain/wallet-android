@@ -8,7 +8,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.utils.JsonUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.TranscationAdapter;
@@ -47,7 +46,7 @@ public class TranscationViewActivity extends TxBaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_with_reward;
+        return R.layout.activity_transcation_view;
     }
 
     @Override
@@ -68,13 +67,11 @@ public class TranscationViewActivity extends TxBaseActivity {
     @Override
     protected void addEvent() {
         super.addEvent();
-
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.transLiveData.observe(this,ldm->{
             //更新交易详情
             updateTranscation(ldm);
         });
-
 
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
             transactionViewModel.queryTransactionDetail(this,transactionId);
@@ -93,8 +90,7 @@ public class TranscationViewActivity extends TxBaseActivity {
             mList = mtxo.activities;
             mdvAdapter.getData().clear();
             mdvAdapter.addData(mtxo.activities);
-            TransactionHelper.displayTranscationAmount( tv_tranction_amount,mSymbol,mtxo);
-
+            //TransactionHelper.displayTranscationAmount( tv_tranction_amount,mSymbol,mtxo);
         }else if(ldm.loadingStatus == LoadingStatus.ERROR){
 
         }

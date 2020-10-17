@@ -102,12 +102,14 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_hold_text" />
 
                     <View
+                        android:id="@+id/layout_divider"
                         android:layout_width="0dp"
                         android:layout_height="1px"
                         android:background="@color/global_divider_color"
                         app:layout_constraintStart_toStartOf="@+id/tv_coin_currency"
                         app:layout_constraintEnd_toEndOf="@+id/iv_coin_ic"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_coin_ic"
+                        android:visibility="invisible"
                         />
 
                     <androidx.appcompat.widget.AppCompatTextView

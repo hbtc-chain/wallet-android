@@ -1,4 +1,15 @@
 <resources>
-
     <string name="no_order">No Order</string>
+    <string name="do_entrust">Delegate</string>
+    <string name="re_entrust">Transfer delegation</string>
+    <string name="reinvset_share">Reinvestment</string>
+    <string name="entrust_relive_entrust">Delegate/ReDelegate</string>
+    <string name="withdraw_reward">Withdraw income</string>
+    <string name="swap">Swap</string>
+    <string name="mapping_swap">Mapping Swap</string>
+    <string name="add_liquidity">Add Liquidity</string>
+    <string name="remove_liquidity">Remove Liquidity</string>
+    <string name="limit_swap">Limit Swap</string>
+    <string name="cancel_limit_swap">Cancel</string>
+    <string name="other">Others</string>
 </resources>

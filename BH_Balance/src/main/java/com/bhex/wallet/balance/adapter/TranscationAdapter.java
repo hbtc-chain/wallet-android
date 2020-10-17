@@ -43,7 +43,7 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
         viewHolder.setText(R.id.tv_title, TRANSCATION_BUSI_TYPE.getValue(activitiesBean.getType()));
         AppCompatTextView  tv_delegate_address = viewHolder.getView(R.id.tv_delegate_address);
         AppCompatTextView  tv_validator_address = viewHolder.getView(R.id.tv_validator_address);
-
+        viewHolder.itemView.setVisibility(View.VISIBLE);
         if(TRANSCATION_BUSI_TYPE.提取收益.getType().equalsIgnoreCase(activitiesBean.type)){
             //计算提取收益
             DelegateBean delegateBean = JsonUtils.fromJson(activitiesBean.getValue().toString(),DelegateBean.class);
@@ -135,9 +135,11 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             double amount = NumberUtil.divide(withdrawalBean.amount, String.valueOf(Math.pow(10,decimals)),decimals);
             String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(amount+"");
             viewHolder.setText(R.id.tv_amount, amount_str+withdrawalBean.symbol.toUpperCase());
-        } else if(!TransactionHelper.transactionIsProccess(activitiesBean.type)){
+        }else {
             viewHolder.itemView.setVisibility(View.GONE);
         }
+
+
         viewHolder.getView(R.id.iv_delegate_address_paste).setOnClickListener(v -> {
             ToolUtils.copyText(tv_delegate_address.getText().toString(),getContext());
             ToastUtils.showToast(getContext().getResources().getString(R.string.copyed));

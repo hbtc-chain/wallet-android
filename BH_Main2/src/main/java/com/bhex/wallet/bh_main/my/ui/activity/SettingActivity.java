@@ -44,7 +44,7 @@ import butterknife.BindView;
  * 2020-3-12 15:48:18
  * 设置
  */
-public class SettingActivity extends BaseActivity implements SettingAdapter.SwitchCheckListener {
+public class SettingActivity extends BaseActivity{
 
     @BindView(R2.id.recycler_setting)
     RecyclerView recycler_setting;
@@ -66,7 +66,7 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycler_setting.setLayoutManager(layoutManager);
 
-        mSettingAdapter = new SettingAdapter(mItems,this);
+        mSettingAdapter = new SettingAdapter(mItems);
 
         recycler_setting.setAdapter(mSettingAdapter);
 
@@ -87,7 +87,21 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
         });
 
         mSettingAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            if(view.getId()== com.bhex.wallet.balance.R.id.ck_select){
+            if(position == 2) {
+                CheckedTextView ck = (CheckedTextView) view;
+                ck.toggle();
+                if(ck.isChecked()){
+                    MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }else{
+                    MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                this.getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
+                NavigateUtil.startActivity(this,SettingActivity.class);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                EventBus.getDefault().post(new NightEvent());
+            } else if(position==3){
                 CheckedTextView ck = (CheckedTextView) view;
                 if(!ck.isChecked()){
                     if(SafeUilts.isFinger(this)){
@@ -95,7 +109,7 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
                         ck.toggle();
                         ToastUtils.showToast(getResources().getString(R.string.set_finger_ok));
                     }
-                }else{
+                }else {
                     MMKVManager.getInstance().mmkv().remove(BHConstants.FINGER_PWD_KEY);
                     ck.toggle();
                 }
@@ -147,25 +161,7 @@ public class SettingActivity extends BaseActivity implements SettingAdapter.Swit
 
     }
 
-    @Override
-    public void checkStatus(CompoundButton buttonView, boolean isChecked) {
-        SwitchCompat switchCompat = (SwitchCompat) buttonView;
-        if(isChecked){
-            switchCompat.setThumbResource(R.mipmap.ic_thumb_night);
-            MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-        }else{
-            switchCompat.setThumbResource(R.mipmap.ic_thumb_sun);
-            MMKVManager.getInstance().setSelectNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-        }
-        this.getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
-        NavigateUtil.startActivity(this,SettingActivity.class);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        EventBus.getDefault().post(new NightEvent());
-    }
 
     @Override
     protected void onResume() {

@@ -109,9 +109,6 @@ public class BHTransactionManager {
         //
     }
 
-
-
-
     /**
      * 跨链地址生成
      */
@@ -511,7 +508,7 @@ public class BHTransactionManager {
 
         //json排序
         raw_json = JsonUtils.sortJson(raw_json);
-        LogUtils.d("BHSendTranscation===>:","raw_json=="+raw_json);
+        //LogUtils.d("BHSendTranscation===>:","raw_json=="+raw_json);
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
         //交易请求数据构建
         BHSendTranscation bhSendTranscation = BHSendTranscation.createBHSendTransaction(bhRawTransaction,bhCredentials,sign,BHConstants.TRANSCTION_MODE);

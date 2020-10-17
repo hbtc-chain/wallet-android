@@ -66,7 +66,7 @@ public enum TRANSCATION_BUSI_TYPE {
 
     public static void init(Context context){
         转账.label = context.getResources().getString(R.string.transfer);
-        委托.label = context.getResources().getString(R.string.entrust);
+        委托.label = context.getResources().getString(R.string.do_entrust);
         取消委托.label = context.getResources().getString(R.string.un_entrust);
         跨链地址生成.label = context.getResources().getString(R.string.crosslink_address);
         提取收益.label = context.getResources().getString(R.string.withdraw_reward);
@@ -76,13 +76,13 @@ public enum TRANSCATION_BUSI_TYPE {
         治理提案质押.label=context.getResources().getString(R.string.pledge_proposal);
         治理提案投票.label=context.getResources().getString(R.string.vote_proposal);
         复投分红.label = context.getResources().getString(R.string.reinvset_share);
-        映射.label = "映射";
-        兑换_输入确定.label = "兑换";
-        兑换_输出确定.label = "兑换";
-        添加流动性.label = "添加流动性";
-        移除流动性.label = "移除流动性";
-        撤单.label = "撤单";
-        限价单兑换.label = "限价单兑换";
+        映射.label = context.getResources().getString(R.string.mapping_swap);
+        兑换_输入确定.label = context.getResources().getString(R.string.swap);
+        兑换_输出确定.label = context.getResources().getString(R.string.swap);
+        添加流动性.label = context.getResources().getString(R.string.add_liquidity);
+        移除流动性.label = context.getResources().getString(R.string.remove_liquidity);
+        撤单.label = context.getResources().getString(R.string.cancel_limit_swap);
+        限价单兑换.label = context.getResources().getString(R.string.limit_swap);
         Other.label = context.getResources().getString(R.string.other);
     }
 

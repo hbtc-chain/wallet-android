@@ -283,29 +283,12 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         String toAddress = inp_to_address.getInputString();
         String tokenName  = inp_token_name.getInputString();
         String tokenCount = inp_token_release_count.getInputString().replaceAll(" ","");
-
         tokenCount = NumberUtil.mulExt(tokenCount,String.valueOf(Math.pow(10,18))).toString(10);
-
         String tokenDecimals = inp_token_decimals.getInputString();
-
-        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-
+        //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         String feeAmount = inp_tx_fee.getInputString();
-
         BHTokenRlease tokenRlease = new BHTokenRlease(
                 formAddress,toAddress,tokenName,tokenCount,tokenDecimals);
-
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,suquece,password);
-            transactionViewModel.sendTransaction(this,bhSendTranscation);
-            return 0;
-        });
+        transactionViewModel.hrc20TokenRelease(this,tokenRlease,feeAmount,password);
     }
-
-    /*@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        ToolUtils.hintKeyBoard(this);
-        finish();
-    }*/
 }

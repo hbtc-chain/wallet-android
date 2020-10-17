@@ -106,9 +106,6 @@
     <string name="exchange_speedup">Accelerate transactions</string>
     <string name="native_token">Native</string>
     <string name="no_native_token">Cross-chain</string>
-    <string name="genarate_address">Generate cross-chain addresses</string>
-    <string name="re_entrust">Transfer delegation</string>
-    <string name="entrust">Delegate</string>
     <string name="un_entrust">Cancel the delegation</string>
     <string name="status">Status</string>
     <string name="time">Time</string>
@@ -119,7 +116,6 @@
     <string name="withdraw_share">Withdraw dividends</string>
     <string name="verifier">Validator</string>
     <string name="reminder">Tip</string>
-    <string name="reinvset_share">Reinvestment</string>
     <string name="success">Success</string>
     <string name="fail">Failed</string>
     <string name="processing">Processing</string>
@@ -163,9 +159,7 @@
     <string name="other_delegate_proportion">Commission rate</string>
     <string name="self_delegate_proportion">Self-delegation</string>
     <string name="validate_node">Validator node</string>
-    <string name="transfer_entrust">Transfer delegate</string>
     <string name="relieve_entrust">Relieve delegate</string>
-    <string name="do_entrust">Delegate</string>
     <string name="up_time">Weight of online time</string>
     <string name="update_time">Updated time</string>
     <string name="max_rate_limit">Maximum commission limits</string>
@@ -176,9 +170,6 @@
     <string name="hint_input_validator">Enter the name of the validator</string>
     <string name="hint_enter_entrust">Input amount</string>
     <string name="entrust_amount">Amount</string>
-
-    <string name="withdraw_reward">Withdraw income</string>
-    <string name="other">Others</string>
     <string name="max_rate_change_limit">Maximum daily commission variation limit</string>
     <string name="speedup">Accelerate</string>
     <string name="string_placeholder">--</string>
@@ -213,7 +204,7 @@
     <string name="draw_coin_address">Withdraw address</string>
     <string name="crosslink_deposit_tip_1">·You are running a custodian unit deposit cross-chain.</string>
     <string name="link_outter_generating">Generate cross-chain address...</string>
-    <string name="not_have_amount">No valid HBC</string>
+    <string name="not_have_amount">No valid </string>
 
     <string name="mnemonic_backup_success">Success</string>
     <string name="transfer_in_success">Success</string>
@@ -491,7 +482,6 @@
 
     <string name="native_token_list">Native Token List</string>
     <string name="cross_chain_token_list">Cross-chain Token List</string>
-    <string name="exchange_coin">Exchange</string>
     <string name="mapping">Mapping</string>
     <string name="pay_detail">Pay Detail</string>
     <string name="pay_info">Pay Info</string>
@@ -502,7 +492,17 @@
 
     <string name="choose_token">Choose Token</string>
     <string name="security_setting_tips">以下选项不支持同时开启</string>
+    <string name="security_setting_pwd_tips">下次密码登录时有效</string>
     <string name="balance">Balance</string>
-    <string name="hbc_chain_address">HBC Chain地址</string>
+    <string name="cross_link_trusteeship_address">跨链托管地址</string>
+    <string name="hbc_chain_address">HBTC Chain address</string>
     <string name="click_make_cross_address">点击生成跨链地址</string>
+    <string name="fingerprint_verify">Touch to login</string>
+    <string name="traffic_network_later_try" translatable="false">网络拥堵，请稍后再试</string>
+    <string name="exchage_rate">ExRate </string>
+    <string name="exxternal_link_txid">外链TXID</string>
+    <string name="friend_tips">温馨提示:</string>
+    <string name="string_deposit_threshold">最小提币数量</string>
+    <string name="set_pwd_period">设置密码有效期：</string>
+    <string name="string_deposit_threshold_2">温馨提示：最小充值数量</string>
 </resources>

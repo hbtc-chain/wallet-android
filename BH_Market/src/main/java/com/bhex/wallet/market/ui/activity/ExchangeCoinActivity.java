@@ -82,6 +82,9 @@ public class ExchangeCoinActivity extends BaseActivity
     @BindView(R2.id.iv_target)
     AppCompatImageView iv_target;
 
+    @BindView(R2.id.tv_rate)
+    AppCompatTextView tv_rate;
+
     protected TransactionViewModel mTransactionViewModel;
     protected BalanceViewModel mBalanceViewModel;
     private BHTokenMapping mTokenMapping;
@@ -95,7 +98,7 @@ public class ExchangeCoinActivity extends BaseActivity
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
-        tv_center_title.setText(getString(R.string.exchange_coin));
+        tv_center_title.setText(getString(R.string.mapping_swap));
         mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
         initMappingTokenView();
     }
@@ -126,17 +129,17 @@ public class ExchangeCoinActivity extends BaseActivity
         view_right_left = layout_right.getLeft();
     }
 
-    @OnClick({R2.id.btn_exchange_action, R2.id.iv_exchange,R2.id.tv_issue_token,R2.id.tv_target_token})
+    @OnClick({R2.id.btn_exchange_action, R2.id.iv_exchange,R2.id.layout_left,R2.id.layout_right})
     public void onClickView(View view) {
         if (view.getId() == R.id.btn_exchange_action) {
             exchangeAction();
         } else if (view.getId() == R.id.iv_exchange) {
             //exchangeAnimatorAction();
-        } else if(view.getId() == R.id.tv_issue_token){
+        } else if(view.getId() == R.id.layout_left){
             ChooseTokenFragment frg = ChooseTokenFragment.showDialog(mSymbol,0,this);
             frg.show(getSupportFragmentManager(),ChooseTokenFragment.class.getName());
 
-        } else if(view.getId() == R.id.tv_target_token){
+        } else if(view.getId() == R.id.layout_right){
             if(ToolUtils.checkListIsEmpty(mMappingToknList) || mMappingToknList.size()<=1){
                return;
             }
@@ -242,11 +245,13 @@ public class ExchangeCoinActivity extends BaseActivity
             mTransactionViewModel.sendTransaction(this, bhSendTranscation);
             return 0;
         });
+
     }
 
     //更新兑换状态
     private void updateTransferStatus(LoadDataModel ldm) {
         if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
+            inp_amount.setText("");
             ToastUtils.showToast(getString(R.string.transfer_in_success));
         } else {
             ToastUtils.showToast(getString(R.string.transfer_in_fail));
@@ -260,6 +265,8 @@ public class ExchangeCoinActivity extends BaseActivity
         }
         mBhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
         mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
+
+        //
     }
 
     @Override
@@ -298,11 +305,12 @@ public class ExchangeCoinActivity extends BaseActivity
         }else{
             iv_right_more.setVisibility(View.GONE);
         }
+        String tv_rate_str = "1 ".concat(mTokenMapping.coin_symbol.toUpperCase()).concat(" = 1 ").concat(mTokenMapping.target_symbol.toUpperCase());
+        tv_rate.setText(tv_rate_str);
     }
     private ChooseTokenFragment.ChooseTokenListener chooseTokenListener = item -> {
         tv_target_token.setText(item.target_symbol.toUpperCase());
         mTokenMapping = item;
-        //mTokenMapping.target_symbol = item.target_symbol;
         BHBalanceHelper.loadTokenIcon(this,iv_target,mTokenMapping.target_symbol.toUpperCase());
     };
 }

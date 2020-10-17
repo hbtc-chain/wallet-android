@@ -27,11 +27,10 @@ import java.util.List;
  */
 public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
 
-    private SwitchCheckListener switchCheckListener;
+    //private SwitchCheckListener switchCheckListener;
 
-    public SettingAdapter( @Nullable List<MyItem> data,SwitchCheckListener listener) {
+    public SettingAdapter( @Nullable List<MyItem> data) {
         super(R.layout.item_setting, data);
-        this.switchCheckListener = listener;
         //addChildClickViewIds(R.id.sc_theme);
         addChildClickViewIds(R.id.ck_select);
 
@@ -46,14 +45,10 @@ public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
             viewHolder.getView(R.id.tv_right_txt).setVisibility(View.INVISIBLE);
         }else{
             viewHolder.getView(R.id.iv_arrow).setVisibility(View.INVISIBLE);
-
             viewHolder.getView(R.id.tv_right_txt).setVisibility(View.VISIBLE);
             viewHolder.setText(R.id.tv_right_txt,myItem.rightTxt);
         }
-
-
         viewHolder.setText(R.id.tv_right_2_txt,myItem.rightTxt);
-
         SwitchCompat sc = viewHolder.getView(R.id.sc_theme);
         AppCompatCheckedTextView ck = viewHolder.getView(R.id.ck_select);
         ck.setVisibility(View.GONE);
@@ -62,19 +57,23 @@ public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
         if(position==2){
             int model = MMKVManager.getInstance().getSelectNightMode();
             if(model== AppCompatDelegate.MODE_NIGHT_YES){
-                sc.setChecked(true);
-                sc.setThumbResource(R.mipmap.ic_thumb_night);
+                ck.setChecked(true);
             }else{
-                sc.setChecked(false);
-                sc.setThumbResource(R.mipmap.ic_thumb_sun);
+                ck.setChecked(false);
             }
-            sc.setVisibility(View.VISIBLE);
             viewHolder.getView(R.id.iv_arrow).setVisibility(View.INVISIBLE);
-            sc.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            /*ck.setOnClickListener((buttonView, isChecked) -> {
                 if(switchCheckListener!=null){
-                    switchCheckListener.checkStatus(buttonView, isChecked);
+                    switchCheckListener.checkStatus(null, isChecked);
                 }
-            });
+            });*/
+            /*ck.setOnClickListener(v -> {
+                if(switchCheckListener!=null){
+                    switchCheckListener.checkStatus(null, ck.isChecked());
+                }
+            });*/
+            sc.setVisibility(View.GONE);
+            ck.setVisibility(View.VISIBLE);
         }else{
             sc.setVisibility(View.INVISIBLE);
             viewHolder.getView(R.id.iv_arrow).setVisibility(View.VISIBLE);
@@ -91,7 +90,5 @@ public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
 
     }
 
-    public interface  SwitchCheckListener{
-        public void checkStatus(CompoundButton buttonView, boolean isChecked);
-    }
+
 }

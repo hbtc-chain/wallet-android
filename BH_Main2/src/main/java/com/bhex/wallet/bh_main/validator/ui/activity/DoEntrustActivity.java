@@ -141,8 +141,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             mAvailabelTitle = "可转 ";
             tv_entrust_to_title.setText(getString(R.string.source_address));
             tv_entrust_amount_title.setText(getString(R.string.transfer_entrust_amount));
-            btn_do_entrust.setText(getString(R.string.transfer_entrust));
-            tv_center_title.setText(getString(R.string.transfer_entrust));
+            btn_do_entrust.setText(getString(R.string.re_entrust));
+            tv_center_title.setText(getString(R.string.re_entrust));
         } else if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
             tv_fee_available_amount.setVisibility(View.GONE);
             if (mValidatorInfo != null) {

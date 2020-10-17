@@ -22,13 +22,14 @@ import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.HUtils;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
+import com.bhex.wallet.common.tx.BHTokenRlease;
+import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonArray;
@@ -43,6 +44,8 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 
 /**
@@ -61,8 +64,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
     public MutableLiveData<LoadDataModel> mutableLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel<List<TransactionOrder>>> transLiveData  = new MutableLiveData<>();
     public MutableLiveData<LoadDataModel<List<DelegateValidator>>>  validatorLiveData  = new MutableLiveData<>();
-
-    //public MutableLiveData<LoadDataModel<List<TransactionOrder>>> transactionLiveData = new MutableLiveData<>();
 
     public TransactionViewModel(@NonNull Application application) {
         super(application);
@@ -256,4 +257,160 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 .subscribe(observer);
     }
 
+    //链内转账
+    public void transferInner(FragmentActivity activity,String to_address,String withDrawAmount,String feeAmount,
+                                   String withDrawFeeAmount,String password,String symbol) {
+
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                super.onSuccess(jsonObject);
+                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
+                lmd.loadingStatus = LoadingStatus.SUCCESS;
+                mutableLiveData.postValue(lmd);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(lmd);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .observeOn(Schedulers.io())
+                .flatMap(jsonObject -> {
+                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                    if(TextUtils.isEmpty(accountInfo.getSequence())){
+                        return null;
+                    }
+                    BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
+                            null,password,accountInfo.getSequence(),symbol);
+                    String body = JsonUtils.toJson(bhSendTranscation);
+                    RequestBody txBody = HUtils.createJson(body);
+                    return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
+                })
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+
+    //跨链转账
+    public void transferCrossLink(FragmentActivity activity,String to_address,String withDrawAmount,String feeAmount,
+                              String withDrawFeeAmount,String password,String symbol){
+
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                super.onSuccess(jsonObject);
+                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
+                lmd.loadingStatus = LoadingStatus.SUCCESS;
+                mutableLiveData.postValue(lmd);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(lmd);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .observeOn(Schedulers.io())
+                .flatMap(jsonObject -> {
+                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                    if(TextUtils.isEmpty(accountInfo.getSequence())){
+                        return null;
+                    }
+                    BHSendTranscation bhSendTranscation =  BHTransactionManager.crossLinkTransfer(to_address,withDrawAmount,feeAmount,
+                            null,withDrawFeeAmount,password,accountInfo.getSequence(),symbol);
+                    String body = JsonUtils.toJson(bhSendTranscation);
+                    RequestBody txBody = HUtils.createJson(body);
+                    return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
+                })
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+
+    }
+
+    //代币发行
+    public void hrc20TokenRelease(FragmentActivity activity, BHTokenRlease tokenRlease, String feeAmount, String password) {
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                super.onSuccess(jsonObject);
+                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
+                lmd.loadingStatus = LoadingStatus.SUCCESS;
+                mutableLiveData.postValue(lmd);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(lmd);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .observeOn(Schedulers.io())
+                .flatMap(jsonObject -> {
+                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                    if(TextUtils.isEmpty(accountInfo.getSequence())){
+                        return null;
+                    }
+                    BHSendTranscation bhSendTranscation =   BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,accountInfo.getSequence(),password);;
+                    String body = JsonUtils.toJson(bhSendTranscation);
+                    RequestBody txBody = HUtils.createJson(body);
+                    return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
+                })
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+
+    //H5交易
+    public void create_dex_transcation(FragmentActivity activity,String type,JsonObject json, String data){
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                super.onSuccess(jsonObject);
+                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
+                lmd.loadingStatus = LoadingStatus.SUCCESS;
+                mutableLiveData.postValue(lmd);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(lmd);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .observeOn(Schedulers.io())
+                .flatMap(jsonObject -> {
+                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                    if(TextUtils.isEmpty(accountInfo.getSequence())){
+                        return null;
+                    }
+
+                    BHSendTranscation bhSendTranscation =
+                            BHTransactionManager.create_dex_transcation(type,json,accountInfo.getSequence(),data);
+                    String body = JsonUtils.toJson(bhSendTranscation);
+                    RequestBody txBody = HUtils.createJson(body);
+                    return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
+                })
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
 }
