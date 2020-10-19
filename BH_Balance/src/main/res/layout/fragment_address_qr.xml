@@ -110,8 +110,8 @@
 
     <FrameLayout
         android:id="@+id/layout_token_icon"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"

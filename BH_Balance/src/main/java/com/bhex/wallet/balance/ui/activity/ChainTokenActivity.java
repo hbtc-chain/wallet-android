@@ -33,6 +33,8 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.ui.BTCViewHolder;
 import com.bhex.wallet.balance.ui.HBCViewHolder;
+import com.bhex.wallet.balance.viewmodel.TestTokenViewModel;
+import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
@@ -71,11 +73,13 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @BindView(R2.id.empty_layout)
     EmptyLayout empty_layout;
 
-    private BalanceViewModel balanceViewModel;
 
     private BalanceAdapter mBalanceAdapter;
     private HBCViewHolder mHbcViewHolder;
     private BTCViewHolder mBtcViewHolder;
+
+    private BalanceViewModel mBalanceViewModel;
+    private TestTokenViewModel mTestTokenViewModel;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_chain_token;
@@ -95,7 +99,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     //设置地址
     private void setTokenAddress() {
-
         mHbcViewHolder.setTokenAddress(mBalance);
         mBtcViewHolder.setTokenAddress(mBalance);
     }
@@ -131,7 +134,9 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             startActivityForResult(intent,100);
         });
 
-        balanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(this);
+
+
+        mBalanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(this);
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){
@@ -139,6 +144,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             }
             refreshLayout.finishRefresh();
         });
+
+        mTestTokenViewModel = ViewModelProviders.of(this).get(TestTokenViewModel.class);
         refreshLayout.autoRefresh();
     }
 
@@ -160,7 +167,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        balanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
+        mBalanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
+        CacheCenter.getInstance().getSymbolCache().beginLoadCache();
     }
 
     @Override
@@ -169,5 +177,9 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         if(requestCode==100){
             refreshLayout.autoRefresh();
         }
+    }
+
+    public void applyTestToken(){
+        mTestTokenViewModel.send_test_token(this,"hbc","kiwi");
     }
 }

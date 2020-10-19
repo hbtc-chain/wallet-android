@@ -69,7 +69,7 @@ public class ChainAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
         tv_coin_type.setVisibility(View.VISIBLE);
 
         if(balanceItem.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setText(getContext().getString(R.string.native_token_list));
+            tv_coin_type.setText(getContext().getString(R.string.native_token_test_list));
         }else{
             tv_coin_type.setText(getContext().getString(R.string.cross_chain_token_list));
         }

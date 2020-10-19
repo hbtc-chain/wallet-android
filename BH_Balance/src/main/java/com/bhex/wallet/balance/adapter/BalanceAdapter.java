@@ -89,15 +89,29 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         if(bhCoin==null){
             return;
         }
-        if(bhCoin.symbol.equalsIgnoreCase(bhCoin.chain)){
+        /*if(bhCoin.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setVisibility(View.GONE);
             tv_coin_type.setBackgroundColor(0);
         }else if(bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setVisibility(View.VISIBLE);
-            tv_coin_type.setText(R.string.native_token);
+            tv_coin_type.setText(R.string.native_test_token);
             tv_coin_type.setTextAppearance(getContext(),R.style.tx_status_success);
             tv_coin_type.setBackgroundResource(R.drawable.shape_20_green);
         }else if(!bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            tv_coin_type.setVisibility(View.VISIBLE);
+            tv_coin_type.setText(R.string.no_native_token);
+            tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);
+            tv_coin_type.setBackgroundResource(R.drawable.shape_dark20_blue);
+        }*/
+        if(bhCoin.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            tv_coin_type.setVisibility(View.GONE);
+            tv_coin_type.setBackgroundColor(0);
+        } else if(bhCoin.is_native){
+            tv_coin_type.setVisibility(View.VISIBLE);
+            tv_coin_type.setText(R.string.native_test_token);
+            tv_coin_type.setTextAppearance(getContext(),R.style.tx_status_success);
+            tv_coin_type.setBackgroundResource(R.drawable.shape_20_green);
+        }else {
             tv_coin_type.setVisibility(View.VISIBLE);
             tv_coin_type.setText(R.string.no_native_token);
             tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);

@@ -124,6 +124,9 @@ public class TokenMapCache extends BaseCache {
     public List<BHTokenMapping> getTokenMappings() {
         LinkedHashMap<String,BHTokenMapping> maps = new LinkedHashMap<>();
         for (BHTokenMapping item:mTokenMappings) {
+            if(maps.get(item.coin_symbol)!=null){
+                continue;
+            }
             maps.put(item.coin_symbol,item);
         }
         return new ArrayList<>(maps.values());

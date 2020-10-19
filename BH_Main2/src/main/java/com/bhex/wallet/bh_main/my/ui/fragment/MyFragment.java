@@ -30,7 +30,6 @@ import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
 import com.bhex.wallet.bh_main.my.ui.activity.SettingActivity;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.bh_main.my.viewmodel.MessageViewModel;
-import com.bhex.wallet.bh_main.my.viewmodel.TestTokenViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
@@ -275,7 +274,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     public void changeAccount(AccountEvent walletEvent){
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_username.setText(mBhWallet.getName());
-        MyHelper.proccessAddress(tv_address,mBhWallet.getAddress());
+        AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
         mItems = MyHelper.getAllItems(getYActivity());
         mMyAdapter.getData().clear();

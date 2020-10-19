@@ -84,6 +84,7 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
     protected void initView() {
         ARouter.getInstance().inject(this);
         tv_center_title.setText(title);
+        inp_old_pwd.setPaddingRight(0);
     }
 
     @Override

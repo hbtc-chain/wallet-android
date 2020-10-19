@@ -131,7 +131,8 @@ public class MyHelper {
         for(AccountInfo.AssetsBean assetsBean:assetsBeanList){
             if(assetsBean.getSymbol().equalsIgnoreCase(BHConstants.BHT_TOKEN)){
                 balance.symbol = assetsBean.getSymbol();
-                balance.chain = assetsBean.getSymbol();
+                BHToken bhToken = SymbolCache.getInstance().getBHToken(balance.symbol);
+                balance.chain = bhToken.chain;
                 balance.amount = assetsBean.getAmount();
                 balance.frozen_amount = assetsBean.getFrozen_amount();
                 balance.address = assetsBean.getExternal_address();

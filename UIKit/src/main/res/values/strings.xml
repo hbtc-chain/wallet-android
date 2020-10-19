@@ -108,6 +108,7 @@
     <string name="exchange_speedup">交易加速</string>
     <string name="native_token">原生代币</string>
     <string name="no_native_token">跨链代币</string>
+    <string name="native_test_token">原生测试代币</string>
     <string name="un_entrust">取消委托</string>
     <string name="status">状态</string>
     <string name="time">时间</string>
@@ -376,7 +377,7 @@
     <string name="please_input_asset_address">请输入资产地址</string>
     <string name="hint_token_release_count">请输入代币发行量</string>
     <string name="hint_token_name_rule">请输入2-16位小写字母及数字以字母开始</string>
-    <string name="token_name_rule_tip">代币名称长度2-16位</string>
+    <string name="token_name_rule_tip">代币名称: 2-16位小写字母及数字以字母开始</string>
     <string name="please_input_keystore">请输入KeyStore</string>
     <string name="backup_qr_tip_1">仅供直接扫描</string>
     <string name="backup_qr_tip_2">·二维码禁止保存、截图、拍照</string>
@@ -483,6 +484,7 @@
     </string-array>
 
     <string name="native_token_list">原生代币列表</string>
+    <string name="native_token_test_list">原生测试代币列表</string>
     <string name="cross_chain_token_list">跨链代币列表</string>
 
     <string name="mapping">映射</string>
@@ -506,5 +508,6 @@
     <string name="string_deposit_threshold">· 最小充值数量 %1$s</string>
     <string name="set_pwd_period">设置密码有效期：</string>
     <string name="string_deposit_threshold_2">温馨提示：最小充值数量</string>
+    <string name="string_apply_success">申请成功</string>
 
 </resources>

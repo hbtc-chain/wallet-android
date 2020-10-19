@@ -239,13 +239,14 @@ public class ExchangeCoinActivity extends BaseActivity
         String coin_symbol = mTokenMapping.coin_symbol;
         String issue_symbol = mTokenMapping.issue_symbol;
         String map_amount = inp_amount.getText().toString().trim();
-        BHTransactionManager.loadSuquece(suquece -> {
+        /*BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.createMappingSwap(issue_symbol, coin_symbol, map_amount,
                     BHConstants.BHT_DEFAULT_FEE, suquece, password);
             mTransactionViewModel.sendTransaction(this, bhSendTranscation);
             return 0;
-        });
+        });*/
 
+        mTransactionViewModel.swapTransaction(this,issue_symbol, coin_symbol, map_amount, BHConstants.BHT_DEFAULT_FEE,password);
     }
 
     //更新兑换状态

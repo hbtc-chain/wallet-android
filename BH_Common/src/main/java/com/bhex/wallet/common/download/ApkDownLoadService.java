@@ -100,7 +100,7 @@ public class ApkDownLoadService  extends IntentService {
         }else{
             builder = new NotificationCompat.Builder(this, null);
         }
-        builder.setContentTitle(getString(R.string.update_prepare, new Object[] { "Bluehelix" }))
+        builder.setContentTitle(getString(R.string.update_prepare, new Object[] { getString(R.string.app_name) }))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setDefaults(4)

@@ -109,12 +109,12 @@ public class MarketFragment extends BaseBowserFragment  {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void signMessage(H5SignEvent h5SignEvent){
         mH5Sign = h5SignEvent.h5Sign;
-        BHTransactionManager.loadSuquece(suquece -> {
+        /*BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.create_dex_transcation(h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,suquece,h5SignEvent.data);
             transactionViewModel.sendTransaction(getActivity(),bhSendTranscation);
             return 0;
-        });
-        //transactionViewModel.create_dex_transcation(getYActivity(),h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,h5SignEvent.data);
+        });*/
+        transactionViewModel.create_dex_transcation(getYActivity(),h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,h5SignEvent.data);
     }
     private void updateTransferStatus(LoadDataModel ldm) {
 

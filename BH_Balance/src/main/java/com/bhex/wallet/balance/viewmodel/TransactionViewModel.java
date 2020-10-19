@@ -413,4 +413,47 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
     }
+
+    //兑换
+    public void  swapTransaction(FragmentActivity activity,String issue_symbol, String coin_symbol,String  map_amount,String fee_amount, String password){
+        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                super.onSuccess(jsonObject);
+                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
+                lmd.loadingStatus = LoadingStatus.SUCCESS;
+                mutableLiveData.postValue(lmd);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(lmd);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .observeOn(Schedulers.io())
+                .flatMap(jsonObject -> {
+                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                    if(TextUtils.isEmpty(accountInfo.getSequence())){
+                        return null;
+                    }
+
+                    BHSendTranscation bhSendTranscation = BHTransactionManager.createMappingSwap(issue_symbol, coin_symbol, map_amount,
+                            BHConstants.BHT_DEFAULT_FEE, accountInfo.getSequence(), password);
+
+                    String body = JsonUtils.toJson(bhSendTranscation);
+
+                    RequestBody txBody = HUtils.createJson(body);
+
+                    return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
+                })
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+
+    }
 }

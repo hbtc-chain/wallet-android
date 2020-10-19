@@ -101,7 +101,7 @@ public interface BHttpApiInterface {
                                                       @Path("id") String id);
 
     @GET("/api/v1/cus/{addr}/send_test_token")
-    Observable<JsonObject> send_test_token(@Path("addr") String address);
+    Observable<JsonObject> send_test_token(@Path("addr") String address, @Query("denom") String denom);
 
     //映射币对
     @GET("/api/v1/mappings")
