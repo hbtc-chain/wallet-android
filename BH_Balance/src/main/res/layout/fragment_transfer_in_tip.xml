@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_white_password"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.fragment.TransferInTipFragment">
@@ -14,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/tips"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/global_main_text_color"
+        android:textColor="@color/color_0A1825"
         android:textSize="18sp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"

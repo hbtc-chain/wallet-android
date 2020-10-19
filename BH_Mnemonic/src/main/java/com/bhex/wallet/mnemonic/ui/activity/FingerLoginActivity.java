@@ -62,6 +62,8 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
 
     private WalletViewModel walletVM;
 
+    CancellationSignal mCancellationSignal;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_finger_login;
@@ -72,10 +74,10 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
         manager = FingerprintManagerCompat.from(this);
         mKeyManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
     }
-
     @Override
     protected void onResume() {
         super.onResume();
+
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());
@@ -87,6 +89,7 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
     @Override
     protected void addEvent() {
         //startAuthFingerPrint();
+        mCancellationSignal = new CancellationSignal();
 
         walletVM = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletVM.mutableLiveData.observe(this, loadDataModel -> {
@@ -105,6 +108,13 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
         }
     }
 
+    private void stopAuthFingerPrint(){
+        if (mCancellationSignal != null) {
+            mCancellationSignal.cancel();
+            mCancellationSignal = null;
+        }
+    }
+
     public void startListening(FingerprintManagerCompat.CryptoObject cryptoObject) {
         //android studio 上，没有这个会报错
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
@@ -112,11 +122,8 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
             return;
         }
         manager.authenticate(cryptoObject, 0,mCancellationSignal, mSelfCancelled, null);
-
-
     }
 
-    CancellationSignal mCancellationSignal = new CancellationSignal();
 
     FingerprintManagerCompat.AuthenticationCallback mSelfCancelled = new FingerprintManagerCompat.AuthenticationCallback() {
         @Override
@@ -170,7 +177,7 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
              fragment.show(getSupportFragmentManager(), "");
         }else if(view.getId() == R.id.tv_password_verify){
              NavigateUtil.startActivity(this, LockActivity.class);
-             mCancellationSignal.cancel();
+             this.finish();
         }
     }
 
@@ -222,6 +229,12 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
     @Override
     protected boolean isShowBacking() {
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopAuthFingerPrint();
     }
 
     private void showError(CharSequence error) {

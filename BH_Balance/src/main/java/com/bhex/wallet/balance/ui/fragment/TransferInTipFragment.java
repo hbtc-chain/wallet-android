@@ -3,6 +3,7 @@ package com.bhex.wallet.balance.ui.fragment;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,9 +24,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
+import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 
@@ -70,6 +73,9 @@ public class TransferInTipFragment extends BaseDialogFragment {
         mRootView.findViewById(R.id.btn_ikonw).setOnClickListener(v->{
             dismiss();
         });
+
+        GradientDrawable drawable = ShapeUtils.getRoundRectDrawable(16, ColorUtil.getColor(getContext(), R.color.white));
+        mRootView.setBackground(drawable);
 
         AppCompatTextView tv_tip1 = mRootView.findViewById(R.id.tv_transfer_in_tips_1);
         AppCompatTextView tv_tip2 = mRootView.findViewById(R.id.tv_transfer_in_tips_2);

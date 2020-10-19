@@ -2,10 +2,16 @@
 <layer-list android:opacity="opaque"
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@android:color/white" />
-    <item android:bottom="5dip">
+    <!--<item android:bottom="5dip">
         <bitmap android:gravity="center" android:src="@mipmap/ic_bluehelix_logo_ext" />
-    </item>
+    </item>-->
 
-
+    <item
+        android:bottom="5dip"
+        android:width="240dp"
+        android:height="189dp"
+        android:gravity="center"
+        android:drawable="@mipmap/ic_bluehelix_logo_ext"
+        />
 
 </layer-list>

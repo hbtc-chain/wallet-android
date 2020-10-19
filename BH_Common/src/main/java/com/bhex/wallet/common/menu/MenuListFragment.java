@@ -1,5 +1,6 @@
 package com.bhex.wallet.common.menu;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
+import com.bhex.tools.utils.ShapeUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,6 +53,10 @@ public class MenuListFragment extends BottomSheetDialogFragment {
         mRootView.findViewById(R.id.btn_cancel).setOnClickListener(v -> {
             dismiss();
         });
+
+        GradientDrawable drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getContext(),6), ColorUtil.getColor(getContext(),R.color.app_bg),true,0);
+        mRootView.setBackground(drawable);
+
         return mRootView;
     }
 

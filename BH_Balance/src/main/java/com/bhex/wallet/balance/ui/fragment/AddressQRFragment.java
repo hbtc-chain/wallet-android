@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,6 +50,9 @@ public class AddressQRFragment extends BaseDialogFragment {
 
     @BindView(R2.id.tv_address_label)
     AppCompatTextView tv_address_label;
+    @BindView(R2.id.layout_index_0)
+    LinearLayout layout_index_0;
+
     private String symbol;
     private String address;
 
@@ -62,9 +66,9 @@ public class AddressQRFragment extends BaseDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-        /*FrameLayout frame = view.findViewById(R.id.layout_index_1);
-        GradientDrawable drawable = ShapeUtils.getOvalDrawable(36, ColorUtil.getColor(getContext(), R.color.token_icon_color), true, 0);
-        frame.setBackground(drawable);*/
+        //FrameLayout frame = view.findViewById(R.id.layout_index_1);
+        /*GradientDrawable drawable = ShapeUtils.getRoundRectDrawable(16, Color.parseColor("#00FFFFFF"),Color.parseColor("#1A3375E0"));
+        layout_index_0.setBackground(drawable);*/
         AppCompatImageView iv = view.findViewById(R.id.iv_token_icon);
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol.toLowerCase());
 

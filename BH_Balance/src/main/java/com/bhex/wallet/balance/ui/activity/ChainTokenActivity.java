@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.ui.activity;
 
 import android.content.Intent;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,7 +61,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @BindView(R2.id.layout_index_0)
     LinearLayout layout_index_0;
     @BindView(R2.id.layout_index_1)
-    LinearLayout layout_index_1;
+    RelativeLayout layout_index_1;
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     @BindView(R2.id.tv_center_title)

@@ -98,7 +98,7 @@ public class TransferInActivity extends BaseActivity {
 
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
             deposit_address = mCurrentWallet.address;
-            tv_trusteeship_address.setText(BHConstants.HBTC.toUpperCase()+getString(R.string.trusteeship_address));
+            tv_trusteeship_address.setText(BHConstants.HBTC.toUpperCase()+" "+getString(R.string.trusteeship_address));
             mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.blue_bg));
             layout_index_0.setVisibility(View.GONE);
         }else if( way == BH_BUSI_TYPE.链内转账.getIntValue()){
@@ -109,7 +109,7 @@ public class TransferInActivity extends BaseActivity {
             layout_index_0.setVisibility(View.GONE);
         } else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
             deposit_address = balance.external_address;
-            tv_trusteeship_address.setText(balance.name.toUpperCase()+getResources().getString(R.string.address));
+            tv_trusteeship_address.setText(balance.name.toUpperCase()+" "+getResources().getString(R.string.address));
             mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.tranfer_in_out_bg));
             ImmersionBar.with(this).statusBarColor(R.color.tranfer_in_out_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_out_bg).fitsSystemWindows(true).init();
             layout_index_0.setVisibility(View.VISIBLE);

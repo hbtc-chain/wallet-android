@@ -179,4 +179,5 @@
     <!--提案-募集失败-->
     <color name="proposal_failed">#6E8196</color>
 
+    <color name="color_0A1825">#0A1825</color>
 </resources>

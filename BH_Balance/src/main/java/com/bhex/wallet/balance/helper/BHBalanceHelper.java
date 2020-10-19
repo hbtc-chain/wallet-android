@@ -245,7 +245,7 @@ public class BHBalanceHelper {
     public static String getShortName(String symbol){
         String res = "";
         if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            res = "HBTC Chain";
+            res = "HBTC Chain Testnet";
         }else if(symbol.equalsIgnoreCase("btc")){
             res = "Bitcoin";
         }else if(symbol.equalsIgnoreCase("eth")){

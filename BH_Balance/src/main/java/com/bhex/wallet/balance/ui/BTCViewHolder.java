@@ -3,14 +3,19 @@ package com.bhex.wallet.balance.ui;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 
 import com.alibaba.android.arouter.core.LogisticsCenter;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.CardUtil;
+import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
@@ -32,7 +37,7 @@ public class BTCViewHolder {
 
     private static  BTCViewHolder  _instance = new BTCViewHolder();
 
-    public LinearLayout viewHolder;
+    public RelativeLayout viewHolder;
     public RelativeLayout layout_btc_address;
     public AppCompatTextView tv_token_name;
     public AppCompatTextView tv_hbc_addr_label;
@@ -48,7 +53,7 @@ public class BTCViewHolder {
         return _instance;
     }
 
-    public BTCViewHolder initView(BaseActivity activity, LinearLayout view, BHBalance balance){
+    public BTCViewHolder initView(BaseActivity activity, RelativeLayout view, BHBalance balance){
         viewHolder = view;
         mContext = activity;
         layout_btc_address = view.findViewById(R.id.layout_btc_address);
@@ -70,6 +75,13 @@ public class BTCViewHolder {
             ToastUtils.showToast(mContext.getString(R.string.copyed));
         });
 
+        AppCompatImageView imageView = view.findViewById(R.id.iv_hbc_paste);
+        ColorUtil.setIconColor(imageView,51,117,224,255);
+
+        view.findViewById(R.id.layout_index_0).bringToFront();
+        /*CardView cardView = view.findViewById(R.id.card_view);
+        CardUtil.setCardShadowColor(cardView, mContext.getResources().getColor(R.color.blue_1F3375E0), mContext.getResources().getColor(R.color.blue_1F3375E0));*/
+
         view.findViewById(R.id.iv_token_qr).setOnClickListener(v -> {
             showBTCQRDialog();
         });
@@ -82,6 +94,7 @@ public class BTCViewHolder {
         view.findViewById(R.id.btn_make_address).setOnClickListener(v->{
             makeAddressAction();
         });
+
 
         return _instance;
     }

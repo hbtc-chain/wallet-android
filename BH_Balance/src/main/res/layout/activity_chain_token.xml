@@ -29,17 +29,14 @@
                     layout="@layout/layout_hbc"
                     />
 
-
                 <include
                     android:id="@+id/layout_index_1"
                     layout="@layout/layout_btc"
                     />
-
-
+                
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
                     android:minHeight="300dp"
                     >
                     <androidx.recyclerview.widget.RecyclerView

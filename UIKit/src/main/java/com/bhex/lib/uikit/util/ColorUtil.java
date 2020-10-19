@@ -1,7 +1,9 @@
 package com.bhex.lib.uikit.util;
 
 import android.content.Context;
+import android.graphics.ColorMatrixColorFilter;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 
 
@@ -19,5 +21,15 @@ public class ColorUtil {
 
     public static int getColor(Context context, int colorId){
         return ContextCompat.getColor(context, colorId);
+    }
+
+    public static void setIconColor(AppCompatImageView icon, int r, int g, int b, int a) {
+        float []colorMatrix = new float[]{
+                0, 0, 0, 0, r,
+                0, 0, 0, 0, g,
+                0, 0, 0, 0, b,
+                0, 0, 0, (float) a / 255, 0
+        };
+        icon.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
     }
 }
