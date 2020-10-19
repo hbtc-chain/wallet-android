@@ -148,17 +148,23 @@ public class NumberUtil {
      * @return
      */
     public static String formatValue(double val,int digit){
-        int index = String.valueOf(val).indexOf(".");
+        /*int index = String.valueOf(val).indexOf(".");
         if(index>0){
+            LogUtils.d("NumberUtil===>:","=str="+String.valueOf(val).substring(index+1));
             int dotLenght = String.valueOf(val).substring(index+1).length();
             digit = dotLenght>digit?digit:dotLenght;
+        }*/
+        try{
+            DecimalFormat df = new DecimalFormat();
+            df.setGroupingUsed(false);
+            df.setRoundingMode(RoundingMode.DOWN);
+            df.setMaximumFractionDigits(digit);
+            String  result = df.format(val);
+            return result;
+        }catch (Exception e){
+            return formatValueByString(String.valueOf(val),digit);
         }
-        DecimalFormat df = new DecimalFormat();
-        df.setGroupingUsed(false);
-        df.setRoundingMode(RoundingMode.DOWN);
-        df.setMaximumFractionDigits(digit);
-        String  result = df.format(val);
-        return result;
+
     }
 
 

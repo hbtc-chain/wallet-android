@@ -100,6 +100,7 @@ public class ExchangeCoinActivity extends BaseActivity
         ARouter.getInstance().inject(this);
         tv_center_title.setText(getString(R.string.mapping_swap));
         mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
+        mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
         initMappingTokenView();
     }
 
@@ -134,7 +135,7 @@ public class ExchangeCoinActivity extends BaseActivity
         if (view.getId() == R.id.btn_exchange_action) {
             exchangeAction();
         } else if (view.getId() == R.id.iv_exchange) {
-            //exchangeAnimatorAction();
+            exchangeAnimatorAction();
         } else if(view.getId() == R.id.layout_left){
             ChooseTokenFragment frg = ChooseTokenFragment.showDialog(mSymbol,0,this);
             frg.show(getSupportFragmentManager(),ChooseTokenFragment.class.getName());
@@ -180,9 +181,15 @@ public class ExchangeCoinActivity extends BaseActivity
     boolean flag = true;
 
     public void exchangeAnimatorAction() {
-        leftAnimator();
+        /*leftAnimator();
         rightAnimator();
-        flag = !flag;
+        flag = !flag;*/
+
+        mSymbol = mTokenMapping.target_symbol;
+        mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
+        //tv_token_name.setText(mTokenMapping.coin_symbol.toUpperCase());
+        mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
+        initMappingTokenView();
     }
 
     private void leftAnimator() {
