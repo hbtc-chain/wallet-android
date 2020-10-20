@@ -80,6 +80,8 @@
             android:id="@+id/iv_hbc_paste"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="2dp"
             android:layout_below="@+id/tv_hbc_addr_label"
             android:layout_toRightOf="@+id/tv_hbc_address"
             android:src="@mipmap/ic_hbc_paste" />
@@ -88,10 +90,12 @@
             android:id="@+id/iv_hbc_qr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
             android:layout_below="@+id/tv_hbc_addr_label"
             android:layout_toRightOf="@+id/iv_hbc_paste"
             android:layout_marginEnd="12dp"
-            android:src="@mipmap/ic_qr_code" />
+            android:src="@mipmap/ic_hbt_qr_code" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_apply_test_coin"
@@ -104,10 +108,10 @@
             android:layout_below="@+id/tv_hbc_addr_label"
             android:background="@color/white"
             android:layout_alignParentEnd="true"
-            android:text="领取测试币"
+            android:text="@string/claim_test_coin"
             android:textSize="13dp"
             android:textColor="@color/blue_bg"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="12dp"
             />
     </RelativeLayout>
 

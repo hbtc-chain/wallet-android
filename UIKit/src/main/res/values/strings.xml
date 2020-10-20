@@ -509,5 +509,6 @@
     <string name="set_pwd_period">设置密码有效期：</string>
     <string name="string_deposit_threshold_2">温馨提示：最小充值数量</string>
     <string name="string_apply_success">申请成功</string>
+    <string name="claim_test_coin">领取测试币</string>
 
 </resources>

@@ -42,7 +42,7 @@ public class ChooseTokenAdapter extends BaseQuickAdapter<BHTokenMapping, BaseVie
         AppCompatImageView iv_token_icon = holder.getView(R.id.iv_token_icon);
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken((mOrigin==0)?item.coin_symbol.toLowerCase():item.target_symbol.toLowerCase());
 
-        ImageLoaderUtil.loadImageView(getContext(),bhToken.logo, iv_token_icon, R.mipmap.ic_default_coin);
+        ImageLoaderUtil.loadImageView(getContext(),bhToken!=null?bhToken.logo:"", iv_token_icon, R.mipmap.ic_default_coin);
 
         AppCompatTextView tv_token_amount = holder.getView(R.id.tv_token_amount);
         //LogUtils.d("ChooseTokenActivity==>:","coin_symbol=="+item.coin_symbol.toLowerCase());

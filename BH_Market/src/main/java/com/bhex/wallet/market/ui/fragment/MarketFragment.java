@@ -85,7 +85,7 @@ public class MarketFragment extends BaseBowserFragment  {
 
     @Override
     public String getUrl() {
-        StringBuffer url = new StringBuffer(BHConstants.TRADE_URL);
+        StringBuffer url = new StringBuffer(BHConstants.MARKET_URL);
         Locale locale = LocalManageUtil.getSetLanguageLocale(getActivity());
         if(locale!=null){
             if(locale.getLanguage().contains("en")){

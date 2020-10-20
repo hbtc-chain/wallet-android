@@ -178,28 +178,24 @@ public class TransactionHelper {
 
 
     public static void displayTranscationAmount(AppCompatTextView tv,String symbol,TransactionOrder txo){
+        tv.setVisibility(View.GONE);
+        tv.setText("");
         if(ToolUtils.checkListIsEmpty(txo.balance_flows)){
-            tv.setVisibility(View.GONE);
+            //tv.setVisibility(View.GONE);
             return;
         }
-        tv.setVisibility(View.VISIBLE);
-        String currentAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
-        String txType = txo.activities.get(0).type;
 
+        String currentAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
         for (TransactionOrder.BalanceFlowsBean bean:txo.balance_flows) {
             if(!bean.address.equalsIgnoreCase(currentAddress)){
                 continue;
             }
-
-            String fmt_amount = NumberUtil.dispalyForUsertokenAmount4Level(bean.amount);
-
-            tv.setVisibility(View.VISIBLE);
-            if(bean.symbol.equalsIgnoreCase(symbol)){
-                tv.setText(fmt_amount+bean.symbol.toUpperCase());
-                tv.setVisibility(View.VISIBLE);
-            }else{
-                tv.setVisibility(View.GONE);
+            if(!bean.symbol.equalsIgnoreCase(symbol)){
+                continue;
             }
+            String fmt_amount = NumberUtil.dispalyForUsertokenAmount4Level(bean.amount);
+            tv.setText(fmt_amount+" "+bean.symbol.toUpperCase());
+            tv.setVisibility(View.VISIBLE);
         }
     }
 

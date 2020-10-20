@@ -102,7 +102,7 @@ public class BHBalanceHelper {
         }
         iv.setImageDrawable(ContextCompat.getDrawable(context,resId));*/
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol);
-        ImageLoaderUtil.loadImageView(context, bhToken.logo, iv,R.mipmap.ic_default_coin);
+        ImageLoaderUtil.loadImageView(context, bhToken!=null?bhToken.logo:"", iv,R.mipmap.ic_default_coin);
     }
 
     /**
@@ -116,7 +116,9 @@ public class BHBalanceHelper {
         balance.amount="0";
         balance.symbol = symbol;
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
-        balance.chain = bhToken.chain;
+        if(bhToken!=null){
+            balance.chain = bhToken.chain;
+        }
         if(accountInfo==null){
             return balance;
         }
@@ -239,7 +241,7 @@ public class BHBalanceHelper {
 
     public static void loadTokenIcon(Context context, AppCompatImageView iv,String symbol){
         BHToken item = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol.toLowerCase());
-        ImageLoaderUtil.loadImageView(context,item.logo, iv,R.mipmap.ic_default_coin);
+        ImageLoaderUtil.loadImageView(context,item!=null?item.logo:"", iv,R.mipmap.ic_default_coin);
     }
 
     public static String getShortName(String symbol){

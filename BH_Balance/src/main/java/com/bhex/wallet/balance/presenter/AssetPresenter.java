@@ -55,7 +55,7 @@ public class AssetPresenter extends BasePresenter {
             if(assetsBean.getSymbol().equalsIgnoreCase(BHConstants.BHT_TOKEN)){
                 balance.symbol = assetsBean.getSymbol();
                 BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
-                balance.chain = bhToken.chain;
+                balance.chain = bhToken!=null?bhToken.chain:"";
                 balance.amount = assetsBean.getAmount();
                 balance.frozen_amount = assetsBean.getFrozen_amount();
                 balance.address = assetsBean.getExternal_address();
@@ -97,7 +97,7 @@ public class AssetPresenter extends BasePresenter {
             balance.external_address = chainBalance.external_address;
         }
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
-        balance.chain = bhToken.chain;
+        balance.chain = bhToken!=null?bhToken.chain:"";
         balance.frozen_amount = assetsBean.getFrozen_amount();
     }
 

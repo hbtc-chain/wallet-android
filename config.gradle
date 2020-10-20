@@ -10,7 +10,7 @@ ext {
             applicationId    : "com.bluehelix.wallet",
             minSdkVersion    : 21,
             targetSdkVersion : 29,
-            versionCode      : 529,
+            versionCode      : 531,
             versionName      : "1.0.0"
     ]
     //version配置

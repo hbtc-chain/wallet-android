@@ -82,7 +82,6 @@ public class MainPresenter extends BasePresenter {
     private void processUpgradeInfo(LoadDataModel<UpgradeInfo> ldm) {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             UpgradeInfo upgradeInfo = ldm.getData();
-            //upgradeInfo.needUpdate = true;
             if(upgradeInfo.needUpdate==1){
                 showUpgradeDailog(upgradeInfo);
             }
@@ -114,8 +113,9 @@ public class MainPresenter extends BasePresenter {
     }
 
     UpgradeFragment.DialogOnClickListener dialogOnClickListener = v -> {
-        ToastUtils.showToast("=dialogOnClickListener=");
+        //ToastUtils.showToast("=dialogOnClickListener=");
         //下载升级
+        ToastUtils.showToast(getActivity().getResources().getString(R.string.app_loading_now));
     };
 
     public void gotoTarget(BottomNavigationView bnv,String goto_position){
