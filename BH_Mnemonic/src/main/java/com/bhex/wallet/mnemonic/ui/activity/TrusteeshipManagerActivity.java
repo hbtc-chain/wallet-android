@@ -20,6 +20,7 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
@@ -115,6 +116,8 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
                 EventBus.getDefault().post(new AccountEvent());
                 finish();
+                //
+                SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
             }
         });
 

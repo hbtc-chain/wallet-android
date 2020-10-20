@@ -287,34 +287,39 @@ public class ExchangeCoinActivity extends BaseActivity
     }
 
     public void initMappingTokenView(){
-        mMappingToknList = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
+        try{
+            mMappingToknList = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
 
-        BHToken bh_coin_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.coin_symbol);
-        BHToken bh_target_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.target_symbol);
-        if(bh_coin_token.name.equalsIgnoreCase(bh_target_token.name)){
-            String coin_token = bh_coin_token.name.toUpperCase().concat("(").concat(bh_coin_token.chain.toUpperCase()).concat(")");
-            tv_issue_token.setText(coin_token);
+            BHToken bh_coin_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.coin_symbol);
+            BHToken bh_target_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.target_symbol);
+            if(bh_coin_token.name.equalsIgnoreCase(bh_target_token.name)){
+                String coin_token = bh_coin_token.name.toUpperCase().concat("(").concat(bh_coin_token.chain.toUpperCase()).concat(")");
+                tv_issue_token.setText(coin_token);
 
-            String target_token = bh_target_token.name.toUpperCase().concat("(").concat(bh_target_token.chain.toUpperCase()).concat(")");
-            tv_target_token.setText(target_token);
-        }else{
-            tv_issue_token.setText(bh_coin_token.name.toUpperCase());
-            tv_target_token.setText(bh_target_token.name.toUpperCase());
+                String target_token = bh_target_token.name.toUpperCase().concat("(").concat(bh_target_token.chain.toUpperCase()).concat(")");
+                tv_target_token.setText(target_token);
+            }else{
+                tv_issue_token.setText(bh_coin_token.name.toUpperCase());
+                tv_target_token.setText(bh_target_token.name.toUpperCase());
+            }
+            BHBalance inp_balance = BHBalanceHelper.getBHBalanceFromAccount(bh_coin_token.symbol);
+            inp_amount.setText(NumberUtil.dispalyForUsertokenAmount4Level(inp_balance.amount));
+
+            tv_token_name.setText(mTokenMapping.coin_symbol.toUpperCase());
+            BHBalanceHelper.loadTokenIcon(this,iv_issue,mTokenMapping.coin_symbol.toUpperCase());
+            BHBalanceHelper.loadTokenIcon(this,iv_target,mTokenMapping.target_symbol.toUpperCase());
+
+            if(!ToolUtils.checkListIsEmpty(mMappingToknList)&& mMappingToknList.size()>1){
+                iv_right_more.setVisibility(View.VISIBLE);
+            }else{
+                iv_right_more.setVisibility(View.GONE);
+            }
+            String tv_rate_str = "1 ".concat(mTokenMapping.coin_symbol.toUpperCase()).concat(" = 1 ").concat(mTokenMapping.target_symbol.toUpperCase());
+            tv_rate.setText(tv_rate_str);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        BHBalance inp_balance = BHBalanceHelper.getBHBalanceFromAccount(bh_coin_token.symbol);
-        inp_amount.setText(NumberUtil.dispalyForUsertokenAmount4Level(inp_balance.amount));
 
-        tv_token_name.setText(mTokenMapping.coin_symbol.toUpperCase());
-        BHBalanceHelper.loadTokenIcon(this,iv_issue,mTokenMapping.coin_symbol.toUpperCase());
-        BHBalanceHelper.loadTokenIcon(this,iv_target,mTokenMapping.target_symbol.toUpperCase());
-
-        if(!ToolUtils.checkListIsEmpty(mMappingToknList)&& mMappingToknList.size()>1){
-            iv_right_more.setVisibility(View.VISIBLE);
-        }else{
-            iv_right_more.setVisibility(View.GONE);
-        }
-        String tv_rate_str = "1 ".concat(mTokenMapping.coin_symbol.toUpperCase()).concat(" = 1 ").concat(mTokenMapping.target_symbol.toUpperCase());
-        tv_rate.setText(tv_rate_str);
     }
     private ChooseTokenFragment.ChooseTokenListener chooseTokenListener = item -> {
         tv_target_token.setText(item.target_symbol.toUpperCase());

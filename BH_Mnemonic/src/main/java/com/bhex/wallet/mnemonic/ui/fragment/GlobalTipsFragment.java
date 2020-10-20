@@ -99,7 +99,7 @@ public class GlobalTipsFragment extends BaseDialogFragment {
             String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"zh.txt").replace("\\n", "\n");
             tv_agreement.setText(agreement);
         }else{
-            String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"en_agreement.txt").replace("\\n", "\n");
+            String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"en.txt").replace("\\n", "\n");
             tv_agreement.setText(agreement);
         }
         addEvent();

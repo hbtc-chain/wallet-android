@@ -103,13 +103,15 @@ public class TransferInActivity extends BaseActivity {
             layout_index_0.setVisibility(View.GONE);
         }else if( way == BH_BUSI_TYPE.链内转账.getIntValue()){
             deposit_address = mCurrentWallet.address;
-            tv_trusteeship_address.setText(getString(R.string.cross_link_trusteeship_address));
+            //tv_trusteeship_address.setText(getString(R.string.cross_link_trusteeship_address));
+            tv_trusteeship_address.setText(BHConstants.HBTC.toUpperCase()+" "+getString(R.string.trusteeship_address));
             mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.tranfer_in_inner_bg));
             ImmersionBar.with(this).statusBarColor(R.color.tranfer_in_inner_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_inner_bg).fitsSystemWindows(true).init();
             layout_index_0.setVisibility(View.GONE);
         } else if(way==BH_BUSI_TYPE.跨链转账.getIntValue()){
             deposit_address = balance.external_address;
-            tv_trusteeship_address.setText(balance.name.toUpperCase()+" "+getResources().getString(R.string.address));
+            //tv_trusteeship_address.setText(balance.name.toUpperCase()+" "+getResources().getString(R.string.address));
+            tv_trusteeship_address.setText(getString(R.string.cross_link_trusteeship_address));
             mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.tranfer_in_out_bg));
             ImmersionBar.with(this).statusBarColor(R.color.tranfer_in_out_bg).statusBarDarkFont(false).barColor(com.bhex.network.R.color.tranfer_in_out_bg).fitsSystemWindows(true).init();
             layout_index_0.setVisibility(View.VISIBLE);

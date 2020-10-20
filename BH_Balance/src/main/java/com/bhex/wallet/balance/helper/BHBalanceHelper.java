@@ -272,12 +272,14 @@ public class BHBalanceHelper {
         for (int i = 0; i < list.size(); i++) {
             AccountInfo.AssetsBean assetsBean = list.get(i);
             BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(assetsBean.getSymbol());
+            if(bhToken==null){
+                continue;
+            }
             if(!bhToken.chain.equalsIgnoreCase(chain)){
                 continue;
             }
-
             //
-            double displayAmount = TextUtils.isEmpty(assetsBean.getAmount())?0:Double.valueOf(assetsBean.getAmount());
+            double displayAmount = TextUtils.isEmpty(assetsBean.getAmount())? 0:Double.valueOf(assetsBean.getAmount());
             //法币价值
             double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,assetsBean.getSymbol());
             double asset = NumberUtil.mul(String.valueOf(displayAmount),String.valueOf(symbolPrice));

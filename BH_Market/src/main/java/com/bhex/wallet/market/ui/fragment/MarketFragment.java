@@ -18,6 +18,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.market.R;
@@ -106,6 +107,12 @@ public class MarketFragment extends BaseBowserFragment  {
         }
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeAccount(AccountEvent walletEvent){
+        mAgentWeb.getUrlLoader().loadUrl(getUrl());
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void signMessage(H5SignEvent h5SignEvent){
         mH5Sign = h5SignEvent.h5Sign;
@@ -116,6 +123,8 @@ public class MarketFragment extends BaseBowserFragment  {
         });*/
         transactionViewModel.create_dex_transcation(getYActivity(),h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,h5SignEvent.data);
     }
+
+
     private void updateTransferStatus(LoadDataModel ldm) {
 
         if(mH5Sign==null || TextUtils.isEmpty(mH5Sign.type)) {

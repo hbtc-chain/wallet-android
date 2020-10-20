@@ -25,15 +25,20 @@ import java.util.List;
 public class PayDetailHelper {
 
     public static List<PayDetailItem> loadPayItemByType(Context context, H5Sign h5Sign) {
-        List<PayDetailItem> list = null;
-        if (h5Sign.type.equals(TRANSCATION_BUSI_TYPE.添加流动性.getType())) {
-            list = make_添加流动性_list(context, h5Sign);
-        }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType())){
-            list = make_兑换_输入确定_list(context, h5Sign);
-        }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.移除流动性.getType())){
-            list = make_移除流动性_list(context, h5Sign);
+        try{
+            List<PayDetailItem> list = null;
+            if (h5Sign.type.equals(TRANSCATION_BUSI_TYPE.添加流动性.getType())) {
+                list = make_添加流动性_list(context, h5Sign);
+            }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType())){
+                list = make_兑换_输入确定_list(context, h5Sign);
+            }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.移除流动性.getType())){
+                list = make_移除流动性_list(context, h5Sign);
+            }
+            return list;
+        }catch (Exception e){
+            return null;
         }
-        return list;
+        
     }
 
     public static List<PayDetailItem> make_添加流动性_list(Context context, H5Sign h5Sign) {
@@ -45,7 +50,7 @@ public class PayDetailHelper {
         BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_流动性_Entitiy.token_a.toLowerCase());
         if (RegexUtil.checkNumeric(v_流动性_Entitiy.min_token_a_amount)) {
             double min_token_a_amount = NumberUtil.divide(v_流动性_Entitiy.min_token_a_amount, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
-            PayDetailItem item1 = new PayDetailItem("支付币种", NumberUtil.toPlainString(min_token_a_amount) + "  " + v_流动性_Entitiy.token_a.toUpperCase());
+            PayDetailItem item1 = new PayDetailItem(context.getString(R.string.pay_token), NumberUtil.toPlainString(min_token_a_amount) + "  " + v_流动性_Entitiy.token_a.toUpperCase());
             list.add(item1);
         }
 
@@ -53,14 +58,14 @@ public class PayDetailHelper {
 
         if (RegexUtil.checkNumeric(v_流动性_Entitiy.min_token_b_amount)) {
             double min_token_b_amount = NumberUtil.divide(v_流动性_Entitiy.min_token_b_amount, Math.pow(10, bhToken_b.decimals) + "",bhToken_b.decimals);
-            PayDetailItem item2 = new PayDetailItem("支付币种", NumberUtil.toPlainString(min_token_b_amount) + "  " + v_流动性_Entitiy.token_b.toUpperCase());
+            PayDetailItem item2 = new PayDetailItem(context.getString(R.string.pay_token), NumberUtil.toPlainString(min_token_b_amount) + "  " + v_流动性_Entitiy.token_b.toUpperCase());
             list.add(item2);
         }
 
-        PayDetailItem item3 = new PayDetailItem("付款地址", v_流动性_Entitiy.from);
+        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.payment_address), v_流动性_Entitiy.from);
         list.add(item3);
 
-        PayDetailItem item4 = new PayDetailItem("矿工费用", BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        PayDetailItem item4 = new PayDetailItem(context.getString(R.string.gas_fee), BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
         list.add(item4);
         return list;
     }
@@ -98,13 +103,13 @@ public class PayDetailHelper {
 
         double amount_in = NumberUtil.divide(v_兑换_Entitiy.amount_in, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
         String amount_int_info = NumberUtil.toPlainString(amount_in).concat(v_兑换_Entitiy.swap_path.get(0).toUpperCase());
-        PayDetailItem item1 = new PayDetailItem("支付数量",amount_int_info);
+        PayDetailItem item1 = new PayDetailItem(context.getString(R.string.payment_amount),amount_int_info);
         list.add(item1);
-
-        PayDetailItem item2 = new PayDetailItem("付款地址", v_兑换_Entitiy.from);
+        
+        PayDetailItem item2 = new PayDetailItem(context.getString(R.string.payment_address), v_兑换_Entitiy.from);
         list.add(item2);
-
-        PayDetailItem item3 = new PayDetailItem("矿工费用", BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        
+        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
         list.add(item3);
         return list;
     }
@@ -144,10 +149,10 @@ public class PayDetailHelper {
 
         移除流动性_Entitiy v_移除流动性_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 移除流动性_Entitiy.class);
 
-        PayDetailItem item2 = new PayDetailItem("付款地址", v_移除流动性_Entitiy.from);
+        PayDetailItem item2 = new PayDetailItem(context.getString(R.string.payment_address), v_移除流动性_Entitiy.from);
         list.add(item2);
 
-        PayDetailItem item3 = new PayDetailItem("矿工费用", BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
         list.add(item3);
         return list;
     }

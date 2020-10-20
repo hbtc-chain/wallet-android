@@ -153,7 +153,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
                 }
                 tv_to_address.getEditText().setText(address);
             }
-            mAvailabelTitle = "可用 ";
+
+            mAvailabelTitle = getString(R.string.available)+" ";
             tv_entrust_to_title.setText(getString(R.string.entrust_to));
             tv_entrust_amount_title.setText(getString(R.string.entrust_amount));
             btn_do_entrust.setText(getString(R.string.do_entrust));
@@ -164,7 +165,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             }
             String address = getString(R.string.my_trusteeship) + "-" + addressReplace(BHUserManager.getInstance().getCurrentBhWallet().address);
             tv_to_address.getEditText().setText(address);
-            mAvailabelTitle = "可解 ";
+            mAvailabelTitle = getString(R.string.avilable_relieve)+" ";
             tv_entrust_to_title.setText(getString(R.string.relieve_entrust_to));
             tv_entrust_amount_title.setText(getString(R.string.relieve_entrust_amount));
             btn_do_entrust.setText(getString(R.string.relieve_entrust));
@@ -176,6 +177,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         ed_real_entrust_amount.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ed_entrust_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
         tv_available_amount.setText(" " + getString(R.string.string_placeholder) + token.toUpperCase());
     }
 
@@ -187,6 +189,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         mEnstrustViewModel.mutableLiveData.observe(this, ldm -> {
             updateDoEntrustStatus(ldm);
         });
+        refreshLayout.setEnableLoadMore(false);
         //mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
         //mEnstrustViewModel = ViewModelProviders.of(this).get(EnstrustViewModel.class);
         /*mBalanceViewModel.accountLiveData.observe(this, ldm -> {

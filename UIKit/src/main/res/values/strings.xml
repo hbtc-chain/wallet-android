@@ -510,5 +510,10 @@
     <string name="string_deposit_threshold_2">温馨提示：最小充值数量</string>
     <string name="string_apply_success">申请成功</string>
     <string name="claim_test_coin">领取测试币</string>
+    <string name="pay_token">支付币种</string>
+    <string name="payment_amount">支付数量</string>
+    <string name="payment_address">付款地址</string>
+    <string name="gas_fee">矿工费用</string>
+    <string name="avilable_relieve">可解</string>
 
 </resources>

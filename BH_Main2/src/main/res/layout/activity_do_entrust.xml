@@ -135,17 +135,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
-
                 android:layout_marginStart="@dimen/main_margin_left"
                 android:layout_marginEnd="@dimen/main_margin_right"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintTop_toBottomOf="@+id/tv_entrust_amount_title"
                 app:leftHint="@string/hint_enter_entrust"
                 app:rightColor="@color/label_button_text_color"
                 app:rightText="@string/all"
-                app:isEditable="false"
+                app:isEditable="true"
                 />
 
 

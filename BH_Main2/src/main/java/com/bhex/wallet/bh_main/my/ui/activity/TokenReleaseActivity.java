@@ -140,10 +140,10 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         InputFilter[] filters = {new InputFilter.LengthFilter(2)};
         inp_token_decimals.getEditText().setFilters(filters);
         //初始化可用手续费
-        String available_bht_amount_str = MyHelper.getAmountForUser(this, bhtBalance.amount, "0", bhtBalance.symbol);
-
-        tv_available_bht_amount.setText(getString(R.string.available) + " " + available_bht_amount_str + bhtBalance.symbol.toUpperCase());
-
+        if(bhtBalance!=null){
+            String available_bht_amount_str = MyHelper.getAmountForUser(this, bhtBalance.amount, "0", bhtBalance.symbol);
+            tv_available_bht_amount.setText(getString(R.string.available) + " " + available_bht_amount_str + bhtBalance.symbol.toUpperCase());
+        }
         //
         inp_to_address.btn_right_text.setVisibility(View.GONE);
         inp_to_address.iv_right.setVisibility(View.VISIBLE);
@@ -323,8 +323,9 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         String toAddress = inp_to_address.getInputString();
         String tokenName = inp_token_name.getInputString();
         String tokenCount = inp_token_release_count.getInputString().replaceAll(" ", "");
-        tokenCount = NumberUtil.mulExt(tokenCount, String.valueOf(Math.pow(10, 18))).toString(10);
         String tokenDecimals = inp_token_decimals.getInputString();
+        tokenCount = NumberUtil.mulExt(tokenCount, String.valueOf(Math.pow(10, Integer.valueOf(tokenDecimals)))).toString(10);
+
         //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         String feeAmount = inp_tx_fee.getInputString();
         BHTokenRlease tokenRlease = new BHTokenRlease(

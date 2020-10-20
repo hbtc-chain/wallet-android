@@ -483,7 +483,12 @@
             app:backgroundTint="@color/border_button_bg_color"
             app:cornerRadius="@dimen/main_radius_conner"
             app:strokeColor="@color/border_button_border_color"
-            app:strokeWidth="1dp" />
+            app:strokeWidth="1dp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="13sp"
+            app:autoSizeMaxTextSize="17sp"
+            app:autoSizeStepGranularity="2sp"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_do_entrust"

@@ -105,6 +105,17 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     @Override
     protected void addEvent() {
+        mBalanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(this);
+        //资产订阅
+        LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
+            if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+                updateAssets((AccountInfo) ldm.getData());
+            }
+            refreshLayout.finishRefresh();
+        });
+
+        mTestTokenViewModel = ViewModelProviders.of(this).get(TestTokenViewModel.class);
+
         List<BHBalance> balanceList = BHBalanceHelper.loadBalanceByChain(mBalance.chain);
         if(ToolUtils.checkListIsEmpty(balanceList)){
             empty_layout.showNoData();
@@ -131,22 +142,13 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             LogisticsCenter.completion(postcard);
             Intent intent = new Intent(this, postcard.getDestination());
             intent.putExtras(postcard.getExtras());
-            startActivityForResult(intent,100);
+            startActivity(intent);
+            //startActivityForResult(intent,100);
         });
 
 
-
-        mBalanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(this);
-        //资产订阅
-        LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
-            if(ldm.loadingStatus== LoadingStatus.SUCCESS){
-                updateAssets((AccountInfo) ldm.getData());
-            }
-            refreshLayout.finishRefresh();
-        });
-
-        mTestTokenViewModel = ViewModelProviders.of(this).get(TestTokenViewModel.class);
         refreshLayout.autoRefresh();
+
     }
 
     @Override
@@ -167,7 +169,9 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mBalanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
+        mBalanceViewModel
+                .getAccountInfo(this,
+                CacheStrategy.onlyRemote());
         CacheCenter.getInstance().getSymbolCache().beginLoadCache();
     }
 

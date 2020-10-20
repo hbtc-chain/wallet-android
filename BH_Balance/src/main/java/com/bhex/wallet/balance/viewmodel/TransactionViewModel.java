@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.viewmodel;
 
 import android.app.Application;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -22,6 +23,7 @@ import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.HUtils;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -368,7 +370,9 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                     BHSendTranscation bhSendTranscation =   BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,accountInfo.getSequence(),password);;
                     String body = JsonUtils.toJson(bhSendTranscation);
                     RequestBody txBody = HUtils.createJson(body);
+                    LogUtils.d("TranscationViewModel===>:","body=="+body);
                     return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
+                    //return null;
                 })
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))

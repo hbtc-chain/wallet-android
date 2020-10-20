@@ -60,18 +60,12 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 .go(getUrl());
                 //.get();
 
-        //mAgentWeb.getWebCreator().getWebView().setWebContentsDebuggingEnabled(true);
         WebSettings webSettings = mAgentWeb.getAgentWebSettings().getWebSettings();
-        //webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         mAgentWeb.getWebCreator().getWebView().setWebViewClient(getWebViewClient(mAgentWeb.getWebCreator().getWebView()));
         String ua = webSettings.getUserAgentString();
         webSettings.setUserAgentString(ua+";hbtcchainwallet");
-
-        /*MyWebViewClient myWebViewClient = (MyWebViewClient) mAgentWeb.getWebCreator().getWebView().getWebViewClient();
-        myWebViewClient.responseCallbacks.get()*/
-
         callbackMaps = new HashMap<>();
     }
 
