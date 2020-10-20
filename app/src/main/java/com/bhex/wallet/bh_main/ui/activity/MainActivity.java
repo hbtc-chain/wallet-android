@@ -22,6 +22,8 @@ import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.event.NightEvent;
 import com.bhex.wallet.common.manager.MainActivityManager;
+import com.bhex.wallet.common.manager.SecuritySettingManager;
+import com.bhex.wallet.common.manager.SecurityTimer;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -118,6 +120,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
             this.mExitTime = System.currentTimeMillis();
             return;
         }
+        //SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
         finish();
     }
 

@@ -51,7 +51,7 @@ public class SecurityTimer {
     }
 
     public void stop(){
-        if(mHandlerThread!=null){
+        if(mHandlerThread!=null && mHandlerThread.getLooper()!=null){
             mHandlerThread.getLooper().quit();
             SecuritySettingManager.getInstance().thirty_in_time = false;
         }

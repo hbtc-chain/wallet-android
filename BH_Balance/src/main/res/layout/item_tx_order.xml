@@ -16,11 +16,17 @@
         android:id="@+id/tv_tx_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
+        android:singleLine="true"
+        android:maxWidth="160dp"
         android:textColor="@color/global_main_text_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="转账"
+        android:textSize="17sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="17sp"
+        app:autoSizeStepGranularity="2sp"
         />
 
     <androidx.appcompat.widget.AppCompatTextView

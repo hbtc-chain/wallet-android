@@ -44,17 +44,18 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_import_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_import_ic"
             app:layout_constraintBottom_toTopOf="@+id/tv_import_hint"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
             android:layout_marginStart="@dimen/main_margin_left"
             android:layout_marginBottom="3dp"
             android:textColor="@color/global_main_text_color"
-            android:textSize="17sp"
-            android:text="@string/import_mnemonic"
+            android:text="Import Mnemonic PhrasesImport Mnemonic PhrasesImport Mnemonic Phrases"
             app:layout_constraintVertical_chainStyle="packed"
+            android:textSize="17sp"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
