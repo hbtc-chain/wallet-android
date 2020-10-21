@@ -35,6 +35,68 @@
                     layout="@layout/layout_btc"
                     />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <CheckedTextView
+                        android:id="@+id/ck_hidden_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:layout_below="@+id/layout_balance"
+                        android:layout_marginStart="@dimen/main_padding_left"
+                        android:checked="false"
+                        android:drawableLeft="@drawable/checkbox_style"
+                        android:drawablePadding="4dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/hidden_small_token"
+                        android:textAppearance="@style/ck_hidden_small"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_search"
+                        android:layout_width="120dp"
+                        android:layout_height="32dp"
+                        android:layout_below="@+id/layout_balance"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/main_margin_right"
+                        android:background="@drawable/shape_input_corner"
+                        app:layout_constraintBottom_toBottomOf="@+id/ck_hidden_small"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_search_ic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="4dp"
+                            android:src="@mipmap/ic_search_ext" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/ed_search_content"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_toRightOf="@+id/iv_search_ic"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_input_token_name"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:paddingTop="0.5dp"
+                            android:singleLine="true"
+                            android:textColor="@color/global_input_text_color"
+                            android:textColorHint="@color/global_input_hint_color"
+                            android:textCursorDrawable="@null"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

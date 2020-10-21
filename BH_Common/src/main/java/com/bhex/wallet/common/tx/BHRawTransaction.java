@@ -486,7 +486,7 @@ public class BHRawTransaction {
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,5))).toString();
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,6))).toString();
         return  fee;
     }
 

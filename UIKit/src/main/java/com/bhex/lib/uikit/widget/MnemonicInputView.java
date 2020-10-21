@@ -210,6 +210,7 @@ public class MnemonicInputView extends ViewGroup {
         }
         removeView(editText);
         AppCompatEditText et = (AppCompatEditText) getChildAt(getChildCount()-1);
+        et.setSelection(et.getText().toString().length());
         et.requestFocus();
 
         InputMethodManager  inputManager =

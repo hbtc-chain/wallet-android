@@ -33,6 +33,8 @@ public class PayDetailHelper {
                 list = make_兑换_输入确定_list(context, h5Sign);
             }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.移除流动性.getType())){
                 list = make_移除流动性_list(context, h5Sign);
+            }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.兑换_输出确定.getType())){
+                list = make_兑换_输出确定_list(context, h5Sign);
             }
             return list;
         }catch (Exception e){
@@ -134,6 +136,50 @@ public class PayDetailHelper {
         public String min_amount_out;
         public List<String> swap_path;
 
+    }
+
+
+    public static List<PayDetailItem> make_兑换_输出确定_list(Context context, H5Sign h5Sign) {
+        List<PayDetailItem> list = new ArrayList<>();
+        PayDetailItem item0 = new PayDetailItem(context.getString(R.string.pay_info), TRANSCATION_BUSI_TYPE.getValue(h5Sign.type));
+        list.add(item0);
+
+        兑换_输出确定_Entity v_兑换_输出确定_Entity = JsonUtils.fromJson(h5Sign.value.toString(), 兑换_输出确定_Entity.class);
+        BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_兑换_输出确定_Entity.swap_path.get(0).toLowerCase());
+
+        double max_amount_in = NumberUtil.divide(v_兑换_输出确定_Entity.max_amount_in, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
+        String max_amount_in_info = NumberUtil.toPlainString(max_amount_in).concat(v_兑换_输出确定_Entity.swap_path.get(0).toUpperCase());
+        PayDetailItem item1 = new PayDetailItem(context.getString(R.string.payment_amount),max_amount_in_info);
+        list.add(item1);
+
+        PayDetailItem item2 = new PayDetailItem(context.getString(R.string.payment_address), v_兑换_输出确定_Entity.from);
+        list.add(item2);
+
+        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        list.add(item3);
+
+        return list;
+    }
+
+    public static class 兑换_输出确定_Entity{
+
+        /**
+         * from : HBCjFjeC8LEQjKDggRiNn9YEeS3KtzkPhccU
+         * referer : HBCjFjeC8LEQjKDggRiNn9YEeS3KtzkPhccU
+         * receiver : HBCjFjeC8LEQjKDggRiNn9YEeS3KtzkPhccU
+         * expired_at : 1603293048
+         * amount_out : 10000000000
+         * max_amount_in : 50383355344835074000
+         * swap_path : ["hbc","elsa"]
+         */
+
+        public String from;
+        public String referer;
+        public String receiver;
+        public String expired_at;
+        public String amount_out;
+        public String max_amount_in;
+        public List<String> swap_path;
     }
 
     /**

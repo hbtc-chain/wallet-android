@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/main_margin_left"
+    android:layout_marginEnd="@dimen/main_margin_right"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:layout_marginTop="8dp"
+    android:background="#16ED3756">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_waring"
+        android:layout_marginStart="8dp"
+        android:layout_centerVertical="true"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tip_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/balance_testnet_tips"
+        android:textSize="13sp"
+        android:textColor="#ED3756"
+        android:layout_toRightOf="@+id/iv_warning"
+        android:layout_marginStart="8dp"
+        android:layout_toLeftOf="@+id/layout_action"
+        android:ellipsize="end"
+        />
+
+    <LinearLayout
+        android:id="@+id/layout_action"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/tv_tip_context"
+        android:layout_alignBottom=" @+id/tv_tip_content"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        >
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:background="#16ED3756"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_arrow_down"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="4dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

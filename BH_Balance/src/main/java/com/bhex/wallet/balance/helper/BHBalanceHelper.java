@@ -25,8 +25,10 @@ import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by BHEX.
@@ -217,6 +219,12 @@ public class BHBalanceHelper {
             }
             list.add(balance);
         }
+
+        Collections.sort(list,((o1, o2) -> {
+            String n1 =  o1.name;
+            String n2 =  o2.name;
+            return n1.compareTo(n2);
+        }));
         return list;
     }
 

@@ -13,12 +13,14 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.recyclerview.GridLayoutItemDecoration;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.utils.LiveDataBus;
@@ -30,6 +32,8 @@ import com.bhex.wallet.mnemonic.adapter.UnderMnemonicAdapter;
 import com.bhex.wallet.mnemonic.helper.MnemonicDataHelper;
 import com.bhex.wallet.mnemonic.persenter.VerifyPresenter;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Collections;
 import java.util.List;
@@ -76,7 +80,8 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     protected void initView() {
         ARouter.getInstance().inject(this);
 
-        LogUtils.d("VerifyMnemonicActivity===>","isbackup==="+BHUserManager.getInstance().getCurrentBhWallet().isBackup);
+        //LogUtils.d("VerifyMnemonicActivity===>","isbackup==="+BHUserManager.getInstance().getCurrentBhWallet().isBackup);
+
         orginMnemonicItemList = MnemonicDataHelper.makeMnemonic(inputPwd);
         underMnemonicItemList = MnemonicDataHelper.makeNewMnemonicList(orginMnemonicItemList);
 
@@ -164,18 +169,24 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
      *
      */
     private void gotoTarget(){
-        if(MainActivityManager.getInstance().getTargetClass()!=null &&
+        /*if(MainActivityManager.getInstance().getTargetClass()!=null &&
                 MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
-            //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
             NavigateUtil.startMainActivity(this,new String[]{});
 
         }else{
             NavigateUtil.startMainActivity(this,
                     new String[]{BHConstants.BACKUP_TEXT, BHConstants.BACKUP});
         }
-        //NavigateUtil.startMainActivity(VerifyMnemonicActivity.this);
-        //finish();
+        ActivityCache.getInstance().finishActivity();
+        BHUserManager.getInstance().clear();*/
+        if(MainActivityManager.getInstance().getTargetClass()!=null &&
+                MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
+            EventBus.getDefault().post(new AccountEvent());
+        }
+        NavigateUtil.startMainActivity(this,
+                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
         ActivityCache.getInstance().finishActivity();
         BHUserManager.getInstance().clear();
+        ToastUtils.showToast(getString(R.string.mnemonic_backup_success));
     }
 }

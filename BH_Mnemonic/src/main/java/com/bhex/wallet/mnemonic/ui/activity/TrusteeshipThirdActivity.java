@@ -20,6 +20,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.StringUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -151,6 +152,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
         if(view.getId()==R.id.btn_create){
             String confirmPwd = inp_wallet_confirm_pwd.getInputString();
             if(!mOldPwd.equals(confirmPwd)){
+                ToolUtils.hintKeyBoard(this);
                 ToastUtils.showToast(getResources().getString(R.string.two_password_n_same));
                 return;
             }

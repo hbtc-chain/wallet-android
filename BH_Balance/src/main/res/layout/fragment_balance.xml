@@ -30,7 +30,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -203,6 +202,17 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+
+                <include
+                    android:id="@+id/layout_balance_tip"
+                    layout="@layout/layout_balance_tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/main_margin_left"
+                    android:layout_marginEnd="@dimen/main_margin_right"
+                    android:layout_below="@+id/view_divider_line"
+                    />
+
                 <CheckedTextView
                     android:id="@+id/ck_hidden_small"
                     android:layout_width="wrap_content"
@@ -279,9 +289,10 @@
                     />
 
                 <FrameLayout
+                    android:id="@+id/layout_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_divider_line"
+                    android:layout_below="@+id/layout_balance_tip"
                     android:minHeight="300dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -308,6 +319,23 @@
                         android:visibility="gone" />
 
                 </FrameLayout>
+
+                <!--<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_below="@+id/layout_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="测试网的HBC代币均为测试代币"
+                        android:layout_gravity="center"
+                        />
+                </LinearLayout>-->
+
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

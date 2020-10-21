@@ -75,7 +75,7 @@ public class BHConstants {
     public static final String VETO_OPTION_NO = "No";
     public static final String VETO_OPTION_ABSTAIN = "Abstain";
     public static final String VETO_OPTION_NOWITHVETO = "NoWithVeto";
-    public static final String TRANSCTION_MODE = "async";
+    public static final String TRANSCTION_MODE = "sync";
     public static final String TRANSCTION_MODE_BLOCK = "block";
     public static final String EMAIL = "Hbcwallet@hbtc.com";
     public static final String CHAIN_ID = "hbtc-testnet";

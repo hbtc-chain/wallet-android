@@ -515,5 +515,7 @@
     <string name="payment_address">付款地址</string>
     <string name="gas_fee">矿工费用</string>
     <string name="avilable_relieve">可解</string>
+    <string name="balance_testnet_tips">测试网的HBC代币均为测试代币无任何价值！</string>
+    <string name="slogan">去中心化跨链钱包</string>
 
 </resources>

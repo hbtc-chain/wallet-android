@@ -54,6 +54,7 @@
             android:scaleType="center"
             android:clickable="true"
             android:layout_alignParentEnd="true"
+            android:background="?android:selectableItemBackground"
             />
 
     </RelativeLayout>

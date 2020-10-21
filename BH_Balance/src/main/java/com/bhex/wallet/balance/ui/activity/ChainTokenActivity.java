@@ -1,6 +1,7 @@
 package com.bhex.wallet.balance.ui.activity;
 
 import android.content.Intent;
+import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -72,6 +73,9 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     RecyclerView rcv_token_list;
     @BindView(R2.id.empty_layout)
     EmptyLayout empty_layout;
+
+    @BindView(R2.id.ck_hidden_small)
+    CheckedTextView ck_hidden_small;
 
 
     private BalanceAdapter mBalanceAdapter;

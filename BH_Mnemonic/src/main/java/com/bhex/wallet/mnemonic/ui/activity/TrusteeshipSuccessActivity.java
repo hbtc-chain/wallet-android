@@ -67,7 +67,6 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
             if(MainActivityManager.getInstance().getTargetClass()!=null &&
                     MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
                 EventBus.getDefault().post(new AccountEvent());
-                //BHUserManager.getInstance().clear();
             }
             NavigateUtil.startMainActivity(this,
                     new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});

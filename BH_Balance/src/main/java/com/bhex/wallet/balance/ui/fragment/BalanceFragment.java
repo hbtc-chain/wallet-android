@@ -24,6 +24,7 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
@@ -35,6 +36,7 @@ import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.ChainAdapter;
 import com.bhex.wallet.balance.event.BHCoinEvent;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
+import com.bhex.wallet.balance.ui.TipsViewHolder;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.AccountEvent;
@@ -93,6 +95,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @BindView(R2.id.empty_layout)
     RelativeLayout empty_layout;
 
+
     private ChainAdapter mChainAdapter;
     private List<BHBalance> mBalanceList = new ArrayList<>();
     private List<BHBalance> mOriginBalanceList;
@@ -148,6 +151,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         ed_search_content.addTextChangedListener(balanceTextWatcher);
         refreshLayout.setEnableLoadMore(false);
+
+
     }
 
 
@@ -180,6 +185,13 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         refreshLayout.autoRefresh();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TipsViewHolder viewHolder = new TipsViewHolder();
+        viewHolder.initView(getYActivity(),getYActivity().findViewById(R.id.layout_balance_tip));
+    }
 
     /**
      * 更新用户资产
@@ -344,15 +356,4 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-    /*@Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if(hidden){
-            balanceViewModel.onPause();
-        }else{
-            balanceViewModel.onResume();
-        }
-    }*/
 }

@@ -54,7 +54,9 @@
             android:ellipsize="middle"
             android:text="@string/hbc_chain_address"
             android:layout_marginRight="5dp"
-            tools:ignore="EllipsizeMaxLines" />
+            tools:ignore="EllipsizeMaxLines"
+            android:visibility="gone"
+            />
 
 
         <androidx.appcompat.widget.AppCompatTextView

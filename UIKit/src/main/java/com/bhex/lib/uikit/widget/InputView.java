@@ -187,6 +187,8 @@ public class InputView extends LinearLayout implements View.OnClickListener {
         }else{
             errorTxt.setVisibility(VISIBLE);
             errorTxt.setText(error);
+            //
+            //mInputEd.setBackgroundDrawable();
         }
     }
 
