@@ -9,7 +9,7 @@
     <string name="mapping_swap">Mapping conversion</string>
     <string name="add_liquidity">Add liquidity</string>
     <string name="remove_liquidity">Remove liquidity</string>
-    <string name="limit_swap">limit price conversion</string>
+    <string name="limit_swap">Limit price conversion</string>
     <string name="cancel_limit_swap">Cancel</string>
     <string name="other">Others</string>
 </resources>

@@ -10,8 +10,7 @@
     android:paddingLeft="16dp"
     android:paddingBottom="16dp"
     android:background="@drawable/shape_btn_blue"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"

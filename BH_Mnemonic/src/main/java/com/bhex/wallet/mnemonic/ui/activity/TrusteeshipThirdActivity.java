@@ -24,6 +24,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -130,7 +131,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                             .navigation();
                     ActivityCache.getInstance().finishActivity();
                 }
-
+                SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
             }else if(loadDataModel.loadingStatus== LoadingStatus.ERROR){
                 if(loadDataModel.code==1){
                     ToastUtils.showToast(getResources().getString(R.string.trusteeship_exist));
