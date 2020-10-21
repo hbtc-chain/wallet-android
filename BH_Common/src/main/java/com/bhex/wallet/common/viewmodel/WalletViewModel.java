@@ -270,7 +270,7 @@ public class WalletViewModel extends ViewModel {
      * @param name
      * @param pwd
      */
-    public void importMnemonic(BaseActivity activity,List<String> words, String name, String pwd){
+    public void importMnemonic(BaseActivity activity,List<String> words, String name, String pwd,int isForgetPwd){
         BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
             public void onSuccess(BHWallet bhWallet) {
@@ -299,27 +299,17 @@ public class WalletViewModel extends ViewModel {
                 //判断助记词是否已经导入过
                 boolean isWalletExist = BHWalletHelper.isExistBHWallet(bh_address);
                 if(isWalletExist){
-                    emitter.onNext(new BHWallet());
-                    emitter.onComplete();
-                }else{
-                    BHWallet bhWallet = BHWalletUtils.importMnemonic(BHWalletUtils.BH_CUSTOM_TYPE,words,name,pwd);
-                    int maxId = bhWalletDao.loadMaxId();
-                    bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
-                    bhWallet.id = maxId+1;
-                    int id = bhWalletDao.insert(bhWallet).intValue();
-
-                    //设置默认钱包
-                    //把所有设置非默认
-                    int res = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
-                    //把bh_id设置默认
-                    res = bhWalletDao.update(id,BH_BUSI_TYPE.默认托管单元.getIntValue());
-
-                    //更新当前默认钱包
-                    List<BHWallet> allBhWallet = bhWalletDao.loadAll();
-                    if(allBhWallet!=null && allBhWallet.size()>0){
-                        //BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
-                        BHUserManager.getInstance().setAllWallet(allBhWallet);
+                    if(isForgetPwd==BH_BUSI_TYPE.忘记密码.getIntValue()){
+                        //删除当前钱包
+                        bhWalletDao.deleteByAddress(bh_address);
+                        //
+                        createWallet(words,name,pwd);
+                    }else{
+                        emitter.onNext(new BHWallet());
+                        emitter.onComplete();
                     }
+                }else{
+                    BHWallet bhWallet = createWallet(words,name,pwd);
                     emitter.onNext(bhWallet);
                     emitter.onComplete();
                 }
@@ -331,6 +321,28 @@ public class WalletViewModel extends ViewModel {
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(pbo);
+    }
+
+    //创建
+    private BHWallet createWallet(List<String> words, String name, String pwd){
+        BHWallet bhWallet = BHWalletUtils.importMnemonic(BHWalletUtils.BH_CUSTOM_TYPE,words,name,pwd);
+        int maxId = bhWalletDao.loadMaxId();
+        bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
+        bhWallet.id = maxId+1;
+        int id = bhWalletDao.insert(bhWallet).intValue();
+
+        //设置默认钱包
+        //把所有设置非默认
+        int res = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
+        //把bh_id设置默认
+        res = bhWalletDao.update(id,BH_BUSI_TYPE.默认托管单元.getIntValue());
+
+        //更新当前默认钱包
+        List<BHWallet> allBhWallet = bhWalletDao.loadAll();
+        if(allBhWallet!=null && allBhWallet.size()>0){
+            BHUserManager.getInstance().setAllWallet(allBhWallet);
+        }
+        return bhWallet;
     }
 
     /**

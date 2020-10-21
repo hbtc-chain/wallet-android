@@ -31,6 +31,9 @@ public interface BHWalletDao {
     @Delete
     void delete(BHWallet wallet);
 
+    @Query("delete from tab_wallet where address=:address")
+    void deleteByAddress(String address);
+
     @Query("SELECT * FROM tab_wallet where id=:bh_id")
     BHWallet findById(int bh_id);
 

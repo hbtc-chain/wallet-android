@@ -20,8 +20,16 @@ public enum BH_BUSI_TYPE {
     账户资产缓存("Account_Balance"),消息缓存("Message_List"),
     显示("0"),隐藏("1"),
     校验当前账户密码("1"),校验选择账户密码("2"),
-    市场("market");
+    市场("market"),
+    忘记密码("isForgetPwd","1");
+
+    public String label;
     public String value;
+
+    BH_BUSI_TYPE(String label,String value) {
+        this.label = label;
+        this.value = value;
+    }
 
     BH_BUSI_TYPE(String value) {
         this.value = value;

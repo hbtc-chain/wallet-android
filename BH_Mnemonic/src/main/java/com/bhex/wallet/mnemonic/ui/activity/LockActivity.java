@@ -6,12 +6,14 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHWalletItem;
@@ -102,7 +104,9 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
         } else if (view.getId() == R.id.tv_import_mnemonic) {
             ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
         } else if (view.getId() == R.id.tv_forget_pwd) {
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
+            //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX)
+                    .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue()).navigation();
         } else if (view.getId() == R.id.tv_bh_address) {
             AddressFragment fragment = new AddressFragment();
             fragment.setChangeListener(this);

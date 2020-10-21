@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.MnemonicInputView;
@@ -16,6 +17,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
@@ -33,8 +35,11 @@ import butterknife.OnClick;
  * @author gdy
  * 2020-3-11 18:37:15
  */
-@Route(path = ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC)
+@Route(path = ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC,name="导入助记词")
 public class ImportMnemonicActivity extends BaseCacheActivity implements MnemonicInputView.MnemonicInputViewChangeListener {
+
+    @Autowired(name="isForgetPwd")
+    int isForgetPwd = 0;
 
     @BindView(R2.id.btn_next)
     AppCompatTextView btn_next;
@@ -50,7 +55,7 @@ public class ImportMnemonicActivity extends BaseCacheActivity implements Mnemoni
 
     List<String> mOriginWords = BHUserManager.getInstance().getWordList();
 
-    private List<String> mMnemonicWords = new ArrayList<>();
+    //private List<String> mMnemonicWords = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -131,7 +136,9 @@ public class ImportMnemonicActivity extends BaseCacheActivity implements Mnemoni
         BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入助记词.getWay());
         BHUserManager.getInstance().getTmpBhWallet().setMnemonic(mnemonic_text);
         BHUserManager.getInstance().getTmpBhWallet().setWords(mnemonicItems);
-        ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST).navigation();
+        ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST)
+                .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue())
+                .navigation();
     }
 
     @Override

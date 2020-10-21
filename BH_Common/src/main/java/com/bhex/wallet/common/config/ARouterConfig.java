@@ -54,6 +54,10 @@ public class ARouterConfig {
     //托管单元创建
     public static final String TRUSTEESHIP_MNEMONIC_FRIST= "/mnemonic/mnemonic/frist";
 
+    public static final String TRUSTEESHIP_MNEMONIC_SECOND= "/mnemonic/mnemonic/second";
+
+    public static final String TRUSTEESHIP_MNEMONIC_THIRD= "/mnemonic/mnemonic/third";
+
     //托管单元导入-KeyStore
     public static final String TRUSTEESHIP_IMPORT_KEYSTORE= "/mnemonic/import/keystore";
 

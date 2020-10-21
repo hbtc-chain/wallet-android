@@ -5,12 +5,15 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -30,12 +33,9 @@ import butterknife.BindView;
 @Route(path = ARouterConfig.TRUSTEESHIP_IMPORT_INDEX)
 public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
 
-    /*@BindView(R2.id.btn_import_mnemonic)
-    MaterialButton btn_import_mnemonic;
-    @BindView(R2.id.btn_import_ks)
-    MaterialButton btn_import_ks;
-    @BindView(R2.id.btn_import_private)
-    MaterialButton btn_import_private;*/
+    @Autowired(name="isForgetPwd")
+    int isForgetPwd = 0;
+
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
 
@@ -82,28 +82,22 @@ public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
         importAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (position){
                 case 0:
-                    ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC);
+                    //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC);
+                    ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC)
+                            .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue()).navigation();
                     break;
                 case 1:
-                    ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE);
+                    //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE);
+                    ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE)
+                            .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue()).navigation();
                     break;
                 case 2:
-                    ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY);
+                    //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY);
+                    ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY)
+                            .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue()).navigation();
                     break;
             }
         });
     }
-
-
-    /*@OnClick({R2.id.btn_import_mnemonic, R2.id.btn_import_ks, R2.id.btn_import_private})
-    public void onViewClicked(View view) {
-        if (view.getId() == R.id.btn_import_mnemonic) {
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_MNEMONIC_IMPORT);
-        } else if (view.getId() == R.id.btn_import_ks) {
-
-        } else if (view.getId() == R.id.btn_import_private) {
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_PRIVATEKEY_IMPORT);
-        }
-    }*/
 
 }

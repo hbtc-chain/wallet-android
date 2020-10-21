@@ -10,6 +10,8 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
@@ -43,10 +45,14 @@ import butterknife.OnClick;
  * 创建托管单元第三步
  * 2020-3-12 20:47:54
  */
+@Route(path = ARouterConfig.TRUSTEESHIP_MNEMONIC_THIRD)
 public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPresenter>
         implements GlobalTipsFragment.GlobalOnClickListenter {
 
     WalletViewModel walletViewModel;
+
+    @Autowired(name="isForgetPwd")
+    int isForgetPwd = 0;
 
     @BindView(R2.id.inp_wallet_confirm_pwd)
     InputView inp_wallet_confirm_pwd;
@@ -157,9 +163,9 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
             if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
                 generateMnemonic(userName,mOldPwd);
             }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){
-                importMnemoic(userName,mOldPwd);
+                importMnemoic(userName,mOldPwd,isForgetPwd);
             }else if(way==MAKE_WALLET_TYPE.PK.getWay()){
-                importPrivatekey(userName,mOldPwd);
+                importPrivatekey(userName,mOldPwd,isForgetPwd);
             }
         }else if(view.getId()==R.id.tv_agreement){
             GlobalTipsFragment.showDialog(getSupportFragmentManager(),"",
@@ -179,9 +185,9 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
      * @param name
      * @param pwd
      */
-    private void importMnemoic(String name, String pwd) {
+    private void importMnemoic(String name, String pwd,int isForgetPwd) {
         List<String> words = BHUserManager.getInstance().getTmpBhWallet().mWords;
-        walletViewModel.importMnemonic(this,words,name,pwd);
+        walletViewModel.importMnemonic(this,words,name,pwd,isForgetPwd);
     }
 
     /**
@@ -189,7 +195,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
      * @param name
      * @param pwd
      */
-    private void importPrivatekey(String name,String pwd){
+    private void importPrivatekey(String name,String pwd,int isForgetPwd){
         walletViewModel.importPrivateKey(this,name,pwd);
         //walletViewModel.importPrivateKey(this,"","");
     }

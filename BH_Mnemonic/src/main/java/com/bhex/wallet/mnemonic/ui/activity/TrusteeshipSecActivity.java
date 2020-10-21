@@ -6,10 +6,15 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -23,7 +28,11 @@ import butterknife.OnClick;
  * 创建托管单元第二步
  * 2020-3-12 20:47:54
  */
+@Route(path = ARouterConfig.TRUSTEESHIP_MNEMONIC_SECOND)
 public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresenter> {
+
+    @Autowired(name="isForgetPwd")
+    int isForgetPwd = 0;
 
     @BindView(R2.id.inp_wallet_pwd)
     InputView inp_wallet_pwd;
@@ -86,7 +95,11 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
         if (view.getId() == R.id.btn_next) {
             //设置密码
             BHUserManager.getInstance().getTmpBhWallet().setPassword(inp_wallet_pwd.getInputString());
-            NavigateUtil.startActivity(this, TrusteeshipThirdActivity.class);
+            //NavigateUtil.startActivity(this, TrusteeshipThirdActivity.class);
+
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_THIRD)
+                    .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue())
+                    .navigation();
         }
     }
 
