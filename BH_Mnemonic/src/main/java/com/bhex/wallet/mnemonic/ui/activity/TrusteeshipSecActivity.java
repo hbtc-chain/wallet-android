@@ -31,9 +31,6 @@ import butterknife.OnClick;
 @Route(path = ARouterConfig.TRUSTEESHIP_MNEMONIC_SECOND)
 public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresenter> {
 
-    @Autowired(name="isForgetPwd")
-    int isForgetPwd = 0;
-
     @BindView(R2.id.inp_wallet_pwd)
     InputView inp_wallet_pwd;
 
@@ -98,7 +95,6 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
             //NavigateUtil.startActivity(this, TrusteeshipThirdActivity.class);
 
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_THIRD)
-                    .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue())
                     .navigation();
         }
     }

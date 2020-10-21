@@ -99,7 +99,6 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
                     .setName(inp_wallet_name.getInputString());
             //NavigateUtil.startActivity(this,TrusteeshipSecActivity.class);
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_SECOND)
-                    .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue())
                     .navigation();
         }
     }

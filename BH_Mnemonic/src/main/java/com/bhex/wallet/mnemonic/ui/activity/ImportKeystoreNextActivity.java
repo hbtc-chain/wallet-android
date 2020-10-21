@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
@@ -21,6 +22,7 @@ import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.StringUtils;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
@@ -39,6 +41,7 @@ import butterknife.OnClick;
  * 2020-5-19 17:40:50
  * 导入Keystore设置用户名
  */
+@Route(path = ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY_NEXT, name="导入Keystore设置用户名")
 public class ImportKeystoreNextActivity extends BaseCacheActivity<TrusteeshipPresenter>
         implements GlobalTipsFragment.GlobalOnClickListenter{
 
@@ -108,12 +111,9 @@ public class ImportKeystoreNextActivity extends BaseCacheActivity<TrusteeshipPre
 
     @OnClick({R2.id.tv_agreement,R2.id.btn_next})
     public void onViewClicked(View view) {
-
         if(view.getId()==R.id.tv_agreement){
-
             GlobalTipsFragment.showDialog(getSupportFragmentManager(),"",
                     this,ck_agreement.isChecked());
-
         }else if(view.getId()==R.id.btn_next){
             String password = BHUserManager.getInstance().getTmpBhWallet().getPassword();
             String name = inp_wallet_name.getInputString();
@@ -127,7 +127,6 @@ public class ImportKeystoreNextActivity extends BaseCacheActivity<TrusteeshipPre
     public void onCheckClickListener(View view, boolean isCheck) {
         ck_agreement.setChecked(isCheck);
     }
-
 
     /**
      * 导入KeyStore后的回调

@@ -219,7 +219,6 @@ public class BHWalletUtils {
 
         Credentials credentials = Credentials.create(HLWallet.decrypt(pwd, walletFile));
         if(credentials!=null){
-            //bh_address = BHKey.getBhexUserDpAddress(credentials.getEcKeyPair().getPublicKey());
             return credentials;
         }else{
             return null;

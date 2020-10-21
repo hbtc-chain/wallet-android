@@ -106,7 +106,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
         } else if (view.getId() == R.id.tv_forget_pwd) {
             //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX)
-                    .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue()).navigation();
+                    .navigation();
         } else if (view.getId() == R.id.tv_bh_address) {
             AddressFragment fragment = new AddressFragment();
             fragment.setChangeListener(this);

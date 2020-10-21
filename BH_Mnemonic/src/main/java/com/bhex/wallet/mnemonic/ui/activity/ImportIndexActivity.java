@@ -33,9 +33,6 @@ import butterknife.BindView;
 @Route(path = ARouterConfig.TRUSTEESHIP_IMPORT_INDEX)
 public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
 
-    @Autowired(name="isForgetPwd")
-    int isForgetPwd = 0;
-
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
 
@@ -84,17 +81,17 @@ public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
                 case 0:
                     //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC);
                     ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC)
-                            .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue()).navigation();
+                            .navigation();
                     break;
                 case 1:
                     //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE);
                     ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE)
-                            .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue()).navigation();
+                            .navigation();
                     break;
                 case 2:
                     //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY);
                     ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY)
-                            .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue()).navigation();
+                            .navigation();
                     break;
             }
         });

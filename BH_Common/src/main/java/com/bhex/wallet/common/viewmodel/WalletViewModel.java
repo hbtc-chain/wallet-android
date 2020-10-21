@@ -270,7 +270,7 @@ public class WalletViewModel extends ViewModel {
      * @param name
      * @param pwd
      */
-    public void importMnemonic(BaseActivity activity,List<String> words, String name, String pwd,int isForgetPwd){
+    public void importMnemonic(BaseActivity activity,List<String> words, String name, String pwd){
         BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
             public void onSuccess(BHWallet bhWallet) {
@@ -299,20 +299,12 @@ public class WalletViewModel extends ViewModel {
                 //判断助记词是否已经导入过
                 boolean isWalletExist = BHWalletHelper.isExistBHWallet(bh_address);
                 if(isWalletExist){
-                    if(isForgetPwd==BH_BUSI_TYPE.忘记密码.getIntValue()){
-                        //删除当前钱包
-                        bhWalletDao.deleteByAddress(bh_address);
-                        //
-                        createWallet(words,name,pwd);
-                    }else{
-                        emitter.onNext(new BHWallet());
-                        emitter.onComplete();
-                    }
-                }else{
-                    BHWallet bhWallet = createWallet(words,name,pwd);
-                    emitter.onNext(bhWallet);
-                    emitter.onComplete();
+                    //删除当前钱包
+                    bhWalletDao.deleteByAddress(bh_address);
                 }
+                BHWallet bhWallet = createWallet(words,name,pwd);
+                emitter.onNext(bhWallet);
+                emitter.onComplete();
             }catch (Exception e){
                 e.printStackTrace();
                 emitter.onError(e);
@@ -361,7 +353,6 @@ public class WalletViewModel extends ViewModel {
                     LoadDataModel loadDataModel = new LoadDataModel("");
                     mutableLiveData.postValue(loadDataModel);
                 }
-
             }
 
             @Override
@@ -369,7 +360,6 @@ public class WalletViewModel extends ViewModel {
                 super.onError(e);
                 LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 mutableLiveData.postValue(loadDataModel);
-
             }
         };
 
@@ -381,31 +371,29 @@ public class WalletViewModel extends ViewModel {
                 boolean isWalletExist = BHWalletHelper.isExistBHWallet(bh_address);
 
                 if(isWalletExist){
-                    emitter.onNext(new BHWallet());
-                    emitter.onComplete();
-                }else{
-                    BHWallet bhWallet = BHWalletUtils.importPrivateKey(privateKey,name,pwd);
-                    int maxId = bhWalletDao.loadMaxId();
-                    bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
-                    bhWallet.id = maxId+1;
-                    int resId = bhWalletDao.insert(bhWallet).intValue();
-
-                    //设置默认钱包
-                    //把所有设置非默认
-                    resId = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
-                    //把bh_id设置默认
-                    resId = bhWalletDao.update(bhWallet.id,BH_BUSI_TYPE.默认托管单元.getIntValue());
-
-                    //更新当前默认钱包
-                    List<BHWallet> allBhWallet = bhWalletDao.loadAll();
-                    if(allBhWallet!=null && allBhWallet.size()>0){
-                        //BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
-                        BHUserManager.getInstance().setAllWallet(allBhWallet);
-                    }
-
-                    emitter.onNext(bhWallet);
-                    emitter.onComplete();
+                    bhWalletDao.deleteByAddress(bh_address);
                 }
+                BHWallet bhWallet = BHWalletUtils.importPrivateKey(privateKey,name,pwd);
+                int maxId = bhWalletDao.loadMaxId();
+                bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
+                bhWallet.id = maxId+1;
+                int resId = bhWalletDao.insert(bhWallet).intValue();
+
+                //设置默认钱包
+                //把所有设置非默认
+                resId = bhWalletDao.updateNoDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
+                //把bh_id设置默认
+                resId = bhWalletDao.update(bhWallet.id,BH_BUSI_TYPE.默认托管单元.getIntValue());
+
+                //更新当前默认钱包
+                List<BHWallet> allBhWallet = bhWalletDao.loadAll();
+                if(allBhWallet!=null && allBhWallet.size()>0){
+                    //BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
+                    BHUserManager.getInstance().setAllWallet(allBhWallet);
+                }
+
+                emitter.onNext(bhWallet);
+                emitter.onComplete();
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -444,35 +432,13 @@ public class WalletViewModel extends ViewModel {
 
         Observable.create(emitter -> {
             //判断地址是否存在
-            /*String bh_address = BHWalletUtils.keyStoreToAddress(keyStore,pwd);
+            String bh_address = BHWalletUtils.keyStoreToAddress(keyStore,pwd);
             if(BHWalletHelper.isExistBHWallet(bh_address)){
-                emitter.onNext("1");
-            }else if(!TextUtils.isEmpty(bh_address)){
-                BHWallet bhWallet = BHWalletUtils.importKeyStore(keyStore,name,pwd);
-                //当前
-                int maxId = bhWalletDao.loadMaxId();
-                bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
-                bhWallet.id = maxId+1;
-                int resId = bhWalletDao.insert(bhWallet).intValue();
-
-                //设置默认钱包
-                //把所有设置非默认
-                int res = bhWalletDao.updateNoDefault(0);
-                //把bh_id设置默认
-                res = bhWalletDao.update(bhWallet.id,1);
-
-                //更新当前默认钱包
-                List<BHWallet> allBhWallet = bhWalletDao.loadAll();
-                if(allBhWallet!=null && allBhWallet.size()>0){
-                    BHUserManager.getInstance().setCurrentBhWallet(allBhWallet.get(0));
-                    BHUserManager.getInstance().setAllWallet(allBhWallet);
-                }
-                emitter.onNext("0");
+                bhWalletDao.deleteByAddress(bh_address);
             }
-            emitter.onComplete();*/
+
             Credentials credentials = BHUserManager.getInstance().getTmpCredentials();
             BHWallet bhWallet = BHWalletUtils.importKeyStoreExt(credentials,name,pwd);
-
             //当前
             int maxId = bhWalletDao.loadMaxId();
             bhWallet.isBackup = BH_BUSI_TYPE.已备份.getIntValue();
@@ -507,7 +473,6 @@ public class WalletViewModel extends ViewModel {
             protected void onSuccess(String result) {
                 LoadDataModel ldm = new LoadDataModel(result);
                 mutableLiveData.postValue(ldm);
-                //LogUtils.d("WalletModel===>","verifyKeystore==onSuccess");
             }
 
             @Override
@@ -515,7 +480,6 @@ public class WalletViewModel extends ViewModel {
                 super.onFailure(code, errorMsg);
                 LoadDataModel ldm = new LoadDataModel(code,errorMsg);
                 mutableLiveData.postValue(ldm);
-                //LogUtils.d("WalletModel===>","verifyKeystore==onFailure"+code);
             }
         };
 
@@ -529,8 +493,8 @@ public class WalletViewModel extends ViewModel {
                 emitter.onNext(BH_BUSI_TYPE.托管单元已存在.value);
             }else{
                 emitter.onNext(BH_BUSI_TYPE.托管单元不存在.value);
-                BHUserManager.getInstance().setTmpCredentials(credentials);
             }
+            BHUserManager.getInstance().setTmpCredentials(credentials);
             emitter.onComplete();
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))

@@ -69,7 +69,7 @@ public class ARouterConfig {
 
     //私钥导入
     public static final String TRUSTEESHIP_IMPORT_PRIVATEKEY = "/mnemonic/import/privatekey";
-
+    public static final String TRUSTEESHIP_IMPORT_PRIVATEKEY_NEXT = "/mnemonic/import/privatekey_next";
     //私钥导出
     public static final String TRUSTEESHIP_EXPORT_PRIVATEKEY = "/mnemonic/export/privatekey";
 

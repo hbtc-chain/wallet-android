@@ -38,9 +38,6 @@ import butterknife.OnClick;
 @Route(path = ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC,name="导入助记词")
 public class ImportMnemonicActivity extends BaseCacheActivity implements MnemonicInputView.MnemonicInputViewChangeListener {
 
-    @Autowired(name="isForgetPwd")
-    int isForgetPwd = 0;
-
     @BindView(R2.id.btn_next)
     AppCompatTextView btn_next;
 
@@ -137,7 +134,6 @@ public class ImportMnemonicActivity extends BaseCacheActivity implements Mnemoni
         BHUserManager.getInstance().getTmpBhWallet().setMnemonic(mnemonic_text);
         BHUserManager.getInstance().getTmpBhWallet().setWords(mnemonicItems);
         ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST)
-                .withInt(BH_BUSI_TYPE.忘记密码.label, BH_BUSI_TYPE.忘记密码.getIntValue())
                 .navigation();
     }
 

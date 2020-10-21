@@ -51,9 +51,6 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
     WalletViewModel walletViewModel;
 
-    @Autowired(name="isForgetPwd")
-    int isForgetPwd = 0;
-
     @BindView(R2.id.inp_wallet_confirm_pwd)
     InputView inp_wallet_confirm_pwd;
 
@@ -163,9 +160,9 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
             if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
                 generateMnemonic(userName,mOldPwd);
             }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){
-                importMnemoic(userName,mOldPwd,isForgetPwd);
+                importMnemoic(userName,mOldPwd);
             }else if(way==MAKE_WALLET_TYPE.PK.getWay()){
-                importPrivatekey(userName,mOldPwd,isForgetPwd);
+                importPrivatekey(userName,mOldPwd);
             }
         }else if(view.getId()==R.id.tv_agreement){
             GlobalTipsFragment.showDialog(getSupportFragmentManager(),"",
@@ -185,9 +182,9 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
      * @param name
      * @param pwd
      */
-    private void importMnemoic(String name, String pwd,int isForgetPwd) {
+    private void importMnemoic(String name, String pwd) {
         List<String> words = BHUserManager.getInstance().getTmpBhWallet().mWords;
-        walletViewModel.importMnemonic(this,words,name,pwd,isForgetPwd);
+        walletViewModel.importMnemonic(this,words,name,pwd);
     }
 
     /**
@@ -195,7 +192,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
      * @param name
      * @param pwd
      */
-    private void importPrivatekey(String name,String pwd,int isForgetPwd){
+    private void importPrivatekey(String name,String pwd){
         walletViewModel.importPrivateKey(this,name,pwd);
         //walletViewModel.importPrivateKey(this,"","");
     }

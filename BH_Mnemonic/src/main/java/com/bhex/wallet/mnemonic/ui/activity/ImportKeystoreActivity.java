@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
@@ -108,13 +109,9 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
      */
     private void verifyKeyStoreStatus(LoadDataModel<String> ldm){
         if(ldm.getLoadingStatus()== LoadingStatus.SUCCESS){
-            if(ldm.getData().equals("1")){
-                ToastUtils.showToast(getResources().getString(R.string.trusteeship_exist));
-            }else{
-                //跳转下一页
-                NavigateUtil.startActivity(this,ImportKeystoreNextActivity.class);
-            }
-
+            //跳转下一页
+            //NavigateUtil.startActivity(this,ImportKeystoreNextActivity.class);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY_NEXT).navigation();
         }else if(ldm.getLoadingStatus()== LoadingStatus.ERROR){
             ToastUtils.showToast(ldm.msg);
         }
