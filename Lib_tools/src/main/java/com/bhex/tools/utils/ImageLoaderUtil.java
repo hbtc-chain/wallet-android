@@ -30,7 +30,6 @@ public class ImageLoaderUtil {
            mImageView.setImageResource(resId);
            return;
         }
-        //LogUtils.d("ImageLoaderUtil==>","path=="+path);
         Glide.with(mContext).load(path)
                 .placeholder(resId)
                 .error(resId)
