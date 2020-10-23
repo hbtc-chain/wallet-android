@@ -20,10 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseDialogFragment;
-import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHWalletItem;

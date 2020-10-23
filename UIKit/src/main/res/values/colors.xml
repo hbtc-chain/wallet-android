@@ -114,6 +114,8 @@
     <color name="mnemonic_error">#ED3756</color>
     <color name="mnemonic_filled_text">#ACB5C3</color>
 
+    <color name="input_error">#ED3756</color>
+
     <color name="status_bar_bg_white">#ffffff</color>
     <color name="status_bar_bg_blue">#3375E0</color>
 

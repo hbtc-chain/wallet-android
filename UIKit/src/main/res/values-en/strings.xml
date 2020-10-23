@@ -377,16 +377,16 @@
     <string name="token_name_rule_tip">Token name length 2-16 bits</string>
     <string name="please_input_keystore">Enter Input KeyStore</string>
     <string name="backup_qr_tip_1">For direct scanning only</string>
-    <string name="backup_qr_tip_2">·The qr code is not allowed to save, take screenshots or take photos</string>
+    <string name="backup_qr_tip_2">·The QR code is not allowed to save, take screenshots or take photos</string>
     <string name="backup_qr_tip_3">·Only for users to scan directly into the wallet in a secure environment</string>
     <string name="backup_qr_tip_4">Use in a secure environment</string>
     <string name="backup_qr_tip_5">·Be sure to use in an environment with no one around and no camera</string>
-    <string name="backup_qr_tip_6">·Once the qr code is acquired by others, it will cause irreparable asset loss </string>
+    <string name="backup_qr_tip_6">·Once the QR code is acquired by others, it will cause irreparable asset loss </string>
     <string name="backup_text_tip_1">Save offline</string>
     <string name="backup_text_tip_2">·Do not save to email, notepad, network disk, chat tools, etc.</string>
     <string name="backup_text_tip_3">·Do not use the network transmission</string>
     <string name="backup_text_tip_4">·Do not transmit through the network tools, once it is obtained by hackers, it will cause irreparable asset loss</string>
-    <string name="backup_text_tip_5">·It is recommended that the offline device transmit by scanning the qr code</string>
+    <string name="backup_text_tip_5">·It is recommended that the offline device transmit by scanning the QR code</string>
     <string name="backup_text_tip_6">·It is recommended to use password management tools to manage</string>
     <string name="backup_text_tip_7">Password management tool saves</string>
     <string name="error_private_key_rule">Private key format error</string>
@@ -514,6 +514,6 @@
     <string name="payment_address">Payment address</string>
     <string name="gas_fee">Gasfee</string>
     <string name="avilable_relieve">Available relieve</string>
-    <string name="balance_testnet_tips">HBC testing token which on the HBTC testnet and wallet is for testing purposes only, it doesnt have any true value</string>
+    <string name="balance_testnet_tips">HBC testing token which on the HBTC testnet and wallet is for testing purposes only, it doesn´t have any true value</string>
     <string name="slogan">decentralized cross-chain wallet</string>
 </resources>

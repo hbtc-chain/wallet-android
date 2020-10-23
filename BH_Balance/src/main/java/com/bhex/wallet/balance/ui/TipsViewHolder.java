@@ -5,16 +5,15 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.balance.R;
 
 

@@ -1,7 +1,6 @@
 package com.bhex.wallet.mnemonic.ui.fragment;
 
 
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
@@ -15,22 +14,18 @@ import androidx.fragment.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.network.app.BaseApplication;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.NavigateUtil;
-import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.mnemonic.R;
-import com.bhex.wallet.mnemonic.ui.activity.BackupMnemonicActivity;
 
 /**
  * @author gongdongyang

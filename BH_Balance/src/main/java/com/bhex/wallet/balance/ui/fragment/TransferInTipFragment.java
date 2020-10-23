@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.text.SpannableString;
@@ -18,17 +17,15 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
-import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 

@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Editable;
 import android.text.InputType;
@@ -27,6 +28,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.bhex.lib.uikit.R;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.util.ShapeUtils;
+import com.google.android.material.shape.MaterialShapeUtils;
 
 /**
  * Created by BHEX.
@@ -48,6 +51,7 @@ public class InputView extends LinearLayout implements View.OnClickListener {
     //错误提示
     private TextView errorTxt;
     private LinearLayout mInputAction;
+    private RelativeLayout layout_content;
     private String hint="";
     private boolean editable;
 
@@ -97,6 +101,8 @@ public class InputView extends LinearLayout implements View.OnClickListener {
 
         mInputAction = findViewById(R.id.input_action);
         mInputClear = findViewById(R.id.input_clear);
+
+        layout_content = findViewById(R.id.layout_content);
     }
 
     private void addEvent() {
@@ -184,11 +190,18 @@ public class InputView extends LinearLayout implements View.OnClickListener {
         if (TextUtils.isEmpty(error)||TextUtils.isEmpty(mInputEd.getText().toString())) {
             errorTxt.setText("");
             errorTxt.setVisibility(GONE);
+            //
+            Drawable drawable = ShapeUtils.getRoundRectStrokeDrawable(4,
+                    ColorUtil.getColor(mContext,R.color.global_input_background),
+                    ColorUtil.getColor(mContext,R.color.bg_trans),2);
+            layout_content.setBackground(drawable);
         }else{
             errorTxt.setVisibility(VISIBLE);
             errorTxt.setText(error);
-            //
-            //mInputEd.setBackgroundDrawable();
+            Drawable drawable = ShapeUtils.getRoundRectStrokeDrawable(4,
+                    ColorUtil.getColor(mContext,R.color.global_input_background),
+                    ColorUtil.getColor(mContext,R.color.input_error),2);
+            layout_content.setBackground(drawable);
         }
     }
 

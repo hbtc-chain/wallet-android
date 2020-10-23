@@ -27,12 +27,12 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.QREncodUtil;
-import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;

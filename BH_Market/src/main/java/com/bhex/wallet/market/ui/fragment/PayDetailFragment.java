@@ -19,13 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.ShapeUtils;
-import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
-import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;

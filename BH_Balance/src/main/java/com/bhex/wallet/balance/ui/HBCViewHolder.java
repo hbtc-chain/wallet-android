@@ -1,6 +1,5 @@
 package com.bhex.wallet.balance.ui;
 
-import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,10 +7,10 @@ import android.widget.LinearLayout;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.ui.activity.ChainTokenActivity;

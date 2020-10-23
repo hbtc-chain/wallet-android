@@ -8,8 +8,8 @@ import androidx.annotation.NonNull;
 
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
-import com.bhex.tools.utils.ShapeUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.bhex.wallet.common.R;
 

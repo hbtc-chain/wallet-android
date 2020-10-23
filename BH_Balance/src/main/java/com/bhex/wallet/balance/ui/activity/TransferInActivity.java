@@ -132,11 +132,11 @@ public class TransferInActivity extends BaseActivity {
 
     @Override
     protected void addEvent() {
-        BaseApplication.getMainHandler().postDelayed(()->{
+        /*BaseApplication.getMainHandler().postDelayed(()->{
             TransferInTipFragment.showDialog(
                     getSupportFragmentManager(),
                     TransferInTipFragment.class.getSimpleName(),way);
-        },300);
+        },300);*/
     }
 
     @Override

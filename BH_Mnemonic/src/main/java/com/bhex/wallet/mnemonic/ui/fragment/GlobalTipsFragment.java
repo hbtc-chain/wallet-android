@@ -9,29 +9,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.FileUtil;
-import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.mnemonic.R;
-import com.bhex.wallet.mnemonic.ui.activity.TrusteeshipActivity;
 
 import java.util.Locale;
 

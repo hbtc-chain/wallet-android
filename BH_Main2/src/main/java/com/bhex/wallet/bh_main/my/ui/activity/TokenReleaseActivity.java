@@ -211,6 +211,7 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         String token_name = inp_token_name.getInputString();
         if (token_name.length() < 2 || token_name.length() > 16) {
             ToastUtils.showToast(getResources().getString(R.string.token_name_rule_tip));
+            //inp_token_name.setError(getResources().getString(R.string.token_name_rule_tip));
             return;
         }
 

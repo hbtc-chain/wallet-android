@@ -20,9 +20,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.network.app.BaseApplication;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.mvx.base.BaseDialogFragment;
-import com.bhex.tools.utils.ShapeUtils;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 
