@@ -1,12 +1,13 @@
-apply from: "../module.build.gradle"
+apply from: "../../module.build.gradle"
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     defaultConfig {
         if (isBuildModule.toBoolean()) {
-            applicationId "com.bhex.wallet.bh_main"
+            applicationId "com.bhex.wallet.market"
         }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,6 +39,7 @@ dependencies {
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation project(path: ':BH_Balance')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -45,23 +47,10 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
 
     implementation 'com.jakewharton:butterknife:10.2.0'
-    //annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     kapt 'com.jakewharton:butterknife-compiler:10.2.0'
 
     implementation 'com.alibaba:arouter-api:1.4.1'
     kapt 'com.alibaba:arouter-compiler:1.2.1'
 
-    //implementation 'skin.support:flycotablayout:2.1.2'
-    //annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
-    //implementation"androidx.room:room-runtime:$room_version"
-
-
-    //annotationProcessor 'androidx.room:room-compiler:2.2.3'
-
-
-    /*api project(path: ':Lib_Network')
-    api project(path: ':Lib_Tools')
-    api project(path: ':UIKit')*/
     implementation project(path: ':BH_Common')
-    implementation project(path: ':BH_Balance')
 }

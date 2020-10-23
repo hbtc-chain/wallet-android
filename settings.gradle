@@ -1,6 +1,30 @@
 include ':app'
-include ':BH_Market'
-include ':Lib_Network', ':Lib_Tools',  ':UIKit', ':Lib_Qr'
+include ':Lib_Network'
+project(':Lib_Network').projectDir = file('./Lib/Lib_Network')
+
+include ':Lib_Tools'
+project(':Lib_Tools').projectDir = file('./Lib/Lib_Tools')
+
+include ':UIKit'
+project(':UIKit').projectDir = file('./Lib/UIKit')
+
+include ':Lib_Qr'
+project(':Lib_Qr').projectDir = file('./Lib/Lib_Qr')
+
+
 include ':BH_Common'
-include ':BH_Mnemonic', ':BH_Balance', ':BH_Main2'
+project(':BH_Common').projectDir = file('./BH_Busi/BH_Common')
+
+include ':BH_Market'
+project(':BH_Market').projectDir = file('./BH_Busi/BH_Market')
+
+include ':BH_Mnemonic'
+project(':BH_Mnemonic').projectDir = file('./BH_Busi/BH_Mnemonic')
+
+include ':BH_Balance'
+project(':BH_Balance').projectDir = file('./BH_Busi/BH_Balance')
+
+include ':BH_Main2'
+project(':BH_Main2').projectDir = file('./BH_Busi/BH_Main2')
+
 rootProject.name='BHWallet'
