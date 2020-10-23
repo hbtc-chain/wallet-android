@@ -1,12 +1,12 @@
-package com.bhex.tools.toast;
+package com.bhex.lib.uikit.widget.toast;
 
 import android.content.Context;
 import android.view.Gravity;
 
 import androidx.core.content.ContextCompat;
 
-import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.tools.R;
+import com.bhex.lib.uikit.R;
+import com.bhex.tools.utils.PixelUtils;
 import com.hjq.toast.IToastStyle;
 
 /**
@@ -18,7 +18,7 @@ import com.hjq.toast.IToastStyle;
 public class BHToastStyle implements IToastStyle {
     private boolean isNight;
     private Context mContext;
-    public BHToastStyle(Context context,boolean isNight) {
+    public BHToastStyle(Context context, boolean isNight) {
         this.mContext = context;
         this.isNight = isNight;
     }

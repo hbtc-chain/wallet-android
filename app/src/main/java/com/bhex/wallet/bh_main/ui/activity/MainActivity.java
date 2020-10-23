@@ -8,11 +8,11 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.RefreshLayoutManager;
+import com.bhex.lib.uikit.util.BottomNavigationViewUtil;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.RefreshLayoutManager;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.BottomNavigationViewUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
@@ -22,8 +22,6 @@ import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.event.NightEvent;
 import com.bhex.wallet.common.manager.MainActivityManager;
-import com.bhex.wallet.common.manager.SecuritySettingManager;
-import com.bhex.wallet.common.manager.SecurityTimer;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

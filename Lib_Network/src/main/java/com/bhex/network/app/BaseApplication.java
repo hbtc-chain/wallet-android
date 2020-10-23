@@ -5,9 +5,7 @@ import android.app.Application;
 import android.os.AsyncTask;
 import android.os.Handler;
 
-import com.bhex.tools.toast.BHToastStyle;
 import com.hjq.toast.ToastUtils;
-import com.hjq.toast.style.ToastBlackStyle;
 
 import java.util.concurrent.Executor;
 

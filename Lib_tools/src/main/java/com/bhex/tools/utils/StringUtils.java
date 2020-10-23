@@ -6,7 +6,6 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 
 
-import com.bhex.lib.uikit.util.ColorUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
