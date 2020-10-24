@@ -34,7 +34,7 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.ui.BTCViewHolder;
 import com.bhex.wallet.balance.ui.HBCViewHolder;
-import com.bhex.wallet.balance.viewmodel.TestTokenViewModel;
+import com.bhex.wallet.balance.viewmodel.ChainTokenViewModel;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -83,7 +83,10 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     private BTCViewHolder mBtcViewHolder;
 
     private BalanceViewModel mBalanceViewModel;
-    private TestTokenViewModel mTestTokenViewModel;
+    private ChainTokenViewModel mChainTokenViewModel;
+
+    private List<BHBalance> mBalanceList;
+    private int defRefreshCount = 0;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_chain_token;
@@ -115,16 +118,23 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){
                 updateAssets((AccountInfo) ldm.getData());
             }
-            refreshLayout.finishRefresh();
+            finishRefresh();
+
+            //refreshLayout.finishRefresh();
         });
 
-        mTestTokenViewModel = ViewModelProviders.of(this).get(TestTokenViewModel.class);
-
-        List<BHBalance> balanceList = BHBalanceHelper.loadBalanceByChain(mBalance.chain);
-        if(ToolUtils.checkListIsEmpty(balanceList)){
+        //List<BHBalance> balanceList = BHBalanceHelper.loadBalanceByChain(mBalance.chain);
+        /*if(ToolUtils.checkListIsEmpty(balanceList)){
             empty_layout.showNoData();
             return;
-        }
+        }*/
+
+        mChainTokenViewModel =  ViewModelProviders.of(ChainTokenActivity.this).get(ChainTokenViewModel.class);
+        mChainTokenViewModel.mutableLiveData.observe(this,ldm->{
+            updateAssetList((List<BHBalance>)ldm.getData());
+            finishRefresh();
+        });
+
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -135,7 +145,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         rcv_token_list.addItemDecoration(itemDecoration);
 
         rcv_token_list.setLayoutManager(llm);
-        mBalanceAdapter = new BalanceAdapter(balanceList);
+        mBalanceAdapter = new BalanceAdapter(this,mBalanceList);
         rcv_token_list.setAdapter(mBalanceAdapter);
         rcv_token_list.setNestedScrollingEnabled(false);
 
@@ -149,10 +159,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             startActivity(intent);
             //startActivityForResult(intent,100);
         });
-
-
         refreshLayout.autoRefresh();
-
     }
 
     @Override
@@ -167,16 +174,18 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             mBalance = BHBalanceHelper.getBHBalanceFromAccount(mBalance.symbol);
             setTokenAddress();
         }
-        mPresenter.calculateAllTokenPrice(this,accountInfo,mBalanceAdapter.getData());
-        mBalanceAdapter.notifyDataSetChanged();
+        //mPresenter.calculateAllTokenPrice(this,accountInfo,mBalanceAdapter.getData());
+        //mBalanceAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        defRefreshCount = 0;
         mBalanceViewModel
                 .getAccountInfo(this,
                 CacheStrategy.onlyRemote());
         CacheCenter.getInstance().getSymbolCache().beginLoadCache();
+        mChainTokenViewModel.loadBalanceByChain(this,mBalance.chain);
     }
 
     @Override
@@ -188,6 +197,23 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     }
 
     public void applyTestToken(){
-        mTestTokenViewModel.send_test_token(this,"hbc","kiwi");
+        mChainTokenViewModel.send_test_token(this,"hbc","kiwi");
+    }
+
+    public void updateAssetList(List<BHBalance> list){
+        if(ToolUtils.checkListIsEmpty(list)){
+            empty_layout.showNoData();
+            return;
+        }
+        mBalanceAdapter.clear();
+        mBalanceList = list;
+        mBalanceAdapter.addData(mBalanceList);
+        mBalanceAdapter.notifyDataSetChanged();
+    }
+
+    private void finishRefresh(){
+        if(defRefreshCount++>=2){
+            refreshLayout.finishRefresh();
+        }
     }
 }

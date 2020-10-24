@@ -2,26 +2,38 @@ package com.bhex.wallet.balance.adapter;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.bhex.network.base.LoadDataModel;
+import com.bhex.network.base.LoadingStatus;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ImageLoaderUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
+import com.bhex.wallet.balance.ui.activity.ChainTokenActivity;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.enums.CURRENCY_TYPE;
 import com.bhex.wallet.common.manager.CurrencyManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
+import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.utils.LiveDataBus;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -33,8 +45,32 @@ import java.util.List;
 public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
 
     private String isHidden = "0";
-    public BalanceAdapter( @Nullable List<BHBalance> data) {
+    private BalanceViewModel mBalanceViewModel;
+    private ChainTokenActivity mActivity;
+    private LinkedHashMap<String,BaseViewHolder> mItemViews = new LinkedHashMap<>();
+
+    public BalanceAdapter( ChainTokenActivity activity,@Nullable List<BHBalance> data) {
         super(R.layout.item_balance, data);
+        mActivity = activity;
+        mBalanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(mActivity);
+        //资产订阅
+        LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(activity, ldm->{
+            LogUtils.d("BalanceAdapter===>:","updateAssets==>:");
+
+            if(ldm.loadingStatus== LoadingStatus.SUCCESS){
+                updateAssets((AccountInfo) ldm.getData());
+            }
+        });
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NotNull BaseViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        BHBalance balanceItem = getData().get(position);
+        if(mItemViews.get(balanceItem.symbol)==null){
+            mItemViews.put(balanceItem.symbol,holder);
+        }
     }
 
     @Override
@@ -43,59 +79,18 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         iv.setImageResource(0);
         ImageLoaderUtil.loadImageView(getContext(),
                 balanceItem.logo, iv,R.mipmap.ic_default_coin);
-        /*FrameLayout frame = viewHolder.getView(R.id.layout_index_1);
-        GradientDrawable drawable = ShapeUtils.getOvalDrawable(20, ColorUtil.getColor(getContext(),R.color.token_icon_color),true,0);
-        frame.setBackground(drawable);
-        char initial = balanceItem.symbol.charAt(0);
-        viewHolder.setText(R.id.tv_short_name,String.valueOf(initial).toUpperCase());*/
 
         viewHolder.setText(R.id.tv_coin_name,balanceItem.name.toUpperCase());
-
-        AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);
-
-        SymbolCache symbolCache  = CacheCenter.getInstance().getSymbolCache();
-
-        BHToken bhCoin = symbolCache.getBHToken(balanceItem.symbol.toLowerCase());
-
-        //实时价格
-        String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);
-
-        viewHolder.setText(R.id.tv_coin_price, symbol_prices);
-
-        //币的数量
-        if(isHidden.equals("0")){
-            if(!TextUtils.isEmpty(balanceItem.amount)&&Double.valueOf(balanceItem.amount)>0) {
-                String []result = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balanceItem.amount,balanceItem.symbol,false);
-                viewHolder.setText(R.id.tv_coin_amount, result[0]);
-                viewHolder.setText(R.id.tv_coin_count, "≈"+result[1]);
-            }else{
-                viewHolder.setText(R.id.tv_coin_amount, "0");
-                viewHolder.setText(R.id.tv_coin_count, "≈"+
-                        CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(getContext()).toUpperCase()).character+"0");
-            }
-        }else{
-            viewHolder.setText(R.id.tv_coin_amount, "***");
-            viewHolder.setText(R.id.tv_coin_count, "***");
-        }
-
+        //更新资产和数量
+        updatePriceAndAmount(balanceItem,viewHolder);
         //标签
+        AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);
+        BHToken bhCoin  = CacheCenter.getInstance().getSymbolCache().getBHToken(balanceItem.symbol.toLowerCase());
+
         if(bhCoin==null){
             return;
         }
-        /*if(bhCoin.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.GONE);
-            tv_coin_type.setBackgroundColor(0);
-        }else if(bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.VISIBLE);
-            tv_coin_type.setText(R.string.native_test_token);
-            tv_coin_type.setTextAppearance(getContext(),R.style.tx_status_success);
-            tv_coin_type.setBackgroundResource(R.drawable.shape_20_green);
-        }else if(!bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.VISIBLE);
-            tv_coin_type.setText(R.string.no_native_token);
-            tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);
-            tv_coin_type.setBackgroundResource(R.drawable.shape_dark20_blue);
-        }*/
+
         if(bhCoin.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setVisibility(View.GONE);
             tv_coin_type.setBackgroundColor(0);
@@ -110,14 +105,79 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
             tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);
             tv_coin_type.setBackgroundResource(R.drawable.shape_dark20_blue);
         }
-    }
 
-    public String getIsHidden() {
-        return isHidden;
     }
 
     public void setIsHidden(String isHidden) {
         this.isHidden = isHidden;
         notifyDataSetChanged();
     }
+
+    private void updateAssets(AccountInfo accountInfo) {
+        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        if(list==null || list.size()==0){
+            return ;
+        }
+
+        for(AccountInfo.AssetsBean bean:list){
+            //获取bean在recycleView中的位置
+            int position = getPosition(bean);
+            if(position==-1){
+                continue;
+            }
+
+            BaseViewHolder itemView = mItemViews.get(getData().get(position).symbol);
+            BHBalance balanceItem = getData().get(position);
+            //实时价格、资产和数量
+            updatePriceAndAmount(balanceItem,itemView);
+        }
+    }
+
+    private int getPosition(AccountInfo.AssetsBean bean){
+        int position = -1;
+        List<BHBalance> list = getData();
+        for(int i=0;i<list.size();i++){
+            BHBalance item = list.get(i);
+            if(!item.symbol.equalsIgnoreCase(bean.getSymbol())){
+                continue;
+            }
+            position = item.index;
+            item.amount = bean.getAmount();
+            return position;
+        }
+        return position;
+    }
+
+    //更新资产和数量
+    private void updatePriceAndAmount(BHBalance balanceItem,BaseViewHolder viewHolder){
+
+        if(viewHolder==null){
+            return;
+        }
+
+        //实时价格
+        String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);
+        viewHolder.setText(R.id.tv_coin_price, symbol_prices);
+        //币的数量
+        if(isHidden.equals("0")){
+            if(!TextUtils.isEmpty(balanceItem.amount) && Double.valueOf(balanceItem.amount)>0) {
+                String []result = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balanceItem.amount,balanceItem.symbol,false);
+                viewHolder.setText(R.id.tv_coin_amount, result[0]);
+                viewHolder.setText(R.id.tv_coin_count, "≈"+result[1]);
+            }else{
+                viewHolder.setText(R.id.tv_coin_amount, "0");
+                viewHolder.setText(R.id.tv_coin_count, "≈"+
+                        CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(getContext()).toUpperCase()).character+"0");
+            }
+        }else{
+            viewHolder.setText(R.id.tv_coin_amount, "***");
+            viewHolder.setText(R.id.tv_coin_count, "***");
+        }
+    }
+
+    public void clear(){
+        getData().clear();
+        mItemViews.clear();
+    }
+
 }

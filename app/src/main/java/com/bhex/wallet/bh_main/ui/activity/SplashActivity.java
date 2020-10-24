@@ -6,7 +6,11 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.RxSchedulersHelper;
@@ -47,11 +51,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
         }
         setContentView(R.layout.activity_splash);
+        //hideBottomUIMenu();
 
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletViewModel.loadWallet(this);
@@ -62,13 +67,13 @@ public class SplashActivity extends AppCompatActivity {
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
                 .subscribe(aLong -> {
                     //首次启动
-                    if(!BHUserManager.getInstance().isHasWallet()){
+                    if (!BHUserManager.getInstance().isHasWallet()) {
                         NavigateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
-                    }else {
+                    } else {
                         boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
-                        if(!isFinger){
+                        if (!isFinger) {
                             NavigateUtil.startActivity(SplashActivity.this, LockActivity.class);
-                        }else{
+                        } else {
                             NavigateUtil.startActivity(SplashActivity.this, FingerLoginActivity.class);
                         }
                     }
@@ -77,12 +82,18 @@ public class SplashActivity extends AppCompatActivity {
 
         mCompositeDisposable.add(disposable);
 
-        ImmersionBar.with(this).statusBarColor(android.R.color.white).statusBarDarkFont(true).init();
+        ImmersionBar.with(this)
+                .statusBarColor(android.R.color.white)
+                .statusBarDarkFont(true)
+                .navigationBarDarkIcon(true)
+                .navigationBarColor(R.color.white)
+                .fullScreen(true)
+                .init();
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LocalManageUtil.attachBaseContext(newBase,""));
+        super.attachBaseContext(LocalManageUtil.attachBaseContext(newBase, ""));
     }
 
     @Override
@@ -101,8 +112,8 @@ public class SplashActivity extends AppCompatActivity {
         dispose();
     }
 
-    private void dispose(){
-        if(mCompositeDisposable!=null &&!mCompositeDisposable.isDisposed()){
+    private void dispose() {
+        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
             mCompositeDisposable.dispose();
         }
     }
@@ -119,4 +130,19 @@ public class SplashActivity extends AppCompatActivity {
         BHUserManager.getInstance();
         BHFilePath.initPath(BHApplication.getInstance());
     }
+
+
+    protected void hideBottomUIMenu() {
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        }else if (Build.VERSION.SDK_INT >= 19) {
+            Window _window = getWindow();
+            WindowManager.LayoutParams params = _window.getAttributes();
+            params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_IMMERSIVE;
+            _window.setAttributes(params);
+        }
+
+    }
+
 }

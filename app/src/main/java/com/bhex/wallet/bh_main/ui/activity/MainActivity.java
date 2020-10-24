@@ -118,7 +118,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
             this.mExitTime = System.currentTimeMillis();
             return;
         }
-        //SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
         finish();
     }
 
@@ -151,7 +150,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         super.onNewIntent(intent);
         String go_position = intent.getStringExtra("go_position");
         getPresenter().gotoTarget(mBottomNavigationView,go_position);
-
     }
 
     @Override

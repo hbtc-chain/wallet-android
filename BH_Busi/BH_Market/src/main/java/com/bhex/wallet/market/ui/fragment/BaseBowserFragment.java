@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import com.alibaba.fastjson.JSONObject;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.JsonUtils;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.market.R;
@@ -79,6 +80,14 @@ public abstract class BaseBowserFragment extends BaseFragment {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
+            String url = view.getUrl();
+            if(!url.startsWith(BHConstants.MARKET_URL)){
+                getBackView().setVisibility(View.VISIBLE);
+            }else{
+                getBackView().setVisibility(View.INVISIBLE);
+
+            }
+            LogUtils.d("BaseBowserFragment==>:","url=="+url);
         }
     };
 
@@ -144,5 +153,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
             this.msg = msg;
         }
     }
+
+    public abstract View getBackView();
 
 }

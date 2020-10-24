@@ -43,6 +43,8 @@ import butterknife.OnClick;
  */
 public class MarketFragment extends BaseBowserFragment  {
 
+    @BindView(R2.id.iv_back)
+    AppCompatImageView iv_back;
     @BindView(R2.id.iv_refresh)
     AppCompatImageView ivRefresh;
     @BindView(R2.id.tv_center_title)
@@ -100,10 +102,14 @@ public class MarketFragment extends BaseBowserFragment  {
         return url.toString();
     }
 
-    @OnClick({R2.id.iv_refresh})
+    @OnClick({R2.id.iv_refresh,R2.id.iv_back})
     public void onClickView(View view) {
         if (R.id.iv_refresh == view.getId()) {
             mAgentWeb.getUrlLoader().loadUrl(getUrl());
+        } else if(R.id.iv_back == view.getId()){
+            if(!mAgentWeb.back()){
+
+            }
         }
     }
 
@@ -139,5 +145,10 @@ public class MarketFragment extends BaseBowserFragment  {
         DexResponse<JSONObject> dexResponse = new DexResponse(ldm.code,ldm.msg);
         callback.callback(JsonUtils.toJson(dexResponse));
         callbackMaps.remove(mH5Sign.type);
+    }
+
+    @Override
+    public View getBackView() {
+        return iv_back;
     }
 }

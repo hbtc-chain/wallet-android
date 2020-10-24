@@ -38,6 +38,8 @@ public class BHBalance {
 
     public int isHasToken;
 
+    public int index;
+
     @Ignore
     public String shortName;
 

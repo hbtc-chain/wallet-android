@@ -207,6 +207,7 @@ public class BHBalanceHelper {
             if(!token.chain.equalsIgnoreCase(chainName)){
                 continue;
             }
+
             BHBalance balance = new BHBalance();
             balance.name = token.name;
             balance.chain = chainName;

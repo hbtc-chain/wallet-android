@@ -72,6 +72,8 @@ import butterknife.OnClick;
 public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @BindView(value = R2.id.toolbar)
     Toolbar mToolBar;
+    @BindView(R2.id.tv_balance_txt)
+    AppCompatTextView tv_balance_txt;
     @BindView(R2.id.tv_balance_txt2)
     MaterialTextView tv_balance_txt2;
     @BindView(R2.id.recycler_balance)
@@ -117,7 +119,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init();
+        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).navigationBarColor(R.color.app_bg).navigationBarDarkIcon(true).init();
     }
 
     @Override
@@ -129,6 +131,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
+
+        tv_balance_txt.setText(bhWallet.name);
 
         mOriginBalanceList = mPresenter.makeBalanceList();
         mBalanceList = mPresenter.getBalanceList(mOriginBalanceList,mBalanceList);
