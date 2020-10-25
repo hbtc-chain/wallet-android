@@ -55,8 +55,6 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
         mBalanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(mActivity);
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(activity, ldm->{
-            LogUtils.d("BalanceAdapter===>:","updateAssets==>:");
-
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){
                 updateAssets((AccountInfo) ldm.getData());
             }

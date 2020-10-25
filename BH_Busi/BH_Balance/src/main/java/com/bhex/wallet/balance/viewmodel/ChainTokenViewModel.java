@@ -89,8 +89,7 @@ public class ChainTokenViewModel extends AndroidViewModel {
         BHBaseObserver<List<BHBalance>> pbo = new BHBaseObserver<List<BHBalance>>() {
             @Override
             protected void onSuccess(List<BHBalance> bhBalances) {
-                LogUtils.d("ChainTokenViewModel===>:","size=2=="+bhBalances.size());
-
+                //LogUtils.d("ChainTokenViewModel===>:","size=2=="+bhBalances.size());
                 LoadDataModel loadDataModel = new LoadDataModel(bhBalances);
                 mutableLiveData.setValue(loadDataModel);
             }
@@ -98,6 +97,8 @@ public class ChainTokenViewModel extends AndroidViewModel {
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
+                LogUtils.d("ChainTokenViewModel===>:","error====");
+
 
             }
         };
@@ -182,10 +183,11 @@ public class ChainTokenViewModel extends AndroidViewModel {
             for(BHBalance item:list){
                 item.index = i++;
             }
+            LogUtils.d("ChainTokenViewModel===>:","onNext=pre==");
 
             emitter.onNext(list);
             emitter.onComplete();
-            LogUtils.d("ChainTokenViewModel===>:","size=1=="+list.size());
+            LogUtils.d("ChainTokenViewModel===>:","onComplete=1==");
 
         }).compose(RxSchedulersHelper.io_main())
           .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))

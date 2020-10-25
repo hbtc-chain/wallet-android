@@ -26,6 +26,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -86,7 +87,9 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     private ChainTokenViewModel mChainTokenViewModel;
 
     private List<BHBalance> mBalanceList;
-    private int defRefreshCount = 0;
+    private int defRefreshCount1 = 0;
+    private int defRefreshCount2 = 0;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_chain_token;
@@ -115,11 +118,11 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         mBalanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(this);
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
+            defRefreshCount1++;
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){
                 updateAssets((AccountInfo) ldm.getData());
             }
             finishRefresh();
-
             //refreshLayout.finishRefresh();
         });
 
@@ -131,6 +134,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
         mChainTokenViewModel =  ViewModelProviders.of(ChainTokenActivity.this).get(ChainTokenViewModel.class);
         mChainTokenViewModel.mutableLiveData.observe(this,ldm->{
+            defRefreshCount2++;
             updateAssetList((List<BHBalance>)ldm.getData());
             finishRefresh();
         });
@@ -180,7 +184,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        defRefreshCount = 0;
+        defRefreshCount1 = 0;
+        defRefreshCount2 = 0;
         mBalanceViewModel
                 .getAccountInfo(this,
                 CacheStrategy.onlyRemote());
@@ -211,8 +216,15 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         mBalanceAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtils.d("ChainTokenViewModel===>:","onResume=1==");
+
+    }
+
     private void finishRefresh(){
-        if(defRefreshCount++>=2){
+        if(defRefreshCount1>=1 && defRefreshCount2>=1){
             refreshLayout.finishRefresh();
         }
     }
