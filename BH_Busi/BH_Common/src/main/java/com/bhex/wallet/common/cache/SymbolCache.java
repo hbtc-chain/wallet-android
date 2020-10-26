@@ -60,11 +60,11 @@ public class SymbolCache extends BaseCache {
     }
 
     @Override
-    public void beginLoadCache() {
+    public synchronized void beginLoadCache() {
         loadSymbol();
     }
 
-    private void loadSymbol(){
+    private synchronized void loadSymbol(){
         Type type = (new TypeToken<JsonObject>() {}).getType();
 
         BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,1000)
@@ -98,11 +98,11 @@ public class SymbolCache extends BaseCache {
                 });
     }
 
-    public  BHToken getBHToken(String symbol){
+    public synchronized BHToken getBHToken(String symbol){
         return symbolMap.get(symbol);
     }
 
-    public  List<BHToken> loadTokenByChain(String chain){
+    public synchronized List<BHToken> loadTokenByChain(String chain){
         List<BHToken> list = new ArrayList();
         if(ToolUtils.checkMapEmpty(symbolMap)){
             return null;
@@ -116,7 +116,7 @@ public class SymbolCache extends BaseCache {
         return list;
     }
 
-    public int getDecimals(String symbol){
+    public synchronized int getDecimals(String symbol){
         if(symbolMap.get(symbol)!=null){
             return symbolMap.get(symbol).decimals;
         }else{

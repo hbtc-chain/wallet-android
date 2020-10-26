@@ -98,8 +98,6 @@ public class ChainTokenViewModel extends AndroidViewModel {
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
                 LogUtils.d("ChainTokenViewModel===>:","error====");
-
-
             }
         };
 
@@ -107,7 +105,10 @@ public class ChainTokenViewModel extends AndroidViewModel {
             List<BHBalance> list = new ArrayList<>();
             SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
             List<BHToken> tokenList =  symbolCache.loadTokenByChain(chainName);
+            //tokenList.clear();
             if(ToolUtils.checkListIsEmpty(tokenList)){
+                emitter.onNext(list);
+                emitter.onComplete();
                 return ;
             }
             AccountInfo accountInfo = BHUserManager.getInstance().getAccountInfo();
@@ -115,7 +116,6 @@ public class ChainTokenViewModel extends AndroidViewModel {
             if(!ToolUtils.checkListIsEmpty(accountInfo.getAssets())){
                 for(AccountInfo.AssetsBean bean:accountInfo.getAssets()){
                     maps.put(bean.getSymbol(),bean.getAmount());
-
                 }
             }
 
@@ -173,6 +173,8 @@ public class ChainTokenViewModel extends AndroidViewModel {
 
                     return res;
                 }catch (Exception e){
+                    e.printStackTrace();
+                    ToastUtils.showToast(e.getMessage());
                     return 0;
                 }
 
@@ -183,11 +185,8 @@ public class ChainTokenViewModel extends AndroidViewModel {
             for(BHBalance item:list){
                 item.index = i++;
             }
-            LogUtils.d("ChainTokenViewModel===>:","onNext=pre==");
-
             emitter.onNext(list);
             emitter.onComplete();
-            LogUtils.d("ChainTokenViewModel===>:","onComplete=1==");
 
         }).compose(RxSchedulersHelper.io_main())
           .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))

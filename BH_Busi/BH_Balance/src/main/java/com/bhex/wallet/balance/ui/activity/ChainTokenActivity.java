@@ -178,8 +178,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             mBalance = BHBalanceHelper.getBHBalanceFromAccount(mBalance.symbol);
             setTokenAddress();
         }
-        //mPresenter.calculateAllTokenPrice(this,accountInfo,mBalanceAdapter.getData());
-        //mBalanceAdapter.notifyDataSetChanged();
+        mPresenter.calculateAllTokenPrice(this,accountInfo,mBalanceAdapter.getData());
+        mBalanceAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -210,17 +210,11 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             empty_layout.showNoData();
             return;
         }
+        empty_layout.loadSuccess();
         mBalanceAdapter.clear();
         mBalanceList = list;
         mBalanceAdapter.addData(mBalanceList);
         mBalanceAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LogUtils.d("ChainTokenViewModel===>:","onResume=1==");
-
     }
 
     private void finishRefresh(){
