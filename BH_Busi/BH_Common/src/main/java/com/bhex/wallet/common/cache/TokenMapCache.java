@@ -49,18 +49,22 @@ public class TokenMapCache extends BaseCache {
 
     public static TokenMapCache getInstance(){
         if(_instance==null){
-            _instance = new TokenMapCache();
+            synchronized (TokenMapCache.class){
+                if(_instance==null){
+                    _instance = new TokenMapCache();
+                }
+            }
         }
         return _instance;
     }
 
     @Override
-    public void beginLoadCache() {
+    public synchronized void beginLoadCache() {
         super.beginLoadCache();
         loadTokenMapping();
     }
 
-    private void loadTokenMapping() {
+    private synchronized void loadTokenMapping() {
 
         Type type = (new TypeToken<JsonObject>() {}).getType();
 
@@ -102,7 +106,7 @@ public class TokenMapCache extends BaseCache {
                 });
     }
 
-    public  List<BHTokenMapping> getTokenMapping(String symbol){
+    public synchronized List<BHTokenMapping> getTokenMapping(String symbol){
         List<BHTokenMapping> res = new ArrayList<>();
         for(BHTokenMapping item:mTokenMappings){
             if(item.coin_symbol.equalsIgnoreCase(symbol)){
@@ -112,7 +116,7 @@ public class TokenMapCache extends BaseCache {
         return res;
     }
 
-    public  BHTokenMapping getTokenMappingOne(String symbol){
+    public synchronized BHTokenMapping getTokenMappingOne(String symbol){
         for(BHTokenMapping item:mTokenMappings){
             if(item.coin_symbol.equalsIgnoreCase(symbol)){
                 return item;
@@ -121,7 +125,7 @@ public class TokenMapCache extends BaseCache {
         return null;
     }
 
-    public List<BHTokenMapping> getTokenMappings() {
+    public synchronized List<BHTokenMapping> getTokenMappings() {
         LinkedHashMap<String,BHTokenMapping> maps = new LinkedHashMap<>();
         for (BHTokenMapping item:mTokenMappings) {
             if(maps.get(item.coin_symbol)!=null){

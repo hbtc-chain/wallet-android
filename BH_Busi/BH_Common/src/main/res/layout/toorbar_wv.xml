@@ -23,6 +23,7 @@
             android:scaleType="center"
             android:clickable="true"
             android:visibility="invisible"
+            android:background="?android:selectableItemBackground"
             />
 
         <View

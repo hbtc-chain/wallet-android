@@ -23,12 +23,12 @@ public class BaseCache implements CacheLisenter {
 
 
     @Override
-    public void beginLoadCache() {
+    public synchronized void beginLoadCache() {
 
     }
 
     @Override
-    public void removeMemoryCache() {
+    public synchronized void removeMemoryCache() {
 
     }
 }

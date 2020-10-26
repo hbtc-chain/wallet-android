@@ -1,14 +1,18 @@
 package com.bhex.wallet.market.ui.fragment;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.exception.ExceptionEngin;
@@ -16,6 +20,7 @@ import com.bhex.network.utils.JsonUtils;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.event.AccountEvent;
@@ -67,7 +72,8 @@ public class MarketFragment extends BaseBowserFragment  {
     protected void initView() {
         super.initView();
         tv_center_title.setText(getString(R.string.tab_trade));
-
+        /*Drawable drawable =  ContextCompat.getDrawable(getYActivity(), R.drawable.abc_ic_ab_back_material);
+        iv_back.setColorFilter(ContextCompat.getColor(getYActivity(), R.color.global_main_text_color), PorterDuff.Mode.SRC_ATOP);*/
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.mutableLiveData.observe(this,ldm -> {
             updateTransferStatus(ldm);

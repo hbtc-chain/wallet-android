@@ -13,18 +13,20 @@ public class CacheCenter {
 
     private static Map<String, CacheLisenter> cacheLisenterMap = new HashMap();
 
-    private static CacheCenter instance;
+    private static volatile CacheCenter instance;
 
     public static CacheCenter getInstance() {
         if(instance==null){
             synchronized (CacheCenter.class){
-                instance = new CacheCenter();
+                if(instance==null){
+                    instance = new CacheCenter();
+                }
             }
         }
         return instance;
     }
 
-    private CacheCenter(){
+    private  CacheCenter(){
         cacheLisenterMap.put(SymbolCache.CACHE_KEY, SymbolCache.getInstance());
         cacheLisenterMap.put(RatesCache.CACHE_KEY, RatesCache.getInstance());
         cacheLisenterMap.put(TokenMapCache.CACHE_KEY,TokenMapCache.getInstance());
@@ -34,16 +36,15 @@ public class CacheCenter {
      * Symbol缓存
      * @return
      */
-    public SymbolCache getSymbolCache(){
+    public synchronized SymbolCache getSymbolCache(){
         if (cacheLisenterMap.containsKey(SymbolCache.CACHE_KEY)){
             return (SymbolCache)cacheLisenterMap.get(SymbolCache.CACHE_KEY);
         }
-        //SymbolCache symbolCache = new SymbolCache();
         cacheLisenterMap.put(SymbolCache.CACHE_KEY, SymbolCache.getInstance());
         return (SymbolCache)cacheLisenterMap.get(SymbolCache.CACHE_KEY);
     }
 
-    public RatesCache getRatesCache(){
+    public synchronized RatesCache getRatesCache(){
         if (cacheLisenterMap.containsKey(RatesCache.CACHE_KEY)){
             return (RatesCache)cacheLisenterMap.get(RatesCache.CACHE_KEY);
         }
@@ -51,7 +52,7 @@ public class CacheCenter {
         return (RatesCache)cacheLisenterMap.get(RatesCache.CACHE_KEY);
     }
 
-    public TokenMapCache getTokenMapCache(){
+    public synchronized TokenMapCache getTokenMapCache(){
         if (cacheLisenterMap.containsKey(TokenMapCache.CACHE_KEY)){
             return (TokenMapCache)cacheLisenterMap.get(TokenMapCache.CACHE_KEY);
         }
@@ -62,7 +63,7 @@ public class CacheCenter {
     /**
      * 加载缓存信息
      */
-    public void loadCache(){
+    public synchronized void loadCache(){
         for (String key : cacheLisenterMap.keySet()) {
             if (cacheLisenterMap.get(key) instanceof CacheLisenter){
                 cacheLisenterMap.get(key).beginLoadCache();

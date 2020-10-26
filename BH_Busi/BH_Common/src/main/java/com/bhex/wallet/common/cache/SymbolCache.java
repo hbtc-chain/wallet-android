@@ -46,16 +46,13 @@ public class SymbolCache extends BaseCache {
 
     private Map<String, BHToken> symbolMap = new ConcurrentHashMap();
 
-    private static volatile SymbolCache _instance;
+    private static volatile SymbolCache _instance = new SymbolCache();
 
     private SymbolCache(){
 
     }
 
     public static SymbolCache getInstance(){
-        if(_instance==null){
-            _instance = new SymbolCache();
-        }
         return _instance;
     }
 
@@ -77,8 +74,11 @@ public class SymbolCache extends BaseCache {
                         if(!JsonUtils.isHasMember(jsonObject,"items")){
                             return;
                         }
-                        symbolMap.clear();
                         List<BHToken> coinList = JsonUtils.getListFromJson(jsonObject.toString(),"items", BHToken.class);
+                        if(ToolUtils.checkListIsEmpty(coinList)){
+                            return;
+                        }
+                        symbolMap.clear();
                         //缓存所有的token
                         StringBuffer sb = new StringBuffer();
                         for(BHToken item:coinList){

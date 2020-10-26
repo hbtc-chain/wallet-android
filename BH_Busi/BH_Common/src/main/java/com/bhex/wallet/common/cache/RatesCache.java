@@ -52,18 +52,22 @@ public class RatesCache extends BaseCache {
 
     public static RatesCache getInstance(){
         if(_instance==null){
-            _instance = new RatesCache();
+            synchronized (RatesCache.class){
+                if(_instance==null){
+                    _instance = new RatesCache();
+                }
+            }
         }
         return _instance;
     }
 
     @Override
-    public void beginLoadCache() {
+    public synchronized void beginLoadCache() {
         super.beginLoadCache();
         getRateToken();
     }
 
-    public void getRateToken(){
+    public synchronized void getRateToken(){
         Type type = (new TypeToken<List<BHRates>>() {}).getType();
         String balacne_list = BHUserManager.getInstance().getSymbolList();
         balacne_list = balacne_list.replace("_",",").toUpperCase();
@@ -96,11 +100,11 @@ public class RatesCache extends BaseCache {
      * 获取汇率
      * @return
      */
-    public BHRates.RatesBean getBHRate(String symbol){
+    public synchronized BHRates.RatesBean getBHRate(String symbol){
         return ratesMap.get(symbol);
     }
 
-    public Map<String, BHRates.RatesBean> getRatesMap() {
+    public synchronized Map<String, BHRates.RatesBean> getRatesMap() {
         return ratesMap;
     }
 }
