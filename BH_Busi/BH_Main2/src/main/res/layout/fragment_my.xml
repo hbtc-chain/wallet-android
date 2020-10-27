@@ -96,9 +96,12 @@
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="250dp"
                 android:textColor="@color/dark_bg_text_color"
                 android:textSize="20sp"
-                tools:text="Username"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="UsernameUsernameUsernameUsernameUsernameUsername"
                 android:textStyle="normal"/>
 
             <androidx.appcompat.widget.AppCompatImageView

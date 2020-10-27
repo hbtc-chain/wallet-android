@@ -42,6 +42,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -59,7 +60,12 @@ import butterknife.BindView;
 @Route(path = ARouterConfig.Balance_chain_tokens, name = "链下Token")
 public class ChainTokenActivity extends BaseActivity<BalancePresenter> implements OnRefreshListener {
 
-    @Autowired(name = "balance")
+    @Autowired (name = "bhChain")
+    public BHChain bhChain;
+
+    @Autowired(name="title")
+    public String title;
+
     BHBalance mBalance;
 
     @BindView(R2.id.layout_index_0)
@@ -98,6 +104,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
+        mBalance = BHBalanceHelper.getBHBalanceFromAccount(bhChain.chain);
         tv_center_title.setText(mBalance.symbol.toUpperCase());
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(this);
@@ -123,7 +130,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
                 updateAssets((AccountInfo) ldm.getData());
             }
             finishRefresh();
-            //refreshLayout.finishRefresh();
         });
 
         //List<BHBalance> balanceList = BHBalanceHelper.loadBalanceByChain(mBalance.chain);
@@ -178,8 +184,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             mBalance = BHBalanceHelper.getBHBalanceFromAccount(mBalance.symbol);
             setTokenAddress();
         }
-        mPresenter.calculateAllTokenPrice(this,accountInfo,mBalanceAdapter.getData());
-        mBalanceAdapter.notifyDataSetChanged();
+        //mPresenter.calculateAllTokenPrice(this,accountInfo,mBalanceAdapter.getData());
+        //mBalanceAdapter.notifyDataSetChanged();
     }
 
     @Override

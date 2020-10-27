@@ -170,6 +170,7 @@
     <string name="entrust_to">To</string>
     <string name="hint_input_validator">Enter the name of the validator</string>
     <string name="hint_enter_entrust">Input amount</string>
+    <string name="hint_enter_relieve_delegate">Please input the number of redemption</string>
     <string name="entrust_amount">Amount</string>
     <string name="max_rate_change_limit">Maximum daily commission variation limit</string>
     <string name="speedup">Accelerate</string>
@@ -263,9 +264,9 @@
     <string name="do_pledge_succeed">Success</string>
     <string name="do_pledge_failed">Failed</string>
     <string name="check_proposal_info">Failed to obtain proposal information</string>
-    <string name="check_empty_fee">Gas fee cannot be empty and greater than 0</string>
+    <string name="check_empty_fee">Gas fee cannot be empty </string>
     <string name="check_pledge_amount_and_fee_max">Number of pledge and the fee cannot be greater than the available balance</string>
-    <string name="check_pledge_amount">Number of pledge cannot be empty and greater than 0</string>
+    <string name="check_pledge_amount">Number of pledge cannot be empty</string>
     <string name="do_veto_failed">Failed</string>
     <string name="do_veto_succeed">Success</string>
     <string name="check_veto_optin">Voting options cannot be empty</string>
@@ -278,15 +279,17 @@
     <string name="unbonding">Redeeming</string>
     <string name="claimed_reward">Claimed reward</string>
 
+
+
     <string name="initiate_proposal">Launch a proposal</string>
     <string name="pledge_proposal">Pledge</string>
     <string name="vote_proposal">Vote</string>
     <string name="with_reward_content">Withdrawal of all dividends %1$s HBC，and pay the transaction fee %2$s HBC</string>
     <string name="reinvert_share_content">Withdraw and delegate all dividends %1$s HBC to the validator nodes and pay the transaction fee %2$s HBC</string>
     <string name="check_do_entrust_amount_and_fee_max">The total number cannot be greater than the available balance		</string>
-    <string name="check_do_entrust_amount">The number of delegate cannot be empty and greater than 0</string>
-    <string name="check_relive_entrust_amount">Number of redemptions cannot be empty and greater than 0</string>
-    <string name="check_relive_entrust_amount_max">Number of redemptions cannot be empty and greater than the available balance			</string>
+    <string name="check_do_entrust_amount">Please input  the number of delegate </string>
+    <string name="check_relive_entrust_amount">Please input the number of redemptions</string>
+    <string name="check_relive_entrust_amount_max">Number of redemptions cannot  greater than the available relieve balance</string>
     <string name="error_oldpassword">Incorrect password</string>
     <string name="please_input_newpassword">Enter the new password</string>
     <string name="please_input_confrim_newpwd">Confirm the new password</string>
@@ -514,6 +517,7 @@
     <string name="payment_address">Payment address</string>
     <string name="gas_fee">Gasfee</string>
     <string name="avilable_relieve">Available relieve</string>
+    <string name="not_avilable_relieve">No available relieve</string>
     <string name="balance_testnet_tips">HBC testing token which on the HBTC testnet and wallet is for testing purposes only, it doesn´t have any true value</string>
     <string name="slogan">decentralized cross-chain wallet</string>
 </resources>

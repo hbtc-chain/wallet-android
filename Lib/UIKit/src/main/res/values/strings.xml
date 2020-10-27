@@ -172,6 +172,7 @@
     <string name="entrust_to">委托至</string>
     <string name="hint_input_validator">请输入验证人</string>
     <string name="hint_enter_entrust">请输入委托数量</string>
+    <string name="hint_enter_relieve_delegate">请输入解委托数量</string>
     <string name="entrust_amount">委托数量</string>
 
     <string name="max_rate_change_limit">每天最大佣金变化限制</string>
@@ -266,9 +267,9 @@
     <string name="do_pledge_succeed">质押成功</string>
     <string name="do_pledge_failed">质押失败</string>
     <string name="check_proposal_info">获取提案信息失败</string>
-    <string name="check_empty_fee">手续不能为空且大于0</string>
+    <string name="check_empty_fee">手续不能为空</string>
     <string name="check_pledge_amount_and_fee_max">质押数量和手续费之和不能大于可用余额</string>
-    <string name="check_pledge_amount">质押数量不能为空且大于0</string>
+    <string name="check_pledge_amount">质押数量不能为空</string>
     <string name="do_veto_failed">投票失败</string>
     <string name="do_veto_succeed">投票成功</string>
     <string name="check_veto_optin">投票选项不能为空</string>
@@ -287,9 +288,9 @@
     <string name="with_reward_content">提取所有分红 %1$s HBC，并支付交易手续费 %2$s HBC</string>
     <string name="reinvert_share_content">提取并委托所有分红 %1$s HBC至验证节点，并支付交易手续费 %2$s HBC</string>
     <string name="check_do_entrust_amount_and_fee_max">委托数量和手续费之和不能大于可用余额</string>
-    <string name="check_do_entrust_amount">委托数量不能为空且大于0</string>
-    <string name="check_relive_entrust_amount">解委托数量不能为空且大于0</string>
-    <string name="check_relive_entrust_amount_max">解委托数量不能大于可用余额</string>
+    <string name="check_do_entrust_amount">请输入委托数量</string>
+    <string name="check_relive_entrust_amount">请输入解委托数量</string>
+    <string name="check_relive_entrust_amount_max">解委托数量不能大于可解余额</string>
     <string name="error_oldpassword">原密码错误</string>
     <string name="please_input_newpassword">请输入新密码</string>
     <string name="please_input_confrim_newpwd">请输入新密码确认</string>
@@ -515,6 +516,8 @@
     <string name="payment_address">付款地址</string>
     <string name="gas_fee">矿工费用</string>
     <string name="avilable_relieve">可解</string>
+    <string name="not_avilable_relieve">没有可解</string>
+
     <string name="balance_testnet_tips">测试网的HBC代币均为测试代币无任何价值！</string>
     <string name="slogan">去中心化跨链钱包</string>
 

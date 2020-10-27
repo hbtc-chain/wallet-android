@@ -70,12 +70,15 @@
                 </androidx.appcompat.widget.Toolbar>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_balance_txt"
+                    android:id="@+id/tv_wallet_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:maxWidth="250dp"
                     android:layout_below="@+id/toolbar"
                     android:layout_marginStart="24dp"
-                    android:text="@string/tab_balance_title"
+                    tools:text="@string/tab_balance_title"
                     android:textColor="@color/dark_bg_text_color"
                     android:textSize="20sp" />
 
@@ -84,22 +87,22 @@
                     android:id="@+id/iv_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_balance_txt"
-                    android:layout_alignBottom="@+id/tv_balance_txt"
+                    android:layout_alignTop="@+id/tv_wallet_name"
+                    android:layout_alignBottom="@+id/tv_wallet_name"
                     android:layout_alignParentEnd="true"
                     android:paddingEnd="24dp"
                     android:src="@mipmap/ic_add_token"
                     android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_balance_txt"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_wallet_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_balance_txt" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_wallet_name" />
 
                 <LinearLayout
                     android:id="@+id/layout_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_balance_txt"
-                    android:layout_alignLeft="@+id/tv_balance_txt"
+                    android:layout_below="@+id/tv_wallet_name"
+                    android:layout_alignLeft="@+id/tv_wallet_name"
                     android:layout_marginTop="2dp"
                     android:orientation="horizontal">
 

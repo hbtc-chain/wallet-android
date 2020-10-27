@@ -136,9 +136,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         mUpgradeVM.upgradeLiveData.observe(getActivity(),ldm->{
             processUpgradeInfo(ldm);
         });
-
-        //mTestTokenVM = ViewModelProviders.of(this).get(TestTokenViewModel.class);
-
     }
 
 
@@ -250,7 +247,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     }
 
 
-
     @OnClick({R2.id.iv_message, R2.id.iv_default_man,R2.id.tv_address,R2.id.iv_paste,
             R2.id.iv_edit, R2.id.layout_index_2,R2.id.layout_index_3})
     public void onViewClicked(View view) {
@@ -321,6 +317,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
      */
     private UpdateNameFragment.DialogOnClickListener dialogOnClickListener = v -> {
         //
+        mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_username.setText(mBhWallet.getName());
         ToolUtils.hintKeyBoard(getYActivity());
     };

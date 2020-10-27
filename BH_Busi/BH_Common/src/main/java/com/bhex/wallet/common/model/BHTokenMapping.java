@@ -30,9 +30,6 @@ public class BHTokenMapping {
     @Expose(serialize = false, deserialize = false)
     public String coin_symbol;
 
-    public BHTokenMapping() {
-    }
-
     public BHTokenMapping(String coin_symbol, String issue_symbol, String target_symbol, String total_supply, String issue_pool, boolean enabled) {
         this.coin_symbol = coin_symbol;
         this.issue_symbol = issue_symbol;
@@ -42,19 +39,4 @@ public class BHTokenMapping {
         this.enabled = enabled;
     }
 
-
-    /*@Override
-    public int hashCode() {
-        int result = coin_symbol != null ? coin_symbol.hashCode() : 0;
-        return result;
-
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BHTokenMapping that = (BHTokenMapping) o;
-        return coin_symbol == that.coin_symbol;
-    }*/
 }

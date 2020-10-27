@@ -15,6 +15,7 @@ import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.enums.CURRENCY_TYPE;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.model.BHToken;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -30,35 +31,37 @@ import java.util.List;
  * Date: 2020/3/18
  * Time: 0:18
  */
-public class ChainAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
+public class ChainAdapter extends BaseQuickAdapter<BHChain, BaseViewHolder> {
 
     private String isHidden = "0";
-    public ChainAdapter(@Nullable List<BHBalance> data) {
+    public ChainAdapter(@Nullable List<BHChain> data) {
         super(R.layout.item_chain, data);
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
+    protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHChain bhChain) {
         AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
         iv.setImageResource(0);
 
-        ImageLoaderUtil.loadImageView(getContext(),balanceItem.logo, iv,R.mipmap.ic_default_coin);
+        SymbolCache symbolCache  = CacheCenter.getInstance().getSymbolCache();
 
-        viewHolder.setText(R.id.tv_coin_name,balanceItem.symbol.toUpperCase());
+        BHToken bhCoin = symbolCache.getBHToken(bhChain.chain.toLowerCase());
+
+        ImageLoaderUtil.loadImageView(getContext(),bhCoin!=null?bhCoin.logo:"", iv,R.mipmap.ic_default_coin);
+
+        viewHolder.setText(R.id.tv_coin_name,bhChain.chain.toUpperCase());
 
         AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);
 
-        SymbolCache symbolCache  = CacheCenter.getInstance().getSymbolCache();
 
-        //BHToken bhCoin = symbolCache.getBHToken(balanceItem.symbol.toLowerCase());
 
         //实时价格
         //String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);
 
-        viewHolder.setText(R.id.tv_coin_price, BHBalanceHelper.getShortName(balanceItem.symbol));
+        viewHolder.setText(R.id.tv_coin_price, bhChain.full_name);
 
         //价格
-        double value_double = BHBalanceHelper.getAssetByChain(getContext(),balanceItem.symbol);
+        double value_double = BHBalanceHelper.getAssetByChain(getContext(),bhChain.chain);
         String value_str = CurrencyManager.getInstance().getCurrencyDecription(getContext(),value_double);
         if(isHidden.equals("0")){
             viewHolder.setText(R.id.tv_coin_count,"≈"+value_str);
@@ -68,7 +71,7 @@ public class ChainAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
 
         tv_coin_type.setVisibility(View.VISIBLE);
 
-        if(balanceItem.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+        if(bhChain.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setText(getContext().getString(R.string.native_token_test_list));
         }else{
             tv_coin_type.setText(getContext().getString(R.string.cross_chain_token_list));

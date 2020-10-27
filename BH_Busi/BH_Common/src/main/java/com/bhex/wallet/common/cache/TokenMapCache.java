@@ -3,6 +3,7 @@ package com.bhex.wallet.common.cache;
 import android.text.TextUtils;
 
 import com.bhex.network.RxSchedulersHelper;
+import com.bhex.network.app.BaseApplication;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
 import com.bhex.network.observer.BHBaseObserver;
@@ -10,11 +11,17 @@ import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
+import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
+import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.BHTokenMapping;
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,8 +44,10 @@ public class TokenMapCache extends BaseCache {
     private static final String TAG = TokenMapCache.class.getSimpleName();
 
     public static final String CACHE_KEY = "TokenMapCache";
+    public static final String CACHE_KEY_2 = "TokenMapCache";
 
     private List<BHTokenMapping> mTokenMappings = new ArrayList<>();
+    private List<BHChain> mChains = new ArrayList<>();
 
 
     private static volatile TokenMapCache _instance;
@@ -62,6 +71,7 @@ public class TokenMapCache extends BaseCache {
     public synchronized void beginLoadCache() {
         super.beginLoadCache();
         loadTokenMapping();
+        loadChain();
     }
 
     private synchronized void loadTokenMapping() {
@@ -78,12 +88,13 @@ public class TokenMapCache extends BaseCache {
                         if(!JsonUtils.isHasMember(jsonObject,"items")){
                             return;
                         }
-                        mTokenMappings.clear();
                         List<BHTokenMapping> tokens = JsonUtils.getListFromJson(jsonObject.toString(),"items", BHTokenMapping.class);
                         //缓存所有的token
                         if(ToolUtils.checkListIsEmpty(tokens)){
                             return;
                         }
+
+                        mTokenMappings.clear();
 
                         for (BHTokenMapping item:tokens) {
                             if(!item.enabled){
@@ -106,6 +117,37 @@ public class TokenMapCache extends BaseCache {
                 });
     }
 
+    private synchronized void loadChain() {
+        BHBaseObserver observer = new BHBaseObserver<JsonArray>() {
+            @Override
+            protected void onSuccess(JsonArray jsonObject) {
+                if(TextUtils.isEmpty(jsonObject.toString())){
+                    return;
+                }
+
+                List<BHChain> chains = JsonUtils.getListFromJson(jsonObject.toString(),BHChain.class);
+                if(ToolUtils.checkListIsEmpty(chains)){
+                    return;
+                }
+                mChains = chains;
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+
+            }
+
+        };
+
+        Type type = (new TypeToken<JsonObject>() {}).getType();
+        BHttpApi.getService(BHttpApiInterface.class).loadChain()
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxCache.getDefault().transformObservable(CACHE_KEY_2, type,getCacheStrategy()))
+                .map(new CacheResult.MapFunc())
+                .subscribe(observer);
+    }
+
     public synchronized List<BHTokenMapping> getTokenMapping(String symbol){
         List<BHTokenMapping> res = new ArrayList<>();
         for(BHTokenMapping item:mTokenMappings){
@@ -116,12 +158,27 @@ public class TokenMapCache extends BaseCache {
         return res;
     }
 
+    public synchronized List<BHChain> loadChains(){
+        /*if(ToolUtils.checkListIsEmpty(mChains)){
+            return mChains;
+        }*/
+        mChains.clear();
+        String[] chain_list = BHUserManager.getInstance().getUserBalanceList().split("_");
+        String[] default_chain_name = BaseApplication.getInstance().getResources().getStringArray(R.array.default_chain_name);
+        for (int i = 0; i < chain_list.length; i++) {
+            BHChain bhChain = new BHChain(chain_list[i],default_chain_name[i]);
+            mChains.add(bhChain);
+        }
+        return mChains;
+    }
+
     public synchronized BHTokenMapping getTokenMappingOne(String symbol){
         for(BHTokenMapping item:mTokenMappings){
             if(item.coin_symbol.equalsIgnoreCase(symbol)){
                 return item;
             }
         }
+
         return null;
     }
 

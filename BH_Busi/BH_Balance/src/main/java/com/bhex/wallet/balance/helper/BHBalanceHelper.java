@@ -67,9 +67,7 @@ public class BHBalanceHelper {
     public static String[]  getAmountToCurrencyValue(Context context,String amount, String symbol,boolean flag){
         String []result = new String[2];
 
-        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
-        BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
-
+        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol.toLowerCase());
         int decimals = bhToken!=null?bhToken.decimals:2;
         if(!flag){
             decimals = 0;
@@ -253,18 +251,18 @@ public class BHBalanceHelper {
         ImageLoaderUtil.loadImageView(context,item!=null?item.logo:"", iv,R.mipmap.ic_default_coin);
     }
 
-    public static String getShortName(String symbol){
-        String res = "";
+    public static String getFullName(Context context,String symbol){
+        String []res = context.getResources().getStringArray(R.array.default_chain_name);
         if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            res = "HBTC Chain Testnet";
+            return res[0];
         }else if(symbol.equalsIgnoreCase("btc")){
-            res = "Bitcoin";
+            return res[1];
         }else if(symbol.equalsIgnoreCase("eth")){
-            res = "Ethereum";
+            return res[2];
         }else if(symbol.equalsIgnoreCase("trx")){
-            res = "Tron";
+            return res[3];
         }
-        return res;
+        return "";
     }
 
     //获取链下的资产

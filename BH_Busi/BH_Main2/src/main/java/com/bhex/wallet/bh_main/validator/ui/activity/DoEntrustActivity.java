@@ -20,6 +20,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.indicator.OnSampleSeekChangeListener;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
@@ -172,6 +173,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             tv_center_title.setText(getString(R.string.relieve_entrust));
             tv_fee_available_amount.setVisibility(View.VISIBLE);
             tv_fee_available_amount.setText(" " + getString(R.string.string_placeholder) + token.toUpperCase());
+            ed_entrust_amount.getEditText().setHint(getString(R.string.hint_enter_relieve_delegate));
         }
         ed_entrust_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_real_entrust_amount.btn_right_text.setText(token.toUpperCase());
@@ -286,15 +288,13 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
     }
 
     private void sendRelieveEntrust() {
-        boolean flag = mPresenter.checkReliveEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
-                ed_entrust_amount.getInputString(),wallet_available,
-                String.valueOf(available_amount),
-                ed_entrust_fee.getInputString()
-        );
+        boolean flag = mPresenter.checkReliveEntrust( ed_entrust_amount.getInputString(),wallet_available,
+                available_amount,
+                ed_entrust_fee.getInputString());
+
         if (!flag) {
             return;
         }
-
 
         PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
                 PasswordFragment.class.getName(),
@@ -305,9 +305,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
      * 发送交易
      */
     private void sendDoEntrust() {
-        boolean flag = mPresenter.checkDoEntrust(validatorAddress, BHUserManager.getInstance().getCurrentBhWallet().getAddress(),
-                ed_entrust_amount.getInputString(),
-                String.valueOf(available_amount),
+        boolean flag = mPresenter.checkDoEntrust(
+                ed_entrust_amount.getInputString(),String.valueOf(available_amount),
                 ed_entrust_fee.getInputString()
         );
         if (!flag) {
@@ -335,18 +334,20 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
         List<AccountInfo.AssetsBean> list = data.getAssets();
-        if (list == null || list.size() == 0) {
+        if (ToolUtils.checkListIsEmpty(list)) {
             return;
         }
         for (AccountInfo.AssetsBean item : list) {
-            if (item.getSymbol().equalsIgnoreCase(token)) {
-                if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
-                    available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
-                    tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
-                } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
-                    wallet_available = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
-                    tv_fee_available_amount.setText(getString(R.string.available) + wallet_available + token.toUpperCase());
-                }
+            if (!item.getSymbol().equalsIgnoreCase(token)) {
+                continue;
+            }
+
+            if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
+                available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+                tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
+            } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
+                wallet_available = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+                tv_fee_available_amount.setText(getString(R.string.available) + wallet_available + token.toUpperCase());
             }
         }
     }

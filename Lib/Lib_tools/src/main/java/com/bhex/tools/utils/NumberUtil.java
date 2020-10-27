@@ -148,13 +148,13 @@ public class NumberUtil {
      * @return
      */
     public static String formatValue(double val,int digit){
-        /*int index = String.valueOf(val).indexOf(".");
-        if(index>0){
-            LogUtils.d("NumberUtil===>:","=str="+String.valueOf(val).substring(index+1));
-            int dotLenght = String.valueOf(val).substring(index+1).length();
-            digit = dotLenght>digit?digit:dotLenght;
-        }*/
         try{
+            String re_def_val = new BigDecimal(val+"").stripTrailingZeros().toPlainString();
+            int index = re_def_val.indexOf(".");
+            if(index>0){
+                int dotLenght = re_def_val.substring(index+1).length();
+                digit = dotLenght>digit?digit:dotLenght;
+            }
             DecimalFormat df = new DecimalFormat();
             df.setGroupingUsed(false);
             df.setRoundingMode(RoundingMode.DOWN);

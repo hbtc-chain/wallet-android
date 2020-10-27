@@ -30,6 +30,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransferMsg;
 import com.bhex.wallet.common.tx.TxCoin;
@@ -73,7 +74,7 @@ public class BalancePresenter extends BasePresenter {
                 bhBalance.logo = bhToken.logo;
             }
             if(BHConstants.BHT_TOKEN.equalsIgnoreCase(bhBalance.chain)){
-                bhBalance.address = wallet.address;
+                //bhBalance.address = wallet.address;
             }
             list.add(bhBalance);
         }
@@ -115,7 +116,7 @@ public class BalancePresenter extends BasePresenter {
      * 计算所有Token价值
      * @return
      */
-    public double calculateAllTokenPrice(Context context,AccountInfo accountInfo, List<BHBalance> mOriginBalanceList){
+    public double calculateAllTokenPrice(Context context,AccountInfo accountInfo, List<BHChain> mOriginBalanceList){
         double allTokenPrice = 0;
 
         List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
@@ -132,11 +133,10 @@ public class BalancePresenter extends BasePresenter {
             double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,bean.getSymbol());
             double asset = NumberUtil.mul(String.valueOf(amount),String.valueOf(symbolPrice));
             allTokenPrice = NumberUtil.add(asset,allTokenPrice);
-            //double b1 = CurrencyManager.getInstance().getSymbolBalancePrice(mBaseActivity,bean.getSymbol(),bean.getAmount(),false);
-            //allTokenPrice = NumberUtil.add(b1,allTokenPrice);
+
         }
-        for(BHBalance balance:mOriginBalanceList){
-            AccountInfo.AssetsBean assetsBean = map.get(balance.symbol.toLowerCase());
+        /*for(BHChain bhChain:mOriginBalanceList){
+            AccountInfo.AssetsBean assetsBean = map.get(bhChain.chain.toLowerCase());
             if(assetsBean==null){
                 continue;
             }
@@ -144,12 +144,12 @@ public class BalancePresenter extends BasePresenter {
             balance.amount = assetsBean.getAmount();
             balance.is_native = assetsBean.isIs_native();
 
-            BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(balance.chain);
+            BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(bhChain.chain);
             if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){
                 balance.external_address = chainBalance.external_address;
             }
             balance.frozen_amount = assetsBean.getFrozen_amount();
-        }
+        }*/
         return allTokenPrice;
     }
 

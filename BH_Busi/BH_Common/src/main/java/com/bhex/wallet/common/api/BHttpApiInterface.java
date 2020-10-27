@@ -106,4 +106,8 @@ public interface BHttpApiInterface {
     //映射币对
     @GET("/api/v1/mappings")
     Observable<JsonObject> loadTokenMappings();
+
+    //映射币对
+    @GET("/api/v1/chains")
+    Observable<JsonArray> loadChain();
 }

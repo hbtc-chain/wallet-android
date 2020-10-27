@@ -216,7 +216,6 @@ public class WalletViewModel extends ViewModel {
             //把所有设置非默认
             //把bh_id设置默认
             int res = bhWalletDao.update(bhWallet);
-
             emitter.onNext("");
             emitter.onComplete();
         }).compose(RxSchedulersHelper.io_main())

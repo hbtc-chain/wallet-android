@@ -12,4 +12,11 @@
     <string name="limit_swap">Limit price conversion</string>
     <string name="cancel_limit_swap">Cancel</string>
     <string name="other">Others</string>
+
+    <array name="default_chain_name">
+        <item>HBTC Chain Testnet</item>
+        <item>Bitcoin</item>
+        <item>Ethereum</item>
+        <item>Tron</item>
+    </array>
 </resources>

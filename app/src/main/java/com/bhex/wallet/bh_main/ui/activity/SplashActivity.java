@@ -18,6 +18,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
+import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.R;
 import com.bhex.wallet.app.BHApplication;
 import com.bhex.wallet.common.config.BHFilePath;
@@ -32,6 +33,8 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -51,6 +54,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        test();
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
@@ -145,4 +149,16 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+    public void test(){
+        DecimalFormat df = new DecimalFormat();
+        df.setGroupingUsed(false);
+        df.setRoundingMode(RoundingMode.DOWN);
+        df.setMaximumFractionDigits(5);
+        String  result = df.format(74.99);
+        System.out.println(result);
+        LogUtils.e("SplashActivity===>","result=="+result);
+        String  result0 = NumberUtil.formatValue(74.99,5);
+        LogUtils.e("SplashActivity===>","result0=="+result0);
+
+    }
 }

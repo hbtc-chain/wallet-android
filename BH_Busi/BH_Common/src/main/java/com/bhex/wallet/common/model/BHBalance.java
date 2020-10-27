@@ -41,7 +41,7 @@ public class BHBalance {
     public int index;
 
     @Ignore
-    public String shortName;
+    public String fullName;
 
     public BHBalance() {
     }
