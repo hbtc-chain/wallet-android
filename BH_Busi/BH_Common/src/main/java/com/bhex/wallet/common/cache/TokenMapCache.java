@@ -159,10 +159,9 @@ public class TokenMapCache extends BaseCache {
     }
 
     public synchronized List<BHChain> loadChains(){
-        /*if(ToolUtils.checkListIsEmpty(mChains)){
+        if(!ToolUtils.checkListIsEmpty(mChains)){
             return mChains;
-        }*/
-        mChains.clear();
+        }
         String[] chain_list = BHUserManager.getInstance().getUserBalanceList().split("_");
         String[] default_chain_name = BaseApplication.getInstance().getResources().getStringArray(R.array.default_chain_name);
         for (int i = 0; i < chain_list.length; i++) {

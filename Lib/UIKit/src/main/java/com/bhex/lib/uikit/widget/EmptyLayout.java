@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -26,7 +27,7 @@ public class EmptyLayout extends LinearLayout {
     //a
     private ImageView empty_img;
     //b
-    private HwLoadingView empty_progress;
+    private ProgressBar empty_progress;
     //e
     private AppCompatButton empty_bt_reload;
     //c

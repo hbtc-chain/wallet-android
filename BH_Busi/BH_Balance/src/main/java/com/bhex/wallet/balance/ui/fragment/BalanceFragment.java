@@ -273,7 +273,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         //清空原始用户资产
-        mChainList = CacheCenter.getInstance().getTokenMapCache().loadChains();
         tv_wallet_name.setText(bhWallet.name);
         mChainAdapter.notifyDataSetChanged();
         //更新资产

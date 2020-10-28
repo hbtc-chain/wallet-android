@@ -81,9 +81,9 @@
     <string name="error_password">Incorrect password</string>
     <string name="import_private_key">Import Private Key</string>
     <string name="hint_private_key_input">Please enter your private key</string>
-    <string name="transfer">Transfer</string>
+    <string name="transfer">Out</string>
     <string name="un_transfer">Cancel transfer</string>
-    <string name="make_collection">Receipt</string>
+    <string name="make_collection">In</string>
     <string name="cancel">Cancel</string>
     <string name="copyed">Copied</string>
     <string name="wallet_password">Wallet password</string>
@@ -93,7 +93,7 @@
     <string name="bh_register_agreement">I have read and accept 《HBTC Wallet Service Agreement》</string>
     <string name="bh_register_agreement_sub">HBTC Wallet Service Agreement</string>
     <string name="copy_address">Copy address</string>
-    <string name="transfer_in">Receipt</string>
+    <string name="transfer_in">In</string>
     <string name="draw_coin">Withdraw</string>
     <string name="hint_input_copy_address">Please enter or paste the address</string>
     <string name="draw_coin_count">Input Amount</string>
@@ -103,7 +103,7 @@
     <string name="reach_account_amount">Received</string>
     <string name="fee">Fee</string>
     <string name="withdraw_speedup">Accelerate withdrawal</string>
-    <string name="exchange_speedup">Accelerate transactions</string>
+    <string name="exchange_speedup">Accelerate Transaction</string>
     <string name="native_token">Native</string>
     <string name="no_native_token">Cross-chain</string>
     <string name="native_test_token">Native test</string>
@@ -316,17 +316,17 @@
     <string name="input_add_fee_more_availabe">The sum of input quantity and fee is greater than the available</string>
     <string name="qr_code">QR code</string>
     <string name="hint_input_exchange_fee">Please enter the Gas Fee</string>
-    <string name="origin_password">Old password</string>
+    <string name="origin_password">Original Password</string>
     <string name="input_origin_password">Enter the old password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="password">Password</string>
-    <string name="trustship_manager">Manage</string>
+    <string name="trustship_manager">Account</string>
     <string name="token_release">Issue Token</string>
     <string name="update_username">Modify name</string>
     <string name="message_center">Nofications</string>
     <string name="account">Account</string>
-    <string name="apply">Apply</string>
+    <string name="apply">Submit</string>
     <string name="decimals">Decimals</string>
     <string name="token_release_count">Total Supply</string>
     <string name="new_token_name">Name</string>
@@ -366,7 +366,7 @@
     <string name="verify_pass">Passed</string>
     <string name="password_verify">Password authentication</string>
     <string name="system_message">System Messages</string>
-    <string name="transfer_notification">Transaction Notice</string>
+    <string name="transfer_notification">Transaction History</string>
     <string name="linkinner">In the chain</string>
     <string name="no_cross_link">Non-Cross chain</string>
     <string name="crosslink">Cross chain</string>
@@ -431,7 +431,7 @@
 
     <string-array name="my_list_item">
         <item>Backup mnemonics</item>
-        <item>Change password</item>
+        <item>Reset Password</item>
         <item>Backup private key</item>
         <item>Backup Keystore</item>
 <!--
@@ -444,7 +444,7 @@
 
     <string-array name="set_list_item">
         <item>Language</item>
-        <item>Currency Unit</item>
+        <item>Currency</item>
         <item>Night mode</item>
         <item>Touch ID</item>
         <item>Security setting</item>
@@ -468,8 +468,8 @@
     </string-array>
 
     <string-array name="Message_type">
-        <item>Transfer</item>
-        <item>Receipt</item>
+        <item>Out</item>
+        <item>In</item>
         <item>Deposit</item>
         <item>Withdrawal</item>
     </string-array>
@@ -484,9 +484,9 @@
         <item>交易</item>
     </string-array>
 
-    <string name="native_token_list">Native Token List</string>
-    <string name="native_token_test_list">Native Test Token List</string>
-    <string name="cross_chain_token_list">Cross-chain Token List</string>
+    <string name="native_token_list">Native</string>
+    <string name="native_token_test_list">Native Test</string>
+    <string name="cross_chain_token_list">Cross-chain</string>
     <string name="mapping">Mapping</string>
     <string name="pay_detail">Payment details</string>
     <string name="pay_info">Payment information</string>
