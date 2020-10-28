@@ -520,4 +520,5 @@
     <string name="not_avilable_relieve">No available relieve</string>
     <string name="balance_testnet_tips">HBC testing token which on the HBTC testnet and wallet is for testing purposes only, it doesn´t have any true value</string>
     <string name="slogan">decentralized cross-chain wallet</string>
+    <string name="avilable_transfer">Available transfer</string>
 </resources>

@@ -139,7 +139,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
                 });
             }
-            mAvailabelTitle = "可转 ";
+            mAvailabelTitle = getString(R.string.avilable_transfer);
             tv_entrust_to_title.setText(getString(R.string.source_address));
             tv_entrust_amount_title.setText(getString(R.string.transfer_entrust_amount));
             btn_do_entrust.setText(getString(R.string.re_entrust));
@@ -192,27 +192,19 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             updateDoEntrustStatus(ldm);
         });
         refreshLayout.setEnableLoadMore(false);
-        //mBalanceViewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
-        //mEnstrustViewModel = ViewModelProviders.of(this).get(EnstrustViewModel.class);
-        /*mBalanceViewModel.accountLiveData.observe(this, ldm -> {
-            refreshLayout.finishRefresh();
-            if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
-                updateAssets(ldm.getData());
-            }
 
-        });*/
         LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).observe(this,ldm->{
-            refreshLayout.finishRefresh();
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 updateAssets((AccountInfo) ldm.getData());
             }
+            refreshLayout.finishRefresh();
+
         });
         mEnstrustViewModel.delegationLiveData.observe(this, ldm -> {
-            refreshLayout.finishRefresh();
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 updateValidatorAssets(ldm.getData());
             }
-
+            refreshLayout.finishRefresh();
         });
         queryAssetInfo(true);
 

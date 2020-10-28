@@ -119,7 +119,7 @@ public class MyPresenter extends BasePresenter {
         }
 
         if(TextUtils.isEmpty(newConfrimPwd)){
-            ToastUtils.showToast("请输入新秘密确认");
+            ToastUtils.showToast(getActivity().getString(R.string.please_input_confrim_newpwd));
             return false;
         }
 

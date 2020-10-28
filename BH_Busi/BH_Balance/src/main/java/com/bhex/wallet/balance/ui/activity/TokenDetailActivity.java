@@ -198,8 +198,6 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             tv_redemption_value.setVisibility(View.GONE);
             tv_income_text.setVisibility(View.GONE);
             tv_income_value.setVisibility(View.GONE);
-
-
         }
 
         if(!BHConstants.BHT_TOKEN.equalsIgnoreCase(getBHBalance().symbol)){
@@ -350,13 +348,13 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         List<DelegateValidator> dvList =  (List<DelegateValidator>)ldm.getData();
         //计算所有收益
         double all_reward = mPresenter.calAllReward(dvList);
-        if(all_reward==0){
+        String def_all_reward = NumberUtil.dispalyForUsertokenAmount4Level(all_reward+"");
+        if(Double.valueOf(def_all_reward)<=0){
             ToastUtils.showToast(getResources().getString(R.string.no_profit));
         }else {
             mRewardList = dvList;
             WithDrawShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
-                    WithDrawShareFragment.class.getSimpleName(), itemListener,
-                    NumberUtil.formatValue(all_reward,2));
+                    WithDrawShareFragment.class.getSimpleName(), itemListener,def_all_reward);
         }
     }
 
@@ -365,13 +363,13 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         List<DelegateValidator> dvList =  (List<DelegateValidator>)ldm.getData();
         //计算所有收益
         double all_reward = mPresenter.calAllReward(dvList);
-        if(all_reward==0){
+        String def_all_reward = NumberUtil.dispalyForUsertokenAmount4Level(all_reward+"");
+        if(Double.valueOf(def_all_reward)<=0){
             ToastUtils.showToast(getResources().getString(R.string.no_profit));
         }else {
             mRewardList = dvList;
             ReInvestShareFragment.showWithDrawShareFragment(getSupportFragmentManager(),
-                    ReInvestShareFragment.class.getSimpleName(),
-                    fragmentItemListener,NumberUtil.formatValue(all_reward,2));
+                    ReInvestShareFragment.class.getSimpleName(),fragmentItemListener,def_all_reward);
         }
     }
 
@@ -380,21 +378,18 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             BHTransactionManager.loadSuquece(suquece -> {
                 List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
                 double all_reward = mPresenter.calAllReward(mRewardList);
-                BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-
-                BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), "2",
-                        gasPrice, password, suquece);
-
+                //BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
+                BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), BHConstants.BHT_DEFAULT_FEE,
+                        password, suquece);
                 transactionViewModel.sendTransaction(this, bhSendTranscation);
                 return 0;
             });
         }else if(position==2){
             BHTransactionManager.loadSuquece(suquece -> {
-                BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
                 List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
                 List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
                 BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
-                        "",BHConstants.BHT_DEFAULT_FEE, gasPrice,password,suquece);
+                        "",BHConstants.BHT_DEFAULT_FEE,password,suquece);
                 transactionViewModel.sendTransaction(this,bhSendTranscation);
                 return 0;
             });
@@ -403,23 +398,22 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        BHTransactionManager.loadSuquece(suquece -> {
+        /*BHTransactionManager.loadSuquece(suquece -> {
             List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
             double all_reward = mPresenter.calAllReward(mRewardList);
             BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
 
-            BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), "2",
+            BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), BHConstants.BHT_DEFAULT_FEE,
                     gasPrice, null, suquece);
             transactionViewModel.sendTransaction(this, bhSendTranscation);
             return 0;
-        });
-
+        });*/
         PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,1);
     });
 
     //发送复投分红交易
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
-        BHTransactionManager.loadSuquece(suquece -> {
+        /*BHTransactionManager.loadSuquece(suquece -> {
             BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
 
             List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
@@ -428,7 +422,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
                     "",BHConstants.BHT_DEFAULT_FEE, gasPrice,null,suquece);
             transactionViewModel.sendTransaction(this,bhSendTranscation);
             return 0;
-        });
+        });*/
         PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,2);
     });
 

@@ -20,7 +20,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/withdraw_share"
+        android:text="@string/withdraw_income"
         android:textColor="@color/global_main_text_color"
         android:layout_gravity="center"
         android:textStyle="normal"

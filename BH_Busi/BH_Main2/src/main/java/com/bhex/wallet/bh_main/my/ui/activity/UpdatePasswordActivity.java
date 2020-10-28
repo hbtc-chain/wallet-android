@@ -19,6 +19,7 @@ import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.presenter.MyPresenter;
@@ -118,6 +119,8 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
     @OnClick({R2.id.btn_next})
     public void onViewClicked(View view) {
         if(view.getId() == R.id.btn_next){
+            ToolUtils.hintKeyBoard(this);
+
             boolean flag = getPresenter().checkPasswordEqual(
                     inp_old_pwd.getInputString(),
                     inp_new_pwd.getInputString(),

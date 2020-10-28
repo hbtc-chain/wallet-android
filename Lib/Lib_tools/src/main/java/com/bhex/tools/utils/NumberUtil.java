@@ -3,6 +3,8 @@ package com.bhex.tools.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.bhex.tools.constants.BHConstants;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -220,7 +222,7 @@ public class NumberUtil {
         if(TextUtils.isEmpty(amount) || Double.valueOf(amount)==0){
             return "0";
         }
-        String result = formatValue(Double.valueOf(amount),5);
+        String result = formatValue(Double.valueOf(amount), BHConstants.BHT_DEFAULT_DECIMAL);
 
         BigDecimal res=new BigDecimal(result);
 

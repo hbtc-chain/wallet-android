@@ -362,7 +362,7 @@ public class BHRawTransaction {
 
     //构建提取收益
     public static BHRawTransaction createBHRawRewardTransaction(String sequence, BigInteger amount, BigInteger feeAmount,
-                                                                BigInteger gasPrice,List<ValidatorMsg>list){
+                                                                List<ValidatorMsg>list){
 
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = BHConstants.BH_MEMO;
@@ -384,7 +384,7 @@ public class BHRawTransaction {
 
     //构建复投分红交易
     public static BHRawTransaction createBHRawReDoEntrust(String sequence, BigInteger feeAmount,
-                                                                BigInteger gasPrice,String memo,List<ValidatorMsg>validatorMsgs,
+                                                          String memo,List<ValidatorMsg>validatorMsgs,
                                                           List<DoEntrustMsg> doEntrustMsgs){
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
         bhRawTransaction.memo = memo;
