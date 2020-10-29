@@ -56,18 +56,6 @@ public class ExceptionEngin {
 
             int code = httpException.code();
 
-            if(code == 400 ){
-                ResponseBody response = httpException.response().errorBody();
-                if (response != null) {
-                    JSONObject json = new JSONObject(response.string());
-                    String error = (String) json.get("error");
-                    apiException.setDisplayMessage(error);
-                }else{
-                    apiException.setDisplayMessage(throwable.getMessage());
-                }
-                return apiException;
-            }
-
             if (code == 408 || code == 500 || code == 502 || code == 504 || code == 512) {
                 apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.app_net_error_msg));
                 return apiException;
@@ -81,8 +69,18 @@ public class ExceptionEngin {
                 return apiException;
             }
 
-            apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.net_error_msg));
+            ResponseBody response = httpException.response().errorBody();
+            if (response != null) {
+                JSONObject json = new JSONObject(response.string());
+                String error = (String) json.get("error");
+                apiException.setDisplayMessage(error);
+            }else{
+                apiException.setDisplayMessage(throwable.getMessage());
+            }
             return apiException;
+
+            //apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.net_error_msg));
+            //return apiException;
         }
 
         if (throwable instanceof ServerException) {

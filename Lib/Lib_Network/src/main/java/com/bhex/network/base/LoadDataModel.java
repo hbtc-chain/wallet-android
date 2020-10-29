@@ -21,4 +21,8 @@ public class LoadDataModel<T> extends LoadingStatus {
     }
 
     public T getData() { return (T)this.data; }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 }

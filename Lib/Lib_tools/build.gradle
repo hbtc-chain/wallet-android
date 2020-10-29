@@ -156,6 +156,9 @@ dependencies {
     api 'com.alibaba:fastjson:1.1.71.android'
 
     api 'net.sourceforge.streamsupport:streamsupport:1.7.1'
+
+    api 'com.github.yjfnypeu:EasyThread:0.6.0'
+
     //api 'com.github.lzyzsd:jsbridge:1.0.4'
 
     /*//rxjava

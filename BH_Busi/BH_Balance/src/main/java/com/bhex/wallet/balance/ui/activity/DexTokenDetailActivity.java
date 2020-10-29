@@ -75,7 +75,7 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
             menuFragment.setMenuListListener(crossOperatorListener);
             menuFragment.show(getSupportFragmentManager(),MenuListFragment.class.getSimpleName());
         }else if(view.getId() == R.id.cross_chian_withdraw){
-            ARouter.getInstance().build(ARouterConfig.Market_exchange_coin).withString("symbol",balance.symbol).navigation();
+            ARouter.getInstance().build(ARouterConfig.Market_swap_mapping).withString("symbol",balance.symbol).navigation();
         }
     }
 

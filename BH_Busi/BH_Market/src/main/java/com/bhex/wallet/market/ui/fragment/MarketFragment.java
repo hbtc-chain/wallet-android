@@ -149,7 +149,11 @@ public class MarketFragment extends BaseBowserFragment  {
         }
 
         DexResponse<JSONObject> dexResponse = new DexResponse(ldm.code,ldm.msg);
+        dexResponse.data = com.alibaba.fastjson.JSONObject.parseObject(ldm.getData().toString());
         callback.callback(JsonUtils.toJson(dexResponse));
+
+        //
+        LogUtils.d("MarketFragment==>:","json=="+JsonUtils.toJson(dexResponse));
         callbackMaps.remove(mH5Sign.type);
     }
 

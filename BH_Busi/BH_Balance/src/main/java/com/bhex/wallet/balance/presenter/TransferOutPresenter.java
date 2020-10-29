@@ -10,6 +10,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 
@@ -28,6 +29,11 @@ public class TransferOutPresenter extends BasePresenter {
     public boolean checklinkInnerTransfer(String to_address,String transfer_amount,
                                           String available_amount,String fee_amount){
         if(!to_address.toUpperCase().startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
+            ToastUtils.showToast(getActivity().getString(R.string.error_transfer_address));
+            return false;
+        }
+        String current_address = BHUserManager.getInstance().getCurrentBhWallet().address;
+        if(current_address.equalsIgnoreCase(to_address)){
             ToastUtils.showToast(getActivity().getString(R.string.error_transfer_address));
             return false;
         }

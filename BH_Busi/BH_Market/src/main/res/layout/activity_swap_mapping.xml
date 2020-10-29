@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/app_bg"
+    tools:ignore="MissingDefaultResource">
+
+    <include
+        layout="@layout/layout_toolbar"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="16dp"
+        android:hardwareAccelerated="true"
+        android:elevation="0dp"
+        app:cardBackgroundColor="@color/dialog_fragment_background"
+        app:cardCornerRadius="10dp"
+        app:cardForegroundColor="@color/bg_trans">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/global_secondary_text_color"
+                    android:text="@string/payment"
+                    android:textSize="15sp"
+                    android:layout_alignParentStart="true"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_coin_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/global_label_text_color"
+                    android:text="@string/balance"
+                    android:textSize="15sp"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp">
+
+                <LinearLayout
+                    android:id="@+id/layout_coin"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/ed_transfer_coin_amount"
+                    android:layout_alignBottom="@+id/ed_transfer_coin_amount"
+                    android:layout_centerVertical="true"
+                    android:background="@color/global_input_background"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_coin"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_default_coin"
+                        android:layout_marginEnd="8dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_coin_token"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/global_main_text_color"
+                        android:textSize="17sp"
+                        tools:text="BTC" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_arrow_down"
+                        android:layout_marginEnd="16dp"
+                        />
+
+                </LinearLayout>
+
+                <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                    android:id="@+id/ed_transfer_coin_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:leftHint="@string/please_input_exchange_amount"
+                    app:rightColor="@color/label_button_text_color"
+                    app:rightText="@string/all"
+                    android:layout_toRightOf="@+id/layout_coin"
+                    android:layout_marginStart="8dp"
+                    />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_exchange_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_swap_arrow"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/global_secondary_text_color"
+                    android:text="兑换成"
+                    android:textSize="15sp"
+                    android:layout_alignParentStart="true"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_target_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/global_label_text_color"
+                    android:text="@string/balance"
+                    android:textSize="15sp"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                >
+
+                <LinearLayout
+                    android:id="@+id/layout_target"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/ed_transfer_target_amount"
+                    android:layout_alignBottom="@+id/ed_transfer_target_amount"
+                    android:layout_centerVertical="true"
+                    android:background="@color/global_input_background"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_target"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_default_coin"
+                        android:layout_marginEnd="8dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_target_token"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="BTC"
+                        android:textColor="@color/global_main_text_color"
+                        android:textSize="17sp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:layout_marginEnd="5dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_target_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_arrow_down"
+                        android:layout_marginEnd="16dp"
+                        />
+
+                </LinearLayout>
+
+
+
+                <com.bhex.lib.uikit.widget.editor.WithDrawInput
+                    android:id="@+id/ed_transfer_target_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:leftHint="@string/please_input_exchange_amount"
+                    app:rightColor="@color/label_button_text_color"
+                    app:rightText="@string/all"
+                    android:layout_toRightOf="@+id/layout_target"
+                    android:layout_marginStart="8dp"
+                    />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_send_swapmapping"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/btn_bg_blue_6_corner"
+                android:text="@string/swap"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="32dp"
+                />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@+id/layout_top"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="-16dp"
+        android:hardwareAccelerated="true"
+        android:elevation="0dp"
+        app:cardBackgroundColor="@color/global_input_background"
+        app:cardCornerRadius="10dp"
+        app:cardForegroundColor="@color/bg_trans">
+
+        <RelativeLayout
+            android:id="@+id/layout_index_4"
+            android:layout_below="@+id/layout_index_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="28dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_rate_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/global_secondary_text_color"
+                android:textSize="15sp"
+                android:text="@string/exchage_rate"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/global_main_text_color"
+                android:textSize="15sp"
+                android:text="1:1"
+                android:layout_toEndOf="@+id/tv_rate_label"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_rate_mark"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

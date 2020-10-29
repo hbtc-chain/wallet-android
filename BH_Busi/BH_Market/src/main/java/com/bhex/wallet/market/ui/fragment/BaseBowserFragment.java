@@ -124,6 +124,11 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 callback.callback("Response for message from ObjC!");
             }));
 
+            registerHandler("connect",(data,callback)->{
+                DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
+                callback.callback(JsonUtils.toJson(dexResponse));
+            });
+
             registerHandler("get_account",(data,callback) -> {
                 DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
                 dexResponse.data = new JSONObject();
@@ -135,7 +140,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
                 if(data==null){
                     return;
                 }
-                LogUtils.d("BaseBrowseFragment===>:","sign=="+data.toString());
+                //LogUtils.d("BaseBrowseFragment===>:","sign=="+data.toString());
                 H5Sign h5Sign = JsonUtils.fromJson(data.toString(), H5Sign.class);
                 PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);
                 callbackMaps.put(h5Sign.type,callback);

@@ -65,7 +65,7 @@
                         android:textColor="@color/dark_bg_text_color"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        tools:text="Bluehelix Wallet" />
+                        tools:text="@string/app_name" />
 
                 </androidx.appcompat.widget.Toolbar>
 
@@ -74,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:includeFontPadding="false"
                     android:maxLines="1"
                     android:maxWidth="250dp"
                     android:layout_below="@+id/toolbar"
@@ -92,7 +93,7 @@
                     android:layout_alignParentEnd="true"
                     android:paddingEnd="24dp"
                     android:src="@mipmap/ic_add_token"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_wallet_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_wallet_name" />
@@ -103,7 +104,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_wallet_name"
                     android:layout_alignLeft="@+id/tv_wallet_name"
-                    android:layout_marginTop="2dp"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -123,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         android:src="@mipmap/ic_paste" />
                 </LinearLayout>
 
@@ -133,7 +133,7 @@
                     android:layout_height="118dp"
                     android:layout_below="@+id/layout_address"
                     android:layout_marginStart="@dimen/main_padding_left"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="@dimen/main_padding_right"
                     app:cardBackgroundColor="@color/app_bg"
                     app:cardCornerRadius="10dp"

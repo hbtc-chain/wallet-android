@@ -113,5 +113,6 @@ public class ARouterConfig {
 
 
     public static final String Market_exchange_coin = "/market/exchange/coin";
+    public static final String Market_swap_mapping = "/market/swap/mapping";
 
 }

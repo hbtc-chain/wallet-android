@@ -42,7 +42,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
     public void onNext(T t) {
         if(t instanceof BaseResponse){
             BaseResponse baseResponse = (BaseResponse)t;
-            if(baseResponse.code==0){
+            if(baseResponse.code==200){
                 onSuccess(t);
             }else{
                 onFailure(baseResponse.getCode(), baseResponse.getMessage());
@@ -73,11 +73,6 @@ public abstract class BaseObserver<T> implements Observer<T> {
     public void onFailure(int code, String errorMsg){
         if (code == -1)
             return;
-        if (code != 123 && (code == 401 || code == 2010 || code == 20051)) {
-            //AccountManger.getInstance().userAuthExpire();
-            //EventBus.getDefault().post(new LoginExpiresEvent());
-        }
-
         //需要toast提示
         if (this.isNeedShowtoast && code != 1000){
             ToastUtils.showToast(errorMsg);

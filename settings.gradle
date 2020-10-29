@@ -1,4 +1,3 @@
-include ':lib_abc'
 include ':app'
 include ':Lib_Network'
 project(':Lib_Network').projectDir = file('./Lib/Lib_Network')
