@@ -3,6 +3,7 @@ package com.bhex.wallet.common.cache;
 import android.text.TextUtils;
 
 import com.bhex.network.RxSchedulersHelper;
+import com.bhex.network.app.BaseApplication;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
 import com.bhex.network.cache.stategy.CacheStrategy;
@@ -16,6 +17,7 @@ import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
+import com.bhex.wallet.common.db.AppDataBase;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.model.BHToken;
@@ -29,7 +31,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by BHEX.
@@ -68,6 +72,7 @@ public class SymbolCache extends BaseCache {
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxCache.getDefault().transformObservable(CACHE_KEY, type,getCacheStrategy()))
                 .map(new CacheResult.MapFunc())
+                .observeOn(Schedulers.computation())
                 .subscribe(new BHBaseObserver<JsonObject>(false) {
                     @Override
                     protected void onSuccess(JsonObject jsonObject) {
@@ -84,10 +89,13 @@ public class SymbolCache extends BaseCache {
                         for(BHToken item:coinList){
                             symbolMap.put(item.symbol,item);
                             sb.append(item.symbol).append("_");
+                            AppDataBase.getInstance(BaseApplication.getInstance()).bhTokenDao().insert(item);
                         }
                         if(!TextUtils.isEmpty(sb)){
                             MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_DEFAULT_KEY,sb.toString());
                         }
+                        //缓存所有的币到库中
+
                     }
 
 
