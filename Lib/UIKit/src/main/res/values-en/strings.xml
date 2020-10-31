@@ -160,7 +160,6 @@
     <string name="other_delegate_proportion">Commission rate</string>
     <string name="self_delegate_proportion">Self-delegation</string>
     <string name="validate_node">Validator node</string>
-    <string name="relieve_entrust">Relieve delegate</string>
     <string name="up_time">Weight of online time</string>
     <string name="update_time">Updated time</string>
     <string name="max_rate_limit">Maximum commission limits</string>
