@@ -19,6 +19,8 @@ import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
+import com.bhex.wallet.balance.helper.CoinSearchHelper;
+import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.cache.CacheCenter;
@@ -86,9 +88,9 @@ public class ChainTokenViewModel extends AndroidViewModel {
     }
 
     public  void loadBalanceByChain(FragmentActivity activity,String chainName){
-        BHBaseObserver<List<BHBalance>> pbo = new BHBaseObserver<List<BHBalance>>() {
+        BHBaseObserver<List<BHTokenItem>> pbo = new BHBaseObserver<List<BHTokenItem>>() {
             @Override
-            protected void onSuccess(List<BHBalance> bhBalances) {
+            protected void onSuccess(List<BHTokenItem> bhBalances) {
                 //LogUtils.d("ChainTokenViewModel===>:","size=2=="+bhBalances.size());
                 LoadDataModel loadDataModel = new LoadDataModel(bhBalances);
                 mutableLiveData.setValue(loadDataModel);
@@ -101,12 +103,21 @@ public class ChainTokenViewModel extends AndroidViewModel {
             }
         };
 
-        Observable.create((ObservableOnSubscribe<List<BHBalance>>) emitter -> {
-            List<BHBalance> list = new ArrayList<>();
-            SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
-            List<BHToken> tokenList =  symbolCache.loadTokenByChain(chainName);
+        Observable.create((ObservableOnSubscribe<List<BHTokenItem>>) emitter -> {
+            List<BHTokenItem> list = new ArrayList<>();
+
+            List<BHToken> tokenList =  BHBalanceHelper.loadBalanceByChain(chainName);
+            int index = 0;
+            for(BHToken item:tokenList){
+                BHTokenItem bhTokenItem = new BHTokenItem(item);
+                bhTokenItem.index = index++;
+                list.add(bhTokenItem);
+            }
+
+            LogUtils.d("ChainTokenViewModel==>:","item==="+list.size());
+            //BHBalanceHelper.getBHBalanceFromAccount()
             //tokenList.clear();
-            if(ToolUtils.checkListIsEmpty(tokenList)){
+            /*if(ToolUtils.checkListIsEmpty(tokenList)){
                 emitter.onNext(list);
                 emitter.onComplete();
                 return ;
@@ -138,7 +149,7 @@ public class ChainTokenViewModel extends AndroidViewModel {
                     balance.amount = "0";
                 }
 
-                balance.resId = BHBalanceHelper.getDefaultResId(balance.symbol);
+                balance.resId = R.mipmap.ic_default_coin;
                 BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(chainName);
                 if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){
                     balance.external_address = chainBalance.external_address;
@@ -184,7 +195,7 @@ public class ChainTokenViewModel extends AndroidViewModel {
             int i = 0;
             for(BHBalance item:list){
                 item.index = i++;
-            }
+            }*/
             emitter.onNext(list);
             emitter.onComplete();
 

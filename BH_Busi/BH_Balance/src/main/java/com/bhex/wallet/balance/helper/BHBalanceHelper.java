@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.view.Menu;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -113,10 +114,11 @@ public class BHBalanceHelper {
     public static BHBalance getBHBalanceFromAccount(String symbol){
         AccountInfo accountInfo = BHUserManager.getInstance().getAccountInfo();
         BHBalance balance = new BHBalance();
+        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol);
         balance.amount="0";
         balance.symbol = symbol;
-        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
         if(bhToken!=null){
+            balance.name = bhToken.name;
             balance.chain = bhToken.chain;
         }
         if(accountInfo==null){
@@ -129,15 +131,14 @@ public class BHBalanceHelper {
 
         for (int i = 0; i < list.size(); i++) {
             AccountInfo.AssetsBean assetsBean = list.get(i);
-            if(assetsBean.getSymbol()!=null && assetsBean.getSymbol().equalsIgnoreCase(symbol)){
-                balance.symbol = assetsBean.getSymbol();
-                balance.amount = assetsBean.getAmount();
-                balance.frozen_amount = assetsBean.getFrozen_amount();
-                balance.address = assetsBean.getExternal_address();
-                balance.external_address = assetsBean.getExternal_address();
-                //LogUtils.d("ChainTokenActivity==>","==mBalance="+balance.address);
-                return balance;
+            if(assetsBean.getSymbol()==null || !assetsBean.getSymbol().equalsIgnoreCase(symbol)){
+                continue;
             }
+            balance.amount = assetsBean.getAmount();
+            balance.frozen_amount = assetsBean.getFrozen_amount();
+            balance.address = assetsBean.getExternal_address();
+            balance.external_address = assetsBean.getExternal_address();
+            return balance;
         }
         return balance;
     }
@@ -193,7 +194,18 @@ public class BHBalanceHelper {
         return list;
     }
 
-    public static List<BHBalance> loadBalanceByChain(String chainName){
+    public static List<BHToken> loadBalanceByChain(String chainName){
+        ArrayMap<String,BHToken> map_tokens =  CacheCenter.getInstance().getSymbolCache().getDefaultToken();
+        List<BHToken> res = new ArrayList<>();
+        for (ArrayMap.Entry<String,BHToken> entry:map_tokens.entrySet()){
+            if(!entry.getValue().chain.equalsIgnoreCase(chainName)){
+                continue;
+            }
+            res.add(entry.getValue());
+        }
+        return res;
+    }
+    /*public static List<BHBalance> loadBalanceByChain(String chainName){
         List<BHBalance> list = new ArrayList<>();
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         List<BHToken> tokenList =  symbolCache.loadTokenByChain(chainName);
@@ -225,7 +237,7 @@ public class BHBalanceHelper {
             return n1.compareTo(n2);
         }));
         return list;
-    }
+    }*/
 
     public static int getDefaultResId(String symbol){
         int resId = 0;

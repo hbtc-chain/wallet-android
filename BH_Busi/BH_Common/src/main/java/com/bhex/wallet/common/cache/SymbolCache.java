@@ -1,6 +1,8 @@
 package com.bhex.wallet.common.cache;
 
 import android.text.TextUtils;
+import android.util.ArrayMap;
+import android.util.SparseArray;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.app.BaseApplication;
@@ -18,21 +20,28 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.db.AppDataBase;
+import com.bhex.wallet.common.db.dao.BHTokenDao;
+import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.model.BHToken;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -45,15 +54,19 @@ public class SymbolCache extends BaseCache {
 
     private static final String TAG = SymbolCache.class.getSimpleName();
 
-    public static final String CACHE_KEY = "SymbolCache";
-
-
-    private Map<String, BHToken> symbolMap = new ConcurrentHashMap();
-
     private static volatile SymbolCache _instance = new SymbolCache();
 
-    private SymbolCache(){
+    public static final String CACHE_KEY = "SymbolCache";
+    public static final String CACHE_KEY_VERIFIED = "SymbolCache_verified";
 
+    private LinkedHashMap<String, BHToken> symbolMap = new LinkedHashMap();
+
+    private ArrayMap<String,BHToken> defaultTokenList = new ArrayMap<>();
+    private ArrayMap<String,BHToken> verifiedTokenList = new ArrayMap<>();
+
+    private BHTokenDao mBhTokenDao = AppDataBase.getInstance(BaseApplication.getInstance()).bhTokenDao();
+
+    private SymbolCache(){
     }
 
     public static SymbolCache getInstance(){
@@ -62,42 +75,52 @@ public class SymbolCache extends BaseCache {
 
     @Override
     public synchronized void beginLoadCache() {
-        loadSymbol();
+        //加载缓存的数据
+        loadTokenFromDb();
+        //请求默认币对
+        loadDefaultToken();
+        //官方认证
+        loadVerifiedToken();
     }
 
-    private synchronized void loadSymbol(){
-        Type type = (new TypeToken<JsonObject>() {}).getType();
 
-        BHttpApi.getService(BHttpApiInterface.class).loadSymbol(1,1000)
+    public void loadTokenFromDb(){
+        Observable.create(emitter -> {
+            List<BHToken> list = mBhTokenDao.loadAllToken();
+            if(!ToolUtils.checkListIsEmpty(list)){
+                for(BHToken item:list){
+                    symbolMap.put(item.symbol,item);
+                }
+            }
+            emitter.onNext("");
+            emitter.onComplete();
+        }).compose(RxSchedulersHelper.io_main())
+                .subscribe(v->{
+
+                });
+
+    }
+
+    private synchronized void loadDefaultToken(){
+        Type type = (new TypeToken<JsonArray>() {}).getType();
+        BHttpApi.getService(BHttpApiInterface.class).loadDefaultToken(null)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(CACHE_KEY, type,getCacheStrategy()))
-                .map(new CacheResult.MapFunc())
+                .compose(RxCache.getDefault().transformObservable(SymbolCache.CACHE_KEY, type, getCacheStrategy()))
+                .map(new CacheResult.MapFunc<>())
                 .observeOn(Schedulers.computation())
-                .subscribe(new BHBaseObserver<JsonObject>(false) {
+                .subscribe(new BHBaseObserver<JsonArray>(false) {
                     @Override
-                    protected void onSuccess(JsonObject jsonObject) {
-                        if(!JsonUtils.isHasMember(jsonObject,"items")){
+                    protected void onSuccess(JsonArray jsonArray) {
+                        if(jsonArray==null){
                             return;
                         }
-                        List<BHToken> coinList = JsonUtils.getListFromJson(jsonObject.toString(),"items", BHToken.class);
+                        List<BHToken> coinList = JsonUtils.getListFromJson(jsonArray.toString(), BHToken.class);
                         if(ToolUtils.checkListIsEmpty(coinList)){
                             return;
                         }
-                        symbolMap.clear();
                         //缓存所有的token
-                        StringBuffer sb = new StringBuffer();
-                        for(BHToken item:coinList){
-                            symbolMap.put(item.symbol,item);
-                            sb.append(item.symbol).append("_");
-                            AppDataBase.getInstance(BaseApplication.getInstance()).bhTokenDao().insert(item);
-                        }
-                        if(!TextUtils.isEmpty(sb)){
-                            MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_DEFAULT_KEY,sb.toString());
-                        }
-                        //缓存所有的币到库中
-
+                        putSymbolToMap(coinList,1);
                     }
-
 
                     @Override
                     protected void onFailure(int code, String errorMsg) {
@@ -106,24 +129,85 @@ public class SymbolCache extends BaseCache {
                 });
     }
 
+    //官方认证币对
+    private synchronized void loadVerifiedToken(){
+        Type type = (new TypeToken<JsonArray>() {}).getType();
+        BHttpApi.getService(BHttpApiInterface.class).loadVerifiedToken(null)
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxCache.getDefault().transformObservable(SymbolCache.CACHE_KEY_VERIFIED, type, getCacheStrategy()))
+                .map(new CacheResult.MapFunc<>())
+                .observeOn(Schedulers.computation())
+                .subscribe(new BHBaseObserver<JsonArray>(false) {
+                    @Override
+                    protected void onSuccess(JsonArray jsonArray) {
+                        if(jsonArray==null){
+                            return;
+                        }
+                        List<BHToken> coinList = JsonUtils.getListFromJson(jsonArray.toString(), BHToken.class);
+                        if(ToolUtils.checkListIsEmpty(coinList)){
+                            return;
+                        }
+
+                        //缓存所有的token
+                        putSymbolToMap(coinList,2);
+                    }
+
+                    @Override
+                    protected void onFailure(int code, String errorMsg) {
+                        super.onFailure(code, errorMsg);
+                        //LogUtils.d("SymbolCache===>:","symbolMap==onFailure");
+                    }
+                });
+    }
+
+    //1 默认 2 官方认证
+    private synchronized void putSymbolToMap(List<BHToken> coinList,int way){
+        for(BHToken item:coinList){
+            symbolMap.put(item.symbol,item);
+            if(way==1){
+                defaultTokenList.put(item.symbol,item);
+            }
+
+            if(way==2){
+                verifiedTokenList.put(item.symbol,item);
+            }
+        }
+        mBhTokenDao.insert(coinList);
+    }
+
     public synchronized BHToken getBHToken(String symbol){
         return symbolMap.get(symbol);
     }
 
-    public synchronized List<BHToken> loadTokenByChain(String chain){
-        List<BHToken> list = new ArrayList();
-        if(ToolUtils.checkMapEmpty(symbolMap)){
-            return null;
-        }
-
-        for (Map.Entry<String,BHToken> item : symbolMap.entrySet()){
-            if(item.getValue().chain.equalsIgnoreCase(chain)){
-                list.add(item.getValue());
-            }
-        }
-        return list;
+    public synchronized void addBHToken(BHToken bhToken){
+        symbolMap.put(bhToken.symbol,bhToken);
     }
 
+    public ArrayMap<String,BHToken> getDefaultToken(){
+        String default_symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY);
+        if(TextUtils.isEmpty(default_symbol)){
+            return defaultTokenList;
+        }
+        //保存本地
+        String []a_default_symbol = default_symbol.split("_");
+        if(a_default_symbol.length==0){
+            return defaultTokenList;
+        }
+        defaultTokenList.clear();
+        for(int i= 0;i<a_default_symbol.length;i++){
+            BHToken bhToken = symbolMap.get(a_default_symbol[i]);
+            if(bhToken==null){
+                continue;
+            }
+            defaultTokenList.put(bhToken.symbol,bhToken);
+
+        }
+        return defaultTokenList;
+    }
+
+    public ArrayMap<String,BHToken> getVerifiedToken(){
+        return verifiedTokenList;
+    }
     public synchronized int getDecimals(String symbol){
         if(symbolMap.get(symbol)!=null){
             return symbolMap.get(symbol).decimals;

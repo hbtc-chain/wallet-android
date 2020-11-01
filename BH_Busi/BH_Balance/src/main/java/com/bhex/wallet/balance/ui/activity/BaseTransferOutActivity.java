@@ -12,6 +12,7 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
+import com.bhex.wallet.balance.viewmodel.TokenViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -37,6 +38,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     protected TransactionViewModel transactionViewModel;
 
     protected BalanceViewModel balanceViewModel;
+    protected TokenViewModel tokenViewModel;
 
     protected BHWallet mCurrentBhWallet;
 

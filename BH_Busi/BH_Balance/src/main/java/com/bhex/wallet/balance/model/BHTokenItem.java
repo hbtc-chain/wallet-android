@@ -13,13 +13,21 @@ public class BHTokenItem extends BHToken {
     public String fullName = "Bitcoin";
     public int resId;
     public boolean isSelected;
+    public int index;
 
-    public BHBalance getBHBalance(){
+    /*public BHBalance getBHBalance(){
         BHBalance bhBalance = new BHBalance();
         bhBalance.symbol = symbol;
         bhBalance.chain = chain;
         bhBalance.logo = logo;
         bhBalance.is_native = is_native;
         return bhBalance;
+    }*/
+
+    public BHTokenItem(BHToken bhToken){
+        this.symbol = bhToken.symbol;
+        this.chain = bhToken.chain;
+        this.logo = bhToken.logo;
+        this.name = bhToken.name;
     }
 }

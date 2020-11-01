@@ -312,7 +312,7 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
             mBalanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
             clearInputContent();
             //请求Token列表
-            CacheCenter.getInstance().getSymbolCache().beginLoadCache();
+            //CacheCenter.getInstance().getSymbolCache().beginLoadCache();
         } else {
             //BHToast.showDefault(this, getResources().getString(R.string.apply_fail)).show();
         }

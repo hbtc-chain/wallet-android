@@ -43,7 +43,10 @@
             android:textSize="15sp"
             android:textColorHint="@color/global_input_hint_color"
             android:textColor="@color/global_input_text_color"
-            android:hint="@string/please_input_token_name"/>
+            android:hint="@string/please_input_token_name"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"/>
+
 
     </RelativeLayout>
 
@@ -56,13 +59,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_coin"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_margin_top">
+            android:layout_height="match_parent">
 
-        </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_coin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/main_margin_top">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <com.bhex.lib.uikit.widget.EmptyLayout
+                android:id="@+id/empty_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+
+        </FrameLayout>
+
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

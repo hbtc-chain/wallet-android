@@ -2,8 +2,12 @@ package com.bhex.wallet.common.api;
 
 import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.model.BHRates;
+import com.bhex.wallet.common.model.BHToken;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -110,4 +114,20 @@ public interface BHttpApiInterface {
     //映射币对
     @GET("/api/v1/chains")
     Observable<JsonArray> loadChain();
+
+    //默认币对
+    @GET("/api/v1/default_tokens")
+    Observable<JsonArray> loadDefaultToken(@Nullable @Query("chain") String chain);
+
+    //官方认证币对
+    @GET("/api/v1/verified_tokens")
+    Observable<JsonArray> loadVerifiedToken(@Nullable @Query("chain") String chain);
+
+    //搜索token
+    @GET("/api/v1/search_tokens")
+    Observable<JsonArray> searchToken(@Nullable @Query("chain") String chain,@Query("token") String token);
+
+    //搜索token
+    @GET("/api/v1/tokens/{symbol}")
+    Observable<BHToken> queryToken(@Path("symbol") String symbol);
 }
