@@ -322,6 +322,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
     }
 
     public void refreshFinish(){
+        def_dailog_count++;
         if(def_dailog_count==2){
             refreshLayout.finishRefresh();
         }

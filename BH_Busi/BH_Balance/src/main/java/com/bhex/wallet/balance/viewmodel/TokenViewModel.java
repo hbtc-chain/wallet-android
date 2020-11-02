@@ -117,6 +117,7 @@ public class TokenViewModel extends ViewModel {
           });
     }
 
+    //查询单个币种
     public void queryToken(FragmentActivity activity,String symbol){
         BHBaseObserver<BHToken> observer = new BHBaseObserver<BHToken>() {
             @Override
@@ -137,6 +138,37 @@ public class TokenViewModel extends ViewModel {
         };
         BHttpApi.getService(BHttpApiInterface.class)
                 .queryToken(symbol)
+                .compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+
+    //查询所有官方列表
+    public void loadVerifiedToken(FragmentActivity activity,String chain){
+        BHBaseObserver<JsonArray> observer = new BHBaseObserver<JsonArray>() {
+            @Override
+            protected void onSuccess(JsonArray jsonArray) {
+                if(jsonArray==null){
+                    return;
+                }
+                LoadDataModel ldm = new LoadDataModel();
+                List<BHToken> coinList = JsonUtils.getListFromJson(jsonArray.toString(), BHToken.class);
+                if(!ToolUtils.checkListIsEmpty(coinList)){
+                    SymbolCache.getInstance().putSymbolToMap(coinList,2);
+                }
+                queryLiveData.postValue(ldm);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR,errorMsg);
+                queryLiveData.postValue(ldm);
+            }
+
+        };
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadVerifiedToken(chain)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);

@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.ui.activity;
 
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
@@ -29,12 +30,14 @@ import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.CoinSearchAdapter;
 import com.bhex.wallet.balance.helper.CoinSearchHelper;
 import com.bhex.wallet.balance.viewmodel.TokenViewModel;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.model.BHToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -112,6 +115,18 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
             }
         });
 
+        mTokenViewModel.queryLiveData.observe(this,ldm->{
+            if(ldm.loadingStatus == LoadingStatus.SUCCESS){
+                ArrayMap<String,BHToken> arrayMap = SymbolCache.getInstance().getVerifiedToken();
+                updateTokenList(new ArrayList<>(arrayMap.values()));
+            }
+
+            if(ldm.loadingStatus == LoadingStatus.ERROR){
+                updateTokenList(null);
+            }
+            refreshLayout.finishRefresh();
+        });
+
         mCoinSearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if(view.getId()==R.id.ck_select){
                 BHToken bhToken = mTokenList.get(position);
@@ -139,7 +154,6 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
         mCoinSearchAdapter.addData(data);
         mCoinSearchAdapter.notifyDataSetChanged();
     }
-
 
     /**
      * 搜索
@@ -187,6 +201,6 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        //mCoinViewModel.loadCoin(this);
+        mTokenViewModel.loadVerifiedToken(this,mChain);
     }
 }

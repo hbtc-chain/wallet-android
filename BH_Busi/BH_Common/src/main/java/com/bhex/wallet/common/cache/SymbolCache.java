@@ -161,7 +161,7 @@ public class SymbolCache extends BaseCache {
     }
 
     //1 默认 2 官方认证
-    private synchronized void putSymbolToMap(List<BHToken> coinList,int way){
+    public synchronized void putSymbolToMap(List<BHToken> coinList,int way){
         for(BHToken item:coinList){
             symbolMap.put(item.symbol,item);
             if(way==1){
@@ -172,7 +172,9 @@ public class SymbolCache extends BaseCache {
                 verifiedTokenList.put(item.symbol,item);
             }
         }
-        mBhTokenDao.insert(coinList);
+        BaseApplication.getInstance().getExecutor().execute(()->{
+            mBhTokenDao.insert(coinList);
+        });
     }
 
     public synchronized BHToken getBHToken(String symbol){
