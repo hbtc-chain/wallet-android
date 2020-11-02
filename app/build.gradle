@@ -20,7 +20,7 @@ android {
         versionName rootProject.ext.android.versionName
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        flavorDimensions "bh_wallet"
+        flavorDimensions "hbtc"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
@@ -190,7 +190,7 @@ android {
     }
 
     productFlavors {
-        bh_wallet {
+        hbtc {
             applicationId application_id
             manifestPlaceholders = [APPLICATION_ID: application_id]
             //resConfigs("en","xxhdpi")
