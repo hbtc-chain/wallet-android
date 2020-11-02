@@ -523,5 +523,6 @@
     <string name="avilable_transfer">可转</string>
     <string name="payment">支付</string>
     <string name="add_token">添加币种</string>
+    <string name="swap_to">兑换成</string>
 
 </resources>

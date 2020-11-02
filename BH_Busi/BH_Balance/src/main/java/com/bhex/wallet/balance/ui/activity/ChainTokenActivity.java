@@ -23,21 +23,18 @@ import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.BalanceAdapter;
-import com.bhex.wallet.balance.event.BHCoinEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.ui.BTCViewHolder;
 import com.bhex.wallet.balance.ui.HBCViewHolder;
 import com.bhex.wallet.balance.viewmodel.ChainTokenViewModel;
-import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
@@ -49,10 +46,6 @@ import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -196,7 +189,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         defRefreshCount1 = 0;
         defRefreshCount2 = 0;
         mBalanceViewModel.getAccountInfo(this,null);
-        //CacheCenter.getInstance().getSymbolCache().beginLoadCache();
+        mChainTokenViewModel.loadBalanceByChain(this,mBalance.chain);
     }
 
     @Override

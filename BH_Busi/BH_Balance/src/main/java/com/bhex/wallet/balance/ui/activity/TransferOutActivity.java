@@ -81,7 +81,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         bhToken = SymbolCache.getInstance().getBHToken(balance.symbol.toLowerCase());
         feeBalance = BHBalanceHelper.getBHBalanceFromAccount(getBalance().chain);
 
-        tv_reach_amount.btn_right_text.setText( balance.symbol.toUpperCase());
+        tv_reach_amount.btn_right_text.setText( balance.name.toUpperCase());
 
         ed_transfer_amount.btn_right_text.setOnClickListener(allWithDrawListener);
         tv_reach_amount.getEditText().setEnabled(false);

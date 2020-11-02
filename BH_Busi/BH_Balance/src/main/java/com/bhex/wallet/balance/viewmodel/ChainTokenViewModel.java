@@ -91,7 +91,6 @@ public class ChainTokenViewModel extends AndroidViewModel {
         BHBaseObserver<List<BHTokenItem>> pbo = new BHBaseObserver<List<BHTokenItem>>() {
             @Override
             protected void onSuccess(List<BHTokenItem> bhBalances) {
-                //LogUtils.d("ChainTokenViewModel===>:","size=2=="+bhBalances.size());
                 LoadDataModel loadDataModel = new LoadDataModel(bhBalances);
                 mutableLiveData.setValue(loadDataModel);
             }
@@ -107,6 +106,28 @@ public class ChainTokenViewModel extends AndroidViewModel {
             List<BHTokenItem> list = new ArrayList<>();
 
             List<BHToken> tokenList =  BHBalanceHelper.loadBalanceByChain(chainName);
+            //排序 字母排序
+            Collections.sort(list,((o1, o2) -> {
+                String n1 =  o1.name;
+                String n2 =  o2.name;
+                return n1.compareTo(n2);
+            }));
+
+            //找出主链币的位置
+            int position = -1;
+            for(BHToken item:tokenList){
+                position++;
+                if(!item.symbol.equalsIgnoreCase(chainName)){
+                    continue;
+                }
+                break;
+            }
+            if(position>-1 && position<tokenList.size()){
+                BHToken item = tokenList.get(position);
+                tokenList.remove(position);
+                tokenList.add(0,item);
+            }
+
             int index = 0;
             for(BHToken item:tokenList){
                 BHTokenItem bhTokenItem = new BHTokenItem(item);
@@ -114,7 +135,7 @@ public class ChainTokenViewModel extends AndroidViewModel {
                 list.add(bhTokenItem);
             }
 
-            LogUtils.d("ChainTokenViewModel==>:","item==="+list.size());
+            //LogUtils.d("ChainTokenViewModel==>:","item==="+list.size());
             //BHBalanceHelper.getBHBalanceFromAccount()
             //tokenList.clear();
             /*if(ToolUtils.checkListIsEmpty(tokenList)){

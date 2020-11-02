@@ -22,6 +22,7 @@ import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.utils.ToolUtils;
@@ -105,26 +106,13 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
         mTokenViewModel = ViewModelProviders.of(this).get(TokenViewModel.class);
 
         mTokenViewModel.searchLiveData.observe(this,ldm -> {
-            if(ldm.loadingStatus == LoadingStatus.SUCCESS){
-                updateTokenList((List<BHToken>)ldm.getData());
-                return;
-            }
-
-            if(ldm.loadingStatus == LoadingStatus.ERROR){
-                updateTokenList(null);
-            }
+            refreshLayout.finishRefresh();
+            updateTokenList(ldm);
         });
 
         mTokenViewModel.queryLiveData.observe(this,ldm->{
-            if(ldm.loadingStatus == LoadingStatus.SUCCESS){
-                ArrayMap<String,BHToken> arrayMap = SymbolCache.getInstance().getVerifiedToken();
-                updateTokenList(new ArrayList<>(arrayMap.values()));
-            }
-
-            if(ldm.loadingStatus == LoadingStatus.ERROR){
-                updateTokenList(null);
-            }
             refreshLayout.finishRefresh();
+            updateTokenList(ldm);
         });
 
         mCoinSearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -138,21 +126,23 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
             }
         });
         ed_search_content.addTextChangedListener(searchTextWatcher);
-        //refreshLayout.autoRefresh();
         ed_search_content.setOnEditorActionListener(onEditorActionListener);
-
     }
 
-    private void updateTokenList(List<BHToken> data) {
+    private void updateTokenList(LoadDataModel ldm) {
         mCoinSearchAdapter.getData().clear();
-        if(ToolUtils.checkListIsEmpty(data)){
-            empty_layout.showNoData();
+        if(ldm.getLoadingStatus()==LoadingStatus.SUCCESS){
+            if(ldm.getData()==null){
+                empty_layout.showNoData();
+            }else{
+                empty_layout.loadSuccess();
+                mCoinSearchAdapter.addData((List<BHToken>)ldm.getData());
+            }
             mCoinSearchAdapter.notifyDataSetChanged();
-            return;
+        }else{
+            empty_layout.showNeterror(null);
+            mCoinSearchAdapter.notifyDataSetChanged();
         }
-        empty_layout.loadSuccess();
-        mCoinSearchAdapter.addData(data);
-        mCoinSearchAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -201,6 +191,12 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mTokenViewModel.loadVerifiedToken(this,mChain);
+        String search_key = ed_search_content.getText().toString().trim();
+        //empty_layout.showProgess();
+        if(!TextUtils.isEmpty(search_key)){
+            mTokenViewModel.search_token(this,search_key.toLowerCase(),mChain);
+        }else{
+            mTokenViewModel.loadVerifiedToken(this,mChain);
+        }
     }
 }

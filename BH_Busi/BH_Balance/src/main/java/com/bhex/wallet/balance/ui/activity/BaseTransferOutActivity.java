@@ -112,7 +112,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
 
         et_tx_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(getBalance().chain)){
-            tv_center_title.setText(getBalance().symbol.toUpperCase()+" "+getResources().getString(R.string.transfer));
+            tv_center_title.setText(getBalance().name.toUpperCase()+" "+getResources().getString(R.string.transfer));
             tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
             tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
             layout_transfer_out_tips.setVisibility(View.GONE);
@@ -126,7 +126,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
 
         }else if(getWay()==BH_BUSI_TYPE.链内转账.getIntValue()){
             layout_transfer_out_tips.setVisibility(View.VISIBLE);
-            tv_center_title.setText(getBalance().symbol.toUpperCase()+" "+getResources().getString(R.string.transfer));
+            tv_center_title.setText(getBalance().name.toUpperCase()+" "+getResources().getString(R.string.transfer));
             tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
             tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
             btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
@@ -147,7 +147,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
 
         }else if(getWay()== BH_BUSI_TYPE.跨链转账.getIntValue()){
             layout_transfer_out_tips.setVisibility(View.VISIBLE);
-            tv_center_title.setText(getBalance().symbol.toUpperCase()+" "+getResources().getString(R.string.draw_coin));
+            tv_center_title.setText(getBalance().name.toUpperCase()+" "+getResources().getString(R.string.draw_coin));
             tv_transfer_out_tips_1.setText(getResources().getString(R.string.crosslink_withdraw_tip_1));
             tv_transfer_out_tips_2.setText(getResources().getString(R.string.crosslink_withdraw_tip_2));
             tv_transfer_out_tips_3.setText(getResources().getString(R.string.crosslink_withdraw_tip_3));

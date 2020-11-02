@@ -136,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/global_secondary_text_color"
-                    android:text="兑换成"
+                    android:text="@string/swap_to"
                     android:textSize="15sp"
                     android:layout_alignParentStart="true"
                     />

@@ -33,6 +33,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observable;
+import java8.util.stream.RefStreams;
+import java8.util.stream.Stream;
 
 /**
  * @author gongdongyang
@@ -79,12 +81,13 @@ public class TokenViewModel extends ViewModel {
         ArrayMap<String,BHToken> map_tokens = CacheCenter.getInstance().getSymbolCache().getDefaultToken();
         //添加资产
         if(checked){
-            SymbolCache.getInstance().addBHToken(bhToken);
+            CacheCenter.getInstance().getSymbolCache().addBHToken(bhToken);
             //判断币种是否在list中
-            if(map_tokens.get(bhToken.symbol)!=null){
+            /*if(map_tokens.get(bhToken.symbol)!=null){
                 //保存记录与数据库中
-                saveTokenToDb(bhToken);
-            }
+                //saveTokenToDb(bhToken);
+            }*/
+            saveTokenToDb(bhToken);
             map_tokens.put(bhToken.symbol,bhToken);
         }
         //取消资产
@@ -156,14 +159,23 @@ public class TokenViewModel extends ViewModel {
                 if(!ToolUtils.checkListIsEmpty(coinList)){
                     SymbolCache.getInstance().putSymbolToMap(coinList,2);
                 }
+                //过滤所需要币对
+                //RefStreams.of(coinList).filter(bhTokens -> bhTokens.iterator().next().chain==chain);
+                ldm.setData(coinList);
                 queryLiveData.postValue(ldm);
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-                LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR,errorMsg);
-                queryLiveData.postValue(ldm);
+                List<BHToken> list = CoinSearchHelper.loadVerifiedToken(chain);
+                if(ToolUtils.checkListIsEmpty(list)){
+                    LoadDataModel ldm = new LoadDataModel(LoadingStatus.ERROR,errorMsg);
+                    queryLiveData.postValue(ldm);
+                }else{
+                    LoadDataModel ldm = new LoadDataModel(list);
+                    queryLiveData.postValue(ldm);
+                }
             }
 
         };

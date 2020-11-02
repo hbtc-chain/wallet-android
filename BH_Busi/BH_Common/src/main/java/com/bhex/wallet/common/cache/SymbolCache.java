@@ -185,7 +185,7 @@ public class SymbolCache extends BaseCache {
         symbolMap.put(bhToken.symbol,bhToken);
     }
 
-    public ArrayMap<String,BHToken> getDefaultToken(){
+    public synchronized ArrayMap<String,BHToken> getDefaultToken(){
         String default_symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY);
         if(TextUtils.isEmpty(default_symbol)){
             return defaultTokenList;
@@ -207,9 +207,16 @@ public class SymbolCache extends BaseCache {
         return defaultTokenList;
     }
 
-    public ArrayMap<String,BHToken> getVerifiedToken(){
+    public synchronized ArrayMap<String,BHToken> getVerifiedToken(){
         return verifiedTokenList;
     }
+
+    public synchronized  void saveVerifiedToken(List<BHToken> coinList ){
+        for (BHToken item:coinList ) {
+
+        }
+    }
+
     public synchronized int getDecimals(String symbol){
         if(symbolMap.get(symbol)!=null){
             return symbolMap.get(symbol).decimals;
