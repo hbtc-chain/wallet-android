@@ -40,16 +40,21 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
-        if(t instanceof BaseResponse){
-            BaseResponse baseResponse = (BaseResponse)t;
-            if(baseResponse.code==200){
-                onSuccess(t);
+        try{
+            if(t instanceof BaseResponse){
+                BaseResponse baseResponse = (BaseResponse)t;
+                if(baseResponse.code==200){
+                    onSuccess(t);
+                }else{
+                    onFailure(baseResponse.getCode(), baseResponse.getMessage());
+                }
             }else{
-                onFailure(baseResponse.getCode(), baseResponse.getMessage());
+                onSuccess(t);
             }
-        }else{
-            onSuccess(t);
+        }catch (Exception e){
+
         }
+
     }
 
     @Override

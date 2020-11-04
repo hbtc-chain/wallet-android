@@ -34,6 +34,9 @@ public class BHConstants {
 
     public static final String SYMBOL_DEFAULT_KEY = "SYMBOL_DEFAULT_KEY";
 
+    public static final String SYMBOL_REMOVE_KEY = "SYMBOL_REMOVE_KEY";
+
+
     public static final String BHT_TOKEN = "hbc";
     public static final String HBTC = "hbtc";
 

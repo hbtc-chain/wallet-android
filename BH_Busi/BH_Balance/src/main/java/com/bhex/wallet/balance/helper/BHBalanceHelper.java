@@ -195,7 +195,7 @@ public class BHBalanceHelper {
     }
 
     public static List<BHToken> loadBalanceByChain(String chainName){
-        ArrayMap<String,BHToken> map_tokens =  CacheCenter.getInstance().getSymbolCache().getDefaultToken();
+        ArrayMap<String,BHToken> map_tokens =  CacheCenter.getInstance().getSymbolCache().getLocalToken();
         List<BHToken> res = new ArrayList<>();
         for (ArrayMap.Entry<String,BHToken> entry:map_tokens.entrySet()){
             if(!entry.getValue().chain.equalsIgnoreCase(chainName)){

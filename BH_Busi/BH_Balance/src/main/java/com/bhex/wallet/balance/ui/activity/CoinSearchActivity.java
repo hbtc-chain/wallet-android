@@ -117,7 +117,8 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
 
         mCoinSearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if(view.getId()==R.id.ck_select){
-                BHToken bhToken = mTokenList.get(position);
+                //
+                BHToken bhToken = (BHToken) adapter.getData().get(position);
 
                 CheckedTextView ck = (CheckedTextView) view;
                 ck.toggle();
@@ -183,6 +184,9 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
     private void searchTokenByName() {
         String search_key = ed_search_content.getText().toString().trim();
         if(!TextUtils.isEmpty(search_key)){
+            mCoinSearchAdapter.getData().clear();
+            mCoinSearchAdapter.notifyDataSetChanged();
+
             empty_layout.showProgess();
             mTokenViewModel.search_token(this,search_key.toLowerCase(),mChain);
         }

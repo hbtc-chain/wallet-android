@@ -244,11 +244,11 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
     private void updateDoEntrustStatus(LoadDataModel ldm) {
         if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
             if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
-                com.bhex.network.utils.ToastUtils.showToast(getString(R.string.do_entrust_succeed));
+                ToastUtils.showToast(getString(R.string.do_entrust_succeed));
             } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
-                com.bhex.network.utils.ToastUtils.showToast(getString(R.string.relieve_entrust_succeed));
+                ToastUtils.showToast(getString(R.string.relieve_entrust_succeed));
             } else if (mBussiType == ENTRUST_BUSI_TYPE.TRANFER_ENTRUS.getTypeId()) {
-                com.bhex.network.utils.ToastUtils.showToast(getString(R.string.transfer_entrust_succeed));
+                ToastUtils.showToast(getString(R.string.transfer_entrust_succeed));
             }
             finish();
         } else {
@@ -317,8 +317,13 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
         String fee = ed_entrust_fee.getInputString();
-        String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-        ed_entrust_amount.getEditText().setText(all_count);
+        if(mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()){
+            String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
+            ed_entrust_amount.getEditText().setText(all_count);
+        }else if(mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()){
+            String all_count = String.valueOf(available_amount);
+            ed_entrust_amount.getEditText().setText(all_count);
+        }
     };
 
     private void updateAssets(AccountInfo data) {
@@ -350,11 +355,12 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         }
 
         for (ValidatorDelegationInfo item : data) {
-            if (item.getValidator().equalsIgnoreCase(validatorAddress)) {
-                String asset = item.getBonded();
-                available_amount = mPresenter.getAmountForUser(asset, "0", token);
-                tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
+            if (!item.getValidator().equalsIgnoreCase(validatorAddress)) {
+                continue;
             }
+            String asset = item.getBonded();
+            available_amount = mPresenter.getAmountForUser(asset, "0", token);
+            tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
         }
     }
 

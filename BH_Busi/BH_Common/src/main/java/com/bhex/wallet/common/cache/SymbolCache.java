@@ -62,6 +62,7 @@ public class SymbolCache extends BaseCache {
     private LinkedHashMap<String, BHToken> symbolMap = new LinkedHashMap();
 
     private ArrayMap<String,BHToken> defaultTokenList = new ArrayMap<>();
+    private ArrayMap<String,BHToken> localTokenList = new ArrayMap<>();
     private ArrayMap<String,BHToken> verifiedTokenList = new ArrayMap<>();
 
     private BHTokenDao mBhTokenDao = AppDataBase.getInstance(BaseApplication.getInstance()).bhTokenDao();
@@ -85,19 +86,15 @@ public class SymbolCache extends BaseCache {
 
 
     public void loadTokenFromDb(){
-        Observable.create(emitter -> {
+        BaseApplication.getInstance().getExecutor().execute(()->{
             List<BHToken> list = mBhTokenDao.loadAllToken();
-            if(!ToolUtils.checkListIsEmpty(list)){
-                for(BHToken item:list){
-                    symbolMap.put(item.symbol,item);
-                }
+            if(ToolUtils.checkListIsEmpty(list)){
+               return;
             }
-            emitter.onNext("");
-            emitter.onComplete();
-        }).compose(RxSchedulersHelper.io_main())
-                .subscribe(v->{
-
-                });
+            for(BHToken item:list){
+                symbolMap.put(item.symbol,item);
+            }
+        });
 
     }
 
@@ -185,26 +182,47 @@ public class SymbolCache extends BaseCache {
         symbolMap.put(bhToken.symbol,bhToken);
     }
 
-    public synchronized ArrayMap<String,BHToken> getDefaultToken(){
+    public synchronized ArrayMap<String,BHToken> getDefaultTokenList(){
+        return defaultTokenList;
+    }
+
+    public synchronized ArrayMap<String,BHToken> getLocalToken(){
+        localTokenList.putAll(defaultTokenList);
+
         String default_symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY);
         if(TextUtils.isEmpty(default_symbol)){
-            return defaultTokenList;
+            return localTokenList;
         }
         //保存本地
         String []a_default_symbol = default_symbol.split("_");
         if(a_default_symbol.length==0){
-            return defaultTokenList;
+            return localTokenList;
         }
-        defaultTokenList.clear();
+        //defaultTokenList.clear();
         for(int i= 0;i<a_default_symbol.length;i++){
             BHToken bhToken = symbolMap.get(a_default_symbol[i]);
             if(bhToken==null){
                 continue;
             }
-            defaultTokenList.put(bhToken.symbol,bhToken);
-
+            localTokenList.put(bhToken.symbol,bhToken);
         }
-        return defaultTokenList;
+
+        //
+        String remove_symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_REMOVE_KEY);
+        //LogUtils.d("SymbolCache===>:","==remove_symbol=="+remove_symbol);
+        String []a_remove_symbol = remove_symbol.split("_");
+        if(a_remove_symbol.length==0){
+            return localTokenList;
+        }
+
+        for(int i= 0;i<a_remove_symbol.length;i++){
+            BHToken bhToken = localTokenList.get(a_remove_symbol[i]);
+            if(bhToken==null){
+                continue;
+            }
+            localTokenList.remove(bhToken.symbol);
+        }
+        return localTokenList;
     }
 
     public synchronized ArrayMap<String,BHToken> getVerifiedToken(){

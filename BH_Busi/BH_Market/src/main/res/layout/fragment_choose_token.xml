@@ -7,6 +7,7 @@
     android:maxHeight="350dp"
     android:orientation="vertical"
     android:background="@drawable/shape_white_16_corner"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     tools:context=".ui.activity.ChooseTokenFragment">
 
     <RelativeLayout

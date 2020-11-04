@@ -43,7 +43,7 @@
             android:textSize="15sp"
             android:textColorHint="@color/global_input_hint_color"
             android:textColor="@color/global_input_text_color"
-            android:hint="@string/please_input_token_name"
+            android:hint="@string/search_input_token_name"
             android:imeOptions="actionSearch"
             android:singleLine="true"/>
 

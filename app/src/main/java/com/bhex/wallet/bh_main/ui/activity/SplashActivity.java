@@ -76,14 +76,15 @@ public class SplashActivity extends AppCompatActivity {
                     if (!BHUserManager.getInstance().isHasWallet()) {
                         NavigateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
                     } else {
-                        /*boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
+                        boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
                         if (!isFinger) {
-                            NavigateUtil.startActivity(SplashActivity.this, LockActivity.class);
+                            //NavigateUtil.startActivity(SplashActivity.this, LockActivity.class);
+                            NavigateUtil.startActivity(SplashActivity.this, MainActivity.class);
                         } else {
                             NavigateUtil.startActivity(SplashActivity.this, FingerLoginActivity.class);
-                        }*/
+                        }
                         //ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE).navigation();
-                        NavigateUtil.startActivity(SplashActivity.this, MainActivity.class);
+                        //NavigateUtil.startActivity(SplashActivity.this, MainActivity.class);
                     }
                     finish();
                 });

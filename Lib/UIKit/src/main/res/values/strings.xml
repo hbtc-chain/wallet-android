@@ -310,6 +310,7 @@
     <string name="please_input_gasfee">请输入交易手续费</string>
     <string name="please_input_withdraw_fee">请输入提币手续费</string>
     <string name="not_available_amount">没有可用余额</string>
+    <string name="not_available_gasfee">没有足够手续费</string>
     <string name="please_transfer_amount">请输入转账数量</string>
     <string name="error_transfer_address">转账地址错误</string>
     <string name="error_transfer_amout_more_available">转账数量大于可用余额</string>
@@ -524,5 +525,6 @@
     <string name="payment">支付</string>
     <string name="add_token">添加币种</string>
     <string name="swap_to">兑换成</string>
+    <string name="search_input_token_name">更多币种请输入名称检索</string>
 
 </resources>

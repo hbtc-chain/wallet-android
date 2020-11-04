@@ -1,5 +1,6 @@
 package com.bhex.wallet.balance.viewmodel;
 
+import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import androidx.fragment.app.FragmentActivity;
@@ -78,17 +79,14 @@ public class TokenViewModel extends ViewModel {
     }
 
     public  void addOrCancelToken(boolean checked, BHToken bhToken) {
-        ArrayMap<String,BHToken> map_tokens = CacheCenter.getInstance().getSymbolCache().getDefaultToken();
+        ArrayMap<String,BHToken> map_tokens = CacheCenter.getInstance().getSymbolCache().getLocalToken();
         //添加资产
         if(checked){
             CacheCenter.getInstance().getSymbolCache().addBHToken(bhToken);
             //判断币种是否在list中
-            /*if(map_tokens.get(bhToken.symbol)!=null){
-                //保存记录与数据库中
-                //saveTokenToDb(bhToken);
-            }*/
             saveTokenToDb(bhToken);
             map_tokens.put(bhToken.symbol,bhToken);
+
         }
         //取消资产
         if(!checked){
@@ -97,16 +95,31 @@ public class TokenViewModel extends ViewModel {
             }
         }
 
-        if(ToolUtils.checkMapEmpty(map_tokens)){
-            MMKVManager.getInstance().mmkv().remove(BHConstants.SYMBOL_DEFAULT_KEY);
-            return;
-        }
-        //保存于
-        StringBuffer v_token = new StringBuffer("");
-        for (ArrayMap.Entry<String,BHToken> item:map_tokens.entrySet()) {
-            v_token.append(item.getValue().symbol).append("_");
-        }
-        MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_DEFAULT_KEY, v_token.toString());
+        //保存币种
+        BaseApplication.getInstance().getExecutor().execute(()->{
+            if(ToolUtils.checkMapEmpty(map_tokens)){
+                MMKVManager.getInstance().mmkv().remove(BHConstants.SYMBOL_DEFAULT_KEY);
+                return;
+            }
+            //保存于
+            StringBuffer v_token = new StringBuffer("");
+            for (ArrayMap.Entry<String,BHToken> item:map_tokens.entrySet()) {
+                v_token.append(item.getValue().symbol).append("_");
+            }
+
+            MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_DEFAULT_KEY, v_token.toString());
+            String remove_key = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_REMOVE_KEY,"");
+            if(checked){
+                remove_key = remove_key.replace(bhToken.symbol+"_","");
+                MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_REMOVE_KEY,remove_key);
+            }else{
+                if(!remove_key.contains(bhToken.symbol+"_")){
+                    remove_key = remove_key.concat(bhToken.symbol+"_");
+                    MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_REMOVE_KEY,remove_key);
+                }
+            }
+        });
+
     }
 
     public void saveTokenToDb(BHToken bhToken){

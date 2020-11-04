@@ -157,7 +157,7 @@ public class BHUserManager {
         /*String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
         return symbol;*/
         StringBuffer sb = new StringBuffer("");
-        ArrayMap<String,BHToken> map_tokens = SymbolCache.getInstance().getDefaultToken();
+        ArrayMap<String,BHToken> map_tokens = SymbolCache.getInstance().getLocalToken();
         for(ArrayMap.Entry<String,BHToken> item:map_tokens.entrySet()){
             sb.append(item.getValue().symbol.toUpperCase()).append(",");
         }

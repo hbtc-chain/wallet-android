@@ -8,6 +8,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
@@ -43,30 +44,39 @@ public class DoEntrustPresenter extends BasePresenter {
 
     public boolean checkReliveEntrust(String transfer_amount, String available_amount,
                                   String relive_amount,String fee_amount){
+        try{
+            if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
+                ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount));
+                return false;
+            }
 
-        if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
-            ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount));
+            if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
+                ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
+                return false;
+            }
+
+            if(TextUtils.isEmpty(relive_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.not_avilable_relieve)+BHConstants.BHT_TOKEN.toUpperCase());
+                return false;
+            }
+            if(available_amount==null || !RegexUtil.checkDecimals(available_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.not_available_gasfee));
+                return false;
+            }
+            if(Double.valueOf(fee_amount) > Double.valueOf(available_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.check_fee_max));
+                return false;
+            }
+
+            if(Double.valueOf(transfer_amount) >Double.valueOf(relive_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount_max));
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
-            return false;
-        }
-
-        if(TextUtils.isEmpty(relive_amount)){
-            ToastUtils.showToast(getActivity().getString(R.string.not_avilable_relieve)+BHConstants.BHT_TOKEN.toUpperCase());
-            return false;
-        }
-
-        if(Double.valueOf(fee_amount) > Double.valueOf(available_amount)){
-            ToastUtils.showToast(getActivity().getString(R.string.check_fee_max));
-        }
-
-        if(Double.valueOf(transfer_amount) >Double.valueOf(relive_amount)){
-            ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount_max));
-            return false;
-        }
 
         return true;
     }

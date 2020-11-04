@@ -219,6 +219,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             return;
         }
         allTokenAssets = mPresenter.calculateAllTokenPrice(getYActivity(),mAccountInfo,mChainList);
+        LogUtils.d("BalanceFragment==>:","allTokenAssets=="+allTokenAssets);
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
         //设置第一字符15sp
         String tag = iv_eye.getTag().toString();

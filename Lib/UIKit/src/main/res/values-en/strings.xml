@@ -308,6 +308,7 @@
     <string name="please_input_gasfee">Gas Fee</string>
     <string name="please_input_withdraw_fee">Gas Fee</string>
     <string name="not_available_amount">Insufficient balance</string>
+    <string name="not_available_gasfee">Insufficient fee</string>
     <string name="please_transfer_amount">Input Amount</string>
     <string name="error_transfer_address">Invalid Wallet address</string>
     <string name="error_transfer_amout_more_available">Insufficient balance</string>
@@ -523,4 +524,5 @@
     <string name="payment">Payment</string>
     <string name="add_token">Add</string>
     <string name="swap_to">Swap</string>
+    <string name="search_input_token_name">Enter the name to search more coins</string>
 </resources>

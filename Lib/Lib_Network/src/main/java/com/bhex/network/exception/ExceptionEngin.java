@@ -53,15 +53,14 @@ public class ExceptionEngin {
         if (throwable instanceof HttpException) {
             HttpException httpException = (HttpException)throwable;
             ApiException apiException = new ApiException(throwable, httpException.code());
-
             int code = httpException.code();
 
-            if (code == 408 || code == 500 || code == 502 || code == 504 || code == 512) {
+            if (code == 500 || code == 502 || code == 504 || code == 512) {
                 apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.app_net_error_msg));
                 return apiException;
             }
 
-            if (code == 403 || code == 404) {
+            if ( code == 408 || code == 404) {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(code+":");
                 stringBuilder.append(BaseApplication.getInstance().getString(R.string.app_net_error_msg));

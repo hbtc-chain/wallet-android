@@ -106,8 +106,9 @@ public class ChainTokenViewModel extends AndroidViewModel {
             List<BHTokenItem> list = new ArrayList<>();
 
             List<BHToken> tokenList =  BHBalanceHelper.loadBalanceByChain(chainName);
+
             //排序 字母排序
-            Collections.sort(list,((o1, o2) -> {
+            Collections.sort(tokenList,((o1, o2) -> {
                 String n1 =  o1.name;
                 String n2 =  o2.name;
                 return n1.compareTo(n2);
