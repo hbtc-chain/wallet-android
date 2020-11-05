@@ -105,7 +105,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     //private List<BHBalance> mBalanceList = new ArrayList<>();
     private List<BHChain> mChainList;
     private BHWallet bhWallet;
-    private AccountInfo mAccountInfo;
+    //private AccountInfo mAccountInfo;
     private BalanceViewModel balanceViewModel;
     //总资产
     private double allTokenAssets;
@@ -180,7 +180,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
             refreshLayout.finishRefresh();
             if(ldm.loadingStatus==LoadingStatus.SUCCESS){
-                updateAssets((AccountInfo) ldm.getData());
+                updateAssets();
             }
         });
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
@@ -199,14 +199,14 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     /**
      * 更新用户资产
-     * @param accountInfo
+     * @param
      */
 
-    private void updateAssets(AccountInfo accountInfo) {
+    private void updateAssets() {
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
-        mAccountInfo = accountInfo;
-        BHUserManager.getInstance().setAccountInfo(mAccountInfo);
+        //mAccountInfo = accountInfo;
+        //BHUserManager.getInstance().setAccountInfo(mAccountInfo);
         //List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
         //计算每一个币种的资产价值 和 总资产
         updateTopTokenAssets();
@@ -215,10 +215,10 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     //更新头部资产
     public void updateTopTokenAssets(){
-        if(mAccountInfo==null){
+        if(BHUserManager.getInstance().getAccountInfo()==null){
             return;
         }
-        allTokenAssets = mPresenter.calculateAllTokenPrice(getYActivity(),mAccountInfo,mChainList);
+        allTokenAssets = mPresenter.calculateAllTokenPrice(getYActivity(),BHUserManager.getInstance().getAccountInfo(),mChainList);
         LogUtils.d("BalanceFragment==>:","allTokenAssets=="+allTokenAssets);
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
         //设置第一字符15sp
@@ -291,7 +291,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(CurrencyEvent currencyEvent){
-        updateAssets(mAccountInfo);
+        updateAssets();
     }
 
     /*private SimpleTextWatcher balanceTextWatcher = new SimpleTextWatcher(){

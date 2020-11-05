@@ -164,7 +164,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             startActivity(intent);
             //startActivityForResult(intent,100);
         });
-        //refreshLayout.autoRefresh();
+
         findViewById(R.id.tv_add_token).setOnClickListener(v -> {
             ARouter.getInstance().build(ARouterConfig.Balance_Search).withString("chain",mBalance.chain).navigation();
         });

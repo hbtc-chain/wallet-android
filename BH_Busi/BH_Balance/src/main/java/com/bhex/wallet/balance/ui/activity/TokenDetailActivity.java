@@ -126,7 +126,8 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         ARouter.getInstance().inject(this);
         tv_center_title.setText(getBHBalance().name.toUpperCase());
 
-        bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
+        //bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
+        bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -213,7 +214,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     }
 
     private void initTokenAsset(){
-        if(getAccountInfo()==null){
+        if(BHUserManager.getInstance().getAccountInfo()==null){
             return;
         }
         //计算持有资产
@@ -226,13 +227,13 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             String available_value = BHBalanceHelper.getAmountForUser(this,getBHBalance().amount,"0",getBHBalance().symbol);
             tv_available_value.setText(available_value);
             //委托中
-            String bonded_value = NumberUtil.dispalyForUsertokenAmount4Level(getAccountInfo().getBonded());
+            String bonded_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getBonded());
             tv_entrust_value.setText(bonded_value);
             //赎回中
-            String unbonding_value = NumberUtil.dispalyForUsertokenAmount4Level(getAccountInfo().getUnbonding());
+            String unbonding_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getUnbonding());
             tv_redemption_value.setText(unbonding_value);
             //已收益
-            String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(getAccountInfo().getClaimed_reward());
+            String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getClaimed_reward());
             tv_income_value.setText(claimed_reward_value);
         }
 
@@ -298,9 +299,11 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         //更新
         refreshLayout.finishRefresh();
         if(ldm.loadingStatus==LoadingStatus.SUCCESS){
-            setAccountInfo(ldm.getData());
-            bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
-            mPresenter.updateBalance(getAccountInfo(),getBHBalance());
+            //setAccountInfo(ldm.getData());
+            //bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
+            bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+            //mPresenter.updateBalance(getAccountInfo(),getBHBalance());
+            setBHBalance(BHBalanceHelper.getBHBalanceFromAccount(getBHBalance().symbol));
             initTokenAsset();
         }
     }
@@ -407,7 +410,9 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
     public abstract BHBalance getBHBalance();
 
-    public abstract AccountInfo getAccountInfo();
+    public abstract void setBHBalance(BHBalance balance);
 
-    public abstract void setAccountInfo(AccountInfo accountInfo);
+    /*public abstract AccountInfo getAccountInfo();
+
+    public abstract void setAccountInfo(AccountInfo accountInfo);*/
 }

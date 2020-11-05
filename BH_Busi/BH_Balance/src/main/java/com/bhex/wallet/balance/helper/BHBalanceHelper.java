@@ -84,7 +84,6 @@ public class BHBalanceHelper {
         return result;
     }
 
-
     public static String getAmountForUser(BaseActivity context, String amount, String frozen_amount, String symbol) {
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
@@ -96,14 +95,9 @@ public class BHBalanceHelper {
         return NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
     }
 
-    public static void setTokenIcon(BaseActivity context, String symbol, AppCompatImageView iv){
-        /*int resId = getDefaultResId(symbol);
-        if(resId==0){
-            resId = R.mipmap.ic_default_coin;
-        }
-        iv.setImageDrawable(ContextCompat.getDrawable(context,resId));*/
-        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol);
-        ImageLoaderUtil.loadImageView(context, bhToken!=null?bhToken.logo:"", iv,R.mipmap.ic_default_coin);
+    public static void loadTokenIcon(Context context, AppCompatImageView iv,String symbol){
+        BHToken item = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol.toLowerCase());
+        ImageLoaderUtil.loadImageView(context,item!=null?item.logo:"", iv,R.mipmap.ic_default_coin);
     }
 
     /**
@@ -138,54 +132,14 @@ public class BHBalanceHelper {
             balance.frozen_amount = assetsBean.getFrozen_amount();
             balance.address = assetsBean.getExternal_address();
             balance.external_address = assetsBean.getExternal_address();
+            balance.is_native = assetsBean.isIs_native();
             return balance;
         }
         return balance;
     }
 
-    public static void removeCoinSeachBalance(List<BHBalance>originList,String symbol){
-        if(ToolUtils.checkListIsEmpty(originList)||TextUtils.isEmpty(symbol)){
-            return;
-        }
-        Iterator<BHBalance> iter = originList.iterator();
-        while(iter.hasNext()){
-            BHBalance bhBalance = iter.next();
-            if(!TextUtils.isEmpty(bhBalance.symbol) && bhBalance.symbol.equalsIgnoreCase(symbol)){
-                iter.remove();
-            }
-        }
-    }
-
-    public static void addCoinSeachBalance(List<BHBalance>originList,BHBalance bhBalance){
-        if(originList==null||bhBalance==null){
-            return;
-        }
-        if(originList.size()==0 && bhBalance!=null){
-            originList.add(bhBalance);
-            return;
-        }
-
-        for (BHBalance item:originList) {
-            if(!TextUtils.isEmpty(item.symbol) && item.symbol.equalsIgnoreCase(bhBalance.symbol)){
-                //flag = true;
-                return;
-            }
-        }
-        originList.add(bhBalance);
-    }
-
     public static ArrayList<MenuItem> loadCrossActionList(Context context){
         String []operator_list = context.getResources().getStringArray(R.array.Cross_operator_list);
-        ArrayList<MenuItem> list = new ArrayList<>();
-        for (String item:operator_list) {
-            MenuItem menuItem = new MenuItem(item,false);
-            list.add(menuItem);
-        }
-        return list;
-    }
-
-    public static ArrayList<MenuItem> loadExchangeActionList(Context context){
-        String []operator_list = context.getResources().getStringArray(R.array.Exchnge_operator_list);
         ArrayList<MenuItem> list = new ArrayList<>();
         for (String item:operator_list) {
             MenuItem menuItem = new MenuItem(item,false);
@@ -205,77 +159,7 @@ public class BHBalanceHelper {
         }
         return res;
     }
-    /*public static List<BHBalance> loadBalanceByChain(String chainName){
-        List<BHBalance> list = new ArrayList<>();
-        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
-        List<BHToken> tokenList =  symbolCache.loadTokenByChain(chainName);
-        if(ToolUtils.checkListIsEmpty(tokenList)){
-            return list;
-        }
 
-        for (BHToken token:tokenList){
-            if(!token.chain.equalsIgnoreCase(chainName)){
-                continue;
-            }
-
-            BHBalance balance = new BHBalance();
-            balance.name = token.name;
-            balance.chain = chainName;
-            balance.symbol = token.symbol;
-            balance.logo = token.logo;
-            balance.resId = getDefaultResId(balance.symbol);
-            BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(chainName);
-            if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){
-                balance.external_address = chainBalance.external_address;
-            }
-            list.add(balance);
-        }
-
-        Collections.sort(list,((o1, o2) -> {
-            String n1 =  o1.name;
-            String n2 =  o2.name;
-            return n1.compareTo(n2);
-        }));
-        return list;
-    }*/
-
-    public static int getDefaultResId(String symbol){
-        int resId = 0;
-
-        if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            resId = R.mipmap.ic_token;
-        }else if(symbol.equalsIgnoreCase("btc")){
-            resId = R.mipmap.ic_btc;
-        }else if(symbol.equalsIgnoreCase("eth")){
-            resId = R.mipmap.ic_eth;
-        }else if(symbol.equalsIgnoreCase("eos")){
-            resId = R.mipmap.ic_eos;
-        }else if(symbol.equalsIgnoreCase("usdt")){
-            resId = R.mipmap.ic_usdt;
-        }else{
-            resId = 0;
-        }
-        return resId;
-    }
-
-    public static void loadTokenIcon(Context context, AppCompatImageView iv,String symbol){
-        BHToken item = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol.toLowerCase());
-        ImageLoaderUtil.loadImageView(context,item!=null?item.logo:"", iv,R.mipmap.ic_default_coin);
-    }
-
-    public static String getFullName(Context context,String symbol){
-        String []res = context.getResources().getStringArray(R.array.default_chain_name);
-        if(symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            return res[0];
-        }else if(symbol.equalsIgnoreCase("btc")){
-            return res[1];
-        }else if(symbol.equalsIgnoreCase("eth")){
-            return res[2];
-        }else if(symbol.equalsIgnoreCase("trx")){
-            return res[3];
-        }
-        return "";
-    }
 
     //获取链下的资产
     public static double getAssetByChain(Context context,String chain){
