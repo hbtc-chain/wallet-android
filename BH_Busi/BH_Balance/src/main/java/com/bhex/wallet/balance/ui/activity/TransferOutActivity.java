@@ -38,7 +38,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
-import com.bhex.wallet.common.tx.TxMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
@@ -299,7 +299,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             String withDrawAmount = ed_transfer_amount.getInputStringTrim();
             String feeAmount = et_tx_fee.getInputString();
             //创建转账信息
-            List<TxMsg> tx_msg_list = BHRawTransaction.createTransferMsg(to_address,withDrawAmount,balance.symbol);
+            List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createTransferMsg(to_address,withDrawAmount,balance.symbol);
             /*transactionViewModel.transferInner(this,to_address,withDrawAmount,feeAmount,
                     withDrawAmount,password,balance.symbol);*/
             transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
@@ -312,7 +312,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             //提币手续费
             String withDrawFeeAmount = et_withdraw_fee.getInputString();
             //创建提币信息
-            List<TxMsg> tx_msg_list = BHRawTransaction.createwithDrawWMsg(to_address,withDrawAmount,withDrawFeeAmount,balance.symbol);
+            List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createwithDrawWMsg(to_address,withDrawAmount,withDrawFeeAmount,balance.symbol);
             transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
             /*transactionViewModel.transferCrossLink(this,to_address,withDrawAmount,feeAmount,
                     withDrawFeeAmount,password,balance.symbol);*/

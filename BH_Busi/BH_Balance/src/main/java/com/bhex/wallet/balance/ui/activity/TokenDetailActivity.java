@@ -42,7 +42,7 @@ import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TransactionOrder;
-import com.bhex.wallet.common.tx.TxMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -378,13 +378,13 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         if(position==1){
 
             List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-            List<TxMsg> tx_msg_list = BHRawTransaction.createRewardMsg(validatorMsgs);
+            List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createRewardMsg(validatorMsgs);
             transactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
         }else if(position==2){
 
             List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
             List<TransactionMsg.DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
-            List<TxMsg> tx_msg_list = BHRawTransaction.createReDoEntrustMsg(validatorMsgs,doEntrustMsgs);
+            List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createReDoEntrustMsg(validatorMsgs,doEntrustMsgs);
             transactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
         }
     };
@@ -412,7 +412,4 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
     public abstract void setBHBalance(BHBalance balance);
 
-    /*public abstract AccountInfo getAccountInfo();
-
-    public abstract void setAccountInfo(AccountInfo accountInfo);*/
 }

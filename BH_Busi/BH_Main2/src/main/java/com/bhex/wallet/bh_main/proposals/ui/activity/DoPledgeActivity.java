@@ -27,7 +27,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
-import com.bhex.wallet.common.tx.TxMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -224,7 +224,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
             return 0;
         });*/
 
-        List<TxMsg> tx_msg_list = BHRawTransaction.createPledgeMsg(mProposalInfo.getId(),pledge_amount,BHConstants.BHT_TOKEN);
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createPledgeMsg(mProposalInfo.getId(),pledge_amount,BHConstants.BHT_TOKEN);
         mTransactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
     }
 }

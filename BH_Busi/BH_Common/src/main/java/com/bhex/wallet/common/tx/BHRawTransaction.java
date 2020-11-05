@@ -23,7 +23,7 @@ public class BHRawTransaction {
     //public String cu_number = "0";
     public TxFee fee;
     public String memo;
-    public List<TxMsg> msgs;
+    public List<TxReq.TxMsg> msgs;
     public String sequence;
 
     public static BHRawTransaction createBaseTransaction(String sequence, String memo, BigInteger feeAmount){
@@ -52,8 +52,8 @@ public class BHRawTransaction {
     }
 
     //创建转账msg
-    public static List<TxMsg> createTransferMsg( String to,String amount, String symbol){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+    public static List<TxReq.TxMsg> createTransferMsg( String to,String amount, String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         String from = BHUserManager.getInstance().getCurrentBhWallet().address;
 
@@ -63,7 +63,7 @@ public class BHRawTransaction {
         BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
 
         //开始创建一个交易TxMsg
-        TxMsg<TransactionMsg.TransferMsg> msg = new TxMsg<TransactionMsg.TransferMsg>();
+        TxReq.TxMsg<TransactionMsg.TransferMsg> msg = new TxReq.TxMsg<TransactionMsg.TransferMsg>();
         msg.type = TRANSCATION_BUSI_TYPE.转账.getType();
 
         TransactionMsg.TransferMsg transferMsg = new TransactionMsg.TransferMsg();
@@ -87,8 +87,8 @@ public class BHRawTransaction {
     }
 
     //创建提币交易
-    public static List<TxMsg> createwithDrawWMsg( String to,String withDrawAmount, String withDrawFeeAmount, String symbol){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+    public static List<TxReq.TxMsg> createwithDrawWMsg( String to,String withDrawAmount, String withDrawFeeAmount, String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
 
         String from = BHUserManager.getInstance().getCurrentBhWallet().address;
@@ -102,7 +102,7 @@ public class BHRawTransaction {
         //提币数量
         BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,symbolBHToken.decimals)),withDrawAmount);
 
-        TxMsg<TransactionMsg.WithdrawalMsg> msg = new TxMsg<TransactionMsg.WithdrawalMsg>();
+        TxReq.TxMsg<TransactionMsg.WithdrawalMsg> msg = new TxReq.TxMsg<TransactionMsg.WithdrawalMsg>();
         msg.type = TRANSCATION_BUSI_TYPE.跨链提币.getType();
         TransactionMsg.WithdrawalMsg withdrawalMsg = new TransactionMsg.WithdrawalMsg();
         msg.value = withdrawalMsg;
@@ -119,10 +119,10 @@ public class BHRawTransaction {
     }
 
     //创建发行代币信息
-    public static List<TxMsg> createHrc20TokenWMsg(BHTokenRlease tokenRlease){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+    public static List<TxReq.TxMsg> createHrc20TokenWMsg(BHTokenRlease tokenRlease){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
         //代币发行数据
-        TxMsg<BHTokenRlease> msg = new TxMsg<BHTokenRlease>();
+        TxReq.TxMsg<BHTokenRlease> msg = new TxReq.TxMsg<BHTokenRlease>();
         msg.value = tokenRlease;
         msg.type = TRANSCATION_BUSI_TYPE.代币发行.getType();
 
@@ -131,8 +131,8 @@ public class BHRawTransaction {
     }
 
     //创建映射兑换信息
-    public static List<TxMsg> createSwapMappingMsg(String issue_symbol, String coin_symbol, String swap_amount){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+    public static List<TxReq.TxMsg> createSwapMappingMsg(String issue_symbol, String coin_symbol, String swap_amount){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         String fromUser = BHUserManager.getInstance().getCurrentBhWallet().address;
 
@@ -140,7 +140,7 @@ public class BHRawTransaction {
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(coin_symbol.toLowerCase());
         BigInteger double_swap_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),swap_amount);
 
-        TxMsg<TransactionMsg.MappingSwapMsg> txMsg = new TxMsg();
+        TxReq.TxMsg<TransactionMsg.MappingSwapMsg> txMsg = new TxReq.TxMsg();
 
         txMsg.type = TRANSCATION_BUSI_TYPE.映射.getType();
 
@@ -166,7 +166,7 @@ public class BHRawTransaction {
         bhRawTransaction.memo = "";
         bhRawTransaction.sequence = sequence;
         bhRawTransaction.msgs = new ArrayList<>();
-        TxMsg<JsonObject> txMsg = new TxMsg();
+        TxReq.TxMsg<JsonObject> txMsg = new TxReq.TxMsg();
         bhRawTransaction.msgs.add(txMsg);
 
         txMsg.type = type;
@@ -177,11 +177,11 @@ public class BHRawTransaction {
     }
 
     //创建跨链地址生成信息
-    public static List<TxMsg> createGenerateAddressMsg(String symbol){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+    public static List<TxReq.TxMsg> createGenerateAddressMsg(String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         String from_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
-        TxMsg<TransactionMsg.KeyGenMsg> msg = new TxMsg<TransactionMsg.KeyGenMsg>();
+        TxReq.TxMsg<TransactionMsg.KeyGenMsg> msg = new TxReq.TxMsg<TransactionMsg.KeyGenMsg>();
         msg.type = TRANSCATION_BUSI_TYPE.跨链地址生成.getType();
         TransactionMsg.KeyGenMsg keyGenMsg = new TransactionMsg.KeyGenMsg();
         msg.value = keyGenMsg;
@@ -196,9 +196,9 @@ public class BHRawTransaction {
     }
 
     //创建委托
-    public static List<TxMsg> createDoEntrustMsg( String validatorAddress,String delegator_amount,String symbol){
+    public static List<TxReq.TxMsg> createDoEntrustMsg( String validatorAddress,String delegator_amount,String symbol){
 
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         //委托数量
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
@@ -209,7 +209,7 @@ public class BHRawTransaction {
         String delegatorAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
 
         //开始创建一个委托TxMsg
-        TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxMsg<TransactionMsg.DoEntrustMsg>();
+        TxReq.TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxReq.TxMsg<TransactionMsg.DoEntrustMsg>();
         msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
 
         TransactionMsg.DoEntrustMsg doEntrustMsg = new TransactionMsg.DoEntrustMsg();
@@ -231,9 +231,9 @@ public class BHRawTransaction {
     }
 
     //解委托
-    public static List<TxMsg> createUnEntrustMsg(String validator_address, String un_delegator_amount, String symbol) {
+    public static List<TxReq.TxMsg> createUnEntrustMsg(String validator_address, String un_delegator_amount, String symbol) {
 
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         //委托数量
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
@@ -243,7 +243,7 @@ public class BHRawTransaction {
         //委托人
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().address;
 
-        TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxMsg<TransactionMsg.DoEntrustMsg>();
+        TxReq.TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxReq.TxMsg<TransactionMsg.DoEntrustMsg>();
 
         msg.type = TRANSCATION_BUSI_TYPE.解委托.getType();
         TransactionMsg.DoEntrustMsg doEntrustMsg = new TransactionMsg.DoEntrustMsg();
@@ -264,12 +264,12 @@ public class BHRawTransaction {
     }
 
     //提取收益
-    public static List<TxMsg> createRewardMsg(List<TransactionMsg.ValidatorMsg>list){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+    public static List<TxReq.TxMsg> createRewardMsg(List<TransactionMsg.ValidatorMsg>list){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         //开始创建一个交易TxMsg
         for(TransactionMsg.ValidatorMsg item:list){
-            TxMsg<TransactionMsg.ValidatorMsg> msg = new TxMsg<TransactionMsg.ValidatorMsg>();
+            TxReq.TxMsg<TransactionMsg.ValidatorMsg> msg = new TxReq.TxMsg<TransactionMsg.ValidatorMsg>();
             msg.type = TRANSCATION_BUSI_TYPE.提取收益.getType();
             msg.value = item;
             tx_msg_list.add(msg);
@@ -278,13 +278,13 @@ public class BHRawTransaction {
     }
 
     //复投分红
-    public static List<TxMsg> createReDoEntrustMsg(List<TransactionMsg.ValidatorMsg>validatorMsgs,
+    public static List<TxReq.TxMsg> createReDoEntrustMsg(List<TransactionMsg.ValidatorMsg>validatorMsgs,
                                                    List<TransactionMsg.DoEntrustMsg> doEntrustMsgs){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         //开始创建一个提取收益交易
         for(TransactionMsg.ValidatorMsg item:validatorMsgs){
-            TxMsg<TransactionMsg.ValidatorMsg> msg = new TxMsg<TransactionMsg.ValidatorMsg>();
+            TxReq.TxMsg<TransactionMsg.ValidatorMsg> msg = new TxReq.TxMsg<TransactionMsg.ValidatorMsg>();
             msg.type = TRANSCATION_BUSI_TYPE.提取收益.getType();
             msg.value = item;
             tx_msg_list.add(msg);
@@ -293,7 +293,7 @@ public class BHRawTransaction {
         //构建委托交易
         for(TransactionMsg.DoEntrustMsg item:doEntrustMsgs){
             //开始创建一个委托TxMsg
-            TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxMsg<TransactionMsg.DoEntrustMsg>();
+            TxReq.TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxReq.TxMsg<TransactionMsg.DoEntrustMsg>();
             msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
             msg.value = item;
             //转账Amount
@@ -303,11 +303,11 @@ public class BHRawTransaction {
     }
 
     //投票
-    public static List<TxMsg> createVoteMsg(String delegatorAddress, String option, String proposalId){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+    public static List<TxReq.TxMsg> createVoteMsg(String delegatorAddress, String option, String proposalId){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         //开始创建一个交易TxMsg
-        TxMsg<TransactionMsg.VetoMsg> msg = new TxMsg<TransactionMsg.VetoMsg>();
+        TxReq.TxMsg<TransactionMsg.VetoMsg> msg = new TxReq.TxMsg<TransactionMsg.VetoMsg>();
 
         msg.type = TRANSCATION_BUSI_TYPE.治理提案投票.getType();
 
@@ -325,8 +325,8 @@ public class BHRawTransaction {
     }
 
     //质押
-    public static List<TxMsg> createPledgeMsg( String proposalId,String pledge_amount,String symbol){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+    public static List<TxReq.TxMsg> createPledgeMsg( String proposalId,String pledge_amount,String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().address;
 
@@ -336,7 +336,7 @@ public class BHRawTransaction {
         BigInteger double_pledge_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),pledge_amount);
 
         //开始创建一个交易TxMsg
-        TxMsg<TransactionMsg.PledgeMsg> msg = new TxMsg<TransactionMsg.PledgeMsg>();
+        TxReq.TxMsg<TransactionMsg.PledgeMsg> msg = new TxReq.TxMsg<TransactionMsg.PledgeMsg>();
         msg.type = TRANSCATION_BUSI_TYPE.治理提案质押.getType();
 
         TransactionMsg.PledgeMsg pledgeMsg = new TransactionMsg.PledgeMsg();
@@ -361,9 +361,9 @@ public class BHRawTransaction {
     }
 
     //治理提案
-    public static List<TxMsg> createProposalMsg(String type, String title,
+    public static List<TxReq.TxMsg> createProposalMsg(String type, String title,
                                                 String description, String  proposal_amount,String symbol){
-        List<TxMsg> tx_msg_list = new ArrayList<>();
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().address;
 
@@ -372,7 +372,7 @@ public class BHRawTransaction {
         BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
         BigInteger double_proposal_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),proposal_amount);
 
-        TxMsg<TransactionMsg.CreateProposalMsg> msg = new TxMsg<TransactionMsg.CreateProposalMsg>();
+        TxReq.TxMsg<TransactionMsg.CreateProposalMsg> msg = new TxReq.TxMsg<TransactionMsg.CreateProposalMsg>();
 
         msg.type = TRANSCATION_BUSI_TYPE.发起治理提案.getType();
         TransactionMsg.CreateProposalMsg createProposalMsg = new TransactionMsg.CreateProposalMsg();

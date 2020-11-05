@@ -28,7 +28,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
-import com.bhex.wallet.common.tx.TxMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -273,7 +273,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
             return 0;
         });*/
 
-        List<TxMsg> tx_msg_list = BHRawTransaction.createVoteMsg(delegator_address,mOption,mProposalInfo.getId());
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createVoteMsg(delegator_address,mOption,mProposalInfo.getId());
         transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
     }
 }

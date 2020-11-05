@@ -42,7 +42,7 @@ public class BHSendTranscation {
         bhSendTranscation.tx.fee = bhRawTransaction.fee;
         bhSendTranscation.tx.msg = bhRawTransaction.msgs;
         bhSendTranscation.tx.signatures = new ArrayList<>();
-        TxSignature signature = TxSignature.createTxSignature(bhCredentials,sign);
+        TxReq.TxSignature signature = TxReq.TxSignature.createTxSignature(bhCredentials,sign);
         bhSendTranscation.tx.signatures.add(signature);
         return bhSendTranscation;
     }

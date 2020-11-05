@@ -28,7 +28,7 @@ public class BHTransactionManager {
         return sign;
     }
 
-    public static BHSendTranscation createSendTranscation(String data,String sequence,String feeAmount, List<TxMsg> msgs ){
+    public static BHSendTranscation createSendTranscation(String data,String sequence,String feeAmount, List<TxReq.TxMsg> msgs ){
         BigInteger double_feeAmount = NumberUtil.mulExt(feeAmount,String.valueOf(BHConstants.BHT_DECIMALS));
         BHRawTransaction bhRawTransactionExt = BHRawTransaction.createBaseTransaction(sequence,BHConstants.BH_MEMO,double_feeAmount);
         bhRawTransactionExt.msgs = msgs;

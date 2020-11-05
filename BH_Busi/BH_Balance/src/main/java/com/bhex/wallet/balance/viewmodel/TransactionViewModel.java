@@ -31,7 +31,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.tx.TransactionOrder;
-import com.bhex.wallet.common.tx.TxMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -258,7 +258,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
     }
 
     //链内转账
-    public void transferInnerExt(FragmentActivity activity, String password, String feeAmount,List<TxMsg> txMsgList) {
+    public void transferInnerExt(FragmentActivity activity, String password, String feeAmount,List<TxReq.TxMsg> txMsgList) {
 
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override

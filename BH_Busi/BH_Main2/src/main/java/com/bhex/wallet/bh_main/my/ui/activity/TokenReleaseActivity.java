@@ -48,7 +48,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.BHTokenRlease;
-import com.bhex.wallet.common.tx.TxMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
@@ -329,7 +329,7 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         String feeAmount = inp_tx_fee.getInputString();
         BHTokenRlease tokenRlease = new BHTokenRlease(
                 formAddress, toAddress, tokenName, tokenCount, tokenDecimals);
-        List<TxMsg> tx_msg_list = BHRawTransaction.createHrc20TokenWMsg(tokenRlease);
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createHrc20TokenWMsg(tokenRlease);
         transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
         //transactionViewModel.hrc20TokenRelease(this, tokenRlease, feeAmount, password);
     }

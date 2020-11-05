@@ -8,9 +8,9 @@ import java.util.List;
  * Date: 2020/4/1
  * Time: 14:46
  */
-public class TxMsg<T> {
+/*public class TxMsg<T> {
     public String type;
     public T value;
 
 
-}
+}*/

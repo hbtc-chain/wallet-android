@@ -31,7 +31,7 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.BHRawTransaction;
-import com.bhex.wallet.common.tx.TxMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.google.android.material.button.MaterialButton;
 import com.warkiz.widget.IndicatorSeekBar;
@@ -196,9 +196,9 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
     //密码提示回调
     @Override
     public void confirmAction(String password, int position,int way) {
-        BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
+        //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         String feeAmount = ed_fee.getInputString();
-        List<TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(balance.symbol);
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(balance.symbol);
         transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
     }
 }

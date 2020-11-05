@@ -32,7 +32,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
-import com.bhex.wallet.common.tx.TxMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -398,7 +398,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             String entrustDrawAmount = ed_entrust_amount.getInputString();
             String feeAmount = ed_entrust_fee.getInputString();
 
-            List<TxMsg> tx_msg_list = BHRawTransaction.createDoEntrustMsg(validator_address,entrustDrawAmount,token);
+            List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createDoEntrustMsg(validator_address,entrustDrawAmount,token);
             transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
         } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId())  {
 
@@ -413,7 +413,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
                 return 0;
             });*/
 
-            List<TxMsg> tx_msg_list = BHRawTransaction.createUnEntrustMsg(validator_address,unEntrustDrawAmount,token);
+            List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createUnEntrustMsg(validator_address,unEntrustDrawAmount,token);
             transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
 
 
