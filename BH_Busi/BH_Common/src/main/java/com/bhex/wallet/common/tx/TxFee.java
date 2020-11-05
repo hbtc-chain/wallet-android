@@ -11,4 +11,9 @@ import java.util.List;
 public class TxFee {
     public List<TxCoin> amount;
     public String gas;
+
+    public static class TxCoin {
+        public String denom;
+        public String amount;
+    }
 }

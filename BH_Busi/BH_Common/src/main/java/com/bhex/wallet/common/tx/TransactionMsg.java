@@ -9,14 +9,14 @@ public class TransactionMsg {
     public static class TransferMsg{
         public String from_address;
         public String to_address;
-        public List<TxCoin> amount;
+        public List<TxFee.TxCoin> amount;
     }
 
     //治理提案
     public static class CreateProposalMsg {
         public ProposalContent content;
         public String proposer;
-        public List<TxCoin> initial_deposit;
+        public List<TxFee.TxCoin> initial_deposit;
 
 
         public static class ProposalContent {
@@ -34,7 +34,7 @@ public class TransactionMsg {
     public static class DoEntrustMsg {
         public String delegator_address;
         public String validator_address;
-        public TxCoin amount;
+        public TxFee.TxCoin amount;
     }
 
     //地址生成
@@ -97,7 +97,7 @@ public class TransactionMsg {
     public static class PledgeMsg {
         public String proposal_id;
         public String depositor;
-        public List<TxCoin> amount;
+        public List<TxFee.TxCoin> amount;
     }
 
     //映射兑换
@@ -107,7 +107,7 @@ public class TransactionMsg {
         public String from;
         //映射对的symbol
         public String issue_symbol;
-        public List<TxCoin> coins = new ArrayList<>();
+        public List<TxFee.TxCoin> coins = new ArrayList<>();
 
     }
 }

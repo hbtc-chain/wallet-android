@@ -14,7 +14,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransactionMsg;
-import com.bhex.wallet.common.tx.TxCoin;
+import com.bhex.wallet.common.tx.TxFee;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -129,7 +129,7 @@ public class AssetPresenter extends BasePresenter {
             doEntrust.validator_address = item.validator;
 
             //委托金额
-            TxCoin txCoin = new TxCoin();
+            TxFee.TxCoin txCoin = new TxFee.TxCoin();
             txCoin.denom = BHConstants.BHT_TOKEN;
             double tx_amount = NumberUtil.mul(item.unclaimed_reward,String.valueOf(BHConstants.BHT_DECIMALS));
             txCoin.amount = BigDecimal.valueOf(tx_amount).toBigInteger().toString(10);

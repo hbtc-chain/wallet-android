@@ -43,7 +43,7 @@ public class BHRawTransaction {
         TxFee fee = new TxFee();
         fee.amount = new ArrayList<>();
 
-        TxCoin feeCoin = new TxCoin();
+        TxFee.TxCoin feeCoin = new TxFee.TxCoin();
         feeCoin.amount = feeAmount.toString(10);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
@@ -72,7 +72,7 @@ public class BHRawTransaction {
         transferMsg.amount = new ArrayList<>();
 
         //转账Amount
-        TxCoin coin = new TxCoin();
+        TxFee.TxCoin coin = new TxFee.TxCoin();
         coin.denom = symbol;
         coin.amount = double_amount.toString(10);
 
@@ -150,7 +150,7 @@ public class BHRawTransaction {
         mappingSwapMsg.from = fromUser;
         mappingSwapMsg.issue_symbol = issue_symbol;
 
-        TxCoin txCoin = new TxCoin();
+        TxFee.TxCoin txCoin = new TxFee.TxCoin();
         txCoin.amount = double_swap_amount.toString(10);
         txCoin.denom = coin_symbol;
         mappingSwapMsg.coins.add(txCoin);
@@ -216,7 +216,7 @@ public class BHRawTransaction {
         msg.value = doEntrustMsg;
 
         //转账Amount
-        TxCoin coin = new TxCoin();
+        TxFee.TxCoin coin = new TxFee.TxCoin();
         coin.denom = symbol;
         coin.amount = double_delegator_amount.toString(10);
 
@@ -250,7 +250,7 @@ public class BHRawTransaction {
         msg.value = doEntrustMsg;
 
         //转账Amount
-        TxCoin coin = new TxCoin();
+        TxFee.TxCoin coin = new TxFee.TxCoin();
         coin.denom = symbol;
         coin.amount = double_un_delegator_amount.toString(10);
 
@@ -345,7 +345,7 @@ public class BHRawTransaction {
         pledgeMsg.amount = new ArrayList<>();
 
         //转账Amount
-        TxCoin coin = new TxCoin();
+        TxFee.TxCoin coin = new TxFee.TxCoin();
         coin.denom = symbol;
         coin.amount = double_pledge_amount.toString(10);
 
@@ -381,7 +381,7 @@ public class BHRawTransaction {
         createProposalMsg.initial_deposit = new ArrayList<>();
 
         //转账Amount
-        TxCoin coin = new TxCoin();
+        TxFee.TxCoin coin = new TxFee.TxCoin();
         coin.denom = symbol;
         coin.amount = double_proposal_amount.toString(10);
         createProposalMsg.initial_deposit.add(coin);
