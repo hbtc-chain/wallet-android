@@ -14,9 +14,7 @@ import androidx.core.content.ContextCompat;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
-import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.adapter.BalanceAdapter;
@@ -32,17 +30,6 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.model.BHToken;
-import com.bhex.wallet.common.tx.TransferMsg;
-import com.bhex.wallet.common.tx.TxCoin;
-import com.bhex.wallet.common.tx.TxFee;
-import com.bhex.wallet.common.tx.TxMsg;
-import com.bhex.wallet.common.tx.SendTxRequest;
-import com.bhex.wallet.common.tx.Tx;
-import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.tx.TxSignature;
-
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -172,9 +172,11 @@ public class TokenViewModel extends ViewModel {
                 if(!ToolUtils.checkListIsEmpty(coinList)){
                     SymbolCache.getInstance().putSymbolToMap(coinList,2);
                 }
+
+                List<BHToken> resList = CoinSearchHelper.loadVerifiedToken(chain);
                 //过滤所需要币对
                 //RefStreams.of(coinList).filter(bhTokens -> bhTokens.iterator().next().chain==chain);
-                ldm.setData(coinList);
+                ldm.setData(resList);
                 queryLiveData.postValue(ldm);
             }
 

@@ -17,10 +17,10 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.indicator.OnSampleSeekChangeListener;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.ToolUtils;
+import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
@@ -31,8 +31,8 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxMsg;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -40,7 +40,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.SeekParams;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import butterknife.BindView;
@@ -94,6 +93,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
     private String token = BHConstants.BHT_TOKEN;
 
     EnstrustViewModel mEnstrustViewModel;
+    TransactionViewModel transactionViewModel;
     //BalanceViewModel mBalanceViewModel;
     String mAvailabelTitle = "";
 
@@ -121,6 +121,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
     private void initValidatorView() {
         tv_to_address.getEditText().setEnabled(false);
+        refreshLayout.setEnableLoadMore(false);
 
         if (mBussiType == ENTRUST_BUSI_TYPE.TRANFER_ENTRUS.getTypeId()) {
             if (mValidatorInfo != null) {
@@ -191,7 +192,12 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         mEnstrustViewModel.mutableLiveData.observe(this, ldm -> {
             updateDoEntrustStatus(ldm);
         });
-        refreshLayout.setEnableLoadMore(false);
+
+        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+        transactionViewModel.mutableLiveData.observe(this, ldm -> {
+            updateDoEntrustStatus(ldm);
+        });
+
 
         LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).observe(this,ldm->{
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
@@ -389,32 +395,28 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId())  {
 
             String validator_address = validatorAddress;
-            BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
             String entrustDrawAmount = ed_entrust_amount.getInputString();
             String feeAmount = ed_entrust_fee.getInputString();
 
-
-            BHTransactionManager.loadSuquece(suquece -> {
-                BHSendTranscation bhSendTranscation = BHTransactionManager.doEntrust( validator_address, entrustDrawAmount, feeAmount,
-                        gasPrice,password, suquece, token);
-                mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
-                return 0;
-            });
+            List<TxMsg> tx_msg_list = BHRawTransaction.createDoEntrustMsg(validator_address,entrustDrawAmount,token);
+            transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
         } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId())  {
 
-
             String validator_address = validatorAddress;
-            BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-            String entrustDrawAmount = ed_entrust_amount.getInputString();
+            String unEntrustDrawAmount = ed_entrust_amount.getInputString();
             String feeAmount = ed_entrust_fee.getInputString();
 
-
-            BHTransactionManager.loadSuquece(suquece -> {
+            /*BHTransactionManager.loadSuquece(suquece -> {
                 BHSendTranscation bhSendTranscation = BHTransactionManager.relieveEntrust( validator_address, entrustDrawAmount, feeAmount,
-                        gasPrice, password, suquece, token);
+                         password, suquece, token);
                 mEnstrustViewModel.sendDoEntrust(this, bhSendTranscation);
                 return 0;
-            });
+            });*/
+
+            List<TxMsg> tx_msg_list = BHRawTransaction.createUnEntrustMsg(validator_address,unEntrustDrawAmount,token);
+            transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
+
+
         }
 
     }

@@ -16,7 +16,7 @@ public class ExceptionEngin {
 
     public static final int OK = 200;
 
-    public static final int BAD_GATEWAY = 502;
+    /*public static final int BAD_GATEWAY = 502;
 
     public static final int ERROR_NO_PREMESSION = 1005;
 
@@ -42,7 +42,7 @@ public class ExceptionEngin {
 
     public static final int UNAUTHORIZED = 401;
 
-    public static final int UNKNOWN = 1000;
+    public static final int UNKNOWN = 1000;*/
 
     public static ApiException handleException(Throwable throwable) throws Exception {
         if (throwable != null) {

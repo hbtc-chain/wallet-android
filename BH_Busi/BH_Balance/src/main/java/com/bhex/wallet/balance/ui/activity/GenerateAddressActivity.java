@@ -1,6 +1,5 @@
 package com.bhex.wallet.balance.ui.activity;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -20,9 +19,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.indicator.OnSampleSeekChangeListener;
-import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -33,8 +30,8 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxMsg;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.google.android.material.button.MaterialButton;
 import com.warkiz.widget.IndicatorSeekBar;
@@ -43,9 +40,9 @@ import com.warkiz.widget.SeekParams;
 import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -201,11 +198,7 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
     public void confirmAction(String password, int position,int way) {
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         String feeAmount = ed_fee.getInputString();
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation =
-                    BHTransactionManager.crossLinkAddress(feeAmount,gasPrice,password,suquece,balance.symbol);
-            transactionViewModel.sendTransaction(this,bhSendTranscation);
-            return 0;
-        });
+        List<TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(balance.symbol);
+        transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
     }
 }

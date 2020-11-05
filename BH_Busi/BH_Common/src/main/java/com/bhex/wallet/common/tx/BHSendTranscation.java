@@ -1,6 +1,5 @@
 package com.bhex.wallet.common.tx;
 
-import java.security.Signature;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +19,23 @@ public class BHSendTranscation {
      * @param sign
      * @return
      */
-    public static BHSendTranscation createBHSendTransaction(BHRawTransaction bhRawTransaction,
+    /*public static BHSendTranscation createBHSendTransaction(BHRawTransaction bhRawTransaction,
                                                             BHCredentials bhCredentials,
                                                             String sign,String mode){
+        BHSendTranscation bhSendTranscation = new BHSendTranscation();
+        bhSendTranscation.mode = mode;
+        bhSendTranscation.tx.memo= bhRawTransaction.memo;
+        bhSendTranscation.tx.fee = bhRawTransaction.fee;
+        bhSendTranscation.tx.msg = bhRawTransaction.msgs;
+        bhSendTranscation.tx.signatures = new ArrayList<>();
+        TxSignature signature = TxSignature.createTxSignature(bhCredentials,sign);
+        bhSendTranscation.tx.signatures.add(signature);
+        return bhSendTranscation;
+    }*/
+
+    public static BHSendTranscation createBHSendTransaction2(BHRawTransaction bhRawTransaction,
+                                                             BHCredentials bhCredentials,
+                                                             String sign, String mode){
         BHSendTranscation bhSendTranscation = new BHSendTranscation();
         bhSendTranscation.mode = mode;
         bhSendTranscation.tx.memo= bhRawTransaction.memo;

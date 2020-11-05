@@ -39,11 +39,10 @@ import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHTokenMapping;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
-import com.bhex.wallet.common.tx.DoEntrustMsg;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TransactionOrder;
-import com.bhex.wallet.common.tx.ValidatorMsg;
+import com.bhex.wallet.common.tx.TxMsg;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -53,7 +52,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import butterknife.BindView;
@@ -375,54 +373,26 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
     PasswordFragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
         if(position==1){
-            BHTransactionManager.loadSuquece(suquece -> {
-                List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-                double all_reward = mPresenter.calAllReward(mRewardList);
-                //BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-                BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), BHConstants.BHT_DEFAULT_FEE,
-                        password, suquece);
-                transactionViewModel.sendTransaction(this, bhSendTranscation);
-                return 0;
-            });
+
+            List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
+            List<TxMsg> tx_msg_list = BHRawTransaction.createRewardMsg(validatorMsgs);
+            transactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
         }else if(position==2){
-            BHTransactionManager.loadSuquece(suquece -> {
-                List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-                List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
-                BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
-                        "",BHConstants.BHT_DEFAULT_FEE,password,suquece);
-                transactionViewModel.sendTransaction(this,bhSendTranscation);
-                return 0;
-            });
+
+            List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
+            List<TransactionMsg.DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
+            List<TxMsg> tx_msg_list = BHRawTransaction.createReDoEntrustMsg(validatorMsgs,doEntrustMsgs);
+            transactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
         }
     };
 
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        /*BHTransactionManager.loadSuquece(suquece -> {
-            List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-            double all_reward = mPresenter.calAllReward(mRewardList);
-            BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-
-            BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), BHConstants.BHT_DEFAULT_FEE,
-                    gasPrice, null, suquece);
-            transactionViewModel.sendTransaction(this, bhSendTranscation);
-            return 0;
-        });*/
         PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,1);
     });
 
     //发送复投分红交易
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
-        /*BHTransactionManager.loadSuquece(suquece -> {
-            BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-
-            List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-            List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
-            BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
-                    "",BHConstants.BHT_DEFAULT_FEE, gasPrice,null,suquece);
-            transactionViewModel.sendTransaction(this,bhSendTranscation);
-            return 0;
-        });*/
         PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,2);
     });
 

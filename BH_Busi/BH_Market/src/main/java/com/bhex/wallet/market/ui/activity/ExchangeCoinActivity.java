@@ -31,8 +31,8 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.BHTokenMapping;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxMsg;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -246,14 +246,10 @@ public class ExchangeCoinActivity extends BaseActivity
         String coin_symbol = mTokenMapping.coin_symbol;
         String issue_symbol = mTokenMapping.issue_symbol;
         String map_amount = inp_amount.getText().toString().trim();
-        /*BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.createMappingSwap(issue_symbol, coin_symbol, map_amount,
-                    BHConstants.BHT_DEFAULT_FEE, suquece, password);
-            mTransactionViewModel.sendTransaction(this, bhSendTranscation);
-            return 0;
-        });*/
+        //
+        List<TxMsg> tx_msg_list = BHRawTransaction.createSwapMappingMsg(issue_symbol,coin_symbol,map_amount);
 
-        mTransactionViewModel.swapTransaction(this,issue_symbol, coin_symbol, map_amount, BHConstants.BHT_DEFAULT_FEE,password);
+        mTransactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
     }
 
     //更新兑换状态

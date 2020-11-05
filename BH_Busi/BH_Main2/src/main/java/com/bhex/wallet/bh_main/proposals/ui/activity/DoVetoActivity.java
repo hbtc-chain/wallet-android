@@ -18,7 +18,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.crypto.CryptoUtil;
+import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.proposals.presenter.DoVetoPresenter;
@@ -27,14 +27,13 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxMsg;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import butterknife.BindView;
@@ -100,6 +99,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
     private String available_amount;
 
     ProposalViewModel mProposalViewModel;
+    TransactionViewModel transactionViewModel;
     private String mOption = "";
 
     @Override
@@ -130,6 +130,11 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
     protected void addEvent() {
         mProposalViewModel = ViewModelProviders.of(this).get(ProposalViewModel.class);
         mProposalViewModel.doVetoLiveData.observe(this, ldm -> {
+            updateDoVetoStatus(ldm);
+        });
+
+        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+        transactionViewModel.mutableLiveData.observe(this,ldm -> {
             updateDoVetoStatus(ldm);
         });
 
@@ -258,17 +263,17 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
 
     @Override
     public void confirmAction(String password, int position,int way) {
-        String hexPK = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, BHUserManager.getInstance().getCurrentBhWallet().password);
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
-        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
         String feeAmount = ed_fee.getInputString();
 
-
-        BHTransactionManager.loadSuquece(suquece -> {
+       /* BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.doVeto(delegator_address, mProposalInfo.getId(), mOption, feeAmount,
                     gasPrice,password, suquece, token);
             mProposalViewModel.sendDoVeto(this, bhSendTranscation);
             return 0;
-        });
+        });*/
+
+        List<TxMsg> tx_msg_list = BHRawTransaction.createVoteMsg(delegator_address,mOption,mProposalInfo.getId());
+        transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
     }
 }

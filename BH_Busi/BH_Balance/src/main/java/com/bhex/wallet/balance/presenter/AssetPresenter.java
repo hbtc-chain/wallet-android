@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.DelegateValidator;
@@ -14,10 +13,8 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
-import com.bhex.wallet.common.tx.DoEntrustMsg;
+import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TxCoin;
-import com.bhex.wallet.common.tx.TxSignature;
-import com.bhex.wallet.common.tx.ValidatorMsg;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -114,20 +111,20 @@ public class AssetPresenter extends BasePresenter {
     }
 
     //获取所有的验证人消息
-    public List<ValidatorMsg> getAllValidator(List<DelegateValidator> list){
-        List<ValidatorMsg> validatorMsgs = new ArrayList<>();
+    public List<TransactionMsg.ValidatorMsg> getAllValidator(List<DelegateValidator> list){
+        List<TransactionMsg.ValidatorMsg> validatorMsgs = new ArrayList<>();
         for(DelegateValidator item:list){
-            ValidatorMsg validatorMsg = new ValidatorMsg(BHUserManager.getInstance().getCurrentBhWallet().address,item.validator);
+            TransactionMsg.ValidatorMsg validatorMsg = new TransactionMsg.ValidatorMsg(BHUserManager.getInstance().getCurrentBhWallet().address,item.validator);
             validatorMsgs.add(validatorMsg);
         }
         return validatorMsgs;
     }
 
     //创建所有委托消息
-    public List<DoEntrustMsg> getAllEntrust(List<DelegateValidator> list){
-        List<DoEntrustMsg> doEntrustMsgs = new ArrayList<>();
+    public List<TransactionMsg.DoEntrustMsg> getAllEntrust(List<DelegateValidator> list){
+        List<TransactionMsg.DoEntrustMsg> doEntrustMsgs = new ArrayList<>();
         for(DelegateValidator item:list){
-            DoEntrustMsg doEntrust = new DoEntrustMsg();
+            TransactionMsg.DoEntrustMsg doEntrust = new TransactionMsg.DoEntrustMsg();
             doEntrust.delegator_address = BHUserManager.getInstance().getCurrentBhWallet().address;
             doEntrust.validator_address = item.validator;
 

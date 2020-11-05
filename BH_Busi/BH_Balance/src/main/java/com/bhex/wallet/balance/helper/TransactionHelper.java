@@ -246,7 +246,7 @@ public class TransactionHelper {
             tv_from.setText(delegateBean.delegator_address);
 
             tv_to.setText(delegateBean.validator_address);
-        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.取消委托.getType())){
+        }else if(txType.equalsIgnoreCase(TRANSCATION_BUSI_TYPE.解委托.getType())){
 
         }
     }
@@ -260,7 +260,7 @@ public class TransactionHelper {
                 || TRANSCATION_BUSI_TYPE.跨链充值.getType().equalsIgnoreCase(txType)
                 || TRANSCATION_BUSI_TYPE.跨链提币.getType().equalsIgnoreCase(txType)
                 || TRANSCATION_BUSI_TYPE.复投分红.getType().equalsIgnoreCase(txType)
-                || TRANSCATION_BUSI_TYPE.取消委托.getType().equalsIgnoreCase(txType)){
+                || TRANSCATION_BUSI_TYPE.解委托.getType().equalsIgnoreCase(txType)){
             return true;
         }
         return false;

@@ -2,7 +2,6 @@ package com.bhex.wallet.balance.viewmodel;
 
 import android.app.Application;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -30,9 +29,9 @@ import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTokenRlease;
 import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.common.tx.TransactionOrder;
+import com.bhex.wallet.common.tx.TxMsg;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -46,7 +45,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 
@@ -260,8 +258,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
     }
 
     //链内转账
-    public void transferInner(FragmentActivity activity,String to_address,String withDrawAmount,String feeAmount,
-                                   String withDrawFeeAmount,String password,String symbol) {
+    public void transferInnerExt(FragmentActivity activity, String password, String feeAmount,List<TxMsg> txMsgList) {
 
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
@@ -288,91 +285,12 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                     if(TextUtils.isEmpty(accountInfo.getSequence())){
                         return null;
                     }
-                    BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
-                            null,password,accountInfo.getSequence(),symbol);
+                    /*BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
+                            null,password,accountInfo.getSequence(),symbol);*/
+                    BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,accountInfo.getSequence(),feeAmount,txMsgList);
                     String body = JsonUtils.toJson(bhSendTranscation);
                     RequestBody txBody = HUtils.createJson(body);
                     return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
-                })
-                .compose(RxSchedulersHelper.io_main())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
-                .subscribe(observer);
-    }
-
-    //跨链转账
-    public void transferCrossLink(FragmentActivity activity,String to_address,String withDrawAmount,String feeAmount,
-                              String withDrawFeeAmount,String password,String symbol){
-
-        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
-            @Override
-            protected void onSuccess(JsonObject jsonObject) {
-                super.onSuccess(jsonObject);
-                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
-                lmd.loadingStatus = LoadingStatus.SUCCESS;
-                mutableLiveData.postValue(lmd);
-            }
-
-            @Override
-            protected void onFailure(int code, String errorMsg) {
-                super.onFailure(code, errorMsg);
-                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
-                mutableLiveData.postValue(lmd);
-            }
-        };
-
-        BHttpApi.getService(BHttpApiInterface.class)
-                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
-                .observeOn(Schedulers.io())
-                .flatMap(jsonObject -> {
-                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
-                    if(TextUtils.isEmpty(accountInfo.getSequence())){
-                        return null;
-                    }
-                    BHSendTranscation bhSendTranscation =  BHTransactionManager.crossLinkTransfer(to_address,withDrawAmount,feeAmount,
-                            null,withDrawFeeAmount,password,accountInfo.getSequence(),symbol);
-                    String body = JsonUtils.toJson(bhSendTranscation);
-                    RequestBody txBody = HUtils.createJson(body);
-                    return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
-                })
-                .compose(RxSchedulersHelper.io_main())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
-                .subscribe(observer);
-
-    }
-
-    //代币发行
-    public void hrc20TokenRelease(FragmentActivity activity, BHTokenRlease tokenRlease, String feeAmount, String password) {
-        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
-            @Override
-            protected void onSuccess(JsonObject jsonObject) {
-                super.onSuccess(jsonObject);
-                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
-                lmd.loadingStatus = LoadingStatus.SUCCESS;
-                mutableLiveData.postValue(lmd);
-            }
-
-            @Override
-            protected void onFailure(int code, String errorMsg) {
-                super.onFailure(code, errorMsg);
-                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
-                mutableLiveData.postValue(lmd);
-            }
-        };
-
-        BHttpApi.getService(BHttpApiInterface.class)
-                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
-                .observeOn(Schedulers.io())
-                .flatMap(jsonObject -> {
-                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
-                    if(TextUtils.isEmpty(accountInfo.getSequence())){
-                        return null;
-                    }
-                    BHSendTranscation bhSendTranscation =   BHTransactionManager.hrc20TokenRelease(tokenRlease,feeAmount,accountInfo.getSequence(),password);;
-                    String body = JsonUtils.toJson(bhSendTranscation);
-                    RequestBody txBody = HUtils.createJson(body);
-                    LogUtils.d("TranscationViewModel===>:","body=="+body);
-                    return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
-                    //return null;
                 })
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
@@ -421,46 +339,5 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 .subscribe(observer);
     }
 
-    //兑换
-    public void  swapTransaction(FragmentActivity activity,String issue_symbol, String coin_symbol,String  map_amount,String fee_amount, String password){
-        BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
-            @Override
-            protected void onSuccess(JsonObject jsonObject) {
-                super.onSuccess(jsonObject);
-                LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
-                lmd.loadingStatus = LoadingStatus.SUCCESS;
-                mutableLiveData.postValue(lmd);
-            }
 
-            @Override
-            protected void onFailure(int code, String errorMsg) {
-                super.onFailure(code, errorMsg);
-                LoadDataModel lmd = new LoadDataModel(code,errorMsg);
-                mutableLiveData.postValue(lmd);
-            }
-        };
-
-        BHttpApi.getService(BHttpApiInterface.class)
-                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
-                .observeOn(Schedulers.io())
-                .flatMap(jsonObject -> {
-                    AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
-                    if(TextUtils.isEmpty(accountInfo.getSequence())){
-                        return null;
-                    }
-
-                    BHSendTranscation bhSendTranscation = BHTransactionManager.createMappingSwap(issue_symbol, coin_symbol, map_amount,
-                            BHConstants.BHT_DEFAULT_FEE, accountInfo.getSequence(), password);
-
-                    String body = JsonUtils.toJson(bhSendTranscation);
-
-                    RequestBody txBody = HUtils.createJson(body);
-
-                    return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
-                })
-                .compose(RxSchedulersHelper.io_main())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
-                .subscribe(observer);
-
-    }
 }

@@ -1,31 +1,20 @@
 package com.bhex.wallet.market.ui.fragment;
 
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.base.LoadDataModel;
-import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.exception.ExceptionEngin;
 import com.bhex.network.utils.JsonUtils;
-import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.event.AccountEvent;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
 import com.bhex.wallet.market.event.H5SignEvent;
@@ -36,7 +25,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;

@@ -156,6 +156,8 @@ public class NumberUtil {
             if(index>0){
                 int dotLenght = re_def_val.substring(index+1).length();
                 digit = dotLenght>digit?digit:dotLenght;
+            }else{
+                digit = 0;
             }
             DecimalFormat df = new DecimalFormat();
             df.setGroupingUsed(false);

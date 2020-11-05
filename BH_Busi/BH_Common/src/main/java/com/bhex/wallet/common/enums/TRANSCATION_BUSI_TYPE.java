@@ -16,7 +16,7 @@ import com.bhex.wallet.common.R;
 public enum TRANSCATION_BUSI_TYPE {
     转账("hbtcchain/transfer/MsgSend"),
     委托("hbtcchain/MsgDelegate"),
-    取消委托("hbtcchain/MsgUndelegate"),
+    解委托("hbtcchain/MsgUndelegate"),
     跨链地址生成("hbtcchain/keygen/MsgKeyGen"),
     提取收益("hbtcchain/MsgWithdrawDelegationReward"),
     跨链充值("hbtcchain/transfer/MsgDeposit"),
@@ -67,7 +67,7 @@ public enum TRANSCATION_BUSI_TYPE {
     public static void init(Context context){
         转账.label = context.getResources().getString(R.string.transfer);
         委托.label = context.getResources().getString(R.string.do_entrust);
-        取消委托.label = context.getResources().getString(R.string.un_entrust);
+        解委托.label = context.getResources().getString(R.string.relieve_entrust);
         跨链地址生成.label = context.getResources().getString(R.string.crosslink_address);
         提取收益.label = context.getResources().getString(R.string.withdraw_reward);
         跨链充值.label = context.getResources().getString(R.string.cross_deposit);

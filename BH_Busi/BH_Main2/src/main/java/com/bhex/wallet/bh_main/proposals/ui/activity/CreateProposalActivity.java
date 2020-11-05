@@ -22,20 +22,20 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.ToolUtils;
+import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.proposals.presenter.CreateProposalPresenter;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxMsg;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import butterknife.BindView;
@@ -84,6 +84,9 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
     private String token = BHConstants.BHT_TOKEN;
 
     ProposalViewModel mProposalViewModel;
+
+    TransactionViewModel mTransactionViewModel;
+
     private String available_amount;
 
     @Override
@@ -118,6 +121,12 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
         mProposalViewModel.createProposalLiveData.observe(this, ldm -> {
             updateCreateStatus(ldm);
         });
+
+        mTransactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+        mTransactionViewModel.mutableLiveData.observe(this,ldm -> {
+            updateCreateStatus(ldm);
+        });
+
         ed_pledge_amount.btn_right_text.setOnClickListener(allListener);
         ed_description.addTextChangedListener(new SimpleTextWatcher() {
             @Override
@@ -221,18 +230,17 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
     @Override
     public void confirmAction(String password, int position,int way) {
         //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
-        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-        String amount = ed_pledge_amount.getInputString();
+        String Proposal_amount = ed_pledge_amount.getInputString();
         String title = ed_proposal_title.getText().toString().trim();
         String desc = ed_description.getText().toString().trim();
         String feeAmount = ed_fee.getInputString();
-
-
-        BHTransactionManager.loadSuquece(suquece -> {
+        /*BHTransactionManager.loadSuquece(suquece -> {
             BHSendTranscation bhSendTranscation = BHTransactionManager.createProposal(BHConstants.TextProposalType,title,desc, amount, feeAmount,
                     gasPrice,password, suquece, token);
             mProposalViewModel.sendCreatePorposal(this, bhSendTranscation);
             return 0;
-        });
+        });*/
+        List<TxMsg> tx_msg_list = BHRawTransaction.createProposalMsg(BHConstants.TextProposalType,title,desc,Proposal_amount,BHConstants.BHT_TOKEN);
+        mTransactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
     }
 }

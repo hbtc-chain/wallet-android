@@ -1,6 +1,5 @@
 package com.bhex.wallet.balance.ui.activity;
 
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -38,8 +37,8 @@ import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxMsg;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
@@ -49,6 +48,7 @@ import com.warkiz.widget.SeekParams;
 import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import butterknife.OnClick;
 
@@ -70,6 +70,8 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
 
     @Autowired(name="way")
     int way;
+
+
 
     //跨链提币可用余额
     BHBalance feeBalance;
@@ -296,8 +298,11 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         if(way==BH_BUSI_TYPE.链内转账.getIntValue()){
             String withDrawAmount = ed_transfer_amount.getInputStringTrim();
             String feeAmount = et_tx_fee.getInputString();
-            transactionViewModel.transferInner(this,to_address,withDrawAmount,feeAmount,
-                    withDrawAmount,password,balance.symbol);
+            //创建转账信息
+            List<TxMsg> tx_msg_list = BHRawTransaction.createTransferMsg(to_address,withDrawAmount,balance.symbol);
+            /*transactionViewModel.transferInner(this,to_address,withDrawAmount,feeAmount,
+                    withDrawAmount,password,balance.symbol);*/
+            transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
 
         }else if(way== BH_BUSI_TYPE.跨链转账.getIntValue()){//跨链
             //提币数量
@@ -306,8 +311,11 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             String feeAmount = et_tx_fee.getInputString();
             //提币手续费
             String withDrawFeeAmount = et_withdraw_fee.getInputString();
-            transactionViewModel.transferCrossLink(this,to_address,withDrawAmount,feeAmount,
-                    withDrawFeeAmount,password,balance.symbol);
+            //创建提币信息
+            List<TxMsg> tx_msg_list = BHRawTransaction.createwithDrawWMsg(to_address,withDrawAmount,withDrawFeeAmount,balance.symbol);
+            transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
+            /*transactionViewModel.transferCrossLink(this,to_address,withDrawAmount,feeAmount,
+                    withDrawFeeAmount,password,balance.symbol);*/
         }
     }
 
