@@ -90,9 +90,9 @@ public class ChooseWalletFragment extends BaseDialogFragment implements BHWallet
 
 
         //初始化RecycleView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        /*LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rcv_wallet.setLayoutManager(layoutManager);
+        rcv_wallet.setLayoutManager(layoutManager);*/
 
         mAllWalletAdapter = new BHWalletAdapter(mAllWalletList);
         rcv_wallet.setAdapter(mAllWalletAdapter);

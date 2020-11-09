@@ -216,6 +216,7 @@
                     android:layout_height="match_parent"
                     android:overScrollMode="never"
                     tools:listitem="@layout/item_tx_order"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     >
 
                 </androidx.recyclerview.widget.RecyclerView>

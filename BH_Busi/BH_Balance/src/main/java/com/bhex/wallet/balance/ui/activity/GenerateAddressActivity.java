@@ -32,6 +32,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.google.android.material.button.MaterialButton;
 import com.warkiz.widget.IndicatorSeekBar;
@@ -52,7 +53,7 @@ import butterknife.OnClick;
  */
 
 @Route(path = ARouterConfig.Balance_cross_address)
-public class GenerateAddressActivity extends BaseActivity implements PasswordFragment.PasswordClickListener{
+public class GenerateAddressActivity extends BaseActivity implements Password30Fragment.PasswordClickListener{
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -174,8 +175,8 @@ public class GenerateAddressActivity extends BaseActivity implements PasswordFra
         }
 
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this,0);
 
 

@@ -50,6 +50,7 @@ import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.BHTokenRlease;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -71,7 +72,7 @@ import butterknife.OnClick;
  * 代币发行
  */
 @Route(path = ARouterConfig.Token_Release, name = "代币发行申请")
-public class TokenReleaseActivity extends BaseActivity implements PasswordFragment.PasswordClickListener, OnRefreshListener {
+public class TokenReleaseActivity extends BaseActivity implements Password30Fragment.PasswordClickListener, OnRefreshListener {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -237,8 +238,8 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
 
         //
         //密码提示框
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this, 0);
 
 

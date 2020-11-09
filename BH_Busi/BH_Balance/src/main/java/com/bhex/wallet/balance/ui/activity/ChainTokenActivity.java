@@ -138,8 +138,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             finishRefresh();
         });
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
 
         RecycleViewExtDivider itemDecoration = new RecycleViewExtDivider(
                 this,LinearLayoutManager.VERTICAL,
@@ -147,7 +145,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
                 ColorUtil.getColor(this,R.color.global_divider_color));
         rcv_token_list.addItemDecoration(itemDecoration);
 
-        rcv_token_list.setLayoutManager(llm);
         mBalanceAdapter = new BalanceAdapter(this,mTokenList);
         rcv_token_list.setAdapter(mBalanceAdapter);
         rcv_token_list.setNestedScrollingEnabled(false);

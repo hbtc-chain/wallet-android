@@ -18,6 +18,7 @@ import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.model.SecuritySettingItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 
 import java.util.List;

@@ -115,9 +115,9 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         mMyAdapter = new MyAdapter(R.layout.item_my, mItems);
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getYActivity());
+        /*LinearLayoutManager layoutManager = new LinearLayoutManager(getYActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_my.setLayoutManager(layoutManager);
+        recycler_my.setLayoutManager(layoutManager);*/
         mMyAdapter.setHasStableIds(true);
 
         MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(

@@ -28,6 +28,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -44,7 +45,7 @@ import butterknife.OnClick;
  * 质押
  */
 @Route(path = ARouterConfig.Do_Pledge)
-public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implements PasswordFragment.PasswordClickListener {
+public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implements Password30Fragment.PasswordClickListener {
 
     @Autowired(name = "proposalInfo")
     ProposalInfo mProposalInfo;
@@ -170,7 +171,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
                 PasswordFragment.class.getName(),
                 this,0);
     }

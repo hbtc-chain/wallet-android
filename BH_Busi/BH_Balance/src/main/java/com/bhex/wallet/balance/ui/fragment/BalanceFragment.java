@@ -139,11 +139,11 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         mChainList = CacheCenter.getInstance().getTokenMapCache().loadChains();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        layoutManager.setSmoothScrollbarEnabled(true);
-        layoutManager.setAutoMeasureEnabled(true);
-        recycler_balance.setLayoutManager(layoutManager);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //layoutManager.setSmoothScrollbarEnabled(true);
+        recycler_balance.getLayoutManager().setAutoMeasureEnabled(true);
+        //recycler_balance.setLayoutManager(layoutManager);
         recycler_balance.setNestedScrollingEnabled(false);
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(

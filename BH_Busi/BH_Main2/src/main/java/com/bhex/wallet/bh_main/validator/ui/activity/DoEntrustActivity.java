@@ -33,6 +33,7 @@ import com.bhex.wallet.common.model.ValidatorDelegationInfo;
 import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -51,7 +52,7 @@ import butterknife.OnClick;
  * 委托
  */
 @Route(path = ARouterConfig.Do_Entrust)
-public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implements PasswordFragment.PasswordClickListener {
+public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implements Password30Fragment.PasswordClickListener {
 
     @Autowired(name = "validatorInfo")
     ValidatorInfo mValidatorInfo;
@@ -294,8 +295,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this,0);
     }
 
@@ -311,8 +312,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this,0);
     }
 

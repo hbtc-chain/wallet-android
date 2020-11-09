@@ -31,6 +31,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -47,7 +48,7 @@ import butterknife.OnClick;
  * 发起提案
  */
 @Route(path = ARouterConfig.Create_Proposal)
-public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter>  implements PasswordFragment.PasswordClickListener {
+public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter>  implements Password30Fragment.PasswordClickListener {
 
     @BindView(R2.id.ed_proposal_title)
     AppCompatEditText ed_proposal_title;
@@ -189,8 +190,8 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this,0);
     }
 

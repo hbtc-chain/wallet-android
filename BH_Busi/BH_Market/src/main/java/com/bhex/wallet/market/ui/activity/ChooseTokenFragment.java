@@ -25,6 +25,7 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.network.mvx.base.BaseBottomSheetDialog;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.model.BHTokenMapping;
@@ -41,7 +42,7 @@ import butterknife.BindView;
  * @author gongdongyang
  * 2020-10-10 16:20:03
  */
-public class ChooseTokenFragment extends BaseDialogFragment {
+public class ChooseTokenFragment extends BaseBottomSheetDialog {
 
     @BindView(R2.id.rec_token_list)
     RecyclerView rec_token_list;
@@ -100,9 +101,9 @@ public class ChooseTokenFragment extends BaseDialogFragment {
         }
         mSearchDatas = new ArrayList<>(mDatas);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        /*LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rec_token_list.setLayoutManager(llm);
+        rec_token_list.setLayoutManager(llm);*/
 
         RecycleViewDivider itemDecoration = new RecycleViewDivider(
                 getContext(),LinearLayoutManager.VERTICAL,

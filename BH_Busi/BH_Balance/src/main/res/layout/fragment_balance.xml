@@ -312,7 +312,9 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small">
+                        app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
 
                     </com.yanzhenjie.recyclerview.SwipeRecyclerView>
 

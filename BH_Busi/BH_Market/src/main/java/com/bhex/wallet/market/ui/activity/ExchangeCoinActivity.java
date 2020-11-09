@@ -33,6 +33,7 @@ import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -51,7 +52,7 @@ import butterknife.OnClick;
  */
 @Route(path = ARouterConfig.Market_exchange_coin, name = "兑币")
 public class ExchangeCoinActivity extends BaseActivity
-        implements PasswordFragment.PasswordClickListener,
+        implements Password30Fragment.PasswordClickListener,
         ChooseTokenFragment.ChooseTokenListener {
 
     private BHBalance mBhtBalance;
@@ -173,8 +174,8 @@ public class ExchangeCoinActivity extends BaseActivity
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this, 0);
     }
 

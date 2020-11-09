@@ -111,6 +111,7 @@
         android:layout_marginTop="@dimen/dp_24"
         android:layout_marginStart="@dimen/main_margin_left"
         android:layout_marginEnd="@dimen/main_margin_right"
+        android:visibility="gone"
         >
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -153,6 +154,7 @@
         app:isb_track_progress_color="@color/blue_bg"
         app:isb_thumb_size="25dp"
         app:isb_show_indicator="none"
+        android:visibility="gone"
         />
 
     <LinearLayout

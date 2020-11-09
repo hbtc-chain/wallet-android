@@ -89,10 +89,6 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         tv_center_title.setText(getString(R.string.trustship_manager));
 
         //初始化RecycleView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_trusteeship.setLayoutManager(layoutManager);
-
         recycler_trusteeship.setSwipeMenuCreator(swipeMenuCreator);
         recycler_trusteeship.setOnItemMenuClickListener(mMenuItemClickListener);
 

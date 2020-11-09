@@ -139,7 +139,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_24">
+                android:layout_marginTop="@dimen/dp_24"
+                android:visibility="gone"
+                >
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -179,6 +181,7 @@
                 app:isb_track_progress_color="@color/blue_bg"
                 app:isb_thumb_size="25dp"
                 app:isb_show_indicator="none"
+                android:visibility="gone"
                 />
 
 

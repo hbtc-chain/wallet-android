@@ -32,6 +32,7 @@ import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -49,7 +50,7 @@ import butterknife.OnClick;
  */
 @Route(path = ARouterConfig.Market_swap_mapping, name = "映射")
 public class SwapMappingActivity extends BaseActivity
-        implements PasswordFragment.PasswordClickListener,
+        implements Password30Fragment.PasswordClickListener,
         ChooseTokenFragment.ChooseTokenListener {
 
     @Autowired(name = "symbol")
@@ -189,8 +190,8 @@ public class SwapMappingActivity extends BaseActivity
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this, 0);
     }
 

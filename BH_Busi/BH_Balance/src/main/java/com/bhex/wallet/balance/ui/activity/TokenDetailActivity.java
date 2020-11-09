@@ -43,6 +43,7 @@ import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -129,9 +130,9 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         //bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
         bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
 
-        LinearLayoutManager lm = new LinearLayoutManager(this);
+        /*LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_order.setLayoutManager(lm);
+        recycler_order.setLayoutManager(lm);*/
 
         mTxOrderAdapter = new TxOrderAdapter(mOrderList,getBHBalance().symbol);
         recycler_order.setAdapter(mTxOrderAdapter);
@@ -374,7 +375,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         }
     }
 
-    PasswordFragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
+    Password30Fragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
         if(position==1){
 
             List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
@@ -391,12 +392,12 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,1);
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),Password30Fragment.class.getSimpleName(),withDrawPwdListener,1);
     });
 
     //发送复投分红交易
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,2);
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),Password30Fragment.class.getSimpleName(),withDrawPwdListener,2);
     });
 
 

@@ -1,21 +1,24 @@
 package com.bhex.wallet.common.ui.fragment;
 
-
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
+import android.widget.CheckedTextView;
 
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.InputView;
@@ -36,10 +39,10 @@ import butterknife.OnClick;
 
 /**
  * @author gongdongyang
- * 2020-3-20 21:25:40
- * 密码安全验证对话框
+ * 免密码
+ * 2020-11-9 16:14:17
  */
-public class PasswordFragment extends BaseDialogFragment {
+public class Password30Fragment extends BaseDialogFragment {
 
     @BindView(R2.id.btn_cancel)
     MaterialButton btn_cancel;
@@ -50,7 +53,11 @@ public class PasswordFragment extends BaseDialogFragment {
     @BindView(R2.id.inp_wallet_pwd)
     InputView inp_wallet_pwd;
 
-    private PasswordClickListener passwordClickListener;
+    @BindView(R2.id.ck_password)
+    CheckedTextView ck_password;
+
+
+    private Password30Fragment.PasswordClickListener passwordClickListener;
 
     private int position;
 
@@ -58,13 +65,7 @@ public class PasswordFragment extends BaseDialogFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_password;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        return R.layout.fragment_password30;
     }
 
     @Override
@@ -86,8 +87,9 @@ public class PasswordFragment extends BaseDialogFragment {
         params.width = dm.widthPixels - PixelUtils.dp2px(BaseApplication.getInstance(), 48);
         //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 185);
         window.setAttributes(params);
-    }
 
+    }
+    
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -103,8 +105,8 @@ public class PasswordFragment extends BaseDialogFragment {
      * @param fm
      * @param tag
      */
-    public static PasswordFragment showPasswordDialog(FragmentManager fm, String tag,PasswordClickListener listener,int position) {
-        PasswordFragment pfrag = new PasswordFragment();
+    public static Password30Fragment showPasswordDialog(FragmentManager fm, String tag, Password30Fragment.PasswordClickListener listener, int position) {
+        Password30Fragment pfrag = new Password30Fragment();
         pfrag.passwordClickListener = listener;
         pfrag.position = position;
         if(SecuritySettingManager.getInstance().notNeedPwd()){
@@ -117,11 +119,13 @@ public class PasswordFragment extends BaseDialogFragment {
         return pfrag;
     }
 
-    @OnClick({R2.id.btn_cancel, R2.id.btn_confirm})
+    @OnClick({R2.id.btn_cancel, R2.id.btn_confirm,R2.id.ck_password})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.btn_cancel) {
             dismiss();
-        } else if (view.getId() == R.id.btn_confirm) {
+        }
+
+        if (view.getId() == R.id.btn_confirm) {
             if (passwordClickListener == null) {
                 return;
             }
@@ -136,20 +140,34 @@ public class PasswordFragment extends BaseDialogFragment {
                 return;
             }
 
+            //
+
             if(verifyPwdWay== BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
                 if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
                     ToastUtils.showToast(getResources().getString(R.string.error_password));
                     return;
                 }
-                passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+                //passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
                 dismiss();
             }else {
-                passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+                //passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
             }
+            passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+            if(ck_password.isChecked()){
+                //开启30分钟计时
+                SecuritySettingManager.getInstance().request_thirty_in_time(true,inputPassword);
+            }else{
+                //关闭30分钟计时
+                SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
+            }
+        }
+
+        if(view.getId() == R.id.ck_password){
+            ck_password.toggle();
         }
     }
 
-    public void setPasswordClickListener(PasswordClickListener passwordClickListener) {
+    public void setPasswordClickListener(Password30Fragment.PasswordClickListener passwordClickListener) {
         this.passwordClickListener = passwordClickListener;
     }
 

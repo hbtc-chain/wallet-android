@@ -16,6 +16,7 @@ public class SecurityTimer {
 
     public final long VAL_DURATION = 30*60*1000;
 
+    public  boolean isStart = false;
     private HandlerThread mHandlerThread;
     private SecurityTimer(){
 
@@ -26,6 +27,9 @@ public class SecurityTimer {
     }
 
     public void start(){
+        if(isStart){
+           return;
+        }
         mHandlerThread = new HandlerThread("WorkThread"){
             @Override
             protected void onLooperPrepared() {
@@ -38,11 +42,13 @@ public class SecurityTimer {
 
                     @Override
                     public void onFinish() {
+                        isStart = false;
                         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
                         bhWallet.pwd = "";
                         SecuritySettingManager.getInstance().thirty_in_time = false;
                     }
                 };
+                isStart = true;
                 countDownTimer.start();
             }
         };
@@ -52,6 +58,7 @@ public class SecurityTimer {
 
     public void stop(){
         if(mHandlerThread!=null && mHandlerThread.getLooper()!=null){
+            isStart = false;
             mHandlerThread.getLooper().quit();
             SecuritySettingManager.getInstance().thirty_in_time = false;
         }

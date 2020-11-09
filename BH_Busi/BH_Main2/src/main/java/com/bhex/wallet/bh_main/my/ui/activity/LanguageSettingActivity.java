@@ -60,12 +60,7 @@ public class LanguageSettingActivity extends BaseActivity {
         initData();
 
         mLanguageAdapter = new LanguageAdapter(R.layout.item_language,mLanguageList);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         rcvLanguageSet.setAdapter(mLanguageAdapter);
-        rcvLanguageSet.setLayoutManager(layoutManager);
 
         RecycleViewExtDivider divider = new RecycleViewExtDivider(
                 this, LinearLayoutManager.VERTICAL,

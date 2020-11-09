@@ -40,6 +40,7 @@ import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -60,7 +61,7 @@ import butterknife.OnClick;
 
 @Route(path = ARouterConfig.Balance_transfer_out)
 public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPresenter>
-        implements PasswordFragment.PasswordClickListener{
+        implements Password30Fragment.PasswordClickListener{
 
     @Autowired(name = "balance")
     BHBalance balance;
@@ -227,7 +228,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
                 String.valueOf(available_amount),et_tx_fee.getInputStringTrim());
 
         if(flag){
-            PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+            Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
                     PasswordFragment.class.getName(),
                     this,0);
         }
@@ -248,7 +249,7 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
         );
 
         if(flag){
-            PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+            Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
                     PasswordFragment.class.getName(),
                     this,0);
         }
@@ -300,8 +301,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             String feeAmount = et_tx_fee.getInputString();
             //创建转账信息
             List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createTransferMsg(to_address,withDrawAmount,balance.symbol);
-            /*transactionViewModel.transferInner(this,to_address,withDrawAmount,feeAmount,
-                    withDrawAmount,password,balance.symbol);*/
             transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
 
         }else if(way== BH_BUSI_TYPE.跨链转账.getIntValue()){//跨链
@@ -314,8 +313,6 @@ public class TransferOutActivity extends BaseTransferOutActivity<TransferOutPres
             //创建提币信息
             List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createwithDrawWMsg(to_address,withDrawAmount,withDrawFeeAmount,balance.symbol);
             transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
-            /*transactionViewModel.transferCrossLink(this,to_address,withDrawAmount,feeAmount,
-                    withDrawFeeAmount,password,balance.symbol);*/
         }
     }
 

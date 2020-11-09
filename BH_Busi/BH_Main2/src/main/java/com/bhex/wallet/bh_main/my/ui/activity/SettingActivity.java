@@ -62,12 +62,7 @@ public class SettingActivity extends BaseActivity{
     protected void initView() {
         mItems = MyHelper.getSettingItems(this);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_setting.setLayoutManager(layoutManager);
-
         mSettingAdapter = new SettingAdapter(mItems);
-
         recycler_setting.setAdapter(mSettingAdapter);
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(

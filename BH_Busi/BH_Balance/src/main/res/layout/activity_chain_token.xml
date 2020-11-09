@@ -144,7 +144,9 @@
                         android:id="@+id/rcv_token_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:overScrollMode="never" />
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        />
 
                     <com.bhex.lib.uikit.widget.EmptyLayout
                         android:id="@+id/empty_layout"
