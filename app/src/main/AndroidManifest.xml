@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
+
         <activity
             android:name=".bh_main.ui.activity.MainActivity"
             android:launchMode="singleTask"

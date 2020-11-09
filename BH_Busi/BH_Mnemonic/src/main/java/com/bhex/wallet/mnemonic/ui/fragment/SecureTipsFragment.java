@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.DisplayMetrics;
@@ -16,23 +17,28 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
+import com.bhex.network.mvx.base.BaseBottomSheetDialog;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.mnemonic.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 /**
  * @author gongdongyang
  * 2020-3-13 15:14:52
  * 安全提醒
  */
-public class SecureTipsFragment extends BaseDialogFragment implements View.OnClickListener,PasswordFragment.PasswordClickListener {
+public class SecureTipsFragment extends BaseBottomSheetDialog implements View.OnClickListener,PasswordFragment.PasswordClickListener {
 
     private AppCompatTextView btn_at_once;
 
@@ -52,19 +58,13 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
     @Override
     public void onStart() {
         super.onStart();
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.getAttributes().windowAnimations = R.style.bottomDialogStyle;
 
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        WindowManager.LayoutParams params = window.getAttributes();
+        WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
         params.gravity = Gravity.BOTTOM;
-        //params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = dm.widthPixels;
-        //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 328);
-        window.setAttributes(params);
+        getDialog().getWindow().setAttributes(params);
     }
 
 
@@ -109,4 +109,5 @@ public class SecureTipsFragment extends BaseDialogFragment implements View.OnCli
                 .navigation();
         dismiss();
     }
+
 }

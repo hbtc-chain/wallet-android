@@ -9,10 +9,7 @@ android {
         if (isBuildModule.toBoolean()) {
             applicationId "com.bhex.wallet.mnemonic"
         }
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-
     }
 
     buildTypes {
