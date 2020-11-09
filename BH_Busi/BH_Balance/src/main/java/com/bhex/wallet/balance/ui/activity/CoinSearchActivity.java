@@ -2,7 +2,10 @@ package com.bhex.wallet.balance.ui.activity;
 
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.ArrayMap;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckedTextView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -16,32 +19,27 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.lib.uikit.widget.toast.BHToast;
+import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.CoinSearchAdapter;
-import com.bhex.wallet.balance.event.BHCoinEvent;
-import com.bhex.wallet.balance.helper.BHBalanceHelper;
-import com.bhex.wallet.balance.model.BHTokenItem;
-import com.bhex.wallet.balance.viewmodel.CoinViewModel;
+import com.bhex.wallet.balance.helper.CoinSearchHelper;
+import com.bhex.wallet.balance.viewmodel.TokenViewModel;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.model.BHPage;
+import com.bhex.wallet.common.model.BHToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 
@@ -61,22 +59,18 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
     RecyclerView recycler_coin;
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R2.id.empty_layout)
+    EmptyLayout empty_layout;
 
-
-    @Autowired
-    public List<BHBalance> balanceList;
+    @Autowired(name="chain")
+    public String mChain;
 
     CoinSearchAdapter mCoinSearchAdapter;
 
-    private List<BHTokenItem> coinList;
+    private List<BHToken> mTokenList;
 
-    private CoinViewModel mCoinViewModel;
+    private TokenViewModel mTokenViewModel;
 
-    private Map<String, BHBalance> balanceMap = new HashMap<>();
-
-    private List<BHTokenItem> originList;
-
-    private BHPage<BHTokenItem> mPage;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_coin_search;
@@ -86,17 +80,13 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
     protected void initView() {
         tv_center_title.setText(getResources().getString(R.string.add_coin));
         ARouter.getInstance().inject(this);
-        for(BHBalance balance:balanceList){
-            balanceMap.put(balance.symbol,balance);
-        }
-    }
 
-    @Override
-    protected void addEvent() {
+        mTokenList = CoinSearchHelper.loadVerifiedToken(mChain);
+
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
 
-        mCoinSearchAdapter = new CoinSearchAdapter(R.layout.item_seach_coin,coinList);
+        mCoinSearchAdapter = new CoinSearchAdapter(mTokenList);
         recycler_coin.setLayoutManager(lm);
         recycler_coin.setAdapter(mCoinSearchAdapter);
 
@@ -107,80 +97,53 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
                 ColorUtil.getColor(this,R.color.global_divider_color));
         recycler_coin.addItemDecoration(ItemDecoration);
 
-        mCoinViewModel = ViewModelProviders.of(this).get(CoinViewModel.class);
-
-        mCoinViewModel.coinLiveData.observe(this,ldm -> {
-            refreshLayout.finishRefresh();
-            if(ldm.loadingStatus != LoadingStatus.SUCCESS){
-                return;
-            }
-            mPage = (BHPage) ldm.getData();
-            originList = mPage.items;
-            //更新列表
-            updateCoinList(mPage.items);
-
-        });
-
-        mCoinSearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            if(view.getId()==R.id.ck_select){
-                BHTokenItem bhCoinItem = coinList.get(position);
-
-                CheckedTextView ck = (CheckedTextView) view;
-                ck.setChecked(!ck.isChecked());
-                if(ck.isChecked()){
-                    BHToast.showDefault(CoinSearchActivity.this,getResources().getString(R.string.add_balance_index)).show();
-                    //添加至balanceMap
-                    BHBalance item = bhCoinItem.getBHBalance();
-                    balanceMap.put(bhCoinItem.symbol.toLowerCase(),item);
-                    BHBalanceHelper.addCoinSeachBalance(balanceList,item);
-                }else{
-                    balanceMap.remove(bhCoinItem.symbol.toLowerCase());
-                    BHBalanceHelper.removeCoinSeachBalance(balanceList,bhCoinItem.symbol.toLowerCase());
-                }
-                EventBus.getDefault().post(new BHCoinEvent(bhCoinItem,ck.isChecked()));
-
-            }
-        });
-        ed_search_content.addTextChangedListener(searchTextWatcher);
-
-        refreshLayout.autoRefresh();
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
     }
 
-    /**
-     * 获取数据源
-     * @param data
-     */
-    private void updateCoinList(List<BHTokenItem> data) {
-        if(data==null ){
-            return;
-        }
+    @Override
+    protected void addEvent() {
+        mTokenViewModel = ViewModelProviders.of(this).get(TokenViewModel.class);
 
-        for (int i = 0; i < data.size(); i++) {
-           BHTokenItem coinItem = data.get(i);
-           if(coinItem.symbol.equalsIgnoreCase("btc")){
-               coinItem.resId = R.mipmap.ic_btc;
-           }else if(coinItem.symbol.equalsIgnoreCase("eth")){
-               coinItem.resId = R.mipmap.ic_eth;
-           }else if(coinItem.symbol.equalsIgnoreCase("eos")){
-               coinItem.resId = R.mipmap.ic_eos;
-           }else if(coinItem.symbol.equalsIgnoreCase("usdt")){
-               coinItem.resId = R.mipmap.ic_usdt;
-           }else if(coinItem.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-               coinItem.resId = R.mipmap.ic_token;
-           }else{
-               coinItem.resId = 0;
-           }
-           if(balanceMap.get(coinItem.symbol.toLowerCase())!=null){
-               coinItem.isSelected = true;
-           }else{
-               coinItem.isSelected = false;
-           }
-        }
+        mTokenViewModel.searchLiveData.observe(this,ldm -> {
+            refreshLayout.finishRefresh();
+            updateTokenList(ldm);
+        });
+
+        mTokenViewModel.queryLiveData.observe(this,ldm->{
+            refreshLayout.finishRefresh();
+            updateTokenList(ldm);
+        });
+
+        mCoinSearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            if(view.getId()==R.id.ck_select){
+                //
+                BHToken bhToken = (BHToken) adapter.getData().get(position);
+
+                CheckedTextView ck = (CheckedTextView) view;
+                ck.toggle();
+                //添加取消币种
+                mTokenViewModel.addOrCancelToken(ck.isChecked(),bhToken);
+            }
+        });
+        ed_search_content.addTextChangedListener(searchTextWatcher);
+        ed_search_content.setOnEditorActionListener(onEditorActionListener);
+    }
+
+    private void updateTokenList(LoadDataModel ldm) {
         mCoinSearchAdapter.getData().clear();
-        coinList = data;
-        mCoinSearchAdapter.addData(coinList);
+        if(ldm.getLoadingStatus()==LoadingStatus.SUCCESS){
+            if(ldm.getData()==null){
+                empty_layout.showNoData();
+            }else{
+                empty_layout.loadSuccess();
+                mCoinSearchAdapter.addData((List<BHToken>)ldm.getData());
+            }
+            mCoinSearchAdapter.notifyDataSetChanged();
+        }else{
+            empty_layout.showNeterror(null);
+            mCoinSearchAdapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -190,34 +153,54 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
         @Override
         public void afterTextChanged(Editable s) {
             super.afterTextChanged(s);
-            String searhContent = ed_search_content.getText().toString().trim();
+            String search_key = ed_search_content.getText().toString().trim();
+            if(!TextUtils.isEmpty(search_key)){
+                return;
 
-            if(originList==null || originList.size()==0){
-                return ;
             }
-
-            List<BHTokenItem> resultList = new ArrayList<>();
-            //coinList.clear();
-            if(!TextUtils.isEmpty(searhContent)){
-                for(int i=0;i<originList.size();i++){
-                    BHTokenItem bhCoinItem = originList.get(i);
-                    if(bhCoinItem.symbol.toLowerCase().contains(searhContent.toLowerCase())){
-                        resultList.add(bhCoinItem);
-                    }
-                }
-                updateCoinList(resultList);
-            }else{
-                updateCoinList(originList);
+            mTokenList = CoinSearchHelper.loadVerifiedToken(mChain);
+            if(ToolUtils.checkListIsEmpty(mTokenList)){
+                empty_layout.showNoData();
+            }else {
+                empty_layout.loadSuccess();
             }
-
-
+            mCoinSearchAdapter.getData().clear();
+            mCoinSearchAdapter.addData(mTokenList);
+            mCoinSearchAdapter.notifyDataSetChanged();
         }
     };
 
 
+    TextView.OnEditorActionListener onEditorActionListener = (v, actionId, event) -> {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            searchTokenByName();
+            ToolUtils.hintKeyBoard(CoinSearchActivity.this);
+            return true;
+        }
+        return false;
+    };
+
+    //搜索节点
+    private void searchTokenByName() {
+        String search_key = ed_search_content.getText().toString().trim();
+        if(!TextUtils.isEmpty(search_key)){
+            mCoinSearchAdapter.getData().clear();
+            mCoinSearchAdapter.notifyDataSetChanged();
+
+            empty_layout.showProgess();
+            mTokenViewModel.search_token(this,search_key.toLowerCase(),mChain);
+        }
+    }
+
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mCoinViewModel.loadCoin(this);
+        String search_key = ed_search_content.getText().toString().trim();
+        //empty_layout.showProgess();
+        if(!TextUtils.isEmpty(search_key)){
+            mTokenViewModel.search_token(this,search_key.toLowerCase(),mChain);
+        }else{
+            mTokenViewModel.loadVerifiedToken(this,mChain);
+        }
     }
 }

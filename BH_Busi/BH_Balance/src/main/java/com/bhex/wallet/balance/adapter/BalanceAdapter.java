@@ -15,6 +15,7 @@ import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
+import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.balance.ui.activity.ChainTokenActivity;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
@@ -23,6 +24,7 @@ import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -42,14 +44,14 @@ import java.util.List;
  * Date: 2020/3/18
  * Time: 0:18
  */
-public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> {
+public class BalanceAdapter extends BaseQuickAdapter<BHTokenItem, BaseViewHolder> {
 
     private String isHidden = "0";
     private BalanceViewModel mBalanceViewModel;
     private ChainTokenActivity mActivity;
     private LinkedHashMap<String,BaseViewHolder> mItemViews = new LinkedHashMap<>();
 
-    public BalanceAdapter( ChainTokenActivity activity,@Nullable List<BHBalance> data) {
+    public BalanceAdapter( ChainTokenActivity activity,@Nullable List<BHTokenItem> data) {
         super(R.layout.item_balance, data);
         mActivity = activity;
         mBalanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(mActivity);
@@ -65,20 +67,22 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
     @Override
     public void onBindViewHolder(@NotNull BaseViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        BHBalance balanceItem = getData().get(position);
+        BHToken balanceItem = getData().get(position);
         if(mItemViews.get(balanceItem.symbol)==null){
             mItemViews.put(balanceItem.symbol,holder);
         }
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHBalance balanceItem) {
+    protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHTokenItem bhTokenItem) {
         AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
         iv.setImageResource(0);
         ImageLoaderUtil.loadImageView(getContext(),
-                balanceItem.logo, iv,R.mipmap.ic_default_coin);
+                bhTokenItem.logo, iv,R.mipmap.ic_default_coin);
 
-        viewHolder.setText(R.id.tv_coin_name,balanceItem.name.toUpperCase());
+        viewHolder.setText(R.id.tv_coin_name,bhTokenItem.name.toUpperCase());
+        BHBalance balanceItem = BHBalanceHelper.getBHBalanceFromAccount(bhTokenItem.symbol);
+
         //更新资产和数量
         updatePriceAndAmount(balanceItem,viewHolder);
         //标签
@@ -125,7 +129,11 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
             }
 
             BaseViewHolder itemView = mItemViews.get(getData().get(position).symbol);
-            BHBalance balanceItem = getData().get(position);
+            //
+
+            BHToken bhToken = getData().get(position);
+            BHBalance balanceItem = BHBalanceHelper.getBHBalanceFromAccount(bhToken.symbol);
+
             //实时价格、资产和数量
             updatePriceAndAmount(balanceItem,itemView);
         }
@@ -133,14 +141,14 @@ public class BalanceAdapter extends BaseQuickAdapter<BHBalance, BaseViewHolder> 
 
     private int getPosition(AccountInfo.AssetsBean bean){
         int position = -1;
-        List<BHBalance> list = getData();
+        List<BHTokenItem> list = getData();
         for(int i=0;i<list.size();i++){
-            BHBalance item = list.get(i);
+            BHTokenItem item = list.get(i);
             if(!item.symbol.equalsIgnoreCase(bean.getSymbol())){
                 continue;
             }
             position = item.index;
-            item.amount = bean.getAmount();
+            //item.amount = bean.getAmount();
             return position;
         }
         return position;

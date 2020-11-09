@@ -9,11 +9,12 @@ import com.bhex.wallet.balance.model.BHTokenItem;
  * Time: 14:52
  */
 public class BHCoinEvent {
-    public BHTokenItem bhCoinItem;
+    /*public BHTokenItem bhCoinItem;
     public boolean flag;
 
     public BHCoinEvent(BHTokenItem bhCoinItem, boolean flag) {
         this.bhCoinItem = bhCoinItem;
         this.flag = flag;
-    }
+    }*/
+
 }

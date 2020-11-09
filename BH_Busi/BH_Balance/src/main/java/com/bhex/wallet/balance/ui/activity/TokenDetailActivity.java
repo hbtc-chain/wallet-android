@@ -39,11 +39,10 @@ import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHTokenMapping;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
-import com.bhex.wallet.common.tx.DoEntrustMsg;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TransactionOrder;
-import com.bhex.wallet.common.tx.ValidatorMsg;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -53,7 +52,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import butterknife.BindView;
@@ -128,7 +126,8 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         ARouter.getInstance().inject(this);
         tv_center_title.setText(getBHBalance().name.toUpperCase());
 
-        bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
+        //bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
+        bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -215,7 +214,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     }
 
     private void initTokenAsset(){
-        if(getAccountInfo()==null){
+        if(BHUserManager.getInstance().getAccountInfo()==null){
             return;
         }
         //计算持有资产
@@ -228,13 +227,13 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
             String available_value = BHBalanceHelper.getAmountForUser(this,getBHBalance().amount,"0",getBHBalance().symbol);
             tv_available_value.setText(available_value);
             //委托中
-            String bonded_value = NumberUtil.dispalyForUsertokenAmount4Level(getAccountInfo().getBonded());
+            String bonded_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getBonded());
             tv_entrust_value.setText(bonded_value);
             //赎回中
-            String unbonding_value = NumberUtil.dispalyForUsertokenAmount4Level(getAccountInfo().getUnbonding());
+            String unbonding_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getUnbonding());
             tv_redemption_value.setText(unbonding_value);
             //已收益
-            String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(getAccountInfo().getClaimed_reward());
+            String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getClaimed_reward());
             tv_income_value.setText(claimed_reward_value);
         }
 
@@ -300,9 +299,11 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         //更新
         refreshLayout.finishRefresh();
         if(ldm.loadingStatus==LoadingStatus.SUCCESS){
-            setAccountInfo(ldm.getData());
-            bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
-            mPresenter.updateBalance(getAccountInfo(),getBHBalance());
+            //setAccountInfo(ldm.getData());
+            //bthBalance = mPresenter.getBthBalanceWithAccount(getAccountInfo());
+            bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+            //mPresenter.updateBalance(getAccountInfo(),getBHBalance());
+            setBHBalance(BHBalanceHelper.getBHBalanceFromAccount(getBHBalance().symbol));
             initTokenAsset();
         }
     }
@@ -375,54 +376,26 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
     PasswordFragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
         if(position==1){
-            BHTransactionManager.loadSuquece(suquece -> {
-                List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-                double all_reward = mPresenter.calAllReward(mRewardList);
-                //BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-                BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), BHConstants.BHT_DEFAULT_FEE,
-                        password, suquece);
-                transactionViewModel.sendTransaction(this, bhSendTranscation);
-                return 0;
-            });
+
+            List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
+            List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createRewardMsg(validatorMsgs);
+            transactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
         }else if(position==2){
-            BHTransactionManager.loadSuquece(suquece -> {
-                List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-                List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
-                BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
-                        "",BHConstants.BHT_DEFAULT_FEE,password,suquece);
-                transactionViewModel.sendTransaction(this,bhSendTranscation);
-                return 0;
-            });
+
+            List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
+            List<TransactionMsg.DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
+            List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createReDoEntrustMsg(validatorMsgs,doEntrustMsgs);
+            transactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
         }
     };
 
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        /*BHTransactionManager.loadSuquece(suquece -> {
-            List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-            double all_reward = mPresenter.calAllReward(mRewardList);
-            BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-
-            BHSendTranscation bhSendTranscation = BHTransactionManager.withDrawReward(validatorMsgs, String.valueOf(all_reward), BHConstants.BHT_DEFAULT_FEE,
-                    gasPrice, null, suquece);
-            transactionViewModel.sendTransaction(this, bhSendTranscation);
-            return 0;
-        });*/
         PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,1);
     });
 
     //发送复投分红交易
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
-        /*BHTransactionManager.loadSuquece(suquece -> {
-            BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-
-            List<ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
-            List<DoEntrustMsg> doEntrustMsgs = mPresenter.getAllEntrust(mRewardList);
-            BHSendTranscation bhSendTranscation = BHTransactionManager.toReDoEntrust(validatorMsgs,doEntrustMsgs,
-                    "",BHConstants.BHT_DEFAULT_FEE, gasPrice,null,suquece);
-            transactionViewModel.sendTransaction(this,bhSendTranscation);
-            return 0;
-        });*/
         PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),withDrawPwdListener,2);
     });
 
@@ -437,7 +410,6 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
     public abstract BHBalance getBHBalance();
 
-    public abstract AccountInfo getAccountInfo();
+    public abstract void setBHBalance(BHBalance balance);
 
-    public abstract void setAccountInfo(AccountInfo accountInfo);
 }

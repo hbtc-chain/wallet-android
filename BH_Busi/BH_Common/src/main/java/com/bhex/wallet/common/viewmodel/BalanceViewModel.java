@@ -22,6 +22,7 @@ import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.cache.RatesCache;
@@ -76,7 +77,6 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 if(accountInfo!=null){
                     BHUserManager.getInstance().setAccountInfo(accountInfo);
                 }
-                //LogUtils.d("BalanceViewModel===>:","==getAccountInfo==");
                 LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
             }
 
@@ -109,7 +109,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 .subscribe(new BHBaseObserver<List<BHRates>>(false) {
                     @Override
                     protected void onSuccess(List<BHRates> ratelist) {
-                        if(ratelist==null || ratelist.size()==0){
+                        if(ToolUtils.checkListIsEmpty(ratelist)){
                             return;
                         }
                         RatesCache.getInstance().getRatesMap().clear();

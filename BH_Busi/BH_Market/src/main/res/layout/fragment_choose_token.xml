@@ -7,6 +7,7 @@
     android:maxHeight="350dp"
     android:orientation="vertical"
     android:background="@drawable/shape_white_16_corner"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     tools:context=".ui.activity.ChooseTokenFragment">
 
     <RelativeLayout
@@ -67,8 +68,8 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ed_search_content"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
             android:layout_marginEnd="8dp"

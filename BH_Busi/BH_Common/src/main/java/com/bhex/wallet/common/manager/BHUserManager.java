@@ -1,15 +1,18 @@
 package com.bhex.wallet.common.manager;
 
 import android.text.TextUtils;
+import android.util.ArrayMap;
 
 import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.FileUtil;
 import com.bhex.tools.utils.ToolUtils;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHToken;
 
 import org.web3j.crypto.Credentials;
 
@@ -151,8 +154,14 @@ public class BHUserManager {
     }
 
     public synchronized String getSymbolList(){
-        String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
-        return symbol;
+        /*String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
+        return symbol;*/
+        StringBuffer sb = new StringBuffer("");
+        ArrayMap<String,BHToken> map_tokens = SymbolCache.getInstance().getLocalToken();
+        for(ArrayMap.Entry<String,BHToken> item:map_tokens.entrySet()){
+            sb.append(item.getValue().symbol.toUpperCase()).append(",");
+        }
+        return sb.toString();
     }
 
     /**

@@ -53,8 +53,6 @@ public class ChainAdapter extends BaseQuickAdapter<BHChain, BaseViewHolder> {
 
         AppCompatTextView tv_coin_type = viewHolder.getView(R.id.tv_coin_type);
 
-
-
         //实时价格
         //String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),balanceItem.symbol);
 

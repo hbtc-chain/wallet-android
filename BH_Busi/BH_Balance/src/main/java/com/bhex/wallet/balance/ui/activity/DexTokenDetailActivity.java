@@ -30,22 +30,14 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
     @Autowired(name = "balance")
     BHBalance balance;
 
-    @Autowired(name = "accountInfo")
-    AccountInfo mAccountInfo;
-
     @Override
     public BHBalance getBHBalance() {
         return balance;
     }
 
     @Override
-    public AccountInfo getAccountInfo() {
-        return mAccountInfo;
-    }
-
-    @Override
-    public void setAccountInfo(AccountInfo accountInfo) {
-        this.mAccountInfo = accountInfo;
+    public void setBHBalance(BHBalance balance) {
+        this.balance = balance;
     }
 
     @OnClick({R2.id.btn_item1, R2.id.btn_item2,R2.id.btn_item3, R2.id.btn_item4})

@@ -52,6 +52,15 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.4.1'
     kapt 'com.alibaba:arouter-compiler:1.2.1'
 
+    //room数据库
+    implementation 'androidx.room:room-runtime:2.2.3'
+    // RxJava2
+    implementation 'androidx.room:room-rxjava2:2.2.3'
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation 'androidx.room:room-guava:2.2.3'
+    // For Kotlin use kapt instead of annotationProcessor
+    kapt 'androidx.room:room-compiler:2.2.3'
+
     /*api project(path: ':Lib_Network')
     api project(path: ':Lib_Tools')
     api project(path: ':UIKit')*/

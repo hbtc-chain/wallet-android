@@ -47,10 +47,10 @@ public class BHApplication extends BaseApplication {
         XCrash.init(this,new XCrash.InitParameters().setLogDir(getExternalFilesDir("tombstone").getAbsolutePath()));
     }
 
-    /*private void rateSync(){
+    private void rateSync(){
         PeriodicWorkRequest.Builder builder = new PeriodicWorkRequest.Builder(RateSyncWork.class,15L,TimeUnit.SECONDS);
         WorkManager.getInstance().enqueue(builder.build());
-    }*/
+    }
 
     class ActivityLifecycleListener implements ActivityLifecycleCallbacks{
         private int refCount = 0;

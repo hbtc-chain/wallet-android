@@ -68,10 +68,11 @@ public class SystemConfig  {
         });
         //异常处理
         if(BuildConfig.DEBUG){
-            Stetho.initialize(
+            /*Stetho.initialize(
                     Stetho.newInitializerBuilder(BaseApplication.getInstance())
                             .enableDumpapp(Stetho.defaultDumperPluginsProvider(BaseApplication.getInstance()))
-                            .build());
+                            .build());*/
+            Stetho.initializeWithDefaults(BaseApplication.getInstance());
         }
 
         NetworkApi.init(new BHNetwork(BaseApplication.getInstance()));

@@ -1,9 +1,5 @@
 package com.bhex.wallet.bh_main.my.ui.activity;
 
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
-import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 
@@ -24,12 +20,10 @@ import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.presenter.MyPresenter;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.config.ARouterUrls;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
-import com.google.android.material.button.MaterialButton;
 
 import butterknife.BindView;
 import butterknife.OnClick;

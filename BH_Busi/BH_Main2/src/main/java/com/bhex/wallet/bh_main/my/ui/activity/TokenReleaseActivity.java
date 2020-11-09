@@ -22,7 +22,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
-import com.bhex.lib.uikit.widget.toast.BHToast;
 import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
@@ -42,15 +41,14 @@ import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
-import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.tx.BHSendTranscation;
+import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.BHTokenRlease;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
@@ -62,7 +60,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.SeekParams;
 
-import java.math.BigInteger;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -312,7 +310,7 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
             mBalanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
             clearInputContent();
             //请求Token列表
-            CacheCenter.getInstance().getSymbolCache().beginLoadCache();
+            //CacheCenter.getInstance().getSymbolCache().beginLoadCache();
         } else {
             //BHToast.showDefault(this, getResources().getString(R.string.apply_fail)).show();
         }
@@ -331,7 +329,9 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
         String feeAmount = inp_tx_fee.getInputString();
         BHTokenRlease tokenRlease = new BHTokenRlease(
                 formAddress, toAddress, tokenName, tokenCount, tokenDecimals);
-        transactionViewModel.hrc20TokenRelease(this, tokenRlease, feeAmount, password);
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createHrc20TokenWMsg(tokenRlease);
+        transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
+        //transactionViewModel.hrc20TokenRelease(this, tokenRlease, feeAmount, password);
     }
 
     public void clearInputContent() {

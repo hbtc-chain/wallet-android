@@ -18,22 +18,21 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.proposals.presenter.DoPledgePresenter;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.ProposalInfo;
-import com.bhex.wallet.common.tx.BHSendTranscation;
-import com.bhex.wallet.common.tx.BHTransactionManager;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import butterknife.BindView;
@@ -83,7 +82,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
     private String available_amount;
 
     ProposalViewModel mProposalViewModel;
-
+    TransactionViewModel mTransactionViewModel;
     @Override
     protected void initPresenter() {
         mPresenter = new DoPledgePresenter(this);
@@ -115,6 +114,11 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
     protected void addEvent() {
         mProposalViewModel = ViewModelProviders.of(this).get(ProposalViewModel.class);
         mProposalViewModel.doPledgeLiveData.observe(this, ldm -> {
+            updateDoPledgeStatus(ldm);
+        });
+
+        mTransactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+        mTransactionViewModel.mutableLiveData.observe(this,ldm -> {
             updateDoPledgeStatus(ldm);
         });
         ed_pledge_amount.btn_right_text.setOnClickListener(allListener);
@@ -207,17 +211,20 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
     @Override
     public void confirmAction(String password, int position,int way) {
 
-        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
-        BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
-        String pledgeAmount = ed_pledge_amount.getInputString();
+        //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+        //BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
+        String pledge_amount = ed_pledge_amount.getInputString();
         String feeAmount = ed_fee.getInputString();
 
 
-        BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.doPledge(delegator_address,mProposalInfo.getId(), pledgeAmount, feeAmount,
+       /* BHTransactionManager.loadSuquece(suquece -> {
+            BHSendTranscation bhSendTranscation = BHTransactionManager.doPledge(delegator_address,mProposalInfo.getId(), pledge_amount, feeAmount,
                     gasPrice, password, suquece, token);
             mProposalViewModel.sendDoPledge(this, bhSendTranscation);
             return 0;
-        });
+        });*/
+
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createPledgeMsg(mProposalInfo.getId(),pledge_amount,BHConstants.BHT_TOKEN);
+        mTransactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
     }
 }

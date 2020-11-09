@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bhex.network.R;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -43,5 +45,10 @@ public abstract class BaseDialogFragment extends DialogFragment {
         if(unbinder!=null){
             unbinder.unbind();;
         }
+    }
+
+    @Override
+    public int getTheme() {
+        return R.style.basedialog_anim_style;
     }
 }

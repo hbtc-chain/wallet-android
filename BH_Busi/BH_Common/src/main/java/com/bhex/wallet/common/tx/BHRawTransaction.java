@@ -2,62 +2,79 @@ package com.bhex.wallet.common.tx;
 
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
+import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.BHToken;
 import com.google.gson.JsonObject;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by BHEX.
- * User: gdy
- * Date: 2020/4/1
- * Time: 22:45
+ * @author gongdongyang
+ * 2020-11-4 23:47:17
  */
 public class BHRawTransaction {
     public String chain_id = BHConstants.CHAIN_ID;
     //public String cu_number = "0";
     public TxFee fee;
     public String memo;
-    public List<TxMsg> msgs;
+    public List<TxReq.TxMsg> msgs;
     public String sequence;
 
-    /**
-     * 创建交易
-     * @param sequence
-     * @param from
-     * @param to
-     * @param amount
-     * @param feeAmount
-     * @param gasPrice
-     * @param memo
-     * @return
-     */
-    public static BHRawTransaction createBHRawTransaction(String sequence, String from, String to,
-                                                          BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                          String memo, String symbol) {
+    public static BHRawTransaction createBaseTransaction(String sequence, String memo, BigInteger feeAmount){
         BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
-        bhRawTransaction.sequence = sequence;
+        bhRawTransaction.chain_id = BHConstants.CHAIN_ID;
+        //转账手续费
+        bhRawTransaction.fee = getTransactionFee(feeAmount);
 
+        bhRawTransaction.memo = memo;
         bhRawTransaction.msgs = new ArrayList<>();
+        bhRawTransaction.sequence = sequence;
+        return bhRawTransaction;
+    }
+
+
+    public static TxFee getTransactionFee(BigInteger feeAmount){
+        TxFee fee = new TxFee();
+        fee.amount = new ArrayList<>();
+
+        TxFee.TxCoin feeCoin = new TxFee.TxCoin();
+        feeCoin.amount = feeAmount.toString(10);
+        feeCoin.denom = BHConstants.BHT_TOKEN;
+        fee.amount.add(feeCoin);
+        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,6))).toString();
+        return  fee;
+    }
+
+    //创建转账msg
+    public static List<TxReq.TxMsg> createTransferMsg( String to,String amount, String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        String from = BHUserManager.getInstance().getCurrentBhWallet().address;
+
+        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
+        BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
+
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),amount);
+
         //开始创建一个交易TxMsg
-        TxMsg<TransferMsg> msg = new TxMsg<TransferMsg>();
+        TxReq.TxMsg<TransactionMsg.TransferMsg> msg = new TxReq.TxMsg<TransactionMsg.TransferMsg>();
         msg.type = TRANSCATION_BUSI_TYPE.转账.getType();
 
-        TransferMsg transferMsg = new TransferMsg();
+        TransactionMsg.TransferMsg transferMsg = new TransactionMsg.TransferMsg();
         msg.value = transferMsg;
 
         transferMsg.amount = new ArrayList<>();
 
         //转账Amount
-        TxCoin coin = new TxCoin();
+        TxFee.TxCoin coin = new TxFee.TxCoin();
         coin.denom = symbol;
-        coin.amount = amount.toString(10);
+        coin.amount = double_amount.toString(10);
 
         transferMsg.amount.add(coin);
 
@@ -65,402 +82,83 @@ public class BHRawTransaction {
         transferMsg.from_address = from;
         transferMsg.to_address = to;
 
-        //完成创建一个交易TxMsg
-        bhRawTransaction.msgs.add(msg);
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-
+        tx_msg_list.add(msg);
+        return tx_msg_list;
     }
 
-    /**
-     * @param sequence
-     * @param from
-     * @param to
-     * @param feeAmount
-     * @param gasPrice
-     * @param memo
-     * @param symbol
-     * @return
-     */
-    public static BHRawTransaction createBHCrossGenerateTransaction(String sequence, String from, String to,
-                                                                    BigInteger feeAmount, BigInteger gasPrice,
-                                                                    String memo, String symbol) {
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
-        bhRawTransaction.sequence = sequence;
-
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个交易TxMsg
-        TxMsg<KeyGenMsg> msg = new TxMsg<KeyGenMsg>();
+    //创建提币交易
+    public static List<TxReq.TxMsg> createwithDrawWMsg( String to,String withDrawAmount, String withDrawFeeAmount, String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
 
-        //msg.type = "bhchain/keygen/MsgKeyGen";
-        msg.type = TRANSCATION_BUSI_TYPE.跨链地址生成.getType();
-        KeyGenMsg keyGenMsg = new KeyGenMsg();
-        msg.value = keyGenMsg;
+        String from = BHUserManager.getInstance().getCurrentBhWallet().address;
 
-        keyGenMsg.from = from;
-        keyGenMsg.to = to;
-        keyGenMsg.order_id = UUID.randomUUID().toString();
-        keyGenMsg.symbol = symbol;
+        //提币手续费
+        BHToken symbolBHToken = SymbolCache.getInstance().getBHToken(symbol);
+        BHToken withDrawFeeBHToken = SymbolCache.getInstance().getBHToken(symbolBHToken.chain);
 
-        /*//转账Amount
-        TxCoin coin = new TxCoin();
-        coin.denom = symbol;
-        coin.amount = amount.toString(10);
+        BigInteger double_gas_fee =  NumberUtil.mulExt(String.valueOf(Math.pow(10,withDrawFeeBHToken.decimals)),withDrawFeeAmount);
 
-        transferMsg.amount.add(coin);
+        //提币数量
+        BigInteger double_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,symbolBHToken.decimals)),withDrawAmount);
 
-
-        transferMsg.from_address = from;
-        transferMsg.to_address = to;*/
-
-        //完成创建一个交易TxMsg
-        bhRawTransaction.msgs.add(msg);
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-
-    }
-
-    /**
-     * @param sequence
-     * @param from
-     * @param to
-     * @param feeAmount
-     * @param gasPrice
-     * @param memo
-     * @param symbol
-     * @return
-     */
-    public static BHRawTransaction createBHCrossWithdrawalTransaction(String sequence, String from, String to,
-                                                                      BigInteger amount, BigInteger feeAmount, BigInteger gasFeeAmount, BigInteger gasPrice,
-                                                                      String memo, String symbol) {
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
-        bhRawTransaction.sequence = sequence;
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个交易TxMsg
-        TxMsg<WithdrawalMsg> msg = new TxMsg<WithdrawalMsg>();
+        TxReq.TxMsg<TransactionMsg.WithdrawalMsg> msg = new TxReq.TxMsg<TransactionMsg.WithdrawalMsg>();
         msg.type = TRANSCATION_BUSI_TYPE.跨链提币.getType();
-        WithdrawalMsg withdrawalMsg = new WithdrawalMsg();
+        TransactionMsg.WithdrawalMsg withdrawalMsg = new TransactionMsg.WithdrawalMsg();
         msg.value = withdrawalMsg;
 
         withdrawalMsg.from_cu = from;
         withdrawalMsg.to_multi_sign_address = to;
         withdrawalMsg.symbol = symbol;
-        withdrawalMsg.amount = amount.toString(10);
-        withdrawalMsg.gas_fee = gasFeeAmount.toString(10);
+        withdrawalMsg.amount = double_amount.toString(10);
+        withdrawalMsg.gas_fee = double_gas_fee.toString(10);
         withdrawalMsg.order_id = UUID.randomUUID().toString();
 
-        //完成创建一个交易TxMsg
-        bhRawTransaction.msgs.add(msg);
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-
+        tx_msg_list.add(msg);
+        return  tx_msg_list;
     }
 
-
-    /**
-     * 委托
-     *
-     * @param sequence
-     * @param delegatorAddress
-     * @param validatorAddress
-     * @param amount
-     * @param feeAmount
-     * @param gasPrice
-     * @param symbol
-     * @return
-     */
-    public static BHRawTransaction createBHDoEntrustTransaction(String sequence, String delegatorAddress, String validatorAddress,
-                                                                BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                                String symbol) {
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
-        bhRawTransaction.sequence = sequence;
-
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个委托TxMsg
-        TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
-        msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
-
-        DoEntrustMsg doEntrustMsg = new DoEntrustMsg();
-        msg.value = doEntrustMsg;
-
-        //转账Amount
-        TxCoin coin = new TxCoin();
-        coin.denom = symbol;
-        coin.amount = amount.toString(10);
-
-        doEntrustMsg.amount = coin;
-
-
-        doEntrustMsg.validator_address = validatorAddress;
-        doEntrustMsg.delegator_address = delegatorAddress;
-
-        //完成创建一个交易TxMsg
-        bhRawTransaction.msgs.add(msg);
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-
-    }
-
-
-    public static BHRawTransaction createBHRelieveEntrustTransaction(String sequence, String delegatorAddress, String validatorAddress,
-                                                                     BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                                      String symbol) {
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
-        bhRawTransaction.sequence = sequence;
-
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个委托TxMsg
-        TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
-
-        msg.type = TRANSCATION_BUSI_TYPE.取消委托.getType();
-        DoEntrustMsg doEntrustMsg = new DoEntrustMsg();
-        msg.value = doEntrustMsg;
-
-        //转账Amount
-        TxCoin coin = new TxCoin();
-        coin.denom = symbol;
-        coin.amount = amount.toString(10);
-
-        doEntrustMsg.amount = coin;
-
-
-        doEntrustMsg.validator_address = validatorAddress;
-        doEntrustMsg.delegator_address = delegatorAddress;
-
-        //完成创建一个交易TxMsg
-        bhRawTransaction.msgs.add(msg);
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-
-    }
-
-    public static BHRawTransaction createBHDoPledgeTransaction(String sequence, String delegatorAddress, String proposalId,
-                                                               BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                               String symbol) {
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
-        bhRawTransaction.sequence = sequence;
-
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个交易TxMsg
-        TxMsg<PledgeMsg> msg = new TxMsg<PledgeMsg>();
-        msg.type = TRANSCATION_BUSI_TYPE.治理提案质押.getType();
-
-        PledgeMsg pledgeMsg = new PledgeMsg();
-        msg.value = pledgeMsg;
-
-        pledgeMsg.amount = new ArrayList<>();
-
-        //转账Amount
-        TxCoin coin = new TxCoin();
-        coin.denom = symbol;
-        coin.amount = amount.toString(10);
-
-        pledgeMsg.amount.add(coin);
-
-
-        pledgeMsg.depositor = delegatorAddress;
-        pledgeMsg.proposal_id = proposalId;
-
-        //完成创建一个交易TxMsg
-        bhRawTransaction.msgs.add(msg);
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-    }
-
-    public static BHRawTransaction createBHDoVetoTransaction(String sequence, String delegatorAddress, String option, String proposalId,
-                                                             BigInteger feeAmount, BigInteger gasPrice,  String symbol) {
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
-        bhRawTransaction.sequence = sequence;
-
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个交易TxMsg
-        TxMsg<VetoMsg> msg = new TxMsg<VetoMsg>();
-
-        msg.type = TRANSCATION_BUSI_TYPE.治理提案投票.getType();
-
-        VetoMsg vetoMsg = new VetoMsg();
-        msg.value = vetoMsg;
-
-        vetoMsg.voter = delegatorAddress;
-
-        vetoMsg.option = option;
-        vetoMsg.proposal_id = proposalId;
-
-        //完成创建一个交易TxMsg
-        bhRawTransaction.msgs.add(msg);
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-    }
-
-    public static BHRawTransaction createBHCreateProposalTransaction(String sequence, String delegatorAddress, String type, String title,
-                                                                     String description, BigInteger amount, BigInteger feeAmount, BigInteger gasPrice,
-                                                                     String symbol) {
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
-        bhRawTransaction.sequence = sequence;
-
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个交易TxMsg
-        TxMsg<CreateProposalMsg> msg = new TxMsg<CreateProposalMsg>();
-
-        msg.type = TRANSCATION_BUSI_TYPE.发起治理提案.getType();
-        CreateProposalMsg createProposalMsg = new CreateProposalMsg();
-        msg.value = createProposalMsg;
-
-        createProposalMsg.initial_deposit = new ArrayList<>();
-
-        //转账Amount
-        TxCoin coin = new TxCoin();
-        coin.denom = symbol;
-        coin.amount = amount.toString(10);
-
-        createProposalMsg.initial_deposit.add(coin);
-        createProposalMsg.proposer = delegatorAddress;
-        CreateProposalMsg.ProposalContent content = new CreateProposalMsg.ProposalContent();
-        content.type = type;
-        CreateProposalMsg.ProposalValue value = new CreateProposalMsg.ProposalValue();
-        value.description = description;
-        value.title = title;
-        content.value = value;
-        createProposalMsg.content = content;
-        //完成创建一个交易TxMsg
-        bhRawTransaction.msgs.add(msg);
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-    }
-
-
-    //构建提取收益
-    public static BHRawTransaction createBHRawRewardTransaction(String sequence, BigInteger amount, BigInteger feeAmount,
-                                                                List<ValidatorMsg>list){
-
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
-        bhRawTransaction.sequence = sequence;
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个交易TxMsg
-        for(ValidatorMsg item:list){
-            TxMsg<ValidatorMsg> msg = new TxMsg<ValidatorMsg>();
-            msg.type = TRANSCATION_BUSI_TYPE.提取收益.getType();
-            msg.value = item;
-            bhRawTransaction.msgs.add(msg);
-        }
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-    }
-
-    //构建复投分红交易
-    public static BHRawTransaction createBHRawReDoEntrust(String sequence, BigInteger feeAmount,
-                                                          String memo,List<ValidatorMsg>validatorMsgs,
-                                                          List<DoEntrustMsg> doEntrustMsgs){
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = memo;
-        bhRawTransaction.sequence = sequence;
-        bhRawTransaction.msgs = new ArrayList<>();
-
-        //开始创建一个提取收益交易
-        for(ValidatorMsg item:validatorMsgs){
-            TxMsg<ValidatorMsg> msg = new TxMsg<ValidatorMsg>();
-            msg.type = TRANSCATION_BUSI_TYPE.提取收益.getType();
-            msg.value = item;
-            bhRawTransaction.msgs.add(msg);
-        }
-
-        //构建委托交易
-        for(DoEntrustMsg item:doEntrustMsgs){
-            //开始创建一个委托TxMsg
-            TxMsg<DoEntrustMsg> msg = new TxMsg<DoEntrustMsg>();
-            msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
-            msg.value = item;
-            //转账Amount
-            bhRawTransaction.msgs.add(msg);
-        }
-
-
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
-    }
-
-    //代币发行
-    public static BHRawTransaction createBHRawTokenRelease(BHTokenRlease tokenRlease,
-                                                           BigInteger feeAmount,
-                                                           //BigInteger gasPrice,
-                                                           String sequence) {
-        BHRawTransaction bhRawTransaction =  new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
-        bhRawTransaction.sequence = sequence;
-        bhRawTransaction.msgs = new ArrayList<>();
-
+    //创建发行代币信息
+    public static List<TxReq.TxMsg> createHrc20TokenWMsg(BHTokenRlease tokenRlease){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
         //代币发行数据
-        TxMsg<BHTokenRlease> msg = new TxMsg<BHTokenRlease>();
+        TxReq.TxMsg<BHTokenRlease> msg = new TxReq.TxMsg<BHTokenRlease>();
         msg.value = tokenRlease;
         msg.type = TRANSCATION_BUSI_TYPE.代币发行.getType();
-        bhRawTransaction.msgs.add(msg);
 
-        //转账手续费
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
+        tx_msg_list.add(msg);
+        return  tx_msg_list;
     }
 
-    //映射
-    public static BHRawTransaction createBHRawMappingSwap(String fromUser, String issue_symbol, String coinSymbol, BigInteger amount, BigInteger feeAmount,String sequence){
-        BHRawTransaction bhRawTransaction = new BHRawTransaction();
-        bhRawTransaction.memo = BHConstants.BH_MEMO;
-        bhRawTransaction.sequence = sequence;
-        bhRawTransaction.msgs = new ArrayList<>();
-        TxMsg<MappingSwapMsg> txMsg = new TxMsg();
-        bhRawTransaction.msgs.add(txMsg);
+    //创建映射兑换信息
+    public static List<TxReq.TxMsg> createSwapMappingMsg(String issue_symbol, String coin_symbol, String swap_amount){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        String fromUser = BHUserManager.getInstance().getCurrentBhWallet().address;
+
+        //mappingAmount
+        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(coin_symbol.toLowerCase());
+        BigInteger double_swap_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),swap_amount);
+
+        TxReq.TxMsg<TransactionMsg.MappingSwapMsg> txMsg = new TxReq.TxMsg();
 
         txMsg.type = TRANSCATION_BUSI_TYPE.映射.getType();
 
-        MappingSwapMsg mappingSwapMsg = new MappingSwapMsg();
+        TransactionMsg.MappingSwapMsg mappingSwapMsg = new TransactionMsg.MappingSwapMsg();
         txMsg.value = mappingSwapMsg;
 
         mappingSwapMsg.from = fromUser;
         mappingSwapMsg.issue_symbol = issue_symbol;
 
-        TxCoin txCoin = new TxCoin();
-        txCoin.amount = amount.toString(10);
-        txCoin.denom = coinSymbol;
+        TxFee.TxCoin txCoin = new TxFee.TxCoin();
+        txCoin.amount = double_swap_amount.toString(10);
+        txCoin.denom = coin_symbol;
         mappingSwapMsg.coins.add(txCoin);
 
-        bhRawTransaction.fee = getTransactionFee(feeAmount);
-        return bhRawTransaction;
+        tx_msg_list.add(txMsg);
+        return  tx_msg_list;
     }
+
 
     //流动性
     public static BHRawTransaction createBHRaw_transcation(String type, JsonObject json, BigInteger feeAmount, String sequence){
@@ -468,7 +166,7 @@ public class BHRawTransaction {
         bhRawTransaction.memo = "";
         bhRawTransaction.sequence = sequence;
         bhRawTransaction.msgs = new ArrayList<>();
-        TxMsg<JsonObject> txMsg = new TxMsg();
+        TxReq.TxMsg<JsonObject> txMsg = new TxReq.TxMsg();
         bhRawTransaction.msgs.add(txMsg);
 
         txMsg.type = type;
@@ -478,29 +176,223 @@ public class BHRawTransaction {
         return bhRawTransaction;
     }
 
-    public static TxFee getTransactionFee(BigInteger feeAmount){
-        TxFee fee = new TxFee();
-        fee.amount = new ArrayList<>();
+    //创建跨链地址生成信息
+    public static List<TxReq.TxMsg> createGenerateAddressMsg(String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
 
-        TxCoin feeCoin = new TxCoin();
-        feeCoin.amount = feeAmount.toString(10);
-        feeCoin.denom = BHConstants.BHT_TOKEN;
-        fee.amount.add(feeCoin);
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,6))).toString();
-        return  fee;
+        String from_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
+        TxReq.TxMsg<TransactionMsg.KeyGenMsg> msg = new TxReq.TxMsg<TransactionMsg.KeyGenMsg>();
+        msg.type = TRANSCATION_BUSI_TYPE.跨链地址生成.getType();
+        TransactionMsg.KeyGenMsg keyGenMsg = new TransactionMsg.KeyGenMsg();
+        msg.value = keyGenMsg;
+
+        keyGenMsg.from = from_address;
+        keyGenMsg.to = from_address;
+        keyGenMsg.order_id = UUID.randomUUID().toString();
+        keyGenMsg.symbol = symbol;
+
+        tx_msg_list.add(msg);
+        return tx_msg_list;
     }
 
-    public static class Builder {
-        public String chain_id = BHConstants.CHAIN_ID;
-        public TxFee fee;
-        public String memo;
-        public List<TxMsg> msgs;
-        public String sequence;
+    //创建委托
+    public static List<TxReq.TxMsg> createDoEntrustMsg( String validatorAddress,String delegator_amount,String symbol){
 
-        public BHRawTransaction build(BigInteger feeAmount) {
-            BHRawTransaction rawTransaction = new BHRawTransaction();
-            rawTransaction.fee = getTransactionFee(feeAmount);
-            return rawTransaction;
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        //委托数量
+        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
+        BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
+        BigInteger double_delegator_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),delegator_amount);
+
+        //委托人
+        String delegatorAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
+
+        //开始创建一个委托TxMsg
+        TxReq.TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxReq.TxMsg<TransactionMsg.DoEntrustMsg>();
+        msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
+
+        TransactionMsg.DoEntrustMsg doEntrustMsg = new TransactionMsg.DoEntrustMsg();
+        msg.value = doEntrustMsg;
+
+        //转账Amount
+        TxFee.TxCoin coin = new TxFee.TxCoin();
+        coin.denom = symbol;
+        coin.amount = double_delegator_amount.toString(10);
+
+        doEntrustMsg.amount = coin;
+
+
+        doEntrustMsg.validator_address = validatorAddress;
+        doEntrustMsg.delegator_address = delegatorAddress;
+
+        tx_msg_list.add(msg);
+        return tx_msg_list;
+    }
+
+    //解委托
+    public static List<TxReq.TxMsg> createUnEntrustMsg(String validator_address, String un_delegator_amount, String symbol) {
+
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        //委托数量
+        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
+        BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
+        BigInteger double_un_delegator_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),un_delegator_amount);
+
+        //委托人
+        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().address;
+
+        TxReq.TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxReq.TxMsg<TransactionMsg.DoEntrustMsg>();
+
+        msg.type = TRANSCATION_BUSI_TYPE.解委托.getType();
+        TransactionMsg.DoEntrustMsg doEntrustMsg = new TransactionMsg.DoEntrustMsg();
+        msg.value = doEntrustMsg;
+
+        //转账Amount
+        TxFee.TxCoin coin = new TxFee.TxCoin();
+        coin.denom = symbol;
+        coin.amount = double_un_delegator_amount.toString(10);
+
+        doEntrustMsg.amount = coin;
+
+
+        doEntrustMsg.validator_address = validator_address;
+        doEntrustMsg.delegator_address = delegator_address;
+        tx_msg_list.add(msg);
+        return tx_msg_list;
+    }
+
+    //提取收益
+    public static List<TxReq.TxMsg> createRewardMsg(List<TransactionMsg.ValidatorMsg>list){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        //开始创建一个交易TxMsg
+        for(TransactionMsg.ValidatorMsg item:list){
+            TxReq.TxMsg<TransactionMsg.ValidatorMsg> msg = new TxReq.TxMsg<TransactionMsg.ValidatorMsg>();
+            msg.type = TRANSCATION_BUSI_TYPE.提取收益.getType();
+            msg.value = item;
+            tx_msg_list.add(msg);
         }
+        return tx_msg_list;
+    }
+
+    //复投分红
+    public static List<TxReq.TxMsg> createReDoEntrustMsg(List<TransactionMsg.ValidatorMsg>validatorMsgs,
+                                                   List<TransactionMsg.DoEntrustMsg> doEntrustMsgs){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        //开始创建一个提取收益交易
+        for(TransactionMsg.ValidatorMsg item:validatorMsgs){
+            TxReq.TxMsg<TransactionMsg.ValidatorMsg> msg = new TxReq.TxMsg<TransactionMsg.ValidatorMsg>();
+            msg.type = TRANSCATION_BUSI_TYPE.提取收益.getType();
+            msg.value = item;
+            tx_msg_list.add(msg);
+        }
+
+        //构建委托交易
+        for(TransactionMsg.DoEntrustMsg item:doEntrustMsgs){
+            //开始创建一个委托TxMsg
+            TxReq.TxMsg<TransactionMsg.DoEntrustMsg> msg = new TxReq.TxMsg<TransactionMsg.DoEntrustMsg>();
+            msg.type = TRANSCATION_BUSI_TYPE.委托.getType();
+            msg.value = item;
+            //转账Amount
+            tx_msg_list.add(msg);
+        }
+        return  tx_msg_list;
+    }
+
+    //投票
+    public static List<TxReq.TxMsg> createVoteMsg(String delegatorAddress, String option, String proposalId){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        //开始创建一个交易TxMsg
+        TxReq.TxMsg<TransactionMsg.VetoMsg> msg = new TxReq.TxMsg<TransactionMsg.VetoMsg>();
+
+        msg.type = TRANSCATION_BUSI_TYPE.治理提案投票.getType();
+
+        TransactionMsg.VetoMsg vetoMsg = new TransactionMsg.VetoMsg();
+        msg.value = vetoMsg;
+
+        vetoMsg.voter = delegatorAddress;
+
+        vetoMsg.option = option;
+        vetoMsg.proposal_id = proposalId;
+
+        tx_msg_list.add(msg);
+
+        return  tx_msg_list;
+    }
+
+    //质押
+    public static List<TxReq.TxMsg> createPledgeMsg( String proposalId,String pledge_amount,String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().address;
+
+        //质押数量
+        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
+        BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
+        BigInteger double_pledge_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),pledge_amount);
+
+        //开始创建一个交易TxMsg
+        TxReq.TxMsg<TransactionMsg.PledgeMsg> msg = new TxReq.TxMsg<TransactionMsg.PledgeMsg>();
+        msg.type = TRANSCATION_BUSI_TYPE.治理提案质押.getType();
+
+        TransactionMsg.PledgeMsg pledgeMsg = new TransactionMsg.PledgeMsg();
+        msg.value = pledgeMsg;
+
+        pledgeMsg.amount = new ArrayList<>();
+
+        //转账Amount
+        TxFee.TxCoin coin = new TxFee.TxCoin();
+        coin.denom = symbol;
+        coin.amount = double_pledge_amount.toString(10);
+
+        pledgeMsg.amount.add(coin);
+
+
+        pledgeMsg.depositor = delegator_address;
+        pledgeMsg.proposal_id = proposalId;
+
+        tx_msg_list.add(msg);
+
+        return  tx_msg_list;
+    }
+
+    //治理提案
+    public static List<TxReq.TxMsg> createProposalMsg(String type, String title,
+                                                String description, String  proposal_amount,String symbol){
+        List<TxReq.TxMsg> tx_msg_list = new ArrayList<>();
+
+        String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().address;
+
+        //提案费用
+        SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
+        BHToken bhToken = symbolCache.getBHToken(symbol.toLowerCase());
+        BigInteger double_proposal_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),proposal_amount);
+
+        TxReq.TxMsg<TransactionMsg.CreateProposalMsg> msg = new TxReq.TxMsg<TransactionMsg.CreateProposalMsg>();
+
+        msg.type = TRANSCATION_BUSI_TYPE.发起治理提案.getType();
+        TransactionMsg.CreateProposalMsg createProposalMsg = new TransactionMsg.CreateProposalMsg();
+        msg.value = createProposalMsg;
+
+        createProposalMsg.initial_deposit = new ArrayList<>();
+
+        //转账Amount
+        TxFee.TxCoin coin = new TxFee.TxCoin();
+        coin.denom = symbol;
+        coin.amount = double_proposal_amount.toString(10);
+        createProposalMsg.initial_deposit.add(coin);
+        createProposalMsg.proposer = delegator_address;
+        TransactionMsg.CreateProposalMsg.ProposalContent content = new TransactionMsg.CreateProposalMsg.ProposalContent();
+        content.type = type;
+        TransactionMsg.CreateProposalMsg.ProposalValue value = new TransactionMsg.CreateProposalMsg.ProposalValue();
+        value.description = description;
+        value.title = title;
+        content.value = value;
+        createProposalMsg.content = content;
+        return  tx_msg_list;
     }
 }

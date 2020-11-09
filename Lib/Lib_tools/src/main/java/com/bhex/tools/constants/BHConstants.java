@@ -34,6 +34,9 @@ public class BHConstants {
 
     public static final String SYMBOL_DEFAULT_KEY = "SYMBOL_DEFAULT_KEY";
 
+    public static final String SYMBOL_REMOVE_KEY = "SYMBOL_REMOVE_KEY";
+
+
     public static final String BHT_TOKEN = "hbc";
     public static final String HBTC = "hbtc";
 
@@ -77,7 +80,7 @@ public class BHConstants {
     public static final String VETO_OPTION_NOWITHVETO = "NoWithVeto";
     public static final String TRANSCTION_MODE = "sync";
     public static final String TRANSCTION_MODE_BLOCK = "block";
-    public static final String EMAIL = "Hbcwallet@hbtc.com";
+    public static final String EMAIL = "hbtcwallet@hbtc.com";
     public static final String CHAIN_ID = "hbtc-testnet";
 
     public static String TextProposalType="hbtcchain/gov/TextProposal";

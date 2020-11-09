@@ -10,7 +10,7 @@ import org.bitcoinj.core.ECKey;
  * Date: 2020/4/1
  * Time: 14:58
  */
-public class TxSignature{
+/*public class TxSignature{
     public Pubkey pub_key;
     public String signature;
 
@@ -32,4 +32,4 @@ public class TxSignature{
         pubkey.value = value;
         return pubkey;
     }
-}
+}*/

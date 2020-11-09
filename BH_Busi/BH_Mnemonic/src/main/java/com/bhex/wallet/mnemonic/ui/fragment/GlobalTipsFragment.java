@@ -23,6 +23,7 @@ import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.app.BaseApplication;
+import com.bhex.network.mvx.base.BaseBottomSheetDialog;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.FileUtil;
@@ -33,7 +34,7 @@ import java.util.Locale;
 /**
  *
  */
-public class GlobalTipsFragment extends BaseDialogFragment {
+public class GlobalTipsFragment extends BaseBottomSheetDialog {
 
     private CheckedTextView check_agreement;
     private AppCompatTextView tv_agreement;

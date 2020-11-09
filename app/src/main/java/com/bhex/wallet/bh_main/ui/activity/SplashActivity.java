@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.tools.constants.BHConstants;
@@ -21,6 +22,7 @@ import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.R;
 import com.bhex.wallet.app.BHApplication;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
@@ -76,10 +78,13 @@ public class SplashActivity extends AppCompatActivity {
                     } else {
                         boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
                         if (!isFinger) {
-                            NavigateUtil.startActivity(SplashActivity.this, LockActivity.class);
+                            //NavigateUtil.startActivity(SplashActivity.this, LockActivity.class);
+                            NavigateUtil.startActivity(SplashActivity.this, MainActivity.class);
                         } else {
                             NavigateUtil.startActivity(SplashActivity.this, FingerLoginActivity.class);
                         }
+                        //ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE).navigation();
+                        //NavigateUtil.startActivity(SplashActivity.this, MainActivity.class);
                     }
                     finish();
                 });

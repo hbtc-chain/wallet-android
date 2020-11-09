@@ -94,7 +94,7 @@ public class TransferInActivity extends BaseActivity {
 
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        BHBalanceHelper.setTokenIcon(this,balance.symbol,iv_coin_ic);
+        BHBalanceHelper.loadTokenIcon(this,iv_coin_ic,balance.symbol);
 
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
             deposit_address = mCurrentWallet.address;

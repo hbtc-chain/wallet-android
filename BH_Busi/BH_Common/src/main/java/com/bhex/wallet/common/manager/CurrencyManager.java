@@ -36,7 +36,7 @@ public class CurrencyManager {
         currencyFormat.setGroupingUsed(false);
         currencyFormat.setMaximumFractionDigits(2);
         currencyFormat.setMinimumFractionDigits(2);
-        currencyFormat.setRoundingMode(RoundingMode.HALF_UP);
+        currencyFormat.setRoundingMode(RoundingMode.DOWN);
     }
 
     public static CurrencyManager getInstance(){

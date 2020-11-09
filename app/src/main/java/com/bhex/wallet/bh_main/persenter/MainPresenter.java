@@ -72,6 +72,7 @@ public class MainPresenter extends BasePresenter {
         if(isBackUp== BH_BUSI_TYPE.未备份.getIntValue() && ((MainActivity)getActivity()).isReset){
             BHApplication.getMainHandler().postDelayed(()->{
                 SecureTipsFragment.showDialog(getActivity().getSupportFragmentManager(),SecureTipsFragment.class.getName());
+                //SecureTipsFragmentExt.showDialog(getActivity().getSupportFragmentManager(),SecureTipsFragmentExt.class.getName());
             },300);
         }
     }
