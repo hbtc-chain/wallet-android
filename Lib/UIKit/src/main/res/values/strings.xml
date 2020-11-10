@@ -526,5 +526,6 @@
     <string name="add_token">添加币种</string>
     <string name="swap_to">兑换成</string>
     <string name="search_input_token_name">更多币种请输入名称检索</string>
+    <string name="no_password_in_30m">30分钟免密</string>
 
 </resources>

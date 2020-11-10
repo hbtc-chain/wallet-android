@@ -525,4 +525,5 @@
     <string name="add_token">Add</string>
     <string name="swap_to">Swap</string>
     <string name="search_input_token_name">Enter the name to search more coins</string>
+    <string name="no_password_in_30m">No password is required within 30 minutes</string>
 </resources>
