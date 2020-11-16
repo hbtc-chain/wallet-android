@@ -1,11 +1,7 @@
 package com.bhex.wallet.bh_main.proposals.adapter;
 
-import android.text.TextUtils;
-
-import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.bh_main.R;
-import com.bhex.wallet.common.model.ProposalInfo;
-import com.bhex.wallet.common.model.ValidatorInfo;
+import com.bhex.wallet.bh_main.proposals.model.ProposalInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 

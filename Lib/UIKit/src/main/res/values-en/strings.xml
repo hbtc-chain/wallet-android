@@ -526,4 +526,6 @@
     <string name="swap_to">Swap</string>
     <string name="search_input_token_name">Enter the name to search more coins</string>
     <string name="no_password_in_30m">No password is required within 30 minutes</string>
+    <string name="json_parse_error">Json parsing error</string>
+    <string name="password_no_match">Passwords do not match</string>
 </resources>

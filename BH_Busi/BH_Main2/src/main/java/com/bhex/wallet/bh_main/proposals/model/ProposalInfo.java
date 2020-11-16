@@ -1,4 +1,4 @@
-package com.bhex.wallet.common.model;
+package com.bhex.wallet.bh_main.proposals.model;
 
 /**
  * Created by BHEX.

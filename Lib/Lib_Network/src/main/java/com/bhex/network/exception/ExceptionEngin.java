@@ -91,7 +91,7 @@ public class ExceptionEngin {
 
         if (throwable instanceof com.google.gson.JsonParseException || throwable instanceof org.json.JSONException || throwable instanceof android.net.ParseException) {
             ApiException apiException = new ApiException(throwable, 1001);
-            apiException.setDisplayMessage("解析错误");
+            apiException.setDisplayMessage(BaseApplication.getInstance().getString(R.string.json_parse_error));
             return apiException;
         }
         if (throwable instanceof java.net.ConnectException) {
@@ -126,7 +126,7 @@ public class ExceptionEngin {
         if(throwable instanceof CipherException){
             ApiException apiException = new ApiException(throwable, 1005);
             StringBuilder sb = new StringBuilder();
-            sb.append("KeyStore或密码不匹配");
+            sb.append(BaseApplication.getInstance().getString(R.string.password_no_match));
             apiException.setDisplayMessage(sb.toString());
             return apiException;
         }

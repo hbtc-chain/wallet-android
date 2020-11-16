@@ -7,10 +7,10 @@ import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.bh_main.R;
+import com.bhex.wallet.bh_main.proposals.model.ProposalInfo;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.model.BHToken;
-import com.bhex.wallet.common.model.ProposalInfo;
 
 public class DoPledgePresenter extends BasePresenter {
 

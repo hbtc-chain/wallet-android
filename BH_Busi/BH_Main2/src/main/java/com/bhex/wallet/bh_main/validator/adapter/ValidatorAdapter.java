@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.bh_main.R;
-import com.bhex.wallet.common.model.ValidatorInfo;
+import com.bhex.wallet.bh_main.validator.model.ValidatorInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 

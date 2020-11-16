@@ -1,4 +1,4 @@
-package com.bhex.wallet.common.model;
+package com.bhex.wallet.bh_main.validator.model;
 
 import java.util.List;
 

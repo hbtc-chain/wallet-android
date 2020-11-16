@@ -19,16 +19,11 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
+import com.bhex.wallet.bh_main.validator.model.ValidatorInfo;
 import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.model.ValidatorInfo;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;

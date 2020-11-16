@@ -8,22 +8,20 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.adapter.ValidatorAdapter;
+import com.bhex.wallet.bh_main.validator.model.ValidatorInfo;
 import com.bhex.wallet.bh_main.validator.presenter.ValidatorListFragmentPresenter;
 import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.model.ValidatorInfo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 

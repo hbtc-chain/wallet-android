@@ -1,13 +1,11 @@
 package com.bhex.wallet.bh_main.proposals.ui.activity;
 
-import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
@@ -22,17 +20,12 @@ import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.NumberUtil;
-import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
+import com.bhex.wallet.bh_main.proposals.model.ProposalInfo;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
-import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
-import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.model.ProposalInfo;
-import com.bhex.wallet.common.model.ValidatorInfo;
 import com.google.android.material.button.MaterialButton;
-import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.BindView;
