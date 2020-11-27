@@ -12,6 +12,7 @@ import com.alibaba.fastjson.util.TypeUtils;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.ui.fragment.ScreenShotTipsFragment;
@@ -62,7 +63,7 @@ public class ExportPrivateKeyTipActivity extends BaseActivity {
         ARouter.getInstance().inject(this);
         tv_center_title.setText(title);
 
-        if(flag.endsWith("2")){
+        if(flag.endsWith(BH_BUSI_TYPE.备份KS.value)){
             backup_tip_1.setText(getString(R.string.backup_ks_tip_1));
             backup_tip_2.setText(getString(R.string.backup_ks_tip_2));
             backup_tip_3.setText(getString(R.string.backup_ks_tip_3));
@@ -80,7 +81,7 @@ public class ExportPrivateKeyTipActivity extends BaseActivity {
     }
 
     private ScreenShotTipsFragment.IKnowListener knowListener = ()->{
-        if(flag.equals("1")){
+        if(flag.equals(BH_BUSI_TYPE.备份私钥.value)){
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY)
                     .withString("title",title)
                     .withString("flag",flag)

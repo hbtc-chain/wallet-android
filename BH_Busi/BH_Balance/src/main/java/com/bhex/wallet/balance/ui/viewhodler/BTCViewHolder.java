@@ -136,8 +136,8 @@ public class BTCViewHolder {
         BHBalance bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
 
         Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
-                .withObject("balance", mBalance)
-                .withObject("bhtBalance",bthBalance)
+                .withString("symbol", mBalance.symbol)
+                //.withObject("bhtBalance",bthBalance)
                 .withInt("way", BH_BUSI_TYPE.跨链转账.getIntValue());
         LogisticsCenter.completion(postcard);
         Intent intent = new Intent(mContext, postcard.getDestination());
