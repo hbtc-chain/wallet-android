@@ -45,7 +45,7 @@ import butterknife.OnClick;
  * 2020-4-16
  * 投票
  */
-@Route(path = ARouterConfig.Do_Veto)
+@Route(path = ARouterConfig.Proposal.Do_Veto)
 public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Password30Fragment.PasswordClickListener  {
 
     @Autowired(name = "proposalInfo")

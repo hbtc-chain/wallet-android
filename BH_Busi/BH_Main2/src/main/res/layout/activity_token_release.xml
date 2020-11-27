@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 app:leftHint="@string/hint_input_exchange_fee"
-                app:leftText="0.01"
+                app:leftText=""
                 app:rightColor="@color/global_input_profix_text_color"
                 app:rightText="@string/BH_token"
                 app:isEditable="false"
@@ -139,7 +139,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginTop="24dp"
                 android:visibility="gone"
                 >
 

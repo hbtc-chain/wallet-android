@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -10,6 +11,7 @@
     <include
         layout="@layout/layout_toolbar"
         />
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="0dp"
@@ -64,39 +66,13 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_transfer_out_tips_1"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:textColor="@color/global_secondary_text_color"
-                    android:textSize="14sp"
-                    android:text="@string/crosslink_withdraw_tip_1"
-                    android:drawablePadding="5dp"
-                    android:layout_marginLeft="3dp"
-                    android:lineSpacingExtra="5dp"
-                    />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_transfer_out_tips_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:textColor="@color/global_secondary_text_color"
-                    android:textSize="14sp"
-                    android:text="@string/crosslink_withdraw_tip_2"
-                    android:drawablePadding="5dp"
-                    android:layout_marginLeft="3dp"
-                    android:lineSpacingExtra="5dp"
-                    android:layout_marginTop="3dp"
-                    />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_transfer_out_tips_3"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/global_secondary_text_color"
                     android:textSize="14sp"
-                    android:text="@string/crosslink_withdraw_tip_3"
+                    android:text="@string/crosslink_withdraw_tip"
                     android:drawablePadding="5dp"
                     android:layout_marginLeft="3dp"
                     android:lineSpacingExtra="5dp"
-                    android:layout_marginTop="3dp"
                     />
             </LinearLayout>
 
@@ -114,30 +90,12 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.bhex.lib.uikit.widget.editor.WithDrawInput
-            android:id="@+id/tv_to_address"
+            android:id="@+id/input_to_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             tools:text="0xcEFf80D0175531662aE0084F5a153748C4d7D4cb"
             app:leftHint="@string/hint_input_copy_address"/>
-
-        <!--<androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_memo"
-            android:layout_marginTop="24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/meno_or_tag"
-            android:textColor="@color/global_secondary_text_color"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-        <com.bhex.lib.uikit.widget.editor.WithDrawInput
-            android:id="@+id/input_memo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:leftHint="@string/please_input_memo_or_tag" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -178,8 +136,6 @@
             app:rightText="@string/all_withdraw_amount"
             />
 
-
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_reach"
             android:layout_width="wrap_content"
@@ -188,7 +144,9 @@
             android:layout_marginTop="30dp"
             android:text="@string/reach_account_amount"
             android:visibility="gone"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            tools:visibility="visible"
+            />
 
         <com.bhex.lib.uikit.widget.editor.WithDrawInput
             android:id="@+id/tv_reach_amount"
@@ -198,7 +156,8 @@
             android:visibility="gone"
             app:leftText="0"
             app:rightColor="@color/global_label_text_color"
-            tools:rightText="ABC" />
+            tools:rightText="ABC"
+            tools:visibility="visible"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -272,7 +231,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             app:leftHint="@string/hint_input_exchange_fee"
-            app:leftText="0.01"
+            app:leftText=""
             app:rightColor="@color/global_input_profix_text_color"
             app:rightText="@string/BH_token"
             app:isEditable="false"
@@ -323,6 +282,7 @@
             app:isb_thumb_size="25dp"
             app:isb_show_indicator="none"
             android:visibility="gone"
+            tools:visibility="visible"
             />
 
         <RelativeLayout

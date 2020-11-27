@@ -1,7 +1,6 @@
 package com.bhex.wallet.balance.ui.fragment;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,8 +22,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
-import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
@@ -35,9 +32,8 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.ChainAdapter;
-import com.bhex.wallet.balance.event.BHCoinEvent;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
-import com.bhex.wallet.balance.ui.TipsViewHolder;
+import com.bhex.wallet.balance.ui.viewhodler.TipsViewHolder;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -47,8 +43,6 @@ import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
-import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -60,7 +54,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -102,10 +95,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
 
     private ChainAdapter mChainAdapter;
-    //private List<BHBalance> mBalanceList = new ArrayList<>();
     private List<BHChain> mChainList;
     private BHWallet bhWallet;
-    //private AccountInfo mAccountInfo;
     private BalanceViewModel balanceViewModel;
     //总资产
     private double allTokenAssets;
@@ -139,11 +130,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         mChainList = CacheCenter.getInstance().getTokenMapCache().loadChains();
 
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        //layoutManager.setSmoothScrollbarEnabled(true);
         recycler_balance.getLayoutManager().setAutoMeasureEnabled(true);
-        //recycler_balance.setLayoutManager(layoutManager);
         recycler_balance.setNestedScrollingEnabled(false);
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
@@ -153,8 +140,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         recycler_balance.addItemDecoration(ItemDecoration);
 
-        mChainAdapter = new ChainAdapter(mChainList);
-        recycler_balance.setAdapter(mChainAdapter);
+        recycler_balance.setAdapter(mChainAdapter = new ChainAdapter(mChainList));
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         refreshLayout.setEnableLoadMore(false);
     }
@@ -169,7 +155,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         //资产列表点击事件
         mChainAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHChain bhChain =  mChainAdapter.getData().get(position);
-            ARouter.getInstance().build(ARouterConfig.Balance_chain_tokens)
+            ARouter.getInstance().build(ARouterConfig.Balance.Balance_chain_tokens)
                     .withObject("bhChain",bhChain)
                     .withString("title","hbc")
                     .navigation();
@@ -205,9 +191,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     private void updateAssets() {
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
-        //mAccountInfo = accountInfo;
-        //BHUserManager.getInstance().setAccountInfo(mAccountInfo);
-        //List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+
         //计算每一个币种的资产价值 和 总资产
         updateTopTokenAssets();
         mChainAdapter.notifyDataSetChanged();
@@ -242,22 +226,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             ToastUtils.showToast(getResources().getString(R.string.copyed));
         }else if(view.getId()==R.id.iv_search){
             //币种搜索
-            /*ARouter.getInstance().build(ARouterConfig.Balance_Search).
-                    withObject("balanceList",mOriginBalanceList).navigation();*/
         }else if(view.getId()==R.id.ck_hidden_small){
             //隐藏小额币种
             ck_hidden_small.toggle();
-
-            /*String searchText = ed_search_content.getText().toString().trim();
-            List<BHBalance> result = mPresenter.hiddenSmallToken(getYActivity(),ck_hidden_small,mOriginBalanceList,searchText);
-
-            if(result==null||result.size()==0){
-                empty_layout.setVisibility(View.VISIBLE);
-            }else{
-                empty_layout.setVisibility(View.GONE);
-            }
-            mChainAdapter.getData().clear();
-            mChainAdapter.addData(result);*/
         }
     }
 
@@ -293,24 +264,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     public void changeCurrency(CurrencyEvent currencyEvent){
         updateAssets();
     }
-
-    /*private SimpleTextWatcher balanceTextWatcher = new SimpleTextWatcher(){
-        @Override
-        public void afterTextChanged(Editable s) {
-            super.afterTextChanged(s);
-            String searchContent = ed_search_content.getText().toString().trim();
-            *//*List<BHBalance> result = mPresenter.hiddenSmallToken(getYActivity(),ck_hidden_small,mOriginBalanceList,searchContent);
-
-            if(result==null||result.size()==0){
-                empty_layout.setVisibility(View.VISIBLE);
-            }else{
-                empty_layout.setVisibility(View.GONE);
-            }
-            mChainAdapter.getData().clear();
-            mChainAdapter.addData(result);*//*
-
-        }
-    };*/
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

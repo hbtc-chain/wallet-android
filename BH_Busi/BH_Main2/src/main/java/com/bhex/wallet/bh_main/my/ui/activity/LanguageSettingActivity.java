@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import io.reactivex.Observable;
 
-@Route(path= ARouterConfig.MY_LANGUAE_SET_PAGE)
+@Route(path= ARouterConfig.My.My_Languae_Set)
 public class LanguageSettingActivity extends BaseActivity {
 
     @Autowired(name="title")

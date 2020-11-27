@@ -3,6 +3,7 @@ package com.bhex.wallet.common.api;
 import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.model.BHRates;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.model.GasFee;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -130,4 +131,8 @@ public interface BHttpApiInterface {
     //搜索token
     @GET("/api/v1/tokens/{symbol}")
     Observable<BHToken> queryToken(@Path("symbol") String symbol);
+
+    //获取Gasfee
+    @GET("/api/v1/default_fee")
+    Observable<GasFee> queryGasfee();
 }

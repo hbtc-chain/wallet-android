@@ -2,7 +2,6 @@ package com.bhex.wallet.balance.presenter;
 
 import android.text.TextUtils;
 
-import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
@@ -10,9 +9,8 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.balance.ui.viewhodler.TransferOutViewHolder;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.model.BHBalance;
-import com.bhex.wallet.common.model.BHToken;
 
 /**
  * Created by BHEX.
@@ -21,13 +19,18 @@ import com.bhex.wallet.common.model.BHToken;
  * Time: 11:00
  */
 public class TransferOutPresenter extends BasePresenter {
+    public TransferOutViewHolder mTransferViewHolder;
 
     public TransferOutPresenter(BaseActivity activity) {
         super(activity);
     }
 
-    public boolean checklinkInnerTransfer(String to_address,String transfer_amount,
-                                          String available_amount,String fee_amount){
+    public boolean checklinkInnerTransfer(){
+        String to_address = mTransferViewHolder.input_to_address.getInputString();
+        String transfer_amount = mTransferViewHolder.input_transfer_amount.getInputString();
+        String fee_amount = mTransferViewHolder.input_tx_fee.getInputString();
+        String available_amount = String.valueOf(mTransferViewHolder.available_amount);
+
         if(!to_address.toUpperCase().startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
             ToastUtils.showToast(getActivity().getString(R.string.error_transfer_address));
             return false;
@@ -53,59 +56,94 @@ public class TransferOutPresenter extends BasePresenter {
             return false;
         }
 
-        //手续费+输入小于
-        Double inputAllAmount = NumberUtil.add(transfer_amount,fee_amount);
-        if(Double.valueOf(inputAllAmount) > Double.valueOf(available_amount)){
-            ToastUtils.showToast(getActivity().getString(R.string.input_add_fee_more_availabe));
-            return false;
+        //手续费+输入小于--手续费
+        if(mTransferViewHolder.tranferToken.symbol.equals(mTransferViewHolder.tranferToken.chain)){
+            Double inputAllAmount = NumberUtil.add(transfer_amount,fee_amount);
+            if(Double.valueOf(inputAllAmount) > Double.valueOf(available_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.tip_transferout_amount_error_0));
+                return false;
+            }
+        }else{
+            if(Double.valueOf(transfer_amount) > Double.valueOf(available_amount) ){
+                ToastUtils.showToast(getActivity().getString(R.string.tip_transferout_amount_error));
+                return false;
+            }
         }
+
 
 
         return true;
     }
 
-    public boolean checklinkOutterTransfer(String to_address, String transfer_amount,
+    public boolean checkCrossLinkTransfer(/*String to_address, String transfer_amount,
                                            String available_amount,
                                            String tx_fee_amount,
                                            String witddraw_fee_amount,
-                                           String min_withdraw_fee, BHBalance available_withdraw_balance){
+                                           String min_withdraw_fee, BHBalance available_withdraw_balance*/){
+        String to_address = mTransferViewHolder.input_to_address.getInputString();
+        String transfer_amount = mTransferViewHolder.input_transfer_amount.getInputString();
+        String available_amount = String.valueOf(mTransferViewHolder.available_amount);
+        String tx_fee_amount = mTransferViewHolder.input_tx_fee.getInputString();
+        //
+        String input_withdraw_fee = mTransferViewHolder.input_withdraw_fee.getInputString();
+        String min_withdraw_fee = mTransferViewHolder.tranferToken.withdrawal_fee;
+        //可用的提币费用
+        String available_withdraw_fee = mTransferViewHolder.withDrawFeeBalance.amount;
+        //提币地址
         if(TextUtils.isEmpty(to_address)){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.withdraw_address_error));
             return false;
         }
 
+        //提币数量
         if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.input_withdraw_amount));
             return false;
         }
 
-        if(TextUtils.isEmpty(tx_fee_amount) && Double.valueOf(tx_fee_amount)<=0){
-            ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_gasfee));
-            return false;
-        }
-
-        if(TextUtils.isEmpty(witddraw_fee_amount) && Double.valueOf(witddraw_fee_amount)<=0){
+        //提币手续费
+        if(TextUtils.isEmpty(input_withdraw_fee) || Double.valueOf(input_withdraw_fee)<=0){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_withdraw_fee));
             return false;
         }
 
+        //交易手续费
+        if(TextUtils.isEmpty(tx_fee_amount) || Double.valueOf(tx_fee_amount)<=0){
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_gasfee));
+            return false;
+        }
+        //提币手续费不足
+        //输入的手续费大于可用手续费
+        if(Double.valueOf(input_withdraw_fee)>Double.valueOf(available_withdraw_fee)){
+            ToastUtils.showToast( getActivity().getString(R.string.withdraw_fee_notenough));
 
-        if(Double.valueOf(witddraw_fee_amount)<Double.valueOf(min_withdraw_fee)){
+            return false;
+        }
+
+        //可用的手续费 小于 最小手续费
+        if(Double.valueOf(available_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
+            ToastUtils.showToast( getActivity().getString(R.string.withdraw_fee_notenough));
+            return false;
+        }
+
+        //提币手续费小于最小提币数量
+        if(Double.valueOf(input_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
             ToastUtils.showToast(getActivity().getString(R.string.withdraw_fee_less)+min_withdraw_fee);
             return false;
         }
 
-
-        if( Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
-            ToastUtils.showToast(getActivity().getString(R.string.error_withdraw_amout_more_available));
-            return false;
-        }
-
-        //有没有足够的提币收费
-        String available_withdraw_fee = available_withdraw_balance.amount;
-        if(Double.valueOf(available_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
-            ToastUtils.showToast(getActivity().getString(R.string.not_enough)+available_withdraw_balance.symbol.toUpperCase());
-            return false;
+        //提币数量大于可用数量
+        if(mTransferViewHolder.tranferToken.symbol.equals(mTransferViewHolder.tranferToken.chain)){
+            Double inputAllAmount = NumberUtil.add(transfer_amount,input_withdraw_fee);
+            if(Double.valueOf(inputAllAmount) > Double.valueOf(available_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.error_withdraw_amout_more_available));
+                return false;
+            }
+        }else{
+            if( Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.error_withdraw_amout_more_available));
+                return false;
+            }
         }
 
         return true;

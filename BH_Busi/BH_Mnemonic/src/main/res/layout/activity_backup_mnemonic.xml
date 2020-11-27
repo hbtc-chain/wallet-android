@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="@dimen/main_padding_left"
         android:text="@string/please_be_sure"
         android:textColor="@color/global_main_text_color"

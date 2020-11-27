@@ -111,7 +111,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
     public void onViewClicked(View view) {
         if (view.getId() == R.id.tv_create_proposal) {
 
-            ARouter.getInstance().build(ARouterConfig.Create_Proposal)
+            ARouter.getInstance().build(ARouterConfig.Proposal.Create_Proposal)
                     .navigation();
         }
     }
@@ -136,7 +136,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
             if (data != null) {
                 final ProposalInfo item = data.get(position);
 
-                ARouter.getInstance().build(ARouterConfig.Proposal_Detail)
+                ARouter.getInstance().build(ARouterConfig.Proposal.Proposal_Detail)
                         .withObject("proposalInfo", item)
                         .navigation();
             }

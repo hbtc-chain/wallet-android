@@ -1,14 +1,10 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
-import android.os.Bundle;
-import android.util.TypedValue;
-
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.alibaba.fastjson.util.TypeUtils;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -19,15 +15,14 @@ import com.bhex.wallet.mnemonic.ui.fragment.ScreenShotTipsFragment;
 import com.google.android.material.button.MaterialButton;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author gongdongyang
  * 2020-5-16 19:11:34
  * 私钥导出提醒
  */
-@Route(path = ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP, name = "私钥导出提醒")
-public class ExportPrivateKeyTipActivity extends BaseActivity {
+@Route(path = ARouterConfig.TRUSTEESHIP_EXPORT_INDEX, name = "私钥导出提醒")
+public class ExportIndexActivity extends BaseActivity {
 
     @Autowired(name = "title")
     String title;
@@ -55,7 +50,7 @@ public class ExportPrivateKeyTipActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_export_private_key_tip;
+        return R.layout.activity_export_index;
     }
 
     @Override

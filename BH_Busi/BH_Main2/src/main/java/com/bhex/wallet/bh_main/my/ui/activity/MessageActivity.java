@@ -42,7 +42,7 @@ import butterknife.ButterKnife;
  * 2020-5-16 16:14:15
  * 消息中心
  */
-@Route(path = ARouterConfig.MY_Message, name = "消息中心")
+@Route(path = ARouterConfig.My.My_Message, name = "消息中心")
 public class MessageActivity extends BaseActivity {
 
     @BindView(R2.id.tv_center_title)

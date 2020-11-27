@@ -22,7 +22,7 @@ import com.bhex.tools.utils.PathUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.presenter.TransferOutPresenter;
-import com.bhex.wallet.balance.ui.TransferOutViewHolder;
+import com.bhex.wallet.balance.ui.viewhodler.TransferOutViewHolder;
 import com.bhex.wallet.balance.viewmodel.TokenViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -48,8 +48,8 @@ import java.util.List;
  * @author gongdongyang
  * 转账、提币代码重构
  */
-@Route(path = ARouterConfig.Balance_transfer_out)
-public class TransferOutExtActivity extends BaseActivity<TransferOutPresenter> {
+@Route(path = ARouterConfig.Balance.Balance_transfer_out)
+public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
 
     @Autowired(name="symbol")
     String m_symbol;

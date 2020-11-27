@@ -34,7 +34,7 @@ import butterknife.OnClick;
  * 修改密码
  */
 
-@Route(path= ARouterConfig.MY_UPDATE_PASSWORD)
+@Route(path= ARouterConfig.My.My_Update_Password)
 public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
     @Autowired(name="title")
     String title;

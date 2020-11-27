@@ -28,7 +28,7 @@ import butterknife.Unbinder;
  */
 public abstract class BaseCoreActivity<T extends IPresenter> extends AppCompatActivity {
 
-    protected final static String TAG = BaseCoreActivity.class.getSimpleName();
+    protected final static String TAG = "BaseCoreActivity";
 
     public Toolbar mToolBar;
 
@@ -49,7 +49,7 @@ public abstract class BaseCoreActivity<T extends IPresenter> extends AppCompatAc
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         //StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
-        setStatusColor();
+        //setStatusColor();
         initPresenter();
 
 

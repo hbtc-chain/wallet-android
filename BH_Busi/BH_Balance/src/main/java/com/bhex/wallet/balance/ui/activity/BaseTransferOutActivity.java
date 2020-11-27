@@ -41,8 +41,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     protected TokenViewModel tokenViewModel;
 
     protected BHWallet mCurrentBhWallet;
-
-    protected  BHToken bhToken;
+    protected BHToken bhToken;
 
     protected double available_amount;
 
@@ -62,7 +61,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     @BindView(R2.id.tv_withdraw_fee_amount)
     AppCompatTextView tv_withdraw_fee_amount;
 
-    @BindView(R2.id.tv_to_address)
+    @BindView(R2.id.input_to_address)
     WithDrawInput tv_to_address;
     @BindView(R2.id.tv_available_amount)
     AppCompatTextView tv_available_amount;
@@ -82,9 +81,9 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     AppCompatTextView tv_available_bht_amount;
     @BindView(R2.id.tv_transfer_out_tips_1)
     AppCompatTextView tv_transfer_out_tips_1;
-    @BindView(R2.id.tv_transfer_out_tips_2)
+    //@BindView(R2.id.tv_transfer_out_tips_2)
     AppCompatTextView tv_transfer_out_tips_2;
-    @BindView(R2.id.tv_transfer_out_tips_3)
+    //@BindView(R2.id.tv_transfer_out_tips_3)
     AppCompatTextView tv_transfer_out_tips_3;
     @BindView(R2.id.btn_drawwith_coin)
     MaterialButton btn_drawwith_coin;
@@ -132,9 +131,9 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
             ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
 
-            tv_transfer_out_tips_1.setText(getResources().getString(R.string.linkinner_withdraw_tip_1));
-            tv_transfer_out_tips_2.setText(getResources().getString(R.string.linkinner_withdraw_tip_2));
-            tv_transfer_out_tips_3.setText(getResources().getString(R.string.linkinner_withdraw_tip_3));
+            tv_transfer_out_tips_1.setText(getResources().getString(R.string.linkinner_withdraw_tip));
+            /*tv_transfer_out_tips_2.setText(getResources().getString(R.string.linkinner_withdraw_tip_2));
+            tv_transfer_out_tips_3.setText(getResources().getString(R.string.linkinner_withdraw_tip_3));*/
 
             et_withdraw_fee.setVisibility(View.GONE);
             tv_withdraw_fee.setVisibility(View.GONE);
@@ -144,13 +143,12 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
 
             layout_withdraw_fee.setVisibility(View.GONE);
 
-
         }else if(getWay()== BH_BUSI_TYPE.跨链转账.getIntValue()){
             layout_transfer_out_tips.setVisibility(View.VISIBLE);
             tv_center_title.setText(getBalance().name.toUpperCase()+" "+getResources().getString(R.string.draw_coin));
-            tv_transfer_out_tips_1.setText(getResources().getString(R.string.crosslink_withdraw_tip_1));
-            tv_transfer_out_tips_2.setText(getResources().getString(R.string.crosslink_withdraw_tip_2));
-            tv_transfer_out_tips_3.setText(getResources().getString(R.string.crosslink_withdraw_tip_3));
+            tv_transfer_out_tips_1.setText(getResources().getString(R.string.crosslink_withdraw_tip));
+            /*tv_transfer_out_tips_2.setText(getResources().getString(R.string.crosslink_withdraw_tip_2));
+            tv_transfer_out_tips_3.setText(getResources().getString(R.string.crosslink_withdraw_tip_3));*/
 
             tv_reach.setVisibility(View.GONE);
             tv_reach_amount.setVisibility(View.GONE);

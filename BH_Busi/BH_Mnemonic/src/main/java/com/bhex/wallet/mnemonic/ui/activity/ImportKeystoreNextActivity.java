@@ -15,8 +15,6 @@ import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BaseCoreActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.StringUtils;

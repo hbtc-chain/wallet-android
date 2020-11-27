@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
  * @author gongdongyang
  * 2020-9-2 15:50:31
  */
-@Route(path = ARouterConfig.Validator_Index)
+@Route(path = ARouterConfig.Validator.Validator_Index)
 public class ValidatorIndexActivity extends BaseActivity<ValidatorFragmentPresenter> {
     @BindView(R2.id.tab)
     GradientTabLayout tab;

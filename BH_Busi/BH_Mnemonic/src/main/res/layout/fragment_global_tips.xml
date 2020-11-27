@@ -18,7 +18,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_32"
+            android:layout_height="32dp"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
             android:text="@string/service_agreement"
@@ -28,7 +28,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_24"
+            android:layout_height="24dp"
             android:layout_gravity="center"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
@@ -71,7 +71,7 @@
         <CheckedTextView
             android:id="@+id/check_agreement"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_24"
+            android:layout_height="24dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginTop="25dp"

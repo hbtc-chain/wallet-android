@@ -25,6 +25,7 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.google.android.material.button.MaterialButton;
 
 /**
@@ -77,7 +78,7 @@ public class WithDrawShareFragment extends BaseDialogFragment {
 
         with_reward_content = getActivity().getResources().getString(R.string.with_reward_content);
 
-        tv_reward_text.setText(String.format(with_reward_content,mAllReward, BHConstants.BHT_DEFAULT_FEE));
+        tv_reward_text.setText(String.format(with_reward_content,mAllReward, BHUserManager.getInstance().getDefaultGasFee().displayFee));
 
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 

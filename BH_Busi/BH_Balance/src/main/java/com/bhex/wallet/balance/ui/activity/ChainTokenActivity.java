@@ -32,8 +32,8 @@ import com.bhex.wallet.balance.adapter.BalanceAdapter;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
-import com.bhex.wallet.balance.ui.BTCViewHolder;
-import com.bhex.wallet.balance.ui.HBCViewHolder;
+import com.bhex.wallet.balance.ui.viewhodler.BTCViewHolder;
+import com.bhex.wallet.balance.ui.viewhodler.HBCViewHolder;
 import com.bhex.wallet.balance.viewmodel.ChainTokenViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -55,7 +55,7 @@ import butterknife.BindView;
  * @author gongdongyang
  * 2020-8-31 10:57:14
  */
-@Route(path = ARouterConfig.Balance_chain_tokens, name = "链下Token")
+@Route(path = ARouterConfig.Balance.Balance_chain_tokens, name = "链下Token")
 public class ChainTokenActivity extends BaseActivity<BalancePresenter> implements OnRefreshListener {
 
     @Autowired (name = "bhChain")
@@ -153,8 +153,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             BHTokenItem bhTokenItem = mBalanceAdapter.getData().get(position);
             BHBalance bhBalance = BHBalanceHelper.getBHBalanceFromAccount(bhTokenItem.symbol);
 
-            Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance_Token_Detail)
-                    .withObject("balance",bhBalance);
+            Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance.Balance_Token_Detail)
+                    .withString("symbol",bhBalance.symbol);
             LogisticsCenter.completion(postcard);
             Intent intent = new Intent(this, postcard.getDestination());
             intent.putExtras(postcard.getExtras());
@@ -163,7 +163,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         });
 
         findViewById(R.id.tv_add_token).setOnClickListener(v -> {
-            ARouter.getInstance().build(ARouterConfig.Balance_Search).withString("chain",mBalance.chain).navigation();
+            ARouter.getInstance().build(ARouterConfig.Balance.Balance_Search).withString("chain",mBalance.chain).navigation();
         });
     }
 

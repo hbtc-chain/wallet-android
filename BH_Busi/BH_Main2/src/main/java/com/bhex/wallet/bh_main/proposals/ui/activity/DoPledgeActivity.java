@@ -44,7 +44,7 @@ import butterknife.OnClick;
  * 2020-4-16
  * 质押
  */
-@Route(path = ARouterConfig.Do_Pledge)
+@Route(path = ARouterConfig.Proposal.Do_Pledge)
 public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implements Password30Fragment.PasswordClickListener {
 
     @Autowired(name = "proposalInfo")

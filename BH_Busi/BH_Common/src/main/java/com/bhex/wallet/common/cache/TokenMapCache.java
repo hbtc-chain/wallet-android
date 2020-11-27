@@ -20,6 +20,7 @@ import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.BHTokenMapping;
+import com.bhex.wallet.common.model.GasFee;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -35,6 +36,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import java8.util.stream.IntStreams;
+import java8.util.stream.RefStreams;
+import java8.util.stream.StreamSupport;
+
 /**
  * @author gongdongyang
  * 2020-10-10 14:15:35
@@ -43,12 +48,12 @@ public class TokenMapCache extends BaseCache {
 
     private static final String TAG = TokenMapCache.class.getSimpleName();
 
-    public static final String CACHE_KEY = "TokenMapCache";
-    public static final String CACHE_KEY_2 = "TokenMapCache";
+    public static final String CACHE_TOKENMAP_KEY = "TokenMappingCache";
+    public static final String CACHE_CHAIN_KEY = "TokenChainCache";
+    public static final String CACHE_GASFEE_KEY = "GasFeeCache";
 
     private List<BHTokenMapping> mTokenMappings = new ArrayList<>();
     private List<BHChain> mChains = new ArrayList<>();
-
 
     private static volatile TokenMapCache _instance;
 
@@ -72,6 +77,7 @@ public class TokenMapCache extends BaseCache {
         super.beginLoadCache();
         loadTokenMapping();
         loadChain();
+        loadDefaultGasFee();
     }
 
     private synchronized void loadTokenMapping() {
@@ -80,7 +86,7 @@ public class TokenMapCache extends BaseCache {
 
         BHttpApi.getService(BHttpApiInterface.class).loadTokenMappings()
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(CACHE_KEY, type,getCacheStrategy()))
+                .compose(RxCache.getDefault().transformObservable(CACHE_TOKENMAP_KEY, type,getCacheStrategy()))
                 .map(new CacheResult.MapFunc())
                 .subscribe(new BHBaseObserver<JsonObject>(false) {
                     @Override
@@ -143,7 +149,30 @@ public class TokenMapCache extends BaseCache {
         Type type = (new TypeToken<JsonObject>() {}).getType();
         BHttpApi.getService(BHttpApiInterface.class).loadChain()
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(CACHE_KEY_2, type,getCacheStrategy()))
+                .compose(RxCache.getDefault().transformObservable(CACHE_CHAIN_KEY, type,getCacheStrategy()))
+                .map(new CacheResult.MapFunc())
+                .subscribe(observer);
+    }
+
+    private synchronized void loadDefaultGasFee() {
+        BHBaseObserver observer = new BHBaseObserver<GasFee>() {
+            @Override
+            protected void onSuccess(GasFee gasFee) {
+                LogUtils.d("TOkenMapCache===",gasFee.fee+"==gasFee=="+gasFee.displayFee);
+                BHUserManager.getInstance().gasFee = new GasFee(gasFee.fee,gasFee.gas);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+
+            }
+        };
+
+        Type type = (new TypeToken<GasFee>() {}).getType();
+        BHttpApi.getService(BHttpApiInterface.class).queryGasfee()
+                .compose(RxSchedulersHelper.io_main())
+                .compose(RxCache.getDefault().transformObservable(CACHE_GASFEE_KEY, type,getCacheStrategy()))
                 .map(new CacheResult.MapFunc())
                 .subscribe(observer);
     }
@@ -164,10 +193,14 @@ public class TokenMapCache extends BaseCache {
         }
         String[] chain_list = BHUserManager.getInstance().getUserBalanceList().split("_");
         String[] default_chain_name = BaseApplication.getInstance().getResources().getStringArray(R.array.default_chain_name);
-        for (int i = 0; i < chain_list.length; i++) {
+        /*for (int i = 0; i < chain_list.length; i++) {
             BHChain bhChain = new BHChain(chain_list[i],default_chain_name[i]);
             mChains.add(bhChain);
-        }
+        }*/
+        IntStreams.range(0,chain_list.length).forEach(value -> {
+            BHChain bhChain = new BHChain(chain_list[value],default_chain_name[value]);
+            mChains.add(bhChain);
+        });
         return mChains;
     }
 
@@ -177,6 +210,9 @@ public class TokenMapCache extends BaseCache {
                 return item;
             }
         }
+        /* RefStreams.of(mTokenMappings).filter(item->{
+             item.coin_symbol.equalsIgnoreCase(symbol);
+        }).collect();*/
 
         return null;
     }

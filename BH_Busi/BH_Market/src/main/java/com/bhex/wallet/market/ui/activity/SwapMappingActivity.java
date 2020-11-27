@@ -26,6 +26,7 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
@@ -209,7 +210,7 @@ public class SwapMappingActivity extends BaseActivity
         String map_amount = ed_transfer_coin_amount.getInputString();
         //mTransactionViewModel.transferInnerExt(this,issue_symbol, coin_symbol, map_amount, BHConstants.BHT_DEFAULT_FEE,password);
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createSwapMappingMsg(issue_symbol,coin_symbol,map_amount);
-        mTransactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
+        mTransactionViewModel.transferInnerExt(this,password, BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
     }
 
     @Override

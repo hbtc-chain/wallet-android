@@ -169,7 +169,7 @@ public class TransactionHelper {
      * @param txOrderItem
      */
     public static void gotoTranscationDetail(TxOrderItem txOrderItem,String mSymbol){
-        ARouter.getInstance().build(ARouterConfig.Balance_transcation_view)
+        ARouter.getInstance().build(ARouterConfig.Balance.Balance_transcation_view)
                 //.withObject("txo",txOrderItem)
                 .withString("transactionId",txOrderItem.hash)
                 .withString("symbol",mSymbol)

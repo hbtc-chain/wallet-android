@@ -21,15 +21,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="@dimen/dp_12"
+        android:paddingBottom="12dp"
         android:paddingLeft="@dimen/main_padding_left"
         android:paddingRight="@dimen/main_padding_right"
-        android:paddingTop="@dimen/dp_12">
+        android:paddingTop="12dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_validator_name"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_32"
+            android:layout_height="32dp"
             tools:text="testseadgfasdxfvadsvgasdgasdgasdgasd111111"
             android:maxLines="1"
             android:ellipsize="end"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
-            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginTop="2dp"
             android:src="@mipmap/icon_validator_valid"
             android:tag="0"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,37 +54,37 @@
 
         <TextView
             android:id="@+id/title1"
-            android:layout_width="@dimen/dp_0"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.4"
             app:layout_constraintTop_toBottomOf="@id/tv_validator_name"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginTop="8dp"
             android:textSize="@dimen/sp_13"
             android:textColor="@color/global_label_text_color"
             android:text="@string/voting_power_proportion"
             />
         <TextView
             android:id="@+id/title2"
-            android:layout_width="@dimen/dp_0"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toEndOf="@id/title1"
             app:layout_constraintTop_toBottomOf="@id/tv_validator_name"
-            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginTop="8dp"
             android:textSize="@dimen/sp_13"
             android:textColor="@color/global_label_text_color"
             android:text="@string/self_delegate_proportion"
             />
         <TextView
             android:id="@+id/title3"
-            android:layout_width="@dimen/dp_0"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toEndOf="@id/title2"
             app:layout_constraintTop_toBottomOf="@id/tv_validator_name"
             android:gravity="right"
-            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginTop="8dp"
             android:textSize="@dimen/sp_13"
             android:textColor="@color/global_label_text_color"
             android:text="@string/other_delegate_proportion"
@@ -92,8 +92,8 @@
 
         <com.bhex.lib.uikit.widget.CustomTextView
             android:id="@+id/tv_voting_power_proportion"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_28"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
             app:layout_constraintWidth_percent="0.4"
             app:layout_constraintTop_toBottomOf="@id/title1"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,8 +105,8 @@
             />
         <com.bhex.lib.uikit.widget.CustomTextView
             android:id="@+id/tv_self_delegate_proportion"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_28"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toEndOf="@id/tv_voting_power_proportion"
             app:layout_constraintTop_toBottomOf="@id/title2"
@@ -119,8 +119,8 @@
 
         <com.bhex.lib.uikit.widget.CustomTextView
             android:id="@+id/tv_other_delegate_proportion"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_28"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
             android:gravity="right|center_vertical"
             android:text=""
             android:textColor="@color/global_main_text_color"

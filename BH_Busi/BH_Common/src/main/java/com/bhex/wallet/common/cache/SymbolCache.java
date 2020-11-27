@@ -43,6 +43,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import java8.util.stream.IntStreams;
 
 /**
  * Created by BHEX.
@@ -215,13 +216,19 @@ public class SymbolCache extends BaseCache {
             return localTokenList;
         }
 
-        for(int i= 0;i<a_remove_symbol.length;i++){
+        /*for(int i= 0;i<a_remove_symbol.length;i++){
             BHToken bhToken = localTokenList.get(a_remove_symbol[i]);
             if(bhToken==null){
                 continue;
             }
             localTokenList.remove(bhToken.symbol);
-        }
+        }*/
+        IntStreams.range(0,a_remove_symbol.length).forEach(value -> {
+            BHToken bhToken = localTokenList.get(a_remove_symbol[value]);
+            if(bhToken!=null){
+                localTokenList.remove(bhToken.symbol);
+            }
+        });
         return localTokenList;
     }
 
@@ -229,11 +236,11 @@ public class SymbolCache extends BaseCache {
         return verifiedTokenList;
     }
 
-    public synchronized  void saveVerifiedToken(List<BHToken> coinList ){
+    /*public synchronized  void saveVerifiedToken(List<BHToken> coinList ){
         for (BHToken item:coinList ) {
 
         }
-    }
+    }*/
 
     public synchronized int getDecimals(String symbol){
         if(symbolMap.get(symbol)!=null){

@@ -2,6 +2,7 @@ package com.bhex.lib.uikit.widget.editor;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -88,7 +89,12 @@ public class WithDrawInput extends RelativeLayout {
     }
 
     public void setInputString(String value) {
+        if(value==null){
+            return;
+        }
         mInputEd.setText(value);
+        mInputEd.setSelection(value.length());
+        mInputEd.requestFocus();
     }
 
 }

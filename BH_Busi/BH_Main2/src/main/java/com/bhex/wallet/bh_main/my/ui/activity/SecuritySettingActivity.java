@@ -30,7 +30,7 @@ import butterknife.BindView;
  * 2020-10-15 20:27:22
  * 安全设置
  */
-@Route(path = ARouterConfig.MY_Security_Setting, name = "安全设置")
+@Route(path = ARouterConfig.My.My_Security_Setting, name = "安全设置")
 public class SecuritySettingActivity extends BaseActivity implements PasswordFragment.PasswordClickListener {
 
     @Autowired(name = "title")

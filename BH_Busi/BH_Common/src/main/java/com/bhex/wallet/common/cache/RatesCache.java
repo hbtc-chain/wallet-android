@@ -29,6 +29,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import java8.util.stream.StreamSupport;
 
 /**
  * Created by BHEX.
@@ -83,9 +84,12 @@ public class RatesCache extends BaseCache {
                             return;
                         }
                         RatesCache.getInstance().getRatesMap().clear();
-                        for (BHRates rate:ratelist){
+                        /*for (BHRates rate:ratelist){
                             RatesCache.getInstance().getRatesMap().put(rate.getToken().toLowerCase(),rate.getRates());
-                        }
+                        }*/
+                        StreamSupport.stream(ratelist).forEach(rate->{
+                            RatesCache.getInstance().getRatesMap().put(rate.getToken().toLowerCase(),rate.getRates());
+                        });
                     }
 
                     @Override

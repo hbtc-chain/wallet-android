@@ -36,7 +36,7 @@ import butterknife.BindView;
  * on 2020/2/24
  */
 
-@Route(path= ARouterConfig.APP_MAIN_PAGE)
+@Route(path= ARouterConfig.Main.main_mainindex)
 public class MainActivity extends BaseActivity<MainPresenter> {
 
     @BindView(R.id.main_bottom)
@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        LogUtils.d("MainPresenter===>:","isReset=2="+isReset);
+        //LogUtils.d("MainPresenter===>:","isReset=2="+isReset);
 
         if(savedInstanceState!=null && !isReset){
             mCurrentCheckId = savedInstanceState.getInt("index",0);

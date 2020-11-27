@@ -31,7 +31,7 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginTop="8dp"
             android:fillViewport="true"
             android:overScrollMode="never">
 
@@ -54,15 +54,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/main_margin_right"
-                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="@dimen/main_margin_right"
                     android:background="@drawable/bg_border_corners_gray"
                     android:gravity="top"
                     android:letterSpacing="0.02"
                     android:paddingLeft="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_16"
+                    android:paddingTop="16dp"
                     android:paddingRight="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_16"
+                    android:paddingBottom="16dp"
                     android:text="@string/do_entrust_tip"
                     android:textColor="@color/global_secondary_text_color"
                     android:textSize="@dimen/sp_15"
@@ -79,7 +79,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/main_margin_left"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="16dp"
 
                     android:text="@string/string_veto"
                     android:textColor="@color/global_secondary_text_color"
@@ -90,9 +90,9 @@
                 <RelativeLayout
                     android:id="@+id/rl_yes_option"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_48"
+                    android:layout_height="48dp"
                     android:layout_marginStart="@dimen/main_margin_left"
-                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="@dimen/main_margin_right"
 
                     android:background="@drawable/input_bg_gray_corner"
@@ -125,9 +125,9 @@
                 <RelativeLayout
                     android:id="@+id/rl_no_option"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_48"
+                    android:layout_height="48dp"
                     android:layout_marginStart="@dimen/main_margin_left"
-                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="@dimen/main_margin_right"
 
                     android:background="@drawable/input_bg_gray_corner"
@@ -160,9 +160,9 @@
                 <RelativeLayout
                     android:id="@+id/rl_abstain_option"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_48"
+                    android:layout_height="48dp"
                     android:layout_marginStart="@dimen/main_margin_left"
-                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="@dimen/main_margin_right"
 
                     android:background="@drawable/input_bg_gray_corner"
@@ -195,9 +195,9 @@
                 <RelativeLayout
                     android:id="@+id/rl_no_with_veto_option"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_48"
+                    android:layout_height="48dp"
                     android:layout_marginStart="@dimen/main_margin_left"
-                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="@dimen/main_margin_right"
 
                     android:background="@drawable/input_bg_gray_corner"
@@ -235,7 +235,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/main_margin_left"
-                    android:layout_marginTop="@dimen/dp_32"
+                    android:layout_marginTop="32dp"
 
                     android:text="@string/fee"
                     android:textColor="@color/global_secondary_text_color"
@@ -250,7 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/dp_32"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="@dimen/main_margin_right"
                     android:textColor="@color/global_label_text_color"
                     android:textSize="13sp"
@@ -281,7 +281,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/main_margin_left"
-                    android:layout_marginTop="@dimen/dp_32"
+                    android:layout_marginTop="32dp"
 
                     android:text="@string/speedup"
                     android:textColor="@color/global_secondary_text_color"
@@ -296,7 +296,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/dp_32"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="@dimen/page_margin_start"
                     android:textColor="@color/global_label_text_color"
                     android:textSize="13sp"
@@ -311,7 +311,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="28dp"
                     android:layout_marginStart="@dimen/main_margin_left"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/main_margin_right"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -326,7 +326,7 @@
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dp_76"
+        android:layout_height="76dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -338,8 +338,8 @@
             style="@style/main_material_btn"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginLeft="@dimen/dp_16"
-            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"

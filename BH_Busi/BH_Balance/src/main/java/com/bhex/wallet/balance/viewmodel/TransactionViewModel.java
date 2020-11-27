@@ -285,8 +285,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                     if(TextUtils.isEmpty(accountInfo.getSequence())){
                         return null;
                     }
-                    /*BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
-                            null,password,accountInfo.getSequence(),symbol);*/
+                    
                     BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,accountInfo.getSequence(),feeAmount,txMsgList);
                     String body = JsonUtils.toJson(bhSendTranscation);
                     RequestBody txBody = HUtils.createJson(body);

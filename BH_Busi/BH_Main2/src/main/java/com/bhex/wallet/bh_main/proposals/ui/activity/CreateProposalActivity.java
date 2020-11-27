@@ -28,6 +28,7 @@ import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.proposals.presenter.CreateProposalPresenter;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
@@ -47,7 +48,7 @@ import butterknife.OnClick;
  * 2020-4-22
  * 发起提案
  */
-@Route(path = ARouterConfig.Create_Proposal)
+@Route(path = ARouterConfig.Proposal.Create_Proposal)
 public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter>  implements Password30Fragment.PasswordClickListener {
 
     @BindView(R2.id.ed_proposal_title)
@@ -108,7 +109,8 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
     private void initUI() {
         refreshLayout.setEnableLoadMore(false);
-        ed_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        //ed_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        ed_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
         tv_description_length.setText(getString(R.string.description_length_format,0));
         ed_pledge_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_fee.btn_right_text.setText(token.toUpperCase());

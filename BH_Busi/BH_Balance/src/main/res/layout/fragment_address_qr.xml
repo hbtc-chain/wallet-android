@@ -83,7 +83,7 @@
             app:iconGravity="textStart"
             app:icon="@mipmap/ic_paste_blue"
             app:strokeColor="@color/border_button_border_color"
-            app:strokeWidth="@dimen/dp_2"
+            app:strokeWidth="2dp"
             app:backgroundTint="@color/border_button_bg_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -104,7 +104,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         //点击事件
         mValidatorAdapter.setOnItemClickListener((adapter, view, position) -> {
             ValidatorInfo item = mValidatorAdapter.getData().get(position);
-            ARouter.getInstance().build(ARouterConfig.Validator_Detail)
+            ARouter.getInstance().build(ARouterConfig.Validator.Validator_Detail)
                     .withObject("validatorInfo", item)
                     .withInt("valid", mValidatorType)
                     .navigation();

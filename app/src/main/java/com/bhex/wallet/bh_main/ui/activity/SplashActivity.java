@@ -56,7 +56,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        test();
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
@@ -67,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletViewModel.loadWallet(this);
 
-        boolean flag = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FRIST_BOOT);
+        //boolean flag = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FRIST_BOOT);
         //
         Disposable disposable = Observable.just(0).timer(1000, TimeUnit.MILLISECONDS)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
@@ -78,13 +77,13 @@ public class SplashActivity extends AppCompatActivity {
                     } else {
                         boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
                         if (!isFinger) {
-                            //NavigateUtil.startActivity(SplashActivity.this, LockActivity.class);
-                            NavigateUtil.startActivity(SplashActivity.this, MainActivity.class);
+                            //NavigateUtil.startActivity(SplashActivity.this, MainActivity.class);
+                            ARouter.getInstance().build(ARouterConfig.Main.main_mainindex).navigation();
                         } else {
-                            NavigateUtil.startActivity(SplashActivity.this, FingerLoginActivity.class);
+                            //NavigateUtil.startActivity(SplashActivity.this, FingerLoginActivity.class);
+                            ARouter.getInstance().build(ARouterConfig.Account.Account_Login_Finger).navigation();
                         }
-                        //ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE).navigation();
-                        //NavigateUtil.startActivity(SplashActivity.this, MainActivity.class);
+
                     }
                     finish();
                 });
@@ -141,7 +140,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    protected void hideBottomUIMenu() {
+    /*protected void hideBottomUIMenu() {
         if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
             View v = this.getWindow().getDecorView();
             v.setSystemUiVisibility(View.GONE);
@@ -165,5 +164,5 @@ public class SplashActivity extends AppCompatActivity {
         String  result0 = NumberUtil.formatValue(74.99,5);
         LogUtils.e("SplashActivity===>","result0=="+result0);
 
-    }
+    }*/
 }

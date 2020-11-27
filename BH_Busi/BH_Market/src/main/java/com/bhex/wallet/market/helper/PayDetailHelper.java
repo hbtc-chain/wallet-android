@@ -10,6 +10,7 @@ import com.bhex.tools.utils.RegexUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.model.H5Sign;
@@ -67,7 +68,7 @@ public class PayDetailHelper {
         PayDetailItem item3 = new PayDetailItem(context.getString(R.string.payment_address), v_流动性_Entitiy.from);
         list.add(item3);
 
-        PayDetailItem item4 = new PayDetailItem(context.getString(R.string.gas_fee), BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        PayDetailItem item4 = new PayDetailItem(context.getString(R.string.gas_fee), BHUserManager.getInstance().getDefaultGasFee().displayFee + BHConstants.BHT_TOKEN.toUpperCase());
         list.add(item4);
         return list;
     }
@@ -111,7 +112,7 @@ public class PayDetailHelper {
         PayDetailItem item2 = new PayDetailItem(context.getString(R.string.payment_address), v_兑换_Entitiy.from);
         list.add(item2);
         
-        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHUserManager.getInstance().getDefaultGasFee().displayFee + BHConstants.BHT_TOKEN.toUpperCase());
         list.add(item3);
         return list;
     }
@@ -155,7 +156,7 @@ public class PayDetailHelper {
         PayDetailItem item2 = new PayDetailItem(context.getString(R.string.payment_address), v_兑换_输出确定_Entity.from);
         list.add(item2);
 
-        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHUserManager.getInstance().getDefaultGasFee().displayFee + BHConstants.BHT_TOKEN.toUpperCase());
         list.add(item3);
 
         return list;
@@ -198,7 +199,7 @@ public class PayDetailHelper {
         PayDetailItem item2 = new PayDetailItem(context.getString(R.string.payment_address), v_移除流动性_Entitiy.from);
         list.add(item2);
 
-        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHConstants.BHT_DEFAULT_FEE + BHConstants.BHT_TOKEN.toUpperCase());
+        PayDetailItem item3 = new PayDetailItem(context.getString(R.string.gas_fee), BHUserManager.getInstance().getDefaultGasFee().displayFee + BHConstants.BHT_TOKEN.toUpperCase());
         list.add(item3);
         return list;
     }

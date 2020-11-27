@@ -28,7 +28,7 @@ import butterknife.BindView;
  * 2020-4-27 17:44:23
  * */
 
-@Route(path = ARouterConfig.Balance_transcation_view,name="交易详情")
+@Route(path = ARouterConfig.Balance.Balance_transcation_view,name="交易详情")
 public class TranscationViewActivity extends TxBaseActivity {
 
     @Autowired(name = "transactionId")

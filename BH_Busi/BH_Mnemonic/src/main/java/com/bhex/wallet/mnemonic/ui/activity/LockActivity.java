@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.network.base.LoadingStatus;
@@ -35,6 +36,7 @@ import butterknife.OnClick;
  * @author gongdongyang
  * 2020-3-12
  */
+@Route(path = ARouterConfig.Account.Account_Login_Password, name="密码登录")
 public class LockActivity extends BaseCacheActivity<LoginPresenter> implements AddressFragment.AddressChangeListener {
 
     @BindView(R2.id.tv_bh_address)

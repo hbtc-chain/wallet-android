@@ -1,4 +1,4 @@
-package com.bhex.wallet.balance.ui;
+package com.bhex.wallet.balance.ui.viewhodler;
 
 import android.content.Context;
 import android.graphics.Color;

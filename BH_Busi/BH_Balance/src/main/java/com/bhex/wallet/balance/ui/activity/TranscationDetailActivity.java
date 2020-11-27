@@ -30,7 +30,7 @@ import butterknife.OnClick;
  * @author gongdongyang
  * 2020-4-8 11:21:16
  */
-@Route(path = ARouterConfig.Balance_transcation_detail)
+@Route(path = ARouterConfig.Balance.Balance_transcation_detail)
 public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailPresenter> {
 
     //@Autowired(name = "txo")

@@ -125,8 +125,8 @@ public class TokenReleaseActivity extends BaseActivity implements Password30Frag
 
         mAccountInfo = BHUserManager.getInstance().getAccountInfo();
         bhtBalance = MyHelper.getBthBalanceWithAccount(mAccountInfo);
-        inp_tx_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
-
+        //inp_tx_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        inp_tx_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
         //文本型
         inp_to_address.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         inp_token_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
@@ -183,7 +183,7 @@ public class TokenReleaseActivity extends BaseActivity implements Password30Frag
 
         //二维码扫描
         inp_to_address.iv_right.setOnClickListener(v -> {
-            ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
+            ARouter.getInstance().build(ARouterConfig.Common.commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
         });
 
         sb_tx_fee.setOnSeekChangeListener(new OnSampleSeekChangeListener() {

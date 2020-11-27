@@ -38,7 +38,7 @@ import io.reactivex.Observable;
  * 2020-4-18 16:13:56
  * 汇率设置
  */
-@Route(path = ARouterConfig.MY_Rate_setting)
+@Route(path = ARouterConfig.My.My_Rate_setting)
 public class RateSettingActivity extends BaseActivity<RatePresenter> {
 
     @Autowired(name="title")

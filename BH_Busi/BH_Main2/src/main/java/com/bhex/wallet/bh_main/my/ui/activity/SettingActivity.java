@@ -124,13 +124,13 @@ public class SettingActivity extends BaseActivity{
         MyItem myItem = mItems.get(position);
         switch (position){
             case 0:
-                ARouter.getInstance().build(ARouterConfig.MY_LANGUAE_SET_PAGE).withString("title",myItem.title).navigation();
+                ARouter.getInstance().build(ARouterConfig.My.My_Languae_Set).withString("title",myItem.title).navigation();
                 break;
             case 1:
-                ARouter.getInstance().build(ARouterConfig.MY_Rate_setting).withString("title",myItem.title).navigation();
+                ARouter.getInstance().build(ARouterConfig.My.My_Rate_setting).withString("title",myItem.title).navigation();
                 break;
             case 4:
-                ARouter.getInstance().build(ARouterConfig.MY_Security_Setting).withString("title",myItem.title).navigation();
+                ARouter.getInstance().build(ARouterConfig.My.My_Security_Setting).withString("title",myItem.title).navigation();
         }
     }
 

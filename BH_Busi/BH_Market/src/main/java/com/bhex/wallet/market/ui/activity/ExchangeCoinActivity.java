@@ -27,6 +27,7 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
@@ -250,7 +251,7 @@ public class ExchangeCoinActivity extends BaseActivity
         //
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createSwapMappingMsg(issue_symbol,coin_symbol,map_amount);
 
-        mTransactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
+        mTransactionViewModel.transferInnerExt(this,password, BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
     }
 
     //更新兑换状态

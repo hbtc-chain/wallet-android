@@ -77,7 +77,7 @@ public class MessageListFragment extends BaseFragment implements OnRefreshLoadMo
         messageViewModel.loadMessageByAddress(this, mCurrentPage, mType);
         messageAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHMessage bhm = mList.get(position);
-            Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance_transcation_view)
+            Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance.Balance_transcation_view)
                     .withString("transactionId",bhm.tx_hash);
             LogisticsCenter.completion(postcard);
             Intent intent = new Intent(getActivity(), postcard.getDestination());

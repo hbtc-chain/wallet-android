@@ -50,7 +50,7 @@ import butterknife.OnClick;
  * 2020-4-16
  * 委托
  */
-@Route(path = ARouterConfig.Do_Entrust)
+@Route(path = ARouterConfig.Validator.Do_Entrust)
 public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implements Password30Fragment.PasswordClickListener {
 
     @Autowired(name = "validatorInfo")
@@ -180,7 +180,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         ed_real_entrust_amount.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        ed_entrust_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        //ed_entrust_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        ed_entrust_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
         tv_available_amount.setText(" " + getString(R.string.string_placeholder) + token.toUpperCase());
     }
 

@@ -42,8 +42,16 @@ import butterknife.OnClick;
  * 转入
  */
 
-@Route(path= ARouterConfig.Balance_transfer_in)
+@Route(path= ARouterConfig.Balance.Balance_transfer_in)
 public class TransferInActivity extends BaseActivity {
+
+    @Autowired(name="symbol")
+    String  symbol;
+
+    //收款类型 1链内 2 跨链
+    @Autowired(name = "way")
+    int way;
+
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -70,13 +78,6 @@ public class TransferInActivity extends BaseActivity {
     @BindView(R2.id.tv_paste)
     AppCompatTextView tv_paste;
 
-    @Autowired(name="balance")
-    BHBalance balance;
-
-    //收款类型 1链内 2 跨链
-    @Autowired(name = "way")
-    int way;
-
     BHWallet mCurrentWallet;
 
     //二维码地址
@@ -90,13 +91,15 @@ public class TransferInActivity extends BaseActivity {
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
-        tv_center_title.setText(balance.name.toUpperCase()+" "+getResources().getString(R.string.make_collection));
+        BHToken token = CacheCenter.getInstance().getSymbolCache().getBHToken(symbol);
+        BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(symbol);
+        tv_center_title.setText(token.name.toUpperCase()+" "+getResources().getString(R.string.make_collection));
 
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        BHBalanceHelper.loadTokenIcon(this,iv_coin_ic,balance.symbol);
+        BHBalanceHelper.loadTokenIcon(this,iv_coin_ic,token.symbol);
 
-        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(balance.chain)){
+        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(token.chain)){
             deposit_address = mCurrentWallet.address;
             tv_trusteeship_address.setText(BHConstants.HBTC.toUpperCase()+" "+getString(R.string.trusteeship_address));
             mRootView.setBackgroundColor(ColorUtil.getColor(this,R.color.blue_bg));
@@ -117,7 +120,7 @@ public class TransferInActivity extends BaseActivity {
             layout_index_0.setVisibility(View.VISIBLE);
             layout_index_5.setVisibility(View.VISIBLE);
             AppCompatTextView tv_tip_context = findViewById(R.id.tv_tip_context);
-            BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(balance.symbol);
+            BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(token.symbol);
             String deposit_threshold_str = String.format(getString(R.string.string_deposit_threshold),bhToken.deposit_threshold+bhToken.symbol.toUpperCase());
             tv_tip_context.setText(deposit_threshold_str);
 

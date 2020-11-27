@@ -23,8 +23,8 @@ import java.util.List;
 public class MyAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
 
 
-    public MyAdapter(int layoutResId, @Nullable List<MyItem> data) {
-        super(layoutResId, data);
+    public MyAdapter(@Nullable List<MyItem> data) {
+        super(R.layout.item_my, data);
     }
 
     @Override

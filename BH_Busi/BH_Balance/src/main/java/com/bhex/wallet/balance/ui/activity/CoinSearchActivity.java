@@ -48,7 +48,7 @@ import butterknife.BindView;
  * 2020-4-3 15:27:32
  * 币种搜索
  */
-@Route(path = ARouterConfig.Balance_Search)
+@Route(path = ARouterConfig.Balance.Balance_Search)
 public class CoinSearchActivity extends BaseActivity implements OnRefreshListener {
 
     @BindView(R2.id.tv_center_title)
@@ -92,6 +92,7 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
                 this,LinearLayoutManager.VERTICAL,
+
                 PixelUtils.dp2px(this,68),
                 0,
                 ColorUtil.getColor(this,R.color.global_divider_color));

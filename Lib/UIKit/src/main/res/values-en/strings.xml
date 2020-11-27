@@ -130,10 +130,12 @@
     <string name="hidden_small_token">Hide small balance</string>
     <string name="transfer_address">Enter and copy the address</string>
     <string name="transfer_amount">Input Amount</string>
+    <string name="crosslink_withdraw_tip">·You are withdrawing tokens across the chains\n·Please ensure that you are using the cross-chain token withdrawal\n·Please ensure that the token withdrawal address is similar to its public chain address</string>
+    <string name="linkinner_withdraw_tip">·You are making on-chain transfer\n·Be sure to use the on-chain channel \n·Please do confirm that the token withdrawal address start by "HBC"</string>
+
     <string name="crosslink_withdraw_tip_1">·You are withdrawing tokens across the chains</string>
     <string name="crosslink_withdraw_tip_2">·Please ensure that you are using the cross-chain token withdrawal</string>
     <string name="crosslink_withdraw_tip_3">·Please ensure that the token withdrawal address is similar to its public chain address</string>
-
     <string name="linkinner_withdraw_tip_1">·You are making on-chain transfer </string>
     <string name="linkinner_withdraw_tip_2">·Be sure to use the on-chain channel </string>
     <string name="linkinner_withdraw_tip_3">·Please do confirm that the token withdrawal address start by "HBC"</string>
@@ -313,7 +315,8 @@
     <string name="error_transfer_address">Invalid Wallet address</string>
     <string name="error_transfer_amout_more_available">Insufficient balance</string>
     <string name="error_withdraw_amout_more_available">Insufficient balance</string>
-    <string name="input_add_fee_more_availabe">The total amount is greater than the available</string>
+    <string name="tip_transferout_amount_error_0">The total amount is greater than the available</string>
+    <string name="tip_transferout_amount_error">Transfer amount cannot exceed available balance</string>
     <string name="qr_code">QR code</string>
     <string name="hint_input_exchange_fee">Please enter the Gas Fee</string>
     <string name="origin_password">Current Password</string>
@@ -414,6 +417,7 @@
     <string name="token_count_only_integer">Token Issuance Supply must be in positive integer</string>
     <string name="token_count_more_100B">Token Issuance Supply cannot exceed 100 Billion</string>
     <string name="withdraw_fee_less">Withdrawal fee shall not be less than</string>
+    <string name="withdraw_fee_notenough">Insufficient withdraw fee</string>
     <string name="not_enough">Insufficient </string>
     <string name="all">All</string>
     <string name="no_profit">No profit</string>

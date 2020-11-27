@@ -52,17 +52,17 @@ import butterknife.OnClick;
  * 2020-4-8 09:40:35
  */
 
-@Route(path = ARouterConfig.Balance_cross_address)
+@Route(path = ARouterConfig.Balance.Balance_cross_address)
 public class GenerateAddressActivity extends BaseActivity implements Password30Fragment.PasswordClickListener{
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
 
-    @Autowired(name = "bhtBalance")
+    //@Autowired(name = "bhtBalance")
     BHBalance bhtBalance;
 
-    @Autowired(name = "balance")
-    BHBalance balance;
+    @Autowired(name = "symbol")
+    String symbol;
 
     @BindView(R2.id.tv_available_bht_amount)
     AppCompatTextView tv_available_bht_amount;
@@ -94,8 +94,10 @@ public class GenerateAddressActivity extends BaseActivity implements Password30F
         available_label = getResources().getString(R.string.available);
         sb_tx_fee.setDecimalScale(4);
         ARouter.getInstance().inject(this);
+        bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
         tv_center_title.setText(getResources().getString(R.string.genarate_cross_address));
-        ed_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        //ed_fee.setInputString(BHConstants.BHT_DEFAULT_FEE);
+        ed_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
 
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
@@ -174,12 +176,9 @@ public class GenerateAddressActivity extends BaseActivity implements Password30F
             return;
         }
 
-
         Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
                 this,0);
-
-
     }
 
     /**
@@ -199,7 +198,7 @@ public class GenerateAddressActivity extends BaseActivity implements Password30F
     public void confirmAction(String password, int position,int way) {
         //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         String feeAmount = ed_fee.getInputString();
-        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(balance.symbol);
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(symbol);
         transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
     }
 }

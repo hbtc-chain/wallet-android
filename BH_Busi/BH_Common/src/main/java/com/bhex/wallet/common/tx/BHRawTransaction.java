@@ -1,6 +1,7 @@
 package com.bhex.wallet.common.tx;
 
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
@@ -45,9 +46,11 @@ public class BHRawTransaction {
 
         TxFee.TxCoin feeCoin = new TxFee.TxCoin();
         feeCoin.amount = feeAmount.toString(10);
+        LogUtils.d("BHRawTransaction==>:","feeCoin.amount=="+feeCoin.amount);
         feeCoin.denom = BHConstants.BHT_TOKEN;
         fee.amount.add(feeCoin);
-        fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,6))).toString();
+        //fee.gas = NumberUtil.mulExt("2",String.valueOf(Math.pow(10,6))).toString();
+        fee.gas = BHUserManager.getInstance().getDefaultGasFee().gas;
         return  fee;
     }
 

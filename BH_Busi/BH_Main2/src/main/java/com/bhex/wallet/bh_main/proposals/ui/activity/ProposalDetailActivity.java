@@ -36,7 +36,7 @@ import butterknife.OnClick;
  * 2020-4-22
  * 提案详情
  */
-@Route(path = ARouterConfig.Proposal_Detail)
+@Route(path = ARouterConfig.Proposal.Proposal_Detail)
 public class ProposalDetailActivity extends BaseActivity {
 
     @Autowired(name = "proposalInfo")
@@ -296,12 +296,12 @@ public class ProposalDetailActivity extends BaseActivity {
     @OnClick({R2.id.btn_do_pledge, R2.id.btn_do_veto})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.btn_do_pledge) {
-            ARouter.getInstance().build(ARouterConfig.Do_Pledge)
+            ARouter.getInstance().build(ARouterConfig.Proposal.Do_Pledge)
                     .withObject("proposalInfo", mProposalInfo)
                     .navigation();
 
         } else if (view.getId() == R.id.btn_do_veto) {
-            ARouter.getInstance().build(ARouterConfig.Do_Veto)
+            ARouter.getInstance().build(ARouterConfig.Proposal.Do_Veto)
                     .withObject("proposalInfo", mProposalInfo)
                     .navigation();
         }

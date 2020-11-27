@@ -16,6 +16,7 @@ import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import androidx.core.os.CancellationSignal;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
@@ -42,6 +43,7 @@ import butterknife.OnClick;
  * 2020-5-20 00:29:39
  * 指纹或面容登录
  */
+@Route(path = ARouterConfig.Account.Account_Login_Password,name = "指纹登录")
 public class FingerLoginActivity extends BaseActivity  implements AddressFragment.AddressChangeListener{
     protected final static String TAG = FingerLoginActivity.class.getSimpleName();
 
@@ -165,7 +167,7 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
     public void showAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
         ToastUtils.showToast(getResources().getString(R.string.verify_pass));
         //NavigateUtil.startMainActivity(this);
-        ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE).navigation();
+        ARouter.getInstance().build(ARouterConfig.Main.main_mainindex).navigation();
         finish();
     }
 
@@ -176,7 +178,7 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
              fragment.setChangeListener(this);
              fragment.show(getSupportFragmentManager(), "");
         }else if(view.getId() == R.id.tv_password_verify){
-             NavigateUtil.startActivity(this, LockActivity.class);
+             ARouter.getInstance().build(ARouterConfig.Account.Account_Login_Password).navigation();
              this.finish();
         }
     }

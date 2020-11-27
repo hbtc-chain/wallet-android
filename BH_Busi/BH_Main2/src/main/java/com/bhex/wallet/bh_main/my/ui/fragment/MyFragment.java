@@ -24,6 +24,7 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.MyAdapter;
+import com.bhex.wallet.bh_main.my.enums.BUSI_MY_TYPE;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.model.BHMessage;
 import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
@@ -98,8 +99,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
     private UpgradeViewModel mUpgradeVM;
 
-    //private TestTokenViewModel mTestTokenVM;
-
     public MyFragment() {
 
     }
@@ -112,21 +111,19 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @Override
     protected void initView() {
         mItems = MyHelper.getAllItems(getYActivity());
-        mMyAdapter = new MyAdapter(R.layout.item_my, mItems);
+
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        /*LinearLayoutManager layoutManager = new LinearLayoutManager(getYActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_my.setLayoutManager(layoutManager);*/
-        mMyAdapter.setHasStableIds(true);
+        recycler_my.setAdapter(mMyAdapter = new MyAdapter( mItems));
+        //mMyAdapter.setHasStableIds(true);
 
         MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(
                 getYActivity(), DividerItemDecoration.VERTICAL,
                 PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(),
                 R.color.global_divider_color)
         );
+
         recycler_my.addItemDecoration(myRecyclerDivider);
-        recycler_my.setAdapter(mMyAdapter);
         tv_username.setText(mBhWallet.getName());
         AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
@@ -144,38 +141,35 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         EventBus.getDefault().register(this);
         mMyAdapter.setOnItemClickListener((adapter, view, position) -> {
             MyItem item = mItems.get(position);
-            switch (item.id){
-                case 0:
+            switch (BUSI_MY_TYPE.getType(item.id)){
+                case 备份助记词:
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
                     break;
-                case 1:
-                    ARouter.getInstance().build(ARouterConfig.MY_UPDATE_PASSWORD)
+                case 修改安全密码:
+                    ARouter.getInstance().build(ARouterConfig.My.My_Update_Password)
                             .withString("title",item.title)
                             .navigation();
                     break;
-                case 2:
+                case 备份私钥:
                     //提醒页
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
                     break;
-                case 3:
+                case 备份KS:
                     //提醒页
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
                     break;
-                /*case 4:
-                    //申请测试币
-                    mTestTokenVM.send_test_token(this);
-                    break;*/
-                case 4:
+
+                case 设置:
                     //设置
                     NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
                     break;
-                case 6:
+                case 版本号:
                     mUpgradeVM.getUpgradeInfoExt(getYActivity());
                     break;
 
@@ -251,7 +245,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             R2.id.iv_edit, R2.id.layout_index_2,R2.id.layout_index_3})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_message){
-            ARouter.getInstance().build(ARouterConfig.MY_Message).navigation();
+            ARouter.getInstance().build(ARouterConfig.My.My_Message).navigation();
         }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(mBhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));
@@ -259,9 +253,9 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             UpdateNameFragment fragment = UpdateNameFragment.Companion.showFragment(dialogOnClickListener);
             fragment.showNow(getChildFragmentManager(), UpdateNameFragment.class.getName());
         }else if(view.getId()==R.id.layout_index_2){
-            ARouterUtil.startActivity(ARouterConfig.Token_Release);
+            ARouter.getInstance().build(ARouterConfig.Token_Release).navigation();
         } else if(view.getId()==R.id.layout_index_3){
-            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
+            ARouter.getInstance().build(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE).navigation();
         }
     }
 
@@ -295,7 +289,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                     .navigation();
         }else if(position==2){
             String title = MyHelper.getTitle(getYActivity(),position);
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP)
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
                     .withString("title",title)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .withString("flag", BH_BUSI_TYPE.备份私钥.value)
@@ -303,7 +297,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         }else if(position==3){
             String title = MyHelper.getTitle(getYActivity(),position);
             //提醒页
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP)
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
                     .withString("title",title)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .withString("flag",BH_BUSI_TYPE.备份KS.value)

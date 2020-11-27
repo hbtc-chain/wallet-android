@@ -1,4 +1,4 @@
-package com.bhex.wallet.balance.ui;
+package com.bhex.wallet.balance.ui.viewhodler;
 
 import android.text.InputType;
 import android.text.TextUtils;
@@ -113,7 +113,7 @@ public class TransferOutViewHolder {
         input_to_address.btn_right_text.setVisibility(View.GONE);
         input_to_address.iv_right.setVisibility(View.VISIBLE);
         input_to_address.iv_right.setOnClickListener(v -> {
-            ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(m_activity, BHQrScanActivity.REQUEST_CODE);
+            ARouter.getInstance().build(ARouterConfig.Common.commom_scan_qr).navigation(m_activity, BHQrScanActivity.REQUEST_CODE);
         });
 
         //初始化话手续费

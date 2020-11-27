@@ -1,20 +1,16 @@
-package com.bhex.wallet.balance.ui;
+package com.bhex.wallet.balance.ui.viewhodler;
 
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.cardview.widget.CardView;
 
 import com.alibaba.android.arouter.core.LogisticsCenter;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.CardUtil;
 import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
@@ -135,7 +131,7 @@ public class BTCViewHolder {
     private void makeAddressAction() {
         BHBalance bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
 
-        Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance_cross_address)
+        Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance.Balance_cross_address)
                 .withString("symbol", mBalance.symbol)
                 //.withObject("bhtBalance",bthBalance)
                 .withInt("way", BH_BUSI_TYPE.跨链转账.getIntValue());

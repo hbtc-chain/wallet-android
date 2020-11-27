@@ -39,6 +39,11 @@ public class ChainAdapter extends BaseQuickAdapter<BHChain, BaseViewHolder> {
     }
 
     @Override
+    public void onBindViewHolder(@NotNull BaseViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+    }
+
+    @Override
     protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable BHChain bhChain) {
         AppCompatImageView iv = viewHolder.getView(R.id.iv_coin);
         iv.setImageResource(0);
@@ -74,38 +79,6 @@ public class ChainAdapter extends BaseQuickAdapter<BHChain, BaseViewHolder> {
         }else{
             tv_coin_type.setText(getContext().getString(R.string.cross_chain_token_list));
         }
-
-        //币的数量
-        /*if(isHidden.equals("0")){
-            if(!TextUtils.isEmpty(balanceItem.amount)&&Double.valueOf(balanceItem.amount)>0) {
-                String []result = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balanceItem.amount,balanceItem.symbol,false);
-                viewHolder.setText(R.id.tv_coin_amount, result[0]);
-                viewHolder.setText(R.id.tv_coin_count, "≈"+result[1]);
-            }else{
-                viewHolder.setText(R.id.tv_coin_amount, "0");
-                viewHolder.setText(R.id.tv_coin_count, "≈"+
-                        CURRENCY_TYPE.valueOf(CurrencyManager.getInstance().loadCurrency(getContext()).toUpperCase()).character+"0");
-            }
-        }else{
-            viewHolder.setText(R.id.tv_coin_amount, "***");
-            viewHolder.setText(R.id.tv_coin_count, "***");
-        }*/
-
-        //标签
-        /*if(bhCoin==null){
-            return;
-        }
-        if(bhCoin.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.GONE);
-        }else if(bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.VISIBLE);
-            tv_coin_type.setText(R.string.native_token);
-            tv_coin_type.setTextAppearance(getContext(),R.style.tx_status_success);
-        }else if(!bhCoin.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            tv_coin_type.setVisibility(View.VISIBLE);
-            tv_coin_type.setText(R.string.no_native_token);
-            tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);
-        }*/
     }
 
     public String getIsHidden() {

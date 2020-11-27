@@ -1,38 +1,45 @@
 package com.bhex.wallet.common.config;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 /**
  * created by gongdongyang
  * on 2020/3/4
  */
 public class ARouterConfig {
-
-    public static final String APP_MAIN_PAGE ="/app/main";
+    public static class Main{
+        public static final String main_mainindex ="/main/mainIndex";
+    }
 
     /**
      * Common模块
      */
-    public static final String COMMON_MAIN_PAGE ="/common/main";
-    //二维码扫描
-    public static final String Commom_scan_qr = "/Common/scan_qr";
+    public static class Common{
+        //二维码扫描
+        public static final String commom_scan_qr = "/common/scan_qr";
+    }
 
-    /**
-     * 我的
-     */
-    public static final String MINE_MAIN_PAGE = "/my/main";
-    //语言设置
-    public static final String MY_LANGUAE_SET_PAGE = "/my/languageSet";
-    //修改密码
-    public static final String MY_UPDATE_PASSWORD = "/my/update/password";
+    public static class My{
+        /**
+         * 我的
+         */
+        public static final String MINE_MAIN_PAGE = "/my/main";
+        //语言设置
+        public static final String My_Languae_Set = "/my/language/set";
+        //修改密码
+        public static final String My_Update_Password = "/my/update/password";
 
-    //汇率设置
-    public static final String MY_Rate_setting = "/my/rate_set";
+        //汇率设置
+        public static final String My_Rate_setting = "/my/rate_set";
 
-    //消息中心
-    public static final String MY_Message = "/my/message";
-    //识别设置
-    public static final String MY_Recognition = "/my/Recognition";
-    //安全设置
-    public static final String MY_Security_Setting = "/my/Security_Setting";
+        //消息中心
+        public static final String My_Message = "/my/message";
+        //识别设置
+        public static final String My_Recognition = "/my/recognition";
+        //安全设置
+        public static final String My_Security_Setting = "/my/security/setIndex";
+    }
+
 
     /**
      * 助记词模块
@@ -47,7 +54,6 @@ public class ARouterConfig {
     public static final String MNEMONIC_BACKUP = "/mnemonic/backup";
     //助记词验证
     public static final String MNEMONIC_VERIFY = "/mnemonic/verify";
-
     //托管单元创建
     public static final String TRUSTEESHIP_IMPORT_INDEX = "/mnemonic/trusteeship/index";
 
@@ -57,16 +63,12 @@ public class ARouterConfig {
     public static final String TRUSTEESHIP_MNEMONIC_SECOND= "/mnemonic/mnemonic/second";
 
     public static final String TRUSTEESHIP_MNEMONIC_THIRD= "/mnemonic/mnemonic/third";
-
     //托管单元导入-KeyStore
     public static final String TRUSTEESHIP_IMPORT_KEYSTORE= "/mnemonic/import/keystore";
-
     //导出KeyStore
     public static final String TRUSTEESHIP_EXPORT_KEYSTORE = "/mnemonic/export/keystore";
-
     //托管单元导入
     public static final String TRUSTEESHIP_IMPORT_MNEMONIC = "/mnemonic/import/mnemonic";
-
     //私钥导入
     public static final String TRUSTEESHIP_IMPORT_PRIVATEKEY = "/mnemonic/import/privatekey";
     public static final String TRUSTEESHIP_IMPORT_PRIVATEKEY_NEXT = "/mnemonic/import/privatekey_next";
@@ -74,45 +76,54 @@ public class ARouterConfig {
     public static final String TRUSTEESHIP_EXPORT_PRIVATEKEY = "/mnemonic/export/privatekey";
 
     //私钥导出提醒
-    public static final String TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP = "/mnemonic/export/privatekey_tip";
-
+    public static final String TRUSTEESHIP_EXPORT_INDEX = "/mnemonic/export/index";
 
 
     //资产
-    public static final String Balance_Search = "/balance/search";
+    public static class Balance{
+        //资产搜索
+        public static final String Balance_Search = "/balance/search";
+        //资产详情页
+        public static final String Balance_Token_Detail = "/balance/token/detail";
+        //充币
+        public static final String Balance_transfer_in = "/balance/transfer/in";
+        //提币
+        public static final String Balance_transfer_out = "/balance/transfer/out";
+        //跨链地址生成页面
+        public static final String Balance_cross_address = "/balance/cross_adress";
 
-    //资产详情页
-    public static final String Balance_Token_Detail = "/balance/token/detail";
+        //转账详情
+        public static final String Balance_transcation_detail = "/balance/transcation/detail";
+        public static final String Balance_transcation_view = "/balance/transcation/view";
+        public static final String Balance_chain_tokens = "/balance/chain/tokens";
+    }
 
-    //充币
-    public static final String Balance_transfer_in = "/balance/transfer/in";
 
-    //提币
-    public static final String Balance_transfer_out = "/balance/transfer/out";
 
-    //跨链地址生成页面
-    public static final String Balance_cross_address = "/balance/cross_adress";
-
-    //转账详情
-    public static final String Balance_transcation_detail = "/balance/transcation/detail";
-    public static final String Balance_transcation_view = "/balance/transcation/view";
-    public static final String Balance_chain_tokens = "/balance/chain/tokens";
 
     //代币发行
     public static final String Token_Release = "/token/release";
 
     //验证人详情页
-    public static final String Validator_Detail = "/validator/detail";
-    public static final String Do_Entrust = "/validator/do_entrust";
-    public static final String Validator_Index = "/validator/index";
+    public static class Validator{
+        public static final String Validator_Detail = "/validator/detail";
+        public static final String Do_Entrust = "/validator/do_entrust";
+        public static final String Validator_Index = "/validator/index";
+    }
 
-    public static final String Proposal_Detail = "/proposal/detail";
-    public static final String Do_Pledge = "/proposal/do_pledge";
-    public static final String Do_Veto = "/proposal/do_veto";
-    public static final String Create_Proposal = "/proposal/create_proposal";
-
+    //治理提案
+    public static class Proposal{
+        public static final String Proposal_Detail = "/proposal/detail";
+        public static final String Do_Pledge = "/proposal/do_pledge";
+        public static final String Do_Veto = "/proposal/do_veto";
+        public static final String Create_Proposal = "/proposal/create_proposal";
+    }
 
     public static final String Market_exchange_coin = "/market/exchange/coin";
     public static final String Market_swap_mapping = "/market/swap/mapping";
 
+    public static class Account {
+        public static final String Account_Login_Password = "/account/login/password";
+        public static final String Account_Login_Finger = "/account/login/finger";
+    }
 }
