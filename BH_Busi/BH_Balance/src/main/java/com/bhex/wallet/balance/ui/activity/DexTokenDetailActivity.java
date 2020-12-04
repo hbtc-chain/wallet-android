@@ -30,30 +30,16 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
     @Autowired(name = "symbol")
     String symbol;
 
-    /*@Autowired(name = "balance")
-    BHBalance balance;*/
-
-    /*@Override
-    public BHBalance getBHBalance() {
-        return balance;
-    }*/
-
-   /* @Override
-    public void setBHBalance(BHBalance balance) {
-        this.balance = balance;
-    }*/
-
     @OnClick({R2.id.btn_item1, R2.id.btn_item2,R2.id.btn_item3, R2.id.btn_item4})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.btn_item1) {
             ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
-                    .withObject("symbol", symbol)
+                    .withString("symbol", symbol)
                     .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
                     .navigation();
         } else if (view.getId() == R.id.btn_item2) {
             ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_out)
                     .withString("symbol", symbol)
-                    //.withObject("bhtBalance",bthBalance)
                     .withInt("way",BH_BUSI_TYPE.链内转账.getIntValue())
                     .navigation();
         } else if (view.getId() == R.id.btn_item3) {
@@ -90,25 +76,23 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
 
     public MenuListFragment.MenuListListener crossOperatorListener = (item, itemView, position) -> {
         if(position==0){
-            if(TextUtils.isEmpty(symbolBalance.external_address)){
+            if(TextUtils.isEmpty(chainSymbolBalance.external_address)){
                 //请求用户资产 获取链外地址
                 //balanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
                 ARouter.getInstance().build(ARouterConfig.Balance.Balance_cross_address)
                         .withString("symbol", symbol)
-                        //.withObject("bhtBalance",bthBalance)
                         .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                         .navigation();
             }else{
 
                 ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
-                        .withObject("symbol", symbol)
+                        .withString("symbol", symbol)
                         .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                         .navigation();
             }
         }else if(position==1){
             ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_out)
                     .withString("symbol", symbol)
-                    //.withObject("bhtBalance",bthBalance)
                     .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                     .navigation();
         }

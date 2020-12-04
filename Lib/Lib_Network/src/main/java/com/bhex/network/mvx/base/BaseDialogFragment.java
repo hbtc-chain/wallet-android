@@ -34,9 +34,13 @@ public abstract class BaseDialogFragment extends DialogFragment {
             mRootView = inflater.inflate(getLayout(), container, false);
             unbinder = ButterKnife.bind(this,mRootView);
         }
+        initView();
         return mRootView;
     }
 
+    protected void initView(){
+
+    }
     public abstract  int getLayout();
 
     @Override

@@ -8,12 +8,16 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.lib.uikit.widget.viewpager.CustomViewPager;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -39,10 +43,12 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     @BindView(R2.id.ed_search_content)
     AppCompatEditText ed_search_content;
     @BindView(R2.id.recycler_validator)
-    SwipeRecyclerView recycler_validator;
+    RecyclerView recycler_validator;
 
-    @BindView(R2.id.swipeRefresh)
-    SmartRefreshLayout swipeRefresh;
+    //CustomViewPager viewPager;
+
+    /*@BindView(R2.id.swipeRefresh)
+    SmartRefreshLayout swipeRefresh;*/
 
     @BindView(R2.id.empty_layout)
     EmptyLayout empty_layout;
@@ -63,26 +69,29 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
 
     @Override
     protected void initView() {
-        swipeRefresh.setEnableLoadMore(true);
-        /*LinearLayoutManager layoutManager = new MyLinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_validator.setLayoutManager(layoutManager);*/
+        //swipeRefresh.setEnableLoadMore(true);
         recycler_validator.setNestedScrollingEnabled(true);
 
         Bundle arguments = getArguments();
         if (arguments != null) {
             mValidatorType = arguments.getInt(KEY_VALIDATOR_TYPE, 0);
         }
+
+        /*if(mValidatorType== BHConstants.VALIDATOR_VALID){
+            viewPager.setObjectForPosition(mRootView,0);
+        }else {
+            viewPager.setObjectForPosition(mRootView,1);
+        }*/
         mValidatorViewModel = ViewModelProviders.of(this).get(ValidatorViewModel.class);
-        mValidatorAdapter = new ValidatorAdapter(mValidatorType, R.layout.item_validator, mValidatorInfoList);
+        mValidatorAdapter = new ValidatorAdapter(mValidatorType, mValidatorInfoList);
         recycler_validator.setAdapter(mValidatorAdapter);
     }
 
     @Override
     protected void addEvent() {
         empty_layout.showProgess();
+
         mValidatorViewModel.validatorsLiveData.observe(this, ldm -> {
-            swipeRefresh.finishRefresh();
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 empty_layout.loadSuccess();
                 updateRecord(ldm.getData());
@@ -97,9 +106,9 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
                 }
             }
         });
-        swipeRefresh.setOnRefreshListener(refreshLayout1 -> {
+        /*swipeRefresh.setOnRefreshListener(refreshLayout1 -> {
             getRecord(false);
-        });
+        });*/
         ed_search_content.addTextChangedListener(ValidatorTextWatcher);
         //点击事件
         mValidatorAdapter.setOnItemClickListener((adapter, view, position) -> {

@@ -17,8 +17,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;

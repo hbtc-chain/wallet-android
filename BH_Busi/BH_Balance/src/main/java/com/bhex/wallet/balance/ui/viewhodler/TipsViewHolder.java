@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;

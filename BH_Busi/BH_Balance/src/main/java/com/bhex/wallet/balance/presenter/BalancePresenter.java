@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;

@@ -24,6 +24,7 @@
     <string name="language_setting">语言设置</string>
 
     <string name="wallet_create_trusteeship">创建账户</string>
+    <string name="create_wallet_account">创建钱包账户</string>
     <string name="wallet_import_trusteeship">导入账户</string>
     <string name="wallet_create">开始创建</string>
     <string name="at_once_backup">立即备份</string>
@@ -59,6 +60,10 @@
     <string name="set_pwd_tip_1">·安全密码是保护钱包私钥和操作资产的重要凭证</string>
     <string name="set_pwd_tip_2">·HBTC Wallet钱包不会缓存、上传、存储您的密码</string>
     <string name="set_pwd_tip_3">·请务必妥善保管密码</string>
+
+    <string name="set_pwd_alarm_1">·安全密码是保护钱包私钥和操作资产的重要凭证,非常重要</string>
+    <string name="set_pwd_alarm_2"> ·HBTC钱包不会缓存，上传，存储您的密码，也无法帮您找回，请务必牢记并妥善保管您的密码.</string>
+
     <string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>
     <string name="pwd_index">%1$d个字符</string>
     <string name="pwd_rule_tip">为了保证您的资产安全，密码请包括：</string>
@@ -435,63 +440,10 @@
     <string name="meno_or_tag">备注(请输入memo or tag)</string>
     <string name="cross_link_transfer_tips">提示：充值非主链代币需要HBTC Chain账户拥有一定的对应主链代币作为归集手续费才可以入账。</string>
 
-    <string-array name="my_list_item">
-        <item>备份助记词</item>
-        <item>修改安全密码</item>
-        <item>备份私钥</item>
-        <item>备份Keystore</item>
-<!--
-        <item>治理提案</item>
--->
-        <item>设置</item>
-        <item>联系我们</item>
-        <item>版本号</item>
-    </string-array>
 
-    <string-array name="set_list_item">
-        <item>语言</item>
-        <item>计价货币</item>
-        <item>暗色模式</item>
-        <item>指纹识别</item>
-        <item>安全设置</item>
-    </string-array>
-
-    <string-array name="security_list">
-        <item>每次操作都要密码(默认)</item>
-        <item>30分钟内免密码输入</item>
-    </string-array>
-
-    <string-array name="Currency_list">
-        <item>人民币</item>
-        <item>美元</item>
-        <item>韩元</item>
-        <item>日元</item>
-        <item>越南盾</item>
-    </string-array>
-
-    <string-array name="Recongition_list">
-        <item>指纹识别</item>
-    </string-array>
-
-    <string-array name="Message_type">
-        <item>转账</item>
-        <item>收款</item>
-        <item>充值</item>
-        <item>提币</item>
-    </string-array>
-
-    <string-array name="Cross_operator_list">
-        <item>跨链充币</item>
-        <item>跨链提币</item>
-    </string-array>
-
-    <string-array name="Exchnge_operator_list">
-        <item>兑换</item>
-        <item>交易</item>
-    </string-array>
 
     <string name="native_token_list">原生代币列表</string>
-    <string name="native_token_test_list">原生测试代币列表</string>
+    <string name="native_token_test_list">原生代币列表</string>
     <string name="cross_chain_token_list">跨链代币列表</string>
 
     <string name="mapping">映射</string>
@@ -534,5 +486,11 @@
     <string name="no_password_in_30m">30分钟免密</string>
     <string name="json_parse_error">解析错误</string>
     <string name="password_no_match">KeyStore或密码不匹配</string>
+    <string name="finish">完成</string>
+    <string name="add_wallet">添加钱包</string>
+    <string name="number_password">6位数字密码</string>
+    <string name="create">创建</string>
+    <string name="confirm_number_password">再次输入6位数字密码</string>
+    <string name="input_security_password">请输入安全密码</string>
 
 </resources>

@@ -15,11 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;

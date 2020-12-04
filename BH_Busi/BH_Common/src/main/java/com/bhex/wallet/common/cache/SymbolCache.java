@@ -236,12 +236,6 @@ public class SymbolCache extends BaseCache {
         return verifiedTokenList;
     }
 
-    /*public synchronized  void saveVerifiedToken(List<BHToken> coinList ){
-        for (BHToken item:coinList ) {
-
-        }
-    }*/
-
     public synchronized int getDecimals(String symbol){
         if(symbolMap.get(symbol)!=null){
             return symbolMap.get(symbol).decimals;

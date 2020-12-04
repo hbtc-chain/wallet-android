@@ -8,19 +8,18 @@
     android:orientation="vertical"
     tools:context=".ui.fragment.BalanceFragment">
 
-    <com.bhex.lib.uikit.widget.StatusBarView
+    <!--<com.bhex.lib.uikit.widget.StatusBarView
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/bg_trans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:visibility="gone"/>-->
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -36,38 +35,13 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@mipmap/bg_balance"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/bg_balance_ext"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-                    app:titleTextAppearance="@style/Toolbar_textsize">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_center_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:drawableStart="@mipmap/ic_bluehelix"
-                        android:drawablePadding="6dp"
-                        android:gravity="center"
-                        android:text="@string/app_name"
-                        android:textColor="@color/dark_bg_text_color"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        tools:text="@string/app_name" />
-
-                </androidx.appcompat.widget.Toolbar>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_wallet_name"
@@ -76,32 +50,19 @@
                     android:singleLine="true"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:maxWidth="250dp"
-                    android:layout_below="@+id/toolbar"
-                    android:layout_marginStart="24dp"
-                    tools:text="@string/tab_balance_title"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="44dp"
+                    tools:text="钱包名称"
                     android:textColor="@color/dark_bg_text_color"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    />
 
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_wallet_name"
-                    android:layout_alignBottom="@+id/tv_wallet_name"
-                    android:layout_alignParentEnd="true"
-                    android:paddingEnd="24dp"
-                    android:src="@mipmap/ic_add_token"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_wallet_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_wallet_name" />
-
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/layout_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/tv_wallet_name"
                     android:layout_alignLeft="@+id/tv_wallet_name"
                     android:orientation="horizontal">
@@ -110,30 +71,56 @@
                         android:id="@+id/tv_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
                         android:gravity="center"
                         android:textColor="#BFFFFFFF"
                         android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_balance_txt"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_balance_txt"
                         tools:text="2222eeeeeeeeee" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_paste"
+                        android:id="@+id/iv_qr_code"
+                        android:layout_toEndOf="@+id/tv_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="2dp"
-                        android:src="@mipmap/ic_paste" />
-                </LinearLayout>
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:src="@mipmap/ic_qr_circle_code"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_scan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:src="@mipmap/ic_scan"/>
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_create_wallet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:src="@mipmap/ic_add_wallet"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/layout_balance"
                     android:layout_width="match_parent"
-                    android:layout_height="118dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/layout_address"
                     android:layout_marginStart="@dimen/main_padding_left"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/main_padding_right"
                     app:cardBackgroundColor="@color/app_bg"
                     app:cardCornerRadius="10dp"
@@ -142,55 +129,59 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layout_address">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@mipmap/bg_asset_card"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        >
 
+                        <RelativeLayout
+                            android:id="@+id/layout_eye"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp">
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableStart="@mipmap/ic_bluehelix"
+                                android:text="@string/app_name"
+                                android:textColor="@color/global_secondary_text_color"
+                                android:layout_centerVertical="true"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_eye"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_eye"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:tag="0"
+                                />
+                        </RelativeLayout>
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_balance_txt2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="24dp"
+                            android:layout_below="@+id/layout_eye"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
                             android:text="@string/all_asset"
                             android:textColor="@color/total_assert_text_color"
                             android:textSize="17sp" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/iv_eye"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/tv_balance_txt2"
-                            android:layout_alignBottom="@+id/tv_balance_txt2"
-                            android:layout_marginTop="0dp"
-                            android:layout_toRightOf="@+id/tv_balance_txt2"
-                            android:paddingLeft="3dp"
-                            android:paddingRight="3dp"
-                            android:src="@mipmap/ic_eye"
-                            android:tag="0" />
-
-                        <!--<androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_currency"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/tv_asset"
-                            android:layout_marginStart="40dp"
-                            android:includeFontPadding="false"
-                            android:paddingLeft="3dp"
-                            android:paddingRight="3dp"
-                            android:src="@mipmap/ic_eye"
-                            android:tag="0"
-                            android:text="￥"
-                            android:textStyle="bold" />-->
 
                         <com.bhex.lib.uikit.widget.CustomTextView
                             android:id="@+id/tv_asset"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_balance_txt2"
-                            android:layout_alignLeft="@+id/tv_balance_txt2"
+                            android:layout_marginStart="20dp"
                             android:layout_marginLeft="0dp"
                             android:layout_marginTop="3dp"
                             android:includeFontPadding="false"
@@ -200,7 +191,88 @@
                             app:cardElevation="5dp"
                             tools:text="￥123.45678901" />
 
-                    </RelativeLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/grid_divider_color"
+                            />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal">
+
+
+                            <com.bhex.lib.uikit.widget.text.DrawableCenterTextView
+                                android:id="@+id/btn_transfer_in"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:paddingTop="16dp"
+                                android:paddingBottom="12dp"
+                                android:drawableStart="@mipmap/ic_transfer_in"
+                                android:text="@string/transfer_in"
+                                android:paddingStart="6dp"
+                                android:gravity="left|center_vertical"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/btn_transfer_out"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:background="?android:selectableItemBackground"
+                                tools:background="#FF0000"
+                                />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="16dp"
+                                android:background="@color/grid_divider_color"
+                                app:layout_constraintStart_toEndOf="@+id/btn_transfer_in"
+                                app:layout_constraintEnd_toStartOf="@+id/btn_transfer_out"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+                            <com.bhex.lib.uikit.widget.text.DrawableCenterTextView
+                                android:id="@+id/btn_transfer_out"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:drawableStart="@mipmap/ic_transfer_out"
+                                android:text="@string/transfer"
+                                android:gravity="left|center_vertical"
+                                android:paddingStart="6dp"
+                                app:layout_constraintStart_toEndOf="@+id/btn_transfer_in"
+                                app:layout_constraintEnd_toStartOf="@+id/btn_entrust"
+                                app:layout_constraintBottom_toBottomOf="@+id/btn_transfer_in"
+                                app:layout_constraintTop_toTopOf="@+id/btn_transfer_in"
+                                android:background="?android:selectableItemBackground"
+                                />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="16dp"
+                                android:background="@color/grid_divider_color"
+                                app:layout_constraintStart_toEndOf="@+id/btn_transfer_out"
+                                app:layout_constraintEnd_toStartOf="@+id/btn_entrust"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+
+                            <com.bhex.lib.uikit.widget.text.DrawableCenterTextView
+                                android:id="@+id/btn_entrust"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:drawableStart="@mipmap/ic_transfer_in"
+                                android:text="@string/do_entrust"
+                                android:gravity="left|center_vertical"
+                                android:paddingStart="6dp"
+                                app:layout_constraintStart_toEndOf="@+id/btn_transfer_out"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@+id/btn_transfer_in"
+                                app:layout_constraintTop_toTopOf="@+id/btn_transfer_in"
+                                android:background="?android:selectableItemBackground"
+                                />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
 
 
                 </com.google.android.material.card.MaterialCardView>
@@ -231,54 +303,10 @@
                     android:textAppearance="@style/ck_hidden_small"
                     app:layout_constraintLeft_toLeftOf="@+id/layout_balance"
                     app:layout_constraintTop_toBottomOf="@+id/layout_balance"
-                    android:visibility="gone"
-                    />
+                    android:visibility="gone"/>
 
-                <RelativeLayout
-                    android:id="@+id/layout_search"
-                    android:layout_width="120dp"
-                    android:layout_height="32dp"
-                    android:layout_below="@+id/layout_balance"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="@dimen/main_margin_right"
-                    android:background="@drawable/shape_input_corner"
-                    app:layout_constraintBottom_toBottomOf="@+id/ck_hidden_small"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_balance"
-                    app:layout_constraintTop_toTopOf="@+id/ck_hidden_small"
-                    android:visibility="gone"
-                    >
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_search_ic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@mipmap/ic_search_ext" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/ed_search_content"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_toRightOf="@+id/iv_search_ic"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:hint="@string/hint_input_token_name"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:paddingTop="0.5dp"
-                        android:singleLine="true"
-                        android:textColor="@color/global_input_text_color"
-                        android:textColorHint="@color/global_input_hint_color"
-                        android:textCursorDrawable="@null"
-                        android:textSize="15sp" />
-                </RelativeLayout>
 
                 <View
                     android:id="@+id/view_divider_line"
@@ -313,7 +341,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ck_hidden_small"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_chain"
+                        >
 
 
                     </com.yanzhenjie.recyclerview.SwipeRecyclerView>
@@ -324,22 +354,6 @@
                         android:visibility="gone" />
 
                 </FrameLayout>
-
-                <!--<LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_below="@+id/layout_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="测试网的HBC代币均为测试代币"
-                        android:layout_gravity="center"
-                        />
-                </LinearLayout>-->
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

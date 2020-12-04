@@ -91,4 +91,57 @@
         <attr name="maxHeight" format="dimension"></attr>
     </declare-styleable>
 
+    <declare-styleable name="PasswordInputView">
+        <!--输入框的数量，默认是4-->
+        <attr name="vcet_number" format="integer" />
+        <!--每一个输入框的宽度，默认21dp-->
+        <attr name="vcet_width" format="dimension|reference" />
+        <attr name="vcet_height" format="dimension|reference" />
+        <!--输入框之间的分割线-->
+        <attr name="vcet_divider" format="dimension|reference" />
+        <!--输入框文字颜色，默认黑色-->
+        <attr name="vcet_text_color" format="color|reference" />
+        <!--输入框文字大小，默认16sp-->
+        <attr name="vcet_text_size" format="dimension|reference" />
+        <!--输入框获取焦点时背景-->
+        <attr name="vcet_bg_focus" format="color|reference" />
+        <!--输入框没有焦点时背景-->
+        <attr name="vcet_bg_normal" format="color|reference" />
+        <!--是否是密码模式, 默认是false-->
+        <attr name="vcet_is_pwd" format="boolean" />
+        <!--密码模式时,圆的半径，默认是5dp-->
+        <attr name="vcet_pwd_radius" format="dimension|reference" />
+        <!--输入框获取焦点时背景-->
+        <attr name="input_border_focus_color" format="color|reference" />
+        <!--输入框没有焦点时背景-->
+        <attr name="input_border_normal_color" format="color|reference" />
+        <!--是否有边框-->
+        <attr name="vcet_is_border" format="boolean" />
+        <attr name="vcet_custom_keyborad" format="boolean" />
+    </declare-styleable>
+
+    <!--<declare-styleable name="VerifyCodeInputView">
+        &lt;!&ndash;输入框的数量，默认是4&ndash;&gt;
+        <attr name="input_count" format="integer" />
+        &lt;!&ndash;每一个输入框的宽度，默认21dp&ndash;&gt;
+        <attr name="input_width" format="dimension|reference" />
+        &lt;!&ndash;每一个输入框的高度，默认21dp&ndash;&gt;
+        <attr name="input_height" format="dimension|reference" />
+        &lt;!&ndash;输入框之间的分割线&ndash;&gt;
+        <attr name="input_divider" format="dimension|reference" />
+        &lt;!&ndash;输入框文字颜色，默认黑色&ndash;&gt;
+        <attr name="input_text_color" format="color|reference" />
+        &lt;!&ndash;输入框文字大小，默认16sp&ndash;&gt;
+        <attr name="input_text_size" format="dimension|reference" />
+        &lt;!&ndash;输入框获取焦点时背景&ndash;&gt;
+        <attr name="input_border_focus_color" format="color|reference" />
+        &lt;!&ndash;输入框没有焦点时背景&ndash;&gt;
+        <attr name="input_border_normal_color" format="color|reference" />
+        &lt;!&ndash;是否是密码模式, 默认是false&ndash;&gt;
+        <attr name="input_is_pwd" format="boolean" />
+        &lt;!&ndash;密码模式时,圆的半径，默认是5dp&ndash;&gt;
+        <attr name="input_pwd_radius" format="dimension|reference" />
+        <attr name="vcet_is_border" format="boolean" />
+    </declare-styleable>-->
+
 </resources>

@@ -17,16 +17,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.mvx.base.BaseBottomSheetDialog;
-import com.bhex.network.mvx.base.BaseDialogFragment;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.market.R;
@@ -108,7 +106,7 @@ public class ChooseTokenFragment extends BaseBottomSheetDialog {
         RecycleViewDivider itemDecoration = new RecycleViewDivider(
                 getContext(),LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(getContext(),1),
-                ColorUtil.getColor(getContext(), com.bhex.wallet.common.R.color.global_divider_color));
+                ColorUtil.getColor(getContext(), R.color.global_divider_color));
         rec_token_list.addItemDecoration(itemDecoration);
 
         rec_token_list.setAdapter(mChooseTokenAdapter);

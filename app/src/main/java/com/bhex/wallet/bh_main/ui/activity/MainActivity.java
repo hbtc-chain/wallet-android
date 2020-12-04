@@ -2,6 +2,7 @@ package com.bhex.wallet.bh_main.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
@@ -162,5 +163,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         super.onSaveInstanceState(outState);
         outState.putInt("index",mCurrentCheckId);
     }
+
+
 
 }

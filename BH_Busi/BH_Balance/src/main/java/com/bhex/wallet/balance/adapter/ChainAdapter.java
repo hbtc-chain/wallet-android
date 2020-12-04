@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ImageLoaderUtil;
@@ -34,6 +35,7 @@ import java.util.List;
 public class ChainAdapter extends BaseQuickAdapter<BHChain, BaseViewHolder> {
 
     private String isHidden = "0";
+
     public ChainAdapter(@Nullable List<BHChain> data) {
         super(R.layout.item_chain, data);
     }
@@ -76,8 +78,13 @@ public class ChainAdapter extends BaseQuickAdapter<BHChain, BaseViewHolder> {
 
         if(bhChain.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_coin_type.setText(getContext().getString(R.string.native_token_test_list));
+            tv_coin_type.setTextAppearance(getContext(),R.style.tx_native_link_token);
+            tv_coin_type.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.shape_native_token));
         }else{
             tv_coin_type.setText(getContext().getString(R.string.cross_chain_token_list));
+            tv_coin_type.setTextAppearance(getContext(),R.style.tx_cross_link_token);
+            tv_coin_type.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.shape_dark20_blue));
+
         }
     }
 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="app_language_type">
+        <item>简体中文</item>
+        <item>English</item>
+        <!--<item>한국어</item>-->
+    </string-array>
+
+    <string-array name="my_list_item">
+        <item>Backup mnemonic phrase</item>
+        <item>Reset Password</item>
+        <item>Backup private key</item>
+        <item>Backup Keystore</item>
+        <!--
+                <item>Proposals</item>
+        -->
+        <item>Settings</item>
+        <item>Contact us</item>
+        <item>Version</item>
+    </string-array>
+
+    <string-array name="set_list_item">
+        <item>Language</item>
+        <item>Currency</item>
+        <item>Night mode</item>
+        <item>Touch ID</item>
+        <item>Security settings</item>
+    </string-array>
+
+    <string-array name="Currency_list">
+        <item>RMB</item>
+        <item>USD</item>
+        <item>KRW</item>
+        <item>JPY</item>
+        <item>VND</item>
+    </string-array>
+
+    <string-array name="Recongition_list">
+        <item>Touch ID</item>
+    </string-array>
+
+    <string-array name="security_list">
+        <item>Password is required for each transaction</item>
+        <item>Password is required for each transaction(by default)</item>
+    </string-array>
+
+    <string-array name="Message_type">
+        <item>Out</item>
+        <item>In</item>
+        <item>Deposit</item>
+        <item>Withdrawal</item>
+    </string-array>
+
+    <string-array name="Cross_operator_list">
+        <item>Cross-chain deposit</item>
+        <item>Cross-chain withdrawal</item>
+    </string-array>
+
+    <string-array name="Exchnge_operator_list">
+        <item>Swap</item>
+        <item>Trade</item>
+    </string-array>
+
+</resources>

@@ -9,7 +9,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
@@ -20,6 +21,7 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
@@ -50,7 +52,9 @@ import butterknife.OnClick;
  * 托管单元管理
  */
 @Route(path = ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE)
-public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresenter> implements TrustManagerAdapter.OnCheckClickListener {
+public class TrusteeshipManagerActivity
+        extends BaseActivity<TrustManagerPresenter>
+        implements TrustManagerAdapter.OnCheckClickListener {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -141,7 +145,8 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         if(view.getId()==R.id.btn_wallet_create){
             ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST,TrusteeshipManagerActivity.class);
         }else if(view.getId()==R.id.btn_wallet_impot){
-            ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX,TrusteeshipManagerActivity.class);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX).navigation();
+            MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
         }
     }
 

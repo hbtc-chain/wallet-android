@@ -25,6 +25,7 @@ public class AccountInfo {
     private String type;
     private String address;
     private String sequence;
+    private String available;
     private String bonded;
     private String unbonding;
     private String claimed_reward;
@@ -61,6 +62,14 @@ public class AccountInfo {
 
     public void setBonded(String bonded) {
         this.bonded = bonded;
+    }
+
+    public String getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(String available) {
+        this.available = available;
     }
 
     public String getUnbonding() {

@@ -132,6 +132,8 @@ public class BHBalanceHelper {
             balance.frozen_amount = assetsBean.getFrozen_amount();
             balance.address = assetsBean.getExternal_address();
             balance.external_address = assetsBean.getExternal_address();
+            LogUtils.d("TokenDetailActivity===>:","=external_address="+balance.external_address);
+
             balance.is_native = assetsBean.isIs_native();
             return balance;
         }
@@ -155,6 +157,16 @@ public class BHBalanceHelper {
             if(!entry.getValue().chain.equalsIgnoreCase(chainName)){
                 continue;
             }
+            res.add(entry.getValue());
+        }
+        return res;
+    }
+
+    //
+    public static List<BHToken> loadTokenList(){
+        ArrayMap<String,BHToken> map_tokens =  CacheCenter.getInstance().getSymbolCache().getLocalToken();
+        List<BHToken> res = new ArrayList<>();
+        for (ArrayMap.Entry<String,BHToken> entry:map_tokens.entrySet()){
             res.add(entry.getValue());
         }
         return res;

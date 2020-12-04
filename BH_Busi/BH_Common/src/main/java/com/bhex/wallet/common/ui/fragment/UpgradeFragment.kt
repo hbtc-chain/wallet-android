@@ -12,7 +12,7 @@ import android.view.*
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.DialogFragment
-import com.bhex.lib.uikit.util.PixelUtils
+import com.bhex.tools.utils.PixelUtils
 import com.bhex.wallet.common.R
 import com.bhex.wallet.common.download.ApkDownLoadService
 import com.bhex.wallet.common.download.DownloadInfo

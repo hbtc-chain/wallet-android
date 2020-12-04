@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.wallet.balance.R;

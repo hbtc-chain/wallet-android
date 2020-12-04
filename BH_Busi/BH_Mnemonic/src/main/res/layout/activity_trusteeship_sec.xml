@@ -53,10 +53,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/secondary_tip_text_color"
             android:textSize="@dimen/sp_15"
-            android:text="@string/set_pwd_tip_1"
+            android:text="@string/set_pwd_alarm_1"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
             android:lineSpacingExtra="5dp"
@@ -64,27 +64,17 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/secondary_tip_text_color"
             android:textSize="@dimen/sp_15"
-            android:text="@string/set_pwd_tip_2"
+            android:text="@string/set_pwd_alarm_2"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
             android:lineSpacingExtra="5dp"
             android:layout_marginTop="3dp"
             />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@color/secondary_tip_text_color"
-            android:textSize="@dimen/sp_15"
-            android:text="@string/set_pwd_tip_3"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="3dp"
-            android:lineSpacingExtra="5dp"
-            android:layout_marginTop="3dp"
-            />
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
@@ -93,97 +83,23 @@
             android:layout_marginTop="24dp"
             android:textColor="@color/global_secondary_text_color"
             android:layout_marginBottom="4dp"
-            android:text="@string/wallet_password"
+            android:text="@string/number_password"
             />
-
-        <com.bhex.lib.uikit.widget.InputView
-            android:id="@+id/inp_wallet_pwd"
+        
+        <com.bhex.lib.uikit.widget.keyborad.PasswordInputView
+            android:id="@+id/input_password_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textType="2"
-            app:hint="@string/set_pwd_hint"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_password_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_15"
-            android:layout_marginTop="@dimen/dp_4"
-            android:layout_gravity="right"
-            android:textColor="@color/global_label_text_color"
-            tools:text="@string/pwd_index"
+            app:vcet_number="6"
+            app:vcet_width="48dp"
+            app:vcet_custom_keyborad="true"
             />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pwd_tips_0"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@color/secondary_tip_text_color"
-            android:textSize="@dimen/sp_15"
-            android:text="@string/pwd_rule_tip"
-            android:layout_marginLeft="3dp"
-            android:layout_marginBottom="3dp"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pwd_tips_1"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@color/secondary_tip_text_color"
-            android:textSize="@dimen/sp_15"
-            android:text="@string/pwd_rule_tip_1"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginBottom="3dp"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pwd_tips_2"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@color/secondary_tip_text_color"
-            android:textSize="@dimen/sp_15"
-            android:text="@string/pwd_rule_tip_2"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginBottom="3dp"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pwd_tips_3"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@color/secondary_tip_text_color"
-            android:textSize="@dimen/sp_15"
-            android:text="@string/pwd_rule_tip_3"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginBottom="3dp"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pwd_tips_4"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@color/secondary_tip_text_color"
-            android:textSize="@dimen/sp_15"
-            android:text="@string/pwd_rule_tip_4"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="3dp"
-            />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_next"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="24dp"
-            style="@style/main_btn_style"
-            android:text="@string/next"
-            android:enabled="false"
-            />
-
 
     </LinearLayout>
+
+
+    <include
+        layout="@layout/layout_keyborad"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

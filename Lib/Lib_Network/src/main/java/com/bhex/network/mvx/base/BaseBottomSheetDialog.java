@@ -34,7 +34,12 @@ public abstract class BaseBottomSheetDialog extends BottomSheetDialogFragment {
             mRootView = inflater.inflate(getLayout(), container, false);
             unbinder = ButterKnife.bind(this,mRootView);
         }
+        initView();
         return mRootView;
+    }
+
+    protected  void initView(){
+
     }
 
     @Override

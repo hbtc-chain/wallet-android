@@ -1,5 +1,9 @@
 package com.bhex.wallet.balance.ui.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,7 +14,6 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
@@ -18,16 +21,21 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.core.LogisticsCenter;
+import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
+import com.bhex.lib_qr.XQRCode;
+import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.PathUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -37,6 +45,7 @@ import com.bhex.wallet.balance.ui.viewhodler.TipsViewHolder;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.helper.AssetHelper;
@@ -44,10 +53,10 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.BHChain;
+import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.textview.MaterialTextView;
-import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,8 +75,7 @@ import butterknife.OnClick;
  * 2020-3-12
  */
 public class BalanceFragment extends BaseFragment<BalancePresenter> {
-    @BindView(value = R2.id.toolbar)
-    Toolbar mToolBar;
+
     @BindView(R2.id.tv_wallet_name)
     AppCompatTextView tv_wallet_name;
     @BindView(R2.id.tv_balance_txt2)
@@ -76,23 +84,16 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     RecyclerView recycler_balance;
     @BindView(R2.id.tv_address)
     AppCompatTextView tv_address;
-    @BindView(R2.id.iv_paste)
-    AppCompatImageView iv_paste;
+
     @BindView(R2.id.iv_eye)
     AppCompatImageView iv_eye;
     @BindView(R2.id.tv_asset)
     AppCompatTextView tv_asset;
-    @BindView(R2.id.iv_search)
-    AppCompatImageView iv_search;
-    @BindView(R2.id.ed_search_content)
-    AppCompatEditText ed_search_content;
-    @BindView(R2.id.ck_hidden_small)
-    CheckedTextView ck_hidden_small;
+
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     @BindView(R2.id.empty_layout)
     RelativeLayout empty_layout;
-
 
     private ChainAdapter mChainAdapter;
     private List<BHChain> mChainList;
@@ -111,16 +112,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).navigationBarColor(R.color.app_bg).navigationBarDarkIcon(true).init();
-    }
-
-    @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-        getYActivity().setSupportActionBar(mToolBar);
-        getYActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
@@ -152,6 +145,11 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     @Override
     protected void addEvent() {
+        //
+        getYActivity().findViewById(R.id.iv_create_wallet).setOnClickListener(v->{
+            ARouter.getInstance().build(ARouterConfig.Trusteeship.Trusteeship_Add_Index).withInt("flag",1).navigation();
+        });
+
         //资产列表点击事件
         mChainAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHChain bhChain =  mChainAdapter.getData().get(position);
@@ -173,7 +171,24 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             balanceViewModel.getAccountInfo(getYActivity(),null);
         });
         refreshLayout.autoRefresh();
+        //ARouter.getInstance().build(ARouterConfig.Common.commom_scan_qr).navigation(m_activity, BHQrScanActivity.REQUEST_CODE);
+        getYActivity().findViewById(R.id.btn_transfer_in).setOnClickListener(this::onTransferAction);
+        getYActivity().findViewById(R.id.btn_transfer_out).setOnClickListener(this::onTransferAction);
+        getYActivity().findViewById(R.id.btn_entrust).setOnClickListener(this::onTransferAction);
+        getYActivity().findViewById(R.id.iv_scan).setOnClickListener(v -> {
+            Postcard postcard = ARouter.getInstance()
+                    .build(ARouterConfig.Common.commom_scan_qr);
+            LogisticsCenter.completion(postcard);
+            Intent intent = new Intent(getActivity(), postcard.getDestination());
+            intent.putExtras(postcard.getExtras());
+            startActivityForResult(intent, BHQrScanActivity.REQUEST_CODE);
+
+            //ARouter.getInstance().build(ARouterConfig.Common.commom_scan_qr).navigation(getYActivity(), BHQrScanActivity.REQUEST_CODE);
+        });
+
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -203,7 +218,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             return;
         }
         allTokenAssets = mPresenter.calculateAllTokenPrice(getYActivity(),BHUserManager.getInstance().getAccountInfo(),mChainList);
-        LogUtils.d("BalanceFragment==>:","allTokenAssets=="+allTokenAssets);
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
         //设置第一字符15sp
         String tag = iv_eye.getTag().toString();
@@ -214,21 +228,30 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }
     }
 
+    //交易--转账、收款、委托
+    private void onTransferAction(View view) {
+        if(view.getId()==R.id.btn_transfer_in){
+            ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
+                    .withString("symbol", BHConstants.BHT_TOKEN)
+                    .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
+                    .navigation();
+        }else if(view.getId()==R.id.btn_transfer_out){
+            ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_out)
+                    .withString("symbol", BHConstants.BHT_TOKEN)
+                    .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
+                    .navigation();
+        }else if(view.getId()==R.id.btn_entrust){
+            ARouter.getInstance().build(ARouterConfig.Validator.Validator_Index)
+                    .navigation();
+        }
+    }
 
-    @OnClick({R2.id.iv_eye,R2.id.tv_address,R2.id.iv_search,R2.id.ck_hidden_small,R2.id.iv_paste})
+    @OnClick({R2.id.iv_eye,R2.id.tv_address})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_eye){
             //隐藏资产
             mPresenter.hiddenAssetExt(getYActivity(),tv_asset,iv_eye);
             mChainAdapter.setIsHidden(iv_eye.getTag().toString());
-        }else if(view.getId()==R.id.iv_paste){
-            ToolUtils.copyText(bhWallet.getAddress(),getYActivity());
-            ToastUtils.showToast(getResources().getString(R.string.copyed));
-        }else if(view.getId()==R.id.iv_search){
-            //币种搜索
-        }else if(view.getId()==R.id.ck_hidden_small){
-            //隐藏小额币种
-            ck_hidden_small.toggle();
         }
     }
 
@@ -265,19 +288,35 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         updateAssets();
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_balance,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.menu_add_balance){
-            /*ARouter.getInstance().build(ARouterConfig.Balance_Search).
-                    withObject("balanceList",mOriginBalanceList).navigation();*/
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //处理二维码扫描结果
+        if (requestCode == BHQrScanActivity.REQUEST_CODE ) {
+            if(resultCode == Activity.RESULT_OK){
+                //处理扫描结果（在界面上显示）
+                String qrCode  = data.getExtras().getString(XQRCode.RESULT_DATA);
+                LogUtils.d("BalanceFragment===>:","qrCode=="+qrCode);
+                //mTransferOutViewHolder.input_to_address.setInputString(qrCode);
+            }else if(resultCode == BHQrScanActivity.REQUEST_IMAGE){
+                getAnalyzeQRCodeResult(data.getData());
+            }
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+
+    private void getAnalyzeQRCodeResult(Uri uri) {
+        XQRCode.analyzeQRCode(PathUtils.getFilePathByUri(getYActivity(), uri), new QRCodeAnalyzeUtils.AnalyzeCallback() {
+            @Override
+            public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
+                //mTransferOutViewHolder.input_to_address.setInputString(result);
+            }
+
+            @Override
+            public void onAnalyzeFailed() {
+                ToastUtils.showToast(getResources().getString(R.string.encode_qr_fail));
+            }
+        });
     }
 }

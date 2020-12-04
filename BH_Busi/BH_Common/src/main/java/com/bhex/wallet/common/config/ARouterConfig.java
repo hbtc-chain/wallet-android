@@ -40,7 +40,11 @@ public class ARouterConfig {
         public static final String My_Security_Setting = "/my/security/setIndex";
     }
 
+    //托管单元-钱包账户
+    public static class Trusteeship{
+        public static final String Trusteeship_Add_Index = "/Trusteeship/add/index";
 
+    }
     /**
      * 助记词模块
      */

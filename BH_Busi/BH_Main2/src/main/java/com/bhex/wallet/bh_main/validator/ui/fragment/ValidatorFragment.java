@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bhex.lib.uikit.widget.GradientTabLayout;
+import com.bhex.lib.uikit.widget.viewpager.CustomViewPager;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;

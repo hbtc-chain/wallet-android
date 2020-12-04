@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.PixelUtils;
 
 /**
  * Created by gdy on 2018/11/13

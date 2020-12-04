@@ -21,8 +21,8 @@ import java.util.List;
 public class ValidatorAdapter extends BaseQuickAdapter<ValidatorInfo, BaseViewHolder> {
 
     private int mValid;
-    public ValidatorAdapter(int isValid,int layoutResId, @Nullable List<ValidatorInfo> data) {
-        super(layoutResId, data);
+    public ValidatorAdapter(int isValid,@Nullable List<ValidatorInfo> data) {
+        super( R.layout.item_validator,data);
         mValid = isValid;
     }
 

@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;

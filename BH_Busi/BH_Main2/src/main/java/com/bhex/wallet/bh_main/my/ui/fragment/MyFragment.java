@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.CircleView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;

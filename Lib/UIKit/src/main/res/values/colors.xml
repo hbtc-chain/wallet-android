@@ -161,7 +161,8 @@
     <color name="dark_20_blue">#406E8196</color>
     <color name="color_20_red">#40F73A46</color>
     <color name="color_20_green">#4051D372</color>
-
+    <color name="label_native_text_color">#4299FF</color>
+    <color name="label_native_bg_color">#334299FF</color>
 
     <color name="dark20">#33242b32</color>
 
@@ -182,4 +183,9 @@
     <color name="proposal_failed">#6E8196</color>
 
     <color name="color_0A1825">#0A1825</color>
+
+
+
+
+
 </resources>

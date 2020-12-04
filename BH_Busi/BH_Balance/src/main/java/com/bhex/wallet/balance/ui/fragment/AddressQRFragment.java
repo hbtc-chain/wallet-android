@@ -25,8 +25,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;

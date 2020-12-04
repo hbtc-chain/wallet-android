@@ -3,7 +3,7 @@ package com.bhex.wallet.mnemonic.adapter;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.mnemonic.R;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -52,6 +52,7 @@ public class AddressAdapter extends BaseQuickAdapter<BHWalletItem, BaseViewHolde
             tv_address.setTextColor(ColorUtil.getColor(getContext(),R.color.global_main_text_color));
             tv_wallet_name.setTextColor(ColorUtil.getColor(getContext(),R.color.global_main_text_color));
         }
+
 
         /*ck.setOnClickListener(v -> {
             if(mCheckChangeListener!=null){

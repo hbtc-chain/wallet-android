@@ -17,15 +17,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
 import com.bhex.wallet.market.event.H5SignEvent;

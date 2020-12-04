@@ -104,7 +104,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
             ToolUtils.hintKeyBoard(this);
             getPresenter().verifyPassword(inp_wallet_pwd.getInputString(), mCurrentWallet);
         } else if (view.getId() == R.id.tv_import_mnemonic) {
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX).navigation();
         } else if (view.getId() == R.id.tv_forget_pwd) {
             //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX)
@@ -116,7 +116,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
         } else if(view.getId() == R.id.btn_wallet_create){
             ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST);
         } else if(view.getId() == R.id.btn_wallet_impot){
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX).navigation();
         }
     }
 

@@ -35,7 +35,7 @@
 
         <activity
             android:name=".ui.activity.TransferInActivity"
-            android:launchMode="singleTop"
+            android:launchMode="standard"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.GatheringActivity"

@@ -43,6 +43,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="BTC" />
 
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_coin_type"
             android:layout_width="wrap_content"
@@ -76,7 +77,9 @@
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="BTC" />
+            tools:text="BTC"
+            android:visibility="gone"
+            />
 
 
 
@@ -87,10 +90,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginLeft="12dp"
             android:includeFontPadding="false"
-            app:layout_constraintTop_toBottomOf="@+id/tv_coin_amount"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="￥62693.49"
-            android:textSize="13sp"
-            android:textColor="@color/global_label_text_color"
+            android:textSize="15sp"
+            android:textColor="@color/black"
             android:layout_marginTop="2dp"
             />
 

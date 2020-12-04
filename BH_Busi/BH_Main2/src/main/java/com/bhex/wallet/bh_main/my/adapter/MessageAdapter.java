@@ -1,13 +1,6 @@
 package com.bhex.wallet.bh_main.my.adapter;
 
-import android.util.Log;
-
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-
-import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.tools.utils.DateUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.model.BHMessage;
 import com.chad.library.adapter.base.BaseQuickAdapter;

@@ -2,22 +2,19 @@ package com.bhex.wallet.bh_main.my.ui.activity;
 
 import android.view.View;
 import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
 
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.NavigateUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.SettingAdapter;

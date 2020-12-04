@@ -3,7 +3,7 @@ package com.bhex.wallet.mnemonic.adapter;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bhex.wallet.mnemonic.R;
-import com.bhex.wallet.mnemonic.ui.item.ImportItem;
+import com.bhex.wallet.mnemonic.ui.item.FunctionItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
@@ -18,15 +18,14 @@ import java.util.List;
  * Date: 2020/3/22
  * Time: 19:04
  */
-public class ImportAdapter extends BaseQuickAdapter<ImportItem, BaseViewHolder> {
+public class ImportAdapter extends BaseQuickAdapter<FunctionItem, BaseViewHolder> {
 
-    public ImportAdapter(int layoutResId, @Nullable List<ImportItem> data) {
-        super(layoutResId, data);
+    public ImportAdapter( @Nullable List<FunctionItem> data) {
+        super(R.layout.item_import_way, data);
     }
 
-
     @Override
-    protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable ImportItem importItem) {
+    protected void convert(@NotNull BaseViewHolder viewHolder, @Nullable FunctionItem importItem) {
         viewHolder.setText(R.id.tv_import_title,importItem.title);
 
         AppCompatImageView iv_import_ic = viewHolder.getView(R.id.iv_import_ic);

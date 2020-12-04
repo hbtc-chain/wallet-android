@@ -15,6 +15,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.lib.uikit.widget.keyborad.PasswordInputView;
+import com.bhex.lib.uikit.widget.keyborad.PasswordKeyBoardView;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
@@ -52,22 +54,25 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
     WalletViewModel walletViewModel;
 
-    @BindView(R2.id.inp_wallet_confirm_pwd)
-    InputView inp_wallet_confirm_pwd;
-
-    @BindView(R2.id.btn_create)
-    AppCompatButton btn_create;
-
     @BindView(R2.id.ck_agreement)
     AppCompatCheckBox ck_agreement;
-
-    @BindView(R2.id.tv_password_count)
-    AppCompatTextView tv_password_count;
 
     @BindView(R2.id.tv_agreement)
     AppCompatTextView tv_agreement;
 
+    @BindView(R2.id.btn_create)
+    AppCompatButton btn_create;
 
+    PasswordInputView mPasswordInputView;
+    PasswordKeyBoardView mPasswordKeyboardView;
+
+    /*@BindView(R2.id.inp_wallet_confirm_pwd)
+    InputView inp_wallet_confirm_pwd;
+
+    @BindView(R2.id.tv_password_count)
+    AppCompatTextView tv_password_count;*/
+
+    @Autowired(name = "password")
     String mOldPwd;
     @Override
     protected int getLayoutId() {
@@ -76,15 +81,19 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
     @Override
     protected void initView() {
+        ARouter.getInstance().inject(this);
+
         mPresenter.setToolBarTitle();
         mPresenter.setButtonTitle();
-        mOldPwd = BHUserManager.getInstance().getTmpBhWallet().getPassword();
         SpannableString highlightText = StringUtils.highlight(this,
                 getString(R.string.bh_register_agreement),
                 getString(R.string.bh_register_agreement_sub),
                 R.color.highlight_text_color,
                 0, 0);
         tv_agreement.setText(highlightText);
+
+        mPasswordInputView = findViewById(R.id.input_password_view);
+        mPasswordKeyboardView = findViewById(R.id.my_keyboard);;
     }
 
     @Override
@@ -94,24 +103,51 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
     @Override
     protected void addEvent() {
-        //获取输入密码
-        inp_wallet_confirm_pwd.addTextWatch(new SimpleTextWatcher(){
+        walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
+
+        mPasswordKeyboardView.setAttachToEditText(mPasswordInputView.m_input_content,mPasswordInputView,findViewById(R.id.keyboard_root));
+        mPasswordKeyboardView.setOnKeyListener(new PasswordKeyBoardView.OnKeyListener() {
             @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                mPresenter.checkConfirmPassword(inp_wallet_confirm_pwd,btn_create,mOldPwd,ck_agreement);
-                //
-                int count = inp_wallet_confirm_pwd.getInputString().length();
-                tv_password_count.setText(String.format(getString(R.string.pwd_index),count));
+            public void onInput(String text) {
+                mPasswordInputView.m_input_content.setText(text);
+                mPasswordInputView.onInputChange(mPasswordInputView.m_input_content.getEditableText());
+            }
+
+            @Override
+            public void onDelete() {
+                mPasswordInputView.onKeyDelete();
             }
         });
 
-        walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
+        mPasswordInputView.setOnInputListener(new PasswordInputView.OnInputListener() {
+            @Override
+            public void onComplete(String input) {
+                //跳转密码确认
+                /*BHUserManager.getInstance().getTmpBhWallet().setPassword(input);
+                ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_THIRD)
+                        .withString("password",input)
+                        .navigation();*/
+                if(!input.equals(mOldPwd)){
+                    ToastUtils.showToast(getResources().getString(R.string.two_password_n_same));
+                    return;
+                }
+                getPresenter().checkConfirmPassword(mPasswordInputView.getInputContent(),btn_create,mOldPwd,ck_agreement);
+            }
 
-        ck_agreement.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            getPresenter().checkConfirmPassword(inp_wallet_confirm_pwd,btn_create,mOldPwd,ck_agreement);
+            @Override
+            public void onChange(String input) {
+
+            }
+
+            @Override
+            public void onClear() {
+
+            }
         });
 
+        ck_agreement.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            getPresenter().checkConfirmPassword(mPasswordInputView.getInputContent(),btn_create,mOldPwd,ck_agreement);
+        });
 
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
             if (loadDataModel.loadingStatus== LoadingStatus.SUCCESS) {
@@ -131,7 +167,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                     //NavigateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
                     ARouter.getInstance()
                             .build(ARouterConfig.TRUSTEESHIP_CREATE_OK_PAGE)
-                            .withString(BHConstants.INPUT_PASSWORD,inp_wallet_confirm_pwd.getInputString())
+                            .withString(BHConstants.INPUT_PASSWORD,mPasswordInputView.getInputContent())
                             .navigation();
                     ActivityCache.getInstance().finishActivity();
                 }
@@ -144,13 +180,29 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                 }
             }
         });
+
+        //获取输入密码
+        /*inp_wallet_confirm_pwd.addTextWatch(new SimpleTextWatcher(){
+            @Override
+            public void afterTextChanged(Editable s) {
+                super.afterTextChanged(s);
+                mPresenter.checkConfirmPassword(inp_wallet_confirm_pwd,btn_create,mOldPwd,ck_agreement);
+                //
+                int count = inp_wallet_confirm_pwd.getInputString().length();
+                tv_password_count.setText(String.format(getString(R.string.pwd_index),count));
+            }
+        });
+
+
+
+        */
     }
 
 
     @OnClick({R2.id.btn_create,R2.id.tv_agreement})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_create){
-            String confirmPwd = inp_wallet_confirm_pwd.getInputString();
+            String confirmPwd = mPasswordInputView.getInputContent();
             if(!mOldPwd.equals(confirmPwd)){
                 ToolUtils.hintKeyBoard(this);
                 ToastUtils.showToast(getResources().getString(R.string.two_password_n_same));
@@ -196,7 +248,6 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
      */
     private void importPrivatekey(String name,String pwd){
         walletViewModel.importPrivateKey(this,name,pwd);
-        //walletViewModel.importPrivateKey(this,"","");
     }
 
     @Override

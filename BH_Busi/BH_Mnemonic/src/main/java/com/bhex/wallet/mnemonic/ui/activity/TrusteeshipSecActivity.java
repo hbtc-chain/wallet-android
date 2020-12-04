@@ -11,6 +11,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.lib.uikit.widget.keyborad.PasswordInputView;
+import com.bhex.lib.uikit.widget.keyborad.PasswordKeyBoardView;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -31,29 +33,8 @@ import butterknife.OnClick;
 @Route(path = ARouterConfig.TRUSTEESHIP_MNEMONIC_SECOND)
 public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresenter> {
 
-    @BindView(R2.id.inp_wallet_pwd)
-    InputView inp_wallet_pwd;
-
-    @BindView(R2.id.btn_next)
-    AppCompatButton btn_next;
-
-    @BindView(R2.id.tv_password_count)
-    AppCompatTextView tv_password_count;
-
-    @BindView(R2.id.pwd_tips_0)
-    AppCompatTextView pwd_tips_0;
-
-    @BindView(R2.id.pwd_tips_1)
-    AppCompatTextView pwd_tips_1;
-
-    @BindView(R2.id.pwd_tips_2)
-    AppCompatTextView pwd_tips_2;
-
-    @BindView(R2.id.pwd_tips_3)
-    AppCompatTextView pwd_tips_3;
-
-    @BindView(R2.id.pwd_tips_4)
-    AppCompatTextView pwd_tips_4;
+    PasswordInputView mPasswordInputView;
+    PasswordKeyBoardView mPasswordKeyboardView;
 
     @Override
     protected int getLayoutId() {
@@ -63,6 +44,8 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
     @Override
     protected void initView() {
         mPresenter.setToolBarTitle();
+        mPasswordInputView = findViewById(R.id.input_password_view);
+        mPasswordKeyboardView = findViewById(R.id.my_keyboard);;
     }
 
     @Override
@@ -73,30 +56,43 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
 
     @Override
     protected void addEvent() {
-        inp_wallet_pwd.addTextWatch(new SimpleTextWatcher() {
+        mPasswordKeyboardView.setAttachToEditText(mPasswordInputView.m_input_content,mPasswordInputView,findViewById(R.id.keyboard_root));
+
+        mPasswordKeyboardView.setOnKeyListener(new PasswordKeyBoardView.OnKeyListener() {
             @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                mPresenter.checkPassword(inp_wallet_pwd, btn_next,pwd_tips_0,pwd_tips_1,pwd_tips_2,pwd_tips_3,pwd_tips_4);
-                int count = inp_wallet_pwd.getInputString().length();
-                tv_password_count.setText(String.format(getString(R.string.pwd_index), count));
+            public void onInput(String text) {
+                mPasswordInputView.m_input_content.setText(text);
+                mPasswordInputView.onInputChange(mPasswordInputView.m_input_content.getEditableText());
+            }
+
+            @Override
+            public void onDelete() {
+                mPasswordInputView.onKeyDelete();
             }
         });
 
+        mPasswordInputView.setOnInputListener(new PasswordInputView.OnInputListener() {
+            @Override
+            public void onComplete(String input) {
+                //跳转密码确认
+                BHUserManager.getInstance().getTmpBhWallet().setPassword(input);
+                ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_THIRD)
+                        .withString("password",input)
+                        .navigation();
+            }
+
+            @Override
+            public void onChange(String input) {
+
+            }
+
+            @Override
+            public void onClear() {
+
+            }
+        });
 
     }
 
-
-    @OnClick({R2.id.btn_next})
-    public void onViewClicked(View view) {
-        if (view.getId() == R.id.btn_next) {
-            //设置密码
-            BHUserManager.getInstance().getTmpBhWallet().setPassword(inp_wallet_pwd.getInputString());
-            //NavigateUtil.startActivity(this, TrusteeshipThirdActivity.class);
-
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_THIRD)
-                    .navigation();
-        }
-    }
 
 }

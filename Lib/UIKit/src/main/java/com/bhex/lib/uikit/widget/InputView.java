@@ -26,9 +26,9 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bhex.lib.uikit.R;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.google.android.material.shape.MaterialShapeUtils;
 
 /**

@@ -22,6 +22,7 @@ import com.bhex.tools.utils.PathUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.presenter.TransferOutPresenter;
+import com.bhex.wallet.balance.ui.fragment.ChooseTokenFragment;
 import com.bhex.wallet.balance.ui.viewhodler.TransferOutViewHolder;
 import com.bhex.wallet.balance.viewmodel.TokenViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
@@ -80,12 +81,13 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
 
         mRefreshLayout = findViewById(R.id.refreshLayout);
 
-        mTransferOutViewHolder = new TransferOutViewHolder(this,findViewById(R.id.mRootView),m_symbol,m_transferout_way);
+        mTransferOutViewHolder = new TransferOutViewHolder(this,findViewById(R.id.root_view),m_symbol,m_transferout_way);
         getPresenter().mTransferViewHolder = mTransferOutViewHolder;
         //
         findViewById(R.id.btn_drawwith_coin).setOnClickListener(this::onSubmitAction);
-    }
 
+        findViewById(R.id.tv_center_title).setOnClickListener(this::chooseTokenAction);
+    }
 
 
     @Override
@@ -121,12 +123,10 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
         mRefreshLayout.autoRefresh();
     }
 
-
     @Override
     protected void initPresenter() {
         mPresenter = new TransferOutPresenter(this);
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -242,4 +242,19 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
         }
     }
 
+    //
+    private void chooseTokenAction(View view) {
+        ChooseTokenFragment fragment = ChooseTokenFragment.showFragment(m_symbol,chooseTokenListener);
+        fragment.show(getSupportFragmentManager(),ChooseTokenFragment.class.getName());
+    }
+
+    private ChooseTokenFragment.OnChooseTokenListener chooseTokenListener = new ChooseTokenFragment.OnChooseTokenListener() {
+        @Override
+        public void onChooseClickListener(String symbol, int position) {
+            //更新token
+            TransferOutActivity.this.m_symbol = symbol;
+            //updateViewContent();
+            mTransferOutViewHolder.upateViewContent(m_symbol);
+        }
+    };
 }
