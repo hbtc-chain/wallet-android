@@ -15,8 +15,10 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.FragmentManager;
 
+import com.bhex.lib.uikit.widget.keyborad.PasswordInputView;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.network.app.BaseApplication;
@@ -41,14 +43,17 @@ import butterknife.OnClick;
  */
 public class PasswordFragment extends BaseDialogFragment {
 
-    @BindView(R2.id.btn_cancel)
+    /*@BindView(R2.id.btn_cancel)
     MaterialButton btn_cancel;
 
     @BindView(R2.id.btn_confirm)
-    MaterialButton btn_confirm;
+    MaterialButton btn_confirm;*/
 
     @BindView(R2.id.inp_wallet_pwd)
-    InputView inp_wallet_pwd;
+    PasswordInputView inp_wallet_pwd;
+
+    @BindView(R2.id.iv_close)
+    AppCompatImageView iv_close;
 
     private PasswordClickListener passwordClickListener;
 
@@ -84,7 +89,6 @@ public class PasswordFragment extends BaseDialogFragment {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         params.width = dm.widthPixels - PixelUtils.dp2px(BaseApplication.getInstance(), 48);
-        //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 185);
         window.setAttributes(params);
     }
 
@@ -95,6 +99,33 @@ public class PasswordFragment extends BaseDialogFragment {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
         return dialog;
+    }
+
+    @Override
+    protected void initView() {
+
+        inp_wallet_pwd.setOnInputListener(new PasswordInputView.OnInputListener() {
+            @Override
+            public void onComplete(String input) {
+                if (passwordClickListener == null) {
+                    return;
+                }
+                //String inputPassword = inp_wallet_pwd.getInputContent();
+                ToolUtils.hintKeyBoard(getActivity(),inp_wallet_pwd.m_input_content);
+                //检验密码
+                checkPassword(inp_wallet_pwd.getInputContent().trim());
+            }
+
+            @Override
+            public void onChange(String input) {
+
+            }
+
+            @Override
+            public void onClear() {
+
+            }
+        });
     }
 
     /**
@@ -117,40 +148,50 @@ public class PasswordFragment extends BaseDialogFragment {
         return pfrag;
     }
 
-    @OnClick({R2.id.btn_cancel, R2.id.btn_confirm})
+    @OnClick({R2.id.iv_close})
     public void onViewClicked(View view) {
-        if (view.getId() == R.id.btn_cancel) {
+        /*if (view.getId() == R.id.btn_cancel) {
             dismiss();
-        } else if (view.getId() == R.id.btn_confirm) {
+        }
+
+        if (view.getId() == R.id.btn_confirm) {
             if (passwordClickListener == null) {
                 return;
             }
+            //String inputPassword = inp_wallet_pwd.getInputContent();
+            ToolUtils.hintKeyBoard(getActivity(),inp_wallet_pwd.m_input_content);
+            //检验密码
+            checkPassword(inp_wallet_pwd.getInputContent().trim());
+        }*/
 
-            BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
-            String inputPassword = inp_wallet_pwd.getInputString().trim();
-
-            ToolUtils.hintKeyBoard(getActivity(),inp_wallet_pwd.getEditText());
-
-            if(TextUtils.isEmpty(inputPassword)){
-                ToastUtils.showToast(getResources().getString(R.string.please_input_password));
-                return;
-            }
-
-            if(verifyPwdWay== BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
-                if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
-                    ToastUtils.showToast(getResources().getString(R.string.error_password));
-                    return;
-                }
-                passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
-                dismiss();
-            }else {
-                passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
-            }
+        if(view.getId() == R.id.iv_close){
+            dismissAllowingStateLoss();
+            ToolUtils.hintKeyBoard(getActivity());
         }
     }
 
     public void setPasswordClickListener(PasswordClickListener passwordClickListener) {
         this.passwordClickListener = passwordClickListener;
+    }
+
+    //检验密码
+    private void checkPassword(String inputPassword){
+        BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
+        if(TextUtils.isEmpty(inputPassword)){
+            ToastUtils.showToast(getResources().getString(R.string.please_input_password));
+            return;
+        }
+
+        if(verifyPwdWay== BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
+            if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
+                ToastUtils.showToast(getResources().getString(R.string.error_password));
+                return;
+            }
+            passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+            dismiss();
+        }else {
+            passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+        }
     }
 
     public interface PasswordClickListener {

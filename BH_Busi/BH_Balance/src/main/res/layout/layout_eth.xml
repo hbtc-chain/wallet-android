@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_index"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:background="@drawable/shape_btn_top_blue"
+    android:paddingStart="24dp"
+    android:paddingEnd="15dp">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_token_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:text="HBC"
+        />
+
+    <LinearLayout
+        android:id="@+id/btn_genernate_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:background="@drawable/shape_native_token"
+        android:layout_alignTop="@+id/tv_token_name"
+        android:layout_alignParentBottom="@+id/tv_token_name"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_token_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/genarate_cross_address"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_token_icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            tools:background="#FF0000"
+            android:layout_marginStart="7dp"
+            />
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_apply_token"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="领取测试币"
+        android:layout_below="@+id/tv_token_name"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        />
+</RelativeLayout>

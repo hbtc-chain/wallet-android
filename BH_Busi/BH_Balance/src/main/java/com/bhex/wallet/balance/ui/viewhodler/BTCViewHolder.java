@@ -129,7 +129,7 @@ public class BTCViewHolder {
     }
 
     private void makeAddressAction() {
-        BHBalance bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+        //BHBalance bthBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
 
         Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance.Balance_cross_address)
                 .withString("symbol", mBalance.symbol)

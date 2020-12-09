@@ -80,7 +80,7 @@ public class RecycleViewExtDivider extends RecyclerView.ItemDecoration {
 
     public RecycleViewExtDivider(Context context, int orientation, int paddingLeft,int mPaddingRight, int dividerColor) {
         this(context, orientation);
-        mDividerHeight = PixelUtils.dp2px(context,1);
+        mDividerHeight = PixelUtils.dp2px(context,0.8f);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(dividerColor);
         mPaint.setDither(true);

@@ -119,7 +119,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
 
-        tv_wallet_name.setText(bhWallet.name);
+        tv_wallet_name.setText("hello，"+bhWallet.name);
 
         mChainList = CacheCenter.getInstance().getTokenMapCache().loadChains();
 
@@ -134,6 +134,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         recycler_balance.addItemDecoration(ItemDecoration);
 
         recycler_balance.setAdapter(mChainAdapter = new ChainAdapter(mChainList));
+        tv_address.setTag(bhWallet.getAddress());
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         refreshLayout.setEnableLoadMore(false);
     }
@@ -182,8 +183,14 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             Intent intent = new Intent(getActivity(), postcard.getDestination());
             intent.putExtras(postcard.getExtras());
             startActivityForResult(intent, BHQrScanActivity.REQUEST_CODE);
-
             //ARouter.getInstance().build(ARouterConfig.Common.commom_scan_qr).navigation(getYActivity(), BHQrScanActivity.REQUEST_CODE);
+        });
+
+        getYActivity().findViewById(R.id.iv_qr_code).setOnClickListener(v->{
+            AddressQRFragment.showFragment(getChildFragmentManager(),
+                    AddressQRFragment.class.getSimpleName(),
+                    BHConstants.BHT_TOKEN,
+                    tv_address.getTag().toString());
         });
 
     }
@@ -193,7 +200,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         TipsViewHolder viewHolder = new TipsViewHolder();
         viewHolder.initView(getYActivity(),getYActivity().findViewById(R.id.layout_balance_tip));
     }
@@ -268,7 +274,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         //清空原始用户资产
-        tv_wallet_name.setText(bhWallet.name);
+        tv_wallet_name.setText("hello，"+bhWallet.name);
         mChainAdapter.notifyDataSetChanged();
         //更新资产
         balanceViewModel.getAccountInfo(getYActivity(),null);
@@ -279,7 +285,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         super.onHiddenChanged(hidden);
         if(!hidden){
             bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
-            tv_wallet_name.setText(bhWallet.name);
+            tv_wallet_name.setText("hello，"+bhWallet.name);
         }
     }
 

@@ -50,6 +50,8 @@ public class ValidatorInfo {
     private CommissionBean commission;
     private DescriptionBean description;
     private List<LastBlocksBean> last_blocks;
+    public boolean is_key_node;
+    public boolean is_elected;
     /**
      * last_voted_time : 1584526635
      */

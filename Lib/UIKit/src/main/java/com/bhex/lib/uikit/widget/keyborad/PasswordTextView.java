@@ -27,7 +27,7 @@ import com.bhex.tools.utils.PixelUtils;
  */
 public class PasswordTextView extends AppCompatTextView {
 
-    private float mRadius;
+    public float mRadius;
 
     public boolean mHasPassword;
 
@@ -86,7 +86,7 @@ public class PasswordTextView extends AppCompatTextView {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
 
-        mRadius = Math.min(width,height)>>2;
+        //mRadius = Math.min(width,height)>>2;
 
         input_border_normal_color_drawable = ShapeUtils.getRoundRectStrokeDrawable(
                 4, ContextCompat.getColor(getContext(),R.color.app_bg),input_border_normal_color,2

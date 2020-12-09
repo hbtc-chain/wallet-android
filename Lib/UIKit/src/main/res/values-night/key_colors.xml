@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="bg_keyboard">#E7ECF4</color>
-    <color name="keyboard_text_color">#000000</color>
-    <color name="keyboard_key_bg_normal">#FCFCFE</color>
+    <color name="bg_keyboard">#293652</color>
+    <color name="keyboard_text_color">#FFFFFF</color>
+    <color name="keyboard_key_bg_normal">#222D42</color>
     <color name="keyboard_key_bg_pressed">#CCD2D8</color>
-    <color name="keyboard_special_key_bg_normal">#E7ECF4</color>
+    <color name="keyboard_special_key_bg_normal">#293652</color>
     <color name="keyboard_special_key_bg_pressed">#E7ECF4</color>
     <color name="keyboard_none_key_bg_normal">#ffefefef</color>
     <color name="keyboard_none_key_bg_pressed">#ffefefef</color>

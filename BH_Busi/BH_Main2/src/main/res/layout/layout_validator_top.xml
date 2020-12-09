@@ -23,6 +23,7 @@
             tools:text="zheshiwodezhanghum"/>
 
         <LinearLayout
+            android:id="@+id/btn_token_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -35,10 +36,13 @@
             android:background="@drawable/shape_dark20_blue">
 
             <TextView
+                android:id="@+id/tv_token_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="HBCdehfk***"/>
+                android:textSize="11sp"
+                android:textColor="@color/global_tip_text_color"
+                tools:text="HBCdehfk***"/>
 
             
             <View
@@ -83,7 +87,7 @@
                 android:id="@+id/iv_qr_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_entrust_qr"
+                android:src="@mipmap/ic_help"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 

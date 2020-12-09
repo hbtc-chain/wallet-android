@@ -149,11 +149,10 @@
             android:layout_width="match_parent"
             android:layout_height="69dp"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/copy_address"
             android:textColor="@color/label_button_text_color"
-            android:textSize="17sp"
-            android:gravity="center"
-            />
+            android:textSize="17sp" />
 
     </LinearLayout>
 

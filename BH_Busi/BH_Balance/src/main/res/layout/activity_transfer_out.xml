@@ -8,9 +8,34 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.TransferOutActivity">
 
-    <include
-        layout="@layout/layout_toolbar"
-        />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/wallet_create_trusteeship"
+            tools:text="@string/wallet_create_trusteeship"
+            android:drawableEnd="@mipmap/ic_arrow_token_d"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
@@ -126,7 +151,7 @@
                 />
         </RelativeLayout>
 
-        <com.bhex.lib.uikit.widget.editor.WithDrawInput
+        <!--<com.bhex.lib.uikit.widget.editor.WithDrawInput
             android:id="@+id/ed_transfer_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,7 +159,71 @@
             app:leftHint="@string/please_transfer_amount"
             app:rightColor="@color/label_button_text_color"
             app:rightText="@string/all_withdraw_amount"
-            />
+            />-->
+
+        <RelativeLayout
+            android:id="@+id/layout_transfer_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_input_corner"
+            >
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/input_transfer_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/global_input_hint_color"
+                android:textColor="@color/global_input_text_color"
+                android:textSize="15sp"
+                android:textCursorDrawable="@null"
+                android:background="@null"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:hint="输入或粘贴地址"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toLeftOf="@+id/tv_token_unit"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_token_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/global_label_text_color"
+                android:layout_centerVertical="true"
+                tools:text="ETH"
+                android:layout_toLeftOf="@+id/line"
+                />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="1dp"
+                android:layout_height="16dp"
+                android:background="@color/secondary_button_bg_color"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btn_tranfer_all"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_tranfer_all"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/highlight_text_color"
+                android:layout_alignParentEnd="true"
+                android:text="@string/all"
+                tools:text="@string/all"
+                />
+
+
+        </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_reach"

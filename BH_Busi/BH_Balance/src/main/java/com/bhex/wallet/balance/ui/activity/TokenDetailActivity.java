@@ -51,6 +51,7 @@ import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
+import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -75,13 +76,13 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
     @BindView(R2.id.btn_item1)
-    CoinBottomBtn btn_item1;
+    MaterialButton btn_item1;
     @BindView(R2.id.btn_item2)
-    CoinBottomBtn btn_item2;
+    MaterialButton btn_item2;
     @BindView(R2.id.btn_item3)
-    CoinBottomBtn btn_item3;
+    MaterialButton btn_item3;
     @BindView(R2.id.btn_item4)
-    CoinBottomBtn btn_item4;
+    MaterialButton btn_item4;
     @BindView(R2.id.recycler_order)
     RecyclerView recycler_order;
     @BindView(R2.id.empty_layout)
@@ -91,22 +92,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     AppCompatTextView tv_coin_amount;
     @BindView(R2.id.tv_coin_currency)
     AppCompatTextView tv_coin_currency;
-    /*@BindView(R2.id.tv_available_text)
-    AppCompatTextView tv_available_text;
-    @BindView(R2.id.tv_available_value)
-    AppCompatTextView tv_available_value;
-    @BindView(R2.id.tv_entrust_text)
-    AppCompatTextView tv_entrust_text;
-    @BindView(R2.id.tv_entrust_value)
-    AppCompatTextView tv_entrust_value;
-    @BindView(R2.id.tv_redemption_text)
-    AppCompatTextView tv_redemption_text;
-    @BindView(R2.id.tv_redemption_value)
-    AppCompatTextView tv_redemption_value;
-    @BindView(R2.id.tv_income_text)
-    AppCompatTextView tv_income_text;
-    @BindView(R2.id.tv_income_value)
-    AppCompatTextView tv_income_value;*/
+
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     @BindView(R2.id.iv_coin_ic)
@@ -167,57 +153,29 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         }
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(symbolBalance.symbol)){
             //转账
-            btn_item2.tv_bottom_text.setText(getResources().getString(R.string.transfer));
-            btn_item3.setActionMore(View.GONE);
-            btn_item4.setActionMore(View.GONE);
-            btn_item4.setVisibility(View.VISIBLE);
-            btn_item4.tv_bottom_text.setText(getString(R.string.entrust_relive_entrust));
-            //findViewById(R.id.layout_divider).setVisibility(View.VISIBLE);
+            btn_item1.setText(getResources().getString(R.string.transfer_in));
+            btn_item2.setText(getResources().getString(R.string.transfer));
+
         } else if (BHConstants.BHT_TOKEN.equalsIgnoreCase(symbolBalance.chain)) {
             //原生代币
-            btn_item3.setVisibility(View.GONE);
-            btn_item4.setVisibility(View.GONE);
-            /*tv_available_text.setVisibility(View.GONE);
-            tv_available_value.setVisibility(View.GONE);
-            tv_entrust_text.setVisibility(View.GONE);
-            tv_entrust_value.setVisibility(View.GONE);
-            tv_redemption_text.setVisibility(View.GONE);
-            tv_redemption_value.setVisibility(View.GONE);
-            tv_income_text.setVisibility(View.GONE);
-            tv_income_value.setVisibility(View.GONE);*/
-            //转账
-            btn_item2.tv_bottom_text.setText(getResources().getString(R.string.transfer));
+            btn_item1.setText(getResources().getString(R.string.transfer_in));
+            btn_item2.setText(getResources().getString(R.string.transfer));
+
         } else {
             //跨链代币
+            btn_item1.setText(getResources().getString(R.string.deposit));
+            btn_item2.setText(getResources().getString(R.string.draw_coin));
             //转账
-            btn_item2.tv_bottom_text.setText(getResources().getString(R.string.transfer));
-            //跨链充币/跨链提币
-            btn_item3.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_link));
-            btn_item3.tv_bottom_text.setText(getResources().getString(R.string.crosslink));
-            btn_item3.setActionMore(View.VISIBLE);
 
-            btn_item3.setId(R.id.cross_chian_transfer_in);
-
-            /*tv_available_text.setVisibility(View.GONE);
-            tv_available_value.setVisibility(View.GONE);
-            tv_entrust_text.setVisibility(View.GONE);
-            tv_entrust_value.setVisibility(View.GONE);
-            tv_redemption_text.setVisibility(View.GONE);
-            tv_redemption_value.setVisibility(View.GONE);
-            tv_income_text.setVisibility(View.GONE);
-            tv_income_value.setVisibility(View.GONE);*/
         }
 
-        if(!BHConstants.BHT_TOKEN.equalsIgnoreCase(symbolToken.symbol)){
-            //兑币功能
-            BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(symbolToken.symbol);
-            btn_item4.setVisibility((tokenMapping==null)?View.GONE:View.VISIBLE);
-            if(tokenMapping!=null){
-                btn_item4.iv_coin_icon.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_cross_trans_out));
-                btn_item4.tv_bottom_text.setText(getResources().getString(R.string.mapping_swap));
-                btn_item4.setId(R.id.cross_chian_withdraw);
-                btn_item4.setActionMore(View.GONE);
-            }
+        //兑币功能
+        BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(symbolToken.symbol);
+        if(tokenMapping!=null){
+            btn_item3.setVisibility(View.VISIBLE);
+            btn_item3.setText(getResources().getString(R.string.swap));
+        }else{
+            btn_item3.setVisibility(View.GONE);
         }
 
     }
@@ -231,21 +189,6 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         tv_coin_amount.setText(res[0]);
         //对应法币实际值
         tv_coin_currency.setText(res[1]);
-        /*if(BHConstants.BHT_TOKEN.equalsIgnoreCase(symbolToken.symbol)){
-            //可用数量
-            String available_value = BHBalanceHelper.getAmountForUser(this,symbolBalance.amount,"0",symbolToken.symbol);
-            tv_available_value.setText(available_value);
-            //委托中
-            String bonded_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getBonded());
-            tv_entrust_value.setText(bonded_value);
-            //赎回中
-            String unbonding_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getUnbonding());
-            tv_redemption_value.setText(unbonding_value);
-            //已收益
-            String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getClaimed_reward());
-            tv_income_value.setText(claimed_reward_value);
-        }*/
-
         //链上资产
     }
 

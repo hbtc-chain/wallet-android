@@ -18,6 +18,7 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.menu.MenuItem;
@@ -163,11 +164,19 @@ public class BHBalanceHelper {
     }
 
     //
-    public static List<BHToken> loadTokenList(){
+    public static List<BHToken> loadTokenList(String flag){
+        //flag 1 非hbc链功能
         ArrayMap<String,BHToken> map_tokens =  CacheCenter.getInstance().getSymbolCache().getLocalToken();
         List<BHToken> res = new ArrayList<>();
         for (ArrayMap.Entry<String,BHToken> entry:map_tokens.entrySet()){
-            res.add(entry.getValue());
+            if(flag.equals(BH_BUSI_TYPE.跨链转账.value)){
+                if(!entry.getValue().chain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
+                    res.add(entry.getValue());
+                }
+            }else{
+                res.add(entry.getValue());
+            }
+
         }
         return res;
     }

@@ -450,7 +450,7 @@
     <string name="security_setting_pwd_tips">Password Valid for the next login</string>
     <string name="balance">Balance</string>
     <string name="cross_link_trusteeship_address">Cross-chain custody address</string>
-    <string name="hbc_chain_address">HBTC Chain Testnet address</string>
+    <string name="hbc_chain_address">HBTC Chain address</string>
     <string name="click_make_cross_address">Click to generate cross-chain address</string>
     <string name="fingerprint_verify">TouchID login</string>
     <string name="traffic_network_later_try" translatable="false">Network congestion, please try again late</string>
@@ -483,4 +483,8 @@
     <string name="create">创建</string>
     <string name="confirm_number_password">再次输入6位数字密码</string>
     <string name="input_security_password">请输入安全密码</string>
+    <string name="deposit">充值</string>
+    <string name="delete_account">删除账户</string>
+    <string name="save_success">保存成功</string>
+    <string name="token_name">币种名称</string>
 </resources>

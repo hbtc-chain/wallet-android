@@ -66,9 +66,12 @@
     <color name="blue_bg">#3375E0</color>
 
     <!--跨链代币-链内转入-->
-    <color name="tranfer_in_inner_bg">#269A99</color>
+    <!--<color name="tranfer_in_inner_bg">#269A99</color>-->
+    <color name="tranfer_in_inner_bg">#3375E0</color>
+
     <!--跨链代币-链外转入-->
-    <color name="tranfer_in_out_bg">#475563</color>
+    <!--<color name="tranfer_in_out_bg">#475563</color>-->
+    <color name="tranfer_in_out_bg">#3C3850</color>
 
     <color name="bg_trans">#00000000</color>
 
@@ -184,7 +187,7 @@
 
     <color name="color_0A1825">#0A1825</color>
 
-
+    <color name="text_black_color">#000000</color>
 
 
 

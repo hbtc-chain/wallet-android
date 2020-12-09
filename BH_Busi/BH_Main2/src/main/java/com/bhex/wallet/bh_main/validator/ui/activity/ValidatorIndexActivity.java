@@ -3,6 +3,7 @@ package com.bhex.wallet.bh_main.validator.ui.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.balance.presenter.AssetPresenter;
+import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
 import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
@@ -36,6 +38,8 @@ import com.bhex.wallet.bh_main.validator.presenter.ValidatorFragmentPresenter;
 import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorListFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.BHToken;
@@ -68,6 +72,9 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
     ViewPager viewPager;
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
+
+    @BindView(R2.id.tv_token_address)
+    AppCompatTextView tv_token_address;
 
     @BindView(R2.id.tv_wallet_name)
     TextView tv_wallet_name;
@@ -105,6 +112,9 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
         tv_center_title.setText(getResources().getString(R.string.tab_validator));
         tv_wallet_name.setText(mBhWallet.name);
         tv_available_label.setText(getString(R.string.available)+BHConstants.BHT_TOKEN.toUpperCase());
+        tv_token_address.setTag(mBhWallet.getAddress());
+        AssetHelper.proccessAddress(tv_token_address,mBhWallet.address);
+        findViewById(R.id.btn_token_address).setOnClickListener(this::showAddressQR);
         initTab();
     }
 
@@ -123,7 +133,6 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
         btn_unclaimed_reward.setOnClickListener(v -> {
             mTransactionViewModel.queryValidatorByAddress(this,1);
-
         });
     }
 
@@ -150,16 +159,16 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
         List<Pair<String, Fragment>> items = new ArrayList<>();
         ValidatorListFragment validListFragment = new ValidatorListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BHConstants.VALIDATOR_VALID);
+        bundle.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BH_BUSI_TYPE.托管节点.getIntValue());
         validListFragment.setArguments(bundle);
 
         ValidatorListFragment invalidListFragment = new ValidatorListFragment();
         Bundle bundle1 = new Bundle();
-        bundle1.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BHConstants.VALIDATOR_INVALID);
+        bundle1.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BH_BUSI_TYPE.共识节点.getIntValue());
         invalidListFragment.setArguments(bundle1);
 
-        items.add(new Pair<String, Fragment>(getString(R.string.tab_valid), validListFragment));
-        items.add(new Pair<String, Fragment>(getString(R.string.tab_invalid), invalidListFragment));
+        items.add(new Pair<String, Fragment>("托管节点", validListFragment));
+        items.add(new Pair<String, Fragment>("共识节点", invalidListFragment));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -202,8 +211,6 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
             }
         });
-
-
     }
 
     private List<DelegateValidator> mRewardList;
@@ -239,4 +246,12 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
         Password30Fragment.showPasswordDialog(getSupportFragmentManager(),Password30Fragment.class.getSimpleName(),withDrawPwdListener,1);
     });
+
+    //地址二维码
+    private void showAddressQR(View view) {
+        AddressQRFragment.showFragment(getSupportFragmentManager(),
+                AddressQRFragment.class.getSimpleName(),
+                BHConstants.BHT_TOKEN,
+                tv_token_address.getTag().toString());
+    }
 }

@@ -2,12 +2,14 @@ package com.bhex.lib.uikit.widget.keyborad;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import com.bhex.lib.uikit.R;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 
 /**
@@ -80,6 +83,7 @@ public class PasswordInputView extends RelativeLayout {
         m_input_content = findViewById(R.id.input_content);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PasswordInputView, defStyleAttr, 0);
         input_count = typedArray.getInteger(R.styleable.PasswordInputView_vcet_number, 4);
+        mPwdRadius = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_vcet_pwd_radius, PixelUtils.dp2px(context,5));
         input_width = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_vcet_width, PixelUtils.dp2px(context,48));
         input_height = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_vcet_height, PixelUtils.dp2px(context,48));
         input_divider = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_vcet_divider, PixelUtils.dp2px(context,8));
@@ -127,8 +131,8 @@ public class PasswordInputView extends RelativeLayout {
                 4, ContextCompat.getColor(mContext,R.color.app_bg),input_border_normal_color,2
         );
 
-        input_width = (float)((mWidth-(input_count-1)*input_divider))/input_count;
-
+        //input_width = (float)((mWidth-(input_count-1)*input_divider))/input_count;
+        input_divider = (float) (mWidth-input_count*input_width)/(input_count-1);
         m_input_content.setCursorVisible(false);
         m_input_content.setEnabled(!is_custom_keyborad);
 
@@ -139,6 +143,8 @@ public class PasswordInputView extends RelativeLayout {
         for (int i = 0; i < mPasswordTextViews.length; i++) {
             PasswordTextView pwdTextView = new PasswordTextView(mContext);
             pwdTextView.is_border = is_border;
+            pwdTextView.mRadius = mPwdRadius;
+
             pwdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             pwdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             pwdTextView.input_border_focus_color = input_border_focus_color;
@@ -148,6 +154,7 @@ public class PasswordInputView extends RelativeLayout {
             if(i<mPasswordTextViews.length-1){
                 lp.rightMargin = (int)input_divider;
             }
+            lp.gravity = Gravity.LEFT|Gravity.CENTER_VERTICAL;
             pwdTextView.mHasPassword = false;
             pwdTextView.setLayoutParams(lp);
             pwdTextView.setFocusable(false);

@@ -15,7 +15,7 @@
         android:id="@+id/keyboard_tool"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="#F4F7FF"
+        android:background="@color/bg_keyboard"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
@@ -50,8 +50,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/keyboard_tool"
-        android:background="@mipmap/bg_keyboard_view">
+        android:layout_below="@+id/keyboard_tool">
+
 
         <com.bhex.lib.uikit.widget.keyborad.PasswordKeyBoardView
             android:id="@+id/my_keyboard"
@@ -62,7 +62,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:keyBackground="@drawable/king_keyboard_key_bg"
-            android:keyTextColor="@color/global_main_text_color"
+            android:keyTextColor="@color/keyboard_text_color"
             android:keyTextSize="20sp"
             android:labelTextSize="16sp"
             android:paddingTop="6dp"

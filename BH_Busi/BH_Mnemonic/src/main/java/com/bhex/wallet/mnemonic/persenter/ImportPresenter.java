@@ -45,7 +45,7 @@ public class ImportPresenter extends BasePresenter {
         list.add(ksItem);
 
         FunctionItem privateKeyItem = new FunctionItem(MAKE_WALLET_TYPE.PK.getWay(),R.mipmap.ic_import_pk,
-                getActivity().getString(R.string.hint_import_way),"");
+                getActivity().getString(R.string.import_private_key),getActivity().getString(R.string.hint_import_way));
 
         list.add(privateKeyItem);
         return list;
@@ -71,7 +71,7 @@ public class ImportPresenter extends BasePresenter {
 
         list.add(4,new FunctionItem(getActivity().getString(R.string.create),FunctionItem.TYPE_TITLE));
 
-        FunctionItem createItem = new FunctionItem(MAKE_WALLET_TYPE.创建助记词.getWay(),R.mipmap.ic_add_wallet,
+        FunctionItem createItem = new FunctionItem(MAKE_WALLET_TYPE.创建助记词.getWay(),R.mipmap.ic_create_wallet,
                 getActivity().getString(R.string.create_wallet_account),"");
         list.add(createItem);
         return list;

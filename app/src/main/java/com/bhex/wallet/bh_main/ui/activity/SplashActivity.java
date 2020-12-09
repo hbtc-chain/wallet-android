@@ -1,6 +1,7 @@
 package com.bhex.wallet.bh_main.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
@@ -14,6 +15,8 @@ import android.view.WindowManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.TypefaceUtils;
+import com.bhex.lib.uikit.widget.keyborad.PasswordInputView;
+import com.bhex.lib.uikit.widget.keyborad.PasswordKeyBoardView;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
@@ -53,6 +56,10 @@ public class SplashActivity extends AppCompatActivity {
 
     private WalletViewModel walletViewModel;
 
+    /*AppCompatEditText mPasswordInputView;
+
+    PasswordKeyBoardView mPasswordKeyboardView;*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +69,7 @@ public class SplashActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_splash);
         //hideBottomUIMenu();
-
+        //mPasswordKeyboardView = findViewById(com.bhex.wallet.mnemonic.R.id.my_keyboard);;
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
         walletViewModel.loadWallet(this);
 
@@ -97,6 +104,9 @@ public class SplashActivity extends AppCompatActivity {
                 .navigationBarColor(R.color.white)
                 .fullScreen(true)
                 .init();
+
+        //mPasswordKeyboardView.setAttachToEditText(findViewById(R.id.input_content),findViewById(R.id.root_view),findViewById(R.id.keyboard_root));
+
     }
 
     @Override

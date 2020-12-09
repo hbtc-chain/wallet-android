@@ -91,7 +91,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:vcet_number="6"
-            app:vcet_width="48dp"
+            app:vcet_width="24dp"
+            app:vcet_height="24dp"
+            app:vcet_pwd_radius="12dp"
             app:vcet_custom_keyborad="true"
             />
 

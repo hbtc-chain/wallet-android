@@ -35,12 +35,12 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
         if (view.getId() == R.id.btn_item1) {
             ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
                     .withString("symbol", symbol)
-                    .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
+                    .withInt("way", BH_BUSI_TYPE.跨链转账.getIntValue())
                     .navigation();
         } else if (view.getId() == R.id.btn_item2) {
             ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_out)
                     .withString("symbol", symbol)
-                    .withInt("way",BH_BUSI_TYPE.链内转账.getIntValue())
+                    .withInt("way",BH_BUSI_TYPE.跨链转账.getIntValue())
                     .navigation();
         } else if (view.getId() == R.id.btn_item3) {
             //提取收益

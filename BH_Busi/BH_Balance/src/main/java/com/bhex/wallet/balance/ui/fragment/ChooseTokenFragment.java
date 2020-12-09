@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.ui.fragment;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -18,15 +19,19 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.mvx.base.BaseDialogFragment;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.adapter.ChooseTokenAdapter;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.model.BHToken;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.util.Comparator;
 import java.util.List;
 
 import java8.util.stream.Collectors;
@@ -40,14 +45,17 @@ public class ChooseTokenFragment extends BaseDialogFragment {
 
     private List<BHToken> mDatas;
     private String mSymbol;
+    private String mOrigin;
     private ChooseTokenAdapter mChooseTokenAdapter;
     private RecyclerView rec_token_list;
     AppCompatImageView iv_close;
     AppCompatEditText input_search_content;
+    EmptyLayout empty_layout;
+    AppCompatImageView btn_sort;
     private OnChooseTokenListener mOnChooseItemListener;
     @Override
     public int getLayout() {
-        return R.layout.fragment_choose_token_r;
+        return R.layout.balance_fragment_choose_token;
     }
 
     @Override
@@ -73,7 +81,7 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rec_token_list = mRootView.findViewById(R.id.rec_token_list);
-        mDatas = BHBalanceHelper.loadTokenList();
+        mDatas = BHBalanceHelper.loadTokenList(mOrigin);
         rec_token_list.setAdapter(mChooseTokenAdapter = new ChooseTokenAdapter(mDatas,mSymbol));
 
         mChooseTokenAdapter.setOnItemClickListener(this::onItemClick);
@@ -93,16 +101,26 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     @Override
     protected void initView() {
         iv_close = mRootView.findViewById(R.id.iv_close);
+        empty_layout = mRootView.findViewById(R.id.empty_layout);
         input_search_content = mRootView.findViewById(R.id.input_search_content);
         iv_close.setOnClickListener(v -> {
             dismissAllowingStateLoss();
         });
         input_search_content.addTextChangedListener(mTextWatcher);
+        btn_sort = mRootView.findViewById(R.id.btn_sort);
+        btn_sort.setOnClickListener(v -> {
+            List<BHToken> result =  StreamSupport.stream(mDatas).sorted(Comparator.comparing(BHToken::getName).reversed()).collect(Collectors.toList());
+            mChooseTokenAdapter.setNewInstance(result);
+        });
+
+        Drawable drawable = ColorUtil.getDrawable(getActivity(),R.mipmap.ic_sort,R.color.global_main_text_color);
+        btn_sort.setBackgroundDrawable(drawable);
     }
 
-    public static ChooseTokenFragment showFragment(String symbol,OnChooseTokenListener listener){
+    public static ChooseTokenFragment showFragment(String symbol,String origin,OnChooseTokenListener listener){
         ChooseTokenFragment fragment = new ChooseTokenFragment();
         fragment.mOnChooseItemListener = listener;
+        fragment.mOrigin = origin;
         fragment.mSymbol = symbol;
         return  fragment;
     }
@@ -116,11 +134,17 @@ public class ChooseTokenFragment extends BaseDialogFragment {
                 mChooseTokenAdapter.setNewData(mDatas);
                return;
             }
-
             List<BHToken> result = StreamSupport.stream(mDatas).filter(item->
                     item.symbol.toLowerCase().contains(search_key.toLowerCase())
             ).collect(Collectors.toList());
 
+            if(ToolUtils.checkListIsEmpty(result)){
+                empty_layout.showNoData();
+                mChooseTokenAdapter.setNewData(result);
+                return;
+            }
+
+            empty_layout.loadSuccess();
             mChooseTokenAdapter.setNewData(result);
         }
     };

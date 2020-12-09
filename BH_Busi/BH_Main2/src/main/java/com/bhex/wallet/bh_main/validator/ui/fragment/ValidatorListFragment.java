@@ -19,6 +19,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.adapter.ValidatorAdapter;
@@ -26,6 +27,7 @@ import com.bhex.wallet.bh_main.validator.model.ValidatorInfo;
 import com.bhex.wallet.bh_main.validator.presenter.ValidatorListFragmentPresenter;
 import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
@@ -33,12 +35,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import java8.util.stream.Collector;
+import java8.util.stream.Collectors;
+import java8.util.stream.StreamSupport;
 
 
 public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPresenter> {
 
     public static String KEY_VALIDATOR_TYPE = "validator_type";
-    private int mValidatorType = 0;
+    private int mValidatorType = 1;
     ValidatorAdapter mValidatorAdapter;
     @BindView(R2.id.ed_search_content)
     AppCompatEditText ed_search_content;
@@ -83,8 +88,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
             viewPager.setObjectForPosition(mRootView,1);
         }*/
         mValidatorViewModel = ViewModelProviders.of(this).get(ValidatorViewModel.class);
-        mValidatorAdapter = new ValidatorAdapter(mValidatorType, mValidatorInfoList);
-        recycler_validator.setAdapter(mValidatorAdapter);
+        recycler_validator.setAdapter(mValidatorAdapter = new ValidatorAdapter(mValidatorType, mValidatorInfoList));
     }
 
     @Override
@@ -97,11 +101,8 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
                 updateRecord(ldm.getData());
             } else {
                 if(mOriginValidatorInfoList==null || mOriginValidatorInfoList.size()==0){
-                    empty_layout.showNeterror(new EmptyLayout.onReloadClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            getRecord(true);
-                        }
+                    empty_layout.showNeterror(view -> {
+                        getRecord(true);
                     });
                 }
             }
@@ -124,20 +125,37 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         if (showDialog) {
             empty_layout.showProgess();
         }
-        mValidatorViewModel.getValidatorInfos(getYActivity(),
-                mValidatorType);
+        mValidatorViewModel.getValidatorInfos(getYActivity(),BH_BUSI_TYPE.有效节点.getIntValue());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.d("ValidatorFragment==","===onResume===");
+        //LogUtils.d("ValidatorFragment==","===onResume===");
         getRecord(mValidatorAdapter==null||mValidatorAdapter.getData()==null||mValidatorAdapter.getData().size()<1);
     }
 
     public void updateRecord(List<ValidatorInfo> datas) {
+        //datas.get(0).is_elected =false;
         mOriginValidatorInfoList = datas;
-        List<ValidatorInfo> result = new ArrayList<>();
+        //
+        List<ValidatorInfo> result = StreamSupport.stream(datas).filter(validatorInfo -> {
+            if(mValidatorType== BH_BUSI_TYPE.托管节点.getIntValue()){
+                return validatorInfo.is_key_node;
+            }else{
+                return validatorInfo.is_elected;
+            }
+        }).collect(Collectors.toList());
+
+        if (!ToolUtils.checkListIsEmpty(result)) {
+            empty_layout.loadSuccess();
+        } else {
+            empty_layout.showNoData();
+        }
+        mValidatorAdapter.getData().clear();
+        mValidatorAdapter.addData(result);
+
+        /*List<ValidatorInfo> result = new ArrayList<>();
 
         String searchContent = ed_search_content.getText().toString().trim();
         if (mOriginValidatorInfoList != null) {
@@ -162,7 +180,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
             empty_layout.showNoData();
         }
         mValidatorAdapter.getData().clear();
-        mValidatorAdapter.addData(result);
+        mValidatorAdapter.addData(result);*/
     }
 
     @Override
@@ -174,8 +192,23 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         @Override
         public void afterTextChanged(Editable s) {
             super.afterTextChanged(s);
-            updateRecord(mOriginValidatorInfoList);
+            String searchContent = ed_search_content.getText().toString().trim();
+            List<ValidatorInfo> result = null;
+            if(TextUtils.isEmpty(searchContent)){
+                result = mOriginValidatorInfoList;
+            }else{
+                result = StreamSupport.stream(mOriginValidatorInfoList).filter(item -> {
+                    return item.getDescription() != null && item.getDescription().getMoniker().toLowerCase().contains(searchContent.toLowerCase());
+                }).collect(Collectors.toList());
+            }
 
+            if (result.size() > 0) {
+                empty_layout.loadSuccess();
+            } else {
+                empty_layout.showNoData();
+            }
+            mValidatorAdapter.getData().clear();
+            mValidatorAdapter.addData(result);
         }
     };
 

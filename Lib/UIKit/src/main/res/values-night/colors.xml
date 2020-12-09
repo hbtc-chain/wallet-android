@@ -81,4 +81,6 @@
 
     <color name="loading_bg_color">#141A27</color>
 
+    <color name="text_black_color">#FFFFFF</color>
+
 </resources>

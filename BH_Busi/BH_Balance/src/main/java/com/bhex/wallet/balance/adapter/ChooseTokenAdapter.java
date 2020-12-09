@@ -30,23 +30,27 @@ public class ChooseTokenAdapter extends BaseQuickAdapter<BHToken, BaseViewHolder
     //private int mOrigin;
 
     public ChooseTokenAdapter(@Nullable List<BHToken> data, String symbol) {
-        super(R.layout.item_choose_token, data);
+        super(R.layout.balance_item_choose_token, data);
         this.mSymbol = symbol;
     }
 
     @Override
     protected void convert(@NotNull BaseViewHolder holder, BHToken item) {
 
-        holder.setText(R.id.tv_token_name,item.symbol.toUpperCase());
+        holder.setText(R.id.tv_token_name,item.name.toUpperCase());
         AppCompatImageView iv_token_icon = holder.getView(R.id.iv_token_icon);
 
         ImageLoaderUtil.loadImageView(getContext(),item!=null?item.logo:"", iv_token_icon, R.mipmap.ic_default_coin);
 
         AppCompatTextView tv_token_amount = holder.getView(R.id.tv_token_amount);
-        BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(item.symbol);
+        BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(item.name);
+
+
         String v_token_amount = NumberUtil.dispalyForUsertokenAmount4Level(balance.amount);
 
         tv_token_amount.setText(v_token_amount+" "+item.name.toUpperCase());
+
+        holder.setText(R.id.tv_token_id,item.symbol);
     }
 
 

@@ -57,7 +57,6 @@ public class PasswordKeyBoardView extends KeyboardView  {
         mTextPaint.setDither(true);
         mKeyTextSize = context.getResources().getDimensionPixelSize(R.dimen.keyboard_text_size);
         mTextPaint.setTextSize(mKeyTextSize);
-        //mTextPaint.setColor(Color.parseColor("#0A1825"));
         mTextPaint.setColor(ColorUtil.getColor(context,R.color.global_main_text_color));
         mDeleteDrawable = ContextCompat.getDrawable(context,R.mipmap.ic_delete);
         mSpecialKeyBackground = ContextCompat.getDrawable(context,R.drawable.king_keyboard_special_key_bg);

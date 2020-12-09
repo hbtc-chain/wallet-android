@@ -65,8 +65,8 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     WithDrawInput tv_to_address;
     @BindView(R2.id.tv_available_amount)
     AppCompatTextView tv_available_amount;
-    @BindView(R2.id.ed_transfer_amount)
-    WithDrawInput ed_transfer_amount;
+    /*@BindView(R2.id.ed_transfer_amount)
+    WithDrawInput ed_transfer_amount;*/
     @BindView(R2.id.tv_reach_amount)
     WithDrawInput tv_reach_amount;
     @BindView(R2.id.et_tx_fee)
@@ -103,7 +103,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
     protected void initTokenView() {
         refreshLayout.setEnableLoadMore(false);
         sb_tx_fee.setDecimalScale(4);
-        ed_transfer_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        //ed_transfer_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         et_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         et_withdraw_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -116,7 +116,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
             layout_transfer_out_tips.setVisibility(View.GONE);
             btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
-            ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
+            //ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
             et_withdraw_fee.setVisibility(View.GONE);
             tv_withdraw_fee.setVisibility(View.GONE);
             tv_reach.setVisibility(View.GONE);
@@ -129,7 +129,7 @@ public abstract class BaseTransferOutActivity<P extends BasePresenter> extends B
             tv_withdraw_address.setText(getResources().getString(R.string.transfer_address));
             tv_transfer_amount.setText(getResources().getString(R.string.transfer_amount));
             btn_drawwith_coin.setText(getResources().getString(R.string.transfer));
-            ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
+            //ed_transfer_amount.btn_right_text.setText(getResources().getString(R.string.all_transfer_amount));
 
             tv_transfer_out_tips_1.setText(getResources().getString(R.string.linkinner_withdraw_tip));
             /*tv_transfer_out_tips_2.setText(getResources().getString(R.string.linkinner_withdraw_tip_2));

@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
 
@@ -18,6 +19,7 @@ import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PathUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.event.TransctionEvent;
@@ -87,6 +89,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
         findViewById(R.id.btn_drawwith_coin).setOnClickListener(this::onSubmitAction);
 
         findViewById(R.id.tv_center_title).setOnClickListener(this::chooseTokenAction);
+
     }
 
 
@@ -184,9 +187,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
     }
 
     private void crossLinkWithDraw(){
-
         boolean flag = mPresenter.checkCrossLinkTransfer( );
-
         if(flag){
             Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
                     PasswordFragment.class.getName(),
@@ -205,7 +206,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
         //链内
         if(m_transferout_way==BH_BUSI_TYPE.链内转账.getIntValue()){
-            String withDrawAmount = mTransferOutViewHolder.input_transfer_amount.getInputStringTrim();
+            String withDrawAmount = mTransferOutViewHolder.input_transfer_amount.getText().toString().trim();
             String feeAmount = mTransferOutViewHolder.input_tx_fee.getInputString();
             //创建转账信息
             List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createTransferMsg(to_address,withDrawAmount,mTransferOutViewHolder.tranferToken.symbol);
@@ -213,7 +214,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
 
         }else if(m_transferout_way== BH_BUSI_TYPE.跨链转账.getIntValue()){//跨链
             //提币数量
-            String withDrawAmount = mTransferOutViewHolder.input_transfer_amount.getInputStringTrim();
+            String withDrawAmount = mTransferOutViewHolder.input_transfer_amount.getText().toString().trim();
             //交易手续费
             String feeAmount = mTransferOutViewHolder.input_tx_fee.getInputString();
             //提币手续费
@@ -244,7 +245,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
 
     //
     private void chooseTokenAction(View view) {
-        ChooseTokenFragment fragment = ChooseTokenFragment.showFragment(m_symbol,chooseTokenListener);
+        ChooseTokenFragment fragment = ChooseTokenFragment.showFragment(m_symbol,String.valueOf(m_transferout_way),chooseTokenListener);
         fragment.show(getSupportFragmentManager(),ChooseTokenFragment.class.getName());
     }
 

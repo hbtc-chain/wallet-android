@@ -92,7 +92,11 @@ public class BHToken {
     @Ignore
     public List<String> opcus;
 
-    /*@ColumnInfo(name = "default_token") // 1 默认币
+    public String getName() {
+        return name;
+    }
+
+/*@ColumnInfo(name = "default_token") // 1 默认币
     public boolean defaultToken;
 
     @ColumnInfo(name = "verified_token") //1 官方认证币

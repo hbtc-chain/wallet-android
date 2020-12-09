@@ -1,6 +1,7 @@
 package com.bhex.wallet.balance.ui.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,6 +18,7 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.EmptyLayout;
@@ -33,14 +35,21 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.model.BHTokenItem;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.ui.viewhodler.BTCViewHolder;
+import com.bhex.wallet.balance.ui.viewhodler.ChainBottomLayoutVH;
+import com.bhex.wallet.balance.ui.viewhodler.ETHViewHolder;
 import com.bhex.wallet.balance.ui.viewhodler.HBCViewHolder;
 import com.bhex.wallet.balance.viewmodel.ChainTokenViewModel;
+import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHChain;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -66,8 +75,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     BHBalance mBalance;
 
-    @BindView(R2.id.layout_index_0)
-    LinearLayout layout_index_0;
     @BindView(R2.id.layout_index_1)
     RelativeLayout layout_index_1;
     @BindView(R2.id.refreshLayout)
@@ -79,20 +86,19 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @BindView(R2.id.empty_layout)
     EmptyLayout empty_layout;
 
-    @BindView(R2.id.ck_hidden_small)
-    CheckedTextView ck_hidden_small;
-
 
     private BalanceAdapter mBalanceAdapter;
-    private HBCViewHolder mHbcViewHolder;
-    private BTCViewHolder mBtcViewHolder;
+    private ETHViewHolder mETHViewHolder;
 
     private BalanceViewModel mBalanceViewModel;
     private ChainTokenViewModel mChainTokenViewModel;
+    public TransactionViewModel mTransactionViewModel;
 
     private List<BHTokenItem> mTokenList;
     private int defRefreshCount1 = 0;
     private int defRefreshCount2 = 0;
+
+    private ChainBottomLayoutVH mBottomLayoutVH;
 
     @Override
     protected int getLayoutId() {
@@ -107,15 +113,32 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(this);
 
-        mHbcViewHolder = HBCViewHolder.getInstance().initView(this,layout_index_0,mBalance);
-        mBtcViewHolder = BTCViewHolder.getInstance().initView(this,layout_index_1,mBalance);
+        RecycleViewExtDivider itemDecoration = new RecycleViewExtDivider(
+                this,LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(this,68),0,
+                ColorUtil.getColor(this,R.color.global_divider_color));
+        rcv_token_list.addItemDecoration(itemDecoration);
+
+        mBalanceAdapter = new BalanceAdapter(this,mTokenList);
+        rcv_token_list.setAdapter(mBalanceAdapter);
+        rcv_token_list.setNestedScrollingEnabled(false);
+
+        //mHbcViewHolder = HBCViewHolder.getInstance().initView(this,layout_index_0,mBalance);
+        //mBtcViewHolder = BTCViewHolder.getInstance().initView(this,layout_index_1,mBalance);
+        mETHViewHolder = new ETHViewHolder(this,layout_index_1,mBalance);
+
+        mBottomLayoutVH = new ChainBottomLayoutVH(this,findViewById(R.id.layout_bottom),bhChain.chain,mBalance.symbol);
+        mBottomLayoutVH.initContentView();
         setTokenAddress();
     }
 
     //设置地址
     private void setTokenAddress() {
-        mHbcViewHolder.setTokenAddress(mBalance);
-        mBtcViewHolder.setTokenAddress(mBalance);
+        mETHViewHolder.initViewContent(mBalance);
+
+        findViewById(R.id.btn_apply_token).setOnClickListener(v -> {
+            applyTestToken();
+        });
     }
 
     @Override
@@ -133,22 +156,14 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         mChainTokenViewModel =  ViewModelProviders.of(ChainTokenActivity.this).get(ChainTokenViewModel.class);
         mChainTokenViewModel.mutableLiveData.observe(this,ldm->{
             defRefreshCount2++;
-            updateAssetList(
-                    (List<BHTokenItem>)ldm.getData());
+            updateAssetList((List<BHTokenItem>)ldm.getData());
             finishRefresh();
         });
 
-
-        RecycleViewExtDivider itemDecoration = new RecycleViewExtDivider(
-                this,LinearLayoutManager.VERTICAL,
-                PixelUtils.dp2px(this,68),0,
-                ColorUtil.getColor(this,R.color.global_divider_color));
-        rcv_token_list.addItemDecoration(itemDecoration);
-
-        mBalanceAdapter = new BalanceAdapter(this,mTokenList);
-        rcv_token_list.setAdapter(mBalanceAdapter);
-        rcv_token_list.setNestedScrollingEnabled(false);
-
+        mTransactionViewModel = ViewModelProviders.of(ChainTokenActivity.this).get(TransactionViewModel.class);
+        mTransactionViewModel.mutableLiveData.observe(this,ldm->{
+            //updateGenerateAddress(ldm);
+        });
         mBalanceAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHTokenItem bhTokenItem = mBalanceAdapter.getData().get(position);
             BHBalance bhBalance = BHBalanceHelper.getBHBalanceFromAccount(bhTokenItem.symbol);
@@ -159,7 +174,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             Intent intent = new Intent(this, postcard.getDestination());
             intent.putExtras(postcard.getExtras());
             startActivity(intent);
-            //startActivityForResult(intent,100);
         });
 
         findViewById(R.id.tv_add_token).setOnClickListener(v -> {
@@ -226,4 +240,38 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             refreshLayout.finishRefresh();
         }
     }
+
+    /**
+     * 生成跨链地址
+     */
+    /*public void generateCrossLinkAddress() {
+        *//*List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(bhChain.chain);
+        mTransactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);*//*
+
+        *//*Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
+                this,0);*//*
+    }*/
+
+    //生成跨链地址
+    public void generateCrossLinkAddress() {
+
+
+        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
+                passwordClickListener,0);
+    }
+
+    PasswordFragment.PasswordClickListener passwordClickListener = ((password, position, way) -> {
+        BHBalance bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+        if(TextUtils.isEmpty(bhtBalance.amount)||
+                Double.valueOf(bhtBalance.amount)<=Double.valueOf(BHUserManager.getInstance().getDefaultGasFee().displayFee)){
+            ToastUtils.showToast(getString(R.string.not_have_amount)+BHConstants.BHT_TOKEN.toUpperCase());
+            return;
+        }
+
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(mBalance.symbol);
+        mTransactionViewModel.transferInnerExt(this,password,BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
+    });
+
 }

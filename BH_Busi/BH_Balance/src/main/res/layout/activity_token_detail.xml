@@ -243,52 +243,92 @@
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="72dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_item1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_transfer_in"
-            app:actionText="@string/transfer_in"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="@color/global_button_bg_color"
+            android:text="@string/deposit"
+            style="@style/main_material_btn"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:textColor="@color/global_button_text_color"
             />
 
-        <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_item2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_transfer_out"
-            app:actionText="@string/transfer_out" />
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginRight="5dp"
+            app:backgroundTint="@color/global_button_bg_color"
+            android:text="@string/transfer"
+            style="@style/main_material_btn"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:textColor="@color/global_button_text_color"
+            />
 
-        <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_item3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_draw_share"
-            app:actionText="@string/withdraw_income" />
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            app:backgroundTint="@color/border_button_bg_color"
+            app:cornerRadius="@dimen/main_radius_conner"
+            app:strokeColor="@color/highlight_text_color"
+            app:strokeWidth="1dp"
+            style="@style/main_material_btn"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:text="@string/swap"
+            android:textColor="@color/highlight_text_color"
+            />
 
-        <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_item4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_cross_trans_in"
-            app:actionText="@string/entrust_relive_entrust" />
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            app:backgroundTint="@color/border_button_bg_color"
+            app:cornerRadius="@dimen/main_radius_conner"
+            app:strokeColor="@color/highlight_text_color"
+            app:strokeWidth="1dp"
+            style="@style/main_material_btn"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:text="@string/tab_trade"
+            android:textColor="@color/highlight_text_color"
+            />
     </LinearLayout>
 
 

@@ -27,7 +27,7 @@ public class TransferOutPresenter extends BasePresenter {
 
     public boolean checklinkInnerTransfer(){
         String to_address = mTransferViewHolder.input_to_address.getInputString();
-        String transfer_amount = mTransferViewHolder.input_transfer_amount.getInputString();
+        String transfer_amount = mTransferViewHolder.input_transfer_amount.getText().toString();
         String fee_amount = mTransferViewHolder.input_tx_fee.getInputString();
         String available_amount = String.valueOf(mTransferViewHolder.available_amount);
 
@@ -81,7 +81,7 @@ public class TransferOutPresenter extends BasePresenter {
                                            String witddraw_fee_amount,
                                            String min_withdraw_fee, BHBalance available_withdraw_balance*/){
         String to_address = mTransferViewHolder.input_to_address.getInputString();
-        String transfer_amount = mTransferViewHolder.input_transfer_amount.getInputString();
+        String transfer_amount = mTransferViewHolder.input_transfer_amount.getText().toString().trim();
         String available_amount = String.valueOf(mTransferViewHolder.available_amount);
         String tx_fee_amount = mTransferViewHolder.input_tx_fee.getInputString();
         //

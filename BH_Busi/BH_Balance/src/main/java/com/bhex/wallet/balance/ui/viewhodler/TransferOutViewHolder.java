@@ -1,16 +1,19 @@
 package com.bhex.wallet.balance.ui.viewhodler;
 
+import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
@@ -43,7 +46,9 @@ public class TransferOutViewHolder {
     public BHToken hbtFeeToken;
 
     //转账或提币数量-输入
-    public WithDrawInput input_transfer_amount;
+    public RelativeLayout layout_transfer_amount;
+    //转账数量
+    public AppCompatEditText input_transfer_amount;
     //转账或提币地址-输入
     public WithDrawInput input_to_address;
     //提币手续费-输入
@@ -57,6 +62,7 @@ public class TransferOutViewHolder {
     public AppCompatTextView tv_withdraw_fee_amount;
     //可用交易手续费
     public AppCompatTextView tv_available_bht_amount;
+
     //提币按钮
     //public MaterialButton btn_drawwith_coin;
 
@@ -92,7 +98,11 @@ public class TransferOutViewHolder {
         MaterialButton btn_drawwith_coin = mRootView.findViewById(R.id.btn_drawwith_coin);
         AppCompatTextView tv_center_title = mRootView.findViewById(R.id.tv_center_title);
 
-        input_transfer_amount = mRootView.findViewById(R.id.ed_transfer_amount);
+        //箭头
+        Drawable drawableRight = ColorUtil.getDrawable(m_activity,R.mipmap.ic_arrow_token_d,R.color.global_main_text_color);
+        tv_center_title.setCompoundDrawablesWithIntrinsicBounds(null,null, drawableRight, null);
+
+        layout_transfer_amount = mRootView.findViewById(R.id.layout_transfer_amount);
         input_to_address  = mRootView.findViewById(R.id.input_to_address);
         input_withdraw_fee  = mRootView.findViewById(R.id.et_withdraw_fee);
         input_tx_fee  = mRootView.findViewById(R.id.et_tx_fee);
@@ -105,7 +115,13 @@ public class TransferOutViewHolder {
         ((IndicatorSeekBar)mRootView.findViewById(R.id.sb_tx_fee)).setDecimalScale(4);
 
         //格式
-        input_transfer_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        input_transfer_amount = layout_transfer_amount.findViewById(R.id.input_transfer_amount);
+        AppCompatTextView btn_tranfer_all = layout_transfer_amount.findViewById(R.id.btn_tranfer_all);
+        AppCompatTextView tv_token_unit = layout_transfer_amount.findViewById(R.id.tv_token_unit);
+        //转账单位
+        tv_token_unit.setText(tranferToken.name.toUpperCase());
+
+        input_transfer_amount.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input_withdraw_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
@@ -133,7 +149,7 @@ public class TransferOutViewHolder {
             //转账数量
             findText(R.id.tv_transfer_amount).setText(m_activity.getResources().getString(R.string.transfer_amount));
             //全部转账
-            input_transfer_amount.btn_right_text.setText(m_activity.getResources().getString(R.string.all));
+            btn_tranfer_all.setText(m_activity.getResources().getString(R.string.all));
             //提币手续费
             mRootView.findViewById(R.id.layout_withdraw_fee).setVisibility(View.GONE);
             input_withdraw_fee.setVisibility(View.GONE);
@@ -150,7 +166,7 @@ public class TransferOutViewHolder {
             //转账数量
             findText(R.id.tv_transfer_amount).setText(m_activity.getResources().getString(R.string.transfer_amount));
             //全部转账
-            input_transfer_amount.btn_right_text.setText(m_activity.getResources().getString(R.string.all));
+            btn_tranfer_all.setText(m_activity.getResources().getString(R.string.all));
             //提币手续费
             mRootView.findViewById(R.id.layout_withdraw_fee).setVisibility(View.GONE);
             input_withdraw_fee.setVisibility(View.GONE);
@@ -166,7 +182,7 @@ public class TransferOutViewHolder {
             //提币数量
             findText(R.id.tv_transfer_amount).setText(m_activity.getResources().getString(R.string.draw_coin_count));
             //全部提币
-            input_transfer_amount.btn_right_text.setText(m_activity.getResources().getString(R.string.all));
+            btn_tranfer_all.setText(m_activity.getResources().getString(R.string.all));
             //提币手续费
             mRootView.findViewById(R.id.layout_withdraw_fee).setVisibility(View.VISIBLE);
             input_withdraw_fee.setVisibility(View.VISIBLE);
@@ -177,7 +193,7 @@ public class TransferOutViewHolder {
         //更新余额
         updateBalance();
 
-        input_transfer_amount.btn_right_text.setOnClickListener(this::allWithDrawListener);
+        btn_tranfer_all.setOnClickListener(this::allWithDrawListener);
         
         //选择币种
         //mRootView.setOnClickListener(this::selectTokenAction);
@@ -234,20 +250,22 @@ public class TransferOutViewHolder {
                 //input_withdraw_fee.getEditText().setText(withDrawFeeToken.withdrawal_fee);
                 String all_count = NumberUtil.sub(String.valueOf(available_amount),input_withdraw_fee.getInputString());
                 all_count = Double.valueOf(all_count)<0?"0":all_count;
-                input_transfer_amount.setInputString(all_count);
+                input_transfer_amount.setText(all_count);
             }else{
-                input_transfer_amount.setInputString(NumberUtil.toPlainString(available_amount));
+                input_transfer_amount.setText(NumberUtil.toPlainString(available_amount));
             }
         }else{
             if(tranferToken.symbol.equalsIgnoreCase(tranferToken.chain)){
                 //交易手续费
                 String all_count = NumberUtil.sub(String.valueOf(available_amount),input_tx_fee.getInputString());
                 all_count = Double.valueOf(all_count)<0?"0":all_count;
-                input_transfer_amount.getEditText().setText(all_count);
+                input_transfer_amount.setText(all_count);
             }else{
-                input_transfer_amount.setInputString(NumberUtil.toPlainString(available_amount));
+                input_transfer_amount.setText(NumberUtil.toPlainString(available_amount));
             }
         }
+        input_transfer_amount.setSelection(input_transfer_amount.getText().length());
+        input_transfer_amount.requestFocus();
     }
 
     //更新视图

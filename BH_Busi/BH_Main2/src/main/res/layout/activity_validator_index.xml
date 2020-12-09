@@ -10,9 +10,6 @@
     <include
         layout="@layout/layout_toolbar"
         />
-
-
-
         <com.bhex.lib.uikit.widget.viewpager.VerticalScrollExtView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"

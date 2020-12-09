@@ -458,13 +458,14 @@
     <string name="security_setting_pwd_tips">下次密码登录时有效</string>
     <string name="balance">余额</string>
     <string name="cross_link_trusteeship_address">跨链托管地址</string>
-    <string name="hbc_chain_address">HBTC Chain Testnet 地址</string>
+    <!--<string name="hbc_chain_address">HBTC Chain Testnet 地址</string>-->
+    <string name="hbc_chain_address">HBTC Chain 地址</string>
     <string name="click_make_cross_address">点击生成跨链地址</string>
     <string name="fingerprint_verify">指纹验证</string>
     <string name="exchage_rate">汇率</string>
     <string name="exxternal_link_txid">外链TXID</string>
     <string name="friend_tips">温馨提示:</string>
-    <string name="string_deposit_threshold">· 最小充值数量 %1$s</string>
+    <string name="string_deposit_threshold">最小充值数量 %1$s</string>
     <string name="set_pwd_period">设置密码有效期：</string>
     <string name="string_deposit_threshold_2">温馨提示：最小充值数量</string>
     <string name="string_apply_success">申请成功</string>
@@ -492,5 +493,9 @@
     <string name="create">创建</string>
     <string name="confirm_number_password">再次输入6位数字密码</string>
     <string name="input_security_password">请输入安全密码</string>
+    <string name="deposit">充值</string>
+    <string name="delete_account">删除账户</string>
+    <string name="save_success">保存成功</string>
+    <string name="token_name">币种名称</string>
 
 </resources>
