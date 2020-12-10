@@ -162,7 +162,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
         mTransactionViewModel = ViewModelProviders.of(ChainTokenActivity.this).get(TransactionViewModel.class);
         mTransactionViewModel.mutableLiveData.observe(this,ldm->{
-            //updateGenerateAddress(ldm);
+            
         });
         mBalanceAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHTokenItem bhTokenItem = mBalanceAdapter.getData().get(position);
@@ -255,11 +255,16 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     //生成跨链地址
     public void generateCrossLinkAddress() {
-
-
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+        PasswordFragment fragment = PasswordFragment.showPasswordDialogExt(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
                 passwordClickListener,0);
+
+        String subTitle = String.format(getString(R.string.generate_address_fee),
+                BHUserManager.getInstance().getDefaultGasFee().displayFee+BHConstants.BHT_TOKEN.toUpperCase());
+
+        fragment.setTv_sub_title(subTitle);
+
+        fragment.show(getSupportFragmentManager(),ChainTokenActivity.class.getName());
     }
 
     PasswordFragment.PasswordClickListener passwordClickListener = ((password, position, way) -> {

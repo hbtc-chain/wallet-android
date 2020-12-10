@@ -209,7 +209,46 @@
                 android:gravity="left|center_vertical"
                 android:textSize="12sp"/>
 
-            <LinearLayout
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="1dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/global_secondary_text_color"
+                app:layout_constraintEnd_toEndOf="@+id/tv_unclaimed_reward_label"
+                app:layout_constraintStart_toStartOf="@+id/tv_unclaimed_reward_label"
+                app:layout_constraintTop_toTopOf="@+id/tv_claimed_reward_amount"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_claimed_reward_amount"/>
+
+            <com.bhex.lib.uikit.widget.CustomTextView
+                android:id="@+id/tv_unclaimed_reward_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/global_main_text_color"
+                app:layout_constraintTop_toTopOf="@+id/tv_claimed_reward_amount"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_claimed_reward_amount"
+                app:layout_constraintEnd_toStartOf="@+id/line1"
+                android:layout_marginEnd="5dp"
+                tools:text="4300.12"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/btn_unclaimed_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/highlight_text_color"
+                android:text="领取收益"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@+id/line1"
+                app:layout_constraintTop_toTopOf="@+id/tv_claimed_reward_amount"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_claimed_reward_amount"/>
+
+            <!--<LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -247,7 +286,7 @@
                     android:textStyle="normal"
                     android:gravity="left|center_vertical"/>
 
-            </LinearLayout>
+            </LinearLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

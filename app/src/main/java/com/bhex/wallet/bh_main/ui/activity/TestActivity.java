@@ -54,7 +54,7 @@ public class TestActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        my_keyboard.setAttachToEditText(passwordInputView.m_input_content,passwordInputView,findViewById(R.id.keyboard_root));
+        my_keyboard.setAttachToEditText(this,passwordInputView.m_input_content,passwordInputView,findViewById(R.id.keyboard_root));
     }
 
     public void onPaintAction(View view) {

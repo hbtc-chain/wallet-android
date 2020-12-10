@@ -43,7 +43,7 @@
             android:text="@string/finish"
             android:textColor="@color/highlight_text_color"
             android:textSize="16sp"
-            android:visibility="gone"
+            android:visibility="visible"
             />
     </RelativeLayout>
 

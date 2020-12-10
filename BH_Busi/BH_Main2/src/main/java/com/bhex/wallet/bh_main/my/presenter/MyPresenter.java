@@ -47,7 +47,7 @@ public class MyPresenter extends BasePresenter {
             flag = false;
         }
 
-        if(!TextUtils.isEmpty(newPwd)){
+        /*if(!TextUtils.isEmpty(newPwd)){
             if(!RegexUtil.checkContainNum(newPwd)){
                 tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
                 tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
@@ -79,7 +79,7 @@ public class MyPresenter extends BasePresenter {
             }else{
                 tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
             }
-        }
+        }*/
 
 
         if(TextUtils.isEmpty(newConfrimPwd)) {
@@ -102,10 +102,7 @@ public class MyPresenter extends BasePresenter {
     public boolean checkPasswordEqual(String oldPwd,String newPwd,String newConfrimPwd){
         boolean flag = true;
         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
-        /*if(!bhWallet.password.equals(MD5.md5(oldPwd))){
-            ToastUtils.showToast(getActivity().getResources().getString(R.string.error_oldpassword));
-            return false;
-        }*/
+
         if(!ToolUtils.isVerifyPass(oldPwd,bhWallet.getPassword())){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.error_oldpassword));
             return false;

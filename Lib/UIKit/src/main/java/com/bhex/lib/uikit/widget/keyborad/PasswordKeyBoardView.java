@@ -1,5 +1,6 @@
 package com.bhex.lib.uikit.widget.keyborad;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,8 +8,16 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.os.Build;
+import android.text.Editable;
+import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.SparseArray;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -16,8 +25,14 @@ import androidx.core.content.ContextCompat;
 
 import com.bhex.lib.uikit.R;
 import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 
+import java.lang.reflect.Method;
 import java.util.List;
+
+import java8.util.stream.IntStreams;
+import java8.util.stream.StreamSupport;
 
 /**
  * @author gongdongyang
@@ -28,7 +43,8 @@ public class PasswordKeyBoardView extends KeyboardView  {
 
     private static final int KEY_DOT = -10;
     private Keyboard mKeyboard;
-    private EditText mInputText;//对应输入框
+    private SparseArray<EditText> mEditTextArrays = new SparseArray();//对应输入框
+    private EditText mCurrentEditText;
     private Drawable  mDeleteDrawable;
     private Drawable  mSpecialKeyBackground;
 
@@ -62,27 +78,36 @@ public class PasswordKeyBoardView extends KeyboardView  {
         mSpecialKeyBackground = ContextCompat.getDrawable(context,R.drawable.king_keyboard_special_key_bg);
     }
 
-    /**
-     *
-     * @param et
-     * @param inputRootView 输入框所在的根布局
-     * @param keyBoardRoot 自定义软键盘所在的根布局
-     */
-    public void setAttachToEditText(EditText et, ViewGroup inputRootView, ViewGroup keyBoardRoot) {
+    public void setAttachToEditText(Activity activity,EditText et, ViewGroup inputRootView, ViewGroup keyBoardRoot) {
         if (mKeyboard == null) {
             mKeyboard = new Keyboard(getContext(), R.xml.number);
         }
-        this.mInputText = et;
+        this.mEditTextArrays.put(et.getId(),et);
         this.mInputRootView = inputRootView;
         this.mKeyBoardRoot = keyBoardRoot;
-        mInputText.requestFocus();
         keyBoardRoot.findViewById(R.id.btn_finish).setOnClickListener(v -> {
             hideKeyBoard();
         });
-        hideSystemSoftInput();
-        showMyKeyBoard();
-    }
 
+        et.setOnFocusChangeListener((v,hasFocus)->{
+            if(hasFocus){
+                mCurrentEditText = et;
+                ToolUtils.hideSystemSofeKeyboard(activity,et);
+                showMyKeyBoard();
+            }
+        });
+        et.setOnTouchListener((v,event)->{
+            if(event.getAction() == MotionEvent.ACTION_UP){
+                mCurrentEditText = et;
+                ToolUtils.hideSystemSofeKeyboard(activity,et);
+                showMyKeyBoard();
+            }
+            return false;
+        });
+
+        /*ToolUtils.hideSystemSofeKeyboard(activity,et);
+        showMyKeyBoard();*/
+    }
 
     @Override
     public void onDraw(Canvas canvas) {
@@ -108,12 +133,6 @@ public class PasswordKeyBoardView extends KeyboardView  {
         setOnKeyboardActionListener(onKeyboardListener);
         mKeyBoardRoot.setVisibility(VISIBLE);
         setVisibility(VISIBLE);
-    }
-
-    /**隐藏系统键盘*/
-    private void hideSystemSoftInput() {
-        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(mInputText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     /**隐藏键盘*/
@@ -179,11 +198,25 @@ public class PasswordKeyBoardView extends KeyboardView  {
 
             if (primaryCode == Keyboard.KEYCODE_DELETE) {
                 mListener.onDelete();
+                Editable editable = mCurrentEditText.getText();
+                if (editable != null && editable.length() > 0) {
+                    if (mCurrentEditText.getSelectionStart() > 0) {
+                        editable.delete(mCurrentEditText.getSelectionStart() - 1, mCurrentEditText.getSelectionStart());
+                    }
+                }
+
             }else {
+                LogUtils.d("PasswordKeyBoardView===>:","code==="+String.valueOf((char) primaryCode));
                 mListener.onInput(String.valueOf((char) primaryCode));
+                mCurrentEditText.setText(mCurrentEditText.getText()+String.valueOf((char) primaryCode));
+                mCurrentEditText.setSelection(mCurrentEditText.getText().length());
+
             }
         }
     };
+
+
+
 
 
 

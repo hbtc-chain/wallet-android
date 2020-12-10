@@ -105,11 +105,10 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     protected void addEvent() {
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
 
-        mPasswordKeyboardView.setAttachToEditText(mPasswordInputView.m_input_content,mPasswordInputView,findViewById(R.id.keyboard_root));
+        mPasswordKeyboardView.setAttachToEditText(this,mPasswordInputView.m_input_content,mPasswordInputView,findViewById(R.id.keyboard_root));
         mPasswordKeyboardView.setOnKeyListener(new PasswordKeyBoardView.OnKeyListener() {
             @Override
             public void onInput(String text) {
-                mPasswordInputView.m_input_content.setText(text);
                 mPasswordInputView.onInputChange(mPasswordInputView.m_input_content.getEditableText());
             }
 

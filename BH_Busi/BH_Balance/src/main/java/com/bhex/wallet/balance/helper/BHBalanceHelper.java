@@ -178,6 +178,12 @@ public class BHBalanceHelper {
             }
 
         }
+
+        Collections.sort(res,((o1, o2) -> {
+            String n1 =  o1.name;
+            String n2 =  o2.name;
+            return n1.compareTo(n2);
+        }));
         return res;
     }
 

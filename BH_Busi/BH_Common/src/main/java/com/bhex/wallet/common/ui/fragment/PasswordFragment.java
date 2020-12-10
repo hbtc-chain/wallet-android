@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
 
 import com.bhex.lib.uikit.widget.keyborad.PasswordInputView;
@@ -52,8 +53,13 @@ public class PasswordFragment extends BaseDialogFragment {
     @BindView(R2.id.inp_wallet_pwd)
     PasswordInputView inp_wallet_pwd;
 
+    @BindView(R2.id.tv_sub_title)
+    AppCompatTextView tv_sub_title;
+
     @BindView(R2.id.iv_close)
     AppCompatImageView iv_close;
+
+    private String mSubTitle;
 
     private PasswordClickListener passwordClickListener;
 
@@ -103,7 +109,10 @@ public class PasswordFragment extends BaseDialogFragment {
 
     @Override
     protected void initView() {
-
+        if(!TextUtils.isEmpty(mSubTitle)){
+            tv_sub_title.setText(mSubTitle);
+            tv_sub_title.setVisibility(View.VISIBLE);
+        }
         inp_wallet_pwd.setOnInputListener(new PasswordInputView.OnInputListener() {
             @Override
             public void onComplete(String input) {
@@ -148,22 +157,21 @@ public class PasswordFragment extends BaseDialogFragment {
         return pfrag;
     }
 
+    public static PasswordFragment showPasswordDialogExt(FragmentManager fm, String tag,PasswordClickListener listener,int position) {
+        PasswordFragment pfrag = new PasswordFragment();
+        pfrag.passwordClickListener = listener;
+        pfrag.position = position;
+        //pfrag.show(fm, tag);
+        return pfrag;
+    }
+
+    public void setTv_sub_title(String sub_title){
+        //tv_sub_title.setText(sub_title);
+        mSubTitle = sub_title;
+    }
+
     @OnClick({R2.id.iv_close})
     public void onViewClicked(View view) {
-        /*if (view.getId() == R.id.btn_cancel) {
-            dismiss();
-        }
-
-        if (view.getId() == R.id.btn_confirm) {
-            if (passwordClickListener == null) {
-                return;
-            }
-            //String inputPassword = inp_wallet_pwd.getInputContent();
-            ToolUtils.hintKeyBoard(getActivity(),inp_wallet_pwd.m_input_content);
-            //检验密码
-            checkPassword(inp_wallet_pwd.getInputContent().trim());
-        }*/
-
         if(view.getId() == R.id.iv_close){
             dismissAllowingStateLoss();
             ToolUtils.hintKeyBoard(getActivity());

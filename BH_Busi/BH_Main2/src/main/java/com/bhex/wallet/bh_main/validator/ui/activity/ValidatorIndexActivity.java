@@ -1,16 +1,12 @@
 package com.bhex.wallet.bh_main.validator.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
@@ -19,14 +15,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.lib.uikit.widget.GradientTabLayout;
-import com.bhex.lib.uikit.widget.viewpager.CustomViewPager;
-import com.bhex.lib.uikit.widget.viewpager.JudgeNestedScrollView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
-import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.balance.presenter.AssetPresenter;
 import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
@@ -34,7 +27,6 @@ import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
-import com.bhex.wallet.bh_main.validator.presenter.ValidatorFragmentPresenter;
 import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorListFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -42,7 +34,6 @@ import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
-import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TxReq;
@@ -54,7 +45,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author gongdongyang
@@ -94,6 +84,7 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
     TextView btn_unclaimed_reward;
     //private BHToken mSysmbolToken;//hbc
     private BHWallet mBhWallet;
+
 
     @Override
     protected int getLayoutId() {

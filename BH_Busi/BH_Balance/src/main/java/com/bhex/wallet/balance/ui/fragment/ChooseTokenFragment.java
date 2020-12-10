@@ -31,10 +31,14 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.model.BHToken;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToDoubleFunction;
 
 import java8.util.stream.Collectors;
+import java8.util.stream.Stream;
 import java8.util.stream.StreamSupport;
 
 /**
@@ -98,6 +102,7 @@ public class ChooseTokenFragment extends BaseDialogFragment {
         mOnChooseItemListener.onChooseClickListener(item.symbol,position);
     }
 
+    boolean isAsc = true;
     @Override
     protected void initView() {
         iv_close = mRootView.findViewById(R.id.iv_close);
@@ -109,12 +114,27 @@ public class ChooseTokenFragment extends BaseDialogFragment {
         input_search_content.addTextChangedListener(mTextWatcher);
         btn_sort = mRootView.findViewById(R.id.btn_sort);
         btn_sort.setOnClickListener(v -> {
-            List<BHToken> result =  StreamSupport.stream(mDatas).sorted(Comparator.comparing(BHToken::getName).reversed()).collect(Collectors.toList());
+            //Streams
+            /*List<BHToken> result = null;
+            if(isAsc){
+                result =  StreamSupport.stream(mDatas).sorted(Comparator.comparing(BHToken::getName)).collect(Collectors.toList());
+            }else{
+                result =  StreamSupport.stream(mDatas).sorted(Comparator.comparing(BHToken::getName).reversed()).collect(Collectors.toList());
+
+            }*/
+            List<BHToken> result = new ArrayList<>(mDatas);
+            isAsc=!isAsc;
+            if(isAsc){
+                btn_sort.setImageResource(R.mipmap.ic_sort_asc);
+            }else{
+                btn_sort.setImageResource(R.mipmap.ic_sort_desc);
+            }
+            sortResult(isAsc,result);
             mChooseTokenAdapter.setNewInstance(result);
         });
 
-        Drawable drawable = ColorUtil.getDrawable(getActivity(),R.mipmap.ic_sort,R.color.global_main_text_color);
-        btn_sort.setBackgroundDrawable(drawable);
+        /*Drawable drawable = ColorUtil.getDrawable(getActivity(),R.mipmap.ic_sort,R.color.global_main_text_color);
+        btn_sort.setBackgroundDrawable(drawable);*/
     }
 
     public static ChooseTokenFragment showFragment(String symbol,String origin,OnChooseTokenListener listener){
@@ -131,12 +151,15 @@ public class ChooseTokenFragment extends BaseDialogFragment {
         public void afterTextChanged(Editable s) {
             String search_key = input_search_content.getText().toString().trim();
             if(TextUtils.isEmpty(search_key)){
+                sortResult(isAsc,mDatas);
                 mChooseTokenAdapter.setNewData(mDatas);
                return;
             }
             List<BHToken> result = StreamSupport.stream(mDatas).filter(item->
                     item.symbol.toLowerCase().contains(search_key.toLowerCase())
             ).collect(Collectors.toList());
+
+            sortResult(isAsc,result);
 
             if(ToolUtils.checkListIsEmpty(result)){
                 empty_layout.showNoData();
@@ -149,6 +172,22 @@ public class ChooseTokenFragment extends BaseDialogFragment {
         }
     };
 
+    //是否升序
+    private void sortResult(boolean isAsc,List<BHToken> result){
+        if(isAsc){
+            Collections.sort(result,((o1, o2) -> {
+                String n1 =  o1.name;
+                String n2 =  o2.name;
+                return n1.compareTo(n2);
+            }));
+        }else{
+            Collections.sort(result,((o1, o2) -> {
+                String n1 =  o1.name;
+                String n2 =  o2.name;
+                return n2.compareTo(n1);
+            }));
+        }
+    }
     public interface OnChooseTokenListener{
         void onChooseClickListener(String symbol,int position);
     }

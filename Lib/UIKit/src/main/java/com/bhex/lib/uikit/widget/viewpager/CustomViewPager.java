@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ public class CustomViewPager extends ViewPager {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        try {
+        /*try {
             int numChildren = getChildCount();
             for (int i = 0; i < numChildren; i++) {
                 View child = getChildAt(i);
@@ -42,8 +43,20 @@ public class CustomViewPager extends ViewPager {
         }
         catch (Exception e) {
             e.printStackTrace();
+        }*/
+        int maxHeight = 0;
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            ViewGroup.LayoutParams childLP = child.getLayoutParams();
+            int childHeightSpec = getChildMeasureSpec(heightMeasureSpec, getPaddingTop() + getPaddingBottom(), childLP.height);
+
+            child.measure(widthMeasureSpec,childHeightSpec);
+
+            maxHeight = Math.max(maxHeight,child.getMeasuredHeight());
         }
 
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int mHeightMeasureSpec = MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.EXACTLY);
+
+        super.onMeasure(widthMeasureSpec, mHeightMeasureSpec);
     }
 }

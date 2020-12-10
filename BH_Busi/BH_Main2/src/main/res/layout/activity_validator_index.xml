@@ -10,7 +10,7 @@
     <include
         layout="@layout/layout_toolbar"
         />
-        <com.bhex.lib.uikit.widget.viewpager.VerticalScrollExtView
+        <com.bhex.lib.uikit.widget.viewpager.ObservableScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -53,11 +53,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/top_rl"/>
 
 
-            <androidx.viewpager.widget.ViewPager
+            <com.bhex.lib.uikit.widget.viewpager.CustomViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
-        </com.bhex.lib.uikit.widget.viewpager.VerticalScrollExtView>
+        </com.bhex.lib.uikit.widget.viewpager.ObservableScrollView>
 </LinearLayout>

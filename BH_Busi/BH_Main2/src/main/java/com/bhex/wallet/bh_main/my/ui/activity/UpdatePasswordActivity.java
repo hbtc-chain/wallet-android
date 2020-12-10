@@ -1,6 +1,7 @@
 package com.bhex.wallet.bh_main.my.ui.activity;
 
 import android.text.Editable;
+import android.text.InputFilter;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -12,6 +13,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.lib.uikit.widget.keyborad.PasswordKeyBoardView;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
@@ -66,6 +68,8 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
     @BindView(R2.id.pwd_tips_4)
     AppCompatTextView pwd_tips_4;
 
+    PasswordKeyBoardView mPasswordKeyboardView;
+
     private WalletViewModel walletViewModel;
 
     private BHWallet mCurrentWallet;
@@ -79,7 +83,11 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
     protected void initView() {
         ARouter.getInstance().inject(this);
         tv_center_title.setText(title);
+        tv_center_title.setOnClickListener(v -> {
+            ToolUtils.hintKeyBoard(UpdatePasswordActivity.this);
+        });
         inp_old_pwd.setPaddingRight(0);
+        mPasswordKeyboardView = findViewById(R.id.my_keyboard);
     }
 
     @Override
@@ -102,10 +110,31 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
             }
         });
 
+        inp_old_pwd.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+        inp_new_pwd.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+        inp_confrim_pwd.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+        inp_old_pwd.getEditText().setId(View.generateViewId());
+        inp_new_pwd.getEditText().setId(View.generateViewId());
+        inp_confrim_pwd.getEditText().setId(View.generateViewId());
+
+        mPasswordKeyboardView.setAttachToEditText(this,inp_old_pwd.getEditText(),findViewById(R.id.root_view),findViewById(R.id.keyboard_root));
+        mPasswordKeyboardView.setAttachToEditText(this,inp_new_pwd.getEditText(),findViewById(R.id.root_view),findViewById(R.id.keyboard_root));
+        mPasswordKeyboardView.setAttachToEditText(this,inp_confrim_pwd.getEditText(),findViewById(R.id.root_view),findViewById(R.id.keyboard_root));
+
+        mPasswordKeyboardView.setOnKeyListener(new PasswordKeyBoardView.OnKeyListener() {
+            @Override
+            public void onInput(String text) {
+                //inp_old_pwd.getEditText().setText(text);
+            }
+
+            @Override
+            public void onDelete() {
+                //mPasswordInputView.onKeyDelete();
+            }
+        });
+
         inp_old_pwd.addTextWatch(passwordTextWatcher);
-
         inp_new_pwd.addTextWatch(passwordTextWatcher);
-
         inp_confrim_pwd.addTextWatch(passwordTextWatcher);
     }
 

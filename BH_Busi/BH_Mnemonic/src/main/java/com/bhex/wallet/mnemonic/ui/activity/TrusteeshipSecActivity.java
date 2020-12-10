@@ -45,23 +45,22 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
     protected void initView() {
         mPresenter.setToolBarTitle();
         mPasswordInputView = findViewById(R.id.input_password_view);
-        mPasswordKeyboardView = findViewById(R.id.my_keyboard);;
+        mPasswordKeyboardView = findViewById(R.id.my_keyboard);
+
     }
 
     @Override
     protected void initPresenter() {
         mPresenter = new TrusteeshipPresenter(this);
-
     }
 
     @Override
     protected void addEvent() {
-        mPasswordKeyboardView.setAttachToEditText(mPasswordInputView.m_input_content,mPasswordInputView,findViewById(R.id.keyboard_root));
+        mPasswordKeyboardView.setAttachToEditText(this,mPasswordInputView.m_input_content,mPasswordInputView,findViewById(R.id.keyboard_root));
 
         mPasswordKeyboardView.setOnKeyListener(new PasswordKeyBoardView.OnKeyListener() {
             @Override
             public void onInput(String text) {
-                mPasswordInputView.m_input_content.setText(text);
                 mPasswordInputView.onInputChange(mPasswordInputView.m_input_content.getEditableText());
             }
 
@@ -91,6 +90,8 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
 
             }
         });
+
+
 
     }
 

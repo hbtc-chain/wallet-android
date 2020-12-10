@@ -64,7 +64,8 @@
     <string name="set_pwd_alarm_1">·安全密码是保护钱包私钥和操作资产的重要凭证,非常重要</string>
     <string name="set_pwd_alarm_2"> ·HBTC钱包不会缓存，上传，存储您的密码，也无法帮您找回，请务必牢记并妥善保管您的密码.</string>
 
-    <string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>
+    <!--<string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>-->
+    <string name="set_pwd_hint">请设置钱包密码(6位数字)</string>
     <string name="pwd_index">%1$d个字符</string>
     <string name="pwd_rule_tip">为了保证您的资产安全，密码请包括：</string>
     <string name="pwd_rule_tip_1">·1个大写字母</string>
@@ -497,5 +498,6 @@
     <string name="delete_account">删除账户</string>
     <string name="save_success">保存成功</string>
     <string name="token_name">币种名称</string>
+    <string name="generate_address_fee">生成跨链地址手续费%1$s</string>
 
 </resources>

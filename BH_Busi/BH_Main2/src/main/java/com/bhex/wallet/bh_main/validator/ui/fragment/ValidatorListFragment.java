@@ -76,7 +76,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     protected void initView() {
         //swipeRefresh.setEnableLoadMore(true);
         recycler_validator.setNestedScrollingEnabled(true);
-
+        recycler_validator.setHasFixedSize(true);//固定自身size不受adapter变化影响
         Bundle arguments = getArguments();
         if (arguments != null) {
             mValidatorType = arguments.getInt(KEY_VALIDATOR_TYPE, 0);
@@ -96,6 +96,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         empty_layout.showProgess();
 
         mValidatorViewModel.validatorsLiveData.observe(this, ldm -> {
+            //updateRecord(ldm.getData());
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 empty_layout.loadSuccess();
                 updateRecord(ldm.getData());
@@ -110,6 +111,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         /*swipeRefresh.setOnRefreshListener(refreshLayout1 -> {
             getRecord(false);
         });*/
+
         ed_search_content.addTextChangedListener(ValidatorTextWatcher);
         //点击事件
         mValidatorAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -131,12 +133,25 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     @Override
     public void onResume() {
         super.onResume();
-        //LogUtils.d("ValidatorFragment==","===onResume===");
         getRecord(mValidatorAdapter==null||mValidatorAdapter.getData()==null||mValidatorAdapter.getData().size()<1);
     }
 
     public void updateRecord(List<ValidatorInfo> datas) {
         //datas.get(0).is_elected =false;
+        datas = new ArrayList<>();
+        for(int i=0;i<6;i++){
+            ValidatorInfo item = new ValidatorInfo();
+            item.is_elected=true;
+            item.is_key_node= true;
+            item.setAddress("1");
+            item.setCu_address("1");
+            ValidatorInfo.DescriptionBean bean = new ValidatorInfo.DescriptionBean();
+            bean.setMoniker("x");
+            bean.setAvatar("x");
+            bean.setDetails("1");
+            item.setDescription(bean);
+            datas.add(item);
+        }
         mOriginValidatorInfoList = datas;
         //
         List<ValidatorInfo> result = StreamSupport.stream(datas).filter(validatorInfo -> {
@@ -152,35 +167,8 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         } else {
             empty_layout.showNoData();
         }
-        mValidatorAdapter.getData().clear();
-        mValidatorAdapter.addData(result);
-
-        /*List<ValidatorInfo> result = new ArrayList<>();
-
-        String searchContent = ed_search_content.getText().toString().trim();
-        if (mOriginValidatorInfoList != null) {
-            if (TextUtils.isEmpty(searchContent)) {
-                for (int i = 0; i < mOriginValidatorInfoList.size(); i++) {
-                    ValidatorInfo item = mOriginValidatorInfoList.get(i);
-                    result.add(item);
-                }
-
-            } else {
-                for (int i = 0; i < mOriginValidatorInfoList.size(); i++) {
-                    ValidatorInfo item = mOriginValidatorInfoList.get(i);
-                    if (item.getDescription() != null && item.getDescription().getMoniker().toLowerCase().contains(searchContent.toLowerCase())) {
-                        result.add(item);
-                    }
-                }
-            }
-        }
-        if (result.size() > 0) {
-            empty_layout.loadSuccess();
-        } else {
-            empty_layout.showNoData();
-        }
-        mValidatorAdapter.getData().clear();
-        mValidatorAdapter.addData(result);*/
+        //mValidatorAdapter.getData().clear();
+        mValidatorAdapter.setNewData(result);
     }
 
     @Override

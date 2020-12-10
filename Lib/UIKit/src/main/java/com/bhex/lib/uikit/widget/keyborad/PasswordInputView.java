@@ -134,7 +134,7 @@ public class PasswordInputView extends RelativeLayout {
         //input_width = (float)((mWidth-(input_count-1)*input_divider))/input_count;
         input_divider = (float) (mWidth-input_count*input_width)/(input_count-1);
         m_input_content.setCursorVisible(false);
-        m_input_content.setEnabled(!is_custom_keyborad);
+        //m_input_content.setEnabled(!is_custom_keyborad);
 
         m_input_content.setFilters(new InputFilter[]{new InputFilter.LengthFilter(input_count)});
         mPasswordTextViews = new PasswordTextView[input_count];
