@@ -63,6 +63,7 @@
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:visibility="invisible"
+            android:background="@color/alarm_highlight_text_color"
             android:layout_alignEnd="@+id/iv_message"
             />
     </RelativeLayout>

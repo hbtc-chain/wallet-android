@@ -10,6 +10,7 @@ import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.BHTokenMapping;
@@ -51,6 +52,10 @@ public class ChooseTokenAdapter extends BaseQuickAdapter<BHToken, BaseViewHolder
         tv_token_amount.setText(v_token_amount+" "+item.name.toUpperCase());
 
         holder.setText(R.id.tv_token_id,item.symbol);
+
+        //价格
+        String symbol_prices = CurrencyManager.getInstance().getCurrencyRateDecription(getContext(),item.symbol);
+        holder.setText(R.id.tv_token_price, symbol_prices);
     }
 
 

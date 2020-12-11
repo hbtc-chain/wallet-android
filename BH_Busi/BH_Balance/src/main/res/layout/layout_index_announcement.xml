@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:layout_marginTop="8dp"
+    >
+
+    <com.bhex.lib.uikit.widget.CircleView
+        android:id="@+id/iv_announce_bg"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="#FF0000"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_announce_type"
+        android:layout_alignTop="@+id/iv_announce_bg"
+        android:layout_alignBottom="@+id/iv_announce_bg"
+        android:layout_alignStart="@+id/iv_announce_bg"
+        android:layout_alignEnd="@+id/iv_announce_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_announcement"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width=""
+        android:layout_height=""
+</RelativeLayout>

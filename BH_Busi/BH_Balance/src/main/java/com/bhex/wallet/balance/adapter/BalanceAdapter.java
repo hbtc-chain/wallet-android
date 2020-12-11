@@ -99,7 +99,7 @@ public class BalanceAdapter extends BaseQuickAdapter<BHTokenItem, BaseViewHolder
             tv_coin_type.setBackgroundColor(0);
         } else if(bhCoin.is_native){
             tv_coin_type.setVisibility(View.VISIBLE);
-            tv_coin_type.setText(R.string.native_test_token);
+            tv_coin_type.setText(R.string.native_token);
             tv_coin_type.setTextAppearance(getContext(),R.style.tx_native_link_token);
             //tv_coin_type.setBackgroundResource(R.drawable.shape_20_green);
             tv_coin_type.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.shape_native_token));

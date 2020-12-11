@@ -200,8 +200,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TipsViewHolder viewHolder = new TipsViewHolder();
-        viewHolder.initView(getYActivity(),getYActivity().findViewById(R.id.layout_balance_tip));
+        //TipsViewHolder viewHolder = new TipsViewHolder();
+        //viewHolder.initView(getYActivity(),getYActivity().findViewById(R.id.layout_balance_tip));
     }
 
     /**

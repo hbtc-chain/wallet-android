@@ -283,7 +283,7 @@
 
                 <include
                     android:id="@+id/layout_balance_tip"
-                    layout="@layout/layout_balance_tip"
+                    layout="@layout/layout_index_announcement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/main_margin_left"
