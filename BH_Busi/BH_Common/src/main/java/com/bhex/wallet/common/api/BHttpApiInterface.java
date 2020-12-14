@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -135,4 +136,8 @@ public interface BHttpApiInterface {
     //获取Gasfee
     @GET("/api/v1/default_fee")
     Observable<GasFee> queryGasfee();
+
+    //@GET("/api/v1/announcements")
+    @GET("http://hbtc.yym.plus/api/v1/announcements")
+    Observable<JsonArray>  loadAnnouncement();
 }

@@ -65,6 +65,11 @@ public class CircleView extends View {
         canvas.drawCircle(mCenterX,mCentetY,mCircleRadius,mPaint);
     }
 
+    public void setCircleColor(int circleColor) {
+        this.mCircleColor = circleColor;
+        mPaint.setColor(this.mCircleColor);
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

@@ -404,7 +404,8 @@
     <string name="tips_our_suggestion">We suggest</string>
     <string name="tips_trust_success_index_6">Do not tell others of your mnemonic phrase</string>
     <string name="tips_trust_success_index_7">Please do not take screenshots, photos of your mnemonics phrase on your mobile devic</string>
-    <string name="set_new_pwd_less_8">Please set a new password (no less than 8 bits)</string>
+<!--    <string name="set_new_pwd_less_8">Please set a new password (no less than 8 bits)</string>-->
+    <string name="set_new_pwd_less_8">Please set a new password (6 bits)</string>
     <string name="set_finger_ok">Success</string>
     <string name="tips">Tips</string>
     <string name="i_konw_danger">I am aware of the risk, show the address</string>
@@ -488,4 +489,11 @@
     <string name="save_success">保存成功</string>
     <string name="token_name">币种名称</string>
     <string name="generate_address_fee">生成跨链地址手续费%1$s</string>
+    <string name="save_pictrue">保存图片</string>
+    <string name="switch_cross_link_address">切换跨链托管地址</string>
+    <string name="switch_hbtc_address">切换HBTC链地址</string>
+    <string name="transcation_record">交易记录</string>
+    <string name="trusteeship_node">托管节点</string>
+    <string name="common_node">共识节点</string>
+    <string name="un_receive_income">待领取收益</string>
 </resources>

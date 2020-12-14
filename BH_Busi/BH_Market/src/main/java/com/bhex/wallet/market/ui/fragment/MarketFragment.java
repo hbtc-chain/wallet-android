@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.fastjson.JSONObject;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.utils.JsonUtils;
@@ -14,12 +15,13 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
+import com.bhex.wallet.common.browse.wv.WVJBWebViewClient;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
 import com.bhex.wallet.market.event.H5SignEvent;
 import com.bhex.wallet.market.model.H5Sign;
-import com.bhex.wallet.market.wv.WVJBWebViewClient;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -34,7 +36,8 @@ import butterknife.OnClick;
  * @author gongdongyang
  * 2020-9-6 16:42:41
  */
-public class MarketFragment extends BaseBowserFragment  {
+@Route(path = ARouterConfig.Market.market_dex,name = "market-dex")
+public class MarketFragment extends JsBowserFragment {
 
     @BindView(R2.id.iv_back)
     AppCompatImageView iv_back;
@@ -60,8 +63,6 @@ public class MarketFragment extends BaseBowserFragment  {
     protected void initView() {
         super.initView();
         tv_center_title.setText(getString(R.string.tab_trade));
-        /*Drawable drawable =  ContextCompat.getDrawable(getYActivity(), R.drawable.abc_ic_ab_back_material);
-        iv_back.setColorFilter(ContextCompat.getColor(getYActivity(), R.color.global_main_text_color), PorterDuff.Mode.SRC_ATOP);*/
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.mutableLiveData.observe(this,ldm -> {
             updateTransferStatus(ldm);
@@ -116,11 +117,6 @@ public class MarketFragment extends BaseBowserFragment  {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void signMessage(H5SignEvent h5SignEvent){
         mH5Sign = h5SignEvent.h5Sign;
-        /*BHTransactionManager.loadSuquece(suquece -> {
-            BHSendTranscation bhSendTranscation = BHTransactionManager.create_dex_transcation(h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,suquece,h5SignEvent.data);
-            transactionViewModel.sendTransaction(getActivity(),bhSendTranscation);
-            return 0;
-        });*/
         transactionViewModel.create_dex_transcation(getYActivity(),h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,h5SignEvent.data);
     }
 
@@ -130,7 +126,6 @@ public class MarketFragment extends BaseBowserFragment  {
         if(mH5Sign==null || TextUtils.isEmpty(mH5Sign.type)) {
             return;
         }
-
         WVJBWebViewClient.WVJBResponseCallback callback = callbackMaps.get(mH5Sign.type);
         if(callback==null){
             return;

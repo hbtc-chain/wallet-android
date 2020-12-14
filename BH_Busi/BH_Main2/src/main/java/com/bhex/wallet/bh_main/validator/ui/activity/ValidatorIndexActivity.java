@@ -1,25 +1,33 @@
 package com.bhex.wallet.bh_main.validator.ui.activity;
 
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.lib.uikit.widget.GradientTabLayout;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.NumberUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.balance.presenter.AssetPresenter;
 import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
@@ -82,6 +90,9 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
     CustomTextView tv_unclaimed_reward_amount;
     @BindView(R2.id.btn_unclaimed_reward)
     TextView btn_unclaimed_reward;
+    @BindView(R2.id.iv_qr_code)
+    ImageView iv_qr_code;
+
     //private BHToken mSysmbolToken;//hbc
     private BHWallet mBhWallet;
 
@@ -100,12 +111,23 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
     protected void initView() {
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        tv_center_title.setText(getResources().getString(R.string.tab_validator));
+        tv_center_title.setText(getResources().getString(R.string.delegate));
         tv_wallet_name.setText(mBhWallet.name);
         tv_available_label.setText(getString(R.string.available)+BHConstants.BHT_TOKEN.toUpperCase());
         tv_token_address.setTag(mBhWallet.getAddress());
+
+
         AssetHelper.proccessAddress(tv_token_address,mBhWallet.address);
-        findViewById(R.id.btn_token_address).setOnClickListener(this::showAddressQR);
+        //设置背景
+        LinearLayout btn_token_address =  findViewById(R.id.btn_token_address);
+        GradientDrawable drawable = ShapeUtils.getRoundRectDrawable(PixelUtils.dp2px(this,50),
+                ContextCompat.getColor(this,R.color.color_340A1825));
+        btn_token_address.setBackground(drawable);
+        btn_token_address.setOnClickListener(this::showAddressQR);
+
+        //
+        Drawable qr_drawable = ColorUtil.getDrawable(this,R.mipmap.ic_entrust_qr,R.color.white);
+        iv_qr_code.setImageDrawable(qr_drawable);
         initTab();
     }
 
@@ -158,8 +180,8 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
         bundle1.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BH_BUSI_TYPE.共识节点.getIntValue());
         invalidListFragment.setArguments(bundle1);
 
-        items.add(new Pair<String, Fragment>("托管节点", validListFragment));
-        items.add(new Pair<String, Fragment>("共识节点", invalidListFragment));
+        items.add(new Pair<String, Fragment>(getString(R.string.trusteeship_node), validListFragment));
+        items.add(new Pair<String, Fragment>(getString(R.string.common_node), invalidListFragment));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -245,4 +267,9 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
                 BHConstants.BHT_TOKEN,
                 tv_token_address.getTag().toString());
     }
+
+    protected  int getStatusColorValue(){
+        return BHConstants.STATUS_COLOR_TRANS;
+    }
+
 }

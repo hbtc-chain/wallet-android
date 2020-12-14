@@ -25,6 +25,8 @@ import com.alibaba.android.arouter.core.LogisticsCenter;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
+import com.bhex.lib.uikit.widget.text.marqueen.MarqueeFactory;
+import com.bhex.lib.uikit.widget.text.marqueen.MarqueeView;
 import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
@@ -39,9 +41,12 @@ import com.bhex.tools.utils.PixelUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
+import com.bhex.wallet.balance.adapter.AnnouncementMF;
 import com.bhex.wallet.balance.adapter.ChainAdapter;
+import com.bhex.wallet.balance.model.AnnouncementItem;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
 import com.bhex.wallet.balance.ui.viewhodler.TipsViewHolder;
+import com.bhex.wallet.balance.viewmodel.AnnouncementViewModel;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -95,10 +100,15 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @BindView(R2.id.empty_layout)
     RelativeLayout empty_layout;
 
+    @BindView(R2.id.layout_balance_tip)
+    MarqueeView layout_balance_tip;
+
+
     private ChainAdapter mChainAdapter;
     private List<BHChain> mChainList;
     private BHWallet bhWallet;
     private BalanceViewModel balanceViewModel;
+    private AnnouncementViewModel announcementViewModel;
     //总资产
     private double allTokenAssets;
 
@@ -168,11 +178,18 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
                 updateAssets();
             }
         });
+
+        //公告
+        announcementViewModel = ViewModelProviders.of(this).get(AnnouncementViewModel.class);
+        announcementViewModel.mutableLiveData.observe(this,ldm->{
+            updateAnnouncement(ldm);
+        });
+
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
             balanceViewModel.getAccountInfo(getYActivity(),null);
+            announcementViewModel.loadAnnouncement(getYActivity());
         });
         refreshLayout.autoRefresh();
-        //ARouter.getInstance().build(ARouterConfig.Common.commom_scan_qr).navigation(m_activity, BHQrScanActivity.REQUEST_CODE);
         getYActivity().findViewById(R.id.btn_transfer_in).setOnClickListener(this::onTransferAction);
         getYActivity().findViewById(R.id.btn_transfer_out).setOnClickListener(this::onTransferAction);
         getYActivity().findViewById(R.id.btn_entrust).setOnClickListener(this::onTransferAction);
@@ -195,6 +212,29 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     }
 
+    //更新公告
+    private void updateAnnouncement(LoadDataModel ldm) {
+        if(ldm.loadingStatus != LoadingStatus.SUCCESS){
+            return;
+        }
+        List<AnnouncementItem> list = (List<AnnouncementItem>)ldm.getData();
+        MarqueeFactory<RelativeLayout, AnnouncementItem> marqueeFactory = new AnnouncementMF(getContext(),this::onCloseAction);
+        marqueeFactory.setData(list);
+        layout_balance_tip.setVisibility(View.VISIBLE);
+        layout_balance_tip.setMarqueeFactory(marqueeFactory);
+        layout_balance_tip.startFlipping();
+
+        marqueeFactory.setOnItemClickListener((view, holder) -> {
+            //holder.getData().
+            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url","https://baidu.com").navigation();
+        });
+
+    }
+
+    private void onCloseAction() {
+        layout_balance_tip.stopFlipping();
+        layout_balance_tip.setVisibility(View.GONE);
+    }
 
 
     @Override
@@ -303,7 +343,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             if(resultCode == Activity.RESULT_OK){
                 //处理扫描结果（在界面上显示）
                 String qrCode  = data.getExtras().getString(XQRCode.RESULT_DATA);
-                LogUtils.d("BalanceFragment===>:","qrCode=="+qrCode);
                 //mTransferOutViewHolder.input_to_address.setInputString(qrCode);
             }else if(resultCode == BHQrScanActivity.REQUEST_IMAGE){
                 getAnalyzeQRCodeResult(data.getData());

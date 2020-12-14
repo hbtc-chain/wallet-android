@@ -138,20 +138,6 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
 
     public void updateRecord(List<ValidatorInfo> datas) {
         //datas.get(0).is_elected =false;
-        datas = new ArrayList<>();
-        for(int i=0;i<6;i++){
-            ValidatorInfo item = new ValidatorInfo();
-            item.is_elected=true;
-            item.is_key_node= true;
-            item.setAddress("1");
-            item.setCu_address("1");
-            ValidatorInfo.DescriptionBean bean = new ValidatorInfo.DescriptionBean();
-            bean.setMoniker("x");
-            bean.setAvatar("x");
-            bean.setDetails("1");
-            item.setDescription(bean);
-            datas.add(item);
-        }
         mOriginValidatorInfoList = datas;
         //
         List<ValidatorInfo> result = StreamSupport.stream(datas).filter(validatorInfo -> {

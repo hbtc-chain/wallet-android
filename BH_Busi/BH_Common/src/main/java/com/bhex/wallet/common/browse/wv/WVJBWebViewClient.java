@@ -1,4 +1,4 @@
-package com.bhex.wallet.market.wv;
+package com.bhex.wallet.common.browse.wv;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -7,8 +7,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import com.bhex.tools.utils.LogUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +42,7 @@ public class WVJBWebViewClient extends WebViewClient {
 	}
 
 	public interface WVJBHandler {
-		public void request(Object data, WVJBResponseCallback callback);
+		public void request(Object data, WVJBResponseCallback callback) throws JSONException;
 	}
 
 	public WVJBWebViewClient(WebView webView) {

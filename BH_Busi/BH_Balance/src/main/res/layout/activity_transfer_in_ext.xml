@@ -131,10 +131,11 @@
                 tools:visibility="visible"
                 />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.bhex.lib.uikit.widget.text.AutoFitTextView
                 android:id="@+id/tv_token_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/light_text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +172,7 @@
                     android:paddingBottom="20dp"
                     android:paddingTop="20dp"
                     android:layout_weight="1"
-                    android:text="保存图片"
+                    android:text="@string/save_pictrue"
                     android:textSize="17sp"
                     android:textColor="@color/highlight_text_color"
                     android:gravity="center"

@@ -38,4 +38,5 @@
 
     <dimen name="default_item_divider_height">8dp</dimen>
 
+    <string name="receive_income">领取收益</string>
 </resources>

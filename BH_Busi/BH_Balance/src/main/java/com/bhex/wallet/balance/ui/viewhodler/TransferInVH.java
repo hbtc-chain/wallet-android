@@ -99,11 +99,11 @@ public class TransferInVH {
         //地址切换
         AppCompatTextView btn_switch_address = mRootView.findViewById(R.id.btn_switch_address);
         if(!token.chain.toLowerCase().equals(BHConstants.BHT_TOKEN) && mWay == BH_BUSI_TYPE.链内转账.getIntValue()){
-            btn_switch_address.setText("切换跨链托管地址");
+            btn_switch_address.setText(mActivity.getResources().getString(R.string.switch_cross_link_address));
             btn_switch_address.setVisibility(View.VISIBLE);
             iv_switch_address_icon.setVisibility(View.VISIBLE);
         }else if(!token.chain.toLowerCase().equals(BHConstants.BHT_TOKEN) && mWay == BH_BUSI_TYPE.跨链转账.getIntValue()){
-            btn_switch_address.setText("切换HBTC链地址");
+            btn_switch_address.setText(mActivity.getResources().getString(R.string.switch_hbtc_address));
             btn_switch_address.setVisibility(View.VISIBLE);
             iv_switch_address_icon.setVisibility(View.VISIBLE);
         }else if(token.chain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
@@ -139,9 +139,9 @@ public class TransferInVH {
 
         tv_account_label_1.setText(token.name.toUpperCase()+mActivity.getResources().getString(R.string.trusteeship_address));
         if(mWay==BH_BUSI_TYPE.链内转账.getIntValue()){
-            tv_center_title.setText(mActivity.getResources().getString(R.string.transfer_in)+token.name.toUpperCase());
+            tv_center_title.setText(mActivity.getResources().getString(R.string.transfer_in)+" "+token.name.toUpperCase());
         }else{
-            tv_center_title.setText(mActivity.getResources().getString(R.string.deposit)+token.name.toUpperCase());
+            tv_center_title.setText(mActivity.getResources().getString(R.string.deposit)+" "+token.name.toUpperCase());
         }
         //地址
         tv_token_address.setText(deposit_address);
@@ -151,7 +151,7 @@ public class TransferInVH {
         iv_qr_code.setImageBitmap(bitmap);
         //数量
         if(!TextUtils.isEmpty(token.deposit_threshold) && Double.valueOf(token.deposit_threshold)>0){
-            String v_amount_str = mActivity.getString(R.string.string_deposit_threshold_2)+token.deposit_threshold+token.name.toUpperCase();
+            String v_amount_str = mActivity.getString(R.string.string_deposit_threshold_2)+" "+token.deposit_threshold+token.name.toUpperCase();
             tv_friend_tips.setText(v_amount_str);
             tv_friend_tips.setVisibility(View.VISIBLE);
         }else{

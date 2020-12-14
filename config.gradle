@@ -12,6 +12,7 @@ ext {
             targetSdkVersion : 29,
             versionCode      : 550,
             versionName      : "1.2.0"
+
     ]
     //version配置
     versions = [

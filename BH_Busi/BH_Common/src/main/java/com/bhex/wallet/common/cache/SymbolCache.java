@@ -211,11 +211,16 @@ public class SymbolCache extends BaseCache {
         //
         String remove_symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_REMOVE_KEY);
         //LogUtils.d("SymbolCache===>:","==remove_symbol=="+remove_symbol);
-        String []a_remove_symbol = remove_symbol.split("_");
-        if(a_remove_symbol.length==0){
+
+        if(TextUtils.isEmpty(remove_symbol)){
             return localTokenList;
         }
 
+        String []a_remove_symbol = remove_symbol.split("_");
+
+        if(a_remove_symbol==null || a_remove_symbol.length==0){
+            return localTokenList;
+        }
         /*for(int i= 0;i<a_remove_symbol.length;i++){
             BHToken bhToken = localTokenList.get(a_remove_symbol[i]);
             if(bhToken==null){

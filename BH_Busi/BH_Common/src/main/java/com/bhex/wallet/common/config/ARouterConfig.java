@@ -102,6 +102,12 @@ public class ARouterConfig {
         public static final String Balance_chain_tokens = "/balance/chain/tokens";
     }
 
+    public static class Market{
+        public static final String market_dex = "/market/dex";
+        public static final String market_webview = "/market/webview";
+        public static final String market_fragment_webview = "/market/fragment/webview";
+    }
+
 
 
 

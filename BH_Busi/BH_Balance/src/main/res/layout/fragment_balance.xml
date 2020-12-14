@@ -263,7 +263,7 @@
                                 android:id="@+id/btn_entrust"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:drawableStart="@mipmap/ic_transfer_in"
+                                android:drawableStart="@mipmap/ic_draw_share"
                                 android:text="@string/do_entrust"
                                 android:gravity="left|center_vertical"
                                 android:paddingStart="6dp"
@@ -281,9 +281,19 @@
                 </com.google.android.material.card.MaterialCardView>
 
 
-                <include
+                <!--<include
                     android:id="@+id/layout_balance_tip"
                     layout="@layout/layout_index_announcement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/main_margin_left"
+                    android:layout_marginEnd="@dimen/main_margin_right"
+                    android:layout_below="@+id/view_divider_line"
+                    />-->
+
+
+                <com.bhex.lib.uikit.widget.text.marqueen.MarqueeView
+                    android:id="@+id/layout_balance_tip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/main_margin_left"
@@ -338,7 +348,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/view_divider_line"
-                        android:layout_marginTop="10dp"
                         android:overScrollMode="never"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
