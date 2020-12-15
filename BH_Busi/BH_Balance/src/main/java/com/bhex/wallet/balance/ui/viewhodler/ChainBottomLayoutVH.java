@@ -112,9 +112,10 @@ public class ChainBottomLayoutVH {
 
         //市场
         if (view.getId() == R.id.btn_item4) {
-            Postcard postcard =  ARouter.getInstance().build(ARouterConfig.Main.main_mainindex)
+            Postcard postcard =  ARouter.getInstance()
+                                .build(ARouterConfig.Main.main_mainindex)
+                                .withString("go_token",mSymbol)
                                 .withString("go_position",BH_BUSI_TYPE.市场.value);
-
             LogisticsCenter.completion(postcard);
             Intent intent = new Intent(activity, postcard.getDestination());
             intent.putExtras(postcard.getExtras());

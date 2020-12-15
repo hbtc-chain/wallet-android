@@ -2,13 +2,14 @@ package com.bhex.wallet.market.ui.fragment;
 
 import android.webkit.WebView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bhex.network.utils.JsonUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.browse.BaseBowserFragment;
 import com.bhex.wallet.common.browse.wv.WVJBWebViewClient;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.market.model.H5Sign;
 
-import org.json.JSONObject;
 
 public abstract class JsBowserFragment extends BaseBowserFragment {
 
@@ -25,15 +26,19 @@ public abstract class JsBowserFragment extends BaseBowserFragment {
             }));
 
             registerHandler("connect",(data,callback)->{
+                LogUtils.d("JsBowserFragment==>:","==connect==");
                 DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
                 callback.callback(JsonUtils.toJson(dexResponse));
             });
 
             registerHandler("get_account",(data,callback) -> {
+
+
                 DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
                 dexResponse.data = new JSONObject();
                 dexResponse.data.put("address", BHUserManager.getInstance().getCurrentBhWallet().address);
                 callback.callback(JsonUtils.toJson(dexResponse));
+                LogUtils.d("JsBowserFragment==>:","==get_account=="+BHUserManager.getInstance().getCurrentBhWallet().address);
             });
 
             registerHandler("sign",(data, callback) -> {

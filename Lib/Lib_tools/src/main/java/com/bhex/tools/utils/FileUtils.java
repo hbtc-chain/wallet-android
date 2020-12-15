@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 
+import androidx.annotation.Nullable;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,7 +20,7 @@ import java.io.InputStreamReader;
  * Date: 2020/3/23
  * Time: 23:40
  */
-public class FileUtil {
+public class FileUtils {
 
     /**
      *
@@ -75,5 +77,26 @@ public class FileUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 根据文件路径获取文件
+     *
+     * @param filePath 文件路径
+     * @return 文件
+     */
+    @Nullable
+    public static File getFileByPath(final String filePath) {
+        return isSpace(filePath) ? null : new File(filePath);
+    }
+
+    private static boolean isSpace(final String s) {
+        if (s == null) return true;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

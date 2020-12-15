@@ -177,7 +177,10 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         });
 
         findViewById(R.id.tv_add_token).setOnClickListener(v -> {
-            ARouter.getInstance().build(ARouterConfig.Balance.Balance_Search).withString("chain",mBalance.chain).navigation();
+            ARouter.getInstance()
+                    .build(ARouterConfig.Balance.Balance_Search)
+                    .withString("chain",mBalance.chain)
+                    .navigation();
         });
     }
 

@@ -16,7 +16,7 @@ import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
-import com.bhex.tools.utils.FileUtil;
+import com.bhex.tools.utils.FileUtils;
 import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
@@ -235,7 +235,7 @@ public class TransferInVH {
                 PixelUtils.dp2px(mActivity,160),PixelUtils.dp2px(mActivity,160),null);
 
         Observable.create(emitter -> {
-            boolean flag = FileUtil.saveImageToGallery(mActivity,bitmap,tv_token_address.getText().toString()+".png");
+            boolean flag = FileUtils.saveImageToGallery(mActivity,bitmap,tv_token_address.getText().toString()+".png");
             emitter.onNext(flag);
             emitter.onComplete();
         }).compose(RxSchedulersHelper.io_main())

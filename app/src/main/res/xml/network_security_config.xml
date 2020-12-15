@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <base-config cleartextTrafficPermitted="true" />
+    <base-config cleartextTrafficPermitted="true" >
+
+        <!--<trust-anchors>
+            <certificates src="user"/>
+            <certificates src="system"/>
+        </trust-anchors>-->
+    </base-config>
+    <!--<domain-config >
+        <domain includeSubdomains="true">explorer.hbtcchain.io</domain>
+        <pin-set>
+            <pin digest="SHA-256">ONUV2iewvbpTvPliXQM1Mol7j9PPZgGYT6/7WhJ0yy0=</pin>
+            <pin digest="SHA-256">4H6OXny7MqJPbCOTpHyS0fSSUeHk/I5nKbIyuQwnfsA=</pin>
+        </pin-set>
+    </domain-config>
+
+    <domain-config >
+        <domain includeSubdomains="true">hbtc.yym.plus</domain>
+        <pin-set>
+            <pin digest="SHA-256">ixKU/0n50ikuWT1nWR2RM8rDgI7OBqgYlE4Lh1i2fSQ=</pin>
+            <pin digest="SHA-256">jzqM6/58ozsPRvxUzg0hzjM+GcfwhTbU/G0TCDvL7hU=</pin>
+        </pin-set>
+    </domain-config>-->
 </network-security-config>

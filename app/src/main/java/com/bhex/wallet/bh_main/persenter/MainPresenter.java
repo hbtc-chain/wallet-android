@@ -52,6 +52,7 @@ public class MainPresenter extends BasePresenter {
 
     private UpgradeViewModel mUpgradeVM;
 
+    private String mTokenId;
     @Override
     public void onCreate(@NotNull LifecycleOwner owner) {
         super.onCreate(owner);
@@ -119,13 +120,17 @@ public class MainPresenter extends BasePresenter {
         ToastUtils.showToast(getActivity().getResources().getString(R.string.app_loading_now));
     };
 
-    public void gotoTarget(BottomNavigationView bnv,String goto_position){
+    public void gotoTarget(BottomNavigationView bnv,String goto_position,String token){
 
         if(TextUtils.isEmpty(goto_position)){
             return;
         }
+
+        if(!TextUtils.isEmpty(token)){
+            mTokenId = token;
+        }
+
         if(goto_position.equals(BH_BUSI_TYPE.市场.value)){
-            //goMarketFragment();
             bnv.setSelectedItemId(bnv.getMenu().getItem(1).getItemId());
         }
     }
@@ -160,7 +165,14 @@ public class MainPresenter extends BasePresenter {
 
 
     public void goMarketFragment() {
-        setCurrentFragment(MarketFragment.class, null);
+        if(!TextUtils.isEmpty(mTokenId)){
+            Bundle bundle = new Bundle();
+            bundle.putString("go_token",mTokenId);
+            setCurrentFragment(MarketFragment.class, bundle);
+        }else{
+            setCurrentFragment(MarketFragment.class, null);
+        }
+        //setCurrentFragment(MarketFragment.class, null);
     }
 
     public void goValidatorFragment() {
@@ -191,9 +203,11 @@ public class MainPresenter extends BasePresenter {
                 transaction.hide(frg);
 
         if (dstFragment == null) {
-            dstFragment = Fragment.instantiate(getActivity(), fragmentClass.getName(), bundle);
+            dstFragment = Fragment.instantiate(getActivity(), fragmentClass.getName());
+            dstFragment.setArguments(bundle);
             transaction.add(R.id.fl_content, dstFragment, fragmentClass.getSimpleName()).commitAllowingStateLoss();
         } else {
+            dstFragment.setArguments(bundle);
             transaction.show(dstFragment).commitAllowingStateLoss();
         }
 

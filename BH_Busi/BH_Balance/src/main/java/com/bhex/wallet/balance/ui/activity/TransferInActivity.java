@@ -1,48 +1,23 @@
 package com.bhex.wallet.balance.ui.activity;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.observer.BHProgressObserver;
-import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.ColorUtil;
-import com.bhex.tools.utils.FileUtil;
-import com.bhex.tools.utils.PixelUtils;
-import com.bhex.tools.utils.QREncodUtil;
-import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
-import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.ui.fragment.ChooseTokenFragment;
 import com.bhex.wallet.balance.ui.viewhodler.TransferInVH;
-import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.db.entity.BHWallet;
-import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
-import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
-import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
-import com.gyf.immersionbar.ImmersionBar;
-import com.uber.autodispose.AutoDispose;
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import butterknife.BindView;
-import butterknife.OnClick;
-import io.reactivex.Observable;
 
 /**
  * @author gongdongyang

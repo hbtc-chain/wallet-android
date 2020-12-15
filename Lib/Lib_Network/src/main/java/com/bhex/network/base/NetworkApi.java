@@ -12,6 +12,7 @@ import com.bhex.network.interceptor.CommonResponseInterceptor;
 import com.bhex.network.utils.HttpsUtils;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
+import java.net.Proxy;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +23,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.CertificatePinner;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -84,6 +86,15 @@ public abstract class NetworkApi implements IEnvironment {
             okHttpClientBuilder.writeTimeout(15, TimeUnit.SECONDS);//10m秒写入超时
             okHttpClientBuilder.readTimeout(15, TimeUnit.SECONDS);//10秒读取超时
             okHttpClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+            //okHttpClientBuilder.proxy(Proxy.NO_PROXY);
+            /*CertificatePinner certificatePinner = new CertificatePinner.Builder()
+                    //.add("explorer.hbtcchain.io", "sha256/ONUV2iewvbpTvPliXQM1Mol7j9PPZgGYT6/7WhJ0yy0=")
+                    //.add("explorer.hbtcchain.io", "sha256/4H6OXny7MqJPbCOTpHyS0fSSUeHk/I5nKbIyuQwnfsA=")
+                    //.add("hbtc.yym.plus","sha256/ixKU/0n50ikuWT1nWR2RM8rDgI7OBqgYlE4Lh1i2fSQ=")
+                    //.add("hbtc.yym.plus","sha256/jzqM6/58ozsPRvxUzg0hzjM+GcfwhTbU/G0TCDvL7hU=")
+                    .build();
+            okHttpClientBuilder.certificatePinner(certificatePinner);*/
+
             if(BuildConfig.DEBUG){
                 okHttpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
             }

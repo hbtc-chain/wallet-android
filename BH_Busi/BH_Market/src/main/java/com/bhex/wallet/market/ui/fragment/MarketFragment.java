@@ -48,6 +48,7 @@ public class MarketFragment extends JsBowserFragment {
     private H5Sign mH5Sign;
 
     private TransactionViewModel transactionViewModel;
+    private String mTokenId;
 
     @Override
     public int getLayoutId() {
@@ -61,6 +62,7 @@ public class MarketFragment extends JsBowserFragment {
 
     @Override
     protected void initView() {
+        mTokenId = getArgumentValue("go_token");
         super.initView();
         tv_center_title.setText(getString(R.string.tab_trade));
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
@@ -80,10 +82,20 @@ public class MarketFragment extends JsBowserFragment {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTokenId = getArgumentValue("go_token");
+
+        mAgentWeb.getWebCreator().getWebView().loadUrl(getUrl());
+    }
 
     @Override
     public String getUrl() {
-        StringBuffer url = new StringBuffer(BHConstants.MARKET_URL);
+        StringBuffer url = new StringBuffer(BHConstants.MARKET_URL).append("/swap");
+        if(!TextUtils.isEmpty(mTokenId)){
+            url = url.append("/").append(mTokenId);
+        }
         Locale locale = LocalManageUtil.getSetLanguageLocale(getActivity());
         if(locale!=null){
             if(locale.getLanguage().contains("en")){
@@ -132,10 +144,9 @@ public class MarketFragment extends JsBowserFragment {
         }
 
         DexResponse<JSONObject> dexResponse = new DexResponse(ldm.code,ldm.msg);
-        dexResponse.data = com.alibaba.fastjson.JSONObject.parseObject(ldm.getData().toString());
+        dexResponse.data = JSONObject.parseObject(ldm.getData().toString());
         callback.callback(JsonUtils.toJson(dexResponse));
 
-        //
         LogUtils.d("MarketFragment==>:","json=="+JsonUtils.toJson(dexResponse));
         callbackMaps.remove(mH5Sign.type);
     }
@@ -143,5 +154,14 @@ public class MarketFragment extends JsBowserFragment {
     @Override
     public View getBackView() {
         return iv_back;
+    }
+
+
+    private String getArgumentValue(String key){
+        String result = "";
+        if(getArguments()!=null){
+            result = getArguments().getString(key,"1");
+        }
+        return result;
     }
 }

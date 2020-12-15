@@ -1,5 +1,7 @@
 package com.bhex.network.utils;
 
+import com.bhex.network.app.BaseApplication;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -33,6 +35,10 @@ public class HttpsUtils
         public X509TrustManager trustManager;
     }
 
+    public static void getSslSocketFactoryExt(){
+        //BaseApplication.getInstance()
+    }
+
     public static SSLParams getSslSocketFactory(InputStream[] certificates, InputStream bksFile, String password)
     {
         SSLParams sslParams = new SSLParams();
@@ -45,8 +51,8 @@ public class HttpsUtils
             if (trustManagers != null)
             {
                 trustManager = new MyTrustManager(chooseTrustManager(trustManagers));
-            } else
-            {
+            } else{
+
                 trustManager = new UnSafeTrustManager();
             }
             sslContext.init(keyManagers, new TrustManager[]{trustManager},null);
@@ -203,7 +209,6 @@ public class HttpsUtils
             defaultTrustManager = chooseTrustManager(var4.getTrustManagers());
             this.localTrustManager = localTrustManager;
         }
-
 
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException

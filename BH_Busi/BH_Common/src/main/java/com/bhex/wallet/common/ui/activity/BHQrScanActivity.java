@@ -23,13 +23,13 @@ import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.ui.CaptureFragment;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.tools.utils.IntentUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.gyf.immersionbar.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.xuexiang.xutil.app.IntentUtils;
 
 import butterknife.BindView;
 

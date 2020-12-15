@@ -150,7 +150,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         String go_position = intent.getStringExtra("go_position");
-        getPresenter().gotoTarget(mBottomNavigationView,go_position);
+        String go_token  = intent.getStringExtra("go_token");
+        getPresenter().gotoTarget(mBottomNavigationView,go_position,go_token);
     }
 
     @Override

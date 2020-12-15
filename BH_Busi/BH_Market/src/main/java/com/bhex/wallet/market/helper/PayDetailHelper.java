@@ -51,16 +51,16 @@ public class PayDetailHelper {
         流动性_Entitiy v_流动性_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 流动性_Entitiy.class);
 
         BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_流动性_Entitiy.token_a.toLowerCase());
-        if (RegexUtil.checkNumeric(v_流动性_Entitiy.min_token_a_amount)) {
-            double min_token_a_amount = NumberUtil.divide(v_流动性_Entitiy.min_token_a_amount, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
+        if (RegexUtil.checkNumeric(v_流动性_Entitiy.max_token_a_amount)) {
+            double min_token_a_amount = NumberUtil.divide(v_流动性_Entitiy.max_token_a_amount, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
             PayDetailItem item1 = new PayDetailItem(context.getString(R.string.pay_token), NumberUtil.toPlainString(min_token_a_amount) + "  " + v_流动性_Entitiy.token_a.toUpperCase());
             list.add(item1);
         }
 
         BHToken bhToken_b = CacheCenter.getInstance().getSymbolCache().getBHToken(v_流动性_Entitiy.token_b.toLowerCase());
 
-        if (RegexUtil.checkNumeric(v_流动性_Entitiy.min_token_b_amount)) {
-            double min_token_b_amount = NumberUtil.divide(v_流动性_Entitiy.min_token_b_amount, Math.pow(10, bhToken_b.decimals) + "",bhToken_b.decimals);
+        if (RegexUtil.checkNumeric(v_流动性_Entitiy.max_token_b_amount)) {
+            double min_token_b_amount = NumberUtil.divide(v_流动性_Entitiy.max_token_b_amount, Math.pow(10, bhToken_b.decimals) + "",bhToken_b.decimals);
             PayDetailItem item2 = new PayDetailItem(context.getString(R.string.pay_token), NumberUtil.toPlainString(min_token_b_amount) + "  " + v_流动性_Entitiy.token_b.toUpperCase());
             list.add(item2);
         }
@@ -90,8 +90,8 @@ public class PayDetailHelper {
         public int expired_at;
         public String token_a;
         public String token_b;
-        public String min_token_a_amount;
-        public String min_token_b_amount;
+        public String max_token_a_amount;
+        public String max_token_b_amount;
 
 
     }

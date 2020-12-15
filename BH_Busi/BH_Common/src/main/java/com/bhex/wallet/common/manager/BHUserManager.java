@@ -6,12 +6,11 @@ import android.util.ArrayMap;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
-import com.bhex.tools.utils.FileUtil;
+import com.bhex.tools.utils.FileUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.GasFee;
 
@@ -70,7 +69,7 @@ public class BHUserManager {
 
     private void initWord(){
         try{
-            String res = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"en-mnemonic-word-list.txt");
+            String res = FileUtils.loadStringByAssets(BaseApplication.getInstance(),"en-mnemonic-word-list.txt");
             if(!TextUtils.isEmpty(res)){
                 mWordList = Arrays.asList(res.split(" "));
             }
