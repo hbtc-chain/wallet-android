@@ -57,6 +57,9 @@ public abstract class BaseBowserFragment extends BaseFragment {
 
         WebSettings webSettings = mAgentWeb.getAgentWebSettings().getWebSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setLoadWithOverviewMode(true);
+
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         mAgentWeb.getWebCreator().getWebView().setWebViewClient(getWebViewClient(mAgentWeb.getWebCreator().getWebView()));
         String ua = webSettings.getUserAgentString();

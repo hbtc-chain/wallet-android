@@ -72,6 +72,8 @@ public class ETHViewHolder {
             }
         }
         ImageLoaderUtil.loadImageView(mContext,symbolToken.logo,iv_token_icon,R.mipmap.ic_default_coin);
+
+
     }
 
     //显示地址Fragment

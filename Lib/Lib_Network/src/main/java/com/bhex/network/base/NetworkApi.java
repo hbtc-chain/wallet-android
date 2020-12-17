@@ -85,7 +85,7 @@ public abstract class NetworkApi implements IEnvironment {
             okHttpClientBuilder.connectTimeout(15, TimeUnit.SECONDS);//10秒连接超时
             okHttpClientBuilder.writeTimeout(15, TimeUnit.SECONDS);//10m秒写入超时
             okHttpClientBuilder.readTimeout(15, TimeUnit.SECONDS);//10秒读取超时
-            okHttpClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+            //okHttpClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
             //okHttpClientBuilder.proxy(Proxy.NO_PROXY);
             /*CertificatePinner certificatePinner = new CertificatePinner.Builder()
                     //.add("explorer.hbtcchain.io", "sha256/ONUV2iewvbpTvPliXQM1Mol7j9PPZgGYT6/7WhJ0yy0=")

@@ -83,12 +83,10 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
 
         mTokenList = CoinSearchHelper.loadVerifiedToken(mChain);
 
-        LinearLayoutManager lm = new LinearLayoutManager(this);
-        lm.setOrientation(LinearLayoutManager.VERTICAL);
+        /*LinearLayoutManager lm = new LinearLayoutManager(this);
+        lm.setOrientation(LinearLayoutManager.VERTICAL);*/
 
-        mCoinSearchAdapter = new CoinSearchAdapter(mTokenList);
-        recycler_coin.setLayoutManager(lm);
-        recycler_coin.setAdapter(mCoinSearchAdapter);
+        recycler_coin.setAdapter(mCoinSearchAdapter = new CoinSearchAdapter(mTokenList));
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
                 this,LinearLayoutManager.VERTICAL,
@@ -134,7 +132,7 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
     private void updateTokenList(LoadDataModel ldm) {
         mCoinSearchAdapter.getData().clear();
         if(ldm.getLoadingStatus()==LoadingStatus.SUCCESS){
-            if(ldm.getData()==null){
+            if(ldm.getData()==null || ((List<BHToken>)ldm.getData()).size()==0){
                 empty_layout.showNoData();
             }else{
                 empty_layout.loadSuccess();
@@ -187,7 +185,6 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
         if(!TextUtils.isEmpty(search_key)){
             mCoinSearchAdapter.getData().clear();
             mCoinSearchAdapter.notifyDataSetChanged();
-
             empty_layout.showProgess();
             mTokenViewModel.search_token(this,search_key.toLowerCase(),mChain);
         }

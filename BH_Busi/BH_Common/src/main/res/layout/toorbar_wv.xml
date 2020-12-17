@@ -39,11 +39,14 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_center_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:singleLine="true"
             style="@style/toolbar_layout_title_style"
+            android:layout_toRightOf="@+id/iv_back"
+            android:layout_toLeftOf="@+id/iv_refresh"
             />
 
         <androidx.appcompat.widget.AppCompatImageView

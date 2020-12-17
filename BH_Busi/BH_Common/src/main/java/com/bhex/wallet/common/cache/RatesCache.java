@@ -9,6 +9,8 @@ import com.bhex.network.cache.data.CacheResult;
 import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.SimpleObserver;
+import com.bhex.network.utils.HUtils;
+import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
@@ -20,6 +22,7 @@ import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java8.util.stream.StreamSupport;
+import okhttp3.RequestBody;
 
 /**
  * Created by BHEX.
@@ -73,6 +77,9 @@ public class RatesCache extends BaseCache {
         String balacne_list = BHUserManager.getInstance().getSymbolList();
         balacne_list = balacne_list.replace("_",",").toUpperCase();
 
+        /*Map<String,String> params = new HashMap<>();
+        params.put("symbols",balacne_list);
+        RequestBody txBody = HUtils.createFile(JsonUtils.toJson(params));*/
         BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy()))

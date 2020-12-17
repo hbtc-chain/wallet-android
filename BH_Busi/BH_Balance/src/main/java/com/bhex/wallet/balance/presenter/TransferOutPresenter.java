@@ -31,12 +31,10 @@ public class TransferOutPresenter extends BasePresenter {
         String fee_amount = mTransferViewHolder.input_tx_fee.getInputString();
         String available_amount = String.valueOf(mTransferViewHolder.available_amount);
 
-        if(!to_address.toUpperCase().startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
-            ToastUtils.showToast(getActivity().getString(R.string.error_transfer_address));
-            return false;
-        }
         String current_address = BHUserManager.getInstance().getCurrentBhWallet().address;
-        if(current_address.equalsIgnoreCase(to_address)){
+
+
+        if(!to_address.toUpperCase().startsWith(BHConstants.BHT_TOKEN.toUpperCase()) || current_address.equalsIgnoreCase(to_address)){
             ToastUtils.showToast(getActivity().getString(R.string.error_transfer_address));
             return false;
         }
@@ -96,8 +94,22 @@ public class TransferOutPresenter extends BasePresenter {
         }
 
         //提币数量
-        if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0){
+        if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0 ){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.input_withdraw_amount));
+            return false;
+        }
+
+        //提币数量大于可用余额
+        //没有可用余额
+        if(TextUtils.isEmpty(available_amount) || Double.valueOf(available_amount)<=0){
+            ToastUtils.showToast(getActivity().getString(R.string.not_available_amount));
+            return false;
+        }
+
+        //请输入正确的数量，且不大于可用余额{n}
+        if(!RegexUtil.checkNumeric(transfer_amount) || Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
+            String tip_text = String.format(getActivity().getString(R.string.amount_rule),available_amount);
+            ToastUtils.showToast(tip_text);
             return false;
         }
 
@@ -107,28 +119,27 @@ public class TransferOutPresenter extends BasePresenter {
             return false;
         }
 
+        //提币手续费不足
+        //输入的手续费大于可用手续费
+        if(!RegexUtil.checkNumeric(input_withdraw_fee) || Double.valueOf(input_withdraw_fee)>Double.valueOf(available_withdraw_fee)){
+            //ToastUtils.showToast( getActivity().getString(R.string.withdraw_fee_notenough));
+            //String tip_text = String.format(getActivity().getString(R.string.crosss_fee_rule),available_amount);
+            String tip_text = "跨链手续费不能大于"+available_withdraw_fee;
+            ToastUtils.showToast(tip_text);
+            return false;
+        }
+
+        //跨链手续费小于最小提币数量
+        if(!RegexUtil.checkNumeric(input_withdraw_fee) || Double.valueOf(input_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
+            //ToastUtils.showToast( getActivity().getString(R.string.withdraw_fee_notenough));
+            String tip_text = String.format(getActivity().getString(R.string.crosss_fee_rule),min_withdraw_fee);
+            ToastUtils.showToast(tip_text);
+            return false;
+        }
+
         //交易手续费
         if(TextUtils.isEmpty(tx_fee_amount) || Double.valueOf(tx_fee_amount)<=0){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_gasfee));
-            return false;
-        }
-        //提币手续费不足
-        //输入的手续费大于可用手续费
-        if(Double.valueOf(input_withdraw_fee)>Double.valueOf(available_withdraw_fee)){
-            ToastUtils.showToast( getActivity().getString(R.string.withdraw_fee_notenough));
-
-            return false;
-        }
-
-        //可用的手续费 小于 最小手续费
-        if(Double.valueOf(available_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
-            ToastUtils.showToast( getActivity().getString(R.string.withdraw_fee_notenough));
-            return false;
-        }
-
-        //提币手续费小于最小提币数量
-        if(Double.valueOf(input_withdraw_fee)<Double.valueOf(min_withdraw_fee)){
-            ToastUtils.showToast(getActivity().getString(R.string.withdraw_fee_less)+min_withdraw_fee);
             return false;
         }
 
@@ -136,7 +147,7 @@ public class TransferOutPresenter extends BasePresenter {
         if(mTransferViewHolder.tranferToken.symbol.equals(mTransferViewHolder.tranferToken.chain)){
             Double inputAllAmount = NumberUtil.add(transfer_amount,input_withdraw_fee);
             if(Double.valueOf(inputAllAmount) > Double.valueOf(available_amount)){
-                ToastUtils.showToast(getActivity().getString(R.string.error_withdraw_amout_more_available));
+                ToastUtils.showToast(getActivity().getString(R.string.tip_withdraw_amount_error_0));
                 return false;
             }
         }else{
@@ -145,7 +156,6 @@ public class TransferOutPresenter extends BasePresenter {
                 return false;
             }
         }
-
         return true;
     }
 }

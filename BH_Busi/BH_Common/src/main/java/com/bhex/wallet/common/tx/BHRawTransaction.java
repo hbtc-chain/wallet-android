@@ -140,7 +140,7 @@ public class BHRawTransaction {
         String fromUser = BHUserManager.getInstance().getCurrentBhWallet().address;
 
         //mappingAmount
-        BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(coin_symbol.toLowerCase());
+        BHToken bhToken = CacheCenter.getInstance().getTokenMapCache().getBHToken(coin_symbol);
         BigInteger double_swap_amount = NumberUtil.mulExt(String.valueOf(Math.pow(10,bhToken.decimals)),swap_amount);
 
         TxReq.TxMsg<TransactionMsg.MappingSwapMsg> txMsg = new TxReq.TxMsg();

@@ -40,9 +40,9 @@ public interface BHttpApiInterface {
     Observable<JsonObject> loadAccount(@Path("address") String address);
 
     //汇率接口
-    @GET("api/v1/tokenprices")
+    @POST("api/v1/tokenprices")
     Observable<List<BHRates>> loadRates(@Query("symbols") String symbols);
-
+    //Observable<List<BHRates>> loadRates(@Body RequestBody body);
     //查询所有交易记录
 
     /**

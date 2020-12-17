@@ -17,11 +17,14 @@
         android:layout_marginStart="@dimen/main_margin_left"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.bhex.lib.uikit.widget.text.AutoFitTextView
         android:id="@+id/tv_token_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:singleLine="true"
         app:layout_constraintStart_toEndOf="@+id/iv_token_icon"
+        app:layout_constraintEnd_toStartOf="@+id/ck_token"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/tv_token_amount"
         android:layout_marginStart="20dp"

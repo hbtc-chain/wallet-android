@@ -144,9 +144,10 @@ public class SymbolViewHolder {
         }else{
             m_layout_top.findViewById(R.id.iv_target_arrow).setVisibility(View.VISIBLE);
         }
-        BHToken bh_coin_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.coin_symbol);
-        BHToken bh_target_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.target_symbol);
-
+        //BHToken bh_coin_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.coin_symbol);
+        //BHToken bh_target_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.target_symbol);
+        BHToken bh_coin_token = CacheCenter.getInstance().getTokenMapCache().getBHToken(mTokenMapping.coin_symbol);
+        BHToken bh_target_token = CacheCenter.getInstance().getTokenMapCache().getBHToken(mTokenMapping.target_symbol);
         //设置余额
         BHBalance bh_coin_balance = BHBalanceHelper.getBHBalanceFromAccount(bh_coin_token.symbol.toLowerCase());
         tv_coin_balance.setText(context.getString(R.string.balance)+" "+ NumberUtil.dispalyForUsertokenAmount4Level(bh_coin_balance.amount));
@@ -170,14 +171,15 @@ public class SymbolViewHolder {
             tv_target_name.setText(bh_target_token.name.toUpperCase());
         }
         //
-        String tv_rate_str = "1 ".concat(mTokenMapping.coin_symbol.toUpperCase()).concat(" = 1 ").concat(mTokenMapping.target_symbol.toUpperCase());
+        String tv_rate_str = "1 ".concat(tv_coin_name.getText().toString()).concat(" = 1 ").concat(tv_target_name.getText().toString());
         tv_rate.setText(tv_rate_str);
     }
 
     public void updateBalance(Context context){
-        BHToken bh_coin_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.coin_symbol);
-        BHToken bh_target_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.target_symbol);
-
+        //BHToken bh_coin_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.coin_symbol);
+        //BHToken bh_target_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.target_symbol);
+        BHToken bh_coin_token = CacheCenter.getInstance().getTokenMapCache().getBHToken(mTokenMapping.coin_symbol);
+        BHToken bh_target_token = CacheCenter.getInstance().getTokenMapCache().getBHToken(mTokenMapping.target_symbol);
         //设置余额
         BHBalance bh_coin_balance = BHBalanceHelper.getBHBalanceFromAccount(bh_coin_token.symbol.toLowerCase());
         tv_coin_balance.setText(context.getString(R.string.balance)+" "+ NumberUtil.dispalyForUsertokenAmount4Level(bh_coin_balance.amount));

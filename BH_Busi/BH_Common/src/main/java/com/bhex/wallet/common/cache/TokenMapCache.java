@@ -28,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -54,6 +55,7 @@ public class TokenMapCache extends BaseCache {
 
     private List<BHTokenMapping> mTokenMappings = new ArrayList<>();
     private List<BHChain> mChains = new ArrayList<>();
+    public Map<String,BHToken> mTokens = new HashMap<String,BHToken>();
 
     private static volatile TokenMapCache _instance;
 
@@ -106,13 +108,27 @@ public class TokenMapCache extends BaseCache {
                             if(!item.enabled){
                                 continue;
                             }
+                            if(mTokens.get(item.issue_symbol)==null){
+                                mTokens.put(item.issue_symbol,item.issue_token);
+                            }
+
+                            if(mTokens.get(item.target_symbol)==null){
+                                mTokens.put(item.target_symbol,item.target_token);
+                            }
+
                             item.coin_symbol = item.issue_symbol;
                             mTokenMappings.add(item);
                             BHTokenMapping reverseItem = new BHTokenMapping(item.target_symbol,item.issue_symbol,item.issue_symbol,item.total_supply,item.issue_pool,item.enabled);
+                            reverseItem.issue_token = item.issue_token;
+                            reverseItem.coin_symbol = item.target_symbol;
+
                             mTokenMappings.add(reverseItem);
                         }
 
-                        LogUtils.d("TokenMapCache==>:","=mTokenMappings="+mTokenMappings.size());
+                        //请求token信息
+
+
+                        //LogUtils.d("TokenMapCache==>:","=mTokenMappings="+mTokenMappings.size());
                     }
 
 
@@ -158,7 +174,6 @@ public class TokenMapCache extends BaseCache {
         BHBaseObserver observer = new BHBaseObserver<GasFee>() {
             @Override
             protected void onSuccess(GasFee gasFee) {
-                LogUtils.d("TOkenMapCache===",gasFee.fee+"==gasFee=="+gasFee.displayFee);
                 BHUserManager.getInstance().gasFee = new GasFee(gasFee.fee,gasFee.gas);
             }
 
@@ -210,10 +225,6 @@ public class TokenMapCache extends BaseCache {
                 return item;
             }
         }
-        /* RefStreams.of(mTokenMappings).filter(item->{
-             item.coin_symbol.equalsIgnoreCase(symbol);
-        }).collect();*/
-
         return null;
     }
 
@@ -226,5 +237,9 @@ public class TokenMapCache extends BaseCache {
             maps.put(item.coin_symbol,item);
         }
         return new ArrayList<>(maps.values());
+    }
+
+    public  synchronized BHToken getBHToken(String symbol){
+        return mTokens.get(symbol);
     }
 }

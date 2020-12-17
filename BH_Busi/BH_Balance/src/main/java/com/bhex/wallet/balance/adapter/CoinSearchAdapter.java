@@ -34,7 +34,7 @@ public class CoinSearchAdapter extends BaseQuickAdapter<BHToken, BaseViewHolder>
     protected void convert(@NotNull BaseViewHolder viewHolder,
                            @Nullable BHToken coin) {
 
-        viewHolder.setText(R.id.tv_coin_name,coin.symbol.toUpperCase());
+        viewHolder.setText(R.id.tv_coin_name,coin.name.toUpperCase());
 
         AppCompatCheckedTextView ck = viewHolder.getView(R.id.ck_select);
         ck.setChecked(false);

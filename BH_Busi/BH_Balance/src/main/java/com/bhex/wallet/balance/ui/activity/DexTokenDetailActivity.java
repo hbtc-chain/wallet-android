@@ -15,10 +15,13 @@ import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.event.RequestTokenEvent;
 import com.bhex.wallet.common.menu.MenuItem;
 import com.bhex.wallet.common.menu.MenuListFragment;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -77,6 +80,8 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
             Intent intent = new Intent(this, postcard.getDestination());
             intent.putExtras(postcard.getExtras());
             startActivity(intent);
+            EventBus.getDefault().post(new RequestTokenEvent(symbol));
+
         }/*else if(view.getId() == R.id.cross_chian_transfer_in){
             ArrayList<MenuItem> list = BHBalanceHelper.loadCrossActionList(this);
             MenuListFragment menuFragment = MenuListFragment.newInstance(list);

@@ -15,9 +15,12 @@ import com.bhex.wallet.balance.ui.activity.ChainTokenActivity;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.event.RequestTokenEvent;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHTokenMapping;
 import com.google.android.material.button.MaterialButton;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * @author gongdongyang
@@ -120,6 +123,7 @@ public class ChainBottomLayoutVH {
             Intent intent = new Intent(activity, postcard.getDestination());
             intent.putExtras(postcard.getExtras());
             activity.startActivity(intent);
+            EventBus.getDefault().post(new RequestTokenEvent(mSymbol));
         }
 
         //兑换

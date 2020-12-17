@@ -254,7 +254,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             fragment.showNow(getChildFragmentManager(), UpdateNameFragment.class.getName());
         }else if(view.getId()==R.id.layout_index_2){
             //ARouter.getInstance().build(ARouterConfig.Token_Release).navigation();
-            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url","https://baidu.com").navigation();
+            //ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url","https://baidu.com").navigation();
+            ToastUtils.showToast("跳转交易记录");
         } else if(view.getId()==R.id.layout_index_3){
             ARouter.getInstance().build(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE).navigation();
         }

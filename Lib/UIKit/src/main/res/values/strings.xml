@@ -150,7 +150,7 @@
     <string name="linkinner_withdraw_tip_2">·请务必使用链内的转账通道</string>
     <string name="linkinner_withdraw_tip_3">·请务必确认转账地址以 HBC 为开端</string>
     <string name="transfer_fee">交易手续费</string>
-    <string name="withdraw_fee">提币手续费</string>
+    <string name="withdraw_fee">跨链手续费</string>
     <string name="BH_token">HBC</string>
     <string name="trusteeship_address">账户地址</string>
     <string name="address">地址</string>
@@ -325,6 +325,7 @@
     <string name="error_transfer_amout_more_available">转账数量大于可用余额</string>
     <string name="error_withdraw_amout_more_available">提币数量大于可用余额</string>
     <string name="tip_transferout_amount_error_0">转账数量与手续费之和大于可用余额</string>
+    <string name="tip_withdraw_amount_error_0">提币数量与手续费之和大于可用余额</string>
     <string name="tip_transferout_amount_error">转账数量不能大于可用数量</string>
     <string name="qr_code">二维码</string>
     <string name="hint_input_exchange_fee">请输入交易手续费</string>
@@ -428,6 +429,10 @@
     <string name="token_count_more_100B">代币发行量不能超过1000亿</string>
     <string name="withdraw_fee_less">提币手续费不能小于</string>
     <string name="withdraw_fee_notenough">提币手续费不足</string>
+    <string name="fee_notenough">手续费不足</string>
+    <string name="entrust_amount_more_avilable">委托数量不能大于可用数量</string>
+    <string name="amount_rule">请输入正确的数量，且不大于可用余额%1$s</string>
+    <string name="crosss_fee_rule">跨链手续费需为数字，且不能小于%1$s</string>
     <string name="not_enough">没有足够的</string>
     <string name="all">全部</string>
     <string name="no_profit">暂无收益</string>

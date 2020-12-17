@@ -3,6 +3,7 @@ package com.bhex.wallet.balance.ui.fragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,9 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.EmptyLayout;
+import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.utils.ColorUtil;
@@ -88,6 +92,13 @@ public class ChooseTokenFragment extends BaseDialogFragment {
         mDatas = BHBalanceHelper.loadTokenList(mOrigin);
         rec_token_list.setAdapter(mChooseTokenAdapter = new ChooseTokenAdapter(mDatas,mSymbol));
 
+        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
+                getContext(), LinearLayoutManager.VERTICAL,
+                PixelUtils.dp2px(getActivity(),65),0,
+                ColorUtil.getColor(getContext(),R.color.dialog_fragment_divider_color));
+
+        rec_token_list.addItemDecoration(ItemDecoration);
+
         mChooseTokenAdapter.setOnItemClickListener(this::onItemClick);
     }
 
@@ -105,6 +116,11 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     boolean isAsc = true;
     @Override
     protected void initView() {
+        //设置背景色
+        GradientDrawable bg_drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getActivity(),16),
+                ColorUtil.getColor(getActivity(),R.color.dialog_fragment_background),true,0);
+        mRootView.setBackground(bg_drawable);
+
         iv_close = mRootView.findViewById(R.id.iv_close);
         empty_layout = mRootView.findViewById(R.id.empty_layout);
         input_search_content = mRootView.findViewById(R.id.input_search_content);

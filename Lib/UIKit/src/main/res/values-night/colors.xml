@@ -53,6 +53,7 @@
     <!--全局的色值-->
     <!--分割线颜色-->
     <color name="global_divider_color">#222D42</color>
+    <color name="dialog_fragment_divider_color">#475563</color>
 
 
     <color name="proposal_desc_length_text">#6E8196</color>

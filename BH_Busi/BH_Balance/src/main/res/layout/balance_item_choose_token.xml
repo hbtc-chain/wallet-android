@@ -33,17 +33,19 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_token_id"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:singleLine="true"
         app:layout_constraintStart_toStartOf="@+id/tv_token_name"
-        app:layout_constraintRight_toLeftOf="@+id/tv_token_amount"
+        app:layout_constraintEnd_toStartOf="@+id/tv_token_amount"
         app:layout_constraintTop_toBottomOf="@+id/tv_token_name"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="10dp"
         android:textColor="@color/global_label_text_color"
         android:textSize="13sp"
         android:textAllCaps="true"
-        tools:text="余额：1.12345678余额：1.12345678余额：1.12345678余额：1.12345678余额：1.12345678余额：1.12345678"/>
+        android:ellipsize="middle"
+        tools:text="余额：1.12345678余额：1.12345678余额："/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_token_price"
@@ -60,8 +62,9 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_token_amount"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="right"
         app:layout_constraintEnd_toEndOf="@+id/tv_token_price"
         app:layout_constraintTop_toBottomOf="@+id/tv_token_price"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,5 +86,12 @@
         />-->
 
 
-
+    <!--<View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/global_divider_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_token_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

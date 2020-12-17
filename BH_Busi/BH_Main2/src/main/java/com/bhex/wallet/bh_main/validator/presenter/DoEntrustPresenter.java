@@ -29,13 +29,19 @@ public class DoEntrustPresenter extends BasePresenter {
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
-            return false;
-        }
 
         if(TextUtils.isEmpty(available_amount) || !RegexUtil.checkNumeric(available_amount)){
             ToastUtils.showToast(getActivity().getString(R.string.not_available_amount));
+            return false;
+        }
+        //委托数量不能大于可用
+        if(!TextUtils.isEmpty(transfer_amount) && Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
+            ToastUtils.showToast(getActivity().getString(R.string.entrust_amount_more_avilable));
+            return false;
+        }
+
+        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
+            ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
             return false;
         }
 
@@ -55,6 +61,11 @@ public class DoEntrustPresenter extends BasePresenter {
                 return false;
             }
 
+            if(Double.valueOf(transfer_amount) >Double.valueOf(relive_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount_max));
+                return false;
+            }
+
             if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
                 ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
                 return false;
@@ -65,16 +76,11 @@ public class DoEntrustPresenter extends BasePresenter {
                 return false;
             }
             if(available_amount==null || !RegexUtil.checkNumeric(available_amount)){
-                ToastUtils.showToast(getActivity().getString(R.string.not_available_gasfee));
+                ToastUtils.showToast(getActivity().getString(R.string.fee_notenough));
                 return false;
             }
             if(Double.valueOf(fee_amount) > Double.valueOf(available_amount)){
-                ToastUtils.showToast(getActivity().getString(R.string.check_fee_max));
-                return false;
-            }
-
-            if(Double.valueOf(transfer_amount) >Double.valueOf(relive_amount)){
-                ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount_max));
+                ToastUtils.showToast(getActivity().getString(R.string.fee_notenough));
                 return false;
             }
         }catch (Exception e){

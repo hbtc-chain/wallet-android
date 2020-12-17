@@ -326,11 +326,12 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         String fee = ed_entrust_fee.getInputString();
         if(mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()){
             String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-            ed_entrust_amount.getEditText().setText(all_count);
+            ed_entrust_amount.setInputString(all_count);
         }else if(mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()){
             String all_count = String.valueOf(available_amount);
-            ed_entrust_amount.getEditText().setText(all_count);
+            ed_entrust_amount.setInputString(all_count);
         }
+        //ed_entrust_amount.getEditText().setSelection(ed_entrust_amount.getInputString().length());
     };
 
     private void updateAssets(AccountInfo data) {

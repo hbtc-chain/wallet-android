@@ -4,6 +4,7 @@
     <!--全局的色值-->
     <!--分割线颜色-->
     <color name="global_divider_color">#F4F7FF</color>
+    <color name="dialog_fragment_divider_color">#F4F7FF</color>
     <color name="grid_divider_color">#E7ECF4</color>
     <color name="dash_divider_color">#ACB5C3</color>
 

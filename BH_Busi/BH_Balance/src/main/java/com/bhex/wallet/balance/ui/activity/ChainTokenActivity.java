@@ -2,6 +2,7 @@ package com.bhex.wallet.balance.ui.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -46,6 +47,7 @@ import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHChain;
+import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
@@ -135,10 +137,14 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     //设置地址
     private void setTokenAddress() {
         mETHViewHolder.initViewContent(mBalance);
-
-        findViewById(R.id.btn_apply_token).setOnClickListener(v -> {
-            applyTestToken();
-        });
+        /*if(bhChain.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+            findViewById(R.id.btn_apply_token).setVisibility(View.VISIBLE);
+            findViewById(R.id.btn_apply_token).setOnClickListener(v -> {
+                applyTestToken();
+            });
+        }else{
+            findViewById(R.id.btn_apply_token).setVisibility(View.GONE);
+        }*/
     }
 
     @Override

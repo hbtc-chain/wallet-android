@@ -18,6 +18,7 @@ import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.browse.wv.WVJBWebViewClient;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.AccountEvent;
+import com.bhex.wallet.common.event.RequestTokenEvent;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
 import com.bhex.wallet.market.event.H5SignEvent;
@@ -82,13 +83,12 @@ public class MarketFragment extends JsBowserFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
         mTokenId = getArgumentValue("go_token");
-
         mAgentWeb.getWebCreator().getWebView().loadUrl(getUrl());
-    }
+    }*/
 
     @Override
     public String getUrl() {
@@ -120,6 +120,11 @@ public class MarketFragment extends JsBowserFragment {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void requestToken(RequestTokenEvent tokenEvent){
+        mTokenId = tokenEvent.mToken;
+        mAgentWeb.getUrlLoader().loadUrl(getUrl());
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeAccount(AccountEvent walletEvent){

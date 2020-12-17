@@ -7,6 +7,48 @@
     android:orientation="vertical"
     tools:context=".validator.ui.activity.ValidatorIndexActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#316BFA"
+        >
+
+        <com.bhex.lib.uikit.widget.StatusBarView
+            android:id="@+id/status_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/bg_trans"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toBottomOf="@+id/status_bar"
+            app:navigationIcon="@mipmap/icon_back_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar_textsize"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_center_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                style="@style/toolbar_layout_title_white_style"
+                android:text="@string/wallet_create_trusteeship"
+                tools:text="@string/wallet_create_trusteeship"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </LinearLayout>
+
     <com.bhex.lib.uikit.widget.viewpager.ObservableScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
@@ -58,4 +100,7 @@
                 />
         </LinearLayout>
         </com.bhex.lib.uikit.widget.viewpager.ObservableScrollView>
+
+
+
 </LinearLayout>

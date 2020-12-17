@@ -226,7 +226,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         marqueeFactory.setOnItemClickListener((view, holder) -> {
             //holder.getData().
-            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url","https://baidu.com").navigation();
+            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",holder.getData().jump_url).navigation();
         });
 
     }

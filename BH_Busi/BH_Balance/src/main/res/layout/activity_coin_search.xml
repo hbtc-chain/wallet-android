@@ -68,7 +68,10 @@
                 android:id="@+id/recycler_coin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/main_margin_top">
+                android:layout_marginTop="@dimen/main_margin_top"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_seach_coin"
+                >
             </androidx.recyclerview.widget.RecyclerView>
 
             <com.bhex.lib.uikit.widget.EmptyLayout

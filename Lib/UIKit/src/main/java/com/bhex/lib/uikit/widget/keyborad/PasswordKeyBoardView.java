@@ -105,8 +105,9 @@ public class PasswordKeyBoardView extends KeyboardView  {
             return false;
         });
 
-        /*ToolUtils.hideSystemSofeKeyboard(activity,et);
-        showMyKeyBoard();*/
+        ToolUtils.hideSystemSofeKeyboard(activity,et);
+        showMyKeyBoard();
+        mCurrentEditText = mEditTextArrays.valueAt(0);
     }
 
     @Override

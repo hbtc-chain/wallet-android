@@ -122,7 +122,18 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         });
 
         mTrustManagerAdapter.setOnItemClickListener((adapter, view, position) -> {
+            BHWalletItem bhWalletItem = mTrustManagerAdapter.getData().get(position);
+            if(bhWalletItem.isDefault==BH_BUSI_TYPE.默认托管单元.getIntValue()){
+                BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
+                walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,bhWalletItem.isDefault);
+            }else{
+                int status = (bhWalletItem.isDefault==BH_BUSI_TYPE.非默认托管单元.getIntValue())
+                        ? BH_BUSI_TYPE.默认托管单元.getIntValue()
+                        : BH_BUSI_TYPE.非默认托管单元.getIntValue();
 
+                BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
+                walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
+            }
         });
     }
 
@@ -150,7 +161,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         }
     }
 
-    @Override
+    /*@Override
     public void checkClickListener(final int position, BHWalletItem bhWalletItem) {
         if(bhWalletItem.isDefault==BH_BUSI_TYPE.默认托管单元.getIntValue()){
             BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
@@ -163,7 +174,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
             walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
         }
-    }
+    }*/
 
     @Override
     public void onMenuClickListener(int position, BHWalletItem bhWalletItem) {

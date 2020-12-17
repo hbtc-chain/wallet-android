@@ -58,10 +58,13 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
     @Override
     protected void initView() {
         tv_center_title.setText(getResources().getString(R.string.import_keystore));
-        et_keystore.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        et_keystore.setInputType(InputType.TYPE_CLASS_TEXT);
         et_keystore.setGravity(Gravity.TOP);
         et_keystore.setSingleLine(false);
         et_keystore.setHorizontallyScrolling(false);
+
+
+        inp_origin_pwd.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     @Override
