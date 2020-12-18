@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bhex.lib.uikit.widget.GradientTabLayout;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.mnemonic.R;

@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.app.BaseApplication;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.crypto.CryptoUtil;

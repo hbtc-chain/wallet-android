@@ -7,8 +7,8 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.widget.InputView;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;

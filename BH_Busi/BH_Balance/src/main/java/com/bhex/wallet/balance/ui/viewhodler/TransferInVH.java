@@ -57,9 +57,9 @@ public class TransferInVH {
         this.mWay = way;
     }
 
-    public void initContnetView(String symbol){
+    public void initContnetView(String symbol,int way){
         this.mSymbol = symbol;
-
+        this.mWay = way;
         AppCompatImageView iv_qr_code = mRootView.findViewById(R.id.iv_qr_code);
         AppCompatTextView tv_account_label = mRootView.findViewById(R.id.tv_account_label);
         AppCompatTextView tv_account_label_1 = mRootView.findViewById(R.id.tv_account_label_1);
@@ -83,10 +83,9 @@ public class TransferInVH {
         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         //BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
         BHToken token = SymbolCache.getInstance().getBHToken(mSymbol);
-        BHBalance chainBalance= BHBalanceHelper.getBHBalanceFromAccount(token.chain);
+        BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(token.chain);
         BHToken hbcToken = SymbolCache.getInstance().getBHToken(BHConstants.BHT_TOKEN);
         //设置币种logo
-        //BHBalanceHelper.loadTokenIcon(mSymbol,iv_coin_ic,token.symbol);
         ImageLoaderUtil.loadImageView(mActivity,token.logo,iv_coin_ic,R.mipmap.ic_default_coin);
         //设置跨链地址
         if(!token.chain.toLowerCase().equals(BHConstants.BHT_TOKEN) && mWay == BH_BUSI_TYPE.链内转账.getIntValue()){
@@ -102,6 +101,10 @@ public class TransferInVH {
             btn_switch_address.setText(mActivity.getResources().getString(R.string.switch_cross_link_address));
             btn_switch_address.setVisibility(View.VISIBLE);
             iv_switch_address_icon.setVisibility(View.VISIBLE);
+            if(TextUtils.isEmpty(chainBalance.external_address)){
+                btn_switch_address.setVisibility(View.INVISIBLE);
+                iv_switch_address_icon.setVisibility(View.INVISIBLE);
+            }
         }else if(!token.chain.toLowerCase().equals(BHConstants.BHT_TOKEN) && mWay == BH_BUSI_TYPE.跨链转账.getIntValue()){
             btn_switch_address.setText(mActivity.getResources().getString(R.string.switch_hbtc_address));
             btn_switch_address.setVisibility(View.VISIBLE);
@@ -127,6 +130,12 @@ public class TransferInVH {
             deposit_address = chainBalance.external_address;
             //tv_account_label.setText(mActivity.getResources().getString(R.string.cross_link_trusteeship_address));
             //mRootView.setBackgroundColor(ContextCompat.getColor(mActivity,R.color.tranfer_in_out_bg));
+        }
+
+        if(TextUtils.isEmpty(deposit_address)){
+            //mWay = BH_BUSI_TYPE.链内转账.getIntValue();
+            initContnetView(mSymbol,BH_BUSI_TYPE.链内转账.getIntValue());
+            return;
         }
 
         if(token.chain.toLowerCase().equals(BHConstants.BHT_TOKEN)){

@@ -1,4 +1,4 @@
-package com.bhex.network.mvx.base;
+package com.bhex.wallet.common.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,8 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.bhex.network.R;
-import com.bhex.tools.constants.BHConstants;
-import com.gyf.immersionbar.ImmersionBar;
+import com.bhex.wallet.common.base.BasePresenter;
 
 import butterknife.ButterKnife;
 

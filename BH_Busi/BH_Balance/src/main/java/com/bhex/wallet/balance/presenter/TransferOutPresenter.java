@@ -2,8 +2,8 @@ package com.bhex.wallet.balance.presenter;
 
 import android.text.TextUtils;
 
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;

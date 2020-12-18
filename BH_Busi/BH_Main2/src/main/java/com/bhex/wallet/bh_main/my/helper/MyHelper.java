@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.PackageUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;

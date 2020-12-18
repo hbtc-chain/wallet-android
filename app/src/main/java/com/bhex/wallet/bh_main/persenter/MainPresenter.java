@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.R;

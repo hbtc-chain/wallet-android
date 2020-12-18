@@ -14,9 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
@@ -24,6 +26,9 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ToolUtils;
+import com.bhex.wallet.common.db.AppDataBase;
+import com.bhex.wallet.common.db.dao.BHTokenDao;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
@@ -31,6 +36,7 @@ import com.bhex.wallet.market.event.H5SignEvent;
 import com.bhex.wallet.market.helper.PayDetailHelper;
 import com.bhex.wallet.market.model.H5Sign;
 import com.bhex.wallet.market.model.PayDetailItem;
+import com.bhex.wallet.market.viewmodel.PayDetailViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.google.android.material.button.MaterialButton;
@@ -50,15 +56,14 @@ import butterknife.OnClick;
  */
 public class PayDetailFragment extends BaseDialogFragment {
 
-    /*@BindView(R2.id.tv_pay_info)
-    AppCompatTextView tv_pay_info;*/
     @BindView(R2.id.tv_pay_origin)
     AppCompatTextView tv_pay_origin;
     @BindView(R2.id.rec_pay)
     RecyclerView rec_pay;
     @BindView(R2.id.btn_confrim)
     MaterialButton btn_confrim;
-
+    @BindView(R2.id.empty_layout)
+    EmptyLayout empty_layout;
 
     private H5Sign mH5Sign;
 
@@ -67,6 +72,9 @@ public class PayDetailFragment extends BaseDialogFragment {
     private PayDetailAdapter mPayDetailAdapter;
 
     //private TransactionViewModel transactionViewModel;
+    private PayDetailViewModel payDetailViewModel;
+
+
     @Override
     public int getLayout() {
         return R.layout.fragment_pay_detail;
@@ -75,6 +83,7 @@ public class PayDetailFragment extends BaseDialogFragment {
     @Override
     public void onStart() {
         super.onStart();
+        //setStyle(STYLE_NO_FRAME,R.style.DuobaoDialog);
         Window window = getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.bottomDialogStyle;
@@ -92,19 +101,37 @@ public class PayDetailFragment extends BaseDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        GradientDrawable drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getContext(), 6), ColorUtil.getColor(getContext(), R.color.app_bg), true, 0);
+        GradientDrawable drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getContext(), 6),
+                ColorUtil.getColor(getContext(), R.color.app_bg), true, 0);
         mRootView.setBackground(drawable);
         view.findViewById(R.id.iv_close).setOnClickListener(v -> {
             dismiss();
         });
 
         tv_pay_origin.setText(BHConstants.MARKET_URL);
+        //mDatas = PayDetailHelper.loadPayItemByType(getContext(), mH5Sign);
+        //rec_pay.setAdapter(mPayDetailAdapter = new PayDetailAdapter(mDatas));
+
+        //请求币种信息
+        //
+        List<String> tokenList = PayDetailHelper.loadPayItemToken(getContext(),mH5Sign);
+        payDetailViewModel = ViewModelProviders.of(this).get(PayDetailViewModel.class);
+        payDetailViewModel.tokenLiveData.observe(this,ldm->{
+            updateTokenDetail();
+        });
+
+        if(!ToolUtils.checkListIsEmpty(tokenList)){
+            payDetailViewModel.queryTokenDetail(this,tokenList);
+        }else{
+            updateTokenDetail();
+        }
+
+    }
+
+    private void updateTokenDetail() {
+        empty_layout.loadSuccess();
         mDatas = PayDetailHelper.loadPayItemByType(getContext(), mH5Sign);
-        mPayDetailAdapter = new PayDetailAdapter(mDatas);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rec_pay.setLayoutManager(llm);
-        rec_pay.setAdapter(mPayDetailAdapter);
+        rec_pay.setAdapter(mPayDetailAdapter = new PayDetailAdapter(mDatas));
     }
 
     public static PayDetailFragment newInstance() {

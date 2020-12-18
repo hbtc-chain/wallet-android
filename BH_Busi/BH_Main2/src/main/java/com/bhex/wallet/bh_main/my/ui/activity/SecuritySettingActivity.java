@@ -10,7 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.SecuritySettingAdapter;

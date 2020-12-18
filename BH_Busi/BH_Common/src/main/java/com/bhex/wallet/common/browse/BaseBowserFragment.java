@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import androidx.core.content.ContextCompat;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.R;

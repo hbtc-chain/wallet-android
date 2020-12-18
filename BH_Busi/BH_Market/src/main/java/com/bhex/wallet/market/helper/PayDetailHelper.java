@@ -9,6 +9,7 @@ import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHToken;
@@ -25,6 +26,36 @@ import java.util.List;
  */
 public class PayDetailHelper {
 
+    public static List<String> loadPayItemToken(Context context, H5Sign h5Sign) {
+        try{
+            List<String> list = new ArrayList<>();
+            if (h5Sign.type.equals(TRANSCATION_BUSI_TYPE.添加流动性.getType())) {
+                流动性_Entitiy v_流动性_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 流动性_Entitiy.class);
+                if(SymbolCache.getInstance().getBHToken(v_流动性_Entitiy.token_a.toLowerCase())==null){
+                    list.add(v_流动性_Entitiy.token_a.toLowerCase());
+                }
+                if(SymbolCache.getInstance().getBHToken(v_流动性_Entitiy.token_b.toLowerCase())==null){
+                    list.add(v_流动性_Entitiy.token_b.toLowerCase());
+                }
+            }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.兑换_输入确定.getType())){
+                兑换_Entitiy v_兑换_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 兑换_Entitiy.class);
+                if(SymbolCache.getInstance().getBHToken(v_兑换_Entitiy.swap_path.get(0).toLowerCase())==null){
+                    list.add(v_兑换_Entitiy.swap_path.get(0).toLowerCase());
+                }
+            }else if(h5Sign.type.equals(TRANSCATION_BUSI_TYPE.兑换_输出确定.getType())){
+                兑换_输出确定_Entity v_兑换_输出确定_Entity = JsonUtils.fromJson(h5Sign.value.toString(), 兑换_输出确定_Entity.class);
+                if(SymbolCache.getInstance().getBHToken(v_兑换_输出确定_Entity.swap_path.get(0).toLowerCase())==null){
+                    list.add(v_兑换_输出确定_Entity.swap_path.get(0).toLowerCase());
+                }
+            }
+            return list;
+        }catch (Exception e){
+            return null;
+        }
+
+    }
+
+
     public static List<PayDetailItem> loadPayItemByType(Context context, H5Sign h5Sign) {
         try{
             List<PayDetailItem> list = null;
@@ -39,6 +70,7 @@ public class PayDetailHelper {
             }
             return list;
         }catch (Exception e){
+            e.printStackTrace();
             return null;
         }
         
@@ -51,7 +83,7 @@ public class PayDetailHelper {
         流动性_Entitiy v_流动性_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 流动性_Entitiy.class);
 
         BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_流动性_Entitiy.token_a.toLowerCase());
-        if (RegexUtil.checkNumeric(v_流动性_Entitiy.max_token_a_amount)) {
+        if (RegexUtil.checkNumeric(v_流动性_Entitiy.max_token_a_amount) && bhToken_a!=null) {
             double min_token_a_amount = NumberUtil.divide(v_流动性_Entitiy.max_token_a_amount, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
             PayDetailItem item1 = new PayDetailItem(context.getString(R.string.pay_token), NumberUtil.toPlainString(min_token_a_amount) + "  " + v_流动性_Entitiy.token_a.toUpperCase());
             list.add(item1);
@@ -59,7 +91,7 @@ public class PayDetailHelper {
 
         BHToken bhToken_b = CacheCenter.getInstance().getSymbolCache().getBHToken(v_流动性_Entitiy.token_b.toLowerCase());
 
-        if (RegexUtil.checkNumeric(v_流动性_Entitiy.max_token_b_amount)) {
+        if (RegexUtil.checkNumeric(v_流动性_Entitiy.max_token_b_amount) && bhToken_b!=null) {
             double min_token_b_amount = NumberUtil.divide(v_流动性_Entitiy.max_token_b_amount, Math.pow(10, bhToken_b.decimals) + "",bhToken_b.decimals);
             PayDetailItem item2 = new PayDetailItem(context.getString(R.string.pay_token), NumberUtil.toPlainString(min_token_b_amount) + "  " + v_流动性_Entitiy.token_b.toUpperCase());
             list.add(item2);
@@ -104,10 +136,13 @@ public class PayDetailHelper {
         兑换_Entitiy v_兑换_Entitiy = JsonUtils.fromJson(h5Sign.value.toString(), 兑换_Entitiy.class);
         BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_兑换_Entitiy.swap_path.get(0).toLowerCase());
 
-        double amount_in = NumberUtil.divide(v_兑换_Entitiy.amount_in, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
-        String amount_int_info = NumberUtil.toPlainString(amount_in).concat(v_兑换_Entitiy.swap_path.get(0).toUpperCase());
-        PayDetailItem item1 = new PayDetailItem(context.getString(R.string.payment_amount),amount_int_info);
-        list.add(item1);
+        if(bhToken_a!=null){
+            double amount_in = NumberUtil.divide(v_兑换_Entitiy.amount_in, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
+            String amount_int_info = NumberUtil.toPlainString(amount_in).concat(v_兑换_Entitiy.swap_path.get(0).toUpperCase());
+            PayDetailItem item1 = new PayDetailItem(context.getString(R.string.payment_amount),amount_int_info);
+            list.add(item1);
+        }
+
         
         PayDetailItem item2 = new PayDetailItem(context.getString(R.string.payment_address), v_兑换_Entitiy.from);
         list.add(item2);
@@ -148,10 +183,13 @@ public class PayDetailHelper {
         兑换_输出确定_Entity v_兑换_输出确定_Entity = JsonUtils.fromJson(h5Sign.value.toString(), 兑换_输出确定_Entity.class);
         BHToken bhToken_a = CacheCenter.getInstance().getSymbolCache().getBHToken(v_兑换_输出确定_Entity.swap_path.get(0).toLowerCase());
 
-        double max_amount_in = NumberUtil.divide(v_兑换_输出确定_Entity.max_amount_in, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
-        String max_amount_in_info = NumberUtil.toPlainString(max_amount_in).concat(v_兑换_输出确定_Entity.swap_path.get(0).toUpperCase());
-        PayDetailItem item1 = new PayDetailItem(context.getString(R.string.payment_amount),max_amount_in_info);
-        list.add(item1);
+        if(bhToken_a!=null){
+            double max_amount_in = NumberUtil.divide(v_兑换_输出确定_Entity.max_amount_in, Math.pow(10, bhToken_a.decimals) + "",bhToken_a.decimals);
+            String max_amount_in_info = NumberUtil.toPlainString(max_amount_in).concat(v_兑换_输出确定_Entity.swap_path.get(0).toUpperCase());
+            PayDetailItem item1 = new PayDetailItem(context.getString(R.string.payment_amount),max_amount_in_info);
+            list.add(item1);
+        }
+
 
         PayDetailItem item2 = new PayDetailItem(context.getString(R.string.payment_address), v_兑换_输出确定_Entity.from);
         list.add(item2);

@@ -1,5 +1,6 @@
 package com.bhex.wallet.balance.ui.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatTextView;
@@ -7,14 +8,16 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
+import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.ui.fragment.ChooseTokenFragment;
 import com.bhex.wallet.balance.ui.viewhodler.TransferInVH;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 
 import butterknife.BindView;
@@ -36,15 +39,11 @@ public class TransferInActivity extends BaseActivity {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
-
     //BHWallet mCurrentWallet;
 
     BHToken mSymbolToken;
 
-
-
     public TransferInVH mTransferInVH;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_transfer_in_ext;
@@ -56,7 +55,7 @@ public class TransferInActivity extends BaseActivity {
         mSymbolToken = SymbolCache.getInstance().getBHToken(symbol);
         findViewById(R.id.layout_ring).bringToFront();
         mTransferInVH = new TransferInVH(findViewById(R.id.root_view),this,symbol,way);
-        mTransferInVH.initContnetView(symbol);
+        mTransferInVH.initContnetView(symbol,way);
     }
 
     @Override
@@ -100,9 +99,19 @@ public class TransferInActivity extends BaseActivity {
         @Override
         public void onChooseClickListener(String symbol, int position) {
             //更新token
+            /*BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(symbol);
+            if(!TextUtils.isEmpty(balance.external_address)){
+                TransferInActivity.this.symbol = symbol;
+                //updateViewContent();
+                mTransferInVH.initContnetView(symbol);
+            }else{
+                ARouter.getInstance()
+                        .build(ARouterConfig.Balance.Balance_cross_address)
+                        .withString("symbol",symbol).navigation();
+            }*/
             TransferInActivity.this.symbol = symbol;
             //updateViewContent();
-            mTransferInVH.initContnetView(symbol);
+            mTransferInVH.initContnetView(symbol,way);
         }
     };
 

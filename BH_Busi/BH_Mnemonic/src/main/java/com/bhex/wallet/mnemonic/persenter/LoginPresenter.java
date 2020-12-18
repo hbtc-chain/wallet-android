@@ -4,8 +4,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.RegexUtil;

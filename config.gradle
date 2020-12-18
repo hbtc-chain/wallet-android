@@ -10,7 +10,7 @@ ext {
             applicationId    : "com.hbtc.wallet",
             minSdkVersion    : 21,
             targetSdkVersion : 29,
-            versionCode      : 552,
+            versionCode      : 553,
             versionName      : "1.2.0"
 
     ]

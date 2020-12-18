@@ -26,19 +26,16 @@ public abstract class JsBowserFragment extends BaseBowserFragment {
             }));
 
             registerHandler("connect",(data,callback)->{
-                LogUtils.d("JsBowserFragment==>:","==connect==");
+                //LogUtils.d("JsBowserFragment==>:","==connect==");
                 DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
                 callback.callback(JsonUtils.toJson(dexResponse));
             });
 
             registerHandler("get_account",(data,callback) -> {
-
-
                 DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
                 dexResponse.data = new JSONObject();
                 dexResponse.data.put("address", BHUserManager.getInstance().getCurrentBhWallet().address);
                 callback.callback(JsonUtils.toJson(dexResponse));
-                LogUtils.d("JsBowserFragment==>:","==get_account=="+BHUserManager.getInstance().getCurrentBhWallet().address);
             });
 
             registerHandler("sign",(data, callback) -> {

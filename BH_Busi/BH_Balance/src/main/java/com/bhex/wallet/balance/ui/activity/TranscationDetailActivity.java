@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.ToolUtils;

@@ -16,7 +16,7 @@ import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.CircleView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;

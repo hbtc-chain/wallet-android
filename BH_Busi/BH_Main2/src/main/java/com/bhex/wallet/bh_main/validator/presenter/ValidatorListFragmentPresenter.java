@@ -1,7 +1,7 @@
 package com.bhex.wallet.bh_main.validator.presenter;
 
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 
 public class ValidatorListFragmentPresenter extends BasePresenter {
 

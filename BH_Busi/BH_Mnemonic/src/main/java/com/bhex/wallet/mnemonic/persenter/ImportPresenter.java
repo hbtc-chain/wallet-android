@@ -1,7 +1,7 @@
 package com.bhex.wallet.mnemonic.persenter;
 
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.mnemonic.R;

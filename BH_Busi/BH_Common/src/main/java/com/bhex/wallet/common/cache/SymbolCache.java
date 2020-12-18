@@ -179,6 +179,10 @@ public class SymbolCache extends BaseCache {
         return symbolMap.get(symbol);
     }
 
+    public synchronized BHToken putBHToken(BHToken token){
+        return symbolMap.put(token.symbol,token);
+    }
+
     public synchronized void addBHToken(BHToken bhToken){
         symbolMap.put(bhToken.symbol,bhToken);
     }

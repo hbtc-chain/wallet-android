@@ -11,7 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.RefreshLayoutManager;
 import com.bhex.lib.uikit.util.BottomNavigationViewUtil;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
@@ -22,6 +22,7 @@ import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.event.NightEvent;
+import com.bhex.wallet.common.manager.AppStatusManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -149,6 +150,11 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        int action = intent.getIntExtra(AppStatusManager.KEY_HOME_ACTION, AppStatusManager.ACTION_BACK_TO_HOME);
+        if(action==AppStatusManager.ACTION_RESTART_APP){
+            ARouter.getInstance().build(ARouterConfig.Main.main_splash).navigation();
+            finish();
+        }
         String go_position = intent.getStringExtra("go_position");
         String go_token  = intent.getStringExtra("go_token");
         getPresenter().gotoTarget(mBottomNavigationView,go_position,go_token);

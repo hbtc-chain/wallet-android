@@ -28,7 +28,6 @@ public class LocalManageUtil {
      */
     public static Context attachBaseContext(Context context, String language) {
         Locale locale = getSetLanguageLocale(context);
-        LogUtils.d("LocalManageUtil===>:","locale=="+locale.getLanguage());
         return  createConfigurationResources(context,locale.getLanguage());
     }
 
@@ -74,7 +73,6 @@ public class LocalManageUtil {
      */
     public static Locale getSetLanguageLocale(Context context) {
         int selectIndex = LocalManageUtil.getSetLanguageLocaleIndex(context);
-        LogUtils.d("LocalManagerUtil===>:","==selectIndex=="+selectIndex);
         switch (selectIndex) {
             case 1:
                 return Locale.SIMPLIFIED_CHINESE;

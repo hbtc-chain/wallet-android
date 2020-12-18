@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,7 +32,7 @@ import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
@@ -124,8 +125,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+        //LogUtils.d("BalanceFragment===>:","=bhWallet="+bhWallet);
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
 
@@ -142,11 +143,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
                 ColorUtil.getColor(getContext(),R.color.global_divider_color));
 
         recycler_balance.addItemDecoration(ItemDecoration);
-
         recycler_balance.setAdapter(mChainAdapter = new ChainAdapter(mChainList));
+
         tv_address.setTag(bhWallet.getAddress());
         AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         refreshLayout.setEnableLoadMore(false);
+
     }
 
     @Override
@@ -203,12 +205,15 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             //ARouter.getInstance().build(ARouterConfig.Common.commom_scan_qr).navigation(getYActivity(), BHQrScanActivity.REQUEST_CODE);
         });
 
-        getYActivity().findViewById(R.id.iv_qr_code).setOnClickListener(v->{
-            AddressQRFragment.showFragment(getChildFragmentManager(),
-                    AddressQRFragment.class.getSimpleName(),
-                    BHConstants.BHT_TOKEN,
-                    tv_address.getTag().toString());
-        });
+        if(tv_address.getTag()!=null){
+            getYActivity().findViewById(R.id.iv_qr_code).setOnClickListener(v->{
+                AddressQRFragment.showFragment(getChildFragmentManager(),
+                        AddressQRFragment.class.getSimpleName(),
+                        BHConstants.BHT_TOKEN,
+                        tv_address.getTag().toString());
+            });
+        }
+
 
     }
 

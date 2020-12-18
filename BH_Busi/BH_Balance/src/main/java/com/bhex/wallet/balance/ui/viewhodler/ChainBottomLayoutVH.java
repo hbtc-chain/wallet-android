@@ -67,7 +67,6 @@ public class ChainBottomLayoutVH {
         }
 
         //兑币功能
-
         BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol);
         if(tokenMapping!=null){
             btn_item3.setVisibility(View.VISIBLE);
@@ -98,6 +97,9 @@ public class ChainBottomLayoutVH {
                 BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
                 if(TextUtils.isEmpty(balance.external_address)){
                     activity.generateCrossLinkAddress();
+                    /*ARouter.getInstance()
+                            .build(ARouterConfig.Balance.Balance_cross_address)
+                            .withString("symbol",mSymbol).navigation();*/
                 }else{
                     ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
                             .withString("symbol", mSymbol)

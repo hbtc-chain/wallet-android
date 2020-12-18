@@ -2,8 +2,8 @@ package com.bhex.wallet.mnemonic.persenter;
 
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.ui.item.MnemonicItem;
 

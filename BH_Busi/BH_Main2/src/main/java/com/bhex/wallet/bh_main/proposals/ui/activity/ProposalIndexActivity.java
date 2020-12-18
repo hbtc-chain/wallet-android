@@ -1,6 +1,6 @@
 package com.bhex.wallet.bh_main.proposals.ui.activity;
 
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.bh_main.R;
 
 /**

@@ -2,7 +2,7 @@ package com.bhex.wallet.common.manager;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 
 /**

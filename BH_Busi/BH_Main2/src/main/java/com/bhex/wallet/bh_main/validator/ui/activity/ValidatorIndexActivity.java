@@ -22,7 +22,7 @@ import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.lib.uikit.widget.GradientTabLayout;
 import com.bhex.network.base.LoadDataModel;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;

@@ -7,8 +7,8 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;

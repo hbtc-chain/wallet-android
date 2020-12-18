@@ -20,8 +20,7 @@
             android:layout_alignParentStart="true"
             android:paddingLeft="16dp"
             android:layout_centerVertical="true"
-            android:visibility="invisible"
-            />
+            android:visibility="invisible"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_pay_title"
@@ -65,129 +64,64 @@
         android:textColor="@color/light_text"
         tools:text="www.baidu.com"/>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_default_bg"
-        android:orientation="vertical"
-        android:layout_marginTop="12dp"
-        android:paddingBottom="32dp"
-        >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_pay"
+        android:minHeight="250dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_pay_detail"
-            />
-        <!--<androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_pay_info_label"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/global_label_text_color"
-            android:text="@string/pay_info"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:background="@color/app_default_bg"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:paddingBottom="32dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_pay_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/global_main_text_color"
-            app:layout_constraintTop_toTopOf="@+id/tv_pay_info_label"
-            app:layout_constraintStart_toEndOf="@+id/tv_pay_info_label"
-            tools:text="ETH转账"
-            />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_pay_detail"
+                android:overScrollMode="never"
+                />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_receive_addr_label"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/global_label_text_color"
-            android:text="收款地址"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pay_info_label"
-            app:layout_constraintStart_toStartOf="parent"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_confrim"
+                android:layout_width="match_parent"
+                android:layout_marginTop="24dp"
+                android:layout_height="48dp"
+                android:insetBottom="0dp"
+                android:insetTop="0dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:backgroundTint="@color/global_button_bg_color"
+                app:cornerRadius="@dimen/main_radius_conner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fee"
+                android:text="@string/confirm"
+                android:background="@drawable/shape_btn_blue"
+                style="@style/main_material_btn"
+                />
+        </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_receive_addr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/global_main_text_color"
-            app:layout_constraintTop_toTopOf="@+id/tv_receive_addr_label"
-            app:layout_constraintStart_toEndOf="@+id/tv_receive_addr_label"
-            tools:text="1ptyzewnns2kn37ewtmv6ppsvhdnmeapvwavsg81ptyzewnns2kn37ewtmv6ppsvhdnmeapvwavsg8 "
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_pay_addr_label"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/global_label_text_color"
-            android:text="付款地址"
-            app:layout_constraintTop_toBottomOf="@+id/tv_receive_addr"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_pay_addr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/global_main_text_color"
-            app:layout_constraintTop_toTopOf="@+id/tv_pay_addr_label"
-            app:layout_constraintStart_toEndOf="@+id/tv_pay_addr_label"
-            tools:text="1ptyzewnns2kn37ewtmv6ppsvhdnmeapvwavsg81ptyzewnns2kn37ewtmv6ppsvhdnmeapvwavsg8 "
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_fee_label"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/global_label_text_color"
-            android:text="矿工费"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pay_addr"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_fee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/global_main_text_color"
-            app:layout_constraintTop_toTopOf="@+id/tv_fee_label"
-            app:layout_constraintStart_toEndOf="@+id/tv_fee_label"
-            tools:text="1ptyzewnns2kn37ewtmv6ppsvhdnmeapvwavsg81ptyzewnns2kn37ewtmv6ppsvhdnmeapvwavsg8 "
-            />-->
-
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_confrim"
+        <com.bhex.lib.uikit.widget.EmptyLayout
+            android:id="@+id/empty_layout"
             android:layout_width="match_parent"
-            android:layout_marginTop="24dp"
-            android:layout_height="48dp"
-            android:insetBottom="0dp"
-            android:insetTop="0dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            app:backgroundTint="@color/global_button_bg_color"
-            app:cornerRadius="@dimen/main_radius_conner"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fee"
-            android:text="@string/confirm"
-            android:background="@drawable/shape_btn_blue"
-            style="@style/main_material_btn"
+            android:layout_height="match_parent"
+            android:background="@color/dialog_fragment_background"
+            android:layout_gravity="center"
             />
-    </LinearLayout>
 
-
+        <!--
+        <ProgressBar
+            android:id="@+id/empty_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            />
+       -->
+    </FrameLayout>
 </LinearLayout>

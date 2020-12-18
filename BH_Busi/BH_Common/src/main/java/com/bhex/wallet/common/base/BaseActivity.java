@@ -1,7 +1,8 @@
-package com.bhex.network.mvx.base;
+package com.bhex.wallet.common.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -15,11 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
+import com.alibaba.android.arouter.core.LogisticsCenter;
+import com.alibaba.android.arouter.facade.Postcard;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.R;
+import com.bhex.network.mvx.base.IPresenter;
 import com.bhex.network.receiver.NetWorkStatusChangeReceiver;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.ToolUtils;
+import com.bhex.tools.utils.LogUtils;
+import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.AppStatusManager;
 import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.ButterKnife;
@@ -50,6 +57,8 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //后台回收App
+        switchAppStatus(AppStatusManager.getInstance().getAppStatus());
         setContentView(getLayoutId());
         //StatusBarUtil.setStatusColor(this,false,false,R.color.blue);
         setStatusColor();
@@ -65,6 +74,27 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         initView();
         addEvent();
     }
+
+    protected void switchAppStatus(int appStatus){
+        LogUtils.d("BaseActivity==>:","==switchAppStatus==");
+        switch (appStatus){
+            case AppStatusManager.STATUS_FORCE_KILLED:
+                restartApp();
+                break;
+            case AppStatusManager.STATUS_NORMAL:
+//                setUpViewAndData();
+                break;
+        }
+    }
+
+    protected void restartApp() {
+        Postcard postcard = ARouter.getInstance().build(ARouterConfig.Main.main_mainindex);
+        LogisticsCenter.completion(postcard);
+        Intent intent = new Intent(this, postcard.getDestination());
+        intent.putExtra(AppStatusManager.KEY_HOME_ACTION,AppStatusManager.ACTION_RESTART_APP);
+        startActivity(intent);
+    }
+
 
     protected  void setStatusColor(){
         if(!isNight()){

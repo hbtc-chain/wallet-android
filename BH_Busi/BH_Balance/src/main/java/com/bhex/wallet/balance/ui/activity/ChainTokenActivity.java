@@ -26,7 +26,7 @@ import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
@@ -137,14 +137,14 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     //设置地址
     private void setTokenAddress() {
         mETHViewHolder.initViewContent(mBalance);
-        /*if(bhChain.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+        if(bhChain.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             findViewById(R.id.btn_apply_token).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_apply_token).setOnClickListener(v -> {
                 applyTestToken();
             });
         }else{
             findViewById(R.id.btn_apply_token).setVisibility(View.GONE);
-        }*/
+        }
     }
 
     @Override
@@ -253,10 +253,10 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     /**
      * 生成跨链地址
      */
-    /*public void generateCrossLinkAddress() {
+    /*
+      public void generateCrossLinkAddress() {
         *//*List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(bhChain.chain);
         mTransactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);*//*
-
         *//*Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
                 this,0);*//*
@@ -267,18 +267,15 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         PasswordFragment fragment = PasswordFragment.showPasswordDialogExt(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
                 passwordClickListener,0);
-
         String subTitle = String.format(getString(R.string.generate_address_fee),
                 BHUserManager.getInstance().getDefaultGasFee().displayFee+BHConstants.BHT_TOKEN.toUpperCase());
-
         fragment.setTv_sub_title(subTitle);
-
         fragment.show(getSupportFragmentManager(),ChainTokenActivity.class.getName());
     }
 
     PasswordFragment.PasswordClickListener passwordClickListener = ((password, position, way) -> {
         BHBalance bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
-        if(TextUtils.isEmpty(bhtBalance.amount)||
+        if(TextUtils.isEmpty(bhtBalance.amount) ||
                 Double.valueOf(bhtBalance.amount)<=Double.valueOf(BHUserManager.getInstance().getDefaultGasFee().displayFee)){
             ToastUtils.showToast(getString(R.string.not_have_amount)+BHConstants.BHT_TOKEN.toUpperCase());
             return;

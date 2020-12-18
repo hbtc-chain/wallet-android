@@ -1,4 +1,4 @@
-package com.bhex.network.mvx.base;
+package com.bhex.wallet.common.base;
 
 import android.os.Bundle;
 

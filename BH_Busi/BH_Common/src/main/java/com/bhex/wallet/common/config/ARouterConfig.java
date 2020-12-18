@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 public class ARouterConfig {
     public static class Main{
         public static final String main_mainindex ="/main/mainIndex";
+        public static final String main_splash = "/main/splash";
     }
 
     /**

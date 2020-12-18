@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
@@ -133,8 +133,6 @@ public class BHBalanceHelper {
             balance.frozen_amount = assetsBean.getFrozen_amount();
             balance.address = assetsBean.getExternal_address();
             balance.external_address = assetsBean.getExternal_address();
-            LogUtils.d("TokenDetailActivity===>:","=external_address="+balance.external_address);
-
             balance.is_native = assetsBean.isIs_native();
             return balance;
         }

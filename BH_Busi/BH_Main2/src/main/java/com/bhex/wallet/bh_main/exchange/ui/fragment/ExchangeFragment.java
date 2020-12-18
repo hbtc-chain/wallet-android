@@ -1,7 +1,7 @@
 package com.bhex.wallet.bh_main.exchange.ui.fragment;
 
 
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.bh_main.R;
 
 /**

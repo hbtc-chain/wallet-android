@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.HUtils;
 import com.bhex.network.utils.JsonUtils;

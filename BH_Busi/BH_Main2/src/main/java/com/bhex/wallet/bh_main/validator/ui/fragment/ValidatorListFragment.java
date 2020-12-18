@@ -16,7 +16,7 @@ import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.viewpager.CustomViewPager;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;

@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -16,14 +17,20 @@ import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.RequestTokenEvent;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.menu.MenuItem;
 import com.bhex.wallet.common.menu.MenuListFragment;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.tx.BHRawTransaction;
+import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.OnClick;
 
@@ -46,15 +53,20 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
                         .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
                         .navigation();
             }else{
-                ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
-                        .withString("symbol", symbol)
-                        .withInt("way", BH_BUSI_TYPE.跨链转账.getIntValue())
-                        .navigation();
+                if(TextUtils.isEmpty(chainSymbolBalance.external_address)){
+                    //生成跨链地址
+                    generateCrossLinkAddress();
+                }else{
+                    ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
+                            .withString("symbol", symbol)
+                            .withInt("way", BH_BUSI_TYPE.跨链转账.getIntValue())
+                            .navigation();
+                }
             }
 
         } else if (view.getId() == R.id.btn_item2) {
             if(symbolToken.chain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
-                ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
+                ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_out)
                         .withString("symbol", symbol)
                         .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
                         .navigation();
@@ -99,12 +111,29 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
         transactionViewModel.queryValidatorByAddress(this,2);
     }
 
-    /**
-     * 提取收益
-     */
-    private void withdrawShare() {
-        transactionViewModel.queryValidatorByAddress(this,1);
+
+    //生成跨链地址
+    public void generateCrossLinkAddress() {
+        PasswordFragment fragment = PasswordFragment.showPasswordDialogExt(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
+                passwordClickListener,0);
+        String subTitle = String.format(getString(R.string.generate_address_fee),
+                BHUserManager.getInstance().getDefaultGasFee().displayFee+BHConstants.BHT_TOKEN.toUpperCase());
+        fragment.setTv_sub_title(subTitle);
+        fragment.show(getSupportFragmentManager(),ChainTokenActivity.class.getName());
     }
+
+    PasswordFragment.PasswordClickListener passwordClickListener = ((password, position, way) -> {
+        BHBalance bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+        if(TextUtils.isEmpty(bhtBalance.amount) ||
+                Double.valueOf(bhtBalance.amount)<=Double.valueOf(BHUserManager.getInstance().getDefaultGasFee().displayFee)){
+            ToastUtils.showToast(getString(R.string.not_have_amount)+BHConstants.BHT_TOKEN.toUpperCase());
+            return;
+        }
+
+        List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(symbolToken.symbol);
+        transactionViewModel.transferInnerExt(this,password,BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
+    });
 
     public MenuListFragment.MenuListListener crossOperatorListener = (item, itemView, position) -> {
         if(position==0){

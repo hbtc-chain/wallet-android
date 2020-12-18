@@ -22,7 +22,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.ui.CaptureFragment;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.utils.IntentUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.R;

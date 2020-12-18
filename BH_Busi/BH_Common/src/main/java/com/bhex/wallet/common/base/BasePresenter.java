@@ -1,7 +1,9 @@
-package com.bhex.network.mvx.base;
+package com.bhex.wallet.common.base;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
+
+import com.bhex.network.mvx.base.IPresenter;
 
 import org.jetbrains.annotations.NotNull;
 
