@@ -1,47 +1,33 @@
 package com.bhex.wallet.bh_main.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.TypefaceUtils;
-import com.bhex.lib.uikit.widget.keyborad.PasswordInputView;
-import com.bhex.lib.uikit.widget.keyborad.PasswordKeyBoardView;
-import com.bhex.network.RxSchedulersHelper;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.CheckSysUtils;
 import com.bhex.tools.utils.NavigateUtil;
-import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.R;
 import com.bhex.wallet.app.BHApplication;
+import com.bhex.wallet.bh_main.ui.fragment.RistFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.manager.AppStatusManager;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MMKVManager;
-import com.bhex.wallet.common.utils.BHKey;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.MnemonicIndexActivity;
-import com.bhex.wallet.mnemonic.ui.activity.FingerLoginActivity;
-import com.bhex.wallet.mnemonic.ui.activity.LockActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -68,14 +54,18 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         AppStatusManager.getInstance().setAppStatus(AppStatusManager.STATUS_NORMAL); //进入应用初始化正常状态-设置成正常(未回收)状态
-
         setContentView(R.layout.activity_splash);
-
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
-        walletViewModel.loadWallet(this);
         walletViewModel.mutableWallentLiveData.observe(this,ldm->{
             goto_Index();
         });
+
+        if(!new CheckSysUtils(this).isDeviceRooted()){
+            walletViewModel.loadWallet(this);
+        }else{
+            RistFragment.showRistFragment(itemClickListener).show(getSupportFragmentManager(),RistFragment.class.getName());
+        }
+
         ImmersionBar.with(this)
                 .statusBarColor(android.R.color.white)
                 .statusBarDarkFont(true)
@@ -145,4 +135,12 @@ public class SplashActivity extends AppCompatActivity {
         BHUserManager.getInstance();
         BHFilePath.initPath(BHApplication.getInstance());
     }
+
+    RistFragment.ItemClickListener itemClickListener = (position -> {
+        if(position==0){
+            finish();
+        }else{
+            walletViewModel.loadWallet(this);
+        }
+    });
 }

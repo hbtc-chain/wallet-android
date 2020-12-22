@@ -5,19 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckedTextView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,22 +26,19 @@ import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PathUtils;
 import com.bhex.tools.utils.PixelUtils;
-import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.AnnouncementMF;
 import com.bhex.wallet.balance.adapter.ChainAdapter;
 import com.bhex.wallet.balance.model.AnnouncementItem;
 import com.bhex.wallet.balance.presenter.BalancePresenter;
-import com.bhex.wallet.balance.ui.viewhodler.TipsViewHolder;
 import com.bhex.wallet.balance.viewmodel.AnnouncementViewModel;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -130,6 +121,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         String all_asset_label = getYActivity().getResources().getString(R.string.all_asset)+"("+CurrencyManager.getInstance().loadCurrency(getYActivity())+")";
         tv_balance_txt2.setText(all_asset_label);
 
+        if(bhWallet==null){
+            return;
+        }
         tv_wallet_name.setText("hello，"+bhWallet.name);
 
         mChainList = CacheCenter.getInstance().getTokenMapCache().loadChains();

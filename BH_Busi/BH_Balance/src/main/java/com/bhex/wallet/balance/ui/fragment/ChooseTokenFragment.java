@@ -89,7 +89,7 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rec_token_list = mRootView.findViewById(R.id.rec_token_list);
-        mDatas = BHBalanceHelper.loadTokenList(mOrigin);
+        mDatas = BHBalanceHelper.loadTokenList(mSymbol);
         rec_token_list.setAdapter(mChooseTokenAdapter = new ChooseTokenAdapter(mDatas,mSymbol));
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(

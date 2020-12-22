@@ -3,22 +3,17 @@ package com.bhex.wallet.balance.helper;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.ArrayMap;
-import android.view.Menu;
 
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 
-import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ImageLoaderUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
-import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.menu.MenuItem;
@@ -28,9 +23,7 @@ import com.bhex.wallet.common.model.BHToken;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by BHEX.
@@ -162,19 +155,22 @@ public class BHBalanceHelper {
     }
 
     //
-    public static List<BHToken> loadTokenList(String flag){
+    public static List<BHToken> loadTokenList(String symbol){
+        BHToken chainToken =  CacheCenter.getInstance().getSymbolCache().getBHToken(symbol);
         //flag 1 非hbc链功能
         ArrayMap<String,BHToken> map_tokens =  CacheCenter.getInstance().getSymbolCache().getLocalToken();
         List<BHToken> res = new ArrayList<>();
         for (ArrayMap.Entry<String,BHToken> entry:map_tokens.entrySet()){
-            if(flag.equals(BH_BUSI_TYPE.跨链转账.value)){
+            /*if(flag.equals(BH_BUSI_TYPE.跨链转账.value)){
                 if(!entry.getValue().chain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
                     res.add(entry.getValue());
                 }
             }else{
                 res.add(entry.getValue());
+            }*/
+            if(entry.getValue().chain.equalsIgnoreCase(chainToken.chain)){
+                res.add(entry.getValue());
             }
-
         }
 
         Collections.sort(res,((o1, o2) -> {

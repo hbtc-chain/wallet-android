@@ -63,7 +63,6 @@ public class BHApplication extends BaseApplication {
         public void onActivityStarted(@NonNull Activity activity) {
             if(refCount==0){
                 MainActivityManager._instance.startAssetRequest();
-                LogUtils.d("BHApplication===>:","refCount=="+refCount);
             }
             refCount++;
         }

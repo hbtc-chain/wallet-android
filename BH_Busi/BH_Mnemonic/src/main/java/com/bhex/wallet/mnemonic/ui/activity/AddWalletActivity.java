@@ -83,7 +83,6 @@ public class AddWalletActivity extends BaseCacheActivity<ImportPresenter> {
     //添加点击事件
     private void onItemClick(BaseQuickAdapter<?,?> baseQuickAdapter, View view, int position) {
         FunctionItem item = mAddWalletAdapter.getData().get(position);
-        //LogUtils.d("AddWalletActivity===>:","item==="+item.index);
         switch (MAKE_WALLET_TYPE.getWay(item.index)){
             case 导入助记词:
                 ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC)

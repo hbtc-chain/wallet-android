@@ -120,7 +120,6 @@ public class ProposalViewModel extends ViewModel {
 
     public void sendDoPledge(BaseActivity activity, final BHSendTranscation bhSendTranscation){
         String body = JsonUtils.toJson(bhSendTranscation);
-        LogUtils.d("EnstrustViewModel==>:","body=="+ JsonUtils.toJson(bhSendTranscation));
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
@@ -147,7 +146,6 @@ public class ProposalViewModel extends ViewModel {
     }
     public void sendDoVeto(BaseActivity activity, final BHSendTranscation bhSendTranscation){
         String body = JsonUtils.toJson(bhSendTranscation);
-        LogUtils.d("EnstrustViewModel==>:","body=="+ JsonUtils.toJson(bhSendTranscation));
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
@@ -175,7 +173,6 @@ public class ProposalViewModel extends ViewModel {
 
     public void sendCreatePorposal(BaseActivity activity, final BHSendTranscation bhSendTranscation){
         String body = JsonUtils.toJson(bhSendTranscation);
-        LogUtils.d("EnstrustViewModel==>:","body=="+ JsonUtils.toJson(bhSendTranscation));
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {

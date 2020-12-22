@@ -95,7 +95,6 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
     }
 
     private void initTab() {
-        LogUtils.d("ValidatorFragment===>:","initTab");
         List<Pair<String, Fragment>> items = new ArrayList<>();
         ValidatorListFragment  validListFragment= new ValidatorListFragment();
         Bundle bundle = new Bundle();

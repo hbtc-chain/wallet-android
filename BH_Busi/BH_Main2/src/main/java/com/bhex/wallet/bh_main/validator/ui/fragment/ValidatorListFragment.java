@@ -4,21 +4,15 @@ package com.bhex.wallet.bh_main.validator.ui.fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.lib.uikit.widget.viewpager.CustomViewPager;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.wallet.common.base.BaseFragment;
-import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -26,16 +20,13 @@ import com.bhex.wallet.bh_main.validator.adapter.ValidatorAdapter;
 import com.bhex.wallet.bh_main.validator.model.ValidatorInfo;
 import com.bhex.wallet.bh_main.validator.presenter.ValidatorListFragmentPresenter;
 import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import java8.util.stream.Collector;
 import java8.util.stream.Collectors;
 import java8.util.stream.StreamSupport;
 

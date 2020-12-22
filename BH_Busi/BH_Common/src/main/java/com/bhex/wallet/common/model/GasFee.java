@@ -26,7 +26,6 @@ public class GasFee {
 
         double d_displayFee = NumberUtil.divide(fee,String.valueOf(Math.pow(10,18)),5);
         displayFee = new BigDecimal(d_displayFee+"").stripTrailingZeros().toPlainString();
-        LogUtils.d("GasFee====>:","==displayFee=="+displayFee);
     }
 
     public void setFee(String fee) {

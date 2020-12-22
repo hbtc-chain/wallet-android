@@ -174,7 +174,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         }else{
             beginReloadData();
         }*/
-        //beginReloadData();
+        beginReloadData();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

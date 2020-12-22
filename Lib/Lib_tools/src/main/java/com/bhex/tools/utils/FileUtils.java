@@ -53,10 +53,8 @@ public class FileUtils {
         String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "qrcode";
         File appDir = new File(storePath);
         if (!appDir.exists()) {
-            LogUtils.d("FileUtil===>:","exists===no");
             appDir.mkdir();
         }
-        LogUtils.d("FileUtil===>:","storePath===>:"+storePath);
         try{
             File file = new File(appDir, fileName);
             FileOutputStream fos = new FileOutputStream(file);

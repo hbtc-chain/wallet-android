@@ -83,13 +83,6 @@ public class MarketFragment extends JsBowserFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    /*@Override
-    public void onResume() {
-        super.onResume();
-        mTokenId = getArgumentValue("go_token");
-        mAgentWeb.getWebCreator().getWebView().loadUrl(getUrl());
-    }*/
-
     @Override
     public String getUrl() {
         StringBuffer url = new StringBuffer(BHConstants.MARKET_URL).append("/swap");

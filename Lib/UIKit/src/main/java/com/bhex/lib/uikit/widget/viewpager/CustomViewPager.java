@@ -2,20 +2,12 @@ package com.bhex.lib.uikit.widget.viewpager;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
-
-import com.bhex.tools.utils.LogUtils;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class CustomViewPager extends ViewPager {
     public CustomViewPager(@NonNull Context context) {

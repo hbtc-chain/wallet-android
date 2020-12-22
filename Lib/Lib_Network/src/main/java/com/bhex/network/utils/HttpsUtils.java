@@ -224,7 +224,8 @@ public class HttpsUtils
                 defaultTrustManager.checkServerTrusted(chain, authType);
             } catch (CertificateException ce)
             {
-                localTrustManager.checkServerTrusted(chain, authType);
+                throw new CertificateException(" error in validating certificate " , ce ) ;
+                //localTrustManager.checkServerTrusted(chain, authType);
             }
         }
 

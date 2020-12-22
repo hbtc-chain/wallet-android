@@ -4,7 +4,6 @@ import android.webkit.WebView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bhex.network.utils.JsonUtils;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.browse.BaseBowserFragment;
 import com.bhex.wallet.common.browse.wv.WVJBWebViewClient;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -26,7 +25,6 @@ public abstract class JsBowserFragment extends BaseBowserFragment {
             }));
 
             registerHandler("connect",(data,callback)->{
-                //LogUtils.d("JsBowserFragment==>:","==connect==");
                 DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
                 callback.callback(JsonUtils.toJson(dexResponse));
             });
@@ -34,6 +32,7 @@ public abstract class JsBowserFragment extends BaseBowserFragment {
             registerHandler("get_account",(data,callback) -> {
                 DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
                 dexResponse.data = new JSONObject();
+                //dexResponse.data.put("address", "HBCjFjeC8LEQjKDggRiNn9YEeS3KtzkPhccU");
                 dexResponse.data.put("address", BHUserManager.getInstance().getCurrentBhWallet().address);
                 callback.callback(JsonUtils.toJson(dexResponse));
             });

@@ -207,7 +207,6 @@ public class PasswordKeyBoardView extends KeyboardView  {
                 }
 
             }else {
-                LogUtils.d("PasswordKeyBoardView===>:","code==="+String.valueOf((char) primaryCode));
                 mListener.onInput(String.valueOf((char) primaryCode));
                 mCurrentEditText.setText(mCurrentEditText.getText()+String.valueOf((char) primaryCode));
                 mCurrentEditText.setSelection(mCurrentEditText.getText().length());

@@ -28,6 +28,7 @@ public class EmptyLayout extends LinearLayout {
     private ImageView empty_img;
     //b
     private HwLoadingView empty_progress;
+    //private ProgressBar empty_progress;
     //e
     private AppCompatButton empty_bt_reload;
     //c

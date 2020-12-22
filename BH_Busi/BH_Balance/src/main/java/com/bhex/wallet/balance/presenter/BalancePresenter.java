@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.base.BasePresenter;
@@ -114,10 +115,13 @@ public class BalancePresenter extends BasePresenter {
         for(AccountInfo.AssetsBean bean:list){
             map.put(bean.getSymbol(),bean);
             //计算每一个币种的资产价值
+
             double amount = TextUtils.isEmpty(bean.getAmount())?0:Double.valueOf(bean.getAmount());
 
             //法币价值
             double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,bean.getSymbol());
+
+            //LogUtils.d("BalanceFragment==>:","amount==="+bean.getAmount()+"=="+symbolPrice);
             double asset = NumberUtil.mul(String.valueOf(amount),String.valueOf(symbolPrice));
             allTokenPrice = NumberUtil.add(asset,allTokenPrice);
 

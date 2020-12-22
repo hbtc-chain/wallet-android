@@ -98,7 +98,6 @@ public class DoEntrustPresenter extends BasePresenter {
         int decimals = bhToken!=null?bhToken.decimals:2;
         decimals = 0;
         String tmp = NumberUtil.sub(amount,frozen_amount);
-        LogUtils.e("DoEntrustPresenter===>:","tmp=="+tmp);
         double displayAmount = NumberUtil.divide(tmp, Math.pow(10,decimals)+"");
         return NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
     }

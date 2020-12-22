@@ -2,13 +2,9 @@ package com.bhex.lib.uikit.widget.keyborad;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +14,6 @@ import androidx.core.content.ContextCompat;
 import com.bhex.lib.uikit.R;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.tools.utils.ColorUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
 
 /**

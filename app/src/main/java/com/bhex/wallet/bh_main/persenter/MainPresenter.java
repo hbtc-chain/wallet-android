@@ -207,7 +207,7 @@ public class MainPresenter extends BasePresenter {
             dstFragment.setArguments(bundle);
             transaction.add(R.id.fl_content, dstFragment, fragmentClass.getSimpleName()).commitAllowingStateLoss();
         } else {
-            dstFragment.setArguments(bundle);
+            //dstFragment.setArguments(bundle);
             transaction.show(dstFragment).commitAllowingStateLoss();
         }
 

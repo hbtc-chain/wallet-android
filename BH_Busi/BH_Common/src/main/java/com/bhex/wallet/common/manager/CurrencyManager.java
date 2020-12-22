@@ -4,13 +4,10 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.RatesCache;
-import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.enums.CURRENCY_TYPE;
-import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.model.BHRates;
 import com.bhex.wallet.common.model.BHToken;
 

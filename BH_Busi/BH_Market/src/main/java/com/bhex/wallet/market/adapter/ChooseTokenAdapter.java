@@ -6,7 +6,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.tools.utils.ImageLoaderUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.cache.CacheCenter;
@@ -45,7 +44,6 @@ public class ChooseTokenAdapter extends BaseQuickAdapter<BHTokenMapping, BaseVie
         ImageLoaderUtil.loadImageView(getContext(),bhToken!=null?bhToken.logo:"", iv_token_icon, R.mipmap.ic_default_coin);
 
         AppCompatTextView tv_token_amount = holder.getView(R.id.tv_token_amount);
-        //LogUtils.d("ChooseTokenActivity==>:","coin_symbol=="+item.coin_symbol.toLowerCase());
         BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount((mOrigin==0)?item.coin_symbol.toLowerCase():item.target_symbol.toLowerCase());
 
         //String[]  res = BHBalanceHelper.getAmountToCurrencyValue(getContext(),balance.amount,item.coin_symbol.toLowerCase(),false);

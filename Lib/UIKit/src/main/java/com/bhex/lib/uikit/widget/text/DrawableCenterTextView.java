@@ -7,8 +7,6 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.bhex.tools.utils.LogUtils;
-
 public class DrawableCenterTextView extends AppCompatTextView {
 
     public DrawableCenterTextView(Context context, AttributeSet attrs, int defStyle) {

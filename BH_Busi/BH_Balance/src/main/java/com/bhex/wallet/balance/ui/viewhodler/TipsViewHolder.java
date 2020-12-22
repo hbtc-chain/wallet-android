@@ -40,7 +40,6 @@ public class TipsViewHolder {
         iv_arrow = view.findViewById(R.id.iv_arrow);
         tv_tip_content.setSingleLine(false);
 
-        LogUtils.d("TipsViewHolder==>:","initView==");
 
         tv_tip_content.post(()->{
             /*int count = tv_tip_content.getLineCount();
