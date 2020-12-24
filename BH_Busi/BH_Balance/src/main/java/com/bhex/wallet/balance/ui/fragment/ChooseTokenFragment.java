@@ -67,10 +67,8 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void initStart() {
         setStyle(DialogFragment.STYLE_NO_TITLE, STYLE_NO_TITLE);
-
         Window window = getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.bottomDialogStyle;
@@ -89,7 +87,7 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rec_token_list = mRootView.findViewById(R.id.rec_token_list);
-        mDatas = BHBalanceHelper.loadTokenList(mSymbol);
+        mDatas = BHBalanceHelper.loadTokenList(mSymbol,mOrigin);
         rec_token_list.setAdapter(mChooseTokenAdapter = new ChooseTokenAdapter(mDatas,mSymbol));
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(

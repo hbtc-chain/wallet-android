@@ -52,7 +52,7 @@
             android:singleLine="true"
             android:maxLines="1"
             android:ellipsize="middle"
-            android:text="@string/hbc_chain_address"
+            android:text="@string/hbtc_chain_address"
             android:layout_marginRight="5dp"
             tools:ignore="EllipsizeMaxLines"
             android:visibility="gone"

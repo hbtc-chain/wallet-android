@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -20,6 +21,7 @@ import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
@@ -44,6 +46,11 @@ public class TransferOutViewHolder {
     public BHToken withDrawFeeToken;
     //交易手续费token bht
     public BHToken hbtFeeToken;
+
+    //转出地址
+    AppCompatTextView tv_transfer_out_address_label;
+    AppCompatTextView inp_transfer_out_address;
+    FrameLayout layout_transfer_out_address;
 
     //转账或提币数量-输入
     public RelativeLayout layout_transfer_amount;
@@ -94,13 +101,24 @@ public class TransferOutViewHolder {
         tranferBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.symbol);
         withDrawFeeBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.chain);
         hbtFeeBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+        BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
+
         //提币按钮
         MaterialButton btn_drawwith_coin = mRootView.findViewById(R.id.btn_drawwith_coin);
         AppCompatTextView tv_center_title = mRootView.findViewById(R.id.tv_center_title);
 
         //箭头
-        Drawable drawableRight = ColorUtil.getDrawable(m_activity,R.mipmap.ic_arrow_token_d,R.color.global_main_text_color);
-        tv_center_title.setCompoundDrawablesWithIntrinsicBounds(null,null, drawableRight, null);
+        //Drawable drawableRight = ColorUtil.getDrawable(m_activity,R.mipmap.ic_arrow_token_d,R.color.global_main_text_color);
+        //tv_center_title.setCompoundDrawablesWithIntrinsicBounds(null,null, drawableRight, null);
+
+        //转出地址
+        tv_transfer_out_address_label = mRootView.findViewById(R.id.tv_transfer_out_address_label);
+        inp_transfer_out_address = mRootView.findViewById(R.id.inp_transfer_out_address);
+        inp_transfer_out_address.setText(currentWallet.getAddress());
+        layout_transfer_out_address = mRootView.findViewById(R.id.layout_transfer_out_address);
+        //转出币种
+        AppCompatTextView tv_transfer_out_token = mRootView.findViewById(R.id.tv_transfer_out_token);
+        tv_transfer_out_token.setText(tranferToken.name.toUpperCase());
 
         layout_transfer_amount = mRootView.findViewById(R.id.layout_transfer_amount);
         input_to_address  = mRootView.findViewById(R.id.input_to_address);
@@ -112,7 +130,7 @@ public class TransferOutViewHolder {
         tv_available_bht_amount = mRootView.findViewById(R.id.tv_available_bht_amount);
 
         ((SmartRefreshLayout)mRootView.findViewById(R.id.refreshLayout)).setEnableLoadMore(false);
-        ((IndicatorSeekBar)mRootView.findViewById(R.id.sb_tx_fee)).setDecimalScale(4);
+        //((IndicatorSeekBar)mRootView.findViewById(R.id.sb_tx_fee)).setDecimalScale(4);
 
         //格式
         input_transfer_amount = layout_transfer_amount.findViewById(R.id.input_transfer_amount);
@@ -122,6 +140,8 @@ public class TransferOutViewHolder {
         tv_token_unit.setText(tranferToken.name.toUpperCase());
 
         input_transfer_amount.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        input_transfer_amount.setText("");
+
         input_withdraw_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input_tx_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
@@ -139,13 +159,18 @@ public class TransferOutViewHolder {
         //初始化话手续费
         input_tx_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
 
+
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(tranferToken.chain)){
-            tv_center_title.setText(tranferToken.name.toUpperCase()+" "+m_activity.getResources().getString(R.string.transfer));
-            btn_drawwith_coin.setText(m_activity.getResources().getString(R.string.transfer));
+            btn_drawwith_coin.setText(m_activity.getResources().getString(R.string.confrim_transfer));
+            tv_center_title.setText(m_activity.getResources().getString(R.string.transfer));
+            //选择转账币种
+            findText(R.id.tv_select_token_label).setText(m_activity.getResources().getString(R.string.select_transfer_token));
             //提示
-            mRootView.findViewById(R.id.layout_transfer_out_tips).setVisibility(View.GONE);
+            findText(R.id.tv_transfer_tips).setText(m_activity.getResources().getString(R.string.cross_transfer_inner_tips));
+            //mRootView.findViewById(R.id.layout_transfer_out_tips).setVisibility(View.GONE);
             //转账地址
-            findText(R.id.tv_withdraw_address).setText(m_activity.getResources().getString(R.string.transfer_address));
+            //findText(R.id.tv_withdraw_address).setText(m_activity.getResources().getString(R.string.transfer_address));
+            findText(R.id.tv_withdraw_address).setText(m_activity.getResources().getString(R.string.string_transfer_in_address));
             //转账数量
             findText(R.id.tv_transfer_amount).setText(m_activity.getResources().getString(R.string.transfer_amount));
             //全部转账
@@ -155,14 +180,16 @@ public class TransferOutViewHolder {
             input_withdraw_fee.setVisibility(View.GONE);
 
         }else if(m_transferout_way == BH_BUSI_TYPE.链内转账.getIntValue()){
-            tv_center_title.setText(tranferToken.name.toUpperCase()+" "+m_activity.getResources().getString(R.string.transfer));
-            btn_drawwith_coin.setText(m_activity.getResources().getString(R.string.transfer));
+            tv_center_title.setText(m_activity.getResources().getString(R.string.transfer));
+            btn_drawwith_coin.setText(m_activity.getResources().getString(R.string.confrim_transfer));
+            //选择转账币种
+            findText(R.id.tv_select_token_label).setText(m_activity.getResources().getString(R.string.select_transfer_token));
 
-            mRootView.findViewById(R.id.layout_transfer_out_tips).setVisibility(View.VISIBLE);
+            //RootView.findViewById(R.id.layout_transfer_out_tips).setVisibility(View.VISIBLE);
             //提示
-            findText(R.id.tv_transfer_out_tips_1).setText(m_activity.getResources().getString(R.string.linkinner_withdraw_tip));
+            findText(R.id.tv_transfer_tips).setText(m_activity.getResources().getString(R.string.cross_transfer_inner_tips));
             //转账地址
-            findText(R.id.tv_withdraw_address).setText(m_activity.getResources().getString(R.string.transfer_address));
+            findText(R.id.tv_withdraw_address).setText(m_activity.getResources().getString(R.string.string_transfer_in_address));
             //转账数量
             findText(R.id.tv_transfer_amount).setText(m_activity.getResources().getString(R.string.transfer_amount));
             //全部转账
@@ -171,12 +198,14 @@ public class TransferOutViewHolder {
             mRootView.findViewById(R.id.layout_withdraw_fee).setVisibility(View.GONE);
             input_withdraw_fee.setVisibility(View.GONE);
         }else {
-            tv_center_title.setText(tranferToken.name.toUpperCase()+" "+m_activity.getResources().getString(R.string.draw_coin));
+            tv_center_title.setText(m_activity.getResources().getString(R.string.cross_withdraw));
             btn_drawwith_coin.setText(m_activity.getResources().getString(R.string.draw_coin));
+            //选择转账币种
+            findText(R.id.tv_select_token_label).setText(m_activity.getResources().getString(R.string.select_withdraw_token));
 
-            mRootView.findViewById(R.id.layout_transfer_out_tips).setVisibility(View.VISIBLE);
+            //mRootView.findViewById(R.id.layout_transfer_out_tips).setVisibility(View.VISIBLE);
             //提示
-            findText(R.id.tv_transfer_out_tips_1).setText(m_activity.getResources().getString(R.string.crosslink_withdraw_tip));
+            findText(R.id.tv_transfer_tips).setText(m_activity.getResources().getString(R.string.cross_transfer_inner_tips));
             //提币地址
             findText(R.id.tv_withdraw_address).setText(m_activity.getResources().getString(R.string.draw_coin_address));
             //提币数量
@@ -186,6 +215,9 @@ public class TransferOutViewHolder {
             //提币手续费
             mRootView.findViewById(R.id.layout_withdraw_fee).setVisibility(View.VISIBLE);
             input_withdraw_fee.setVisibility(View.VISIBLE);
+
+            tv_transfer_out_address_label.setVisibility(View.GONE);
+            layout_transfer_out_address.setVisibility(View.GONE);
         }
 
         //默认最小提币手续费
@@ -211,6 +243,8 @@ public class TransferOutViewHolder {
 
     //更新余额
     public void updateBalance() {
+        tranferToken = CacheCenter.getInstance().getSymbolCache().getBHToken(m_symbol);
+
         tranferBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.symbol);
         //tranferBalance.amount = "3.4";
         withDrawFeeBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.chain);

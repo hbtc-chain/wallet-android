@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
+    <attr name="config_content_spacing_horizontal" format="dimension" /> <!-- margin 和 padding 等使用的内容通用水平间距 -->
+    <attr name="config_content_spacing_vertical" format="dimension" />
+
+    <!--普通文字-->
+    <!--标题文字大小-->
+    <attr name="config_size_title_text" format="dimension" />
+    <!--正文内容文字大小-->
+    <attr name="config_size_content_text" format="dimension" />
+    <!--辅助说明文字大小-->
+    <attr name="config_size_explain_text" format="dimension" />
+
     <declare-styleable name="InputView">
         <attr name="hint" format="reference|string" />
         <attr name="editable" format="reference|boolean" />
@@ -7,6 +18,7 @@
             <enum name="silent" value="0" />
             <enum name="normal" value="1" />
             <enum name="password" value="2" />
+            <enum name="numberPassword" value="3" />
         </attr>
     </declare-styleable>
 
@@ -138,5 +150,13 @@
         <attr name="aftv_minTextSize" format="dimension" />
         <!--调整的精度，精度值越小，越精准，耗时越长，默认是0.5-->
         <attr name="aftv_precision" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="CookieBar">
+        <!--CookieBar-->
+        <attr name="cookieTitleColor" format="color" />
+        <attr name="cookieMessageColor" format="color" />
+        <attr name="cookieActionColor" format="color" />
+        <attr name="cookieBackgroundColor" format="color" />
     </declare-styleable>
 </resources>

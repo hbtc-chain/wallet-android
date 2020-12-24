@@ -6,7 +6,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -14,16 +13,11 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
 
 import com.bhex.lib.uikit.util.ShapeUtils;
-import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseBottomSheetDialog;
-import com.bhex.network.mvx.base.BaseDialogFragment;
-import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.R;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 
 /**
  * 风险提示

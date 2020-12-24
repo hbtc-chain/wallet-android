@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,68 +7,50 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
-    android:layout_marginStart="15dp"
-    android:layout_marginEnd="15dp"
-    android:paddingTop="24dp"
-    android:paddingBottom="24dp"
-    android:background="@drawable/shape_btn_top_blue"
-    android:paddingStart="24dp"
-    android:paddingEnd="15dp">
+    android:orientation="vertical">
 
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_token_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        tools:text="HBC"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_token_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@mipmap/ic_default_coin"
+        android:layout_gravity="center_horizontal"
         />
 
-    <LinearLayout
-        android:id="@+id/btn_genernate_address"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_token_address_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:text="@string/hbtc_chain_address"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
         android:layout_alignParentEnd="true"
-        android:paddingBottom="3dp"
-        android:paddingTop="3dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:background="@drawable/shape_native_token"
-        android:layout_alignTop="@+id/tv_token_name"
-        android:layout_alignParentBottom="@+id/tv_token_name"
-        >
+        android:textColor="@color/global_secondary_text_color"
+        android:layout_gravity="center_horizontal"/>
+
+    <FrameLayout
+        android:id="@+id/layout_token_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="24dp"
+        android:layout_gravity="center_horizontal"
+        tools:background="@drawable/shape_btn_blue">
+
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_token_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/genarate_cross_address"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            />
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textSize="14sp"
+            tools:text="HBCiay79bq...34e26XS2YS"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/global_label_text_color"
+            android:layout_gravity="center_horizontal"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_token_icon"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            tools:background="#FF0000"
-            android:layout_marginStart="7dp"
-            />
-
-
-    </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/btn_apply_token"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="领取测试币"
-        android:layout_below="@+id/tv_token_name"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentEnd="true"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        />
-</RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

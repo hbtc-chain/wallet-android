@@ -83,6 +83,7 @@
     <string name="import_private_key">Import Private Key</string>
     <string name="hint_private_key_input">Please enter your private key</string>
     <string name="transfer">Out</string>
+    <string name="confrim_transfer">确认转账</string>
     <string name="un_transfer">Cancel transfer</string>
     <string name="make_collection">In</string>
     <string name="cancel">Cancel</string>
@@ -220,7 +221,10 @@
     <string name="please_input_gas_fee">Fee</string>
     <string name="error_input_gas_fes">Invalid Gasfee</string>
     <string name="gas_fee_high_available_fee">Insufficient gas fee</string>
+<!--
     <string name="tip_crosslink_generate">Please wait for the cross-chain deposit address to be generated.For the first deposit, the process may take several seconds to complete. Thank you for your patience.</string>
+-->
+    <string name="tip_crosslink_generate">提示：\n你正在为 %1$s 生成跨链充值地址，该地址将由跨链托管节点分布式生成，需要稍微等待一点时间。</string>
 
     <string name="tab_governance_title">Proposals</string>
     <string name="tab_proposals_title">Proposals</string>
@@ -425,6 +429,7 @@
     <string name="entrust_amount_more_avilable">Insufficient urdelegate amount</string>
     <string name="amount_rule">Please enter the correct amount and shall not exceed the available balance %1$s</string>
     <string name="crosss_fee_rule">Cross-chain fee shall not be less than %1$s</string>
+    <string name="crosss_fee_high_rule">跨链手续费需为数字，且不能大于%1$s</string>
     <string name="not_enough">Insufficient </string>
     <string name="all">All</string>
     <string name="no_profit">No profit</string>
@@ -439,6 +444,7 @@
     <string name="please_input_memo_or_tag">Please input memo or tag</string>
     <string name="meno_or_tag">Memo or tag</string>
     <string name="cross_link_transfer_tips">Tip:Ensure a positive balance of mainnet tokens on HBTC Chain account to be used as gasfee</string>
+    <string name="cross_link_transfer_tips_1">充值非主链代币，需要账户拥有一定数额的对应主链代币作为归集手续费才可以入账</string>
 
     <string name="native_token_list">Native</string>
     <string name="native_token_test_list">Native token</string>
@@ -456,14 +462,15 @@
     <string name="security_setting_pwd_tips">Password Valid for the next login</string>
     <string name="balance">Balance</string>
     <string name="cross_link_trusteeship_address">Cross-chain custody address</string>
-    <string name="hbc_chain_address">HBTC Chain address</string>
+<!--    <string name="hbc_chain_address">HBTC Chain address</string>-->
     <string name="click_make_cross_address">Click to generate cross-chain address</string>
     <string name="fingerprint_verify">TouchID login</string>
     <string name="traffic_network_later_try" translatable="false">Network congestion, please try again late</string>
     <string name="exchage_rate">Rate </string>
     <string name="exxternal_link_txid">Cross-chain TXID</string>
     <string name="friend_tips">Tips:</string>
-    <string name="string_deposit_threshold">· Minimum deposit amount %1$s</string>
+    <string name="string_deposit_threshold">%1$sMinimum deposit amount: %2$s</string>
+    <string name="string_deposit_enter_fee">跨链充值入账费 %1$s</string>
     <string name="set_pwd_period">Set password expiration：</string>
     <string name="string_deposit_threshold_2">Tips：minimum deposit amount</string>
     <string name="string_apply_success">Success</string>
@@ -497,8 +504,25 @@
     <string name="save_pictrue">保存图片</string>
     <string name="switch_cross_link_address">切换跨链托管地址</string>
     <string name="switch_hbtc_address">切换HBTC链地址</string>
+    <string name="hbtc_chain_address">HBTC链地址</string>
     <string name="transcation_record">交易记录</string>
     <string name="trusteeship_node">托管节点</string>
     <string name="common_node">共识节点</string>
     <string name="un_receive_income">待领取收益</string>
+    <string name="rist_tips">风险提示</string>
+    <string name="risk_content">检测到您的手机系统已root，存在安全风险，请谨慎使用。</string>
+    <string name="keep_on">继续使用</string>
+    <string name="transfer_out_address">转出地址</string>
+    <string name="string_transfer_in_address">接收地址</string>
+    <string name="select_withdraw_token">选择提币币种</string>
+    <string name="deposit_token">充值币种</string>
+    <string name="hbtc_transfer_in_tip">该账户支持HBC，HBTC链上资产以及HBTC链上的跨链托管资产</string>
+    <string name="input_receive_address">请输入接收地址</string>
+    <string name="input_withdraw_address">请输入提币地址</string>
+    <string name="cross_transfer_out_tips">提示：\n您正在进行跨链提币,请务必确认提币地址为该链的原生公链地址</string>
+    <string name="cross_transfer_inner_tips">提示：\n您正在进行HBTC链内转账,请务必确认接收地址以HBC开头</string>
+    <string name="confrim_create">确认创建</string>
+    <string name="token">币种</string>
+    <string name="create_crosslink_deposit_address">创建跨链充值地址</string>
+
 </resources>

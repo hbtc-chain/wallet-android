@@ -57,7 +57,7 @@ public class PasswordInputView extends RelativeLayout {
     //
     private boolean is_custom_keyborad;
 
-    private PasswordTextView[] mPasswordTextViews;
+    public PasswordTextView[] mPasswordTextViews;
     //
     private InputNumberTextWatcher mTextWatcher = new InputNumberTextWatcher();
 

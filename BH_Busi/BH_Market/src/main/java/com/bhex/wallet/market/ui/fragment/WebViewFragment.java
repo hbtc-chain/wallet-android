@@ -27,7 +27,8 @@ public class WebViewFragment extends JsBowserFragment {
 
     @BindView(R2.id.iv_back)
     AppCompatImageView iv_back;
-
+    @BindView(R2.id.iv_close)
+    AppCompatImageView iv_close;
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
 
@@ -38,8 +39,9 @@ public class WebViewFragment extends JsBowserFragment {
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
-        //url = "https://baidu.com";
         super.initView();
+        iv_close.setVisibility(View.VISIBLE);
+        iv_back.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -82,17 +84,17 @@ public class WebViewFragment extends JsBowserFragment {
                 //设置标题
                 tv_center_title.setText(title);
                 String url = view.getUrl();
-                if(!url.startsWith(BHConstants.MARKET_URL)){
+                /*if(!url.startsWith(BHConstants.MARKET_URL)){
                     getBackView().setVisibility(View.VISIBLE);
                 }else{
                     getBackView().setVisibility(View.INVISIBLE);
 
-                }
+                }*/
             }
         };
     }
 
-    @OnClick({com.bhex.wallet.market.R2.id.iv_refresh, com.bhex.wallet.market.R2.id.iv_back})
+    @OnClick({R2.id.iv_refresh, R2.id.iv_back,R2.id.iv_close})
     public void onClickView(View view) {
         if (R.id.iv_refresh == view.getId()) {
             mAgentWeb.getUrlLoader().loadUrl(getUrl());
@@ -100,6 +102,8 @@ public class WebViewFragment extends JsBowserFragment {
             if(!mAgentWeb.back()){
                 getActivity().finish();
             }
+        } else if(R.id.iv_close == view.getId()){
+            getActivity().finish();
         }
     }
 }

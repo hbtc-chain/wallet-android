@@ -62,8 +62,8 @@ public class ChainBottomLayoutVH {
             btn_item2.setText(activity.getResources().getString(R.string.transfer));
             btn_item3.setVisibility(View.GONE);
         }else {
-            btn_item1.setText(activity.getResources().getString(R.string.deposit));
-            btn_item2.setText(activity.getResources().getString(R.string.draw_coin));
+            btn_item1.setText(activity.getResources().getString(R.string.cross_deposit));
+            btn_item2.setText(activity.getResources().getString(R.string.cross_withdraw));
         }
 
         //兑币功能
@@ -78,14 +78,12 @@ public class ChainBottomLayoutVH {
 
     private void onBtnItemClick(View view) {
         if(mChain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
-
             if (view.getId() == R.id.btn_item1) {//链内转账
                 ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
                         .withString("symbol", mSymbol)
                         .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
                         .navigation();
             } else if (view.getId() == R.id.btn_item2) {
-
                 ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_out)
                         .withString("symbol", mSymbol)
                         .withInt("way", BH_BUSI_TYPE.链内转账.getIntValue())
@@ -96,10 +94,9 @@ public class ChainBottomLayoutVH {
                 //判断是否有链外地址
                 BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
                 if(TextUtils.isEmpty(balance.external_address)){
-                    activity.generateCrossLinkAddress();
-                    /*ARouter.getInstance()
+                    ARouter.getInstance()
                             .build(ARouterConfig.Balance.Balance_cross_address)
-                            .withString("symbol",mSymbol).navigation();*/
+                            .withString("symbol",mSymbol).navigation();
                 }else{
                     ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)
                             .withString("symbol", mSymbol)

@@ -103,7 +103,7 @@ public class AddressQRFragment extends BaseDialogFragment {
         AppCompatTextView tv_friend_tips = view.findViewById(R.id.tv_friend_tips);
 
         if(address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
-            tv_address_label.setText(getString(R.string.hbc_chain_address));
+            tv_address_label.setText(getString(R.string.hbtc_chain_address));
             tv_friend_tips.setVisibility(View.GONE);
         }else {
 

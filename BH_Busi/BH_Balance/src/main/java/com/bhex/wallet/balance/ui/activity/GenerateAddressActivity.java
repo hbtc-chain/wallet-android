@@ -26,10 +26,12 @@ import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
@@ -55,33 +57,16 @@ import butterknife.OnClick;
 @Route(path = ARouterConfig.Balance.Balance_cross_address)
 public class GenerateAddressActivity extends BaseActivity implements Password30Fragment.PasswordClickListener{
 
-    @BindView(R2.id.tv_center_title)
-    AppCompatTextView tv_center_title;
-
-    //@Autowired(name = "bhtBalance")
-    BHBalance bhtBalance;
-
     @Autowired(name = "symbol")
     String symbol;
 
-    @BindView(R2.id.tv_available_bht_amount)
-    AppCompatTextView tv_available_bht_amount;
-
-    @BindView(R2.id.ed_fee)
-    WithDrawInput ed_fee;
-    @BindView(R2.id.sb_tx_fee)
-    IndicatorSeekBar sb_tx_fee;
-
-    @BindView(R2.id.btn_crosslink_address)
-    MaterialButton btn_crosslink_address;
+    BHBalance bhtBalance;
+    BHToken symbolToken;
 
     BHWallet mCurrentWallet;
+    TransactionViewModel transactionViewModel;
 
-    double available_bht_amount = 0;
-
-    private TransactionViewModel transactionViewModel;
-
-    String available_label;
+    private String gas_fee;
 
     @Override
     protected int getLayoutId() {
@@ -91,64 +76,51 @@ public class GenerateAddressActivity extends BaseActivity implements Password30F
 
     @Override
     protected void initView() {
-        available_label = getResources().getString(R.string.available);
-        sb_tx_fee.setDecimalScale(4);
         ARouter.getInstance().inject(this);
+        symbolToken = SymbolCache.getInstance().getBHToken(symbol);
         bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
-        tv_center_title.setText(getResources().getString(R.string.genarate_cross_address));
-        //ed_fee.setInputString(BHConstants.BHT_DEFAULT_FEE);
-        ed_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
-
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
+        initViewContent();
+    }
 
-        String available_amount_str = BHBalanceHelper.getAmountForUser(this, bhtBalance.amount, "0", bhtBalance.symbol);
-        available_bht_amount = Double.valueOf(available_amount_str);
-        tv_available_bht_amount.setText(available_label+" "+available_amount_str + bhtBalance.symbol.toUpperCase());
+    //初始化内容
+    private void initViewContent() {
+        //标题
+        AppCompatTextView tv_center_title = findViewById(R.id.tv_center_title);
+        tv_center_title.setText(getResources().getString(R.string.create_crosslink_deposit_address));
+        //提示内容
+        AppCompatTextView tv_tip_content = findViewById(R.id.tv_tip_content);
 
-        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
-        transactionViewModel.mutableLiveData.observe(this,ldm->{
-            updateGenerateAddress(ldm);
-        });
+        String v_tip_content = String.format(getString(R.string.tip_crosslink_generate),symbolToken.name.toUpperCase());
+        tv_tip_content.setText(v_tip_content);
 
-        ed_fee.getEditText().addTextChangedListener(simpleTextWatcher);
-        ed_fee.getEditText().setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        //创建费用
+        AppCompatTextView tv_create_fee = findViewById(R.id.tv_create_fee);
+        tv_create_fee.setText(symbolToken.open_fee+" "+BHConstants.BHT_TOKEN.toUpperCase());
+
+        //手续费
+        gas_fee = BHUserManager.getInstance().getDefaultGasFee().displayFee;
+        AppCompatTextView tv_gas_fee = findViewById(R.id.tv_gas_fee);
+        tv_gas_fee.setText(gas_fee+" "+BHConstants.BHT_TOKEN.toUpperCase());
+
     }
 
     @Override
     protected void addEvent() {
-        sb_tx_fee.setOnSeekChangeListener(new OnSampleSeekChangeListener() {
-            @Override
-            public void onSeeking(SeekParams seekParams) {
-                super.onSeeking(seekParams);
-                ed_fee.setInputString(seekParams.progressFloat+"");
-            }
+        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+        transactionViewModel.mutableLiveData.observe(this,ldm->{
+            updateGenerateAddress(ldm);
         });
+        findViewById(R.id.btn_crosslink_address).setOnClickListener(this::onViewClicked);
     }
 
 
-    @OnClick({R2.id.btn_crosslink_address})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_crosslink_address){
             generateCrossLinkAddress();
         }
     }
 
-    SimpleTextWatcher simpleTextWatcher = new SimpleTextWatcher(){
-        @Override
-        public void afterTextChanged(Editable s) {
-            super.afterTextChanged(s);
-            String text = ed_fee.getInputString();
-            if(RegexUtil.checkNumeric(text)){
-                btn_crosslink_address.setEnabled(true);
-                btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.global_button_bg_color));
-                btn_crosslink_address.setTextColor(getResources().getColor(R.color.global_button_text_color));
-            }else{
-                btn_crosslink_address.setEnabled(false);
-                btn_crosslink_address.setBackgroundColor(ContextCompat.getColor(GenerateAddressActivity.this,R.color.global_button_enable_false_bg));
-                btn_crosslink_address.setTextColor(getResources().getColor(R.color.global_button_enable_false_text));
-            }
-        }
-    };
 
     /**
      * 生成跨链地址
@@ -160,21 +132,16 @@ public class GenerateAddressActivity extends BaseActivity implements Password30F
             return;
         }
 
-        String fee_aumount = ed_fee.getInputString();
-        if(TextUtils.isEmpty(fee_aumount)||Double.valueOf(fee_aumount)<=0){
+        if(TextUtils.isEmpty(gas_fee)||Double.valueOf(gas_fee)<=0){
             ToastUtils.showToast(getResources().getString(R.string.please_input_gas_fee));
             return;
         }
 
-        if(!RegexUtil.checkNumeric(fee_aumount)){
+        if(!RegexUtil.checkNumeric(gas_fee)){
             ToastUtils.showToast(getResources().getString(R.string.error_input_gas_fes));
             return;
         }
 
-        if(Double.valueOf(fee_aumount)>Double.valueOf(bhtBalance.amount)){
-            ToastUtils.showToast(getResources().getString(R.string.gas_fee_high_available_fee));
-            return;
-        }
 
         Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
@@ -196,9 +163,7 @@ public class GenerateAddressActivity extends BaseActivity implements Password30F
     //密码提示回调
     @Override
     public void confirmAction(String password, int position,int way) {
-        //BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));
-        String feeAmount = ed_fee.getInputString();
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(symbol);
-        transactionViewModel.transferInnerExt(this,password,feeAmount,tx_msg_list);
+        transactionViewModel.transferInnerExt(this,password,gas_fee,tx_msg_list);
     }
 }

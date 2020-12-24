@@ -46,10 +46,8 @@ public class ReInvestShareFragment extends BaseDialogFragment {
     }
 
 
-
     @Override
-    public void onStart() {
-        super.onStart();
+    public void initStart() {
         Window window = getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.centerDialogStyle;

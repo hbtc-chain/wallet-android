@@ -1,10 +1,15 @@
 package com.bhex.network.mvx.base;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +31,31 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public View mRootView;
 
     private Unbinder unbinder;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initStart();
+    }
+
+    public void initStart(){
+        setStyle(DialogFragment.STYLE_NO_TITLE, STYLE_NO_TITLE);
+        Window window = getDialog().getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        window.getAttributes().windowAnimations = R.style.bottomDialogStyle;
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.gravity = Gravity.BOTTOM;
+
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        //params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        window.setAttributes(params);
+    }
 
     @Nullable
     @Override

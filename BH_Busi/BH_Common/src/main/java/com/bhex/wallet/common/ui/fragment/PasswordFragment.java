@@ -2,9 +2,11 @@ package com.bhex.wallet.common.ui.fragment;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -96,6 +99,8 @@ public class PasswordFragment extends BaseDialogFragment {
 
         params.width = dm.widthPixels - PixelUtils.dp2px(BaseApplication.getInstance(), 48);
         window.setAttributes(params);
+
+
     }
 
     @NonNull
@@ -135,11 +140,14 @@ public class PasswordFragment extends BaseDialogFragment {
 
             }
         });
+
+        inp_wallet_pwd.m_input_content.requestFocus();
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
     }
 
     /**
      * 显示密码对话框
-     *
      * @param fm
      * @param tag
      */
@@ -154,6 +162,7 @@ public class PasswordFragment extends BaseDialogFragment {
         }else{
             pfrag.show(fm, tag);
         }
+
         return pfrag;
     }
 
@@ -161,7 +170,6 @@ public class PasswordFragment extends BaseDialogFragment {
         PasswordFragment pfrag = new PasswordFragment();
         pfrag.passwordClickListener = listener;
         pfrag.position = position;
-        //pfrag.show(fm, tag);
         return pfrag;
     }
 
@@ -174,7 +182,8 @@ public class PasswordFragment extends BaseDialogFragment {
     public void onViewClicked(View view) {
         if(view.getId() == R.id.iv_close){
             dismissAllowingStateLoss();
-            ToolUtils.hintKeyBoard(getActivity());
+
+            //ToolUtils.hideSystemSofeKeyboard(getActivity(),inp_wallet_pwd.m_input_content);
         }
     }
 

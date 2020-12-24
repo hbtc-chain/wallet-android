@@ -14,6 +14,7 @@ import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.browse.wv.WVJBWebViewClient;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -89,16 +90,8 @@ public class MarketFragment extends JsBowserFragment {
         if(!TextUtils.isEmpty(mTokenId)){
             url = url.append("/").append(mTokenId);
         }
-        Locale locale = LocalManageUtil.getSetLanguageLocale(getActivity());
-        if(locale!=null){
-            if(locale.getLanguage().contains("en")){
-                url.append("?lang=en-us");
-            }else{
-                url.append("?lang=zh-cn");
-            }
-        }else{
-            url.append("?lang=zh-cn");
-        }
+        String v_local_display = ToolUtils.getLocalString(getYActivity());
+        url = url.append("?lang=").append(v_local_display);
         return url.toString();
     }
 
@@ -130,9 +123,7 @@ public class MarketFragment extends JsBowserFragment {
         transactionViewModel.create_dex_transcation(getYActivity(),h5SignEvent.h5Sign.type,h5SignEvent.h5Sign.value,h5SignEvent.data);
     }
 
-
     private void updateTransferStatus(LoadDataModel ldm) {
-
         if(mH5Sign==null || TextUtils.isEmpty(mH5Sign.type)) {
             return;
         }
@@ -144,8 +135,7 @@ public class MarketFragment extends JsBowserFragment {
         DexResponse<JSONObject> dexResponse = new DexResponse(ldm.code,ldm.msg);
         dexResponse.data = JSONObject.parseObject(ldm.getData().toString());
         callback.callback(JsonUtils.toJson(dexResponse));
-
-        LogUtils.d("MarketFragment==>:","json=="+JsonUtils.toJson(dexResponse));
+        //LogUtils.d("MarketFragment==>:","json=="+JsonUtils.toJson(dexResponse));
         callbackMaps.remove(mH5Sign.type);
     }
 

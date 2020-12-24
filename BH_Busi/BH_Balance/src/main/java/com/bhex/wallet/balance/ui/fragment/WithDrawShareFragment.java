@@ -49,8 +49,8 @@ public class WithDrawShareFragment extends BaseDialogFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void initStart() {
+        setStyle(DialogFragment.STYLE_NO_TITLE, STYLE_NO_TITLE);
         Window window = getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.centerDialogStyle;

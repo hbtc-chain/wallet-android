@@ -1,6 +1,7 @@
 package com.bhex.wallet.bh_main.my.ui.fragment;
 
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.CircleView;
 import com.bhex.network.base.LoadDataModel;
@@ -119,8 +121,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
         MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(
                 getYActivity(), DividerItemDecoration.VERTICAL,
-                PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(),
-                R.color.global_divider_color)
+                PixelUtils.dp2px(getYActivity(), 8),
+                ColorUtil.getColor(getYActivity(),R.color.global_divider_color)
         );
 
         recycler_my.addItemDecoration(myRecyclerDivider);
@@ -146,6 +148,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
+
                     break;
                 case 修改安全密码:
                     ARouter.getInstance().build(ARouterConfig.My.My_Update_Password)
@@ -254,8 +257,8 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             fragment.showNow(getChildFragmentManager(), UpdateNameFragment.class.getName());
         }else if(view.getId()==R.id.layout_index_2){
             //ARouter.getInstance().build(ARouterConfig.Token_Release).navigation();
-            //ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url","https://baidu.com").navigation();
-            ToastUtils.showToast("跳转交易记录");
+            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",getTranscationUrl()).navigation();
+            //ToastUtils.showToast("跳转交易记录");
         } else if(view.getId()==R.id.layout_index_3){
             ARouter.getInstance().build(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE).navigation();
         }
@@ -330,6 +333,18 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     UpgradeFragment.DialogOnClickListener upgradeDialogListener = v -> {
         ToastUtils.showToast(getActivity().getResources().getString(R.string.app_loading_now));
     };
+
+
+    private String getTranscationUrl(){
+        //http://hbtc.yym.plus/account/HBCjFjeC8LEQjKDggRiNn9YEeS3KtzkPhccU?lang=zh-cn&type=transactions
+        String v_local_display = ToolUtils.getLocalString(getYActivity());
+        String url = BHConstants.API_BASE_URL
+                        .concat("account/")
+                        .concat(BHUserManager.getInstance().getCurrentBhWallet().address)
+                        .concat("?type=transactions").concat("&lang=").concat(v_local_display);
+        LogUtils.d("MyFragement==>:","url=="+url);
+        return url;
+    }
 
 
 }

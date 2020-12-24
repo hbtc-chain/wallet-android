@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.RefreshLayoutManager;
 import com.bhex.lib.uikit.util.BottomNavigationViewUtil;
+import com.bhex.lib.uikit.widget.bar.CookieBar;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;

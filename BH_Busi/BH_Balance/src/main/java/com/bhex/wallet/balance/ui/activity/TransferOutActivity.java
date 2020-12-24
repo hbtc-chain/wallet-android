@@ -88,7 +88,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
         //
         findViewById(R.id.btn_drawwith_coin).setOnClickListener(this::onSubmitAction);
 
-        findViewById(R.id.tv_center_title).setOnClickListener(this::chooseTokenAction);
+        findViewById(R.id.btn_transfer_out_token).setOnClickListener(this::chooseTokenAction);
 
     }
 

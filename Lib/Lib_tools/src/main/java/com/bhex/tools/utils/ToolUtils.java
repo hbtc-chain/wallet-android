@@ -13,6 +13,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import com.bhex.tools.language.LocalManageUtil;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.text.ParseException;
@@ -43,6 +49,23 @@ public class ToolUtils {
             return true;
         else
             return false;
+    }
+
+    public static String getLocalString(Context context){
+
+        Locale locale = LocalManageUtil.getSetLanguageLocale(context);
+        if(locale!=null){
+            if(locale.getLanguage().contains("en")){
+                return "en-us";
+                //url.append("?lang=en-us");
+            }else{
+                return "zh-cn";
+                //url.append("?lang=zh-cn");
+            }
+        }else{
+            return "en-us";
+            //url.append("?lang=zh-cn");
+        }
     }
 
     //关闭软键盘
@@ -134,8 +157,14 @@ public class ToolUtils {
         // 如果软键盘已经显示，则隐藏
         InputMethodManager imm = (InputMethodManager) mContext.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
 
-
+    //显示键盘
+    public static void showKeyBoard(FragmentActivity activity,EditText editText) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(activity.getWindow().getDecorView(), InputMethodManager.SHOW_FORCED);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        //imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
@@ -223,4 +252,7 @@ public class ToolUtils {
         }
         return false;
     }
+
+
+
 }

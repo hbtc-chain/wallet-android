@@ -60,7 +60,7 @@ public class TransferInActivity extends BaseActivity {
 
     @Override
     protected void addEvent() {
-        findViewById(R.id.tv_center_title).setOnClickListener(this::chooseTokenAction);
+        findViewById(R.id.btn_select_token).setOnClickListener(this::chooseTokenAction);
         //findViewById(R.id.btn_save_qr).setOnClickListener(this::saveQRAction);
         /*tv_switch_address.setOnClickListener(v -> {
             ToastUtils.showToast("way==="+way);
@@ -99,16 +99,6 @@ public class TransferInActivity extends BaseActivity {
         @Override
         public void onChooseClickListener(String symbol, int position) {
             //更新token
-            /*BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(symbol);
-            if(!TextUtils.isEmpty(balance.external_address)){
-                TransferInActivity.this.symbol = symbol;
-                //updateViewContent();
-                mTransferInVH.initContnetView(symbol);
-            }else{
-                ARouter.getInstance()
-                        .build(ARouterConfig.Balance.Balance_cross_address)
-                        .withString("symbol",symbol).navigation();
-            }*/
             TransferInActivity.this.symbol = symbol;
             //updateViewContent();
             mTransferInVH.initContnetView(symbol,way);

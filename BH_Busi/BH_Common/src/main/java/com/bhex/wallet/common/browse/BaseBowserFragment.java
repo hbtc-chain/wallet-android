@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import androidx.core.content.ContextCompat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
@@ -34,8 +35,6 @@ public abstract class BaseBowserFragment extends BaseFragment {
 
     public Map<String, WVJBWebViewClient.WVJBResponseCallback> callbackMaps;
 
-    //private MiddlewareWebClientBase mMiddleWareWebClient;
-    //private MiddlewareWebChromeBase mMiddleWareWebChrome;
 
     public abstract  View getWebRootView();
 
@@ -62,6 +61,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
 
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         mAgentWeb.getWebCreator().getWebView().setWebViewClient(getWebViewClient(mAgentWeb.getWebCreator().getWebView()));
+        //mAgentWeb.getWebCreator().getWebView().setWebContentsDebuggingEnabled(true);
         String ua = webSettings.getUserAgentString();
         webSettings.setUserAgentString(ua+";hbtcchainwallet");
         callbackMaps = new HashMap<>();

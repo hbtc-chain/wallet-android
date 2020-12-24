@@ -33,9 +33,14 @@ public class TransferOutPresenter extends BasePresenter {
 
         String current_address = BHUserManager.getInstance().getCurrentBhWallet().address;
 
+        if(TextUtils.isEmpty(to_address)){
+            ToastUtils.showToast(getActivity().getString(R.string.input_receive_address));
+            return false;
+        }
 
         if(!to_address.toUpperCase().startsWith(BHConstants.BHT_TOKEN.toUpperCase()) || current_address.equalsIgnoreCase(to_address)){
             ToastUtils.showToast(getActivity().getString(R.string.error_transfer_address));
+            mTransferViewHolder.input_to_address.getEditText().requestFocus();
             return false;
         }
 
@@ -73,11 +78,7 @@ public class TransferOutPresenter extends BasePresenter {
         return true;
     }
 
-    public boolean checkCrossLinkTransfer(/*String to_address, String transfer_amount,
-                                           String available_amount,
-                                           String tx_fee_amount,
-                                           String witddraw_fee_amount,
-                                           String min_withdraw_fee, BHBalance available_withdraw_balance*/){
+    public boolean checkCrossLinkTransfer(){
         String to_address = mTransferViewHolder.input_to_address.getInputString();
         String transfer_amount = mTransferViewHolder.input_transfer_amount.getText().toString().trim();
         String available_amount = String.valueOf(mTransferViewHolder.available_amount);
@@ -89,13 +90,15 @@ public class TransferOutPresenter extends BasePresenter {
         String available_withdraw_fee = mTransferViewHolder.withDrawFeeBalance.amount;
         //提币地址
         if(TextUtils.isEmpty(to_address)){
-            ToastUtils.showToast(getActivity().getResources().getString(R.string.withdraw_address_error));
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.input_withdraw_address));
+            mTransferViewHolder.input_to_address.getEditText().requestFocus();
             return false;
         }
 
         //提币数量
         if(TextUtils.isEmpty(transfer_amount) || Double.valueOf(transfer_amount)<=0 ){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.input_withdraw_amount));
+            mTransferViewHolder.input_transfer_amount.requestFocus();
             return false;
         }
 
@@ -122,9 +125,7 @@ public class TransferOutPresenter extends BasePresenter {
         //提币手续费不足
         //输入的手续费大于可用手续费
         if(!RegexUtil.checkNumeric(input_withdraw_fee) || Double.valueOf(input_withdraw_fee)>Double.valueOf(available_withdraw_fee)){
-            //ToastUtils.showToast( getActivity().getString(R.string.withdraw_fee_notenough));
-            //String tip_text = String.format(getActivity().getString(R.string.crosss_fee_rule),available_amount);
-            String tip_text = "跨链手续费不能大于"+available_withdraw_fee;
+            String tip_text = String.format(getActivity().getString(R.string.crosss_fee_high_rule),available_withdraw_fee);
             ToastUtils.showToast(tip_text);
             return false;
         }

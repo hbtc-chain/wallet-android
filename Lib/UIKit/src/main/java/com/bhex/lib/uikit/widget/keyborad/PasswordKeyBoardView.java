@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import com.bhex.lib.uikit.R;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.tools.utils.ToolUtils;
 
 import java.lang.reflect.Method;
@@ -54,6 +55,8 @@ public class PasswordKeyBoardView extends KeyboardView  {
 
     private OnKeyListener mListener;
 
+    //为防止自定义键盘覆盖输入框，根布局向上的移动高度
+    private int height = 0;
     //输入框所在的根布局
     private ViewGroup mInputRootView;
     //自定义软键盘所在的根布局
@@ -131,9 +134,30 @@ public class PasswordKeyBoardView extends KeyboardView  {
         setKeyboard(mKeyboard);
         setEnabled(true);
         setPreviewEnabled(false);
+        showResize();
         setOnKeyboardActionListener(onKeyboardListener);
         mKeyBoardRoot.setVisibility(VISIBLE);
         setVisibility(VISIBLE);
+    }
+
+
+    private void showResize() {
+
+        mInputRootView.post(new Runnable() {
+            @Override
+            public void run() {
+
+                int[] pos = new int[2];
+                //获取编辑框在整个屏幕中的坐标
+                mCurrentEditText.getLocationOnScreen(pos);
+                //编辑框的Bottom坐标和键盘Top坐标的差
+                height = (pos[1] + mCurrentEditText.getHeight()) -
+                        (PixelUtils.getScreenHeight(getContext()) - mKeyBoardRoot.getHeight());
+                if (height > 0) {
+                    mInputRootView.scrollBy(0, height + PixelUtils.dp2px(getContext(), 16));
+                }
+            }
+        });
     }
 
     /**隐藏键盘*/
@@ -141,7 +165,14 @@ public class PasswordKeyBoardView extends KeyboardView  {
         if (getVisibility() == VISIBLE) {
             mKeyBoardRoot.setVisibility(GONE);
             setVisibility(GONE);
-            //hideResize();
+            hideResize();
+        }
+    }
+
+    /**自定义键盘隐藏时，判断输入框所在的根布局是否向上移动了height，如果移动了则需再移回来*/
+    private void hideResize() {
+        if (height > 0) {
+            mInputRootView.scrollBy(0, -(height + PixelUtils.dp2px(getContext(), 16)));
         }
     }
 

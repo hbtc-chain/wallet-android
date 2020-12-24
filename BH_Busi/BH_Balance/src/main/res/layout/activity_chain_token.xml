@@ -8,47 +8,6 @@
     android:orientation="vertical"
     tools:context=".ui.activity.ChainTokenActivity">
 
-    <!--
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-        app:titleTextAppearance="@style/Toolbar_textsize"
-        xmlns:tools="http://schemas.android.com/tools">
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_center_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            style="@style/toolbar_layout_title_style"
-            android:text="@string/wallet_create_trusteeship"
-            tools:text="@string/wallet_create_trusteeship" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_add_token"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:gravity="center_vertical"
-            android:drawableStart="@mipmap/ic_add_token"
-            android:drawablePadding="4dp"
-            android:text="@string/add_token"
-            android:textSize="13sp"
-            android:textColor="@color/global_main_text_color"
-            android:paddingEnd="@dimen/main_margin_right"/>
-
-    </androidx.appcompat.widget.Toolbar>
-    -->
-
     <include
         layout="@layout/layout_toolbar"
         />
@@ -57,6 +16,7 @@
         android:id="@+id/refreshLayout"
         android:layout_below="@+id/toolbar"
         android:layout_above="@+id/layout_bottom"
+        android:layout_marginBottom="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -69,13 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <!--
-                <include
-                    android:id="@+id/layout_index_0"
-                    layout="@layout/layout_hbc"
-                    />
-                -->
 
                 <include
                     android:id="@+id/layout_index_1"
@@ -106,7 +59,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/global_main_text_color"
-                                android:text="Token"
+                                android:text="@string/token"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
                                 android:layout_centerVertical="true"
@@ -160,6 +113,14 @@
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/layout_bottom"
+        android:background="@color/global_divider_color"
+        />
+
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
@@ -173,11 +134,11 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:padding="0dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
+            android:inset="0dp"
             app:backgroundTint="@color/global_button_bg_color"
             android:text="@string/deposit"
             style="@style/main_material_btn"
@@ -191,10 +152,10 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:padding="0dp"
             android:gravity="center"
             android:layout_gravity="center_vertical"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
+            android:inset="0dp"
             android:layout_marginRight="5dp"
             app:backgroundTint="@color/global_button_bg_color"
             android:text="@string/transfer"
@@ -209,9 +170,9 @@
             android:id="@+id/btn_item3"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:padding="0dp"
             android:layout_weight="1"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
+            android:inset="0dp"
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:layout_gravity="center_vertical"
@@ -232,8 +193,11 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:padding="0dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:layout_gravity="center_vertical"

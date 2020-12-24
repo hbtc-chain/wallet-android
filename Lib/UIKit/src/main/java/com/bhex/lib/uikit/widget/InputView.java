@@ -11,6 +11,8 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.bhex.lib.uikit.R;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
 import com.google.android.material.shape.MaterialShapeUtils;
 
@@ -46,6 +49,7 @@ public class InputView extends LinearLayout implements View.OnClickListener {
     public final static int SILENTMODE = 0;
     public final static int NORMALMODE = 1;
     public final static int PWDMODE = 2;
+    public final static int NUMBERPWDMODE = 3;
     private int mMode = NORMALMODE;
     private int mNum = 6;
     //错误提示
@@ -82,7 +86,7 @@ public class InputView extends LinearLayout implements View.OnClickListener {
         mMode = typedArray.getInt(R.styleable.InputView_textType,-1);
         LayoutInflater.from(context).inflate(R.layout.view_input_edittext_layout,
                 this, true);
-
+        LogUtils.d("InputView===>:","mMode=="+mMode);
         setOrientation(HORIZONTAL);
 
         initView();
@@ -112,13 +116,24 @@ public class InputView extends LinearLayout implements View.OnClickListener {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    mInputEd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    if(mMode==NUMBERPWDMODE){
+                        mInputEd.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        mInputEd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        //mInputEd.setTypeface(Typeface.SANS_SERIF);
+                        //mInputEd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    }else{
+                        mInputEd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    }
                 } else {
-                    mInputEd.setInputType(InputType.TYPE_CLASS_TEXT
-                            | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    if(mMode==NUMBERPWDMODE){
+                        mInputEd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    }else{
+                        mInputEd.setInputType(InputType.TYPE_CLASS_TEXT
+                                | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    }
                 }
 
-                if (mMode==PWDMODE) {
+                if (mMode==PWDMODE || mMode==NUMBERPWDMODE) {
                     checkPasswdFont(mInputEd.getText().toString());
                     mInputEd.setSelection(mInputEd.getText().length());
                 }
@@ -142,6 +157,12 @@ public class InputView extends LinearLayout implements View.OnClickListener {
             case PWDMODE:
                 mInputShow.setVisibility(View.VISIBLE);
                 mInputEd.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
+                mInputEd.setTypeface(Typeface.SANS_SERIF);
+                break;
+            case NUMBERPWDMODE:
+                mInputShow.setVisibility(View.VISIBLE);
+                mInputEd.setInputType(InputType.TYPE_CLASS_NUMBER);
+                mInputEd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 mInputEd.setTypeface(Typeface.SANS_SERIF);
                 break;
             default:
@@ -267,7 +288,7 @@ public class InputView extends LinearLayout implements View.OnClickListener {
             }else{
             }
 
-            if (mMode==PWDMODE) {
+            if (mMode==PWDMODE||mMode==NUMBERPWDMODE) {
                 checkPasswdFont(arg0);
             }
         }
@@ -307,7 +328,6 @@ public class InputView extends LinearLayout implements View.OnClickListener {
     }
 
     public String getInputString() {
-//        return mInputLayout.getEditText().getText().toString().trim();
         return mInputEd.getText().toString().trim();
     }
 
@@ -317,7 +337,6 @@ public class InputView extends LinearLayout implements View.OnClickListener {
     }
 
     public String getInputStringNoTrim() {
-//        return mInputLayout.getEditText().getText().toString().trim();
         return mInputEd.getText().toString();
     }
 

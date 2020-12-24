@@ -77,11 +77,10 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     BHBalance mBalance;
 
-    @BindView(R2.id.layout_index_1)
-    RelativeLayout layout_index_1;
+    //@BindView(R2.id.layout_index_1)
     @BindView(R2.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-    @BindView(R2.id.tv_center_title)
+    //@BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
     @BindView(R2.id.rcv_token_list)
     RecyclerView rcv_token_list;
@@ -94,7 +93,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     private BalanceViewModel mBalanceViewModel;
     private ChainTokenViewModel mChainTokenViewModel;
-    public TransactionViewModel mTransactionViewModel;
+    //public TransactionViewModel mTransactionViewModel;
 
     private List<BHTokenItem> mTokenList;
     private int defRefreshCount1 = 0;
@@ -110,6 +109,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
+        tv_center_title = findViewById(R.id.tv_center_title);
         mBalance = BHBalanceHelper.getBHBalanceFromAccount(bhChain.chain);
         tv_center_title.setText(mBalance.symbol.toUpperCase());
         refreshLayout.setEnableLoadMore(false);
@@ -125,10 +125,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         rcv_token_list.setAdapter(mBalanceAdapter);
         rcv_token_list.setNestedScrollingEnabled(false);
 
-        //mHbcViewHolder = HBCViewHolder.getInstance().initView(this,layout_index_0,mBalance);
-        //mBtcViewHolder = BTCViewHolder.getInstance().initView(this,layout_index_1,mBalance);
-        mETHViewHolder = new ETHViewHolder(this,layout_index_1,mBalance);
-
+        mETHViewHolder = new ETHViewHolder(this,findViewById(R.id.layout_index_1),mBalance);
         mBottomLayoutVH = new ChainBottomLayoutVH(this,findViewById(R.id.layout_bottom),bhChain.chain,mBalance.symbol);
         mBottomLayoutVH.initContentView();
         setTokenAddress();
@@ -137,14 +134,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     //设置地址
     private void setTokenAddress() {
         mETHViewHolder.initViewContent(mBalance);
-        if(bhChain.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-            findViewById(R.id.btn_apply_token).setVisibility(View.VISIBLE);
-            findViewById(R.id.btn_apply_token).setOnClickListener(v -> {
-                applyTestToken();
-            });
-        }else{
-            findViewById(R.id.btn_apply_token).setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -166,10 +155,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
             finishRefresh();
         });
 
-        mTransactionViewModel = ViewModelProviders.of(ChainTokenActivity.this).get(TransactionViewModel.class);
-        mTransactionViewModel.mutableLiveData.observe(this,ldm->{
-            
-        });
+
         mBalanceAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHTokenItem bhTokenItem = mBalanceAdapter.getData().get(position);
             BHBalance bhBalance = BHBalanceHelper.getBHBalanceFromAccount(bhTokenItem.symbol);
@@ -263,7 +249,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     }*/
 
     //生成跨链地址
-    public void generateCrossLinkAddress() {
+    /*public void generateCrossLinkAddress() {
         PasswordFragment fragment = PasswordFragment.showPasswordDialogExt(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
                 passwordClickListener,0);
@@ -271,9 +257,9 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
                 BHUserManager.getInstance().getDefaultGasFee().displayFee+BHConstants.BHT_TOKEN.toUpperCase());
         fragment.setTv_sub_title(subTitle);
         fragment.show(getSupportFragmentManager(),ChainTokenActivity.class.getName());
-    }
+    }*/
 
-    PasswordFragment.PasswordClickListener passwordClickListener = ((password, position, way) -> {
+    /*PasswordFragment.PasswordClickListener passwordClickListener = ((password, position, way) -> {
         BHBalance bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
         if(TextUtils.isEmpty(bhtBalance.amount) ||
                 Double.valueOf(bhtBalance.amount)<=Double.valueOf(BHUserManager.getInstance().getDefaultGasFee().displayFee)){
@@ -283,6 +269,6 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(mBalance.symbol);
         mTransactionViewModel.transferInnerExt(this,password,BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
-    });
+    });*/
 
 }

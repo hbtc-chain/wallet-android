@@ -17,7 +17,7 @@
         android:gravity="center"
         android:layout_marginTop="24dp"
         android:textSize="20sp"
-        android:text="风险提示"
+        android:text="@string/rist_tips"
         android:textColor="#0A1825"
         />
 
@@ -44,7 +44,7 @@
         android:layout_marginEnd="@dimen/main_padding_right"
         android:layout_marginTop="16dp"
         android:gravity="left"
-        android:text="检测到您的手机系统已root，存在安全风险，请谨慎使用。"
+        android:text="@string/risk_content"
         android:textColor="#0A1825"
         android:textSize="15sp"
         tools:ignore="HardcodedText" />
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_risk_tips"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/secondary_button"
-        android:text="退出使用"
+        android:text="@string/logout"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toStartOf="@+id/btn_goto"
         />
@@ -75,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_exit"
         style="@style/main_btn_style"
-        android:text="继续使用"
+        android:text="@string/keep_on"
         app:layout_constraintHorizontal_bias="0.5"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

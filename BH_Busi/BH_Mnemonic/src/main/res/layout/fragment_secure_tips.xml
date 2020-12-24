@@ -8,6 +8,8 @@
     android:paddingBottom="24dp"
     tools:context=".ui.fragment.SecureTipsFragment">
 
+
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_title"
         android:layout_width="0dp"

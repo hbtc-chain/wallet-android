@@ -146,4 +146,12 @@
 
     </FrameLayout>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@+id/layout_index_0"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_index_0"
+        android:background="@mipmap/bg_qr_address"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
