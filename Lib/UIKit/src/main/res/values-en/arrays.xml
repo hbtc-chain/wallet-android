@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about_us">About us</string>
+    <string name="contact_us">Contact us</string>
+    <string name="check_update">Check for update</string>
+
     <string-array name="app_language_type">
         <item>简体中文</item>
         <item>English</item>
@@ -7,7 +11,9 @@
     </string-array>
 
     <string-array name="my_list_item">
+<!--
         <item>Reset Password</item>
+-->
         <item>Backup mnemonic phrase</item>
         <item>Backup private key</item>
         <item>Backup Keystore</item>
@@ -16,15 +22,18 @@
         -->
         <item>Notice</item>
         <item>Help Center</item>
+        <item>@string/about_us</item>
         <item>Settings</item>
-        <item>Contact us</item>
+<!--
         <item>Version</item>
+-->
     </string-array>
 
     <string-array name="set_list_item">
         <item>Language</item>
         <item>Currency</item>
         <item>Night mode</item>
+        <item>Reset Password</item>
         <item>Touch ID</item>
         <item>Security settings</item>
     </string-array>

@@ -42,10 +42,8 @@ public class MyHelper {
         String [] res = context.getResources().getStringArray(R.array.my_list_item);
         MyItem item = null;
         for (int i = 0; i < res.length; i++) {
-            if(i==7){
-                item = new MyItem(i,res[i], false, BHConstants.EMAIL);
-            } else if (i == 8) {
-                item = new MyItem(i,res[i], false, "v"+PackageUtils.getVersionName(context)+"_"+PackageUtils.getVersionCode(context));
+            if (i == 5) {
+                item = new MyItem(i,res[i], true, "v"+PackageUtils.getVersionName(context)+"("+PackageUtils.getVersionCode(context)+")");
             } else {
                 item = new MyItem(i,res[i], true, "");
             }
@@ -98,7 +96,7 @@ public class MyHelper {
 
         //
         String []secTipsArray = context.getResources().getStringArray(R.array.security_list);
-        myItems.get(4).rightTxt = SecuritySettingManager.getInstance().thirty_in_time?secTipsArray[1]:secTipsArray[0];
+        myItems.get(5).rightTxt = SecuritySettingManager.getInstance().thirty_in_time?secTipsArray[1]:secTipsArray[0];
         return myItems;
     }
 
@@ -161,6 +159,22 @@ public class MyHelper {
                 SecuritySettingItem item = new SecuritySettingItem(i,res[i], SecuritySettingManager.getInstance().thirty_in_time);
                 myItems.add(item);
             }
+        }
+        return myItems;
+    }
+
+    //关于我们
+    public static List<MyItem> getAboutUs(Context context){
+        List<MyItem> myItems = new ArrayList<>();
+        String []res = context.getResources().getStringArray(R.array.about_us_list);
+        for (int i = 0; i < res.length; i++) {
+            String right_text="";
+            if(i==0){
+                right_text =  "v"+PackageUtils.getVersionName(context)+"("+PackageUtils.getVersionCode(context)+")";
+            }
+            MyItem item = new MyItem(i,res[i], true, right_text);
+
+            myItems.add(item);
         }
         return myItems;
     }

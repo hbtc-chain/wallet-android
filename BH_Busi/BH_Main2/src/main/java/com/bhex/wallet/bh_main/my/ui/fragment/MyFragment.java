@@ -116,14 +116,13 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
+        recycler_my.setNestedScrollingEnabled(false);
         recycler_my.setAdapter(mMyAdapter = new MyAdapter( mItems));
-        //mMyAdapter.setHasStableIds(true);
 
-        MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(
-                getYActivity(), DividerItemDecoration.VERTICAL,
-                PixelUtils.dp2px(getYActivity(), 8),
-                ColorUtil.getColor(getYActivity(),R.color.global_divider_color)
-        );
+        MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(getContext(),
+                ColorUtil.getColor(getContext(),R.color.global_divider_color),
+                getResources().getDimension(R.dimen.default_item_divider_height),
+                new int[]{mMyAdapter.getData().size()==7?2:1,4});
 
         recycler_my.addItemDecoration(myRecyclerDivider);
         tv_username.setText(mBhWallet.getName());
@@ -150,11 +149,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                             MyFragment.this,item.id);
 
                     break;
-                case 修改安全密码:
-                    ARouter.getInstance().build(ARouterConfig.My.My_Update_Password)
-                            .withString("title",item.title)
-                            .navigation();
-                    break;
                 case 备份私钥:
                     //提醒页
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
@@ -168,27 +162,33 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                             MyFragment.this,item.id);
                     break;
 
+                case 关于我们:
+                    //设置
+                    //NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
+                    ARouter.getInstance().build(ARouterConfig.My.My_About).navigation();
+                    break;
+
                 case 设置:
                     //设置
                     NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
                     break;
-                case 版本号:
+                /*case 版本号:
                     mUpgradeVM.getUpgradeInfoExt(getYActivity());
-                    break;
+                    break;*/
 
             }
         });
 
-        mMyAdapter.setOnItemLongClickListener((adapter, view, position) -> {
+        /*mMyAdapter.setOnItemLongClickListener((adapter, view, position) -> {
             MyItem item = mItems.get(position);
             switch (item.id){
-                case 5:
+                case 6:
                     ToastUtils.showToast(getResources().getString(R.string.copyed));
                     ToolUtils.copyText(item.rightTxt,getYActivity());
                     break;
             }
             return true;
-        });
+        });*/
 
         //助记词备份订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back, LoadDataModel.class).observe(this, ldm->{
@@ -336,7 +336,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
 
     private String getTranscationUrl(){
-        //http://hbtc.yym.plus/account/HBCjFjeC8LEQjKDggRiNn9YEeS3KtzkPhccU?lang=zh-cn&type=transactions
         String v_local_display = ToolUtils.getLocalString(getYActivity());
         String url = BHConstants.API_BASE_URL
                         .concat("account/")

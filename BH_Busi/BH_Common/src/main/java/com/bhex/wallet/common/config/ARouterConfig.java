@@ -39,6 +39,9 @@ public class ARouterConfig {
         public static final String My_Recognition = "/my/recognition";
         //安全设置
         public static final String My_Security_Setting = "/my/security/setIndex";
+        //关于我们
+        public static final String My_About = "/my/about";
+
     }
 
     //托管单元-钱包账户

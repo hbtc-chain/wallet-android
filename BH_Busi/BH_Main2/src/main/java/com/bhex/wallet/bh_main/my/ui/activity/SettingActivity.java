@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
+import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
@@ -62,12 +63,13 @@ public class SettingActivity extends BaseActivity{
         mSettingAdapter = new SettingAdapter(mItems);
         recycler_setting.setAdapter(mSettingAdapter);
 
-        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
-                this,LinearLayoutManager.VERTICAL,
-                PixelUtils.dp2px(this,16),0,
-                ColorUtil.getColor(this,R.color.global_divider_color));
+        MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(this,
+                ColorUtil.getColor(this,R.color.global_divider_color),
+                getResources().getDimension(R.dimen.default_item_divider_height),
+                new int[]{2,3});
 
-        recycler_setting.addItemDecoration(ItemDecoration);
+        recycler_setting.addItemDecoration(myRecyclerDivider);
+
         EventBus.getDefault().register(this);
     }
 
@@ -93,7 +95,7 @@ public class SettingActivity extends BaseActivity{
                 NavigateUtil.startActivity(this,SettingActivity.class);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 EventBus.getDefault().post(new NightEvent());
-            } else if(position==3){
+            } else if(position==4){
                 CheckedTextView ck = (CheckedTextView) view;
                 if(!ck.isChecked()){
                     if(SafeUilts.isFinger(this)){
@@ -126,7 +128,12 @@ public class SettingActivity extends BaseActivity{
             case 1:
                 ARouter.getInstance().build(ARouterConfig.My.My_Rate_setting).withString("title",myItem.title).navigation();
                 break;
-            case 4:
+            case 3:
+                ARouter.getInstance().build(ARouterConfig.My.My_Update_Password)
+                        .withString("title",myItem.title)
+                        .navigation();
+                break;
+            case 5:
                 ARouter.getInstance().build(ARouterConfig.My.My_Security_Setting).withString("title",myItem.title).navigation();
         }
     }
