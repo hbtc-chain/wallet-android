@@ -491,6 +491,7 @@
         android:layout_height="48dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"
+        android:stateListAnimator="@null"
         android:layout_marginStart="@dimen/main_padding_left"
         android:layout_marginEnd="@dimen/main_padding_right"
         android:layout_marginBottom="@dimen/main_margin_bottom"

@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:textColor="@color/global_main_text_color"
+                    android:textColor="#0A1825"
                     tools:text="ETH"
                     android:layout_toRightOf="@+id/iv_token_icon"
                     android:textSize="14sp"
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="32dp"
-                android:textColor="@color/global_main_text_color"
+                android:textColor="#0A1825"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -175,7 +175,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_qr_code"
-                android:text="扫描二维码向我付款" />
+                android:text="@string/scan_qr_pay_me" />
 
 
             <com.bhex.lib.uikit.widget.text.AutoFitTextView

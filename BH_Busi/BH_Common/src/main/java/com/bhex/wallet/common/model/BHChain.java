@@ -7,6 +7,7 @@ package com.bhex.wallet.common.model;
 public class BHChain {
     public String chain;
     public String full_name;
+    public boolean single_coin;
 
     public BHChain() {
     }

@@ -7,13 +7,15 @@
     </string-array>
 
     <string-array name="my_list_item">
-        <item>备份助记词</item>
         <item>修改安全密码</item>
+        <item>备份助记词</item>
         <item>备份私钥</item>
         <item>备份Keystore</item>
         <!--
                 <item>治理提案</item>
         -->
+        <item>公告</item>
+        <item>帮助中心</item>
         <item>设置</item>
         <item>联系我们</item>
         <item>版本号</item>

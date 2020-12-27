@@ -129,6 +129,11 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         mBottomLayoutVH = new ChainBottomLayoutVH(this,findViewById(R.id.layout_bottom),bhChain.chain,mBalance.symbol);
         mBottomLayoutVH.initContentView();
         setTokenAddress();
+        //
+        if(bhChain.single_coin){
+            findViewById(R.id.tv_add_token).setVisibility(View.GONE);
+        }
+
     }
 
     //设置地址

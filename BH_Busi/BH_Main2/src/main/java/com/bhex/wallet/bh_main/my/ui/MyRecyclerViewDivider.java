@@ -83,7 +83,7 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
         super.getItemOffsets(outRect, view, parent, state);
         int position = parent.getChildLayoutPosition(view);
         if (mOrientation == LinearLayoutManager.VERTICAL) {
-            if(position==2){
+            if(position==3||position==5){
                 mDividerHeight = PixelUtils.dp2px(mContext,8);
                 outRect.set(0, 0, 0, mDividerHeight);
             }else{
@@ -127,7 +127,7 @@ public class MyRecyclerViewDivider extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int top = child.getBottom() + layoutParams.bottomMargin;
-            if(i==2) {
+            if(i==3||i==5) {
                 mDividerHeight = PixelUtils.dp2px(mContext,8);
                 final int bottom = top + mDividerHeight;
                 if (mDivider != null) {

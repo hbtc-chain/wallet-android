@@ -90,6 +90,7 @@
     <string name="import_private_key">导入私钥</string>
     <string name="hint_private_key_input">请输入私钥</string>
     <string name="transfer">转账</string>
+    <string name="transfer2">转账</string>
     <string name="confrim_transfer">确认转账</string>
     <string name="un_transfer">取消转账</string>
     <string name="make_collection">收款</string>
@@ -516,6 +517,7 @@
     <string name="transcation_record">交易记录</string>
     <string name="trusteeship_node">托管节点</string>
     <string name="common_node">共识节点</string>
+    <string name="competing_node">竞争节点</string>
     <string name="un_receive_income">待领取收益</string>
     <string name="rist_tips">风险提示</string>
     <string name="risk_content">检测到您的手机系统已root，存在安全风险，请谨慎使用。</string>
@@ -533,5 +535,12 @@
     <string name="confrim_create">确认创建</string>
     <string name="token">币种</string>
     <string name="create_crosslink_deposit_address">创建跨链充值地址</string>
-
+    <string name="scan_qr_pay_me">扫描二维码向我付款</string>
+    <string name="tip_delete_wallet">您确定删除当前账户吗？请在继续操作前，确认您是否已经拥有或备份导出该账户的原始秘钥、助记词、KeyStore。</string>
+    <string name="create_fee">创建费用</string>
+    <string name="select_transfer_token">选择转账币种</string>
+    <string name="receive_income">领取收益</string>
+    <string name="token_detail">币种详情</string>
+    <!--<string name="transfer_in2">收款</string>
+    <string name="transfer_out2">转账</string>-->
 </resources>

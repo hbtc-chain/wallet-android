@@ -126,21 +126,6 @@ public class BalancePresenter extends BasePresenter {
             allTokenPrice = NumberUtil.add(asset,allTokenPrice);
 
         }
-        /*for(BHChain bhChain:mOriginBalanceList){
-            AccountInfo.AssetsBean assetsBean = map.get(bhChain.chain.toLowerCase());
-            if(assetsBean==null){
-                continue;
-            }
-            balance.isHasToken = 1;
-            balance.amount = assetsBean.getAmount();
-            balance.is_native = assetsBean.isIs_native();
-
-            BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(bhChain.chain);
-            if(chainBalance!=null && !TextUtils.isEmpty(chainBalance.external_address)){
-                balance.external_address = chainBalance.external_address;
-            }
-            balance.frozen_amount = assetsBean.getFrozen_amount();
-        }*/
         return allTokenPrice;
     }
 
@@ -170,14 +155,14 @@ public class BalancePresenter extends BasePresenter {
         if(tag.equals(BH_BUSI_TYPE.显示.value)){
             tv_asset.setText("***");
             eyeIv.setTag(BH_BUSI_TYPE.隐藏.value);
-            eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_close));
+            eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_close_white));
         }else{
             String unhiddenText = tv_asset.getTag(R.id.tag_first).toString();
             SpannableString spanStr = new SpannableString(unhiddenText);
             spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             tv_asset.setText(spanStr);
             eyeIv.setTag(BH_BUSI_TYPE.显示.value);
-            eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye));
+            eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_white));
         }
     }
 

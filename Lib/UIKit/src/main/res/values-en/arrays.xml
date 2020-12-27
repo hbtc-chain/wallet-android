@@ -7,13 +7,15 @@
     </string-array>
 
     <string-array name="my_list_item">
-        <item>Backup mnemonic phrase</item>
         <item>Reset Password</item>
+        <item>Backup mnemonic phrase</item>
         <item>Backup private key</item>
         <item>Backup Keystore</item>
         <!--
                 <item>Proposals</item>
         -->
+        <item>Notice</item>
+        <item>Help Center</item>
         <item>Settings</item>
         <item>Contact us</item>
         <item>Version</item>

@@ -24,7 +24,7 @@
         android:id="@+id/tv_delete_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="您确定删除当前账户吗？请在继续操作前，确认您是否已经拥有或备份导出该账户的原始秘钥、助记词、KeyStore。"
+        android:text="@string/tip_delete_wallet"
         style="@style/dialog_title_style"
         android:gravity="left"
         android:layout_marginStart="16dp"

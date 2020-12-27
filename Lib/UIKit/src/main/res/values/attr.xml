@@ -3,6 +3,8 @@
     <attr name="config_content_spacing_horizontal" format="dimension" /> <!-- margin 和 padding 等使用的内容通用水平间距 -->
     <attr name="config_content_spacing_vertical" format="dimension" />
 
+    <attr name="config_color_separator_light" format="color" />
+
     <!--普通文字-->
     <!--标题文字大小-->
     <attr name="config_size_title_text" format="dimension" />
@@ -10,6 +12,13 @@
     <attr name="config_size_content_text" format="dimension" />
     <!--辅助说明文字大小-->
     <attr name="config_size_explain_text" format="dimension" />
+
+    <attr name="xui_config_content_spacing_horizontal" format="dimension" /> <!-- margin 和 padding 等使用的内容通用水平间距 -->
+    <attr name="xui_config_content_spacing_vertical" format="dimension" /> <!-- margin 和 padding 等使用的内容通用垂直间距 -->
+    <attr name="xui_config_simple_list_item_height" format="dimension" />
+    <attr name="xui_config_simple_list_icon_size" format="dimension" />
+
+
 
     <declare-styleable name="InputView">
         <attr name="hint" format="reference|string" />
@@ -105,31 +114,31 @@
 
     <declare-styleable name="PasswordInputView">
         <!--输入框的数量，默认是4-->
-        <attr name="vcet_number" format="integer" />
+        <attr name="h_vcet_number" format="integer" />
         <!--每一个输入框的宽度，默认21dp-->
-        <attr name="vcet_width" format="dimension|reference" />
-        <attr name="vcet_height" format="dimension|reference" />
+        <attr name="h_vcet_width" format="dimension|reference" />
+        <attr name="h_vcet_height" format="dimension|reference" />
         <!--输入框之间的分割线-->
-        <attr name="vcet_divider" format="dimension|reference" />
+        <attr name="h_vcet_divider" format="dimension|reference" />
         <!--输入框文字颜色，默认黑色-->
-        <attr name="vcet_text_color" format="color|reference" />
+        <attr name="h_vcet_text_color" format="color|reference" />
         <!--输入框文字大小，默认16sp-->
-        <attr name="vcet_text_size" format="dimension|reference" />
+        <attr name="h_vcet_text_size" format="dimension|reference" />
         <!--输入框获取焦点时背景-->
-        <attr name="vcet_bg_focus" format="color|reference" />
+        <attr name="h_vcet_bg_focus" format="color|reference" />
         <!--输入框没有焦点时背景-->
-        <attr name="vcet_bg_normal" format="color|reference" />
+        <attr name="h_vcet_bg_normal" format="color|reference" />
         <!--是否是密码模式, 默认是false-->
-        <attr name="vcet_is_pwd" format="boolean" />
+        <attr name="h_vcet_is_pwd" format="boolean" />
         <!--密码模式时,圆的半径，默认是5dp-->
-        <attr name="vcet_pwd_radius" format="dimension|reference" />
+        <attr name="h_vcet_pwd_radius" format="dimension|reference" />
         <!--输入框获取焦点时背景-->
         <attr name="input_border_focus_color" format="color|reference" />
         <!--输入框没有焦点时背景-->
         <attr name="input_border_normal_color" format="color|reference" />
         <!--是否有边框-->
-        <attr name="vcet_is_border" format="boolean" />
-        <attr name="vcet_custom_keyborad" format="boolean" />
+        <attr name="h_vcet_is_border" format="boolean" />
+        <attr name="h_vcet_custom_keyborad" format="boolean" />
     </declare-styleable>
 
     <!-- MarqueeView -->
@@ -159,4 +168,5 @@
         <attr name="cookieActionColor" format="color" />
         <attr name="cookieBackgroundColor" format="color" />
     </declare-styleable>
+
 </resources>

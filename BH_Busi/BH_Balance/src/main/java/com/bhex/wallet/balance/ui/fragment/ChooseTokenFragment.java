@@ -27,6 +27,7 @@ import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
@@ -152,6 +153,8 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     }
 
     public static ChooseTokenFragment showFragment(String symbol,String origin,OnChooseTokenListener listener){
+        LogUtils.d("TransferInActivity===>:","origin=="+origin);
+
         ChooseTokenFragment fragment = new ChooseTokenFragment();
         fragment.mOnChooseItemListener = listener;
         fragment.mOrigin = origin;

@@ -9,6 +9,7 @@ import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.cache.TokenMapCache;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.BHTokenMapping;
@@ -37,7 +38,9 @@ public class ChooseTokenAdapter extends BaseQuickAdapter<BHTokenMapping, BaseVie
 
     @Override
     protected void convert(@NotNull BaseViewHolder holder, BHTokenMapping item) {
-        holder.setText(R.id.tv_token_name,(mOrigin==0)?item.coin_symbol.toUpperCase():item.target_symbol.toUpperCase());
+        //token-name
+        BHToken target_token = TokenMapCache.getInstance().getBHToken((mOrigin==0)?item.coin_symbol:item.target_symbol);
+        holder.setText(R.id.tv_token_name,target_token.name.toUpperCase());
         AppCompatImageView iv_token_icon = holder.getView(R.id.iv_token_icon);
         BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken((mOrigin==0)?item.coin_symbol.toLowerCase():item.target_symbol.toLowerCase());
 

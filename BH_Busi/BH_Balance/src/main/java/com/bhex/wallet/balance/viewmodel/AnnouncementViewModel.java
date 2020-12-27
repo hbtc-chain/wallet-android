@@ -56,10 +56,10 @@ public class AnnouncementViewModel extends AndroidViewModel {
                     //
                     List<AnnouncementItem> list = JsonUtils.getListFromJson(jsonArray.toString(),AnnouncementItem.class);
                     LoadDataModel ldm = new LoadDataModel(list);
-                    mutableLiveData.setValue(ldm);
+                    mutableLiveData.postValue(ldm);
                 }else{
                     LoadDataModel ldm = new LoadDataModel(LoadDataModel.ERROR,"");
-                    mutableLiveData.setValue(ldm);
+                    mutableLiveData.postValue(ldm);
                 }
             }
 
@@ -67,7 +67,7 @@ public class AnnouncementViewModel extends AndroidViewModel {
             public void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
                 LoadDataModel ldm = new LoadDataModel(LoadDataModel.ERROR,errorMsg);
-                mutableLiveData.setValue(ldm);
+                mutableLiveData.postValue(ldm);
             }
         };
         BHttpApi.getService(BHttpApiInterface.class).loadAnnouncement()

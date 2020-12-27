@@ -13,6 +13,7 @@ import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.CircleView;
 import com.bhex.lib.uikit.widget.text.marqueen.MarqueeFactory;
 import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.enums.BUSI_ANNOUNCE_TYPE;
 import com.bhex.wallet.balance.model.AnnouncementItem;
@@ -34,7 +35,8 @@ public class AnnouncementMF  extends MarqueeFactory<RelativeLayout, Announcement
     @Override
     public RelativeLayout generateMarqueeItemView(AnnouncementItem item) {
         RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.layout_index_announcement, null);
-        CircleView circleView = view.findViewById(R.id.iv_announce_bg);
+        LogUtils.d("AnnouncementMF==>:","item==="+item.text);
+        /*CircleView circleView = view.findViewById(R.id.iv_announce_bg);
         AppCompatImageView iv_announce_type = view.findViewById(R.id.iv_announce_type);
         //增加背景
         GradientDrawable drawable = null;
@@ -72,18 +74,18 @@ public class AnnouncementMF  extends MarqueeFactory<RelativeLayout, Announcement
             Drawable srcDrawable = ColorUtil.getDrawable(mContext,R.mipmap.ic_announcement,R.color.announcement_icon_color);
             iv_announce_type.setImageDrawable(srcDrawable);
         }
-        view.setBackground(drawable);
+        view.setBackground(drawable);*/
         AppCompatTextView tv_announce_title = view.findViewById(R.id.tv_announce_title);
         tv_announce_title.setText(item.text);
 
         //
-        view.findViewById(R.id.iv_close).setOnClickListener(v -> {
+        /*view.findViewById(R.id.iv_close).setOnClickListener(v -> {
             if(mOnItemListener==null){
                 return;
             }
 
             mOnItemListener.closeAction();
-        });
+        });*/
         return view;
     }
 

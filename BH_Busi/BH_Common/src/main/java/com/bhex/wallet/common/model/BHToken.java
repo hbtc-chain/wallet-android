@@ -77,6 +77,8 @@ public class BHToken {
     public String sys_open_fee;
     @ColumnInfo(name = "withdrawal_fee")
     public String withdrawal_fee;
+    @ColumnInfo(name = "collect_fee")
+    public String collect_fee;
     //public String withdrawal_fee_rate;
     @ColumnInfo(name = "max_op_cu_number",defaultValue = "0")
     public Integer max_op_cu_number=0;

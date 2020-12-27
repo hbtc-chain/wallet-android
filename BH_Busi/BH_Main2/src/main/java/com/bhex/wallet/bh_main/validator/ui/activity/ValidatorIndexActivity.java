@@ -144,6 +144,9 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
             updateValidatorAddress(ldm);
         });
 
+        //
+        GradientDrawable drawable = ShapeUtils.getRoundRectDrawable(PixelUtils.dp2px(this,20),ColorUtil.getColor(this,R.color.highlight_text_color));
+        btn_unclaimed_reward.setBackground(drawable);
         btn_unclaimed_reward.setOnClickListener(v -> {
             mTransactionViewModel.queryValidatorByAddress(this,1);
         });

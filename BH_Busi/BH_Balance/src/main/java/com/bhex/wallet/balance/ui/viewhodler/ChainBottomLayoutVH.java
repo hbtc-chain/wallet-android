@@ -60,20 +60,20 @@ public class ChainBottomLayoutVH {
         if(mChain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
             btn_item1.setText(activity.getResources().getString(R.string.transfer_in));
             btn_item2.setText(activity.getResources().getString(R.string.transfer));
-            btn_item3.setVisibility(View.GONE);
+            //btn_item3.setVisibility(View.GONE);
         }else {
             btn_item1.setText(activity.getResources().getString(R.string.cross_deposit));
             btn_item2.setText(activity.getResources().getString(R.string.cross_withdraw));
         }
 
         //兑币功能
-        BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol);
+        /*BHTokenMapping tokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol);
         if(tokenMapping!=null){
             btn_item3.setVisibility(View.VISIBLE);
             btn_item3.setText(activity.getResources().getString(R.string.swap));
         }else{
             btn_item3.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     private void onBtnItemClick(View view) {

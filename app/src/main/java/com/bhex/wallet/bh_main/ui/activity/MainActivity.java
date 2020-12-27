@@ -27,6 +27,7 @@ import com.bhex.wallet.common.manager.AppStatusManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.gyf.immersionbar.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -162,8 +163,12 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     }
 
     @Override
-    protected int getStatusColorValue() {
-        return BHConstants.STATUS_COLOR_TRANS;
+    protected void setStatusColor() {
+        if(!isNight()){
+            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).navigationBarDarkIcon(true).init();
+        }else{
+            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(false).navigationBarDarkIcon(false).init();
+        }
     }
 
     @Override

@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
+import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.ToolUtils;
@@ -22,6 +23,7 @@ import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.market.R;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -138,6 +140,12 @@ public class SymbolViewHolder {
     public void setTokenAsset(Context context,String symbol) {
         mSymbol = symbol;
         mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
+        //默认第一个
+        if(mTokenMapping==null){
+            mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingFrist();
+            mSymbol = mTokenMapping.coin_symbol;
+        }
+
         List<BHTokenMapping> mMappingToknList = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
         if(ToolUtils.checkListIsEmpty(mMappingToknList) || mMappingToknList.size()<=1){
             m_layout_top.findViewById(R.id.iv_target_arrow).setVisibility(View.INVISIBLE);
@@ -156,9 +164,10 @@ public class SymbolViewHolder {
         tv_target_balance.setText(context.getString(R.string.balance)+" "+ NumberUtil.dispalyForUsertokenAmount4Level(bh_target_balance.amount));
 
         //设置图标
-        BHBalanceHelper.loadTokenIcon(context,iv_coin,mTokenMapping.coin_symbol.toUpperCase());
-        BHBalanceHelper.loadTokenIcon(context,iv_target,mTokenMapping.target_symbol.toUpperCase());
-
+        loadImageIcon(context,iv_coin,mTokenMapping.coin_symbol);
+        //
+        loadImageIcon(context,iv_target,mTokenMapping.target_symbol);
+        //LogUtils.d("SymbolViewHolder===>:",mTokenMapping.target_symbol+"=coin_symbol="+mTokenMapping.coin_symbol);
         //设置Token-name
         if(bh_coin_token.name.equalsIgnoreCase(bh_target_token.name)){
             String coin_token = bh_coin_token.name.toUpperCase().concat("(").concat(bh_coin_token.chain.toUpperCase()).concat(")");
@@ -186,6 +195,12 @@ public class SymbolViewHolder {
 
         BHBalance bh_target_balance = BHBalanceHelper.getBHBalanceFromAccount(bh_target_token.symbol.toLowerCase());
         tv_target_balance.setText(context.getString(R.string.balance)+" "+ NumberUtil.dispalyForUsertokenAmount4Level(bh_target_balance.amount));
+    }
+
+
+    public void loadImageIcon(Context context, AppCompatImageView iv,String symbol){
+        BHToken item = CacheCenter.getInstance().getTokenMapCache().getBHToken(symbol);
+        ImageLoaderUtil.loadImageView(context,item!=null?item.logo:"", iv, com.bhex.wallet.balance.R.mipmap.ic_default_coin);
     }
 
 }

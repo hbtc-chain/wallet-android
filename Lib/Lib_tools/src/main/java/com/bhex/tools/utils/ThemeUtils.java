@@ -3,6 +3,7 @@ package com.bhex.tools.utils;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.util.TypedValue;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
@@ -49,6 +50,13 @@ public class ThemeUtils {
         } finally {
             a.recycle();
         }
+    }
+
+
+    public static float resolveFloat(Context context, int attrRes) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attrRes, typedValue, true);
+        return typedValue.getFloat();
     }
 
 }

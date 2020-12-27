@@ -118,7 +118,13 @@ public class TokenMapCache extends BaseCache {
 
                             item.coin_symbol = item.issue_symbol;
                             mTokenMappings.add(item);
-                            BHTokenMapping reverseItem = new BHTokenMapping(item.target_symbol,item.issue_symbol,item.issue_symbol,item.total_supply,item.issue_pool,item.enabled);
+                            BHTokenMapping reverseItem = new BHTokenMapping(
+                                    item.target_symbol,
+                                    item.issue_symbol,
+                                    item.issue_symbol,
+                                    item.total_supply,
+                                    item.issue_pool,
+                                    item.enabled);
                             reverseItem.issue_token = item.issue_token;
                             reverseItem.coin_symbol = item.target_symbol;
 
@@ -126,8 +132,6 @@ public class TokenMapCache extends BaseCache {
                         }
 
                         //请求token信息
-
-
                         //LogUtils.d("TokenMapCache==>:","=mTokenMappings="+mTokenMappings.size());
                     }
 
@@ -224,6 +228,14 @@ public class TokenMapCache extends BaseCache {
             if(item.coin_symbol.equalsIgnoreCase(symbol)){
                 return item;
             }
+        }
+        return null;
+    }
+
+
+    public synchronized BHTokenMapping getTokenMappingFrist(){
+        if(!ToolUtils.checkListIsEmpty(mTokenMappings)){
+            return mTokenMappings.get(0);
         }
         return null;
     }

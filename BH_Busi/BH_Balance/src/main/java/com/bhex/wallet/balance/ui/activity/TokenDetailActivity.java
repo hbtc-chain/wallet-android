@@ -18,8 +18,10 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.ImageLoaderUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PixelUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.adapter.TxOrderAdapter;
@@ -34,6 +36,7 @@ import com.bhex.wallet.balance.ui.fragment.WithDrawShareFragment;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
@@ -94,6 +97,8 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     @BindView(R2.id.iv_coin_ic)
     AppCompatImageView iv_coin_ic;
 
+    AppCompatTextView tv_right_title;
+
     TxOrderAdapter mTxOrderAdapter;
     List<TransactionOrder> mOrderList;
     BalanceViewModel balanceViewModel;
@@ -137,6 +142,9 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         balanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class);
 
         transactionViewModel.initData(this,symbolBalance.symbol);
+
+        tv_right_title = findViewById(R.id.tv_right_title);
+
         //根据token 显示View
         initTokenView();
         initTokenAsset();
@@ -237,6 +245,9 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
         balanceViewModel.getAccountInfo(TokenDetailActivity.this,null);
         EventBus.getDefault().register(this);
+
+        //币种详情
+        tv_right_title.setOnClickListener(this::gotoTokenDetail);
     }
 
     /**
@@ -351,6 +362,22 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
                 BHUserManager.getInstance().getCurrentBhWallet().address, mCurrentPage, symbolToken.symbol, null);
     }
 
+    //跳转币种详情
+    private void gotoTokenDetail(View view) {
+        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",getTokenUrl()).navigation();
+    }
+
+
+    private String getTokenUrl(){
+        String v_local_display = ToolUtils.getLocalString(this);
+        String url = BHConstants.API_BASE_URL
+                .concat("tokens/")
+                .concat(getSymbol())
+                .concat("?lang=").concat(v_local_display);
+        LogUtils.d("url==>"+url);
+
+        return url;
+    }
 
     public abstract String getSymbol();
 }

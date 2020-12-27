@@ -58,7 +58,7 @@
             android:gravity="center"
             android:singleLine="true"
             style="@style/toolbar_layout_title_style"
-            android:layout_toRightOf="@+id/iv_back"
+            android:layout_toRightOf="@+id/iv_close"
             android:layout_toLeftOf="@+id/iv_refresh"
             />
 

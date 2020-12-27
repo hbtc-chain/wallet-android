@@ -108,11 +108,6 @@ public class SwapMappingActivity extends BaseActivity
         mSymbolViewHolder.bindView(findViewById(R.id.root_view),mSymbol);
 
         findViewById(R.id.layout_top).bringToFront();
-        //findViewById(R.id.layout_index_1).bringToFront();
-        /*findViewById(R.id.layout_index_1).setZ(1);
-        findViewById(R.id.layout_top).setZ(2);
-        findViewById(R.id.layout_bottom).setZ(3);*/
-
         mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
         mMappingToknList = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
 

@@ -6,7 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.TokenDetailActivity">
 
-    <include layout="@layout/layout_toolbar" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/wallet_create_trusteeship"
+            tools:text="@string/wallet_create_trusteeship" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:gravity="right|center_vertical"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/token_detail"
+            android:textSize="15sp"
+            android:paddingRight="16dp"
+            android:background="?android:selectableItemBackground"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
@@ -44,10 +82,10 @@
                 app:cardBackgroundColor="@color/card_bg"
                 app:cardCornerRadius="10dp"
                 app:cardForegroundColor="@color/bg_trans"
-
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

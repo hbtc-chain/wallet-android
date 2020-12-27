@@ -163,7 +163,7 @@ public class BHBalanceHelper {
         List<BHToken> res = new ArrayList<>();
         for (ArrayMap.Entry<String,BHToken> entry:map_tokens.entrySet()){
             if(flag.equals(BH_BUSI_TYPE.跨链转账.value)){
-                if(!entry.getValue().chain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
+                if(entry.getValue().chain.toLowerCase().equals(chainToken.chain)){
                     res.add(entry.getValue());
                 }
             }else{

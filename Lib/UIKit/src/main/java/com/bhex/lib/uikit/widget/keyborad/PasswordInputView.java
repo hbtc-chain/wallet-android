@@ -82,11 +82,11 @@ public class PasswordInputView extends RelativeLayout {
         mLlContainer = findViewById(R.id.ll_container);
         m_input_content = findViewById(R.id.input_content);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PasswordInputView, defStyleAttr, 0);
-        input_count = typedArray.getInteger(R.styleable.PasswordInputView_vcet_number, 4);
-        mPwdRadius = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_vcet_pwd_radius, PixelUtils.dp2px(context,5));
-        input_width = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_vcet_width, PixelUtils.dp2px(context,48));
-        input_height = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_vcet_height, PixelUtils.dp2px(context,48));
-        input_divider = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_vcet_divider, PixelUtils.dp2px(context,8));
+        input_count = typedArray.getInteger(R.styleable.PasswordInputView_h_vcet_number, 4);
+        mPwdRadius = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_h_vcet_pwd_radius, PixelUtils.dp2px(context,5));
+        input_width = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_h_vcet_width, PixelUtils.dp2px(context,48));
+        input_height = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_h_vcet_height, PixelUtils.dp2px(context,48));
+        input_divider = typedArray.getDimensionPixelSize(R.styleable.PasswordInputView_h_vcet_divider, PixelUtils.dp2px(context,8));
 
         input_border_normal_color  = typedArray.getColor(R.styleable.PasswordInputView_input_border_normal_color,
                 ContextCompat.getColor(mContext,R.color.global_input_hint_color));
@@ -94,9 +94,9 @@ public class PasswordInputView extends RelativeLayout {
         input_border_focus_color = typedArray.getColor(R.styleable.PasswordInputView_input_border_focus_color,
                 ContextCompat.getColor(mContext,R.color.blue_bg));
 
-        is_border = typedArray.getBoolean(R.styleable.PasswordInputView_vcet_is_border, false);
+        is_border = typedArray.getBoolean(R.styleable.PasswordInputView_h_vcet_is_border, false);
 
-        is_custom_keyborad = typedArray.getBoolean(R.styleable.PasswordInputView_vcet_custom_keyborad, false);
+        is_custom_keyborad = typedArray.getBoolean(R.styleable.PasswordInputView_h_vcet_custom_keyborad, false);
         typedArray.recycle();
         initUI();
     }

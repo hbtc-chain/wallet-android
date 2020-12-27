@@ -287,7 +287,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @Override
     public void confirmAction(String password,int position,int way) {
         //备份助记词
-        if(position==0){
+        if(position==1){
             //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
             ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
                     .withString(BHConstants.INPUT_PASSWORD,password)

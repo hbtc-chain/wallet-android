@@ -90,11 +90,11 @@
             android:id="@+id/input_password_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:vcet_number="6"
-            app:vcet_width="24dp"
-            app:vcet_height="24dp"
-            app:vcet_pwd_radius="12dp"
-            app:vcet_custom_keyborad="true"
+            app:h_vcet_number="6"
+            app:h_vcet_width="24dp"
+            app:h_vcet_height="24dp"
+            app:h_vcet_pwd_radius="12dp"
+            app:h_vcet_custom_keyborad="true"
             />
 
     </LinearLayout>

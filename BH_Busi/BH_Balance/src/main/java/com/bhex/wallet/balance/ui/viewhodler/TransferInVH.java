@@ -84,6 +84,7 @@ public class TransferInVH {
         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         BHToken token = SymbolCache.getInstance().getBHToken(mSymbol);
         BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(token.chain);
+        //BHToken chainToken = SymbolCache.getInstance().getBHToken(token.chain);
         BHToken hbcToken = SymbolCache.getInstance().getBHToken(BHConstants.BHT_TOKEN);
         //设置币种logo
 
@@ -126,7 +127,7 @@ public class TransferInVH {
             tv_friend_tip_1.setText(v_amount_str);
             tv_friend_tip_2.setVisibility(View.VISIBLE);
             //跨链充值入账费用
-            String v_amount_str2 =  String.format(mActivity.getString(R.string.string_deposit_enter_fee),token.collect_threshold+" "+token.name.toUpperCase());
+            String v_amount_str2 =  String.format(mActivity.getString(R.string.string_deposit_enter_fee),token.collect_fee+" "+token.chain.toUpperCase());
             tv_friend_tip_2.setText(v_amount_str2);
         }
 

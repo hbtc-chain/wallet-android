@@ -7,7 +7,7 @@
     android:paddingBottom="4dp"
     android:layout_marginTop="8dp">
 
-    <com.bhex.lib.uikit.widget.CircleView
+    <!--<com.bhex.lib.uikit.widget.CircleView
         android:id="@+id/iv_announce_bg"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -45,5 +45,18 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:paddingEnd="12dp"
+        />-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_announce_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_centerVertical="true"
+        android:textSize="12sp"
+        android:textColor="@color/global_secondary_text_color"
+        tools:text="提示：测试网的HBC代币均为测试币无任何实际"
+        android:layout_marginStart="4dp"
         />
 </RelativeLayout>

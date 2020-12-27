@@ -48,6 +48,7 @@ dependencies {
     //通用Adapter
     //api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0-beta11'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
+    api 'com.github.xuexiangjys:XUI:1.1.5'
     api project(path: ':Lib_Tools')
     implementation 'skin.support:flycotablayout:2.1.2'
 

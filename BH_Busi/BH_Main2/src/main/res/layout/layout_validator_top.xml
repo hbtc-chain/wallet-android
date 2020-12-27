@@ -8,41 +8,6 @@
     android:background="@mipmap/bg_validator_top"
     >
 
-    <!--<com.bhex.lib.uikit.widget.StatusBarView
-        android:id="@+id/status_bar"
-        android:layout_width="0dp"
-        android:layout_height="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/bg_trans"/>
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toBottomOf="@+id/status_bar"
-        app:navigationIcon="@mipmap/icon_back_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-        app:titleTextAppearance="@style/Toolbar_textsize"
-        app:contentInsetStart="0dp"
-        app:contentInsetStartWithNavigation="0dp"
-       >
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_center_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            style="@style/toolbar_layout_title_white_style"
-            android:text="@string/wallet_create_trusteeship"
-            tools:text="@string/wallet_create_trusteeship"
-            />
-
-    </androidx.appcompat.widget.Toolbar>
--->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -290,10 +255,11 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_claimed_reward_amount"/>
             -->
             
-            <com.google.android.material.button.MaterialButton
+            <!--<com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_unclaimed_reward"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
+                android:padding="0dp"
                 android:text="@string/receive_income"
                 android:textSize="13sp"
                 app:cornerRadius="20dp"
@@ -304,6 +270,25 @@
                 android:insetBottom="0dp"
                 android:insetTop="0dp"
                 android:textColor="@color/global_button_text_color"
+                android:textAllCaps="false"
+                />-->
+            <com.bhex.lib.uikit.widget.text.AutoFitTextView
+                android:id="@+id/btn_unclaimed_reward"
+                android:layout_width="wrap_content"
+                android:maxWidth="84dp"
+                android:layout_height="32dp"
+                android:singleLine="true"
+                android:padding="0dp"
+                android:text="@string/receive_income"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_unclaimed_reward_label"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_unclaimed_reward_amount"
+                android:textColor="@color/global_button_text_color"
+                tools:background="@drawable/shape_btn_blue"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

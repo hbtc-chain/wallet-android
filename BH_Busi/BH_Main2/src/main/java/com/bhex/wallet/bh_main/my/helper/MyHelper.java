@@ -42,9 +42,9 @@ public class MyHelper {
         String [] res = context.getResources().getStringArray(R.array.my_list_item);
         MyItem item = null;
         for (int i = 0; i < res.length; i++) {
-            if(i==5){
+            if(i==7){
                 item = new MyItem(i,res[i], false, BHConstants.EMAIL);
-            } else if (i == 6) {
+            } else if (i == 8) {
                 item = new MyItem(i,res[i], false, "v"+PackageUtils.getVersionName(context)+"_"+PackageUtils.getVersionCode(context));
             } else {
                 item = new MyItem(i,res[i], true, "");
