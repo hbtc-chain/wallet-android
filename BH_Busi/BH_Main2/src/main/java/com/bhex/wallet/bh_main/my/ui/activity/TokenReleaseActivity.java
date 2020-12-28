@@ -27,7 +27,7 @@ import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.cache.stategy.CacheStrategy;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.indicator.OnSampleSeekChangeListener;
@@ -50,6 +50,7 @@ import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.BHTokenRlease;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -71,7 +72,7 @@ import butterknife.OnClick;
  * 代币发行
  */
 @Route(path = ARouterConfig.Token_Release, name = "代币发行申请")
-public class TokenReleaseActivity extends BaseActivity implements PasswordFragment.PasswordClickListener, OnRefreshListener {
+public class TokenReleaseActivity extends BaseActivity implements Password30Fragment.PasswordClickListener, OnRefreshListener {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -124,8 +125,8 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
 
         mAccountInfo = BHUserManager.getInstance().getAccountInfo();
         bhtBalance = MyHelper.getBthBalanceWithAccount(mAccountInfo);
-        inp_tx_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
-
+        //inp_tx_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        inp_tx_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
         //文本型
         inp_to_address.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         inp_token_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
@@ -182,7 +183,7 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
 
         //二维码扫描
         inp_to_address.iv_right.setOnClickListener(v -> {
-            ARouter.getInstance().build(ARouterConfig.Commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
+            ARouter.getInstance().build(ARouterConfig.Common.commom_scan_qr).navigation(this, BHQrScanActivity.REQUEST_CODE);
         });
 
         sb_tx_fee.setOnSeekChangeListener(new OnSampleSeekChangeListener() {
@@ -237,8 +238,8 @@ public class TokenReleaseActivity extends BaseActivity implements PasswordFragme
 
         //
         //密码提示框
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this, 0);
 
 

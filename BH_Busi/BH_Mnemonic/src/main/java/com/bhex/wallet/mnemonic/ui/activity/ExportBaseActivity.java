@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bhex.lib.uikit.widget.GradientTabLayout;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.mnemonic.R;
@@ -54,7 +54,7 @@ public abstract class ExportBaseActivity extends BaseActivity {
         //二维码导出
         ExportQRFragment exportQRFragment = new ExportQRFragment();
         exportQRFragment.setArguments(bundle);
-        String title = getFlag().equals(BH_BUSI_TYPE.备份私钥)?getString(R.string.privatekey):"Keystore";
+        String title = getFlag().equals(BH_BUSI_TYPE.备份私钥.value)?getString(R.string.privatekey):"Keystore";
         items.add(new Pair<>(title,exportTextFragment));
         items.add(new Pair<>(getString(R.string.qr_code),exportQRFragment));
 

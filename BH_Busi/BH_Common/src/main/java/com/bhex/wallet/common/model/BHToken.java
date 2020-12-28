@@ -1,6 +1,7 @@
 package com.bhex.wallet.common.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -76,9 +77,11 @@ public class BHToken {
     public String sys_open_fee;
     @ColumnInfo(name = "withdrawal_fee")
     public String withdrawal_fee;
+    @ColumnInfo(name = "collect_fee")
+    public String collect_fee;
     //public String withdrawal_fee_rate;
-    @ColumnInfo(name = "max_op_cu_number")
-    public int max_op_cu_number;
+    @ColumnInfo(name = "max_op_cu_number",defaultValue = "0")
+    public Integer max_op_cu_number=0;
     @ColumnInfo(name = "systransfer_amount")
     public String systransfer_amount;
     @ColumnInfo(name = "op_cu_systransfer_amount")
@@ -92,7 +95,11 @@ public class BHToken {
     @Ignore
     public List<String> opcus;
 
-    /*@ColumnInfo(name = "default_token") // 1 默认币
+    public String getName() {
+        return name;
+    }
+
+/*@ColumnInfo(name = "default_token") // 1 默认币
     public boolean defaultToken;
 
     @ColumnInfo(name = "verified_token") //1 官方认证币

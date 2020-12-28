@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -15,11 +16,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public abstract class BaseBottomSheetDialog extends BottomSheetDialogFragment {
 
-    //private FrameLayout bottomSheet;
     public BottomSheetBehavior<FrameLayout> behavior;
 
     public View mRootView;
@@ -31,9 +32,20 @@ public abstract class BaseBottomSheetDialog extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(mRootView==null){
             mRootView = inflater.inflate(getLayout(), container, false);
-            //unbinder = ButterKnife.bind(this,mRootView);
+            unbinder = ButterKnife.bind(this,mRootView);
         }
+        initView();
         return mRootView;
+    }
+
+    protected  void initView(){
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
     }
 
     public abstract int getLayout();

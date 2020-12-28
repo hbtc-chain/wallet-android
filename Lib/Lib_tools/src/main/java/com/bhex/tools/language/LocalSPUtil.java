@@ -20,7 +20,7 @@ public class LocalSPUtil {
 
     private final SharedPreferences mSharedPreferences;
 
-    private Locale systemCurrentLocal = Locale.CHINESE;
+    private Locale systemCurrentLocal = Locale.US;
 
 
     public LocalSPUtil(Context context) {
@@ -52,8 +52,8 @@ public class LocalSPUtil {
             systemCurrentLocal = Locale.SIMPLIFIED_CHINESE;
         }else if(language.contains("en")){
             systemCurrentLocal = Locale.US;
-        }else if(language.contains("ko")){
-            systemCurrentLocal = Locale.KOREA;
+        }else{
+            systemCurrentLocal = Locale.US;
         }
         return systemCurrentLocal;
     }

@@ -24,6 +24,7 @@
     <string name="language_setting">语言设置</string>
 
     <string name="wallet_create_trusteeship">创建账户</string>
+    <string name="create_wallet_account">创建钱包账户</string>
     <string name="wallet_import_trusteeship">导入账户</string>
     <string name="wallet_create">开始创建</string>
     <string name="at_once_backup">立即备份</string>
@@ -59,14 +60,19 @@
     <string name="set_pwd_tip_1">·安全密码是保护钱包私钥和操作资产的重要凭证</string>
     <string name="set_pwd_tip_2">·HBTC Wallet钱包不会缓存、上传、存储您的密码</string>
     <string name="set_pwd_tip_3">·请务必妥善保管密码</string>
-    <string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>
+
+    <string name="set_pwd_alarm_1">·安全密码是保护钱包私钥和操作资产的重要凭证,非常重要</string>
+    <string name="set_pwd_alarm_2"> ·HBTC钱包不会缓存，上传，存储您的密码，也无法帮您找回，请务必牢记并妥善保管您的密码.</string>
+
+    <!--<string name="set_pwd_hint">请设置钱包密码(不少于8位)</string>-->
+    <string name="set_pwd_hint">请设置钱包密码(6位数字)</string>
     <string name="pwd_index">%1$d个字符</string>
     <string name="pwd_rule_tip">为了保证您的资产安全，密码请包括：</string>
     <string name="pwd_rule_tip_1">·1个大写字母</string>
     <string name="pwd_rule_tip_2">·1个小写字母</string>
     <string name="pwd_rule_tip_3">·1个数字</string>
     <string name="pwd_rule_tip_4">·至少8位字符</string>
-    <string name="set_username_tip">您正在创建BHTC Wallet钱包的账户，并将拥有一份跨链钱包</string>
+    <string name="set_username_tip">您正在创建HBTC Wallet钱包的账户，并将拥有一份跨链钱包</string>
     <string name="tips_secure">安全提醒</string>
     <string name="tips_secure_index_1">助记词可用于：</string>
     <string name="tips_secure_index_2">恢复钱包下的钱包资产</string>
@@ -84,6 +90,8 @@
     <string name="import_private_key">导入私钥</string>
     <string name="hint_private_key_input">请输入私钥</string>
     <string name="transfer">转账</string>
+    <string name="transfer2">转账</string>
+    <string name="confrim_transfer">确认转账</string>
     <string name="un_transfer">取消转账</string>
     <string name="make_collection">收款</string>
     <string name="cancel">取消</string>
@@ -133,6 +141,9 @@
     <string name="hidden_small_token">隐藏小额币种</string>
     <string name="transfer_address">转账地址</string>
     <string name="transfer_amount">转账数量</string>
+    <string name="crosslink_withdraw_tip">·您正在进行托管单元跨链提币\n·请务必使用跨链提币的提币通道\n·请务必确认提币地址是该币的原生公链地址</string>
+    <string name="linkinner_withdraw_tip">·您正在进行托管单元链内转账\n·请务必使用链内的转账通道\n·请务必确认转账地址以 HBC 为开端</string>
+
     <string name="crosslink_withdraw_tip_1">·您正在进行托管单元跨链提币</string>
     <string name="crosslink_withdraw_tip_2">·请务必使用跨链提币的提币通道</string>
     <string name="crosslink_withdraw_tip_3">·请务必确认提币地址是该币的原生公链地址</string>
@@ -140,8 +151,8 @@
     <string name="linkinner_withdraw_tip_1">·您正在进行托管单元链内转账</string>
     <string name="linkinner_withdraw_tip_2">·请务必使用链内的转账通道</string>
     <string name="linkinner_withdraw_tip_3">·请务必确认转账地址以 HBC 为开端</string>
-    <string name="transfer_fee">交易手续费</string>
-    <string name="withdraw_fee">提币手续费</string>
+    <string name="transfer_fee">手续费</string>
+    <string name="withdraw_fee">跨链手续费</string>
     <string name="BH_token">HBC</string>
     <string name="trusteeship_address">账户地址</string>
     <string name="address">地址</string>
@@ -150,6 +161,8 @@
     <string name="crosslink_deposit_address">跨链充值地址</string>
     <string name="cross_deposit">跨链充值</string>
     <string name="cross_withdraw">跨链提币</string>
+    <string name="cross_deposit0">跨链充值</string>
+    <string name="cross_withdraw0">跨链提币</string>
     <string name="crosslink_deposit_tip_2">·请提醒转出方，务必使用原生公链钱包提币</string>
     <string name="linkinner_deposit_tip_1">·您正在进行托管单元链内收款(充币)</string>
     <string name="linkinner_deposit_tip_2">·请提醒转出方，务必使用非跨链的提币通道</string>
@@ -218,11 +231,11 @@
     <string name="link_outter_address_error">跨链地址错误</string>
     <string name="withdraw_address_error">提币地址错误</string>
     <string name="input_withdraw_amount">请输入提币数量</string>
-    <string name="please_input_gas_fee">请输入交易手续</string>
-    <string name="error_input_gas_fes">交易手续费输入错误</string>
-    <string name="gas_fee_high_available_fee">交易手续费不能大于可用HBC</string>
-    <string name="tip_crosslink_generate">首次跨链充币，需要生成充币地址，该过程最快只需要十几秒，请耐心等待...</string>
-
+    <string name="please_input_gas_fee">请输入手续费</string>
+    <string name="error_input_gas_fes">手续费输入错误</string>
+    <string name="gas_fee_high_available_fee">手续费不能大于可用HBC</string>
+    <!--<string name="tip_crosslink_generate">首次跨链充币，需要生成充币地址，该过程最快只需要十几秒，请耐心等待...</string>-->
+    <string name="tip_crosslink_generate">提示：\n你正在为 %1$s 生成跨链充值地址，该地址将由跨链托管节点分布式生成，需要稍微等待一点时间。</string>
     <string name="tab_governance_title">治理提案</string>
     <string name="tab_proposals_title">治理提案</string>
     <string name="create_proposals">发起</string>
@@ -315,9 +328,11 @@
     <string name="error_transfer_address">转账地址错误</string>
     <string name="error_transfer_amout_more_available">转账数量大于可用余额</string>
     <string name="error_withdraw_amout_more_available">提币数量大于可用余额</string>
-    <string name="input_add_fee_more_availabe">转账数量与手续费之和大于可用余额</string>
+    <string name="tip_transferout_amount_error_0">转账数量与手续费之和大于可用余额</string>
+    <string name="tip_withdraw_amount_error_0">提币数量与手续费之和大于可用余额</string>
+    <string name="tip_transferout_amount_error">转账数量不能大于可用数量</string>
     <string name="qr_code">二维码</string>
-    <string name="hint_input_exchange_fee">请输入交易手续费</string>
+    <string name="hint_input_exchange_fee">请输入手续费</string>
     <string name="origin_password">原密码</string>
     <string name="input_origin_password">请输入原密码</string>
     <string name="new_password">新密码</string>
@@ -402,7 +417,8 @@
     <string name="tips_our_suggestion">我们建议</string>
     <string name="tips_trust_success_index_6">请勿将您的助记词轻易告知他人</string>
     <string name="tips_trust_success_index_7">请勿将助记词截屏、照相等方式保存于您的移动设备中</string>
-    <string name="set_new_pwd_less_8">请设置新密码(不少于8位)</string>
+<!--    <string name="set_new_pwd_less_8">请设置新密码(不少于8位)</string>-->
+    <string name="set_new_pwd_less_8">请设置新密码(6位数字)</string>
     <string name="set_finger_ok">指纹识别设置成功</string>
     <string name="tips">提示</string>
     <string name="i_konw_danger">我已知晓风险，显示地址</string>
@@ -416,6 +432,12 @@
     <string name="token_count_only_integer">代币发行量只能是整数</string>
     <string name="token_count_more_100B">代币发行量不能超过1000亿</string>
     <string name="withdraw_fee_less">提币手续费不能小于</string>
+    <string name="withdraw_fee_notenough">提币手续费不足</string>
+    <string name="fee_notenough">手续费不足</string>
+    <string name="entrust_amount_more_avilable">委托数量不能大于可用数量</string>
+    <string name="amount_rule">请输入正确的数量，且不大于可用余额%1$s</string>
+    <string name="crosss_fee_rule">跨链手续费需为数字，且不能小于%1$s</string>
+    <string name="crosss_fee_high_rule">跨链手续费需为数字，且不能大于%1$s</string>
     <string name="not_enough">没有足够的</string>
     <string name="all">全部</string>
     <string name="no_profit">暂无收益</string>
@@ -429,64 +451,12 @@
     <string name="please_input_memo_or_tag">请输入 memo or tag</string>
     <string name="meno_or_tag">备注(请输入memo or tag)</string>
     <string name="cross_link_transfer_tips">提示：充值非主链代币需要HBTC Chain账户拥有一定的对应主链代币作为归集手续费才可以入账。</string>
+    <string name="cross_link_transfer_tips_1">充值非主链代币，需要账户拥有一定数额的对应主链代币作为归集手续费才可以入账</string>
 
-    <string-array name="my_list_item">
-        <item>备份助记词</item>
-        <item>修改安全密码</item>
-        <item>备份私钥</item>
-        <item>备份Keystore</item>
-<!--
-        <item>治理提案</item>
--->
-        <item>设置</item>
-        <item>联系我们</item>
-        <item>版本号</item>
-    </string-array>
 
-    <string-array name="set_list_item">
-        <item>语言</item>
-        <item>计价货币</item>
-        <item>暗色模式</item>
-        <item>指纹识别</item>
-        <item>安全设置</item>
-    </string-array>
-
-    <string-array name="security_list">
-        <item>每次操作都要密码(默认)</item>
-        <item>30分钟内免密码输入</item>
-    </string-array>
-
-    <string-array name="Currency_list">
-        <item>人民币</item>
-        <item>美元</item>
-        <item>韩元</item>
-        <item>日元</item>
-        <item>越南盾</item>
-    </string-array>
-
-    <string-array name="Recongition_list">
-        <item>指纹识别</item>
-    </string-array>
-
-    <string-array name="Message_type">
-        <item>转账</item>
-        <item>收款</item>
-        <item>充值</item>
-        <item>提币</item>
-    </string-array>
-
-    <string-array name="Cross_operator_list">
-        <item>跨链充币</item>
-        <item>跨链提币</item>
-    </string-array>
-
-    <string-array name="Exchnge_operator_list">
-        <item>兑换</item>
-        <item>交易</item>
-    </string-array>
 
     <string name="native_token_list">原生代币列表</string>
-    <string name="native_token_test_list">原生测试代币列表</string>
+    <string name="native_token_test_list">原生代币列表</string>
     <string name="cross_chain_token_list">跨链代币列表</string>
 
     <string name="mapping">映射</string>
@@ -501,13 +471,15 @@
     <string name="security_setting_pwd_tips">下次密码登录时有效</string>
     <string name="balance">余额</string>
     <string name="cross_link_trusteeship_address">跨链托管地址</string>
-    <string name="hbc_chain_address">HBTC Chain Testnet 地址</string>
+    <!--<string name="hbc_chain_address">HBTC Chain Testnet 地址</string>-->
+<!--    <string name="hbc_chain_address">HBTC Chain 地址</string>-->
     <string name="click_make_cross_address">点击生成跨链地址</string>
     <string name="fingerprint_verify">指纹验证</string>
     <string name="exchage_rate">汇率</string>
     <string name="exxternal_link_txid">外链TXID</string>
     <string name="friend_tips">温馨提示:</string>
-    <string name="string_deposit_threshold">· 最小充值数量 %1$s</string>
+    <string name="string_deposit_threshold">%1$s最小充值数量: %2$s</string>
+    <string name="string_deposit_enter_fee">跨链充值入账费: %1$s</string>
     <string name="set_pwd_period">设置密码有效期：</string>
     <string name="string_deposit_threshold_2">温馨提示：最小充值数量</string>
     <string name="string_apply_success">申请成功</string>
@@ -526,5 +498,52 @@
     <string name="add_token">添加币种</string>
     <string name="swap_to">兑换成</string>
     <string name="search_input_token_name">更多币种请输入名称检索</string>
+    <string name="no_password_in_30m">30分钟免密</string>
+    <string name="json_parse_error">解析错误</string>
+    <string name="password_no_match">KeyStore或密码不匹配</string>
+    <string name="finish">完成</string>
+    <string name="add_wallet">添加钱包</string>
+    <string name="number_password">6位数字密码</string>
+    <string name="create">创建</string>
+    <string name="confirm_number_password">再次输入6位数字密码</string>
+    <string name="input_security_password">请输入安全密码</string>
+    <string name="deposit">充值</string>
+    <string name="delete_account">删除账户</string>
+    <string name="save_success">保存成功</string>
+    <string name="token_name">币种名称</string>
+    <string name="generate_address_fee">生成跨链地址手续费%1$s</string>
+    <string name="save_pictrue">保存图片</string>
+    <string name="switch_cross_link_address">切换跨链托管地址</string>
+    <string name="switch_hbtc_address">切换HBTC链地址</string>
+    <string name="hbtc_chain_address">HBTC链地址</string>
+    <string name="transcation_record">交易记录</string>
+    <string name="trusteeship_node">托管节点</string>
+    <string name="common_node">共识节点</string>
+    <string name="competing_node">竞争节点</string>
+    <string name="un_receive_income">待领取收益</string>
+    <string name="rist_tips">风险提示</string>
+    <string name="risk_content">检测到您的手机系统已root，存在安全风险，请谨慎使用。</string>
+    <string name="keep_on">继续使用</string>
+    <string name="transfer_out_address">转出地址</string>
+    <string name="string_transfer_in_address">接收地址</string>
+    <string name="select_withdraw_token">选择提币币种</string>
+    <string name="deposit_token">充值币种</string>
+    <string name="hbtc_transfer_in_tip">该账户支持HBC，HBTC链上资产以及HBTC链上的跨链托管资产</string>
+    <string name="input_receive_address">请输入接收地址</string>
+    <string name="input_withdraw_address">请输入提币地址</string>
+    <string name="cross_transfer_out_tips">提示：\n您正在进行跨链提币,请务必确认提币地址为该链的原生公链地址</string>
+    <string name="cross_transfer_inner_tips">提示：\n您正在进行HBTC链内转账,请务必确认接收地址以HBC开头</string>
 
+    <string name="confrim_create">确认创建</string>
+    <string name="token">币种</string>
+    <string name="create_crosslink_deposit_address">创建跨链充值地址</string>
+    <string name="scan_qr_pay_me">扫描二维码向我付款</string>
+    <string name="tip_delete_wallet">您确定删除当前账户吗？请在继续操作前，确认您是否已经拥有或备份导出该账户的原始秘钥、助记词、KeyStore。</string>
+    <string name="create_fee">创建费用</string>
+    <string name="select_transfer_token">选择转账币种</string>
+    <string name="receive_income">领取收益</string>
+    <string name="token_detail">币种详情</string>
+    <string name="latest_version">最新版本</string>
+    <!--<string name="transfer_in2">收款</string>
+    <string name="transfer_out2">转账</string>-->
 </resources>

@@ -5,6 +5,7 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.utils.ARouterUtil;
@@ -35,7 +36,6 @@ public class MnemonicIndexActivity extends BaseCacheActivity {
 
     @Override
     protected void initView() {
-        //StatusBarUtil.setStatusColor(this,false,true,R.color.white);
 
     }
 
@@ -47,9 +47,9 @@ public class MnemonicIndexActivity extends BaseCacheActivity {
     @OnClick({R2.id.btn_generate_wallet,R2.id.btn_import_wallet})
     public void onViewClicked(View view) {
         if(view.getId()== R.id.btn_generate_wallet){
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST).navigation();
         }else if(view.getId()== R.id.btn_import_wallet){
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX).navigation();
         }
 
     }

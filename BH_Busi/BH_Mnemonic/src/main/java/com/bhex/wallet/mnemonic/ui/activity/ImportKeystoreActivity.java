@@ -3,6 +3,7 @@ package com.bhex.wallet.mnemonic.ui.activity;
 
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
 
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
+import com.bhex.lib.uikit.widget.keyborad.PasswordKeyBoardView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
@@ -49,6 +51,7 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
     AppCompatTextView btn_next;
 
     WalletViewModel walletViewModel;
+    //PasswordKeyBoardView mPasswordKeyboardView;
 
     @Override
     protected int getLayoutId() {
@@ -58,10 +61,14 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
     @Override
     protected void initView() {
         tv_center_title.setText(getResources().getString(R.string.import_keystore));
-        et_keystore.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        et_keystore.setInputType(InputType.TYPE_CLASS_TEXT);
         et_keystore.setGravity(Gravity.TOP);
         et_keystore.setSingleLine(false);
         et_keystore.setHorizontallyScrolling(false);
+        /*mPasswordKeyboardView = findViewById(R.id.my_keyboard);
+        mPasswordKeyboardView.setAttachToEditText(this,inp_origin_pwd.getEditText(),findViewById(R.id.root_view),findViewById(R.id.keyboard_root));
+        findViewById(R.id.keyboard_root).setVisibility(View.GONE);*/
+
     }
 
     @Override
@@ -70,6 +77,24 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
         walletViewModel.mutableLiveData.observe(this,ldm->{
             verifyKeyStoreStatus(ldm);
         });
+
+        /*et_keystore.setOnFocusChangeListener((v,hasFcus)->{
+            if(hasFcus){
+                findViewById(R.id.keyboard_root).setVisibility(View.GONE);
+            }
+        });*/
+
+        /*mPasswordKeyboardView.setOnKeyListener(new PasswordKeyBoardView.OnKeyListener() {
+            @Override
+            public void onInput(String text) {
+                //inp_old_pwd.getEditText().setText(text);
+            }
+
+            @Override
+            public void onDelete() {
+                //mPasswordInputView.onKeyDelete();
+            }
+        });*/
     }
 
     @OnClick({R2.id.btn_next})

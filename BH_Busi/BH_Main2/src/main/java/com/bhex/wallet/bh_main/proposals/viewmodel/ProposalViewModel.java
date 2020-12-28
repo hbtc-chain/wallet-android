@@ -6,19 +6,19 @@ import androidx.lifecycle.ViewModel;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.BaseObserver;
 import com.bhex.network.utils.HUtils;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.wallet.bh_main.proposals.model.ProposalInfo;
+import com.bhex.wallet.bh_main.proposals.model.ProposalQueryResult;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.model.ProposalInfo;
-import com.bhex.wallet.common.model.ProposalQueryResult;
 import com.bhex.wallet.common.tx.BHSendTranscation;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonObject;
@@ -120,7 +120,6 @@ public class ProposalViewModel extends ViewModel {
 
     public void sendDoPledge(BaseActivity activity, final BHSendTranscation bhSendTranscation){
         String body = JsonUtils.toJson(bhSendTranscation);
-        LogUtils.d("EnstrustViewModel==>:","body=="+ JsonUtils.toJson(bhSendTranscation));
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
@@ -147,7 +146,6 @@ public class ProposalViewModel extends ViewModel {
     }
     public void sendDoVeto(BaseActivity activity, final BHSendTranscation bhSendTranscation){
         String body = JsonUtils.toJson(bhSendTranscation);
-        LogUtils.d("EnstrustViewModel==>:","body=="+ JsonUtils.toJson(bhSendTranscation));
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
@@ -175,7 +173,6 @@ public class ProposalViewModel extends ViewModel {
 
     public void sendCreatePorposal(BaseActivity activity, final BHSendTranscation bhSendTranscation){
         String body = JsonUtils.toJson(bhSendTranscation);
-        LogUtils.d("EnstrustViewModel==>:","body=="+ JsonUtils.toJson(bhSendTranscation));
         BHProgressObserver<JsonObject> observer = new BHProgressObserver<JsonObject>(activity) {
             @Override
             protected void onSuccess(JsonObject jsonObject) {

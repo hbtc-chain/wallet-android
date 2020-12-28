@@ -18,7 +18,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="0dp"
         tools:context=".validator.ui.fragment.ValidatorFragment"
         app:layout_constraintTop_toBottomOf="@id/status_bar"
         app:layout_constraintBottom_toBottomOf="parent" >
@@ -31,14 +31,14 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_0"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:statusBarScrim="@android:color/transparent"
                 app:title="@string/title_validator"
                 app:collapsedTitleGravity="center"
                 app:expandedTitleGravity="left"
-                app:expandedTitleMarginStart="@dimen/dp_24"
+                app:expandedTitleMarginStart="24dp"
                 app:expandedTitleTextAppearance="@style/expand_main_title_style"
                 app:collapsedTitleTextAppearance="@style/main_title_style"
                 android:clipChildren="false">
@@ -85,14 +85,14 @@
                 android:layout_height="@dimen/dp_40"
                 app:tl_tab_space_equal="false"
                 app:tl_iconVisible="false"
-                android:paddingStart="@dimen/dp_8"
+                android:paddingStart="8dp"
                 app:indicator_start_color="@color/indicator_start_color"
                 app:indicator_end_color="@color/indicator_end_color"
                 app:tl_indicator_corner_radius="0dp"
                 app:tl_indicator_height="@dimen/tab_indicator_height"
-                app:tl_indicator_width="@dimen/dp_16"
+                app:tl_indicator_width="16dp"
                 app:tl_indicator_gravity="BOTTOM"
-                app:tl_tab_padding="@dimen/dp_16"
+                app:tl_tab_padding="16dp"
                 app:tl_textSelectColor="@color/global_main_text_color"
                 app:tl_textUnselectColor="@color/global_label_text_color"
                 app:tl_textsize="@dimen/sp_16" />
@@ -102,15 +102,15 @@
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="@dimen/dp_40"-->
 <!--                android:layout_alignParentBottom="true"-->
-<!--                android:paddingStart="@dimen/dp_8"-->
+<!--                android:paddingStart="8dp"-->
 <!--                app:tabBackground="@color/main_backgound"-->
 <!--                app:tabGravity="fill"-->
 <!--                app:tabIndicatorColor="@color/blue"-->
 <!--                app:tabIndicatorFullWidth="false"-->
 <!--                app:tabIndicatorGravity="bottom"-->
 <!--                app:tabIndicatorHeight="@dimen/tab_indicator_height"-->
-<!--                app:tabPaddingEnd="@dimen/dp_16"-->
-<!--                app:tabPaddingStart="@dimen/dp_16"-->
+<!--                app:tabPaddingEnd="16dp"-->
+<!--                app:tabPaddingStart="16dp"-->
 <!--                app:tabRippleColor="@color/trans"-->
 <!--                app:tabSelectedTextColor="@color/main_text_black"-->
 <!--                app:tabTextAppearance="@style/tabLayoutTextAppearance">-->

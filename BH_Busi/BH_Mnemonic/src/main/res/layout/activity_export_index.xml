@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.ExportIndexActivity">
+
+    <include
+        layout="@layout/layout_toolbar"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="@dimen/page_margin_start"
+        android:layout_marginStart="@dimen/page_margin_start"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/global_main_text_color"
+            android:textSize="26sp"
+            android:text="@string/backup_tips"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/backup_tip_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondary_tip_text_color"
+            android:textSize="15sp"
+            android:text="@string/backup_pk_tip_1"
+            android:paddingBottom="3dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/backup_tip_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondary_tip_text_color"
+            android:textSize="15sp"
+            android:text="@string/backup_pk_tip_2"
+            android:paddingBottom="3dp"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/backup_tip_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondary_tip_text_color"
+            android:textSize="15sp"
+            android:text="@string/backup_pk_tip_3"/>
+
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/next"
+        android:enabled="true"
+        android:layout_margin="@dimen/main_margin_bottom"
+        app:cornerRadius="@dimen/main_radius_conner"
+        app:backgroundTint="@color/global_button_color_bg"
+        android:textColor="@color/global_button_color"
+        style="@style/main_material_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

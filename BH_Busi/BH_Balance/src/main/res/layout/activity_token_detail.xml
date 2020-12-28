@@ -6,7 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.TokenDetailActivity">
 
-    <include layout="@layout/layout_toolbar" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar_textsize"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/wallet_create_trusteeship"
+            tools:text="@string/wallet_create_trusteeship" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:gravity="right|center_vertical"
+            style="@style/toolbar_layout_title_style"
+            android:text="@string/token_detail"
+            android:textSize="15sp"
+            android:paddingRight="16dp"
+            android:background="?android:selectableItemBackground"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
@@ -44,18 +82,20 @@
                 app:cardBackgroundColor="@color/card_bg"
                 app:cardCornerRadius="10dp"
                 app:cardForegroundColor="@color/bg_trans"
-                app:contentPaddingBottom="@dimen/main_margin_bottom"
-                app:contentPaddingLeft="@dimen/main_padding_left"
-                app:contentPaddingRight="@dimen/main_padding_right"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/main_margin_top"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingBottom="16dp"
+                    android:paddingEnd="16dp"
+                    >
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -93,111 +133,116 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_coin_amount" />
 
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_coin_ic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_big_btc"
-                        android:visibility="invisible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_hold_text" />
 
-                    <View
-                        android:id="@+id/layout_divider"
-                        android:layout_width="0dp"
-                        android:layout_height="1px"
-                        android:background="@color/global_divider_color"
-                        app:layout_constraintStart_toStartOf="@+id/tv_coin_currency"
-                        app:layout_constraintEnd_toEndOf="@+id/iv_coin_ic"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_coin_ic"
-                        android:visibility="invisible"
-                        />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_available_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/available"
-                        android:textColor="@color/global_label_text_color"
-                        android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_coin_ic" />
+                    <!--<View
+                       android:id="@+id/layout_divider"
+                       android:layout_width="0dp"
+                       android:layout_height="1px"
+                       android:background="@color/global_divider_color"
+                       app:layout_constraintStart_toStartOf="@+id/tv_coin_currency"
+                       app:layout_constraintEnd_toEndOf="@+id/iv_coin_ic"
+                       app:layout_constraintBottom_toBottomOf="@+id/iv_coin_ic"
+                       android:visibility="invisible"
+                       />
 
-                    <com.bhex.lib.uikit.widget.CustomTextView
-                        android:id="@+id/tv_available_value"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:textColor="@color/global_main_text_color"
-                        android:textSize="13sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_coin_ic"
-                        tools:text="3200000.00" />
+                  <androidx.appcompat.widget.AppCompatTextView
+                       android:id="@+id/tv_available_text"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="16dp"
+                       android:text="@string/available"
+                       android:textColor="@color/global_label_text_color"
+                       android:textSize="13sp"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toBottomOf="@+id/iv_coin_ic" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_entrust_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/delegate"
-                        android:textColor="@color/global_label_text_color"
-                        android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_available_text" />
+                   <com.bhex.lib.uikit.widget.CustomTextView
+                       android:id="@+id/tv_available_value"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="16dp"
+                       android:textColor="@color/global_main_text_color"
+                       android:textSize="13sp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintTop_toBottomOf="@+id/iv_coin_ic"
+                       tools:text="3200000.00" />
 
-                    <com.bhex.lib.uikit.widget.CustomTextView
-                        android:id="@+id/tv_entrust_value"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/global_main_text_color"
-                        android:textSize="13sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_entrust_text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:text="3200000.00" />
+                   <androidx.appcompat.widget.AppCompatTextView
+                       android:id="@+id/tv_entrust_text"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="8dp"
+                       android:text="@string/delegate"
+                       android:textColor="@color/global_label_text_color"
+                       android:textSize="13sp"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toBottomOf="@+id/tv_available_text" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_redemption_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/unbonding"
-                        android:textColor="@color/global_label_text_color"
-                        android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_entrust_text" />
+                   <com.bhex.lib.uikit.widget.CustomTextView
+                       android:id="@+id/tv_entrust_value"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:textColor="@color/global_main_text_color"
+                       android:textSize="13sp"
+                       app:layout_constraintBottom_toBottomOf="@+id/tv_entrust_text"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       tools:text="3200000.00" />
 
-                    <com.bhex.lib.uikit.widget.CustomTextView
-                        android:id="@+id/tv_redemption_value"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/global_main_text_color"
-                        android:textSize="13sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_redemption_text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:text="3200000.00" />
+                   <androidx.appcompat.widget.AppCompatTextView
+                       android:id="@+id/tv_redemption_text"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="8dp"
+                       android:text="@string/unbonding"
+                       android:textColor="@color/global_label_text_color"
+                       android:textSize="13sp"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toBottomOf="@+id/tv_entrust_text" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_income_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/claimed_reward"
-                        android:textColor="@color/global_label_text_color"
-                        android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_redemption_value" />
+                   <com.bhex.lib.uikit.widget.CustomTextView
+                       android:id="@+id/tv_redemption_value"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:textColor="@color/global_main_text_color"
+                       android:textSize="13sp"
+                       app:layout_constraintBottom_toBottomOf="@+id/tv_redemption_text"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       tools:text="3200000.00" />
 
-                    <com.bhex.lib.uikit.widget.CustomTextView
-                        android:id="@+id/tv_income_value"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/global_main_text_color"
-                        android:textSize="13sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_income_text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:text="3200000.00" />
+                   <androidx.appcompat.widget.AppCompatTextView
+                       android:id="@+id/tv_income_text"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="8dp"
+                       android:text="@string/claimed_reward"
+                       android:textColor="@color/global_label_text_color"
+                       android:textSize="13sp"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toBottomOf="@+id/tv_redemption_value" />
+
+                   <com.bhex.lib.uikit.widget.CustomTextView
+                       android:id="@+id/tv_income_value"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:textColor="@color/global_main_text_color"
+                       android:textSize="13sp"
+                       app:layout_constraintBottom_toBottomOf="@+id/tv_income_text"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       tools:text="3200000.00" />-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_coin_ic"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginEnd="-16dp"
+                    android:layout_marginBottom="-16dp"
+                    tools:src="@mipmap/ic_big_btc"
+                    android:visibility="visible"
+                    android:layout_gravity="right|bottom"
+                    app:layout_constraintTop_toTopOf="@+id/tv_hold_text"
+                    />
             </com.google.android.material.card.MaterialCardView>
 
             <FrameLayout
@@ -216,6 +261,7 @@
                     android:layout_height="match_parent"
                     android:overScrollMode="never"
                     tools:listitem="@layout/item_tx_order"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     >
 
                 </androidx.recyclerview.widget.RecyclerView>
@@ -235,52 +281,93 @@
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="72dp"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_item1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_transfer_in"
-            app:actionText="@string/transfer_in"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="@color/global_button_bg_color"
+            android:text="@string/deposit"
+            style="@style/main_material_btn"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:textColor="@color/global_button_text_color"
             />
 
-        <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_item2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_transfer_out"
-            app:actionText="@string/transfer_out" />
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginRight="5dp"
+            app:backgroundTint="@color/global_button_bg_color"
+            android:text="@string/transfer"
+            style="@style/main_material_btn"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:textColor="@color/global_button_text_color"
+            />
 
-        <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_item3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_draw_share"
-            app:actionText="@string/withdraw_income" />
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            app:backgroundTint="@color/border_button_bg_color"
+            app:cornerRadius="@dimen/main_radius_conner"
+            app:strokeColor="@color/highlight_text_color"
+            app:strokeWidth="1dp"
+            style="@style/main_material_btn"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:text="@string/swap"
+            android:textColor="@color/highlight_text_color"
+            />
 
-        <com.bhex.lib.uikit.widget.balance.CoinBottomBtn
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_item4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            app:actionImage="@mipmap/ic_cross_trans_in"
-            app:actionText="@string/entrust_relive_entrust" />
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            app:backgroundTint="@color/border_button_bg_color"
+            app:cornerRadius="@dimen/main_radius_conner"
+            app:strokeColor="@color/highlight_text_color"
+            app:strokeWidth="1dp"
+            style="@style/main_material_btn"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:text="@string/tab_trade"
+            android:textColor="@color/highlight_text_color"
+            />
     </LinearLayout>
 
 

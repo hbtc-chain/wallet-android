@@ -30,7 +30,7 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="8dp"
         android:fillViewport="true"
         android:overScrollMode="never">
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/main_margin_right"
                 android:layout_marginEnd="@dimen/main_margin_right"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginTop="8dp"
                 android:gravity="top"
                 android:background="@drawable/bg_border_corners_gray"
                 android:text="@string/do_entrust_tip"
@@ -63,9 +63,9 @@
                 android:textSize="@dimen/sp_15"
                 android:letterSpacing="0.02"
                 android:paddingLeft="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_16"
+                android:paddingTop="16dp"
                 android:paddingRight="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_16"
+                android:paddingBottom="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -85,8 +85,8 @@
 
             <com.bhex.lib.uikit.widget.editor.WithDrawInput
                 android:id="@+id/tv_to_address"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginStart="@dimen/main_margin_left"
                 android:layout_marginEnd="@dimen/main_margin_right"
@@ -108,7 +108,7 @@
                 android:textColor="@color/global_secondary_text_color"
                 android:text="@string/entrust_amount"
 
-                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_to_address"
@@ -122,7 +122,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/global_label_text_color"
-                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="@dimen/page_margin_start"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_to_address"
@@ -156,7 +156,7 @@
                 android:textColor="@color/global_secondary_text_color"
                 android:text="@string/real_entrust_amount"
 
-                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_entrust_amount"
@@ -191,7 +191,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/global_secondary_text_color"
                 android:text="@string/fee"
-                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_real_entrust_amount"
@@ -205,7 +205,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/global_label_text_color"
-                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="@dimen/page_margin_start"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_real_entrust_amount"
@@ -233,11 +233,13 @@
                 android:id="@+id/layout_speedup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="@dimen/page_margin_start"
                 android:layout_marginStart="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ed_entrust_fee">
+                app:layout_constraintTop_toBottomOf="@+id/ed_entrust_fee"
+                android:visibility="gone"
+                >
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -281,13 +283,14 @@
                 app:isb_track_progress_color="@color/blue_bg"
                 app:isb_thumb_size="25dp"
                 app:isb_show_indicator="none"
+                android:visibility="gone"
                 />
 
 
 
             <com.bhex.lib.uikit.widget.seekbar.BHSeekBar
                 android:id="@+id/speed_up"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
                 android:layout_marginStart="@dimen/main_margin_left"
@@ -304,13 +307,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginTop="24dp"
                 android:layout_marginStart="@dimen/main_margin_left"
                 android:layout_marginEnd="@dimen/main_margin_left"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/speed_up"
                 android:visibility="gone"
-                android:layout_marginBottom="@dimen/dp_24"
+                android:layout_marginBottom="24dp"
                 >
 
 
@@ -361,7 +364,7 @@
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dp_76"
+        android:layout_height="76dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -373,8 +376,8 @@
             style="@style/main_material_btn"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginLeft="@dimen/dp_16"
-            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"

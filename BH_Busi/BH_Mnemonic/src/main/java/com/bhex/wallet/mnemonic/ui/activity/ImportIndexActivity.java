@@ -5,21 +5,18 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
-import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.ImportAdapter;
 import com.bhex.wallet.mnemonic.persenter.ImportPresenter;
-import com.bhex.wallet.mnemonic.ui.item.ImportItem;
+import com.bhex.wallet.mnemonic.ui.item.FunctionItem;
 
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
 
     private ImportAdapter importAdapter;
 
-    private List<ImportItem> mDatas;
+    private List<FunctionItem> mDatas;
 
     @Override
     protected int getLayoutId() {
@@ -61,35 +58,24 @@ public class ImportIndexActivity extends BaseCacheActivity<ImportPresenter> {
     @Override
     protected void addEvent() {
 
-        mDatas = mPresenter.loadAllItem();
-
-        importAdapter = new ImportAdapter(R.layout.item_import_way,mDatas);
-        LinearLayoutManager lm = new LinearLayoutManager(this);
-        lm.setOrientation(LinearLayoutManager.VERTICAL);
-
-        recycler_import_way.setLayoutManager(lm);
-
-        recycler_import_way.setAdapter(importAdapter);
+        mDatas = mPresenter.loadImportList();
+        recycler_import_way.setAdapter( importAdapter = new ImportAdapter(mDatas));
 
         RecycleViewDivider divider = new RecycleViewDivider(this, LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(this,16), ColorUtil.getColor(this,R.color.app_bg));
-
         recycler_import_way.addItemDecoration(divider);
 
         importAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (position){
                 case 0:
-                    //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC);
                     ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC)
                             .navigation();
                     break;
                 case 1:
-                    //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE);
                     ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE)
                             .navigation();
                     break;
                 case 2:
-                    //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY);
                     ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY)
                             .navigation();
                     break;

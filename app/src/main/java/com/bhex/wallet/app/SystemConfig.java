@@ -1,7 +1,6 @@
 package com.bhex.wallet.app;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.TypefaceUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.base.NetworkApi;
 import com.bhex.network.cache.RxCache;
@@ -10,13 +9,10 @@ import com.bhex.network.exception.ApiException;
 import com.bhex.network.exception.ExceptionEngin;
 import com.bhex.network.receiver.NetWorkStatusChangeReceiver;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.CrashHandler;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.BuildConfig;
 import com.bhex.wallet.base.BHNetwork;
 import com.bhex.wallet.common.cache.CacheCenter;
-import com.bhex.wallet.common.config.BHFilePath;
-import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.model.BHPhoneInfo;
 import com.facebook.stetho.Stetho;
 import com.tencent.mmkv.MMKV;
@@ -24,7 +20,6 @@ import com.tencent.mmkv.MMKV;
 import java.io.File;
 
 import io.reactivex.plugins.RxJavaPlugins;
-import xcrash.XCrash;
 
 /**
  * created by gongdongyang
@@ -79,7 +74,6 @@ public class SystemConfig  {
 
         File cacheFile = new File(BaseApplication.getInstance().getCacheDir() + File.separator + "data-cache");
 
-        LogUtils.d("SystemConfig===>:","cacheFile===="+cacheFile.getAbsolutePath());
         RxCache rxCache = new RxCache.Builder()
                 .appVersion(1)
                 .diskDir(cacheFile)

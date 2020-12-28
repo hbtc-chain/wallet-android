@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.text.SpannableString;
@@ -21,8 +22,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
@@ -43,9 +44,8 @@ public class TransferInTipFragment extends BaseDialogFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
+    public void initStart() {
+        setStyle(DialogFragment.STYLE_NO_TITLE, STYLE_NO_TITLE);
         Window window = getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.centerDialogStyle;
@@ -55,10 +55,7 @@ public class TransferInTipFragment extends BaseDialogFragment {
 
         WindowManager.LayoutParams params = window.getAttributes();
         params.gravity = Gravity.CENTER;
-
         params.width = dm.widthPixels - PixelUtils.dp2px(BaseApplication.getInstance(), 48);
-        //params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 220);
-        //params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
     }
 

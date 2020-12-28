@@ -18,7 +18,7 @@ import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.GradientTabLayout;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -42,7 +42,7 @@ import butterknife.ButterKnife;
  * 2020-5-16 16:14:15
  * 消息中心
  */
-@Route(path = ARouterConfig.MY_Message, name = "消息中心")
+@Route(path = ARouterConfig.My.My_Message, name = "消息中心")
 public class MessageActivity extends BaseActivity {
 
     @BindView(R2.id.tv_center_title)

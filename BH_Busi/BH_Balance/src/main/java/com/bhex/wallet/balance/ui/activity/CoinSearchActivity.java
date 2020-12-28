@@ -17,14 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -48,7 +48,7 @@ import butterknife.BindView;
  * 2020-4-3 15:27:32
  * 币种搜索
  */
-@Route(path = ARouterConfig.Balance_Search)
+@Route(path = ARouterConfig.Balance.Balance_Search)
 public class CoinSearchActivity extends BaseActivity implements OnRefreshListener {
 
     @BindView(R2.id.tv_center_title)
@@ -83,15 +83,14 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
 
         mTokenList = CoinSearchHelper.loadVerifiedToken(mChain);
 
-        LinearLayoutManager lm = new LinearLayoutManager(this);
-        lm.setOrientation(LinearLayoutManager.VERTICAL);
+        /*LinearLayoutManager lm = new LinearLayoutManager(this);
+        lm.setOrientation(LinearLayoutManager.VERTICAL);*/
 
-        mCoinSearchAdapter = new CoinSearchAdapter(mTokenList);
-        recycler_coin.setLayoutManager(lm);
-        recycler_coin.setAdapter(mCoinSearchAdapter);
+        recycler_coin.setAdapter(mCoinSearchAdapter = new CoinSearchAdapter(mTokenList));
 
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
                 this,LinearLayoutManager.VERTICAL,
+
                 PixelUtils.dp2px(this,68),
                 0,
                 ColorUtil.getColor(this,R.color.global_divider_color));
@@ -133,7 +132,7 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
     private void updateTokenList(LoadDataModel ldm) {
         mCoinSearchAdapter.getData().clear();
         if(ldm.getLoadingStatus()==LoadingStatus.SUCCESS){
-            if(ldm.getData()==null){
+            if(ldm.getData()==null || ((List<BHToken>)ldm.getData()).size()==0){
                 empty_layout.showNoData();
             }else{
                 empty_layout.loadSuccess();
@@ -186,7 +185,6 @@ public class CoinSearchActivity extends BaseActivity implements OnRefreshListene
         if(!TextUtils.isEmpty(search_key)){
             mCoinSearchAdapter.getData().clear();
             mCoinSearchAdapter.notifyDataSetChanged();
-
             empty_layout.showProgess();
             mTokenViewModel.search_token(this,search_key.toLowerCase(),mChain);
         }

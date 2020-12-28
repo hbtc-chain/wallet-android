@@ -17,7 +17,7 @@ import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NumberUtil;
@@ -28,9 +28,11 @@ import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.proposals.presenter.CreateProposalPresenter;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -46,8 +48,8 @@ import butterknife.OnClick;
  * 2020-4-22
  * 发起提案
  */
-@Route(path = ARouterConfig.Create_Proposal)
-public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter>  implements PasswordFragment.PasswordClickListener {
+@Route(path = ARouterConfig.Proposal.Create_Proposal)
+public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter>  implements Password30Fragment.PasswordClickListener {
 
     @BindView(R2.id.ed_proposal_title)
     AppCompatEditText ed_proposal_title;
@@ -107,7 +109,8 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
     private void initUI() {
         refreshLayout.setEnableLoadMore(false);
-        ed_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        //ed_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        ed_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
         tv_description_length.setText(getString(R.string.description_length_format,0));
         ed_pledge_amount.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ed_fee.btn_right_text.setText(token.toUpperCase());
@@ -189,8 +192,8 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this,0);
     }
 

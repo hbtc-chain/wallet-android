@@ -5,17 +5,15 @@ import android.text.TextUtils;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.utils.MD5;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.google.android.material.button.MaterialButton;
 
 /**
  * Created by BHEX.
@@ -49,7 +47,7 @@ public class MyPresenter extends BasePresenter {
             flag = false;
         }
 
-        if(!TextUtils.isEmpty(newPwd)){
+        /*if(!TextUtils.isEmpty(newPwd)){
             if(!RegexUtil.checkContainNum(newPwd)){
                 tv[0].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
                 tv[3].setTextColor(ColorUtil.getColor(getActivity(),R.color.color_red));
@@ -81,7 +79,7 @@ public class MyPresenter extends BasePresenter {
             }else{
                 tv[4].setTextColor(ColorUtil.getColor(getActivity(),R.color.global_secondary_text_color));
             }
-        }
+        }*/
 
 
         if(TextUtils.isEmpty(newConfrimPwd)) {
@@ -104,10 +102,7 @@ public class MyPresenter extends BasePresenter {
     public boolean checkPasswordEqual(String oldPwd,String newPwd,String newConfrimPwd){
         boolean flag = true;
         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
-        /*if(!bhWallet.password.equals(MD5.md5(oldPwd))){
-            ToastUtils.showToast(getActivity().getResources().getString(R.string.error_oldpassword));
-            return false;
-        }*/
+
         if(!ToolUtils.isVerifyPass(oldPwd,bhWallet.getPassword())){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.error_oldpassword));
             return false;

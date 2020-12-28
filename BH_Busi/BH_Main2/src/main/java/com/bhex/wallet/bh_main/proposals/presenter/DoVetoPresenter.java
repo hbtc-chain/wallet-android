@@ -2,15 +2,15 @@ package com.bhex.wallet.bh_main.proposals.presenter;
 
 import android.text.TextUtils;
 
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.bh_main.R;
+import com.bhex.wallet.bh_main.proposals.model.ProposalInfo;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.model.BHToken;
-import com.bhex.wallet.common.model.ProposalInfo;
 
 public class DoVetoPresenter extends BasePresenter {
 
@@ -19,7 +19,7 @@ public class DoVetoPresenter extends BasePresenter {
     }
 
     public boolean checkDoVeto(ProposalInfo proposalInfo, String option,
-                                 String available_amount, String fee_amount){
+                               String available_amount, String fee_amount){
         if (proposalInfo ==null) {
             ToastUtils.showToast(getActivity().getString(R.string.check_proposal_info));
             return false;

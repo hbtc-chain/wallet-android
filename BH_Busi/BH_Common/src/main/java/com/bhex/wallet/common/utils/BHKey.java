@@ -6,7 +6,6 @@ import com.bhex.network.utils.Base64;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.crypto.Sha256;
-import com.bhex.tools.utils.LogUtils;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Utils;

@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.support.hsf.HSFJSONUtils;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
@@ -169,7 +169,7 @@ public class TransactionHelper {
      * @param txOrderItem
      */
     public static void gotoTranscationDetail(TxOrderItem txOrderItem,String mSymbol){
-        ARouter.getInstance().build(ARouterConfig.Balance_transcation_view)
+        ARouter.getInstance().build(ARouterConfig.Balance.Balance_transcation_view)
                 //.withObject("txo",txOrderItem)
                 .withString("transactionId",txOrderItem.hash)
                 .withString("symbol",mSymbol)

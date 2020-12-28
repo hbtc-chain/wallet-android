@@ -17,15 +17,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewDivider;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.network.mvx.base.BaseDialogFragment;
+import com.bhex.network.mvx.base.BaseBottomSheetDialog;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.market.R;
@@ -41,7 +40,7 @@ import butterknife.BindView;
  * @author gongdongyang
  * 2020-10-10 16:20:03
  */
-public class ChooseTokenFragment extends BaseDialogFragment {
+public class ChooseTokenFragment extends BaseBottomSheetDialog {
 
     @BindView(R2.id.rec_token_list)
     RecyclerView rec_token_list;
@@ -100,14 +99,14 @@ public class ChooseTokenFragment extends BaseDialogFragment {
         }
         mSearchDatas = new ArrayList<>(mDatas);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        /*LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rec_token_list.setLayoutManager(llm);
+        rec_token_list.setLayoutManager(llm);*/
 
         RecycleViewDivider itemDecoration = new RecycleViewDivider(
                 getContext(),LinearLayoutManager.VERTICAL,
                 PixelUtils.dp2px(getContext(),1),
-                ColorUtil.getColor(getContext(), com.bhex.wallet.common.R.color.global_divider_color));
+                ColorUtil.getColor(getContext(), R.color.global_divider_color));
         rec_token_list.addItemDecoration(itemDecoration);
 
         rec_token_list.setAdapter(mChooseTokenAdapter);

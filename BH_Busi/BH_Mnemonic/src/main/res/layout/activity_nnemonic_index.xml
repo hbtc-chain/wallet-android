@@ -73,7 +73,7 @@
         android:insetBottom="0dp"
         android:insetTop="0dp"
         app:strokeColor="@color/border_button_border_color"
-        app:strokeWidth="@dimen/dp_2"
+        app:strokeWidth="2dp"
         app:backgroundTint="@color/border_button_bg_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +83,7 @@
         android:text="@string/wallet_import_trusteeship"
         android:gravity="center"
         style="@style/border_btn_text_style"
+        android:textColor="@color/border_button_text_color"
         android:layout_marginTop="16dp"
         />
 

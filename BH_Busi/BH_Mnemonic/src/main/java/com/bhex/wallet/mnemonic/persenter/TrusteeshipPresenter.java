@@ -6,10 +6,10 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.widget.InputView;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -73,8 +73,7 @@ public class TrusteeshipPresenter extends BasePresenter {
         }
     }
 
-    public void checkConfirmPassword(InputView inpPwd, AppCompatButton btnNext, String oldPwd, AppCompatCheckBox ck){
-        String confirmPwd = inpPwd.getInputString();
+    public void checkConfirmPassword(String confirmPwd, AppCompatButton btnNext, String oldPwd, AppCompatCheckBox ck){
         boolean flag = !TextUtils.isEmpty(confirmPwd)&& ck.isChecked();
         setBtnIsClick(flag,btnNext);
     }

@@ -79,7 +79,7 @@ public class SettingAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
             viewHolder.getView(R.id.iv_arrow).setVisibility(View.VISIBLE);
         }
 
-        if(position==3){
+        if(position==4){
             boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
             if(isFinger){
                 ck.setChecked(true);

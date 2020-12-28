@@ -14,21 +14,22 @@
         android:src="@mipmap/ic_net_work_error"
         android:visibility="gone" />
 
-    <ProgressBar
+    <!--<ProgressBar
         android:id="@+id/empty_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyle"
         android:visibility="visible"
-        />
+        />-->
 
-    <!--<com.bhex.lib.uikit.widget.load.HwLoadingView
+    <com.bhex.lib.uikit.widget.load.HwLoadingView
         android:id="@+id/empty_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:hlv_color = "@color/blue_bg"
         app:hlv_duration = "1500"
         app:hlv_size="56dp"
-        />-->
+        />
 
     <TextView
         android:id="@+id/empty_title"

@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -41,7 +43,15 @@ public class CircleView extends View {
     private void initAttr(Context context, @Nullable AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.Circle);
         //mCircleRadius = ta.getDimension(R.styleable.Circle_radius,8);
-        mCircleColor = ta.getColor(R.styleable.Circle_mcolor, Color.parseColor("#ED3756"));
+        Drawable background = getBackground();
+        if (background instanceof ColorDrawable) {
+            ColorDrawable colordDrawable = (ColorDrawable) background;
+            mCircleColor = colordDrawable.getColor();
+            setBackground(null);
+        }else{
+            mCircleColor = ta.getColor(R.styleable.Circle_mcolor, Color.parseColor("#ED3756"));
+        }
+
         ta.recycle();
 
         mPaint.setStyle(Paint.Style.FILL);
@@ -53,6 +63,11 @@ public class CircleView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawCircle(mCenterX,mCentetY,mCircleRadius,mPaint);
+    }
+
+    public void setCircleColor(int circleColor) {
+        this.mCircleColor = circleColor;
+        mPaint.setColor(this.mCircleColor);
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.bhex.wallet.bh_main.proposals.ui.activity;
 
-import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,24 +13,19 @@ import androidx.lifecycle.ViewModelProviders;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.NumberUtil;
-import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
+import com.bhex.wallet.bh_main.proposals.model.ProposalInfo;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
-import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
-import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.model.ProposalInfo;
-import com.bhex.wallet.common.model.ValidatorInfo;
 import com.google.android.material.button.MaterialButton;
-import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.BindView;
@@ -43,7 +36,7 @@ import butterknife.OnClick;
  * 2020-4-22
  * 提案详情
  */
-@Route(path = ARouterConfig.Proposal_Detail)
+@Route(path = ARouterConfig.Proposal.Proposal_Detail)
 public class ProposalDetailActivity extends BaseActivity {
 
     @Autowired(name = "proposalInfo")
@@ -303,12 +296,12 @@ public class ProposalDetailActivity extends BaseActivity {
     @OnClick({R2.id.btn_do_pledge, R2.id.btn_do_veto})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.btn_do_pledge) {
-            ARouter.getInstance().build(ARouterConfig.Do_Pledge)
+            ARouter.getInstance().build(ARouterConfig.Proposal.Do_Pledge)
                     .withObject("proposalInfo", mProposalInfo)
                     .navigation();
 
         } else if (view.getId() == R.id.btn_do_veto) {
-            ARouter.getInstance().build(ARouterConfig.Do_Veto)
+            ARouter.getInstance().build(ARouterConfig.Proposal.Do_Veto)
                     .withObject("proposalInfo", mProposalInfo)
                     .navigation();
         }

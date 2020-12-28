@@ -2,22 +2,20 @@ package com.bhex.wallet.bh_main.my.ui.activity;
 
 import android.view.View;
 import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
 
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.NavigateUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.SettingAdapter;
@@ -62,20 +60,16 @@ public class SettingActivity extends BaseActivity{
     protected void initView() {
         mItems = MyHelper.getSettingItems(this);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_setting.setLayoutManager(layoutManager);
-
         mSettingAdapter = new SettingAdapter(mItems);
-
         recycler_setting.setAdapter(mSettingAdapter);
 
-        RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
-                this,LinearLayoutManager.VERTICAL,
-                PixelUtils.dp2px(this,16),0,
-                ColorUtil.getColor(this,R.color.global_divider_color));
+        MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(this,
+                ColorUtil.getColor(this,R.color.global_divider_color),
+                getResources().getDimension(R.dimen.default_item_divider_height),
+                new int[]{2,3});
 
-        recycler_setting.addItemDecoration(ItemDecoration);
+        recycler_setting.addItemDecoration(myRecyclerDivider);
+
         EventBus.getDefault().register(this);
     }
 
@@ -101,7 +95,7 @@ public class SettingActivity extends BaseActivity{
                 NavigateUtil.startActivity(this,SettingActivity.class);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 EventBus.getDefault().post(new NightEvent());
-            } else if(position==3){
+            } else if(position==4){
                 CheckedTextView ck = (CheckedTextView) view;
                 if(!ck.isChecked()){
                     if(SafeUilts.isFinger(this)){
@@ -129,13 +123,18 @@ public class SettingActivity extends BaseActivity{
         MyItem myItem = mItems.get(position);
         switch (position){
             case 0:
-                ARouter.getInstance().build(ARouterConfig.MY_LANGUAE_SET_PAGE).withString("title",myItem.title).navigation();
+                ARouter.getInstance().build(ARouterConfig.My.My_Languae_Set).withString("title",myItem.title).navigation();
                 break;
             case 1:
-                ARouter.getInstance().build(ARouterConfig.MY_Rate_setting).withString("title",myItem.title).navigation();
+                ARouter.getInstance().build(ARouterConfig.My.My_Rate_setting).withString("title",myItem.title).navigation();
                 break;
-            case 4:
-                ARouter.getInstance().build(ARouterConfig.MY_Security_Setting).withString("title",myItem.title).navigation();
+            case 3:
+                ARouter.getInstance().build(ARouterConfig.My.My_Update_Password)
+                        .withString("title",myItem.title)
+                        .navigation();
+                break;
+            case 5:
+                ARouter.getInstance().build(ARouterConfig.My.My_Security_Setting).withString("title",myItem.title).navigation();
         }
     }
 

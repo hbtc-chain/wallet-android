@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.wallet.bh_main.R;
@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import io.reactivex.Observable;
 
-@Route(path= ARouterConfig.MY_LANGUAE_SET_PAGE)
+@Route(path= ARouterConfig.My.My_Languae_Set)
 public class LanguageSettingActivity extends BaseActivity {
 
     @Autowired(name="title")
@@ -60,12 +60,7 @@ public class LanguageSettingActivity extends BaseActivity {
         initData();
 
         mLanguageAdapter = new LanguageAdapter(R.layout.item_language,mLanguageList);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         rcvLanguageSet.setAdapter(mLanguageAdapter);
-        rcvLanguageSet.setLayoutManager(layoutManager);
 
         RecycleViewExtDivider divider = new RecycleViewExtDivider(
                 this, LinearLayoutManager.VERTICAL,

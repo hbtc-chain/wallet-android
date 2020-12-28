@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,9 +14,7 @@
         android:layout_marginLeft="@dimen/main_margin_left"
         android:layout_marginRight="@dimen/main_margin_right"
         android:background="@drawable/shape_input_corner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        >
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -37,54 +35,44 @@
             android:layout_marginEnd="@dimen/main_margin_right"
             android:layout_toRightOf="@+id/iv_search_ic"
             android:background="@null"
+            android:singleLine="true"
             android:gravity="center_vertical"
             android:hint="@string/hint_validator_search"
             android:textColor="@color/global_main_text_color"
             android:textColorHint="@color/global_input_hint_color"
             android:textCursorDrawable="@null"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            />
     </RelativeLayout>
 
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
-        app:layout_constraintTop_toBottomOf="@+id/layout_search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srlEnableNestedScrolling="true"
-        app:srlEnableLoadMore="false">
 
-        <androidx.core.widget.NestedScrollView
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_search"
+        android:minHeight="300dp">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_validator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_validator">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="300dp"
-                >
 
-                <com.yanzhenjie.recyclerview.SwipeRecyclerView
-                    android:id="@+id/recycler_validator"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp">
+        </androidx.recyclerview.widget.RecyclerView>
 
-                </com.yanzhenjie.recyclerview.SwipeRecyclerView>
+        <com.bhex.lib.uikit.widget.EmptyLayout
+            android:id="@+id/empty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
 
-                <com.bhex.lib.uikit.widget.EmptyLayout
-                    android:id="@+id/empty_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    />
-            </FrameLayout>
-        </androidx.core.widget.NestedScrollView>
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

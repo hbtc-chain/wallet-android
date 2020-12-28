@@ -15,7 +15,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bhex.lib.uikit.widget.GradientTabLayout;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.lib.uikit.widget.viewpager.CustomViewPager;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
@@ -94,7 +95,6 @@ public class ValidatorFragment extends BaseFragment<ValidatorFragmentPresenter> 
     }
 
     private void initTab() {
-        LogUtils.d("ValidatorFragment===>:","initTab");
         List<Pair<String, Fragment>> items = new ArrayList<>();
         ValidatorListFragment  validListFragment= new ValidatorListFragment();
         Bundle bundle = new Bundle();

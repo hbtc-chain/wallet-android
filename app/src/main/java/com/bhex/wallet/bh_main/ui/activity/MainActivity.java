@@ -2,6 +2,7 @@ package com.bhex.wallet.bh_main.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
@@ -10,7 +11,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.RefreshLayoutManager;
 import com.bhex.lib.uikit.util.BottomNavigationViewUtil;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.lib.uikit.widget.bar.CookieBar;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
@@ -21,9 +23,11 @@ import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.event.NightEvent;
+import com.bhex.wallet.common.manager.AppStatusManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.gyf.immersionbar.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,7 +40,7 @@ import butterknife.BindView;
  * on 2020/2/24
  */
 
-@Route(path= ARouterConfig.APP_MAIN_PAGE)
+@Route(path= ARouterConfig.Main.main_mainindex)
 public class MainActivity extends BaseActivity<MainPresenter> {
 
     @BindView(R.id.main_bottom)
@@ -66,7 +70,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        LogUtils.d("MainPresenter===>:","isReset=2="+isReset);
+        //LogUtils.d("MainPresenter===>:","isReset=2="+isReset);
 
         if(savedInstanceState!=null && !isReset){
             mCurrentCheckId = savedInstanceState.getInt("index",0);
@@ -148,13 +152,23 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        int action = intent.getIntExtra(AppStatusManager.KEY_HOME_ACTION, AppStatusManager.ACTION_BACK_TO_HOME);
+        if(action==AppStatusManager.ACTION_RESTART_APP){
+            ARouter.getInstance().build(ARouterConfig.Main.main_splash).navigation();
+            finish();
+        }
         String go_position = intent.getStringExtra("go_position");
-        getPresenter().gotoTarget(mBottomNavigationView,go_position);
+        String go_token  = intent.getStringExtra("go_token");
+        getPresenter().gotoTarget(mBottomNavigationView,go_position,go_token);
     }
 
     @Override
-    protected int getStatusColorValue() {
-        return BHConstants.STATUS_COLOR_TRANS;
+    protected void setStatusColor() {
+        if(!isNight()){
+            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).navigationBarDarkIcon(true).init();
+        }else{
+            ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(false).navigationBarDarkIcon(false).init();
+        }
     }
 
     @Override
@@ -162,5 +176,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         super.onSaveInstanceState(outState);
         outState.putInt("index",mCurrentCheckId);
     }
+
+
 
 }

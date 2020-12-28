@@ -9,10 +9,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -20,6 +22,7 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
@@ -29,6 +32,7 @@ import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.TrustManagerAdapter;
 import com.bhex.wallet.mnemonic.persenter.TrustManagerPresenter;
+import com.bhex.wallet.mnemonic.ui.fragment.DeleteTipFragment;
 import com.google.android.material.button.MaterialButton;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
 import com.yanzhenjie.recyclerview.SwipeMenu;
@@ -50,7 +54,8 @@ import butterknife.OnClick;
  * 托管单元管理
  */
 @Route(path = ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE)
-public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresenter> implements TrustManagerAdapter.OnCheckClickListener {
+public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresenter>
+        implements TrustManagerAdapter.OnCheckClickListener {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -89,10 +94,6 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         tv_center_title.setText(getString(R.string.trustship_manager));
 
         //初始化RecycleView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_trusteeship.setLayoutManager(layoutManager);
-
         recycler_trusteeship.setSwipeMenuCreator(swipeMenuCreator);
         recycler_trusteeship.setOnItemMenuClickListener(mMenuItemClickListener);
 
@@ -122,7 +123,18 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         });
 
         mTrustManagerAdapter.setOnItemClickListener((adapter, view, position) -> {
+            BHWalletItem bhWalletItem = mTrustManagerAdapter.getData().get(position);
+            if(bhWalletItem.isDefault==BH_BUSI_TYPE.默认托管单元.getIntValue()){
+                BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
+                walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,bhWalletItem.isDefault);
+            }else{
+                int status = (bhWalletItem.isDefault==BH_BUSI_TYPE.非默认托管单元.getIntValue())
+                        ? BH_BUSI_TYPE.默认托管单元.getIntValue()
+                        : BH_BUSI_TYPE.非默认托管单元.getIntValue();
 
+                BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
+                walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
+            }
         });
     }
 
@@ -145,17 +157,25 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         if(view.getId()==R.id.btn_wallet_create){
             ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST,TrusteeshipManagerActivity.class);
         }else if(view.getId()==R.id.btn_wallet_impot){
-            ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX,TrusteeshipManagerActivity.class);
+            ARouter.getInstance().build(ARouterConfig.Trusteeship.Trusteeship_Add_Index).navigation();
+            MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
         }
     }
 
-    @Override
+    /*@Override
     public void checkClickListener(final int position, BHWalletItem bhWalletItem) {
-        int status = bhWalletItem.isDefault==0?1:0;
-        BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
-        walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
+        if(bhWalletItem.isDefault==BH_BUSI_TYPE.默认托管单元.getIntValue()){
+            BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
+            walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,bhWalletItem.isDefault);
+        }else{
+            int status = (bhWalletItem.isDefault==BH_BUSI_TYPE.非默认托管单元.getIntValue())
+                    ? BH_BUSI_TYPE.默认托管单元.getIntValue()
+                    : BH_BUSI_TYPE.非默认托管单元.getIntValue();
 
-    }
+            BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
+            walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
+        }
+    }*/
 
     @Override
     public void onMenuClickListener(int position, BHWalletItem bhWalletItem) {
@@ -169,7 +189,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     /**
      * 更新位置
      */
-    private void updatePosition(int position,int status){
+    /*private void updatePosition(int position,int status){
         if(status==1){
             for (int i = 0; i < mAllWalletList.size(); i++) {
                 BHWalletItem item = mTrustManagerAdapter.getData().get(i);
@@ -179,7 +199,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         BHWalletItem item = mTrustManagerAdapter.getData().get(position);
         item.isDefault = status;
         mTrustManagerAdapter.notifyDataSetChanged();
-    }
+    }*/
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -230,12 +250,22 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     private BHWalletItem deletBHWallet;
     PasswordFragment passwordFrag;
     public void deletBHWallet(BHWalletItem bhWalletItem,int position){
-
         deletBHWallet = bhWalletItem;
-
-        passwordFrag = PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
+        //弹框确认
+        DeleteTipFragment fragment = DeleteTipFragment.showFragment(position,this::deleteAction);
+        fragment.show(getSupportFragmentManager(),DeleteTipFragment.class.getName());
+        /*passwordFrag = PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
                 passwordClickListener,position);
-        passwordFrag.setVerifyPwdWay(BH_BUSI_TYPE.校验选择账户密码.getIntValue());
+        passwordFrag.setVerifyPwdWay(BH_BUSI_TYPE.校验选择账户密码.getIntValue());*/
+    }
+
+    //删除确认
+    private void deleteAction(int i,int position) {
+        if(i==1){
+            passwordFrag = PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
+                    passwordClickListener,position);
+            passwordFrag.setVerifyPwdWay(BH_BUSI_TYPE.校验选择账户密码.getIntValue());
+        }
     }
 
     PasswordFragment.PasswordClickListener passwordClickListener = (password, position,way) -> {

@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.wallet.balance.R;
@@ -46,10 +46,8 @@ public class ReInvestShareFragment extends BaseDialogFragment {
     }
 
 
-
     @Override
-    public void onStart() {
-        super.onStart();
+    public void initStart() {
         Window window = getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.centerDialogStyle;

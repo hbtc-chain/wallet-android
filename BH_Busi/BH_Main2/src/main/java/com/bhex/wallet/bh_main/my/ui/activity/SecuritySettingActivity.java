@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.SecuritySettingAdapter;
@@ -18,6 +18,7 @@ import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.model.SecuritySettingItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 
 import java.util.List;
@@ -29,7 +30,7 @@ import butterknife.BindView;
  * 2020-10-15 20:27:22
  * 安全设置
  */
-@Route(path = ARouterConfig.MY_Security_Setting, name = "安全设置")
+@Route(path = ARouterConfig.My.My_Security_Setting, name = "安全设置")
 public class SecuritySettingActivity extends BaseActivity implements PasswordFragment.PasswordClickListener {
 
     @Autowired(name = "title")

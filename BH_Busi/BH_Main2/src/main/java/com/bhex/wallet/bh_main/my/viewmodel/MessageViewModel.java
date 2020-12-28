@@ -13,7 +13,7 @@ import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.viewmodel.CacheAndroidViewModel;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;

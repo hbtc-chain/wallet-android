@@ -12,7 +12,7 @@ import android.widget.CheckedTextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
@@ -34,7 +34,7 @@ import butterknife.BindView;
  * 2020-5-20 10:07:45
  * 生物识别
  */
-@Route(path = ARouterConfig.MY_Recognition,name = "面容和指纹识别设置")
+@Route(path = ARouterConfig.My.My_Recognition,name = "面容和指纹识别设置")
 public class RecognitionActivity extends BaseActivity {
 
     @Autowired(name="title")

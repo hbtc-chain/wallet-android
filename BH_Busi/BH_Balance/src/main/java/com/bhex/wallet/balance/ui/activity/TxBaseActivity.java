@@ -7,20 +7,13 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.mvx.base.BaseActivity;
 import com.bhex.network.mvx.base.IPresenter;
 import com.bhex.tools.utils.DateUtil;
-import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.helper.TransactionHelper;
-import com.bhex.wallet.balance.model.TxOrderItem;
-import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.hjq.toast.ToastUtils;
 

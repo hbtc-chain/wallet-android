@@ -6,18 +6,20 @@ import android.util.ArrayMap;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
-import com.bhex.tools.utils.FileUtil;
+import com.bhex.tools.utils.FileUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.model.GasFee;
 
 import org.web3j.crypto.Credentials;
 
 import java.util.Arrays;
 import java.util.List;
+
+import java8.util.stream.StreamSupport;
 
 /**
  * Created by BHEX.
@@ -43,6 +45,8 @@ public class BHUserManager {
 
     private List<BHWallet> allWallet;
 
+    public GasFee gasFee;
+
     //助记词列表
     private List<String> mWordList;
 
@@ -65,7 +69,7 @@ public class BHUserManager {
 
     private void initWord(){
         try{
-            String res = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"en-mnemonic-word-list.txt");
+            String res = FileUtils.loadStringByAssets(BaseApplication.getInstance(),"en-mnemonic-word-list.txt");
             if(!TextUtils.isEmpty(res)){
                 mWordList = Arrays.asList(res.split(" "));
             }
@@ -111,14 +115,14 @@ public class BHUserManager {
         if(allWallet==null || allWallet.size()<=0){
             return;
         }
-        for (int i = 0; i < allWallet.size(); i++) {
-            BHWallet item = allWallet.get(i);
+        //设置默认
+        StreamSupport.stream(allWallet).forEach( item->{
             if(item.id==mCurrentBhWallet.id){
                 item.setIsDefault(1);
             }else{
                 item.setIsDefault(0);
             }
-        }
+        });
     }
 
     public synchronized AccountInfo getAccountInfo() {
@@ -133,7 +137,7 @@ public class BHUserManager {
         return mWordList;
     }
 
-    public synchronized void saveUserBalanceList(List<BHBalance> list){
+    /*public synchronized void saveUserBalanceList(List<BHBalance> list){
         if(list==null || list.size()==0){
             return;
         }
@@ -145,7 +149,7 @@ public class BHUserManager {
 
         String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
         MMKVManager.getInstance().mmkv().encode(key,buffer.toString());
-    }
+    }*/
 
     public synchronized String getUserBalanceList(){
         String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
@@ -162,6 +166,14 @@ public class BHUserManager {
             sb.append(item.getValue().symbol.toUpperCase()).append(",");
         }
         return sb.toString();
+    }
+
+    public synchronized GasFee getDefaultGasFee(){
+        if(gasFee!=null){
+            return gasFee;
+        }
+        gasFee = new GasFee("2000000000000000","2000000");
+        return  gasFee;
     }
 
     /**

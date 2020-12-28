@@ -2,8 +2,8 @@ package com.bhex.wallet.bh_main.my.presenter;
 
 import android.content.Context;
 
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.bh_main.my.model.CurrencyItem;
 import com.bhex.wallet.common.enums.CURRENCY_TYPE;

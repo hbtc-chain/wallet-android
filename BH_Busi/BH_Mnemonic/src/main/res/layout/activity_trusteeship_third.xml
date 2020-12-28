@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".ui.activity.TrusteeshipSecActivity">
 
     <include layout="@layout/layout_toolbar"/>
@@ -14,7 +13,7 @@
         android:id="@+id/tv_index_1"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_40"
-        android:paddingStart="@dimen/dp_24"
+        android:paddingStart="24dp"
         android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -22,7 +21,7 @@
         android:textColor="@color/global_main_text_color"
         android:gravity="center"
         android:textSize="26sp"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="8dp"
         />
 
 
@@ -36,27 +35,27 @@
         android:textColor="@color/secondary_tip_text_color"
         android:textSize="@dimen/sp_13"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_index_1"
-        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginStart="8dp"
         />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingEnd="@dimen/dp_24"
-        android:paddingStart="@dimen/dp_24"
+        android:paddingEnd="24dp"
+        android:paddingStart="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_index_1"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="8dp"
         >
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/secondary_tip_text_color"
             android:textSize="@dimen/sp_15"
-            android:text="@string/set_pwd_tip_1"
+            android:text="@string/set_pwd_alarm_1"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
             android:lineSpacingExtra="5dp"
@@ -64,22 +63,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/secondary_tip_text_color"
             android:textSize="@dimen/sp_15"
-            android:text="@string/set_pwd_tip_2"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="3dp"
-            android:lineSpacingExtra="5dp"
-            android:layout_marginTop="3dp"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:textColor="@color/secondary_tip_text_color"
-            android:textSize="@dimen/sp_15"
-            android:text="@string/set_pwd_tip_3"
+            android:text="@string/set_pwd_alarm_2"
             android:drawablePadding="5dp"
             android:layout_marginLeft="3dp"
             android:lineSpacingExtra="5dp"
@@ -93,31 +80,26 @@
             android:layout_marginTop="24dp"
             android:textColor="@color/global_secondary_text_color"
             android:layout_marginBottom="4dp"
-            android:text="@string/wallet_password"
+            android:text="@string/confirm_number_password"
             />
 
-        <com.bhex.lib.uikit.widget.InputView
-            android:id="@+id/inp_wallet_confirm_pwd"
+        <com.bhex.lib.uikit.widget.keyborad.PasswordInputView
+            android:id="@+id/input_password_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hint="@string/hint_confirm_password"
-            app:textType="2" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_password_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_15"
-            android:layout_marginTop="@dimen/dp_4"
-            android:layout_gravity="right"
-            android:textColor="@color/global_label_text_color"
-            tools:text="@string/pwd_index"/>
-
+            app:h_vcet_number="6"
+            app:h_vcet_width="24dp"
+            app:h_vcet_height="24dp"
+            app:h_vcet_pwd_radius="12dp"
+            app:h_vcet_custom_keyborad="true"
+            />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            >
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/ck_agreement"
@@ -128,7 +110,9 @@
                 android:button="@null"
                 android:colorControlHighlight="@color/app_bg"
                 android:selectableItemBackground="@null"
-                android:selectableItemBackgroundBorderless="@null" />
+                android:selectableItemBackgroundBorderless="@null"
+                android:checked="true"
+                />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_agreement"
@@ -139,18 +123,23 @@
                 android:layout_toRightOf="@+id/ck_agreement"
                 android:text="@string/bh_register_agreement"
                 android:textColor="@color/global_secondary_text_color"
-                android:textSize="@dimen/sp_13" />
+                android:textSize="@dimen/sp_13"
+                />
         </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_create"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
-            android:layout_marginTop="@dimen/dp_24"
+            android:layout_height="48dp"
+            android:layout_marginTop="36dp"
             style="@style/main_btn_style"
             android:text="@string/wallet_create"
             android:enabled="false"
             />
     </LinearLayout>
+
+    <include
+        layout="@layout/layout_keyborad"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

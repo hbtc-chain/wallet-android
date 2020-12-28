@@ -12,23 +12,18 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
+import com.bhex.wallet.bh_main.validator.model.ValidatorInfo;
 import com.bhex.wallet.bh_main.validator.viewmodel.ValidatorViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.model.ValidatorInfo;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,7 +33,7 @@ import butterknife.OnClick;
  * 2020-4-16
  * 验证节点
  */
-@Route(path = ARouterConfig.Validator_Detail)
+@Route(path = ARouterConfig.Validator.Validator_Detail)
 public class ValidatorDetailActivity extends BaseActivity {
 
     @Autowired(name = "validatorInfo")
@@ -174,17 +169,17 @@ public class ValidatorDetailActivity extends BaseActivity {
             ToastUtils.show(getResources().getString(R.string.copyed));
 
         } else if (view.getId() == R.id.btn_transfer_entrust) {
-            ARouter.getInstance().build(ARouterConfig.Do_Entrust)
+            ARouter.getInstance().build(ARouterConfig.Validator.Do_Entrust)
                     .withObject("validatorInfo", mValidatorInfo)
                     .withInt("bussiType", ENTRUST_BUSI_TYPE.TRANFER_ENTRUS.getTypeId())
                     .navigation();
         } else if (view.getId() == R.id.btn_relieve_entrust) {
-            ARouter.getInstance().build(ARouterConfig.Do_Entrust)
+            ARouter.getInstance().build(ARouterConfig.Validator.Do_Entrust)
                     .withObject("validatorInfo", mValidatorInfo)
                     .withInt("bussiType", ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId())
                     .navigation();
         } else if (view.getId() == R.id.btn_do_entrust) {
-            ARouter.getInstance().build(ARouterConfig.Do_Entrust)
+            ARouter.getInstance().build(ARouterConfig.Validator.Do_Entrust)
                     .withObject("validatorInfo", mValidatorInfo)
                     .withInt("bussiType", ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId())
                     .navigation();

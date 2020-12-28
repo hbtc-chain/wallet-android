@@ -2,8 +2,8 @@ package com.bhex.wallet.bh_main.validator.presenter;
 
 import android.text.TextUtils;
 
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
@@ -29,13 +29,19 @@ public class DoEntrustPresenter extends BasePresenter {
             return false;
         }
 
-        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
-            ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
-            return false;
-        }
 
         if(TextUtils.isEmpty(available_amount) || !RegexUtil.checkNumeric(available_amount)){
             ToastUtils.showToast(getActivity().getString(R.string.not_available_amount));
+            return false;
+        }
+        //委托数量不能大于可用
+        if(!TextUtils.isEmpty(transfer_amount) && Double.valueOf(transfer_amount)>Double.valueOf(available_amount)){
+            ToastUtils.showToast(getActivity().getString(R.string.entrust_amount_more_avilable));
+            return false;
+        }
+
+        if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
+            ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
             return false;
         }
 
@@ -55,6 +61,11 @@ public class DoEntrustPresenter extends BasePresenter {
                 return false;
             }
 
+            if(Double.valueOf(transfer_amount) >Double.valueOf(relive_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount_max));
+                return false;
+            }
+
             if(TextUtils.isEmpty(fee_amount) || Double.valueOf(fee_amount)<=0){
                 ToastUtils.showToast(getActivity().getString(R.string.check_empty_fee));
                 return false;
@@ -65,16 +76,11 @@ public class DoEntrustPresenter extends BasePresenter {
                 return false;
             }
             if(available_amount==null || !RegexUtil.checkNumeric(available_amount)){
-                ToastUtils.showToast(getActivity().getString(R.string.not_available_gasfee));
+                ToastUtils.showToast(getActivity().getString(R.string.fee_notenough));
                 return false;
             }
             if(Double.valueOf(fee_amount) > Double.valueOf(available_amount)){
-                ToastUtils.showToast(getActivity().getString(R.string.check_fee_max));
-                return false;
-            }
-
-            if(Double.valueOf(transfer_amount) >Double.valueOf(relive_amount)){
-                ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount_max));
+                ToastUtils.showToast(getActivity().getString(R.string.fee_notenough));
                 return false;
             }
         }catch (Exception e){
@@ -92,7 +98,6 @@ public class DoEntrustPresenter extends BasePresenter {
         int decimals = bhToken!=null?bhToken.decimals:2;
         decimals = 0;
         String tmp = NumberUtil.sub(amount,frozen_amount);
-        LogUtils.e("DoEntrustPresenter===>:","tmp=="+tmp);
         double displayAmount = NumberUtil.divide(tmp, Math.pow(10,decimals)+"");
         return NumberUtil.dispalyForUsertokenAmount4Level(String.valueOf(displayAmount));
     }

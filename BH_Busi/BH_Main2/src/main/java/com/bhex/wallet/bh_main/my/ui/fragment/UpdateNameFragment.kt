@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.bhex.lib.uikit.util.PixelUtils
+import com.bhex.tools.utils.PixelUtils
 import com.bhex.lib.uikit.widget.InputView
 import com.bhex.network.base.LoadDataModel
 import com.bhex.network.base.LoadingStatus

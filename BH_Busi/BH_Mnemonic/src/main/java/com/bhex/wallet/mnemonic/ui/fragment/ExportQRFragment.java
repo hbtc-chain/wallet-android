@@ -7,8 +7,8 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 
-import com.bhex.lib.uikit.util.PixelUtils;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.tools.utils.PixelUtils;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.QREncodUtil;

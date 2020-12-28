@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:layout_marginTop="8dp">
+
+    <!--<com.bhex.lib.uikit.widget.CircleView
+        android:id="@+id/iv_announce_bg"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="#2AED3756"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_announce_type"
+        android:layout_alignTop="@+id/iv_announce_bg"
+        android:layout_alignBottom="@+id/iv_announce_bg"
+        android:layout_alignStart="@+id/iv_announce_bg"
+        android:layout_alignEnd="@+id/iv_announce_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_announcement"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_announce_title"
+        android:layout_toRightOf="@+id/iv_announce_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="12sp"
+        android:textColor="@color/global_secondary_text_color"
+        tools:text="提示：测试网的HBC代币均为测试币无任何实际"
+        android:layout_marginStart="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_close_announce"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:paddingEnd="12dp"
+        />-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_announce_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_centerVertical="true"
+        android:textSize="12sp"
+        android:textColor="@color/global_secondary_text_color"
+        tools:text="提示：测试网的HBC代币均为测试币无任何实际"
+        android:layout_marginStart="4dp"
+        />
+</RelativeLayout>

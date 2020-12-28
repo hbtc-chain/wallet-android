@@ -2,10 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".bh_main.ui.activity.SplashActivity">
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_logo"
@@ -35,5 +37,12 @@
         android:src="@mipmap/ic_slogan"
         android:layout_below="@+id/iv_logo"/>
 
+    <!--<androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/input_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
+    <include
+        layout="@layout/layout_keyborad"
+        />-->
 </RelativeLayout>

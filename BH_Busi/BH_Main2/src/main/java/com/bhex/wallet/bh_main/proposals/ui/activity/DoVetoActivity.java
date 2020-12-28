@@ -15,20 +15,21 @@ import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
+import com.bhex.wallet.bh_main.proposals.model.ProposalInfo;
 import com.bhex.wallet.bh_main.proposals.presenter.DoVetoPresenter;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.model.ProposalInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -44,8 +45,8 @@ import butterknife.OnClick;
  * 2020-4-16
  * 投票
  */
-@Route(path = ARouterConfig.Do_Veto)
-public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements PasswordFragment.PasswordClickListener  {
+@Route(path = ARouterConfig.Proposal.Do_Veto)
+public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Password30Fragment.PasswordClickListener  {
 
     @Autowired(name = "proposalInfo")
     ProposalInfo mProposalInfo;
@@ -234,7 +235,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
                 PasswordFragment.class.getName(),
                 this,0);
     }

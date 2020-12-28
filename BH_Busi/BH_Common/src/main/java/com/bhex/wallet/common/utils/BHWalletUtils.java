@@ -1,52 +1,37 @@
 package com.bhex.wallet.common.utils;
 
-import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.app.BaseApplication;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.crypto.CryptoUtil;
-import com.bhex.tools.crypto.HexUtils;
-import com.bhex.tools.crypto.Sha256;
-import com.bhex.tools.utils.FileUtil;
+import com.bhex.tools.utils.FileUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
-import com.bhex.wallet.common.config.BHFilePath;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
-import org.bitcoinj.core.Bech32;
-import org.bitcoinj.core.SegwitAddress;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.wallet.DeterministicSeed;
-import org.bouncycastle.crypto.digests.RIPEMD160Digest;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Wallet;
 import org.web3j.crypto.WalletFile;
-import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.utils.Numeric;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -357,7 +342,7 @@ public class BHWalletUtils {
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(pbo);
-        String addressArray = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"address.txt");
+        String addressArray = FileUtils.loadStringByAssets(BaseApplication.getInstance(),"address.txt");
         int count = 0;
         if(!TextUtils.isEmpty(addressArray)){
             List<String> list  = Arrays.asList(addressArray.split(" "));

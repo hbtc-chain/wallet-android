@@ -19,14 +19,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckedTextView;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseBottomSheetDialog;
-import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.FileUtil;
+import com.bhex.tools.utils.FileUtils;
 import com.bhex.wallet.mnemonic.R;
 
 import java.util.Locale;
@@ -92,10 +91,10 @@ public class GlobalTipsFragment extends BaseBottomSheetDialog {
         check_agreement.setChecked(isCheck);
         Locale locale = LocalManageUtil.getSetLanguageLocale(getActivity());
         if(locale!=null && locale.getLanguage().contains("zh")){
-            String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"zh.txt").replace("\\n", "\n");
+            String agreement = FileUtils.loadStringByAssets(BaseApplication.getInstance(),"zh.txt").replace("\\n", "\n");
             tv_agreement.setText(agreement);
         }else{
-            String agreement = FileUtil.loadStringByAssets(BaseApplication.getInstance(),"en.txt").replace("\\n", "\n");
+            String agreement = FileUtils.loadStringByAssets(BaseApplication.getInstance(),"en.txt").replace("\\n", "\n");
             tv_agreement.setText(agreement);
         }
         addEvent();

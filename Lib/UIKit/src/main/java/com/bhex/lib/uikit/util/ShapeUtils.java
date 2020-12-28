@@ -31,6 +31,17 @@ public class ShapeUtils {
         return drawable;
     }
 
+    public static GradientDrawable getRoundRectBottomDrawable(int radius, int color) {
+        float[] radius_f = {0, 0, 0, 0, 0, 0, radius, radius};
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setCornerRadii(radius_f);
+        drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setColor(color );
+        //drawable.setStroke(isFill ? 0 : strokeWidth, color);
+        return drawable;
+    }
+
     public static GradientDrawable getRoundRectDrawable(int radius, int startColor,int endColor) {
         float[] radius_f = {radius, radius, radius, radius, radius, radius, radius, radius};
         GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,new int[]{startColor,endColor});

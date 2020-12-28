@@ -20,11 +20,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.balance.R;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.google.android.material.button.MaterialButton;
 
 /**
@@ -48,8 +49,8 @@ public class WithDrawShareFragment extends BaseDialogFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void initStart() {
+        setStyle(DialogFragment.STYLE_NO_TITLE, STYLE_NO_TITLE);
         Window window = getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.centerDialogStyle;
@@ -77,7 +78,7 @@ public class WithDrawShareFragment extends BaseDialogFragment {
 
         with_reward_content = getActivity().getResources().getString(R.string.with_reward_content);
 
-        tv_reward_text.setText(String.format(with_reward_content,mAllReward, BHConstants.BHT_DEFAULT_FEE));
+        tv_reward_text.setText(String.format(with_reward_content,mAllReward, BHUserManager.getInstance().getDefaultGasFee().displayFee));
 
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 

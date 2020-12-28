@@ -16,14 +16,27 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_back"
-            android:layout_width="55dp"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_back"
             android:scaleType="center"
             android:clickable="true"
             android:visibility="invisible"
-            android:background="?android:selectableItemBackground"
+            android:background="?android:selectableItemBackgroundBorderless"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_close"
+            android:layout_width="32dp"
+            android:layout_toRightOf="@+id/iv_back"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_close"
+            android:scaleType="center"
+            android:clickable="true"
+            android:visibility="gone"
+            android:background="?android:selectableItemBackgroundBorderless"
             />
 
         <View
@@ -39,11 +52,14 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_center_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:singleLine="true"
             style="@style/toolbar_layout_title_style"
+            android:layout_toRightOf="@+id/iv_close"
+            android:layout_toLeftOf="@+id/iv_refresh"
             />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -55,7 +71,7 @@
             android:scaleType="center"
             android:clickable="true"
             android:layout_alignParentEnd="true"
-            android:background="?android:selectableItemBackground"
+            android:background="?android:selectableItemBackgroundBorderless"
             />
 
     </RelativeLayout>

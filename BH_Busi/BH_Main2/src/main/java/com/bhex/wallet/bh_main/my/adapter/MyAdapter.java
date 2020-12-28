@@ -1,5 +1,6 @@
 package com.bhex.wallet.bh_main.my.adapter;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -23,8 +24,8 @@ import java.util.List;
 public class MyAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
 
 
-    public MyAdapter(int layoutResId, @Nullable List<MyItem> data) {
-        super(layoutResId, data);
+    public MyAdapter(@Nullable List<MyItem> data) {
+        super(R.layout.item_my, data);
     }
 
     @Override
@@ -33,15 +34,19 @@ public class MyAdapter extends BaseQuickAdapter<MyItem, BaseViewHolder> {
 
         if(myItem.isArrow){
             viewHolder.getView(R.id.iv_arrow).setVisibility(View.VISIBLE);
-            viewHolder.getView(R.id.tv_right_txt).setVisibility(View.INVISIBLE);
+            //viewHolder.getView(R.id.tv_right_txt).setVisibility(View.INVISIBLE);
         }else{
             viewHolder.getView(R.id.iv_arrow).setVisibility(View.INVISIBLE);
+            //viewHolder.getView(R.id.tv_right_txt).setVisibility(View.VISIBLE);
+            //viewHolder.setText(R.id.tv_right_txt,myItem.rightTxt);
+        }
 
+        if(TextUtils.isEmpty(myItem.rightTxt)){
+            viewHolder.getView(R.id.tv_right_txt).setVisibility(View.INVISIBLE);
+        }else{
             viewHolder.getView(R.id.tv_right_txt).setVisibility(View.VISIBLE);
             viewHolder.setText(R.id.tv_right_txt,myItem.rightTxt);
         }
-
-
 
     }
 }

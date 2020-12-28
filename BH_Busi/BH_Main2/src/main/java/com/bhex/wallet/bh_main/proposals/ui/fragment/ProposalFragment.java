@@ -1,7 +1,6 @@
 package com.bhex.wallet.bh_main.proposals.ui.fragment;
 
 
-import android.text.Editable;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,18 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.EmptyLayout;
-import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.lib.uikit.widget.recyclerview.MyLinearLayoutManager;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.proposals.adapter.ProposalAdapter;
+import com.bhex.wallet.bh_main.proposals.model.ProposalInfo;
+import com.bhex.wallet.bh_main.proposals.model.ProposalQueryResult;
 import com.bhex.wallet.bh_main.proposals.presenter.ProposalFragmentPresenter;
 import com.bhex.wallet.bh_main.proposals.viewmodel.ProposalViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.model.ProposalInfo;
-import com.bhex.wallet.common.model.ProposalQueryResult;
 import com.google.android.material.appbar.AppBarLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -36,15 +34,9 @@ import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
 /**
  * @author zhou chang
@@ -119,7 +111,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
     public void onViewClicked(View view) {
         if (view.getId() == R.id.tv_create_proposal) {
 
-            ARouter.getInstance().build(ARouterConfig.Create_Proposal)
+            ARouter.getInstance().build(ARouterConfig.Proposal.Create_Proposal)
                     .navigation();
         }
     }
@@ -144,7 +136,7 @@ public class ProposalFragment extends BaseFragment<ProposalFragmentPresenter> {
             if (data != null) {
                 final ProposalInfo item = data.get(position);
 
-                ARouter.getInstance().build(ARouterConfig.Proposal_Detail)
+                ARouter.getInstance().build(ARouterConfig.Proposal.Proposal_Detail)
                         .withObject("proposalInfo", item)
                         .navigation();
             }

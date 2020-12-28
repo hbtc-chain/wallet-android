@@ -22,4 +22,15 @@ public enum  MAKE_WALLET_TYPE {
     public void setWay(int way) {
         this.way = way;
     }
+
+
+    public static MAKE_WALLET_TYPE getWay(int way){
+        for (MAKE_WALLET_TYPE item : values()) {
+            if(item.way!=way){
+                continue;
+            }
+            return  item;
+        }
+        return null;
+    }
 }

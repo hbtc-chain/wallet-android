@@ -1,6 +1,7 @@
 package com.bhex.wallet.bh_main.my.ui.fragment;
 
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -11,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.CircleView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
@@ -24,6 +27,7 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.my.adapter.MyAdapter;
+import com.bhex.wallet.bh_main.my.enums.BUSI_MY_TYPE;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.model.BHMessage;
 import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
@@ -50,6 +54,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -98,8 +103,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
     private UpgradeViewModel mUpgradeVM;
 
-    //private TestTokenViewModel mTestTokenVM;
-
     public MyFragment() {
 
     }
@@ -112,21 +115,18 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @Override
     protected void initView() {
         mItems = MyHelper.getAllItems(getYActivity());
-        mMyAdapter = new MyAdapter(R.layout.item_my, mItems);
+
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getYActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_my.setLayoutManager(layoutManager);
-        mMyAdapter.setHasStableIds(true);
+        recycler_my.setNestedScrollingEnabled(false);
+        recycler_my.setAdapter(mMyAdapter = new MyAdapter( mItems));
 
-        MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(
-                getYActivity(), DividerItemDecoration.VERTICAL,
-                PixelUtils.dp2px(getYActivity(), 8), ColorUtil.getColor(getYActivity(),
-                R.color.global_divider_color)
-        );
+        MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(getContext(),
+                ColorUtil.getColor(getContext(),R.color.global_divider_color),
+                getResources().getDimension(R.dimen.default_item_divider_height),
+                mMyAdapter.getData().size()==7?(new int[]{2,4}):(new int[]{1,3}));
+
         recycler_my.addItemDecoration(myRecyclerDivider);
-        recycler_my.setAdapter(mMyAdapter);
         tv_username.setText(mBhWallet.getName());
         AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
@@ -144,54 +144,70 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         EventBus.getDefault().register(this);
         mMyAdapter.setOnItemClickListener((adapter, view, position) -> {
             MyItem item = mItems.get(position);
-            switch (item.id){
-                case 0:
+            switch (BUSI_MY_TYPE.getType(item.id)){
+                case 备份助记词:
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
+
                     break;
-                case 1:
-                    ARouter.getInstance().build(ARouterConfig.MY_UPDATE_PASSWORD)
-                            .withString("title",item.title)
-                            .navigation();
-                    break;
-                case 2:
+                case 备份私钥:
                     //提醒页
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
                     break;
-                case 3:
+                case 备份KS:
                     //提醒页
                     PasswordFragment.showPasswordDialog(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
                     break;
-                /*case 4:
-                    //申请测试币
-                    mTestTokenVM.send_test_token(this);
-                    break;*/
-                case 4:
+
+                case 关于我们:
+                    //设置
+                    //NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
+                    ARouter.getInstance().build(ARouterConfig.My.My_About).navigation();
+                    break;
+
+                case 设置:
                     //设置
                     NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
                     break;
-                case 6:
-                    mUpgradeVM.getUpgradeInfoExt(getYActivity());
-                    break;
 
+                case 公告:
+                    {
+                        Locale locale = LocalManageUtil.getSetLanguageLocale(getContext());
+                        if(locale.getLanguage().contains("zh")){
+                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.公告).navigation();
+                        }else{
+                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.公告).navigation();
+                        }
+                    }
+                    break;
+                case 帮助中心:
+                    {
+                        Locale locale = LocalManageUtil.getSetLanguageLocale(getContext());
+                        if(locale.getLanguage().contains("zh")){
+                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.帮助中心).navigation();
+                        }else{
+                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.帮助中心).navigation();
+                        }
+                    }
+                    break;
             }
         });
 
-        mMyAdapter.setOnItemLongClickListener((adapter, view, position) -> {
+        /*mMyAdapter.setOnItemLongClickListener((adapter, view, position) -> {
             MyItem item = mItems.get(position);
             switch (item.id){
-                case 5:
+                case 6:
                     ToastUtils.showToast(getResources().getString(R.string.copyed));
                     ToolUtils.copyText(item.rightTxt,getYActivity());
                     break;
             }
             return true;
-        });
+        });*/
 
         //助记词备份订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back, LoadDataModel.class).observe(this, ldm->{
@@ -251,7 +267,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             R2.id.iv_edit, R2.id.layout_index_2,R2.id.layout_index_3})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.iv_message){
-            ARouter.getInstance().build(ARouterConfig.MY_Message).navigation();
+            ARouter.getInstance().build(ARouterConfig.My.My_Message).navigation();
         }else if(view.getId()==R.id.iv_paste){
             ToolUtils.copyText(mBhWallet.getAddress(),getYActivity());
             ToastUtils.showToast(getResources().getString(R.string.copyed));
@@ -259,9 +275,11 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             UpdateNameFragment fragment = UpdateNameFragment.Companion.showFragment(dialogOnClickListener);
             fragment.showNow(getChildFragmentManager(), UpdateNameFragment.class.getName());
         }else if(view.getId()==R.id.layout_index_2){
-            ARouterUtil.startActivity(ARouterConfig.Token_Release);
+            //ARouter.getInstance().build(ARouterConfig.Token_Release).navigation();
+            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",getTranscationUrl()).navigation();
+            //ToastUtils.showToast("跳转交易记录");
         } else if(view.getId()==R.id.layout_index_3){
-            ARouterUtil.startActivity(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE);
+            ARouter.getInstance().build(ARouterConfig.MNEMONIC_TRUSTEESHIP_MANAGER_PAGE).navigation();
         }
     }
 
@@ -293,17 +311,17 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .navigation();
-        }else if(position==2){
+        }else if(position==1){
             String title = MyHelper.getTitle(getYActivity(),position);
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP)
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
                     .withString("title",title)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .withString("flag", BH_BUSI_TYPE.备份私钥.value)
                     .navigation();
-        }else if(position==3){
+        }else if(position==2){
             String title = MyHelper.getTitle(getYActivity(),position);
             //提醒页
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_PRIVATEKEY_TIP)
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
                     .withString("title",title)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .withString("flag",BH_BUSI_TYPE.备份KS.value)
@@ -334,6 +352,17 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     UpgradeFragment.DialogOnClickListener upgradeDialogListener = v -> {
         ToastUtils.showToast(getActivity().getResources().getString(R.string.app_loading_now));
     };
+
+
+    private String getTranscationUrl(){
+        String v_local_display = ToolUtils.getLocalString(getYActivity());
+        String url = BHConstants.API_BASE_URL
+                        .concat("account/")
+                        .concat(BHUserManager.getInstance().getCurrentBhWallet().address)
+                        .concat("?type=transactions").concat("&lang=").concat(v_local_display);
+        LogUtils.d("MyFragement==>:","url=="+url);
+        return url;
+    }
 
 
 }

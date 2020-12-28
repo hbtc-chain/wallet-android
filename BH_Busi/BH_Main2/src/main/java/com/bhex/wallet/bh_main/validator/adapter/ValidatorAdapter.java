@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.bh_main.R;
-import com.bhex.wallet.common.model.ValidatorInfo;
+import com.bhex.wallet.bh_main.validator.model.ValidatorInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
@@ -21,8 +21,8 @@ import java.util.List;
 public class ValidatorAdapter extends BaseQuickAdapter<ValidatorInfo, BaseViewHolder> {
 
     private int mValid;
-    public ValidatorAdapter(int isValid,int layoutResId, @Nullable List<ValidatorInfo> data) {
-        super(layoutResId, data);
+    public ValidatorAdapter(int isValid,@Nullable List<ValidatorInfo> data) {
+        super( R.layout.item_validator,data);
         mValid = isValid;
     }
 

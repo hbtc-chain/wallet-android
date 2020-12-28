@@ -12,6 +12,7 @@ import com.bhex.network.interceptor.CommonResponseInterceptor;
 import com.bhex.network.utils.HttpsUtils;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
+import java.net.Proxy;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +23,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.CertificatePinner;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -83,13 +85,22 @@ public abstract class NetworkApi implements IEnvironment {
             okHttpClientBuilder.connectTimeout(15, TimeUnit.SECONDS);//10秒连接超时
             okHttpClientBuilder.writeTimeout(15, TimeUnit.SECONDS);//10m秒写入超时
             okHttpClientBuilder.readTimeout(15, TimeUnit.SECONDS);//10秒读取超时
-            okHttpClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+            //okHttpClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+            //okHttpClientBuilder.proxy(Proxy.NO_PROXY);
+            CertificatePinner certificatePinner = new CertificatePinner.Builder()
+                    .add("explorer.hbtcchain.io", "sha256/ONUV2iewvbpTvPliXQM1Mol7j9PPZgGYT6/7WhJ0yy0=")
+                    .add("explorer.hbtcchain.io", "sha256/4H6OXny7MqJPbCOTpHyS0fSSUeHk/I5nKbIyuQwnfsA=")
+                    .add("dex.hbtcchain.io","sha256/ONUV2iewvbpTvPliXQM1Mol7j9PPZgGYT6/7WhJ0yy0=")
+                    .add("dex.hbtcchain.io","sha256/4H6OXny7MqJPbCOTpHyS0fSSUeHk/I5nKbIyuQwnfsA=")
+                    .build();
+            okHttpClientBuilder.certificatePinner(certificatePinner);
+
             if(BuildConfig.DEBUG){
                 okHttpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
             }
 
             okHttpClientBuilder.addInterceptor(new CommonRequestInterceptor(iNetworkRequiredInfo));
-            okHttpClientBuilder.addInterceptor(new CommonResponseInterceptor());
+            //okHttpClientBuilder.addInterceptor(new CommonResponseInterceptor());
 
             if (iNetworkRequiredInfo != null && (iNetworkRequiredInfo.isDebug())) {
                 HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();

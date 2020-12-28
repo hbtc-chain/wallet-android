@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.DateUtil;
 import com.bhex.tools.utils.ToolUtils;
@@ -30,7 +30,7 @@ import butterknife.OnClick;
  * @author gongdongyang
  * 2020-4-8 11:21:16
  */
-@Route(path = ARouterConfig.Balance_transcation_detail)
+@Route(path = ARouterConfig.Balance.Balance_transcation_detail)
 public class TranscationDetailActivity extends TxBaseActivity<TranscationDetailPresenter> {
 
     //@Autowired(name = "txo")

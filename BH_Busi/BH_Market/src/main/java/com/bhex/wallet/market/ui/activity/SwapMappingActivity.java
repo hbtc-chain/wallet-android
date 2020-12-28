@@ -12,26 +12,28 @@ import androidx.lifecycle.ViewModelProviders;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.util.ColorUtil;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.CacheCenter;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -49,7 +51,7 @@ import butterknife.OnClick;
  */
 @Route(path = ARouterConfig.Market_swap_mapping, name = "映射")
 public class SwapMappingActivity extends BaseActivity
-        implements PasswordFragment.PasswordClickListener,
+        implements Password30Fragment.PasswordClickListener,
         ChooseTokenFragment.ChooseTokenListener {
 
     @Autowired(name = "symbol")
@@ -106,11 +108,6 @@ public class SwapMappingActivity extends BaseActivity
         mSymbolViewHolder.bindView(findViewById(R.id.root_view),mSymbol);
 
         findViewById(R.id.layout_top).bringToFront();
-        //findViewById(R.id.layout_index_1).bringToFront();
-        /*findViewById(R.id.layout_index_1).setZ(1);
-        findViewById(R.id.layout_top).setZ(2);
-        findViewById(R.id.layout_bottom).setZ(3);*/
-
         mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
         mMappingToknList = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
 
@@ -189,8 +186,8 @@ public class SwapMappingActivity extends BaseActivity
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this, 0);
     }
 
@@ -208,7 +205,7 @@ public class SwapMappingActivity extends BaseActivity
         String map_amount = ed_transfer_coin_amount.getInputString();
         //mTransactionViewModel.transferInnerExt(this,issue_symbol, coin_symbol, map_amount, BHConstants.BHT_DEFAULT_FEE,password);
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createSwapMappingMsg(issue_symbol,coin_symbol,map_amount);
-        mTransactionViewModel.transferInnerExt(this,password,BHConstants.BHT_DEFAULT_FEE,tx_msg_list);
+        mTransactionViewModel.transferInnerExt(this,password, BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
     }
 
     @Override

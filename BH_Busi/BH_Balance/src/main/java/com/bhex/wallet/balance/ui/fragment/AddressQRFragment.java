@@ -25,8 +25,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
@@ -103,7 +103,7 @@ public class AddressQRFragment extends BaseDialogFragment {
         AppCompatTextView tv_friend_tips = view.findViewById(R.id.tv_friend_tips);
 
         if(address.startsWith(BHConstants.BHT_TOKEN.toUpperCase())){
-            tv_address_label.setText(getString(R.string.hbc_chain_address));
+            tv_address_label.setText(getString(R.string.hbtc_chain_address));
             tv_friend_tips.setVisibility(View.GONE);
         }else {
 

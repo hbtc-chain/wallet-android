@@ -30,7 +30,6 @@ public class PackageUtils {
             else
                 return pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            LogUtils.e("VersionName"+ "Exception");
             return "";
         }
     }
@@ -65,7 +64,6 @@ public class PackageUtils {
             ApplicationInfo info = pi.applicationInfo;
             return context.getResources().getString(info.labelRes);
         } catch (PackageManager.NameNotFoundException e) {
-            LogUtils.e("VersionName"+ "Exception");
             return "";
         }
     }
@@ -82,7 +80,6 @@ public class PackageUtils {
             ApplicationInfo info = pi.applicationInfo;
             return info.processName;
         } catch (PackageManager.NameNotFoundException e) {
-            LogUtils.e("VersionName"+ "Exception");
             return "";
         }
     }

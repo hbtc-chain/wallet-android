@@ -3,6 +3,7 @@ package com.bhex.wallet.common.api;
 import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.model.BHRates;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.model.GasFee;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -38,9 +40,9 @@ public interface BHttpApiInterface {
     Observable<JsonObject> loadAccount(@Path("address") String address);
 
     //汇率接口
-    @GET("api/v1/tokenprices")
+    @POST("api/v1/tokenprices")
     Observable<List<BHRates>> loadRates(@Query("symbols") String symbols);
-
+    //Observable<List<BHRates>> loadRates(@Body RequestBody body);
     //查询所有交易记录
 
     /**
@@ -130,4 +132,16 @@ public interface BHttpApiInterface {
     //搜索token
     @GET("/api/v1/tokens/{symbol}")
     Observable<BHToken> queryToken(@Path("symbol") String symbol);
+
+    //获取Gasfee
+    @GET("/api/v1/default_fee")
+    Observable<GasFee> queryGasfee();
+
+    //@GET("/api/v1/announcements")
+    @GET("/api/v1/announcements")
+    Observable<JsonArray>  loadAnnouncement();
+
+    //批量获取币种信息
+    @GET("/api/v1/batch_tokens/{symbol}")
+    Observable<JsonObject> batchQueryToken(@Path("symbol") String symbol);
 }

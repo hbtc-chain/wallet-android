@@ -22,14 +22,14 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib_qr.XQRCode;
 import com.bhex.lib_qr.ui.CaptureFragment;
 import com.bhex.lib_qr.util.QRCodeAnalyzeUtils;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.tools.utils.IntentUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.gyf.immersionbar.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.xuexiang.xutil.app.IntentUtils;
 
 import butterknife.BindView;
 
@@ -41,7 +41,7 @@ import static com.bhex.lib_qr.ui.CaptureActivity.REQUEST_CODE_REQUEST_PERMISSION
  * 2020-4-17 00:32:19
  * 扫描二维码
  */
-@Route(path = ARouterConfig.Commom_scan_qr)
+@Route(path = ARouterConfig.Common.commom_scan_qr)
 public class BHQrScanActivity extends BaseActivity {
 
     public static final int REQUEST_CODE = 111;

@@ -1,6 +1,6 @@
 package com.bhex.wallet.balance.ui.activity;
 
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.balance.R;
 
 /**

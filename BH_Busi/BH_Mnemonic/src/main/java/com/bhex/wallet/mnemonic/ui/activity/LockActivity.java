@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.network.base.LoadingStatus;
@@ -35,6 +36,7 @@ import butterknife.OnClick;
  * @author gongdongyang
  * 2020-3-12
  */
+@Route(path = ARouterConfig.Account.Account_Login_Password, name="密码登录")
 public class LockActivity extends BaseCacheActivity<LoginPresenter> implements AddressFragment.AddressChangeListener {
 
     @BindView(R2.id.tv_bh_address)
@@ -102,7 +104,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
             ToolUtils.hintKeyBoard(this);
             getPresenter().verifyPassword(inp_wallet_pwd.getInputString(), mCurrentWallet);
         } else if (view.getId() == R.id.tv_import_mnemonic) {
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX).navigation();
         } else if (view.getId() == R.id.tv_forget_pwd) {
             //ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX)
@@ -114,7 +116,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
         } else if(view.getId() == R.id.btn_wallet_create){
             ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST);
         } else if(view.getId() == R.id.btn_wallet_impot){
-            ARouterUtil.startActivity(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX).navigation();
         }
     }
 

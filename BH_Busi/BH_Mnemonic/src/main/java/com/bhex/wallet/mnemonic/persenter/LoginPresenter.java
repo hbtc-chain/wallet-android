@@ -4,8 +4,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.network.mvx.base.BaseActivity;
-import com.bhex.network.mvx.base.BasePresenter;
+import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.RegexUtil;
@@ -50,7 +50,7 @@ public class LoginPresenter extends BasePresenter {
     public void verifyPassword(String inputPwd, BHWallet bhWallet){
         if(MD5.verify(inputPwd,bhWallet.getPassword())){
             //SecuritySettingManager.getInstance().recordPwd(inputPwd);
-            ARouter.getInstance().build(ARouterConfig.APP_MAIN_PAGE).navigation();
+            ARouter.getInstance().build(ARouterConfig.Main.main_mainindex).navigation();
             getActivity().finish();
         }else{
             ToastUtils.showToast(getActivity().getString(R.string.error_password));

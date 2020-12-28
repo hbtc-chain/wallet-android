@@ -1,0 +1,81 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="24dp"
+    >
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:text="@string/rist_tips"
+        android:textColor="#0A1825"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        android:paddingEnd="24dp"
+        android:src="@mipmap/ic_close"
+        android:visibility="gone"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_risk_tips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_right"
+        android:layout_marginTop="16dp"
+        android:gravity="left"
+        android:text="@string/risk_content"
+        android:textColor="#0A1825"
+        android:textSize="15sp"
+        tools:ignore="HardcodedText" />
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_exit"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/main_padding_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_risk_tips"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/secondary_button"
+        android:text="@string/logout"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/btn_goto"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_goto"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="@dimen/main_padding_left"
+        android:layout_marginEnd="@dimen/main_padding_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_risk_tips"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_exit"
+        style="@style/main_btn_style"
+        android:text="@string/keep_on"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

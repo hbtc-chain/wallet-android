@@ -25,7 +25,7 @@ import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.MsgView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseFragment;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -77,7 +77,7 @@ public class MessageListFragment extends BaseFragment implements OnRefreshLoadMo
         messageViewModel.loadMessageByAddress(this, mCurrentPage, mType);
         messageAdapter.setOnItemClickListener((adapter, view, position) -> {
             BHMessage bhm = mList.get(position);
-            Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance_transcation_view)
+            Postcard postcard = ARouter.getInstance().build(ARouterConfig.Balance.Balance_transcation_view)
                     .withString("transactionId",bhm.tx_hash);
             LogisticsCenter.completion(postcard);
             Intent intent = new Intent(getActivity(), postcard.getDestination());

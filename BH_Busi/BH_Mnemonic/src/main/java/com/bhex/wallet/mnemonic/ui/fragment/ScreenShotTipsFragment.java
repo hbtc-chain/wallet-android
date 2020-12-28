@@ -18,8 +18,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
 
-import com.bhex.lib.uikit.util.ColorUtil;
-import com.bhex.lib.uikit.util.PixelUtils;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.wallet.mnemonic.R;
@@ -47,30 +47,6 @@ public class ScreenShotTipsFragment extends BaseDialogFragment {
         return R.layout.fragment_screen_shot_tips;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.getAttributes().windowAnimations = R.style.bottomDialogStyle;
-
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        WindowManager.LayoutParams params = window.getAttributes();
-        params.gravity = Gravity.BOTTOM;
-
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-
-        params.width = dm.widthPixels;
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-//        params.height = PixelUtils.dp2px(BaseApplication.getInstance(), 248);
-
-        window.setAttributes(params);
-
-    }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -79,6 +55,7 @@ public class ScreenShotTipsFragment extends BaseDialogFragment {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         GradientDrawable drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getContext(),6), ColorUtil.getColor(getContext(),R.color.app_bg),true,0);
         mRootView.setBackground(drawable);
+
     }
 
 

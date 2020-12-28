@@ -9,6 +9,8 @@ import androidx.work.ListenableWorker;
 import androidx.work.RxWorker;
 import androidx.work.WorkerParameters;
 
+import com.bhex.network.utils.HUtils;
+import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -17,11 +19,14 @@ import com.bhex.wallet.common.model.BHRates;
 import com.google.common.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.Function;
+import okhttp3.RequestBody;
 
 /**
  * @author gongdongyang
@@ -39,6 +44,11 @@ public class RateSyncWork extends RxWorker {
         Type type = (new TypeToken<List<BHRates>>() {}).getType();
         String balacne_list = BHUserManager.getInstance().getSymbolList();
         balacne_list = balacne_list.replace("_",",").toUpperCase();
+
+        /*Map<String,String> params = new HashMap<>();
+        params.put("symbols",balacne_list);
+        RequestBody txBody = HUtils.createFile(JsonUtils.toJson(params));*/
+
         return Single.fromObservable(BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)).flatMap(new Function<List<BHRates>, SingleSource<? extends Result>>() {
             @Override
             public SingleSource<? extends Result> apply(List<BHRates> bhRates) throws Exception {

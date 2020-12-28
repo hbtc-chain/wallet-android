@@ -14,7 +14,7 @@ import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.indicator.OnSampleSeekChangeListener;
@@ -24,16 +24,16 @@ import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.enums.ENTRUST_BUSI_TYPE;
+import com.bhex.wallet.bh_main.validator.model.ValidatorDelegationInfo;
+import com.bhex.wallet.bh_main.validator.model.ValidatorInfo;
 import com.bhex.wallet.bh_main.validator.presenter.DoEntrustPresenter;
 import com.bhex.wallet.bh_main.validator.viewmodel.EnstrustViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
-import com.bhex.wallet.common.model.ValidatorDelegationInfo;
-import com.bhex.wallet.common.model.ValidatorInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -50,8 +50,8 @@ import butterknife.OnClick;
  * 2020-4-16
  * 委托
  */
-@Route(path = ARouterConfig.Do_Entrust)
-public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implements PasswordFragment.PasswordClickListener {
+@Route(path = ARouterConfig.Validator.Do_Entrust)
+public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implements Password30Fragment.PasswordClickListener {
 
     @Autowired(name = "validatorInfo")
     ValidatorInfo mValidatorInfo;
@@ -180,7 +180,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         ed_real_entrust_amount.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.btn_right_text.setText(token.toUpperCase());
         ed_entrust_fee.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        ed_entrust_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        //ed_entrust_fee.getEditText().setText(BHConstants.BHT_DEFAULT_FEE);
+        ed_entrust_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
         tv_available_amount.setText(" " + getString(R.string.string_placeholder) + token.toUpperCase());
     }
 
@@ -294,8 +295,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this,0);
     }
 
@@ -311,8 +312,8 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
 
-        PasswordFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30Fragment.class.getName(),
                 this,0);
     }
 
@@ -325,11 +326,12 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         String fee = ed_entrust_fee.getInputString();
         if(mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()){
             String all_count = NumberUtil.sub(String.valueOf(available_amount), fee);
-            ed_entrust_amount.getEditText().setText(all_count);
+            ed_entrust_amount.setInputString(all_count);
         }else if(mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()){
             String all_count = String.valueOf(available_amount);
-            ed_entrust_amount.getEditText().setText(all_count);
+            ed_entrust_amount.setInputString(all_count);
         }
+        //ed_entrust_amount.getEditText().setSelection(ed_entrust_amount.getInputString().length());
     };
 
     private void updateAssets(AccountInfo data) {

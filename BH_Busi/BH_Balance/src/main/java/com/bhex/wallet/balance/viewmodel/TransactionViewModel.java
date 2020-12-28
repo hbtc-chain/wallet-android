@@ -15,7 +15,7 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.exception.ExceptionEngin;
-import com.bhex.network.mvx.base.BaseActivity;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.SimpleObserver;
@@ -285,8 +285,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                     if(TextUtils.isEmpty(accountInfo.getSequence())){
                         return null;
                     }
-                    /*BHSendTranscation bhSendTranscation = BHTransactionManager.transfer(to_address,withDrawAmount,feeAmount,
-                            null,password,accountInfo.getSequence(),symbol);*/
+                    
                     BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,accountInfo.getSequence(),feeAmount,txMsgList);
                     String body = JsonUtils.toJson(bhSendTranscation);
                     RequestBody txBody = HUtils.createJson(body);

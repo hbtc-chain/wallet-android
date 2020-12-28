@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,6 +10,8 @@
     app:layout_constraintTop_toTopOf="parent"
     app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
     app:titleTextAppearance="@style/Toolbar_textsize"
+    app:contentInsetStart="0dp"
+    app:contentInsetStartWithNavigation="0dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.AppCompatTextView

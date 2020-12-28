@@ -25,6 +25,8 @@ public class BHTokenMapping {
     public String target_symbol;
     public String total_supply;
     public String issue_pool;
+    public BHToken issue_token;
+    public BHToken target_token;
     public boolean enabled;
 
     @Expose(serialize = false, deserialize = false)
@@ -38,5 +40,15 @@ public class BHTokenMapping {
         this.issue_pool = issue_pool;
         this.enabled = enabled;
     }
+
+    /*public class Mapping_Token{
+        public String name;
+        public String symbol;
+        public String chain;
+        public String decimals;
+        public String logo;
+    }*/
+
+
 
 }

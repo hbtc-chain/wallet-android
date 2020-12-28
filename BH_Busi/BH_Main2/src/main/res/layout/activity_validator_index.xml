@@ -7,41 +7,100 @@
     android:orientation="vertical"
     tools:context=".validator.ui.activity.ValidatorIndexActivity">
 
-    <include
-        layout="@layout/layout_toolbar"
-        />
-
-    <com.bhex.lib.uikit.widget.GradientTabLayout
-        android:id="@+id/tab"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_40"
-        app:tl_tab_space_equal="false"
-        app:tl_iconVisible="false"
-        android:paddingStart="@dimen/dp_8"
-        app:indicator_start_color="@color/indicator_start_color"
-        app:indicator_end_color="@color/indicator_end_color"
-        app:tl_indicator_corner_radius="0dp"
-        app:tl_indicator_height="@dimen/tab_indicator_height"
-        app:tl_indicator_width="@dimen/dp_16"
-        app:tl_indicator_gravity="BOTTOM"
-        app:tl_tab_padding="@dimen/dp_16"
-        app:tl_textSelectColor="@color/global_main_text_color"
-        app:tl_textUnselectColor="@color/global_label_text_color"
-        app:tl_textsize="@dimen/sp_16" />
-
-    <View
-        android:id="@+id/divider_line"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_line_height"
-        android:background="@color/global_divider_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_rl"></View>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#316BFA"
+        >
+
+        <com.bhex.lib.uikit.widget.StatusBarView
+            android:id="@+id/status_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/bg_trans"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toBottomOf="@+id/status_bar"
+            app:navigationIcon="@mipmap/icon_back_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar_textsize"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_center_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                style="@style/toolbar_layout_title_white_style"
+                android:text="@string/wallet_create_trusteeship"
+                tools:text="@string/wallet_create_trusteeship"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </LinearLayout>
+
+    <com.bhex.lib.uikit.widget.viewpager.ObservableScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+            <include
+                layout="@layout/layout_validator_top"
+                />
+
+            <com.bhex.lib.uikit.widget.GradientTabLayout
+                android:id="@+id/tab"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_40"
+                app:tl_tab_space_equal="false"
+                app:tl_iconVisible="false"
+                android:paddingStart="8dp"
+                app:indicator_start_color="@color/indicator_start_color"
+                app:indicator_end_color="@color/indicator_end_color"
+                app:tl_indicator_corner_radius="0dp"
+                app:tl_indicator_height="@dimen/tab_indicator_height"
+                app:tl_indicator_width="16dp"
+                app:tl_indicator_gravity="BOTTOM"
+                app:tl_tab_padding="16dp"
+                app:tl_textSelectColor="@color/global_main_text_color"
+                app:tl_textUnselectColor="@color/global_label_text_color"
+                app:tl_textsize="@dimen/sp_16" />
+
+            <View
+                android:id="@+id/divider_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_line_height"
+                android:background="@color/global_divider_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_rl"/>
+
+
+            <com.bhex.lib.uikit.widget.viewpager.CustomViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+        </com.bhex.lib.uikit.widget.viewpager.ObservableScrollView>
+
+
 
 </LinearLayout>

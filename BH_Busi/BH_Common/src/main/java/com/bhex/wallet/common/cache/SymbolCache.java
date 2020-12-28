@@ -43,6 +43,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import java8.util.stream.IntStreams;
 
 /**
  * Created by BHEX.
@@ -178,6 +179,10 @@ public class SymbolCache extends BaseCache {
         return symbolMap.get(symbol);
     }
 
+    public synchronized BHToken putBHToken(BHToken token){
+        return symbolMap.put(token.symbol,token);
+    }
+
     public synchronized void addBHToken(BHToken bhToken){
         symbolMap.put(bhToken.symbol,bhToken);
     }
@@ -210,29 +215,34 @@ public class SymbolCache extends BaseCache {
         //
         String remove_symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_REMOVE_KEY);
         //LogUtils.d("SymbolCache===>:","==remove_symbol=="+remove_symbol);
-        String []a_remove_symbol = remove_symbol.split("_");
-        if(a_remove_symbol.length==0){
+
+        if(TextUtils.isEmpty(remove_symbol)){
             return localTokenList;
         }
 
-        for(int i= 0;i<a_remove_symbol.length;i++){
+        String []a_remove_symbol = remove_symbol.split("_");
+
+        if(a_remove_symbol==null || a_remove_symbol.length==0){
+            return localTokenList;
+        }
+        /*for(int i= 0;i<a_remove_symbol.length;i++){
             BHToken bhToken = localTokenList.get(a_remove_symbol[i]);
             if(bhToken==null){
                 continue;
             }
             localTokenList.remove(bhToken.symbol);
-        }
+        }*/
+        IntStreams.range(0,a_remove_symbol.length).forEach(value -> {
+            BHToken bhToken = localTokenList.get(a_remove_symbol[value]);
+            if(bhToken!=null){
+                localTokenList.remove(bhToken.symbol);
+            }
+        });
         return localTokenList;
     }
 
     public synchronized ArrayMap<String,BHToken> getVerifiedToken(){
         return verifiedTokenList;
-    }
-
-    public synchronized  void saveVerifiedToken(List<BHToken> coinList ){
-        for (BHToken item:coinList ) {
-
-        }
     }
 
     public synchronized int getDecimals(String symbol){
