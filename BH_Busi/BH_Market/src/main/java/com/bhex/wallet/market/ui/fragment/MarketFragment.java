@@ -92,6 +92,7 @@ public class MarketFragment extends JsBowserFragment {
         }
         String v_local_display = ToolUtils.getLocalString(getYActivity());
         url = url.append("?lang=").append(v_local_display);
+        LogUtils.d("url==="+url.toString());
         return url.toString();
     }
 

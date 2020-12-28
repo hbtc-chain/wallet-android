@@ -138,7 +138,7 @@ public interface BHttpApiInterface {
     Observable<GasFee> queryGasfee();
 
     //@GET("/api/v1/announcements")
-    @GET("http://hbtc.yym.plus/api/v1/announcements")
+    @GET("/api/v1/announcements")
     Observable<JsonArray>  loadAnnouncement();
 
     //批量获取币种信息

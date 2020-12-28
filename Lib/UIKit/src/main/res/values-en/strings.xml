@@ -158,6 +158,8 @@
     <string name="crosslink_deposit_address">Cross-chain deposit address</string>
     <string name="cross_deposit">Cross-chain deposit</string>
     <string name="cross_withdraw">Cross-chain withdrawal</string>
+    <string name="cross_deposit0">Deposit</string>
+    <string name="cross_withdraw0">Withdrawal</string>
     <string name="crosslink_deposit_tip_2">·Please remind the sender to use Native chain wallet</string>
     <string name="linkinner_deposit_tip_1">·You are making on-chain receive (deposit)</string>
     <string name="linkinner_deposit_tip_2">·Please remind the sender to use non-cross-chain’s withdrawal channel</string>
@@ -539,6 +541,7 @@
     <string name="select_transfer_token">Choose token to deposit</string>
     <string name="receive_income">Claim reward</string>
     <string name="token_detail">Token</string>
+    <string name="latest_version">最新版本</string>
     <!--<string name="transfer_in2">Receive</string>
     <string name="transfer_out2">Transfer</string>-->
 

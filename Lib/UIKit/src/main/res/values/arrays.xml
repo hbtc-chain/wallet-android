@@ -3,7 +3,7 @@
     <string name="about_us">关于我们</string>
     <string name="contact_us">联系我们</string>
     <string name="check_update">检测更新</string>
-
+    <string name="version_logs">版本日志</string>
     <string-array name="app_language_type">
         <item>简体中文</item>
         <item>English</item>
@@ -79,6 +79,7 @@
     </string-array>
 
     <string-array name="about_us_list">
+        <item>@string/version_logs</item>
         <item>@string/check_update</item>
         <item>@string/contact_us</item>
     </string-array>

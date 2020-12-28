@@ -57,14 +57,11 @@ public class ToolUtils {
         if(locale!=null){
             if(locale.getLanguage().contains("en")){
                 return "en-us";
-                //url.append("?lang=en-us");
             }else{
                 return "zh-cn";
-                //url.append("?lang=zh-cn");
             }
         }else{
             return "en-us";
-            //url.append("?lang=zh-cn");
         }
     }
 

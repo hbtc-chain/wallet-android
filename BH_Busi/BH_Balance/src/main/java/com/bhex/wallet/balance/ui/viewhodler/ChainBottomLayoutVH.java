@@ -62,8 +62,8 @@ public class ChainBottomLayoutVH {
             btn_item2.setText(activity.getResources().getString(R.string.transfer));
             //btn_item3.setVisibility(View.GONE);
         }else {
-            btn_item1.setText(activity.getResources().getString(R.string.cross_deposit));
-            btn_item2.setText(activity.getResources().getString(R.string.cross_withdraw));
+            btn_item1.setText(activity.getResources().getString(R.string.cross_deposit0));
+            btn_item2.setText(activity.getResources().getString(R.string.cross_withdraw0));
         }
 
         //兑币功能
@@ -113,7 +113,7 @@ public class ChainBottomLayoutVH {
         }
 
         //市场
-        if (view.getId() == R.id.btn_item4) {
+        if (view.getId() == R.id.btn_item3) {
             Postcard postcard =  ARouter.getInstance()
                                 .build(ARouterConfig.Main.main_mainindex)
                                 .withString("go_token",mSymbol)
@@ -126,7 +126,7 @@ public class ChainBottomLayoutVH {
         }
 
         //兑换
-        if(view.getId() == R.id.btn_item3){
+        if(view.getId() == R.id.btn_item4){
             ARouter.getInstance().build(ARouterConfig.Market_swap_mapping).withString("symbol",mSymbol).navigation();
         }
 

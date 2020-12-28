@@ -35,8 +35,8 @@
         <com.xuexiang.xui.widget.layout.XUILinearLayout
             android:id="@+id/layout_operator_action"
             android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginTop="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="145dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="5dp"
@@ -52,6 +52,8 @@
             <com.bhex.lib.uikit.widget.text.DrawableCenterTextView
                 android:id="@+id/btn_transfer_in"
                 android:layout_width="0dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="23dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="?android:selectableItemBackground"
@@ -59,6 +61,7 @@
                 android:drawablePadding="6dp"
                 android:gravity="left|center_vertical"
                 android:text="@string/transfer_in"
+                android:textSize="14sp"
                 android:textColor="@color/balance_label_color"
                 tools:background="#FF0000" />
 
@@ -66,12 +69,15 @@
                 android:id="@+id/btn_transfer_out"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:paddingBottom="12dp"
+                android:paddingTop="23dp"
                 android:layout_weight="1"
                 android:background="?android:selectableItemBackground"
                 android:drawableStart="@mipmap/ic_transfer_out_index"
                 android:drawablePadding="6dp"
                 android:gravity="left|center_vertical"
                 android:text="@string/transfer"
+                android:textSize="14sp"
                 android:textColor="@color/balance_label_color" />
 
 
@@ -79,12 +85,15 @@
                 android:id="@+id/btn_entrust"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:paddingBottom="12dp"
+                android:paddingTop="23dp"
                 android:layout_weight="1"
                 android:drawableStart="@mipmap/ic_entrust"
                 android:textColor="@color/balance_label_color"
                 android:text="@string/do_entrust"
                 android:gravity="left|center_vertical"
                 android:drawablePadding="6dp"
+                android:textSize="14sp"
                 android:background="?android:selectableItemBackground" />
 
         </com.xuexiang.xui.widget.layout.XUILinearLayout>
@@ -181,7 +190,7 @@
 
                 <FrameLayout
                     android:id="@+id/layout_test_label"
-                    android:layout_width="96dp"
+                    android:layout_width="66dp"
                     android:layout_height="24dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -190,7 +199,7 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MainChain"
+                        android:text="Testnet"
                         android:textColor="#70FFFFFF"
                         android:layout_gravity="center"
                         android:textSize="11sp" />

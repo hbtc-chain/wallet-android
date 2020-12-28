@@ -17,6 +17,8 @@
         android:src="@mipmap/ic_bluehelix_logo"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
         />
 
     <androidx.appcompat.widget.AppCompatTextView

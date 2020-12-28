@@ -140,4 +140,23 @@ public class ARouterConfig {
         public static final String Account_Login_Password = "/account/login/password";
         public static final String Account_Login_Finger = "/account/login/finger";
     }
+
+    public static class 中文{
+
+        public static final String 帮助中心 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/";
+        public static final String 公告 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/gong-gao/";
+        public static final String HBTC_Wallet服务协议 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/gong-gao/";
+        public static final String 联系我们 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/qian-bao-app/lian-xi-wo-men";
+        public static final String 版本更新日志 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/qian-bao-app/ban-ben-geng-xin-ri-zhi";
+        public static final String 审计报告 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/audit-report";
+    }
+
+    public static class 英文{
+        public static final String 帮助中心 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/v/english/";
+        public static final String 公告 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/v/english/announcement/";
+        public static final String HBTC_Wallet服务协议 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/v/english/wallet-app/hbtc-wallet-terms-of-service";
+        public static final String 联系我们 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/v/english/wallet-app/contact-us";
+        public static final String 版本更新日志 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/v/english/wallet-app/version-update-log";
+        public static final String 审计报告 = "https://hbtcwallet.gitbook.io/hbtc-chain-guide/v/english/";
+    }
 }

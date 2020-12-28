@@ -7,10 +7,10 @@ ext {
     android = [
             compileSdkVersion: 29,
             buildToolsVersion: "29.0.3",
-            applicationId    : "com.hbtc.wallet",
+            applicationId    : "com.bluehelix.wallet",
             minSdkVersion    : 21,
             targetSdkVersion : 29,
-            versionCode      : 557,
+            versionCode      : 560,
             versionName      : "1.2.0"
 
     ]

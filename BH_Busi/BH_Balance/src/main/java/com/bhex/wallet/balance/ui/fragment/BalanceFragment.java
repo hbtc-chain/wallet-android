@@ -235,6 +235,16 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+            balanceViewHolder.tv_wallet_name.setText("Hello，"+bhWallet.name);
+        }
+    }
+
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);

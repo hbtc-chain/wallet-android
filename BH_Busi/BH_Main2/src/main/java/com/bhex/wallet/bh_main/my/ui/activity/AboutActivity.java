@@ -10,10 +10,12 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.PackageUtils;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
@@ -29,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author gongdongyang
@@ -81,11 +84,28 @@ public class AboutActivity extends BaseActivity {
     private void clickItemAction(BaseQuickAdapter<?,?> baseQuickAdapter, View view, int i) {
         switch (i){
             case 0:
+                {
+                    Locale locale = LocalManageUtil.getSetLanguageLocale(this);
+                    if(locale.getLanguage().contains("zh")){
+                        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.版本更新日志).navigation();
+                    }else{
+                        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.版本更新日志).navigation();
+                    }
+                }
+                break;
+            case 1:
                 isCheckUpdate = true;
                 mUpgradeVM.getUpgradeInfo(this);
                 break;
-            case 1:
-
+            case 2:
+                {
+                    Locale locale = LocalManageUtil.getSetLanguageLocale(this);
+                    if(locale.getLanguage().contains("zh")){
+                        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.联系我们).navigation();
+                    }else{
+                        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.联系我们).navigation();
+                    }
+                }
                 break;
         }
     }
@@ -95,7 +115,8 @@ public class AboutActivity extends BaseActivity {
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             UpgradeInfo upgradeInfo = ldm.getData();
             if(!isCheckUpdate ){
-                myItem.rightTxt = (upgradeInfo.needUpdate==1)?upgradeInfo.apkVersion:getString(R.string.app_up_to_minute_version);
+                String v_last_version = getString(R.string.latest_version)+(upgradeInfo.apkVersion);
+                myItem.rightTxt = (upgradeInfo.needUpdate==1)?(v_last_version):getString(R.string.app_up_to_minute_version);
                 aboutusAdapter.notifyDataSetChanged();
             }else{
                 if(upgradeInfo.needUpdate==1){

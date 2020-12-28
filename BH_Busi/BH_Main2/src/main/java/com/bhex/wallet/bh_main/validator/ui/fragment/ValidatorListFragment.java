@@ -4,6 +4,7 @@ package com.bhex.wallet.bh_main.validator.ui.fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.lifecycle.ViewModelProviders;
@@ -13,6 +14,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
@@ -24,6 +26,7 @@ import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -132,12 +135,35 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         mOriginValidatorInfoList = datas;
         //
         List<ValidatorInfo> result = StreamSupport.stream(datas).filter(validatorInfo -> {
+            LogUtils.d("mValidatorType==>:","mValidatorType=="+mValidatorType);
             if(mValidatorType== BH_BUSI_TYPE.托管节点.getIntValue()){
                 return validatorInfo.is_key_node;
-            }else{
+            }else if(mValidatorType== BH_BUSI_TYPE.共识节点.getIntValue()){
                 return validatorInfo.is_elected;
+            }else {
+                return false;
             }
+
         }).collect(Collectors.toList());
+        /*List<ValidatorInfo> result = new ArrayList<>();
+        if(!ToolUtils.checkListIsEmpty(datas)){
+            for (int i=0;i< datas.size();i++){
+                ValidatorInfo validatorInfo = datas.get(i);
+                if(mValidatorType== BH_BUSI_TYPE.托管节点.getIntValue()){
+                    if(validatorInfo.is_key_node){
+                        result.add(validatorInfo);
+                    }
+                }else if(mValidatorType== BH_BUSI_TYPE.共识节点.getIntValue()){
+                    if(validatorInfo.is_elected){
+                        result.add(validatorInfo);
+                    }
+                }else {
+                    if(!validatorInfo.is_elected && !validatorInfo.is_elected){
+                        result.add(validatorInfo);
+                    }
+                }
+            }
+        }*/
 
         if (!ToolUtils.checkListIsEmpty(result)) {
             empty_layout.loadSuccess();

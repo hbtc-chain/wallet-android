@@ -188,7 +188,7 @@
             style="@style/main_material_btn"
             android:textSize="14sp"
             android:singleLine="true"
-            android:text="@string/swap"
+            android:text="@string/tab_trade"
             android:textColor="@color/highlight_text_color"
             />
 
@@ -210,9 +210,9 @@
             app:strokeColor="@color/highlight_text_color"
             app:strokeWidth="1dp"
             style="@style/main_material_btn"
+            android:text="@string/swap"
             android:textSize="14sp"
             android:singleLine="true"
-            android:text="@string/tab_trade"
             android:textColor="@color/highlight_text_color"
             />
     </LinearLayout>

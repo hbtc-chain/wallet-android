@@ -87,20 +87,20 @@ public abstract class NetworkApi implements IEnvironment {
             okHttpClientBuilder.readTimeout(15, TimeUnit.SECONDS);//10秒读取超时
             //okHttpClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
             //okHttpClientBuilder.proxy(Proxy.NO_PROXY);
-            /*CertificatePinner certificatePinner = new CertificatePinner.Builder()
-                    //.add("explorer.hbtcchain.io", "sha256/ONUV2iewvbpTvPliXQM1Mol7j9PPZgGYT6/7WhJ0yy0=")
-                    //.add("explorer.hbtcchain.io", "sha256/4H6OXny7MqJPbCOTpHyS0fSSUeHk/I5nKbIyuQwnfsA=")
-                    //.add("hbtc.yym.plus","sha256/ixKU/0n50ikuWT1nWR2RM8rDgI7OBqgYlE4Lh1i2fSQ=")
-                    //.add("hbtc.yym.plus","sha256/jzqM6/58ozsPRvxUzg0hzjM+GcfwhTbU/G0TCDvL7hU=")
+            CertificatePinner certificatePinner = new CertificatePinner.Builder()
+                    .add("explorer.hbtcchain.io", "sha256/ONUV2iewvbpTvPliXQM1Mol7j9PPZgGYT6/7WhJ0yy0=")
+                    .add("explorer.hbtcchain.io", "sha256/4H6OXny7MqJPbCOTpHyS0fSSUeHk/I5nKbIyuQwnfsA=")
+                    .add("dex.hbtcchain.io","sha256/ONUV2iewvbpTvPliXQM1Mol7j9PPZgGYT6/7WhJ0yy0=")
+                    .add("dex.hbtcchain.io","sha256/4H6OXny7MqJPbCOTpHyS0fSSUeHk/I5nKbIyuQwnfsA=")
                     .build();
-            okHttpClientBuilder.certificatePinner(certificatePinner);*/
+            okHttpClientBuilder.certificatePinner(certificatePinner);
 
             if(BuildConfig.DEBUG){
                 okHttpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
             }
 
             okHttpClientBuilder.addInterceptor(new CommonRequestInterceptor(iNetworkRequiredInfo));
-            okHttpClientBuilder.addInterceptor(new CommonResponseInterceptor());
+            //okHttpClientBuilder.addInterceptor(new CommonResponseInterceptor());
 
             if (iNetworkRequiredInfo != null && (iNetworkRequiredInfo.isDebug())) {
                 HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();

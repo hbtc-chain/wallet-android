@@ -183,8 +183,16 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
         bundle1.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BH_BUSI_TYPE.共识节点.getIntValue());
         invalidListFragment.setArguments(bundle1);
 
+
+        ValidatorListFragment competingListFragment = new ValidatorListFragment();
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BH_BUSI_TYPE.竞争节点.getIntValue());
+        competingListFragment.setArguments(bundle2);
+
+
         items.add(new Pair<String, Fragment>(getString(R.string.trusteeship_node), validListFragment));
         items.add(new Pair<String, Fragment>(getString(R.string.common_node), invalidListFragment));
+        //items.add(new Pair<String, Fragment>(getString(R.string.competing_node), competingListFragment));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.tools.language.LocalManageUtil;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
@@ -53,6 +54,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -122,7 +124,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         MyRecyclerViewDivider myRecyclerDivider = new MyRecyclerViewDivider(getContext(),
                 ColorUtil.getColor(getContext(),R.color.global_divider_color),
                 getResources().getDimension(R.dimen.default_item_divider_height),
-                new int[]{mMyAdapter.getData().size()==7?2:1,4});
+                mMyAdapter.getData().size()==7?(new int[]{2,4}):(new int[]{1,3}));
 
         recycler_my.addItemDecoration(myRecyclerDivider);
         tv_username.setText(mBhWallet.getName());
@@ -172,10 +174,27 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                     //设置
                     NavigateUtil.startActivity(getYActivity(),SettingActivity.class);
                     break;
-                /*case 版本号:
-                    mUpgradeVM.getUpgradeInfoExt(getYActivity());
-                    break;*/
 
+                case 公告:
+                    {
+                        Locale locale = LocalManageUtil.getSetLanguageLocale(getContext());
+                        if(locale.getLanguage().contains("zh")){
+                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.公告).navigation();
+                        }else{
+                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.公告).navigation();
+                        }
+                    }
+                    break;
+                case 帮助中心:
+                    {
+                        Locale locale = LocalManageUtil.getSetLanguageLocale(getContext());
+                        if(locale.getLanguage().contains("zh")){
+                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.帮助中心).navigation();
+                        }else{
+                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.帮助中心).navigation();
+                        }
+                    }
+                    break;
             }
         });
 
@@ -287,19 +306,19 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     @Override
     public void confirmAction(String password,int position,int way) {
         //备份助记词
-        if(position==1){
+        if(position==0){
             //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
             ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .navigation();
-        }else if(position==2){
+        }else if(position==1){
             String title = MyHelper.getTitle(getYActivity(),position);
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
                     .withString("title",title)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .withString("flag", BH_BUSI_TYPE.备份私钥.value)
                     .navigation();
-        }else if(position==3){
+        }else if(position==2){
             String title = MyHelper.getTitle(getYActivity(),position);
             //提醒页
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
