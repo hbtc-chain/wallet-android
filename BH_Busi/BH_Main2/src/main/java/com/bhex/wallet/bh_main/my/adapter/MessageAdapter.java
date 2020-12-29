@@ -28,7 +28,9 @@ public class MessageAdapter extends BaseQuickAdapter<BHMessage, BaseViewHolder> 
             String []message_type = getContext().getResources().getStringArray(com.bhex.wallet.balance.R.array.Message_type);
 
             vh.setText(R.id.tv_tx_type,message_type[bhm.tx_type-1]);
-            vh.setText(R.id.tv_tx_amount,bhm.amount+" "+bhm.symbol.toUpperCase());
+            //token-name
+
+            vh.setText(R.id.tv_tx_amount,bhm.amount+" "+bhm.name.toUpperCase());
             vh.setText(R.id.tv_tx_status, R.string.success);
 
             //时间格式化

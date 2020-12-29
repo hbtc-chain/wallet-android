@@ -1,5 +1,6 @@
 package com.bhex.wallet.balance.ui.fragment;
 
+import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.text.marqueen.MarqueeFactory;
 import com.bhex.lib.uikit.widget.text.marqueen.MarqueeView;
@@ -109,6 +111,10 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mChainTokenViewModel.mutableLiveData.observe(this,ldm->{
             updateAssetList((List<BHTokenItem>)ldm.getData());
         });
+
+        //
+        GradientDrawable drawable = ShapeUtils.getRoundRectDrawable(PixelUtils.dp2px(getYActivity(),6),ColorUtil.getColor(getYActivity(),R.color.card_bg));
+        mRootView.findViewById(R.id.layout_announce).setBackground(drawable);
     }
 
     @Override

@@ -29,6 +29,7 @@ public class BHMessage {
     public long time;
     public String amount;
     public String symbol;
+    public String name;
 
 
 }

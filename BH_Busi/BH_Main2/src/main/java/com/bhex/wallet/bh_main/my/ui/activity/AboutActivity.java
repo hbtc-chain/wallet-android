@@ -111,7 +111,7 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void processUpgradeInfo(LoadDataModel<UpgradeInfo> ldm) {
-        MyItem myItem = mDatas.get(0);
+        MyItem myItem = mDatas.get(1);
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             UpgradeInfo upgradeInfo = ldm.getData();
             if(!isCheckUpdate ){

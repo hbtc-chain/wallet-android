@@ -169,10 +169,10 @@ public class MyHelper {
         String []res = context.getResources().getStringArray(R.array.about_us_list);
         for (int i = 0; i < res.length; i++) {
             String right_text="";
-            if(i==0){
+            /*if(i==1){
                 right_text =  "v"+PackageUtils.getVersionName(context)+"("+PackageUtils.getVersionCode(context)+")";
-            }
-            MyItem item = new MyItem(i,res[i], true, right_text);
+            }*/
+            MyItem item = new MyItem(i,res[i], true, "");
 
             myItems.add(item);
         }
