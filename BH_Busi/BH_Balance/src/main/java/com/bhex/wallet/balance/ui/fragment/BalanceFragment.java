@@ -228,7 +228,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         //AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         //清空原始用户资产
-        balanceViewHolder.tv_wallet_name.setText("Hello，"+bhWallet.name);
+        balanceViewHolder.tv_wallet_name.setText(bhWallet.name);
         mChainAdapter.notifyDataSetChanged();
         //更新资产
         balanceViewModel.getAccountInfo(getYActivity(),null);
@@ -245,7 +245,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         super.onHiddenChanged(hidden);
         if(!hidden){
             bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
-            balanceViewHolder.tv_wallet_name.setText("Hello，"+bhWallet.name);
+            balanceViewHolder.tv_wallet_name.setText(bhWallet.name);
         }
     }
 
