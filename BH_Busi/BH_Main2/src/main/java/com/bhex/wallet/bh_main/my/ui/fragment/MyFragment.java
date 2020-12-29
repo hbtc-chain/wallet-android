@@ -146,20 +146,20 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             MyItem item = mItems.get(position);
             switch (BUSI_MY_TYPE.getType(item.id)){
                 case 备份助记词:
-                    PasswordFragment.showPasswordDialog(getChildFragmentManager(),
+                    PasswordFragment.showPasswordDialogExt(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
 
                     break;
                 case 备份私钥:
                     //提醒页
-                    PasswordFragment.showPasswordDialog(getChildFragmentManager(),
+                    PasswordFragment.showPasswordDialogExt(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
                     break;
                 case 备份KS:
                     //提醒页
-                    PasswordFragment.showPasswordDialog(getChildFragmentManager(),
+                    PasswordFragment.showPasswordDialogExt(getChildFragmentManager(),
                             PasswordFragment.class.getName(),
                             MyFragment.this,item.id);
                     break;

@@ -84,12 +84,6 @@ public class WebViewFragment extends JsBowserFragment {
                 //设置标题
                 tv_center_title.setText(title);
                 String url = view.getUrl();
-                /*if(!url.startsWith(BHConstants.MARKET_URL)){
-                    getBackView().setVisibility(View.VISIBLE);
-                }else{
-                    getBackView().setVisibility(View.INVISIBLE);
-
-                }*/
             }
         };
     }
@@ -105,5 +99,10 @@ public class WebViewFragment extends JsBowserFragment {
         } else if(R.id.iv_close == view.getId()){
             getActivity().finish();
         }
+    }
+
+    @Override
+    protected void callbackProgress(WebView view, int newProgress) {
+
     }
 }

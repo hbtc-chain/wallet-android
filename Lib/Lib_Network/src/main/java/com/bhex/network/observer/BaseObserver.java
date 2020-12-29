@@ -20,7 +20,6 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     public BaseObserver(){}
 
-
     public BaseObserver(boolean showToast){this.isNeedShowtoast = showToast;}
 
     public void dispose() {

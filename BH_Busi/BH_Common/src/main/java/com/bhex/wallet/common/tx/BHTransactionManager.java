@@ -37,7 +37,7 @@ public class BHTransactionManager {
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
         String raw_json = JsonUtils.toJson(bhRawTransactionExt);
-        raw_json = JsonUtils.sortJson(raw_json);
+        //raw_json = JsonUtils.sortJson(raw_json);
 
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
         //交易请求数据构建

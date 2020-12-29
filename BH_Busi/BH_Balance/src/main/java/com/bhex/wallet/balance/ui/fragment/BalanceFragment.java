@@ -1,6 +1,7 @@
 package com.bhex.wallet.balance.ui.fragment;
 
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -215,10 +216,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mRootView.findViewById(R.id.layout_announce).setVisibility(View.VISIBLE);
         marqueeFactory.setOnItemClickListener((view, holder) -> {
             //holder.getData().
-            ARouter.getInstance()
-                    .build(ARouterConfig.Market.market_webview)
-                    .withString("url",holder.getData().jump_url)
-                    .navigation();
+            if(!TextUtils.isEmpty(holder.getData().jump_url)){
+                ARouter.getInstance()
+                        .build(ARouterConfig.Market.market_webview)
+                        .withString("url",holder.getData().jump_url)
+                        .navigation();
+            }
         });
     }
 

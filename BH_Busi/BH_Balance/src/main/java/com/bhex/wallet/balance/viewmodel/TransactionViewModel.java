@@ -264,6 +264,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
+                LogUtils.d("JsonObject===>:","jsonObject==="+jsonObject.toString());
                 LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
                 lmd.loadingStatus = LoadingStatus.SUCCESS;
                 mutableLiveData.postValue(lmd);

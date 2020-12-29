@@ -160,7 +160,7 @@ public class PasswordFragment extends BaseDialogFragment {
                     BHUserManager.getInstance().getCurrentBhWallet().pwd,
                     position,BH_BUSI_TYPE.校验当前账户密码.getIntValue());
         }else{
-            pfrag.show(fm, tag);
+
         }
 
         return pfrag;
