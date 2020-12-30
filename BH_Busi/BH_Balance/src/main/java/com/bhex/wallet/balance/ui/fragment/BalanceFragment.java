@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -160,6 +161,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
     public void updateAssetList(List<BHTokenItem> list){
+        AppCompatTextView btn_coin_apply = mRootView.findViewById(R.id.btn_coin_apply);
+        btn_coin_apply.setText(getString(R.string.claim_test_coin));
         updateAssets();
     }
 
@@ -179,6 +182,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
     public void applyTestToken(){
+        //
+        AppCompatTextView btn_coin_apply = mRootView.findViewById(R.id.btn_coin_apply);
+        btn_coin_apply.setText(getString(R.string.claiming));
         mChainTokenViewModel.send_test_token(getYActivity(),"hbc","kiwi");
     }
 
@@ -196,18 +202,17 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }else{
             balanceViewHolder.tv_asset.setText("***");
         }
-
         mChainAdapter.notifyDataSetChanged();
     }
 
     //更新公告
     private void updateAnnouncement(LoadDataModel ldm) {
-        //refreshLayout.finishRefresh();
+
         if(ldm.loadingStatus != LoadingStatus.SUCCESS){
             return;
         }
-        LogUtils.d("AnnouncementMF==>","==updateAnnouncement==");
 
+        //LogUtils.d("AnnouncementMF==>","==updateAnnouncement==");
         List<AnnouncementItem> list = (List<AnnouncementItem>)ldm.getData();
         MarqueeFactory<RelativeLayout, AnnouncementItem> marqueeFactory = new AnnouncementMF(getContext(),null);
         marqueeFactory.setData(list);
@@ -251,7 +256,6 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             balanceViewHolder.tv_wallet_name.setText(bhWallet.name);
         }
     }
-
 
     @Override
     public void onDestroy() {

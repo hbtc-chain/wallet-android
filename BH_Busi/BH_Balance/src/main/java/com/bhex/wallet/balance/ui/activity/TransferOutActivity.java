@@ -37,6 +37,7 @@ import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -80,16 +81,12 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
-
         mRefreshLayout = findViewById(R.id.refreshLayout);
-
         mTransferOutViewHolder = new TransferOutViewHolder(this,findViewById(R.id.root_view),m_symbol,m_transferout_way);
         getPresenter().mTransferViewHolder = mTransferOutViewHolder;
         //
         findViewById(R.id.btn_drawwith_coin).setOnClickListener(this::onSubmitAction);
-
         findViewById(R.id.btn_transfer_out_token).setOnClickListener(this::chooseTokenAction);
-
     }
 
 
@@ -122,7 +119,6 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
             mBalanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
             mTokenViewModel.queryToken(this,mTransferOutViewHolder.tranferToken.symbol);
         });
-
         mRefreshLayout.autoRefresh();
     }
 
@@ -145,7 +141,6 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
             }
         }
     }
-
 
     private void getAnalyzeQRCodeResult(Uri uri) {
         XQRCode.analyzeQRCode(PathUtils.getFilePathByUri(this, uri), new QRCodeAnalyzeUtils.AnalyzeCallback() {
@@ -180,18 +175,18 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
     private void linkInnerTransfer(){
         boolean flag = mPresenter.checklinkInnerTransfer();
         if(flag){
-            Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
-                    PasswordFragment.class.getName(),
-                    this::confirmAction,0);
+            Password30PFragment.showPasswordDialog(
+                    getSupportFragmentManager(),PasswordFragment.class.getName(),
+                    this::confirmAction,0,true);
         }
     }
 
     private void crossLinkWithDraw(){
         boolean flag = mPresenter.checkCrossLinkTransfer( );
         if(flag){
-            Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+            Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                     PasswordFragment.class.getName(),
-                    this::confirmAction,0);
+                    this::confirmAction,0,true);
         }
     }
 
@@ -200,7 +195,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
      * @param password
      * @param position
      */
-    public void confirmAction(String password, int position,int verifyPwdWay) {
+    public void confirmAction(String password, int position,int verifyPwdWay,boolean isRight) {
         //String from_address = mCurrentBhWallet.getAddress();
         String to_address = mTransferOutViewHolder.input_to_address.getInputString();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));

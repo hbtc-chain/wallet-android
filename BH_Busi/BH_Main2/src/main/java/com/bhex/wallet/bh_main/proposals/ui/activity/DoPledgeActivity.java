@@ -29,6 +29,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -45,7 +46,7 @@ import butterknife.OnClick;
  * 质押
  */
 @Route(path = ARouterConfig.Proposal.Do_Pledge)
-public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implements Password30Fragment.PasswordClickListener {
+public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implements Password30PFragment.PasswordClickListener {
 
     @Autowired(name = "proposalInfo")
     ProposalInfo mProposalInfo;
@@ -171,9 +172,9 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
             return;
         }
 
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 PasswordFragment.class.getName(),
-                this,0);
+                this,0,true);
     }
 
 
@@ -210,7 +211,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
 
 
     @Override
-    public void confirmAction(String password, int position,int way) {
+    public void confirmAction(String password, int position,int way, boolean isRight) {
 
         //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         //BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));

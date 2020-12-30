@@ -51,7 +51,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
         params.gravity = Gravity.BOTTOM;
 
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        //params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
         window.setAttributes(params);

@@ -35,6 +35,7 @@ import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.google.android.material.button.MaterialButton;
 import com.warkiz.widget.IndicatorSeekBar;
@@ -55,7 +56,7 @@ import butterknife.OnClick;
  */
 
 @Route(path = ARouterConfig.Balance.Balance_cross_address)
-public class GenerateAddressActivity extends BaseActivity implements Password30Fragment.PasswordClickListener{
+public class GenerateAddressActivity extends BaseActivity implements Password30PFragment.PasswordClickListener{
 
     @Autowired(name = "symbol")
     String symbol;
@@ -143,9 +144,9 @@ public class GenerateAddressActivity extends BaseActivity implements Password30F
         }
 
 
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
-                this,0);
+                this,0,true);
     }
 
     /**
@@ -162,7 +163,7 @@ public class GenerateAddressActivity extends BaseActivity implements Password30F
 
     //密码提示回调
     @Override
-    public void confirmAction(String password, int position,int way) {
+    public void confirmAction(String password, int position,int way,boolean isRight) {
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(symbol);
         transactionViewModel.transferInnerExt(this,password,gas_fee,tx_msg_list);
     }

@@ -46,6 +46,7 @@ import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 
@@ -260,7 +261,7 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
         }
     }
 
-    Password30Fragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
+    Password30PFragment.PasswordClickListener withDrawPwdListener = (password, position,way,isRight) -> {
         List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createRewardMsg(validatorMsgs);
         mTransactionViewModel.transferInnerExt(this,password,BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
@@ -268,7 +269,8 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),Password30Fragment.class.getSimpleName(),withDrawPwdListener,1);
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30Fragment.class.getSimpleName(),
+                withDrawPwdListener,1,true);
     });
 
     //地址二维码

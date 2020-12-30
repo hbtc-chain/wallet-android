@@ -97,7 +97,7 @@ public class MarketFragment extends JsBowserFragment {
         }
         String v_local_display = ToolUtils.getLocalString(getYActivity());
         url = url.append("?lang=").append(v_local_display);
-        LogUtils.d("url==="+url.toString());
+        //LogUtils.d("url==="+url.toString());
         return url.toString();
     }
 
@@ -116,7 +116,7 @@ public class MarketFragment extends JsBowserFragment {
     private void startRefreshAction(View view) {
         //AppCompatImageView refreshView = mRootView.findViewById(R.id.iv_refresh);
         objectAnimator = ObjectAnimator.ofFloat(view,"rotation",0,360f)
-                .setDuration(500);
+                .setDuration(800);
         objectAnimator.setRepeatCount(-1);
         view.setPivotX(view.getWidth() / 2);
         view.setPivotY(view.getHeight()/ 2);

@@ -51,6 +51,7 @@ import com.bhex.wallet.common.tx.BHTokenRlease;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -72,7 +73,7 @@ import butterknife.OnClick;
  * 代币发行
  */
 @Route(path = ARouterConfig.Token_Release, name = "代币发行申请")
-public class TokenReleaseActivity extends BaseActivity implements Password30Fragment.PasswordClickListener, OnRefreshListener {
+public class TokenReleaseActivity extends BaseActivity implements Password30PFragment.PasswordClickListener, OnRefreshListener {
 
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
@@ -238,9 +239,9 @@ public class TokenReleaseActivity extends BaseActivity implements Password30Frag
 
         //
         //密码提示框
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
-                this, 0);
+                this, 0,true);
 
 
     }
@@ -318,7 +319,7 @@ public class TokenReleaseActivity extends BaseActivity implements Password30Frag
     }
 
     @Override
-    public void confirmAction(String password, int position, int way) {
+    public void confirmAction(String password, int position, int way, boolean isRight) {
         String formAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
         String toAddress = inp_to_address.getInputString();
         String tokenName = inp_token_name.getInputString();

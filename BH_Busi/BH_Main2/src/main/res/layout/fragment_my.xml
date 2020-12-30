@@ -142,7 +142,7 @@
 
             </RelativeLayout>
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/layout_index_2"
                 android:layout_width="0dp"
                 android:layout_height="88dp"
@@ -191,9 +191,9 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/layout_index_3"
                 android:layout_width="0dp"
                 android:layout_height="88dp"
@@ -244,7 +244,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -252,8 +252,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_index_2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintStart_toStartOf="parent">
 
 
                 <androidx.recyclerview.widget.RecyclerView

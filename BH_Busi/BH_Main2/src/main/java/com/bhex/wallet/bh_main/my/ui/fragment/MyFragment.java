@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +43,8 @@ import com.bhex.wallet.common.helper.AssetHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.model.UpgradeInfo;
+import com.bhex.wallet.common.ui.fragment.CommonFragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
@@ -64,7 +67,7 @@ import butterknife.OnClick;
  * 2020-3-12
  * 我的
  */
-public class MyFragment extends BaseFragment implements PasswordFragment.PasswordClickListener {
+public class MyFragment extends BaseFragment  {
 
     @BindView(R2.id.recycler_my)
     RecyclerView recycler_my;
@@ -85,10 +88,10 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     AppCompatImageView iv_edit;
 
     @BindView(R2.id.layout_index_2)
-    MaterialCardView layout_index_2;
+    CardView layout_index_2;
 
     @BindView(R2.id.layout_index_3)
-    MaterialCardView layout_index_3;
+    CardView layout_index_3;
 
     @BindView(R2.id.iv_message_tip)
     CircleView iv_message_tip;
@@ -146,22 +149,18 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             MyItem item = mItems.get(position);
             switch (BUSI_MY_TYPE.getType(item.id)){
                 case 备份助记词:
-                    PasswordFragment.showPasswordDialogExt(getChildFragmentManager(),
-                            PasswordFragment.class.getName(),
-                            MyFragment.this,item.id);
-
+                    Password30PFragment.showPasswordDialog(getChildFragmentManager(),Password30PFragment.class.getName(),
+                            this::passwordListener,item.id,false);
                     break;
                 case 备份私钥:
                     //提醒页
-                    PasswordFragment.showPasswordDialogExt(getChildFragmentManager(),
-                            PasswordFragment.class.getName(),
-                            MyFragment.this,item.id);
+                    Password30PFragment.showPasswordDialog(getChildFragmentManager(),Password30PFragment.class.getName(),
+                            this::passwordListener,item.id,false);
                     break;
                 case 备份KS:
                     //提醒页
-                    PasswordFragment.showPasswordDialogExt(getChildFragmentManager(),
-                            PasswordFragment.class.getName(),
-                            MyFragment.this,item.id);
+                    Password30PFragment.showPasswordDialog(getChildFragmentManager(),Password30PFragment.class.getName(),
+                            this::passwordListener,item.id,false);
                     break;
 
                 case 关于我们:
@@ -198,17 +197,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             }
         });
 
-        /*mMyAdapter.setOnItemLongClickListener((adapter, view, position) -> {
-            MyItem item = mItems.get(position);
-            switch (item.id){
-                case 6:
-                    ToastUtils.showToast(getResources().getString(R.string.copyed));
-                    ToolUtils.copyText(item.rightTxt,getYActivity());
-                    break;
-            }
-            return true;
-        });*/
-
         //助记词备份订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back, LoadDataModel.class).observe(this, ldm->{
             if(ldm.loadingStatus== LoadingStatus.SUCCESS){
@@ -230,6 +218,31 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                 }
             }
         });
+    }
+
+    //消息查询
+    private void passwordListener(String password,int position,int way, boolean isRight) {
+        //备份助记词
+        if(position==0){
+            ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
+                    .navigation();
+        }else if(position==1){
+            String title = MyHelper.getTitle(getYActivity(),position);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
+                    .withString("title",title)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
+                    .withString("flag", BH_BUSI_TYPE.备份私钥.value)
+                    .navigation();
+        }else if(position==2){
+            String title = MyHelper.getTitle(getYActivity(),position);
+            //提醒页
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
+                    .withString("title",title)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
+                    .withString("flag",BH_BUSI_TYPE.备份KS.value)
+                    .navigation();
+        }
     }
 
     @Override
@@ -302,33 +315,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         EventBus.getDefault().unregister(this);
     }
 
-
-    @Override
-    public void confirmAction(String password,int position,int way) {
-        //备份助记词
-        if(position==0){
-            //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
-            ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
-                    .withString(BHConstants.INPUT_PASSWORD,password)
-                    .navigation();
-        }else if(position==1){
-            String title = MyHelper.getTitle(getYActivity(),position);
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
-                    .withString("title",title)
-                    .withString(BHConstants.INPUT_PASSWORD,password)
-                    .withString("flag", BH_BUSI_TYPE.备份私钥.value)
-                    .navigation();
-        }else if(position==2){
-            String title = MyHelper.getTitle(getYActivity(),position);
-            //提醒页
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
-                    .withString("title",title)
-                    .withString(BHConstants.INPUT_PASSWORD,password)
-                    .withString("flag",BH_BUSI_TYPE.备份KS.value)
-                    .navigation();
-        }
-
-    }
 
     /**
      * 修改用户名

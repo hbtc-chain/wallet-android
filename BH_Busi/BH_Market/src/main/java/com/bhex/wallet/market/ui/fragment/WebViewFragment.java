@@ -1,5 +1,6 @@
 package com.bhex.wallet.market.ui.fragment;
 
+import android.animation.ObjectAnimator;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -10,6 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.market.R;
@@ -76,6 +78,7 @@ public class WebViewFragment extends JsBowserFragment {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                callbackProgress(view,newProgress);
             }
 
             @Override
@@ -91,6 +94,7 @@ public class WebViewFragment extends JsBowserFragment {
     @OnClick({R2.id.iv_refresh, R2.id.iv_back,R2.id.iv_close})
     public void onClickView(View view) {
         if (R.id.iv_refresh == view.getId()) {
+            startRefreshAction(view);
             mAgentWeb.getUrlLoader().loadUrl(getUrl());
         } else if(R.id.iv_back == view.getId()){
             if(!mAgentWeb.back()){
@@ -103,6 +107,19 @@ public class WebViewFragment extends JsBowserFragment {
 
     @Override
     protected void callbackProgress(WebView view, int newProgress) {
+        if(newProgress==100 && objectAnimator!=null){
+            objectAnimator.cancel();
+        }
+    }
 
+    ObjectAnimator objectAnimator = null;
+    private void startRefreshAction(View view) {
+        //AppCompatImageView refreshView = mRootView.findViewById(R.id.iv_refresh);
+        objectAnimator = ObjectAnimator.ofFloat(view,"rotation",0,360f)
+                .setDuration(800);
+        objectAnimator.setRepeatCount(-1);
+        view.setPivotX(view.getWidth() / 2);
+        view.setPivotY(view.getHeight()/ 2);
+        objectAnimator.start();
     }
 }

@@ -33,6 +33,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -49,7 +50,7 @@ import butterknife.OnClick;
  * 发起提案
  */
 @Route(path = ARouterConfig.Proposal.Create_Proposal)
-public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter>  implements Password30Fragment.PasswordClickListener {
+public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter>  implements Password30PFragment.PasswordClickListener {
 
     @BindView(R2.id.ed_proposal_title)
     AppCompatEditText ed_proposal_title;
@@ -192,9 +193,9 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
             return;
         }
 
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
-                this,0);
+                this,0,true);
     }
 
 
@@ -231,7 +232,7 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
 
     @Override
-    public void confirmAction(String password, int position,int way) {
+    public void confirmAction(String password, int position,int way, boolean isRight) {
         //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         String Proposal_amount = ed_pledge_amount.getInputString();
         String title = ed_proposal_title.getText().toString().trim();

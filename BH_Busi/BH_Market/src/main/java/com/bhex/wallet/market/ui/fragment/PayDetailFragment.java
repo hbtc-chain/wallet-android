@@ -30,6 +30,7 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.db.AppDataBase;
 import com.bhex.wallet.common.db.dao.BHTokenDao;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
 import com.bhex.wallet.market.event.H5SignEvent;
@@ -150,13 +151,13 @@ public class PayDetailFragment extends BaseDialogFragment {
             ToastUtils.showToast(BaseApplication.getInstance().getString(R.string.no_order));
         }else{
             mH5Sign = sign;
-            Password30Fragment.showPasswordDialog(fm,Password30Fragment.class.getName(),passwordClickListener,0);
+            Password30PFragment.showPasswordDialog(fm,Password30Fragment.class.getName(),passwordClickListener,0,true);
         }
     }
 
     @OnClick({R2.id.btn_confrim})
     public void onViewClicked(View view) {
-        Password30Fragment.showPasswordDialog(getChildFragmentManager(),Password30Fragment.class.getName(),passwordClickListener,0);
+        Password30PFragment.showPasswordDialog(getChildFragmentManager(),Password30Fragment.class.getName(),passwordClickListener,0,true);
     }
 
     public class PayDetailAdapter extends BaseQuickAdapter<PayDetailItem, BaseViewHolder> {
@@ -172,7 +173,7 @@ public class PayDetailFragment extends BaseDialogFragment {
         }
     }
 
-    Password30Fragment.PasswordClickListener passwordClickListener = (password, position, way) -> {
+    Password30PFragment.PasswordClickListener passwordClickListener = (password, position, way,isRight) -> {
         if(isAdded() && !isHidden()){
             dismiss();
         }

@@ -35,6 +35,7 @@ public class TransferOutPresenter extends BasePresenter {
 
         if(TextUtils.isEmpty(to_address)){
             ToastUtils.showToast(getActivity().getString(R.string.input_receive_address));
+            mTransferViewHolder.input_to_address.getEditText().requestFocus();
             return false;
         }
 
@@ -51,6 +52,7 @@ public class TransferOutPresenter extends BasePresenter {
 
         if(TextUtils.isEmpty(transfer_amount) || !RegexUtil.checkNumeric(transfer_amount)  || Double.valueOf(transfer_amount)<=0){
             ToastUtils.showToast(getActivity().getString(R.string.please_transfer_amount));
+            mTransferViewHolder.input_transfer_amount.requestFocus();
             return false;
         }
 
@@ -64,11 +66,13 @@ public class TransferOutPresenter extends BasePresenter {
             Double inputAllAmount = NumberUtil.add(transfer_amount,fee_amount);
             if(Double.valueOf(inputAllAmount) > Double.valueOf(available_amount)){
                 ToastUtils.showToast(getActivity().getString(R.string.tip_transferout_amount_error_0));
+                mTransferViewHolder.input_transfer_amount.requestFocus();
                 return false;
             }
         }else{
             if(Double.valueOf(transfer_amount) > Double.valueOf(available_amount) ){
                 ToastUtils.showToast(getActivity().getString(R.string.tip_transferout_amount_error));
+                mTransferViewHolder.input_transfer_amount.requestFocus();
                 return false;
             }
         }

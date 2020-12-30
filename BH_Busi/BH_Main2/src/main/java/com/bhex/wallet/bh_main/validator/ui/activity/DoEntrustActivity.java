@@ -34,6 +34,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -51,7 +52,7 @@ import butterknife.OnClick;
  * 委托
  */
 @Route(path = ARouterConfig.Validator.Do_Entrust)
-public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implements Password30Fragment.PasswordClickListener {
+public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implements Password30PFragment.PasswordClickListener {
 
     @Autowired(name = "validatorInfo")
     ValidatorInfo mValidatorInfo;
@@ -295,9 +296,9 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
 
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
-                this,0);
+                this,0,true);
     }
 
     /**
@@ -312,9 +313,9 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
             return;
         }
 
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
-                this,0);
+                this,0,true);
     }
 
 
@@ -392,7 +393,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
 
     @Override
-    public void confirmAction(String password, int position,int way) {
+    public void confirmAction(String password, int position,int way,boolean isRight) {
 
         if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId())  {
 

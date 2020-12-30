@@ -25,15 +25,18 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -51,7 +54,7 @@ import butterknife.OnClick;
  */
 @Route(path = ARouterConfig.Market_swap_mapping, name = "映射")
 public class SwapMappingActivity extends BaseActivity
-        implements Password30Fragment.PasswordClickListener,
+        implements Password30PFragment.PasswordClickListener,
         ChooseTokenFragment.ChooseTokenListener {
 
     @Autowired(name = "symbol")
@@ -111,6 +114,10 @@ public class SwapMappingActivity extends BaseActivity
         mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
         mMappingToknList = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
 
+        if(mTokenMapping==null){
+            mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingFrist();
+            mSymbol = mTokenMapping.coin_symbol;
+        }
         mSymbolViewHolder.setTokenAsset(this,mSymbol);
     }
 
@@ -171,13 +178,15 @@ public class SwapMappingActivity extends BaseActivity
             return;
         }
 
+        BHToken symbolToken = CacheCenter.getInstance().getTokenMapCache().getBHToken(mSymbol);
+
         if (mTokenBalance == null || Double.valueOf(mTokenBalance.amount) <= 0) {
-            ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + mSymbol.toUpperCase());
+            ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + symbolToken.name.toUpperCase());
             return;
         }
 
         if (Double.valueOf(mTokenBalance.amount) < Double.valueOf(map_amount)) {
-            ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + mSymbol.toUpperCase());
+            ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + symbolToken.name.toUpperCase());
             return;
         }
 
@@ -186,12 +195,15 @@ public class SwapMappingActivity extends BaseActivity
             return;
         }
 
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30Fragment.class.getName(),
-                this, 0);
+                this, 0,true);
     }
 
     private void exchangeAction(){
+        if(mTokenMapping==null){
+            return;
+        }
         mSymbol = mTokenMapping.target_symbol;
         mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
         mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);
@@ -199,13 +211,16 @@ public class SwapMappingActivity extends BaseActivity
     }
 
     @Override
-    public void confirmAction(String password, int position, int way) {
+    public void confirmAction(String password, int position, int way, boolean isRight) {
+        if(mTokenMapping==null){
+            return;
+        }
         String coin_symbol = mTokenMapping.coin_symbol;
         String issue_symbol = mTokenMapping.issue_symbol;
         String map_amount = ed_transfer_coin_amount.getInputString();
-        //mTransactionViewModel.transferInnerExt(this,issue_symbol, coin_symbol, map_amount, BHConstants.BHT_DEFAULT_FEE,password);
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createSwapMappingMsg(issue_symbol,coin_symbol,map_amount);
         mTransactionViewModel.transferInnerExt(this,password, BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
+
     }
 
     @Override

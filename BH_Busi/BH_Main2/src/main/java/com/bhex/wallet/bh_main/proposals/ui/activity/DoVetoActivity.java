@@ -30,6 +30,7 @@ import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -46,7 +47,7 @@ import butterknife.OnClick;
  * 投票
  */
 @Route(path = ARouterConfig.Proposal.Do_Veto)
-public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Password30Fragment.PasswordClickListener  {
+public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Password30PFragment.PasswordClickListener  {
 
     @Autowired(name = "proposalInfo")
     ProposalInfo mProposalInfo;
@@ -235,9 +236,9 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
             return;
         }
 
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 PasswordFragment.class.getName(),
-                this,0);
+                this,0,true);
     }
 
     private void updateAssets(AccountInfo data) {
@@ -263,7 +264,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
 
 
     @Override
-    public void confirmAction(String password, int position,int way) {
+    public void confirmAction(String password, int position,int way,boolean isRight) {
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         String feeAmount = ed_fee.getInputString();
 
