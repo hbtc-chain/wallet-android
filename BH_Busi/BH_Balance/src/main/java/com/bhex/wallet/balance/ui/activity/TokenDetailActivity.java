@@ -332,7 +332,7 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
         }
     }
 
-    Password30PFragment.PasswordClickListener withDrawPwdListener = (password, position,way,flag) -> {
+    Password30PFragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
         if(position==1){
 
             List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);

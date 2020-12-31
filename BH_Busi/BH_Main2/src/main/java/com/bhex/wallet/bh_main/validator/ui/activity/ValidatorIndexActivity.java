@@ -261,7 +261,7 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
         }
     }
 
-    Password30PFragment.PasswordClickListener withDrawPwdListener = (password, position,way,isRight) -> {
+    Password30PFragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
         List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createRewardMsg(validatorMsgs);
         mTransactionViewModel.transferInnerExt(this,password,BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);

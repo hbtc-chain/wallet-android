@@ -1,7 +1,20 @@
 package com.bhex.wallet.common.helper;
 
+import com.bhex.network.utils.JsonUtils;
+import com.bhex.tools.constants.BHConstants;
+import com.bhex.wallet.common.crypto.wallet.HWallet;
+import com.bhex.wallet.common.crypto.wallet.HWalletFile;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.ObjectMapperFactory;
+import org.web3j.utils.Numeric;
 
 import java.util.List;
 
@@ -45,5 +58,50 @@ public class BHWalletHelper {
         return flag;
     }
 
+    /**
+     * 解密私钥
+     */
+    public static String getOriginPK(String keyStore,String inputPwd){
+        String result = "";
+        try{
+            ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
+            HWalletFile walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
+            Credentials credentials = Credentials.create(HWallet.decrypt(inputPwd, walletFile));
+            result = Numeric.toHexStringNoPrefixZeroPadded(credentials.getEcKeyPair().getPrivateKey(), BHConstants.PRIVATE_KEY_LENGTH);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    public static String getOriginKeyStore(String keyStore){
+        String result = "";
+
+        try{
+            ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
+            HWalletFile walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
+            ExclusionStrategy myExclusionStrategy = new ExclusionStrategy() {
+
+                @Override
+                public boolean shouldSkipField(FieldAttributes fa) {
+                    return fa.getName().equals("encMnemonic");
+                }
+
+                @Override
+                public boolean shouldSkipClass(Class<?> clazz) {
+                    return false;
+                }
+
+            };
+            Gson gson = new GsonBuilder()
+                    .setExclusionStrategies(myExclusionStrategy) // <---
+                    .create();
+            result = gson.toJson(walletFile);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 }

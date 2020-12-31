@@ -103,10 +103,10 @@ public class MyPresenter extends BasePresenter {
         boolean flag = true;
         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        if(!ToolUtils.isVerifyPass(oldPwd,bhWallet.getPassword())){
+        /*if(!ToolUtils.isVerifyPass(oldPwd,bhWallet.getPassword())){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.error_oldpassword));
             return false;
-        }
+        }*/
 
         if(TextUtils.isEmpty(newPwd)){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_newpassword));

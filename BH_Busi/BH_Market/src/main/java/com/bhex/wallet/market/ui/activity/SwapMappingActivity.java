@@ -211,7 +211,7 @@ public class SwapMappingActivity extends BaseActivity
     }
 
     @Override
-    public void confirmAction(String password, int position, int way, boolean isRight) {
+    public void confirmAction(String password, int position, int way) {
         if(mTokenMapping==null){
             return;
         }

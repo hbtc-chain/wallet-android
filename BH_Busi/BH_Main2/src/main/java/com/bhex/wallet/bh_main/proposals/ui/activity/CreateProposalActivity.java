@@ -232,7 +232,7 @@ public class CreateProposalActivity extends BaseActivity<CreateProposalPresenter
 
 
     @Override
-    public void confirmAction(String password, int position,int way, boolean isRight) {
+    public void confirmAction(String password, int position,int way) {
         //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         String Proposal_amount = ed_pledge_amount.getInputString();
         String title = ed_proposal_title.getText().toString().trim();

@@ -269,7 +269,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         }
     }
 
-    Password30PFragment.PasswordClickListener passwordClickListener = (password, position,way,isRight) -> {
+    Password30PFragment.PasswordClickListener passwordClickListener = (password, position,way) -> {
         if(deletBHWallet==null){
             return;
         }

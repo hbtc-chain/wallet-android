@@ -14,6 +14,7 @@ import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.QREncodUtil;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
@@ -67,9 +68,9 @@ public class ExportQRFragment extends BaseFragment {
     private void showQR() {
         String content = "";
         if(BH_BUSI_TYPE.备份私钥.value.equals(flag)){
-            content = BHUserManager.getInstance().getOriginContext(mCurrentWallet.privateKey, MD5.md5(inptPwd));
+            content = BHWalletHelper.getOriginPK(mCurrentWallet.keystorePath, inptPwd);
         }else{
-            content = mCurrentWallet.keystorePath;
+            content = BHWalletHelper.getOriginKeyStore(mCurrentWallet.keystorePath);
         }
 
         Bitmap bitmap = QREncodUtil.createQRCode(content,

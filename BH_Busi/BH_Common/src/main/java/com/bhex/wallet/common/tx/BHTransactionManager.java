@@ -52,7 +52,8 @@ public class BHTransactionManager {
     public static BHSendTranscation create_dex_transcation(String type, JsonObject json, String sequence, String data){
         String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
-        BigInteger double_feeAmount = NumberUtil.mulExt(BHUserManager.getInstance().getDefaultGasFee().displayFee,String.valueOf(BHConstants.BHT_DECIMALS));
+        BigInteger double_feeAmount = NumberUtil.mulExt(BHUserManager.getInstance().getDefaultGasFee().displayFee,
+                String.valueOf(BHConstants.BHT_DECIMALS));
 
         BHRawTransaction bhRawTransaction = BHRawTransaction.createBHRaw_transcation(type,json,double_feeAmount,sequence);
         String raw_json = JsonUtils.toJson(bhRawTransaction);

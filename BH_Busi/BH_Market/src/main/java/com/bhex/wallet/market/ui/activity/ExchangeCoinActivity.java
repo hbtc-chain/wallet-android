@@ -245,7 +245,7 @@ public class ExchangeCoinActivity extends BaseActivity
     }
 
     @Override
-    public void confirmAction(String password, int position, int way, boolean isRight) {
+    public void confirmAction(String password, int position, int way) {
         String coin_symbol = mTokenMapping.coin_symbol;
         String issue_symbol = mTokenMapping.issue_symbol;
         String map_amount = inp_amount.getText().toString().trim();

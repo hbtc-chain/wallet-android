@@ -195,7 +195,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
      * @param password
      * @param position
      */
-    public void confirmAction(String password, int position,int verifyPwdWay,boolean isRight) {
+    public void confirmAction(String password, int position,int verifyPwdWay) {
         //String from_address = mCurrentBhWallet.getAddress();
         String to_address = mTransferOutViewHolder.input_to_address.getInputString();
         BigInteger gasPrice = BigInteger.valueOf ((long)(BHConstants.BHT_GAS_PRICE));

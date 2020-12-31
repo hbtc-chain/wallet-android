@@ -1,4 +1,4 @@
-package com.bhex.wallet.common.utils;
+package com.bhex.wallet.common.crypto.wallet;
 
 import org.web3j.crypto.LinuxSecureRandom;
 
@@ -22,7 +22,7 @@ public class SecureRandomUtils {
         SECURE_RANDOM = new SecureRandom();
     }
 
-    static SecureRandom secureRandom()
+    public static SecureRandom secureRandom()
     {
         return SECURE_RANDOM;
     }

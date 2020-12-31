@@ -264,7 +264,7 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
 
 
     @Override
-    public void confirmAction(String password, int position,int way,boolean isRight) {
+    public void confirmAction(String password, int position,int way) {
         String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         String feeAmount = ed_fee.getInputString();
 

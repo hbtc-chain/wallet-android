@@ -393,7 +393,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
 
 
     @Override
-    public void confirmAction(String password, int position,int way,boolean isRight) {
+    public void confirmAction(String password, int position,int way) {
 
         if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId())  {
 

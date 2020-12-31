@@ -221,20 +221,22 @@ public class MyFragment extends BaseFragment  {
     }
 
     //消息查询
-    private void passwordListener(String password,int position,int way, boolean isRight) {
+    private void passwordListener(String password,int position,int way) {
         //备份助记词
-        if(position==0){
+        LogUtils.d("MyFragments===>:","position==="+position);
+        //MyItem item = mItems.get(position);
+        if(position==BUSI_MY_TYPE.备份助记词.index){
             ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .navigation();
-        }else if(position==1){
+        }else if(position==BUSI_MY_TYPE.备份私钥.index){
             String title = MyHelper.getTitle(getYActivity(),position);
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
                     .withString("title",title)
                     .withString(BHConstants.INPUT_PASSWORD,password)
                     .withString("flag", BH_BUSI_TYPE.备份私钥.value)
                     .navigation();
-        }else if(position==2){
+        }else if(position==BUSI_MY_TYPE.备份KS.index){
             String title = MyHelper.getTitle(getYActivity(),position);
             //提醒页
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)

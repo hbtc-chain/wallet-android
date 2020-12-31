@@ -163,7 +163,7 @@ public class GenerateAddressActivity extends BaseActivity implements Password30P
 
     //密码提示回调
     @Override
-    public void confirmAction(String password, int position,int way,boolean isRight) {
+    public void confirmAction(String password, int position,int way) {
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createGenerateAddressMsg(symbol);
         transactionViewModel.transferInnerExt(this,password,gas_fee,tx_msg_list);
     }

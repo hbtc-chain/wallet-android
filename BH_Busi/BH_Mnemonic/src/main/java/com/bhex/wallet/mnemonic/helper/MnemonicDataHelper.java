@@ -24,17 +24,12 @@ public class MnemonicDataHelper {
         List<MnemonicItem> list = new ArrayList<>();
         try{
             String encryptMnemonic = BHUserManager.getInstance().getTmpBhWallet().getMnemonic();
-            String pwd = "";
+            //String pwd = "";
             if(!TextUtils.isEmpty(encryptMnemonic)){
                 encryptMnemonic = BHUserManager.getInstance().getTmpBhWallet().getMnemonic();
-                //pwd = BHUserManager.getInstance().getTmpBhWallet().getPassword();
             }else{
                 encryptMnemonic = BHUserManager.getInstance().getCurrentBhWallet().getMnemonic();
-                //pwd = BHUserManager.getInstance().getCurrentBhWallet().getPassword();
             }
-            /*byte [] bytes = CryptoUtil.decrypt(HexUtils.toBytes(encryptMnemonic),pwd);
-            String  mnemonic  = new String(bytes);*/
-
             String mnemonic = CryptoUtil.decryptMnemonic(encryptMnemonic, MD5.md5(inputPassword));
             String []array = mnemonic.split(" ");
 

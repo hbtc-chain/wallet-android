@@ -173,7 +173,7 @@ public class PayDetailFragment extends BaseDialogFragment {
         }
     }
 
-    Password30PFragment.PasswordClickListener passwordClickListener = (password, position, way,isRight) -> {
+    Password30PFragment.PasswordClickListener passwordClickListener = (password, position, way) -> {
         if(isAdded() && !isHidden()){
             dismiss();
         }

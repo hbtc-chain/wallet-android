@@ -319,7 +319,7 @@ public class TokenReleaseActivity extends BaseActivity implements Password30PFra
     }
 
     @Override
-    public void confirmAction(String password, int position, int way, boolean isRight) {
+    public void confirmAction(String password, int position, int way) {
         String formAddress = BHUserManager.getInstance().getCurrentBhWallet().address;
         String toAddress = inp_to_address.getInputString();
         String tokenName = inp_token_name.getInputString();

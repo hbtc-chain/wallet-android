@@ -211,7 +211,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
 
 
     @Override
-    public void confirmAction(String password, int position,int way, boolean isRight) {
+    public void confirmAction(String password, int position,int way) {
 
         //String delegator_address = BHUserManager.getInstance().getCurrentBhWallet().getAddress();
         //BigInteger gasPrice = BigInteger.valueOf((long) (BHConstants.BHT_GAS_PRICE));
