@@ -28,9 +28,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -173,7 +171,7 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
         }
 
         Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
+                Password30PFragment.class.getName(),
                 this,0,true);
     }
 
@@ -192,13 +190,13 @@ public class DoPledgeActivity extends BaseActivity<DoPledgePresenter>  implement
         if (data == null) {
             return;
         }
-        List<AccountInfo.AssetsBean> list = data.getAssets();
+        List<AccountInfo.AssetsBean> list = data.assets;
         if (list == null || list.size() == 0) {
             return;
         }
         for (AccountInfo.AssetsBean item : list) {
-            if (item.getSymbol().equalsIgnoreCase(token)) {
-                available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+            if (item.symbol.equalsIgnoreCase(token)) {
+                available_amount = mPresenter.getAmountForUser(item.amount, item.frozen_amount, token);
                 tv_available_amount.setText(getString(R.string.available_format,available_amount + token.toUpperCase()));
             }
         }

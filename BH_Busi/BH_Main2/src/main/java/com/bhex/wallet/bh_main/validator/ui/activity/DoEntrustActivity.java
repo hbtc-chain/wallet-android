@@ -33,7 +33,6 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
@@ -297,7 +296,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         }
 
         Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
-                Password30Fragment.class.getName(),
+                Password30PFragment.class.getName(),
                 this,0,true);
     }
 
@@ -314,7 +313,7 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         }
 
         Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
-                Password30Fragment.class.getName(),
+                Password30PFragment.class.getName(),
                 this,0,true);
     }
 
@@ -339,20 +338,20 @@ public class DoEntrustActivity extends BaseActivity<DoEntrustPresenter> implemen
         if (data == null) {
             return;
         }
-        List<AccountInfo.AssetsBean> list = data.getAssets();
+        List<AccountInfo.AssetsBean> list = data.assets;
         if (ToolUtils.checkListIsEmpty(list)) {
             return;
         }
         for (AccountInfo.AssetsBean item : list) {
-            if (!item.getSymbol().equalsIgnoreCase(token)) {
+            if (!item.symbol.equalsIgnoreCase(token)) {
                 continue;
             }
 
             if (mBussiType == ENTRUST_BUSI_TYPE.DO_ENTRUS.getTypeId()) {
-                available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+                available_amount = mPresenter.getAmountForUser(item.amount, item.frozen_amount, token);
                 tv_available_amount.setText(mAvailabelTitle + available_amount + token.toUpperCase());
             } else if (mBussiType == ENTRUST_BUSI_TYPE.RELIEVE_ENTRUS.getTypeId()) {
-                wallet_available = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+                wallet_available = mPresenter.getAmountForUser(item.amount, item.frozen_amount, token);
                 tv_fee_available_amount.setText(getString(R.string.available) + wallet_available + token.toUpperCase());
             }
         }

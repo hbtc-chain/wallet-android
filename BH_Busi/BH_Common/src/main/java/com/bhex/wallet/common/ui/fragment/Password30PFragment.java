@@ -35,6 +35,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.tools.utils.ToolUtils;
+import com.bhex.tools.utils.ViewUtil;
 import com.bhex.wallet.common.R;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.base.BaseFragment;
@@ -146,23 +147,7 @@ public class Password30PFragment extends BaseDialogFragment {
         }
     }
 
-    //
-    public void getListenInfo(View view){
-        try{
-            Method method = View.class.getDeclaredMethod("getListenerInfo");
-            //设置权限
-            method.setAccessible(true);
-            //得到点击事件持有者
-            Object listenerInfo = method.invoke(view);
-            //得到点击事件对象
-            Class<?> listenerInfoClz = Class.forName("android.view.View$ListenerInfo");
-            Field field = listenerInfoClz.getDeclaredField("mOnClickListener");
-            //将点击事件代理类设置到“持有者中”
-            field.set(listenerInfo, null);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+
 
     @Override
     public void onResume() {
@@ -170,7 +155,7 @@ public class Password30PFragment extends BaseDialogFragment {
         //键盘设置清空
         AppCompatTextView btn_finish = mRootView.findViewById(R.id.btn_finish);
         btn_finish.setText(getString(R.string.clear));
-        getListenInfo(btn_finish);
+        ViewUtil.getListenInfo(btn_finish);
         btn_finish.setOnClickListener(v->{
             //
             mPasswordInputView.clearInputContent();

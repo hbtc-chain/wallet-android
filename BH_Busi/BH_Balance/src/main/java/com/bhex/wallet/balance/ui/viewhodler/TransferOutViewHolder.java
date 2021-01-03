@@ -205,7 +205,7 @@ public class TransferOutViewHolder {
 
             //mRootView.findViewById(R.id.layout_transfer_out_tips).setVisibility(View.VISIBLE);
             //提示
-            findText(R.id.tv_transfer_tips).setText(m_activity.getResources().getString(R.string.cross_transfer_inner_tips));
+            findText(R.id.tv_transfer_tips).setText(m_activity.getResources().getString(R.string.cross_transfer_out_tips));
             //提币地址
             findText(R.id.tv_withdraw_address).setText(m_activity.getResources().getString(R.string.draw_coin_address));
             //提币数量

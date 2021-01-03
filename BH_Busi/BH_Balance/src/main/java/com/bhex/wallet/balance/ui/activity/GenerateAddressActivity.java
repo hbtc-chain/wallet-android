@@ -1,53 +1,38 @@
 package com.bhex.wallet.balance.ui.activity;
 
-import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
-import com.bhex.lib.uikit.widget.editor.WithDrawInput;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.indicator.OnSampleSeekChangeListener;
 import com.bhex.tools.utils.RegexUtil;
 import com.bhex.wallet.balance.R;
-import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.manager.AddressGenaratorManager;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
-import com.google.android.material.button.MaterialButton;
-import com.warkiz.widget.IndicatorSeekBar;
-import com.warkiz.widget.SeekParams;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.math.BigInteger;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author gongdongyang
@@ -145,7 +130,7 @@ public class GenerateAddressActivity extends BaseActivity implements Password30P
 
 
         Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
-                Password30Fragment.class.getName(),
+                Password30PFragment.class.getName(),
                 this,0,true);
     }
 
@@ -157,6 +142,7 @@ public class GenerateAddressActivity extends BaseActivity implements Password30P
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             ToastUtils.showToast(getResources().getString(R.string.link_outter_generating));
             EventBus.getDefault().post(new TransctionEvent());
+            AddressGenaratorManager.getInstance().map.put(symbolToken.chain,AddressGenaratorManager.ADDRESS_ING);
             finish();
         }
     }

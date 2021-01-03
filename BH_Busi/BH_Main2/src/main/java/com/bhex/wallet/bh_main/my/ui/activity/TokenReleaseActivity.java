@@ -50,9 +50,7 @@ import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.BHTokenRlease;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -240,7 +238,7 @@ public class TokenReleaseActivity extends BaseActivity implements Password30PFra
         //
         //密码提示框
         Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
-                Password30Fragment.class.getName(),
+                Password30PFragment.class.getName(),
                 this, 0,true);
 
 

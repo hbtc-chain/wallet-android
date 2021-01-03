@@ -36,9 +36,7 @@ import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
 import com.bhex.wallet.common.ui.activity.BHQrScanActivity;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -176,7 +174,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
         boolean flag = mPresenter.checklinkInnerTransfer();
         if(flag){
             Password30PFragment.showPasswordDialog(
-                    getSupportFragmentManager(),PasswordFragment.class.getName(),
+                    getSupportFragmentManager(),Password30PFragment.class.getName(),
                     this::confirmAction,0,true);
         }
     }
@@ -185,7 +183,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
         boolean flag = mPresenter.checkCrossLinkTransfer( );
         if(flag){
             Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
-                    PasswordFragment.class.getName(),
+                    Password30PFragment.class.getName(),
                     this::confirmAction,0,true);
         }
     }

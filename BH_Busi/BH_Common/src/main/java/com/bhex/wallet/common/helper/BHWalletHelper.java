@@ -1,5 +1,9 @@
 package com.bhex.wallet.common.helper;
 
+import android.text.TextUtils;
+
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.wallet.common.crypto.wallet.HWallet;
@@ -104,4 +108,17 @@ public class BHWalletHelper {
         return result;
     }
 
+    /**
+     * 地址掩码
+     */
+    public static void proccessAddress(AppCompatTextView tv_address, String address){
+        StringBuffer buf = new StringBuffer("");
+        if(!TextUtils.isEmpty(address)){
+            buf.append(address.substring(0,8))
+                    .append("***")
+                    .append(address.substring(address.length()-8,address.length()));
+            tv_address.setText(buf.toString());
+        }
+
+    }
 }

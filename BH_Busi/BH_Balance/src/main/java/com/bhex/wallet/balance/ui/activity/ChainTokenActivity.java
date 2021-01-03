@@ -26,6 +26,7 @@ import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.wallet.balance.event.TransctionEvent;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ToolUtils;
@@ -42,21 +43,20 @@ import com.bhex.wallet.balance.ui.viewhodler.HBCViewHolder;
 import com.bhex.wallet.balance.viewmodel.ChainTokenViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHChain;
-import com.bhex.wallet.common.model.BHToken;
-import com.bhex.wallet.common.tx.BHRawTransaction;
-import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -239,6 +239,11 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         if(defRefreshCount1>=1 && defRefreshCount2>=1){
             refreshLayout.finishRefresh();
         }
+    }
+
+    @Subscribe(threadMode= ThreadMode.MAIN)
+    public void changeAccount(TransctionEvent transctionEvent){
+        mETHViewHolder.setTokenAddress(mBalance.symbol);
     }
 
     /**

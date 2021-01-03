@@ -34,9 +34,7 @@ import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.BHTokenMapping;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.bhex.wallet.market.R;
@@ -177,7 +175,7 @@ public class ExchangeCoinActivity extends BaseActivity
         }
 
         Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
-                Password30Fragment.class.getName(),
+                Password30PFragment.class.getName(),
                 this, 0,true);
     }
 

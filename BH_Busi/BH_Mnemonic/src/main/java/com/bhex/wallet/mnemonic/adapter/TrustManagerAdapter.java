@@ -5,7 +5,7 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatCheckedTextView;
 
-import com.bhex.wallet.common.helper.AssetHelper;
+import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.mnemonic.R;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,7 +38,7 @@ public class TrustManagerAdapter extends BaseQuickAdapter<BHWalletItem, TrustMan
 
         viewHolder.setText(R.id.tv_wallet_name,bhWalletItem.name);
         //viewHolder.setText(R.id.tv_wallet_address,bhWalletItem.address);
-        AssetHelper.proccessAddress(viewHolder.getView(R.id.tv_wallet_address),bhWalletItem.address);
+        BHWalletHelper.proccessAddress(viewHolder.getView(R.id.tv_wallet_address),bhWalletItem.address);
 
         AppCompatCheckedTextView ck = viewHolder.getView(R.id.ck_wallet);
         if(bhWalletItem.isDefault==1){

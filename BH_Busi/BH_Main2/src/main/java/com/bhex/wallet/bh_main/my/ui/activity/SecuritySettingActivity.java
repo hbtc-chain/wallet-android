@@ -18,8 +18,7 @@ import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.model.SecuritySettingItem;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 
 import java.util.List;
 
@@ -31,7 +30,7 @@ import butterknife.BindView;
  * 安全设置
  */
 @Route(path = ARouterConfig.My.My_Security_Setting, name = "安全设置")
-public class SecuritySettingActivity extends BaseActivity implements PasswordFragment.PasswordClickListener {
+public class SecuritySettingActivity extends BaseActivity implements Password30PFragment.PasswordClickListener {
 
     @Autowired(name = "title")
     String mTitle;
@@ -88,7 +87,7 @@ public class SecuritySettingActivity extends BaseActivity implements PasswordFra
             updateViewStatus(position,"");
         }else if(position==1){
             //免密码输入
-            PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getName(),this,position);
+            Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30PFragment.class.getName(),this,position,false);
         }
     }
 

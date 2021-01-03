@@ -115,19 +115,19 @@ public class MyHelper {
         balance.chain= BHConstants.BHT_TOKEN;
         balance.symbol = BHConstants.BHT_TOKEN;
 
-        List<AccountInfo.AssetsBean> assetsBeanList = accountInfo.getAssets();
+        List<AccountInfo.AssetsBean> assetsBeanList = accountInfo.assets;
         if(assetsBeanList==null || assetsBeanList.size()==0){
             return balance;
         }
 
         for(AccountInfo.AssetsBean assetsBean:assetsBeanList){
-            if(assetsBean.getSymbol().equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-                balance.symbol = assetsBean.getSymbol();
+            if(assetsBean.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+                balance.symbol = assetsBean.symbol;
                 BHToken bhToken = SymbolCache.getInstance().getBHToken(balance.symbol);
                 balance.chain = bhToken.chain;
-                balance.amount = assetsBean.getAmount();
-                balance.frozen_amount = assetsBean.getFrozen_amount();
-                balance.address = assetsBean.getExternal_address();
+                balance.amount = assetsBean.amount;
+                balance.frozen_amount = assetsBean.frozen_amount;
+                balance.address = assetsBean.external_address;
             }
         }
 

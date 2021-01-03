@@ -441,7 +441,7 @@ public class WalletViewModel extends ViewModel {
                 bhWalletDao.deleteByAddress(bh_address);
             }
 
-            Credentials credentials = BHUserManager.getInstance().getTmpCredentials();
+            Credentials credentials = BHWalletUtils.verifyKeystore(keyStore,pwd);
             BHWallet bhWallet = BHWalletUtils.importKeyStoreExt(credentials,name,pwd);
             //当前
             int maxId = bhWalletDao.loadMaxId();
@@ -498,7 +498,7 @@ public class WalletViewModel extends ViewModel {
             }else{
                 emitter.onNext(BH_BUSI_TYPE.托管单元不存在.value);
             }
-            BHUserManager.getInstance().setTmpCredentials(credentials);
+            //BHUserManager.getInstance().setTmpCredentials(credentials);
             emitter.onComplete();
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))

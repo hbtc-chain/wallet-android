@@ -21,6 +21,7 @@ import com.bhex.wallet.bh_main.my.helper.MyHelper;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_URL;
 import com.bhex.wallet.common.model.UpgradeInfo;
 import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
@@ -84,28 +85,16 @@ public class AboutActivity extends BaseActivity {
     private void clickItemAction(BaseQuickAdapter<?,?> baseQuickAdapter, View view, int i) {
         switch (i){
             case 0:
-                {
-                    Locale locale = LocalManageUtil.getSetLanguageLocale(this);
-                    if(locale.getLanguage().contains("zh")){
-                        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.版本更新日志).navigation();
-                    }else{
-                        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.版本更新日志).navigation();
-                    }
-                }
+                ARouter.getInstance().build(ARouterConfig.Market.market_webview)
+                        .withString("url", BH_BUSI_URL.版本更新日志.getGotoUrl(this)).navigation();
                 break;
             case 1:
                 isCheckUpdate = true;
                 mUpgradeVM.getUpgradeInfo(this);
                 break;
             case 2:
-                {
-                    Locale locale = LocalManageUtil.getSetLanguageLocale(this);
-                    if(locale.getLanguage().contains("zh")){
-                        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.联系我们).navigation();
-                    }else{
-                        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.联系我们).navigation();
-                    }
-                }
+                ARouter.getInstance().build(ARouterConfig.Market.market_webview)
+                    .withString("url", BH_BUSI_URL.联系我们.getGotoUrl(this)).navigation();
                 break;
         }
     }

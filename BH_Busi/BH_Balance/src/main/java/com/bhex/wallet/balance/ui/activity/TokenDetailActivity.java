@@ -47,7 +47,6 @@ import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -349,12 +348,12 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
 
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30Fragment.class.getSimpleName(),withDrawPwdListener,1,true);
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30PFragment.class.getSimpleName(),withDrawPwdListener,1,true);
     });
 
     //发送复投分红交易
     private ReInvestShareFragment.FragmentItemListener fragmentItemListener = (position -> {
-        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30Fragment.class.getSimpleName(),withDrawPwdListener,2,true);
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30PFragment.class.getSimpleName(),withDrawPwdListener,2,true);
     });
 
     @Subscribe(threadMode = ThreadMode.MAIN)

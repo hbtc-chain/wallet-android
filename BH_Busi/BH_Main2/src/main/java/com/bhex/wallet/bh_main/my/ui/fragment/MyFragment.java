@@ -1,28 +1,23 @@
 package com.bhex.wallet.bh_main.my.ui.fragment;
 
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.ColorUtil;
-import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.CircleView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
@@ -35,22 +30,20 @@ import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
 import com.bhex.wallet.bh_main.my.ui.activity.SettingActivity;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.bh_main.my.viewmodel.MessageViewModel;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.enums.BH_BUSI_URL;
 import com.bhex.wallet.common.event.AccountEvent;
-import com.bhex.wallet.common.helper.AssetHelper;
+import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.model.UpgradeInfo;
-import com.bhex.wallet.common.ui.fragment.CommonFragment;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
-import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
-import com.google.android.material.card.MaterialCardView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -131,7 +124,7 @@ public class MyFragment extends BaseFragment  {
 
         recycler_my.addItemDecoration(myRecyclerDivider);
         tv_username.setText(mBhWallet.getName());
-        AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
+        BHWalletHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
         msgViewModel = ViewModelProviders.of(this).get(MessageViewModel.class);
 
@@ -175,24 +168,15 @@ public class MyFragment extends BaseFragment  {
                     break;
 
                 case 公告:
-                    {
-                        Locale locale = LocalManageUtil.getSetLanguageLocale(getContext());
-                        if(locale.getLanguage().contains("zh")){
-                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.公告).navigation();
-                        }else{
-                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.公告).navigation();
-                        }
-                    }
+                    ARouter.getInstance().build(ARouterConfig.Market.market_webview)
+                            .withString("url",BH_BUSI_URL.公告.getGotoUrl(getContext()))
+                            .navigation();
+
                     break;
                 case 帮助中心:
-                    {
-                        Locale locale = LocalManageUtil.getSetLanguageLocale(getContext());
-                        if(locale.getLanguage().contains("zh")){
-                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.帮助中心).navigation();
-                        }else{
-                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.帮助中心).navigation();
-                        }
-                    }
+                    ARouter.getInstance().build(ARouterConfig.Market.market_webview)
+                            .withString("url",BH_BUSI_URL.帮助中心.getGotoUrl(getContext()))
+                            .navigation();
                     break;
             }
         });
@@ -303,7 +287,7 @@ public class MyFragment extends BaseFragment  {
     public void changeAccount(AccountEvent walletEvent){
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_username.setText(mBhWallet.getName());
-        AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
+        BHWalletHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
         mItems = MyHelper.getAllItems(getYActivity());
         mMyAdapter.getData().clear();

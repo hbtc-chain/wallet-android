@@ -22,7 +22,6 @@ import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.ui.fragment.Password30PFragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
 import com.bhex.wallet.mnemonic.R;
 
 /**
@@ -81,7 +80,7 @@ public class SecureTipsFragment extends BaseBottomSheetDialog implements View.On
         if(v.getId()==R.id.btn_at_once){
             //NavigateUtil.startActivity(getActivity(), BackupMnemonicActivity.class);
             Password30PFragment.showPasswordDialog(getChildFragmentManager(),
-                    PasswordFragment.class.getName(),
+                    Password30PFragment.class.getName(),
                     SecureTipsFragment.this,0,false);
             return;
         }

@@ -248,7 +248,6 @@ public class BHWalletUtils {
             }
 
             String raw_json = JsonUtils.toJson(walletFile);
-
             //私钥加密
             String encryptPK = CryptoUtil.encryptPK(keyPair.getPrivateKey(),pwd);
             bhWallet = BHUserManager.getInstance().getTmpBhWallet();

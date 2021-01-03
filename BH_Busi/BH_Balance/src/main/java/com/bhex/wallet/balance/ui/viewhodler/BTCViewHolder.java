@@ -11,17 +11,16 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.alibaba.android.arouter.core.LogisticsCenter;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
-import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
-import com.bhex.wallet.common.helper.AssetHelper;
+import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 
@@ -102,9 +101,9 @@ public class BTCViewHolder {
         }
         tv_token_name.setText(mBalance.symbol.toUpperCase());
         tv_hbc_address.setTag(BHUserManager.getInstance().getCurrentBhWallet().address);
-        AssetHelper.proccessAddress(tv_hbc_address,BHUserManager.getInstance().getCurrentBhWallet().address);
+        BHWalletHelper.proccessAddress(tv_hbc_address,BHUserManager.getInstance().getCurrentBhWallet().address);
         tv_token_address.setTag(mBalance.external_address);
-        AssetHelper.proccessAddress(tv_token_address,mBalance.external_address);
+        BHWalletHelper.proccessAddress(tv_token_address,mBalance.external_address);
         if(TextUtils.isEmpty(mBalance.external_address)){
             btn_make_address.setVisibility(View.VISIBLE);
             layout_btc_address.setVisibility(View.GONE);

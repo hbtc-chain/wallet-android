@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.view.View;
 import android.widget.Toast;
@@ -19,21 +18,18 @@ import androidx.lifecycle.ViewModelProviders;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.NavigateUtil;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
-import com.bhex.wallet.common.helper.AssetHelper;
+import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHWalletItem;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.ui.fragment.AddressFragment;
-
-import org.spongycastle.util.Fingerprint;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -83,7 +79,7 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());
-        AssetHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
+        BHWalletHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
         startAuthFingerPrint();
 
     }
@@ -190,7 +186,7 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
             mCurrentWallet = bhWallet;
             BHUserManager.getInstance().setCurrentBhWallet(mCurrentWallet);
             walletVM.updateWallet(this, mCurrentWallet, mCurrentWallet.id, BHWalletItem.SELECTED);
-            AssetHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
+            BHWalletHelper.proccessAddress(tv_bh_address, mCurrentWallet.getAddress());
             iv_username.setText(mCurrentWallet.getName());
         }
     }

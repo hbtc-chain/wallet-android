@@ -18,6 +18,7 @@ import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.StringUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -118,6 +119,8 @@ public class ImportKeystoreNextActivity extends BaseCacheActivity<TrusteeshipPre
             String keyStore = BHUserManager.getInstance().getTmpBhWallet().getKeystorePath();
 
             walletViewModel.importKeyStore(this,keyStore,name,password);
+
+            ToolUtils.hintKeyBoard(this);
         }
     }
 

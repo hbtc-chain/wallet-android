@@ -1,5 +1,9 @@
 package com.bhex.wallet.common.model;
 
+import android.util.ArrayMap;
+
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 /**
@@ -22,17 +26,17 @@ public class AccountInfo {
      * unclaimed_reward : 0
      */
 
-    private String type;
-    private String address;
-    private String sequence;
-    private String available;
-    private String bonded;
-    private String unbonding;
-    private String claimed_reward;
-    private String unclaimed_reward;
-    private List<AssetsBean> assets;
+    public String type;
+    public String address;
+    public String sequence;
+    public String available;
+    public String bonded;
+    public String unbonding;
+    public String claimed_reward;
+    public String unclaimed_reward;
+    public List<AssetsBean> assets;
 
-    public String getType() {
+    /*public String getType() {
         return type;
     }
 
@@ -102,7 +106,7 @@ public class AccountInfo {
 
     public void setAssets(List<AssetsBean> assets) {
         this.assets = assets;
-    }
+    }*/
 
     public static class AssetsBean {
         /**
@@ -114,14 +118,14 @@ public class AccountInfo {
          * frozen_amount : 0
          */
 
-        private String symbol;
-        private boolean is_native;
-        private String amount;
-        private String external_address;
-        private boolean enable_sendtx;
-        private String frozen_amount;
+        public String symbol;
+        public boolean is_native;
+        public String amount;
+        public String external_address;
+        public boolean enable_sendtx;
+        public String frozen_amount;
 
-        public String getSymbol() {
+        /*public String getSymbol() {
             return symbol;
         }
 
@@ -167,6 +171,8 @@ public class AccountInfo {
 
         public void setFrozen_amount(String frozen_amount) {
             this.frozen_amount = frozen_amount;
-        }
+        }*/
     }
+
+
 }

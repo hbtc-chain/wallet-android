@@ -283,11 +283,11 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 .observeOn(Schedulers.io())
                 .flatMap(jsonObject -> {
                     AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
-                    if(TextUtils.isEmpty(accountInfo.getSequence())){
+                    if(TextUtils.isEmpty(accountInfo.sequence)){
                         return null;
                     }
                     
-                    BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,accountInfo.getSequence(),feeAmount,txMsgList);
+                    BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,accountInfo.sequence,feeAmount,txMsgList);
                     String body = JsonUtils.toJson(bhSendTranscation);
                     RequestBody txBody = HUtils.createJson(body);
                     return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);
@@ -324,12 +324,12 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 .observeOn(Schedulers.io())
                 .flatMap(jsonObject -> {
                     AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
-                    if(TextUtils.isEmpty(accountInfo.getSequence())){
+                    if(TextUtils.isEmpty(accountInfo.sequence)){
                         return null;
                     }
 
                     BHSendTranscation bhSendTranscation =
-                            BHTransactionManager.create_dex_transcation(type,json,accountInfo.getSequence(),data);
+                            BHTransactionManager.create_dex_transcation(type,json,accountInfo.sequence,data);
                     String body = JsonUtils.toJson(bhSendTranscation);
                     RequestBody txBody = HUtils.createJson(body);
                     return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);

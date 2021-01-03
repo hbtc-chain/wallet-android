@@ -43,7 +43,7 @@ public class BHUserManager {
     //当前使用的钱包
     private BHWallet mCurrentBhWallet;
 
-    private Credentials tmpCredentials;
+    //private Credentials tmpCredentials;
 
     //资产账户信息
     private AccountInfo mAccountInfo;
@@ -136,6 +136,8 @@ public class BHUserManager {
 
     public synchronized void setAccountInfo(AccountInfo accountInfo) {
         this.mAccountInfo = accountInfo;
+        //更新状态
+
     }
 
     public List<String> getWordList() {
@@ -183,17 +185,18 @@ public class BHUserManager {
 
 
 
-    public void setTmpCredentials(Credentials tmpCredentials) {
+   /* public void setTmpCredentials(Credentials tmpCredentials) {
         this.tmpCredentials = tmpCredentials;
-    }
+    }*/
 
-    public Credentials getTmpCredentials() {
+    /*public Credentials getTmpCredentials() {
         return tmpCredentials;
-    }
+    }*/
 
     public void clear(){
-        tmpCredentials = null;
+        //tmpCredentials = null;
         //targetClass = null;
+        AddressGenaratorManager.getInstance().map.clear();
         MainActivityManager._instance.setTargetClass(null);
         tmpBhWallet = new BHWallet();
     }
