@@ -29,8 +29,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.android.material.button.MaterialButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -46,7 +45,7 @@ import butterknife.OnClick;
  * 投票
  */
 @Route(path = ARouterConfig.Proposal.Do_Veto)
-public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Password30Fragment.PasswordClickListener  {
+public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Password30PFragment.PasswordClickListener  {
 
     @Autowired(name = "proposalInfo")
     ProposalInfo mProposalInfo;
@@ -235,22 +234,22 @@ public class DoVetoActivity extends BaseActivity<DoVetoPresenter> implements Pas
             return;
         }
 
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),
-                PasswordFragment.class.getName(),
-                this,0);
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30PFragment.class.getName(),
+                this,0,true);
     }
 
     private void updateAssets(AccountInfo data) {
         if (data == null) {
             return;
         }
-        List<AccountInfo.AssetsBean> list = data.getAssets();
+        List<AccountInfo.AssetsBean> list = data.assets;
         if (list == null || list.size() == 0) {
             return;
         }
         for (AccountInfo.AssetsBean item : list) {
-            if (item.getSymbol().equalsIgnoreCase(token)) {
-                available_amount = mPresenter.getAmountForUser(item.getAmount(), item.getFrozen_amount(), token);
+            if (item.symbol.equalsIgnoreCase(token)) {
+                available_amount = mPresenter.getAmountForUser(item.amount, item.frozen_amount, token);
                 tv_available_amount.setText(getString(R.string.available_format,available_amount + token.toUpperCase()));
             }
         }

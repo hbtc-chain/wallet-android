@@ -28,6 +28,7 @@ import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.cache.RatesCache;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.manager.AddressGenaratorManager;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHRates;
@@ -80,6 +81,9 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
                 if(accountInfo!=null){
                     BHUserManager.getInstance().setAccountInfo(accountInfo);
+                    //移除正在生成中的地址
+                    AddressGenaratorManager.getInstance().removeAddressStatus(accountInfo);
+
                 }
                 LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
             }
@@ -107,7 +111,6 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         balacne_list = balacne_list.replace("_",",").toUpperCase();
         /*Map<String,String> params = new HashMap<>();
         params.put("symbols",balacne_list);
-
         LogUtils.d("abc===>:","json=="+JsonUtils.toJson(params));
         RequestBody txBody = HUtils.createFile(JsonUtils.toJson(params));*/
 

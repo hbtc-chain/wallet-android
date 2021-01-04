@@ -6,8 +6,8 @@
     <string name="reinvset_share">复投分红</string>
     <string name="entrust_relive_entrust">委托/解委托</string>
     <string name="withdraw_reward">提取收益</string>
-    <string name="swap">映射</string>
-    <string name="mapping_swap">映射兑换</string>
+    <string name="swap">兑换</string>
+    <string name="mapping_swap">映射</string>
     <string name="add_liquidity">添加流动性</string>
     <string name="remove_liquidity">移除流动性</string>
     <string name="limit_swap">限价单兑换</string>

@@ -21,6 +21,8 @@ import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.HexUtils;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
+import com.bhex.wallet.common.crypto.wallet.HWallet;
+import com.bhex.wallet.common.crypto.wallet.HWalletFile;
 import com.bhex.wallet.common.db.AppDataBase;
 import com.bhex.wallet.common.db.dao.BHWalletDao;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -30,10 +32,12 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.utils.BHKey;
 import com.bhex.wallet.common.utils.BHWalletUtils;
 import com.bhex.wallet.common.utils.LiveDataBus;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import org.web3j.crypto.Credentials;
+import org.web3j.protocol.ObjectMapperFactory;
 
 import java.util.List;
 
@@ -61,6 +65,7 @@ public class WalletViewModel extends ViewModel {
 
     public MutableLiveData<LoadDataModel<BHWallet>> deleteLiveData = new MutableLiveData<>();
 
+    private static ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
 
     public WalletViewModel() {
         bhWalletDao = AppDataBase.getInstance(BaseApplication.getInstance()).bhWalletDao();
@@ -289,6 +294,7 @@ public class WalletViewModel extends ViewModel {
                 LoadDataModel loadDataModel = new LoadDataModel(code,"");
                 mutableLiveData.postValue(loadDataModel);
             }
+
         };
 
         Observable.create((emitter)->{
@@ -308,7 +314,6 @@ public class WalletViewModel extends ViewModel {
                 e.printStackTrace();
                 emitter.onError(e);
             }
-
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(pbo);
@@ -436,7 +441,7 @@ public class WalletViewModel extends ViewModel {
                 bhWalletDao.deleteByAddress(bh_address);
             }
 
-            Credentials credentials = BHUserManager.getInstance().getTmpCredentials();
+            Credentials credentials = BHWalletUtils.verifyKeystore(keyStore,pwd);
             BHWallet bhWallet = BHWalletUtils.importKeyStoreExt(credentials,name,pwd);
             //当前
             int maxId = bhWalletDao.loadMaxId();
@@ -493,10 +498,57 @@ public class WalletViewModel extends ViewModel {
             }else{
                 emitter.onNext(BH_BUSI_TYPE.托管单元不存在.value);
             }
-            BHUserManager.getInstance().setTmpCredentials(credentials);
+            //BHUserManager.getInstance().setTmpCredentials(credentials);
             emitter.onComplete();
         }).compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
+                .subscribe(observer);
+    }
+
+
+    public void verifyKeystore(Fragment fragment,String keyStore,String pwd){
+        BHBaseObserver observer = new BHBaseObserver<String>(false) {
+            @Override
+            protected void onSuccess(String result) {
+                LoadDataModel ldm = new LoadDataModel(result);
+                mutableLiveData.postValue(ldm);
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel ldm = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(ldm);
+            }
+        };
+
+        Observable.create(emitter -> {
+            String bh_address = "" ;
+            Credentials credentials = BHWalletUtils.verifyKeystore(keyStore,pwd);
+            if(credentials!=null){
+                bh_address = BHKey.getBhexUserDpAddress(credentials.getEcKeyPair().getPublicKey());
+                //存储密文
+                BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
+                currentWallet.password = MD5.generate(pwd);
+                //加密后的私钥
+                String encryptPK = CryptoUtil.encryptPK(credentials.getEcKeyPair().getPrivateKey(),pwd);
+                currentWallet.privateKey = encryptPK;
+                //加密后的助记词
+                //解密助记词
+                BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+                HWalletFile walletFile = objectMapper.readValue(bhWallet.keystorePath, HWalletFile.class);
+                if(!TextUtils.isEmpty(walletFile.encMnemonic)){
+                    String orgin_mnemonic = HWallet.解密_M(walletFile.encMnemonic,pwd,walletFile);
+                    LogUtils.d("orgin_mnemonic==",orgin_mnemonic);
+                    //加密助记词
+                    String encrypt_mnemonic = CryptoUtil.encryptMnemonic(orgin_mnemonic,pwd);
+                    bhWallet.setMnemonic(encrypt_mnemonic);
+                }
+            }
+            emitter.onNext(bh_address);
+            emitter.onComplete();
+        }).compose(RxSchedulersHelper.io_main())
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(fragment)))
                 .subscribe(observer);
     }
 
@@ -523,25 +575,30 @@ public class WalletViewModel extends ViewModel {
 
         Observable.create((emitter)->{
             try{
-                String pwdMd5 = MD5.generate(newPwd);
+                //String pwdMd5 = MD5.generate(newPwd);
                 //bhWallet.password = pwdMd5;
                 //解密私钥
-                byte[] originPK = CryptoUtil.decrypt(HexUtils.toBytes(bhWallet.privateKey),MD5.md5(oldPwd));
+                //byte[] originPK = CryptoUtil.decrypt(HexUtils.toBytes(bhWallet.privateKey),MD5.md5(oldPwd));
                 //加密私钥
-                byte[] newEnPK = CryptoUtil.encrypt(originPK,MD5.md5(newPwd));
-                bhWallet.privateKey = HexUtils.toHex(newEnPK);
+                //byte[] newEnPK = CryptoUtil.encrypt(originPK,MD5.md5(newPwd));
+                //bhWallet.privateKey = HexUtils.toHex(newEnPK);
                 //解密助记词
-                if(!TextUtils.isEmpty(bhWallet.mnemonic)){
+                /*if(!TextUtils.isEmpty(bhWallet.mnemonic)){
                     //解密助记词
                     byte [] originMnemonic = CryptoUtil.decrypt(HexUtils.toBytes(bhWallet.mnemonic),MD5.md5(oldPwd));
                     //加密助记词
                     byte [] newEnMnemonic = CryptoUtil.encrypt(originMnemonic,MD5.md5(newPwd));
                     bhWallet.mnemonic = HexUtils.toHex(newEnMnemonic);
-                }
-
-                bhWallet.password = pwdMd5;
+                }*/
+                //bhWallet.password = pwdMd5;
 
                 //int res = bhWalletDao.updatePassword(bhWallet.id,pwdMd5);
+                //更新KeyStore
+                String newKeyStore = BHWalletUtils.updateKeyStore(bhWallet.keystorePath,oldPwd,newPwd);
+                bhWallet.setMnemonic("");
+                bhWallet.password="";
+                bhWallet.setKeystorePath(newKeyStore);
+                LogUtils.d("newKeyStore=="+newKeyStore);
                 int res = bhWalletDao.update(bhWallet);
                 if(res>0){
                     //更新钱包列表

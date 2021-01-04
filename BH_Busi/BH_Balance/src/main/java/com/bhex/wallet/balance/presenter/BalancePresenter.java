@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.base.BasePresenter;
 import com.bhex.tools.constants.BHConstants;
@@ -107,19 +108,19 @@ public class BalancePresenter extends BasePresenter {
     public double calculateAllTokenPrice(Context context,AccountInfo accountInfo, List<BHChain> mOriginBalanceList){
         double allTokenPrice = 0;
 
-        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        List<AccountInfo.AssetsBean> list = accountInfo.assets;
         if(list==null || list.size()==0){
             return allTokenPrice;
         }
         Map<String,AccountInfo.AssetsBean> map = new HashMap<>();
         for(AccountInfo.AssetsBean bean:list){
-            map.put(bean.getSymbol(),bean);
+            map.put(bean.symbol,bean);
             //计算每一个币种的资产价值
 
-            double amount = TextUtils.isEmpty(bean.getAmount())?0:Double.valueOf(bean.getAmount());
+            double amount = TextUtils.isEmpty(bean.amount)?0:Double.valueOf(bean.amount);
 
             //法币价值
-            double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,bean.getSymbol());
+            double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,bean.symbol);
 
             //LogUtils.d("BalanceFragment==>:","amount==="+bean.getAmount()+"=="+symbolPrice);
             double asset = NumberUtil.mul(String.valueOf(amount),String.valueOf(symbolPrice));
@@ -225,20 +226,20 @@ public class BalancePresenter extends BasePresenter {
         balance.chain= BHConstants.BHT_TOKEN;
         balance.symbol = BHConstants.BHT_TOKEN;
 
-        List<AccountInfo.AssetsBean> assetsBeanList = accountInfo.getAssets();
+        List<AccountInfo.AssetsBean> assetsBeanList = accountInfo.assets;
         if(assetsBeanList==null || assetsBeanList.size()==0){
             return balance;
         }
 
         for(AccountInfo.AssetsBean assetsBean:assetsBeanList){
-            if(assetsBean.getSymbol().equalsIgnoreCase(BHConstants.BHT_TOKEN)){
-                balance.symbol = assetsBean.getSymbol();
+            if(assetsBean.symbol.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+                balance.symbol = assetsBean.symbol;
                 //balance.chain = assetsBean.getSymbol();
                 BHToken bhToken = SymbolCache.getInstance().getBHToken(balance.symbol);
                 balance.chain = bhToken.chain;
-                balance.amount = assetsBean.getAmount();
-                balance.frozen_amount = assetsBean.getFrozen_amount();
-                balance.address = assetsBean.getExternal_address();
+                balance.amount = assetsBean.amount;
+                balance.frozen_amount = assetsBean.frozen_amount;
+                balance.address = assetsBean.external_address;
             }
         }
 
@@ -253,14 +254,14 @@ public class BalancePresenter extends BasePresenter {
      */
     public boolean isSmallToken(AccountInfo accountInfo,String symbol){
         boolean flag = true;
-        if(accountInfo.getAssets()==null ||accountInfo.getAssets().size()==0 ){
+        if(ToolUtils.checkListIsEmpty(accountInfo.assets)){
             return flag;
         }
 
-        for(AccountInfo.AssetsBean assetsBean:accountInfo.getAssets()){
-            if(assetsBean.getSymbol().equalsIgnoreCase(symbol)
-                && !TextUtils.isEmpty(assetsBean.getAmount())
-                && Double.valueOf(assetsBean.getAmount())>0){
+        for(AccountInfo.AssetsBean assetsBean:accountInfo.assets){
+            if(assetsBean.symbol.equalsIgnoreCase(symbol)
+                && !TextUtils.isEmpty(assetsBean.amount)
+                && Double.valueOf(assetsBean.amount)>0){
                 flag = false;
                 return flag;
             }

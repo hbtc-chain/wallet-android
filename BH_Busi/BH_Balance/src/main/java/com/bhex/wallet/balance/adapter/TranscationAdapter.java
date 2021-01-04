@@ -16,6 +16,7 @@ import com.bhex.wallet.balance.model.TxOrderItem;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -91,8 +92,12 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
                 double amount = NumberUtil.divide(transferBean.getAmount().get(0).getAmount(), String.valueOf(Math.pow(10,decimals)),decimals);
 
                 String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(amount+"");
-
-                viewHolder.setText(R.id.tv_amount, amount_str+transferBean.getAmount().get(0).getDenom().toUpperCase());
+                BHToken denomToken = SymbolCache.getInstance().getBHToken(transferBean.getAmount().get(0).getDenom());
+                if(denomToken!=null){
+                    viewHolder.setText(R.id.tv_amount, amount_str+denomToken.name.toUpperCase());
+                }else{
+                    viewHolder.setText(R.id.tv_amount, "");
+                }
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -116,9 +121,12 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             int decimals = SymbolCache.getInstance().getDecimals(depositBean.symbol);
             double amount = NumberUtil.divide(depositBean.amount, String.valueOf(Math.pow(10,decimals)),decimals);
             String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(amount+"");
-
-            viewHolder.setText(R.id.tv_amount, amount_str+depositBean.symbol.toUpperCase());
-
+            BHToken denomToken = SymbolCache.getInstance().getBHToken(depositBean.symbol);
+            if(denomToken!=null){
+                viewHolder.setText(R.id.tv_amount, amount_str+denomToken.name.toUpperCase());
+            }else{
+                viewHolder.setText(R.id.tv_amount, "");
+            }
         }else if(TRANSCATION_BUSI_TYPE.跨链提币.getType().equalsIgnoreCase(activitiesBean.type)){
             TransactionOrder.ActivitiesBean.WithdrawalBean withdrawalBean = JsonUtils.fromJson(activitiesBean.value.toString(),
                     TransactionOrder.ActivitiesBean.WithdrawalBean.class);
@@ -134,7 +142,13 @@ public class TranscationAdapter extends BaseQuickAdapter<TransactionOrder.Activi
             int decimals = SymbolCache.getInstance().getDecimals(withdrawalBean.symbol);
             double amount = NumberUtil.divide(withdrawalBean.amount, String.valueOf(Math.pow(10,decimals)),decimals);
             String amount_str = NumberUtil.dispalyForUsertokenAmount4Level(amount+"");
-            viewHolder.setText(R.id.tv_amount, amount_str+withdrawalBean.symbol.toUpperCase());
+            BHToken denomToken = SymbolCache.getInstance().getBHToken(withdrawalBean.symbol);
+            if(denomToken!=null){
+                viewHolder.setText(R.id.tv_amount, amount_str+denomToken.name.toUpperCase());
+            }else{
+                viewHolder.setText(R.id.tv_amount, "");
+            }
+            //viewHolder.setText(R.id.tv_amount, amount_str+withdrawalBean.symbol.toUpperCase());
         }else {
             viewHolder.itemView.setVisibility(View.GONE);
         }

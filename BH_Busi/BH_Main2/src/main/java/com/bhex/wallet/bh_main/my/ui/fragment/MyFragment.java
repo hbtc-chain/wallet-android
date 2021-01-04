@@ -1,27 +1,23 @@
 package com.bhex.wallet.bh_main.my.ui.fragment;
 
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bhex.tools.language.LocalManageUtil;
-import com.bhex.tools.utils.ColorUtil;
-import com.bhex.tools.utils.LogUtils;
-import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.widget.CircleView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
-import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.language.LocalManageUtil;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.bh_main.R;
@@ -34,20 +30,20 @@ import com.bhex.wallet.bh_main.my.ui.MyRecyclerViewDivider;
 import com.bhex.wallet.bh_main.my.ui.activity.SettingActivity;
 import com.bhex.wallet.bh_main.my.ui.item.MyItem;
 import com.bhex.wallet.bh_main.my.viewmodel.MessageViewModel;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.enums.BH_BUSI_URL;
 import com.bhex.wallet.common.event.AccountEvent;
-import com.bhex.wallet.common.helper.AssetHelper;
+import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.model.UpgradeInfo;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.ui.fragment.UpgradeFragment;
-import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.UpgradeViewModel;
-import com.google.android.material.card.MaterialCardView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,7 +60,7 @@ import butterknife.OnClick;
  * 2020-3-12
  * 我的
  */
-public class MyFragment extends BaseFragment implements PasswordFragment.PasswordClickListener {
+public class MyFragment extends BaseFragment  {
 
     @BindView(R2.id.recycler_my)
     RecyclerView recycler_my;
@@ -85,10 +81,10 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     AppCompatImageView iv_edit;
 
     @BindView(R2.id.layout_index_2)
-    MaterialCardView layout_index_2;
+    CardView layout_index_2;
 
     @BindView(R2.id.layout_index_3)
-    MaterialCardView layout_index_3;
+    CardView layout_index_3;
 
     @BindView(R2.id.iv_message_tip)
     CircleView iv_message_tip;
@@ -128,7 +124,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
 
         recycler_my.addItemDecoration(myRecyclerDivider);
         tv_username.setText(mBhWallet.getName());
-        AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
+        BHWalletHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
         msgViewModel = ViewModelProviders.of(this).get(MessageViewModel.class);
 
@@ -146,22 +142,18 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
             MyItem item = mItems.get(position);
             switch (BUSI_MY_TYPE.getType(item.id)){
                 case 备份助记词:
-                    PasswordFragment.showPasswordDialog(getChildFragmentManager(),
-                            PasswordFragment.class.getName(),
-                            MyFragment.this,item.id);
-
+                    Password30PFragment.showPasswordDialog(getChildFragmentManager(),Password30PFragment.class.getName(),
+                            this::passwordListener,item.id,false);
                     break;
                 case 备份私钥:
                     //提醒页
-                    PasswordFragment.showPasswordDialog(getChildFragmentManager(),
-                            PasswordFragment.class.getName(),
-                            MyFragment.this,item.id);
+                    Password30PFragment.showPasswordDialog(getChildFragmentManager(),Password30PFragment.class.getName(),
+                            this::passwordListener,item.id,false);
                     break;
                 case 备份KS:
                     //提醒页
-                    PasswordFragment.showPasswordDialog(getChildFragmentManager(),
-                            PasswordFragment.class.getName(),
-                            MyFragment.this,item.id);
+                    Password30PFragment.showPasswordDialog(getChildFragmentManager(),Password30PFragment.class.getName(),
+                            this::passwordListener,item.id,false);
                     break;
 
                 case 关于我们:
@@ -176,38 +168,18 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                     break;
 
                 case 公告:
-                    {
-                        Locale locale = LocalManageUtil.getSetLanguageLocale(getContext());
-                        if(locale.getLanguage().contains("zh")){
-                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.公告).navigation();
-                        }else{
-                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.公告).navigation();
-                        }
-                    }
+                    ARouter.getInstance().build(ARouterConfig.Market.market_webview)
+                            .withString("url",BH_BUSI_URL.公告.getGotoUrl(getContext()))
+                            .navigation();
+
                     break;
                 case 帮助中心:
-                    {
-                        Locale locale = LocalManageUtil.getSetLanguageLocale(getContext());
-                        if(locale.getLanguage().contains("zh")){
-                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.中文.帮助中心).navigation();
-                        }else{
-                            ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",ARouterConfig.英文.帮助中心).navigation();
-                        }
-                    }
+                    ARouter.getInstance().build(ARouterConfig.Market.market_webview)
+                            .withString("url",BH_BUSI_URL.帮助中心.getGotoUrl(getContext()))
+                            .navigation();
                     break;
             }
         });
-
-        /*mMyAdapter.setOnItemLongClickListener((adapter, view, position) -> {
-            MyItem item = mItems.get(position);
-            switch (item.id){
-                case 6:
-                    ToastUtils.showToast(getResources().getString(R.string.copyed));
-                    ToolUtils.copyText(item.rightTxt,getYActivity());
-                    break;
-            }
-            return true;
-        });*/
 
         //助记词备份订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Mnemonic_Back, LoadDataModel.class).observe(this, ldm->{
@@ -230,6 +202,33 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
                 }
             }
         });
+    }
+
+    //消息查询
+    private void passwordListener(String password,int position,int way) {
+        //备份助记词
+        LogUtils.d("MyFragments===>:","position==="+position);
+        //MyItem item = mItems.get(position);
+        if(position==BUSI_MY_TYPE.备份助记词.index){
+            ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
+                    .navigation();
+        }else if(position==BUSI_MY_TYPE.备份私钥.index){
+            String title = MyHelper.getTitle(getYActivity(),position);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
+                    .withString("title",title)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
+                    .withString("flag", BH_BUSI_TYPE.备份私钥.value)
+                    .navigation();
+        }else if(position==BUSI_MY_TYPE.备份KS.index){
+            String title = MyHelper.getTitle(getYActivity(),position);
+            //提醒页
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
+                    .withString("title",title)
+                    .withString(BHConstants.INPUT_PASSWORD,password)
+                    .withString("flag",BH_BUSI_TYPE.备份KS.value)
+                    .navigation();
+        }
     }
 
     @Override
@@ -288,7 +287,7 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
     public void changeAccount(AccountEvent walletEvent){
         mBhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_username.setText(mBhWallet.getName());
-        AssetHelper.proccessAddress(tv_address,mBhWallet.getAddress());
+        BHWalletHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
         mItems = MyHelper.getAllItems(getYActivity());
         mMyAdapter.getData().clear();
@@ -302,33 +301,6 @@ public class MyFragment extends BaseFragment implements PasswordFragment.Passwor
         EventBus.getDefault().unregister(this);
     }
 
-
-    @Override
-    public void confirmAction(String password,int position,int way) {
-        //备份助记词
-        if(position==0){
-            //ARouterUtil.startActivity(ARouterConfig.MNEMONIC_BACKUP);
-            ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
-                    .withString(BHConstants.INPUT_PASSWORD,password)
-                    .navigation();
-        }else if(position==1){
-            String title = MyHelper.getTitle(getYActivity(),position);
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
-                    .withString("title",title)
-                    .withString(BHConstants.INPUT_PASSWORD,password)
-                    .withString("flag", BH_BUSI_TYPE.备份私钥.value)
-                    .navigation();
-        }else if(position==2){
-            String title = MyHelper.getTitle(getYActivity(),position);
-            //提醒页
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_EXPORT_INDEX)
-                    .withString("title",title)
-                    .withString(BHConstants.INPUT_PASSWORD,password)
-                    .withString("flag",BH_BUSI_TYPE.备份KS.value)
-                    .navigation();
-        }
-
-    }
 
     /**
      * 修改用户名

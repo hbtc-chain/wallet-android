@@ -9,12 +9,17 @@ import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.FileUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.crypto.wallet.HWallet;
+import com.bhex.wallet.common.crypto.wallet.HWalletFile;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.GasFee;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.web3j.crypto.Credentials;
+import org.web3j.protocol.ObjectMapperFactory;
+import org.web3j.utils.Numeric;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +43,7 @@ public class BHUserManager {
     //当前使用的钱包
     private BHWallet mCurrentBhWallet;
 
-    private Credentials tmpCredentials;
+    //private Credentials tmpCredentials;
 
     //资产账户信息
     private AccountInfo mAccountInfo;
@@ -131,6 +136,8 @@ public class BHUserManager {
 
     public synchronized void setAccountInfo(AccountInfo accountInfo) {
         this.mAccountInfo = accountInfo;
+        //更新状态
+
     }
 
     public List<String> getWordList() {
@@ -176,30 +183,20 @@ public class BHUserManager {
         return  gasFee;
     }
 
-    /**
-     * 解密私钥
-     */
-    public String getOriginContext(String content,String inputPwd){
-        String result = "";
-        try{
-            result = CryptoUtil.decryptPK(content,inputPwd);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return result;
-    }
 
-    public void setTmpCredentials(Credentials tmpCredentials) {
+
+   /* public void setTmpCredentials(Credentials tmpCredentials) {
         this.tmpCredentials = tmpCredentials;
-    }
+    }*/
 
-    public Credentials getTmpCredentials() {
+    /*public Credentials getTmpCredentials() {
         return tmpCredentials;
-    }
+    }*/
 
     public void clear(){
-        tmpCredentials = null;
+        //tmpCredentials = null;
         //targetClass = null;
+        AddressGenaratorManager.getInstance().map.clear();
         MainActivityManager._instance.setTargetClass(null);
         tmpBhWallet = new BHWallet();
     }

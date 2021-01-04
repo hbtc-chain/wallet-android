@@ -39,13 +39,13 @@ import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorListFragment;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
-import com.bhex.wallet.common.helper.AssetHelper;
+import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TransactionMsg;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 
@@ -117,7 +117,7 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
         tv_token_address.setTag(mBhWallet.getAddress());
 
 
-        AssetHelper.proccessAddress(tv_token_address,mBhWallet.address);
+        BHWalletHelper.proccessAddress(tv_token_address,mBhWallet.address);
         //设置背景
         LinearLayout btn_token_address =  findViewById(R.id.btn_token_address);
         GradientDrawable drawable = ShapeUtils.getRoundRectDrawable(PixelUtils.dp2px(this,50),
@@ -154,19 +154,19 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
     private void updateAssest(LoadDataModel ldm) {
         //可用数量
-        String available_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getAvailable());
+        String available_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().available);
         tv_available_amount.setText(available_value);
         //委托中
-        String bonded_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getBonded());
+        String bonded_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().bonded);
         tv_entrust_amount.setText(bonded_value);
         //赎回中
-        String unbonding_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getUnbonding());
+        String unbonding_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().unbonding);
         tv_unbonding_amount.setText(unbonding_value);
         //已收益
-        String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getClaimed_reward());
+        String claimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().claimed_reward);
         tv_claimed_reward_amount.setText(claimed_reward_value);
         //领取收益
-        String unclaimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().getUnclaimed_reward());
+        String unclaimed_reward_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().unclaimed_reward);
         tv_unclaimed_reward_amount.setText(unclaimed_reward_value);
 
     }
@@ -260,7 +260,7 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
         }
     }
 
-    Password30Fragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
+    Password30PFragment.PasswordClickListener withDrawPwdListener = (password, position,way) -> {
         List<TransactionMsg.ValidatorMsg> validatorMsgs = mPresenter.getAllValidator(mRewardList);
         List<TxReq.TxMsg> tx_msg_list = BHRawTransaction.createRewardMsg(validatorMsgs);
         mTransactionViewModel.transferInnerExt(this,password,BHUserManager.getInstance().getDefaultGasFee().displayFee,tx_msg_list);
@@ -268,7 +268,8 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
     //发送提取分红交易
     private WithDrawShareFragment.FragmentItemListener itemListener = (position -> {
-        Password30Fragment.showPasswordDialog(getSupportFragmentManager(),Password30Fragment.class.getSimpleName(),withDrawPwdListener,1);
+        Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30PFragment.class.getSimpleName(),
+                withDrawPwdListener,1,true);
     });
 
     //地址二维码

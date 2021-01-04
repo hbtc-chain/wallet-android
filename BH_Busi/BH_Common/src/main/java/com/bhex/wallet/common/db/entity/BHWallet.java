@@ -29,13 +29,15 @@ public class BHWallet {
     @ColumnInfo(name = "name")
     public String name;
 
-    @ColumnInfo(name = "password")
+    //@ColumnInfo(name = "password")
+    @Ignore
     public String password;
 
     @ColumnInfo(name = "keystorePath")
     public String keystorePath;
 
-    @ColumnInfo(name = "mnemonic")
+    //@ColumnInfo(name = "mnemonic")
+    @Ignore
     public String mnemonic;
 
     @ColumnInfo(name = "isBackup")
@@ -44,7 +46,8 @@ public class BHWallet {
     @ColumnInfo(name = "isDefault")
     public int isDefault;//1默认 0默认
 
-    @ColumnInfo(name = "privateKey")
+    //@ColumnInfo(name = "privateKey")
+    @Ignore
     public String privateKey;
 
     @ColumnInfo(name = "publicKey")

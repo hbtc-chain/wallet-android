@@ -25,7 +25,7 @@ import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.manager.SecuritySettingManager;
 import com.bhex.wallet.common.model.BHWalletItem;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.common.utils.ARouterUtil;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
 import com.bhex.wallet.mnemonic.R;
@@ -248,7 +248,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
      * @param bhWalletItem
      */
     private BHWalletItem deletBHWallet;
-    PasswordFragment passwordFrag;
+    Password30PFragment passwordFrag;
     public void deletBHWallet(BHWalletItem bhWalletItem,int position){
         deletBHWallet = bhWalletItem;
         //弹框确认
@@ -262,13 +262,13 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     //删除确认
     private void deleteAction(int i,int position) {
         if(i==1){
-            passwordFrag = PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
-                    passwordClickListener,position);
+            passwordFrag = Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30PFragment.class.getName(),
+                    passwordClickListener,position,false);
             passwordFrag.setVerifyPwdWay(BH_BUSI_TYPE.校验选择账户密码.getIntValue());
         }
     }
 
-    PasswordFragment.PasswordClickListener passwordClickListener = (password, position,way) -> {
+    Password30PFragment.PasswordClickListener passwordClickListener = (password, position,way) -> {
         if(deletBHWallet==null){
             return;
         }

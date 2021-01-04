@@ -1,5 +1,11 @@
 package com.bhex.wallet.common.utils;
 
+import com.bhex.tools.crypto.CryptoUtil;
+import com.bhex.tools.crypto.HexUtils;
+import com.bhex.tools.utils.LogUtils;
+import com.bhex.wallet.common.crypto.wallet.HWalletFile;
+import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.manager.BHUserManager;
 import com.lambdaworks.crypto.SCrypt;
 
 import org.spongycastle.crypto.digests.SHA256Digest;
@@ -8,7 +14,6 @@ import org.spongycastle.crypto.params.KeyParameter;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Hash;
-import org.web3j.crypto.WalletFile;
 import org.web3j.utils.Numeric;
 
 import java.nio.charset.Charset;
@@ -72,7 +77,8 @@ public class HLWallet {
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(encryptKey, "AES");
             cipher.init(mode, secretKeySpec, ivParameterSpec);
-            return cipher.doFinal(text);
+            byte []result = cipher.doFinal(text);
+            return result;
         } catch (NoSuchPaddingException e) {
             return throwCipherException(e);
         } catch (NoSuchAlgorithmException e) {
@@ -101,22 +107,25 @@ public class HLWallet {
         return Hash.sha3(result);
     }
 
-    public static ECKeyPair decrypt(String password, WalletFile walletFile)
+    public static ECKeyPair decrypt(String password, HWalletFile walletFile)
             throws CipherException {
 
         validate(walletFile);
 
-        WalletFile.Crypto crypto = walletFile.getCrypto();
+        HWalletFile.Crypto crypto = walletFile.getCrypto();
 
         byte[] mac = Numeric.hexStringToByteArray(crypto.getMac());
         byte[] iv = Numeric.hexStringToByteArray(crypto.getCipherparams().getIv());
         byte[] cipherText = Numeric.hexStringToByteArray(crypto.getCiphertext());
 
+        byte[] encMnemonicText = HexUtils.toBytes(walletFile.encMnemonic);
+        LogUtils.d("HWallet===>:","解密前的 encMnemonicText==="+Arrays.toString(encMnemonicText));
+
         byte[] derivedKey;
 
-        if (crypto.getKdfparams() instanceof WalletFile.ScryptKdfParams) {
-            WalletFile.ScryptKdfParams scryptKdfParams =
-                    (WalletFile.ScryptKdfParams) crypto.getKdfparams();
+        if (crypto.getKdfparams() instanceof HWalletFile.ScryptKdfParams) {
+            HWalletFile.ScryptKdfParams scryptKdfParams =
+                    (HWalletFile.ScryptKdfParams) crypto.getKdfparams();
             int dklen = scryptKdfParams.getDklen();
             int n = scryptKdfParams.getN();
             int p = scryptKdfParams.getP();
@@ -124,9 +133,9 @@ public class HLWallet {
             byte[] salt = Numeric.hexStringToByteArray(scryptKdfParams.getSalt());
             derivedKey = generateDerivedScryptKey(
                     password.getBytes(Charset.forName("UTF-8")), salt, n, r, p, dklen);
-        } else if (crypto.getKdfparams() instanceof WalletFile.Aes128CtrKdfParams) {
-            WalletFile.Aes128CtrKdfParams aes128CtrKdfParams =
-                    (WalletFile.Aes128CtrKdfParams) crypto.getKdfparams();
+        } else if (crypto.getKdfparams() instanceof HWalletFile.Aes128CtrKdfParams) {
+            HWalletFile.Aes128CtrKdfParams aes128CtrKdfParams =
+                    (HWalletFile.Aes128CtrKdfParams) crypto.getKdfparams();
             int c = aes128CtrKdfParams.getC();
             String prf = aes128CtrKdfParams.getPrf();
             byte[] salt = Numeric.hexStringToByteArray(aes128CtrKdfParams.getSalt());
@@ -145,11 +154,24 @@ public class HLWallet {
 
         byte[] encryptKey = Arrays.copyOfRange(derivedKey, 0, 16);
         byte[] privateKey = performCipherOperation(Cipher.DECRYPT_MODE, iv, encryptKey, cipherText);
+
+        //
+        byte[] encMnemonicKey = performCipherOperation(Cipher.DECRYPT_MODE, iv, encryptKey, encMnemonicText);
+        LogUtils.d("HWallet===>:","解密后的 encMnemonicText==="+Arrays.toString(encMnemonicKey));
+        //Numeric.hexStringToByteArray
+
+        LogUtils.d("HWallet===>:","解密后的 encMnemonicText==="+new String(encMnemonicKey));
+        //加密助记词保存内存中
+        String old_mnemonic = new String(encMnemonicKey);
+        BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
+        //
+        String encrypt_mnemonic = CryptoUtil.encryptMnemonic(old_mnemonic,password);
+        bhWallet.setMnemonic(encrypt_mnemonic);
         return ECKeyPair.create(privateKey);
     }
 
-    private static void validate(WalletFile walletFile) throws CipherException {
-        WalletFile.Crypto crypto = walletFile.getCrypto();
+    private static void validate(HWalletFile walletFile) throws CipherException {
+        HWalletFile.Crypto crypto = walletFile.getCrypto();
 
         if (walletFile.getVersion() != CURRENT_VERSION) {
             throw new CipherException("Wallet version is not supported");

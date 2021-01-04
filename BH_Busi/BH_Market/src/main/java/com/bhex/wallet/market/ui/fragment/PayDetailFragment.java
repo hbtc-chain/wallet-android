@@ -15,21 +15,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bhex.lib.uikit.widget.EmptyLayout;
-import com.bhex.tools.utils.ColorUtil;
-import com.bhex.tools.utils.PixelUtils;
 import com.bhex.lib.uikit.util.ShapeUtils;
+import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
 import com.bhex.tools.utils.ToolUtils;
-import com.bhex.wallet.common.db.AppDataBase;
-import com.bhex.wallet.common.db.dao.BHTokenDao;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.market.R;
 import com.bhex.wallet.market.R2;
 import com.bhex.wallet.market.event.H5SignEvent;
@@ -102,7 +99,7 @@ public class PayDetailFragment extends BaseDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         GradientDrawable drawable = ShapeUtils.getRoundRectTopDrawable(PixelUtils.dp2px(getContext(), 6),
-                ColorUtil.getColor(getContext(), R.color.app_bg), true, 0);
+                ColorUtil.getColor(getContext(), R.color.app_default_bg), true, 0);
         mRootView.setBackground(drawable);
         view.findViewById(R.id.iv_close).setOnClickListener(v -> {
             dismiss();
@@ -150,13 +147,13 @@ public class PayDetailFragment extends BaseDialogFragment {
             ToastUtils.showToast(BaseApplication.getInstance().getString(R.string.no_order));
         }else{
             mH5Sign = sign;
-            Password30Fragment.showPasswordDialog(fm,Password30Fragment.class.getName(),passwordClickListener,0);
+            Password30PFragment.showPasswordDialog(fm,Password30PFragment.class.getName(),passwordClickListener,0,true);
         }
     }
 
     @OnClick({R2.id.btn_confrim})
     public void onViewClicked(View view) {
-        Password30Fragment.showPasswordDialog(getChildFragmentManager(),Password30Fragment.class.getName(),passwordClickListener,0);
+        Password30PFragment.showPasswordDialog(getChildFragmentManager(),Password30PFragment.class.getName(),passwordClickListener,0,true);
     }
 
     public class PayDetailAdapter extends BaseQuickAdapter<PayDetailItem, BaseViewHolder> {
@@ -172,7 +169,7 @@ public class PayDetailFragment extends BaseDialogFragment {
         }
     }
 
-    Password30Fragment.PasswordClickListener passwordClickListener = (password, position, way) -> {
+    Password30PFragment.PasswordClickListener passwordClickListener = (password, position, way) -> {
         if(isAdded() && !isHidden()){
             dismiss();
         }

@@ -193,6 +193,17 @@ public class PasswordInputView extends RelativeLayout {
         changeTextAction();
     }
 
+    public void clearInputContent() {
+        for (int i = mPasswordTextViews.length - 1; i >= 0; i--) {
+            PasswordTextView tv = mPasswordTextViews[i];
+            if (!TextUtils.isEmpty(tv.getText())) {
+                tv.clearPassword();
+                mPasswordTextViews[i].setText("");
+            }
+        }
+        changeTextAction();
+    }
+
     private class InputNumberTextWatcher extends SimpleTextWatcher {
         @Override
         public void afterTextChanged(Editable editable) {

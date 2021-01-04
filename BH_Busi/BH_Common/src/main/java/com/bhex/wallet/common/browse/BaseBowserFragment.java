@@ -42,7 +42,8 @@ public abstract class BaseBowserFragment extends BaseFragment {
     protected void initView() {
 
         mAgentWeb = AgentWeb.with(this)//
-                .setAgentWebParent((LinearLayout) getWebRootView(), -1, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//传入AgentWeb的父控件。
+                .setAgentWebParent((LinearLayout) getWebRootView(), -1, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT))//传入AgentWeb的父控件。
                 .useDefaultIndicator(ContextCompat.getColor(getContext(),R.color.blue_bg), 3)//设置进度条颜色与高度，-1为默认值，高度为2，单位为dp。
                 .setAgentWebWebSettings(getSettings())//设置 IAgentWebSettings。
                 .setWebChromeClient(getWebChromeClient()) //WebChromeClient
@@ -72,6 +73,7 @@ public abstract class BaseBowserFragment extends BaseFragment {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                callbackProgress(view, newProgress);
             }
 
             @Override
@@ -87,26 +89,8 @@ public abstract class BaseBowserFragment extends BaseFragment {
             }
         };
     }
-    //abstract public String getUrl();
-    /*protected WebChromeClient mWebChromeClient = new WebChromeClient() {
-        @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-            super.onProgressChanged(view, newProgress);
-        }
 
-        @Override
-        public void onReceivedTitle(WebView view, String title) {
-            super.onReceivedTitle(view, title);
-            String url = view.getUrl();
-            if(!url.startsWith(BHConstants.MARKET_URL)){
-                getBackView().setVisibility(View.VISIBLE);
-            }else{
-                getBackView().setVisibility(View.INVISIBLE);
-
-            }
-        }
-    };*/
-
+    protected abstract void callbackProgress(WebView view, int newProgress);
 
     public abstract String getUrl();
 
@@ -135,47 +119,6 @@ public abstract class BaseBowserFragment extends BaseFragment {
     }
 
     protected abstract WVJBWebViewClient getWVJBWebViewClient(WebView webView);
-
-    /*class MyWebViewClient extends WVJBWebViewClient {
-        public MyWebViewClient(WebView webView) {
-            super(webView,((data, callback) -> {
-                callback.callback("Response for message from ObjC!");
-            }));
-
-            registerHandler("connect",(data,callback)->{
-                DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
-                callback.callback(JsonUtils.toJson(dexResponse));
-            });
-
-            registerHandler("get_account",(data,callback) -> {
-                DexResponse<JSONObject> dexResponse = new DexResponse<JSONObject>(200,"OK");
-                dexResponse.data = new JSONObject();
-                dexResponse.data.put("address", BHUserManager.getInstance().getCurrentBhWallet().address);
-                callback.callback(JsonUtils.toJson(dexResponse));
-            });
-
-            registerHandler("sign",(data, callback) -> {
-                if(data==null){
-                    return;
-                }
-                //LogUtils.d("BaseBrowseFragment===>:","sign=="+data.toString());
-                *//*H5Sign h5Sign = JsonUtils.fromJson(data.toString(), H5Sign.class);
-                PayDetailFragment.newInstance().showDialog(getChildFragmentManager(),PayDetailFragment.class.getSimpleName(),h5Sign);
-                callbackMaps.put(h5Sign.type,callback);*//*
-            });
-        }
-    }
-
-    public static class DexResponse<T>{
-        public int code;
-        public String msg;
-        public T data;
-
-        public DexResponse(int code, String msg) {
-            this.code = code;
-            this.msg = msg;
-        }
-    }*/
 
     public abstract View getBackView();
 

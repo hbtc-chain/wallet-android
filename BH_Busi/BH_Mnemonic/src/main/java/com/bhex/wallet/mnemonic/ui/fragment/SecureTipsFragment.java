@@ -21,7 +21,7 @@ import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.common.config.ARouterConfig;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 import com.bhex.wallet.mnemonic.R;
 
 /**
@@ -29,7 +29,7 @@ import com.bhex.wallet.mnemonic.R;
  * 2020-3-13 15:14:52
  * 安全提醒
  */
-public class SecureTipsFragment extends BaseBottomSheetDialog implements View.OnClickListener,PasswordFragment.PasswordClickListener {
+public class SecureTipsFragment extends BaseBottomSheetDialog implements View.OnClickListener,Password30PFragment.PasswordClickListener {
 
     private AppCompatTextView btn_at_once;
 
@@ -79,9 +79,9 @@ public class SecureTipsFragment extends BaseBottomSheetDialog implements View.On
     public void onClick(View v) {
         if(v.getId()==R.id.btn_at_once){
             //NavigateUtil.startActivity(getActivity(), BackupMnemonicActivity.class);
-            PasswordFragment.showPasswordDialog(getChildFragmentManager(),
-                    PasswordFragment.class.getName(),
-                    SecureTipsFragment.this,0);
+            Password30PFragment.showPasswordDialog(getChildFragmentManager(),
+                    Password30PFragment.class.getName(),
+                    SecureTipsFragment.this,0,false);
             return;
         }
         dismiss();

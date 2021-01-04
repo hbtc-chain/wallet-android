@@ -15,7 +15,7 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.ui.activity.ChainTokenActivity;
 import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
-import com.bhex.wallet.common.helper.AssetHelper;
+import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.model.BHBalance;
 
@@ -79,7 +79,7 @@ public class HBCViewHolder {
         }
         tv_token_name.setText(mBalance.symbol.toUpperCase());
         tv_hbc_address.setTag(BHUserManager.getInstance().getCurrentBhWallet().address);
-        AssetHelper.proccessAddress(tv_hbc_address,BHUserManager.getInstance().getCurrentBhWallet().address);
+        BHWalletHelper.proccessAddress(tv_hbc_address,BHUserManager.getInstance().getCurrentBhWallet().address);
     }
 
     private void showQRDialog() {

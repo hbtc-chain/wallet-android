@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -240,4 +241,6 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

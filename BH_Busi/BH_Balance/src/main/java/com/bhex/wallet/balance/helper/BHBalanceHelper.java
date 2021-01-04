@@ -113,21 +113,21 @@ public class BHBalanceHelper {
         if(accountInfo==null){
             return balance;
         }
-        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        List<AccountInfo.AssetsBean> list = accountInfo.assets;
         if(list==null || list.size()==0){
             return balance;
         }
 
         for (int i = 0; i < list.size(); i++) {
             AccountInfo.AssetsBean assetsBean = list.get(i);
-            if(assetsBean.getSymbol()==null || !assetsBean.getSymbol().equalsIgnoreCase(symbol)){
+            if(assetsBean.symbol==null || !assetsBean.symbol.equalsIgnoreCase(symbol)){
                 continue;
             }
-            balance.amount = assetsBean.getAmount();
-            balance.frozen_amount = assetsBean.getFrozen_amount();
-            balance.address = assetsBean.getExternal_address();
-            balance.external_address = assetsBean.getExternal_address();
-            balance.is_native = assetsBean.isIs_native();
+            balance.amount = assetsBean.amount;
+            balance.frozen_amount = assetsBean.frozen_amount;
+            balance.address = assetsBean.external_address;
+            balance.external_address = assetsBean.external_address;
+            balance.is_native = assetsBean.is_native;
             return balance;
         }
         return balance;
@@ -190,13 +190,13 @@ public class BHBalanceHelper {
         if(accountInfo==null){
             return res;
         }
-        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        List<AccountInfo.AssetsBean> list = accountInfo.assets;
         if(ToolUtils.checkListIsEmpty(list)){
             return res;
         }
         for (int i = 0; i < list.size(); i++) {
             AccountInfo.AssetsBean assetsBean = list.get(i);
-            BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(assetsBean.getSymbol());
+            BHToken bhToken = CacheCenter.getInstance().getSymbolCache().getBHToken(assetsBean.symbol);
             if(bhToken==null){
                 continue;
             }
@@ -204,9 +204,9 @@ public class BHBalanceHelper {
                 continue;
             }
             //
-            double displayAmount = TextUtils.isEmpty(assetsBean.getAmount())? 0:Double.valueOf(assetsBean.getAmount());
+            double displayAmount = TextUtils.isEmpty(assetsBean.amount)? 0:Double.valueOf(assetsBean.amount);
             //法币价值
-            double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,assetsBean.getSymbol());
+            double symbolPrice = CurrencyManager.getInstance().getCurrencyRate(context,assetsBean.symbol);
             double asset = NumberUtil.mul(String.valueOf(displayAmount),String.valueOf(symbolPrice));
             res +=asset;
         }

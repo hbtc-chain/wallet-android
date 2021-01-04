@@ -2,20 +2,18 @@ package com.bhex.wallet.common.utils;
 
 import android.text.TextUtils;
 
-import com.bhex.network.RxSchedulersHelper;
-import com.bhex.network.app.BaseApplication;
-import com.bhex.wallet.common.base.BaseActivity;
-import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.crypto.CryptoUtil;
-import com.bhex.tools.utils.FileUtils;
+
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
+import com.bhex.tools.utils.ToolUtils;
+import com.bhex.wallet.common.crypto.wallet.HWallet;
+import com.bhex.wallet.common.crypto.wallet.HWalletFile;
+import com.bhex.wallet.common.crypto.wallet.SecureRandomUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uber.autodispose.AutoDispose;
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -24,18 +22,12 @@ import org.bitcoinj.wallet.DeterministicSeed;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
-import org.web3j.crypto.Wallet;
-import org.web3j.crypto.WalletFile;
 import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.utils.Numeric;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.List;
-
-import io.reactivex.Observable;
 
 /**
  * Created by BHEX.
@@ -51,8 +43,7 @@ public class BHWalletUtils {
 
     private static final SecureRandom secureRandom = SecureRandomUtils.secureRandom();
 
-    private Credentials credentials;
-
+    //private Credentials credentials;
     //private static final ObjectMapper objectMapper = new ObjectMapper();
     /*static {
         objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
@@ -124,11 +115,11 @@ public class BHWalletUtils {
      * @param pwd
      * @return
      */
-    public static BHWallet importKeyStore(String keystore,String name,String pwd){
+    /*public static BHWallet importKeyStore(String keystore,String name,String pwd){
         BHWallet bhWallet = null;
         try{
             Credentials credentials = null;
-            WalletFile walletFile = objectMapper.readValue(keystore, WalletFile.class);
+            HWalletFile walletFile = objectMapper.readValue(keystore, HWalletFile.class);
             credentials = Credentials.create(HLWallet.decrypt(pwd, walletFile));
             String pk = credentials.getEcKeyPair().getPrivateKey().toString(16);
             //走导入私钥的补助
@@ -142,7 +133,7 @@ public class BHWalletUtils {
             e.printStackTrace();
         }
         return  bhWallet;
-    }
+    }*/
 
     public static BHWallet importKeyStoreExt(Credentials credentials,String name,String pwd){
         BHWallet bhWallet = null;
@@ -180,9 +171,9 @@ public class BHWalletUtils {
     public static String keyStoreToAddress(String keyStore,String pwd) throws CipherException,IOException{
         String bh_address = null;
 
-        WalletFile walletFile = objectMapper.readValue(keyStore, WalletFile.class);
+        HWalletFile walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
 
-        Credentials credentials = Credentials.create(HLWallet.decrypt(pwd, walletFile));
+        Credentials credentials = Credentials.create(HWallet.decrypt(pwd, walletFile));
         if(credentials!=null){
             bh_address = BHKey.getBhexUserDpAddress(credentials.getEcKeyPair().getPublicKey());
         }else{
@@ -200,10 +191,12 @@ public class BHWalletUtils {
     public static Credentials verifyKeystore(String keyStore,String pwd) throws CipherException,IOException{
         //String bh_address = null;
 
-        WalletFile walletFile = objectMapper.readValue(keyStore, WalletFile.class);
+        HWalletFile walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
 
-        Credentials credentials = Credentials.create(HLWallet.decrypt(pwd, walletFile));
+        Credentials credentials = Credentials.create(HWallet.decrypt(pwd, walletFile));
+
         if(credentials!=null){
+
             return credentials;
         }else{
             return null;
@@ -231,7 +224,6 @@ public class BHWalletUtils {
         return bh_adress;
     }
 
-
     /**
      * @param walletName
      * @param pwd
@@ -241,19 +233,23 @@ public class BHWalletUtils {
     private static BHWallet generateWallet(String walletName, String pwd, ECKeyPair keyPair,List<String> mnemonics) {
         BHWallet bhWallet = null;
         try {
-            //WalletUtils.generateLightNewWalletFile("a12345678", file);
-            WalletFile walletFile = Wallet.create(pwd, keyPair, 1024, 1);
-            // 生成BH-地址
+            HWalletFile walletFile = HWallet.create(pwd, keyPair,1024, 1);
+            //生成BH-地址
             String bh_adress = BHKey.getBhexUserDpAddress(keyPair.getPublicKey());
             walletFile.setAddress(bh_adress);
             //生成bench32地址
             String bh_bech_pubkey = BHKey.getBhexUserDpPubKey(keyPair.getPublicKey());
             //keystore存储
-            //String ks_path = save_keystore(walletFile,walletName);
+            //加密助记词
+            if(!ToolUtils.checkListIsEmpty(mnemonics)){
+                String encMnemonic = HWallet.加密_M(convertMnemonicList(mnemonics),pwd,walletFile);
+                LogUtils.d("BHWalletUtils===>:","加密后===encMnemonic=="+encMnemonic);
+                walletFile.encMnemonic = encMnemonic;
+            }
+
+            String raw_json = JsonUtils.toJson(walletFile);
             //私钥加密
             String encryptPK = CryptoUtil.encryptPK(keyPair.getPrivateKey(),pwd);
-            String raw_json = JsonUtils.toJson(walletFile);
-            //LogUtils.d("BHWalletUtils==>:","raw_json=="+raw_json);
             bhWallet = BHUserManager.getInstance().getTmpBhWallet();
             bhWallet.setName(walletName);
             bhWallet.setAddress(bh_adress);
@@ -263,9 +259,10 @@ public class BHWalletUtils {
             bhWallet.setPassword(MD5.generate(pwd));
             bhWallet.setIsDefault(0);
             bhWallet.setIsBackup(0);
-
+            //bhWallet.setMnemonic(walletFile.encMnemonic);
             if(mnemonics!=null && mnemonics.size()==12){
                 String old_mnemonic =  convertMnemonicList(mnemonics);
+                //LogUtils.d("old_mnemonic==>","old_mnemonic=="+old_mnemonic);
                 String encrypt_mnemonic = CryptoUtil.encryptMnemonic(old_mnemonic,pwd);
                 bhWallet.setMnemonic(encrypt_mnemonic);
             }
@@ -275,7 +272,6 @@ public class BHWalletUtils {
         }
         return bhWallet;
     }
-
 
    /**
      * 生成公私钥对
@@ -316,11 +312,42 @@ public class BHWalletUtils {
         return sb.toString();
     }
 
+    //更新KeyStroe
+    public static String updateKeyStore(String keyStore,String pwd,String newPassword){
+        try{
+            HWalletFile old_walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
+            //解密助记词
+            String origin_enemonic = null;
+            if(!TextUtils.isEmpty(old_walletFile.encMnemonic)){
+                origin_enemonic = HWallet.解密_M(old_walletFile.encMnemonic,pwd,old_walletFile);
+                LogUtils.d("origin_enemoni===",origin_enemonic);
+            }
+            ECKeyPair ecKeyPair = HWallet.decrypt(pwd, old_walletFile);
+            HWalletFile new_walletFile = HWallet.create(newPassword, ecKeyPair, null,1024, 1);
+            //生成BH-地址
+            String bh_adress = BHKey.getBhexUserDpAddress(ecKeyPair.getPublicKey());
+            new_walletFile.setAddress(bh_adress);
+            //生成新的助记词
+            if(!TextUtils.isEmpty(origin_enemonic)){
+                String enc_enemonic = HWallet.加密_M(origin_enemonic,newPassword,new_walletFile);
+                new_walletFile.encMnemonic = enc_enemonic;
+            }
+            String raw_json = JsonUtils.toJson(new_walletFile);
+            LogUtils.d("BHWalletUtils===>:","raw_json=="+raw_json);
+            return raw_json;
+        }catch (CipherException cipherEx){
+            cipherEx.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     /**
      * void
      */
-    public static void test3(BaseActivity activity){
+    /*public static void test3(BaseActivity activity){
 
         BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
@@ -369,7 +396,7 @@ public class BHWalletUtils {
             }
         }
 
-    }
+    }*/
 
 
 }

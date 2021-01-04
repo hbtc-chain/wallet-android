@@ -1,13 +1,17 @@
 package com.bhex.wallet.balance.ui.fragment;
 
+import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
 import com.bhex.lib.uikit.widget.text.marqueen.MarqueeFactory;
 import com.bhex.lib.uikit.widget.text.marqueen.MarqueeView;
@@ -109,6 +113,10 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mChainTokenViewModel.mutableLiveData.observe(this,ldm->{
             updateAssetList((List<BHTokenItem>)ldm.getData());
         });
+
+        //
+        GradientDrawable drawable = ShapeUtils.getRoundRectDrawable(PixelUtils.dp2px(getYActivity(),6),ColorUtil.getColor(getYActivity(),R.color.card_bg));
+        mRootView.findViewById(R.id.layout_announce).setBackground(drawable);
     }
 
     @Override
@@ -153,6 +161,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
     public void updateAssetList(List<BHTokenItem> list){
+        AppCompatTextView btn_coin_apply = mRootView.findViewById(R.id.btn_coin_apply);
+        btn_coin_apply.setText(getString(R.string.claim_test_coin));
         updateAssets();
     }
 
@@ -172,6 +182,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     }
 
     public void applyTestToken(){
+        //
+        AppCompatTextView btn_coin_apply = mRootView.findViewById(R.id.btn_coin_apply);
+        btn_coin_apply.setText(getString(R.string.claiming));
         mChainTokenViewModel.send_test_token(getYActivity(),"hbc","kiwi");
     }
 
@@ -189,18 +202,17 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }else{
             balanceViewHolder.tv_asset.setText("***");
         }
-
         mChainAdapter.notifyDataSetChanged();
     }
 
     //更新公告
     private void updateAnnouncement(LoadDataModel ldm) {
-        //refreshLayout.finishRefresh();
+
         if(ldm.loadingStatus != LoadingStatus.SUCCESS){
             return;
         }
-        LogUtils.d("AnnouncementMF==>","==updateAnnouncement==");
 
+        //LogUtils.d("AnnouncementMF==>","==updateAnnouncement==");
         List<AnnouncementItem> list = (List<AnnouncementItem>)ldm.getData();
         MarqueeFactory<RelativeLayout, AnnouncementItem> marqueeFactory = new AnnouncementMF(getContext(),null);
         marqueeFactory.setData(list);
@@ -209,10 +221,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         mRootView.findViewById(R.id.layout_announce).setVisibility(View.VISIBLE);
         marqueeFactory.setOnItemClickListener((view, holder) -> {
             //holder.getData().
-            ARouter.getInstance()
-                    .build(ARouterConfig.Market.market_webview)
-                    .withString("url",holder.getData().jump_url)
-                    .navigation();
+            if(!TextUtils.isEmpty(holder.getData().jump_url)){
+                ARouter.getInstance()
+                        .build(ARouterConfig.Market.market_webview)
+                        .withString("url",holder.getData().jump_url)
+                        .navigation();
+            }
         });
     }
 
@@ -222,7 +236,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         //AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         //清空原始用户资产
-        balanceViewHolder.tv_wallet_name.setText("Hello，"+bhWallet.name);
+        balanceViewHolder.tv_wallet_name.setText(bhWallet.name);
         mChainAdapter.notifyDataSetChanged();
         //更新资产
         balanceViewModel.getAccountInfo(getYActivity(),null);
@@ -239,10 +253,9 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         super.onHiddenChanged(hidden);
         if(!hidden){
             bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
-            balanceViewHolder.tv_wallet_name.setText("Hello，"+bhWallet.name);
+            balanceViewHolder.tv_wallet_name.setText(bhWallet.name);
         }
     }
-
 
     @Override
     public void onDestroy() {

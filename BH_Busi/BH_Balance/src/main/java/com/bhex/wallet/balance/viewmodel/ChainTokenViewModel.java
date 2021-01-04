@@ -66,12 +66,16 @@ public class ChainTokenViewModel extends AndroidViewModel {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
+                LoadDataModel ldm = new LoadDataModel();
+                mutableLiveData.postValue(ldm);
                 ToastUtils.showToast(context.getResources().getString(R.string.string_apply_success));
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
+                LoadDataModel ldm = new LoadDataModel(code,errorMsg);
+                mutableLiveData.postValue(ldm);
             }
         };
         BHttpApi.getService(BHttpApiInterface.class).send_test_token(address,demon)

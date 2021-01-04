@@ -119,7 +119,7 @@ public class BalanceAdapter extends BaseQuickAdapter<BHTokenItem, BaseViewHolder
     }
 
     private void updateAssets(AccountInfo accountInfo) {
-        List<AccountInfo.AssetsBean> list = accountInfo.getAssets();
+        List<AccountInfo.AssetsBean> list = accountInfo.assets;
         if(list==null || list.size()==0){
             return ;
         }
@@ -147,7 +147,7 @@ public class BalanceAdapter extends BaseQuickAdapter<BHTokenItem, BaseViewHolder
         List<BHTokenItem> list = getData();
         for(int i=0;i<list.size();i++){
             BHTokenItem item = list.get(i);
-            if(!item.symbol.equalsIgnoreCase(bean.getSymbol())){
+            if(!item.symbol.equalsIgnoreCase(bean.symbol)){
                 continue;
             }
             position = item.index;

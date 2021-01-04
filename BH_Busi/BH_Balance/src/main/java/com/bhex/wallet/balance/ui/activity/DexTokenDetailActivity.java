@@ -18,18 +18,14 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.event.RequestTokenEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.bhex.wallet.common.menu.MenuItem;
 import com.bhex.wallet.common.menu.MenuListFragment;
-import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.tx.BHRawTransaction;
 import com.bhex.wallet.common.tx.TxReq;
-import com.bhex.wallet.common.ui.fragment.Password30Fragment;
-import com.bhex.wallet.common.ui.fragment.PasswordFragment;
+import com.bhex.wallet.common.ui.fragment.Password30PFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.OnClick;
@@ -114,16 +110,16 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
 
     //生成跨链地址
     public void generateCrossLinkAddress() {
-        PasswordFragment fragment = PasswordFragment.showPasswordDialogExt(getSupportFragmentManager(),
-                Password30Fragment.class.getName(),
-                passwordClickListener,0);
+        Password30PFragment fragment = Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
+                Password30PFragment.class.getName(),
+                passwordClickListener,0,false);
         String subTitle = String.format(getString(R.string.generate_address_fee),
                 BHUserManager.getInstance().getDefaultGasFee().displayFee+BHConstants.BHT_TOKEN.toUpperCase());
-        fragment.setTv_sub_title(subTitle);
+        //fragment.setTv_sub_title(subTitle);
         fragment.show(getSupportFragmentManager(),ChainTokenActivity.class.getName());
     }
 
-    PasswordFragment.PasswordClickListener passwordClickListener = ((password, position, way) -> {
+    Password30PFragment.PasswordClickListener passwordClickListener = ((password, position, way) -> {
         BHBalance bhtBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
         if(TextUtils.isEmpty(bhtBalance.amount) ||
                 Double.valueOf(bhtBalance.amount)<=Double.valueOf(BHUserManager.getInstance().getDefaultGasFee().displayFee)){

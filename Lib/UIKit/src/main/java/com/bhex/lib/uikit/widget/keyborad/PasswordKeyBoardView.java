@@ -143,7 +143,7 @@ public class PasswordKeyBoardView extends KeyboardView  {
 
     private void showResize() {
 
-        mInputRootView.post(new Runnable() {
+        /*mInputRootView.post(new Runnable() {
             @Override
             public void run() {
 
@@ -157,7 +157,7 @@ public class PasswordKeyBoardView extends KeyboardView  {
                     mInputRootView.scrollBy(0, height + PixelUtils.dp2px(getContext(), 16));
                 }
             }
-        });
+        });*/
     }
 
     /**隐藏键盘*/
@@ -165,7 +165,7 @@ public class PasswordKeyBoardView extends KeyboardView  {
         if (getVisibility() == VISIBLE) {
             mKeyBoardRoot.setVisibility(GONE);
             setVisibility(GONE);
-            hideResize();
+            //hideResize();
         }
     }
 

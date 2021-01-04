@@ -194,7 +194,9 @@ public class TransactionHelper {
                 continue;
             }
             String fmt_amount = NumberUtil.dispalyForUsertokenAmount4Level(bean.amount);
-            tv.setText(fmt_amount+" "+bean.symbol.toUpperCase());
+            //
+            BHToken bhToken = SymbolCache.getInstance().getBHToken(bean.symbol);
+            tv.setText(fmt_amount+" "+bhToken.name.toUpperCase());
             tv.setVisibility(View.VISIBLE);
         }
     }

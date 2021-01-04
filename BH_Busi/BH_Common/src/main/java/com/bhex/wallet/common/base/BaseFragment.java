@@ -25,7 +25,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     protected static final String TAG = BaseFragment.class.getSimpleName();
 
-    protected View mRootView  ;
+    protected View mRootView ;
 
     private BaseActivity mActivity;
 

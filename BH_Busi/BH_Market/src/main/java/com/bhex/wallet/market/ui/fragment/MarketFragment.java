@@ -1,7 +1,11 @@
 package com.bhex.wallet.market.ui.fragment;
 
+import android.animation.ObjectAnimator;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -66,6 +70,7 @@ public class MarketFragment extends JsBowserFragment {
     protected void initView() {
         mTokenId = getArgumentValue("go_token");
         super.initView();
+
         tv_center_title.setText(getString(R.string.tab_trade));
         transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
         transactionViewModel.mutableLiveData.observe(this,ldm -> {
@@ -92,18 +97,37 @@ public class MarketFragment extends JsBowserFragment {
         }
         String v_local_display = ToolUtils.getLocalString(getYActivity());
         url = url.append("?lang=").append(v_local_display);
-        LogUtils.d("url==="+url.toString());
+        //LogUtils.d("url==="+url.toString());
         return url.toString();
     }
 
     @OnClick({R2.id.iv_refresh,R2.id.iv_back})
     public void onClickView(View view) {
         if (R.id.iv_refresh == view.getId()) {
+            startRefreshAction(view);
             mAgentWeb.getUrlLoader().loadUrl(getUrl());
         } else if(R.id.iv_back == view.getId()){
             if(!mAgentWeb.back()){
 
             }
+        }
+    }
+    ObjectAnimator  objectAnimator = null;
+    private void startRefreshAction(View view) {
+        //AppCompatImageView refreshView = mRootView.findViewById(R.id.iv_refresh);
+        objectAnimator = ObjectAnimator.ofFloat(view,"rotation",0,360f)
+                .setDuration(800);
+        objectAnimator.setRepeatCount(-1);
+        view.setPivotX(view.getWidth() / 2);
+        view.setPivotY(view.getHeight()/ 2);
+        objectAnimator.start();
+    }
+
+    @Override
+    protected void callbackProgress(WebView view, int newProgress) {
+        if(newProgress==100 && objectAnimator!=null){
+            objectAnimator.setRepeatCount(1);
+            objectAnimator.pause();
         }
     }
 
@@ -132,11 +156,9 @@ public class MarketFragment extends JsBowserFragment {
         if(callback==null){
             return;
         }
-
         DexResponse<JSONObject> dexResponse = new DexResponse(ldm.code,ldm.msg);
         dexResponse.data = JSONObject.parseObject(ldm.getData().toString());
         callback.callback(JsonUtils.toJson(dexResponse));
-        //LogUtils.d("MarketFragment==>:","json=="+JsonUtils.toJson(dexResponse));
         callbackMaps.remove(mH5Sign.type);
     }
 
