@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.util.ShapeUtils;
+import com.bhex.lib.uikit.widget.layout.XUILinearLayout;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
@@ -21,10 +22,7 @@ import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
-import com.xuexiang.xui.utils.DensityUtils;
-import com.xuexiang.xui.widget.layout.XUIFrameLayout;
-import com.xuexiang.xui.widget.layout.XUILayoutHelper;
-import com.xuexiang.xui.widget.layout.XUILinearLayout;
+
 
 public class BalanceViewHolder {
     public View viewHolder;
@@ -34,7 +32,7 @@ public class BalanceViewHolder {
     public AppCompatTextView tv_asset;
     public XUILinearLayout layout_operator_action;
 
-    public CardView layout_index_1;
+    //public CardView layout_index_1;
 
     public BHWallet bhWallet;
 

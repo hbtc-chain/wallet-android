@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_bg"
     tools:context=".ui.activity.TokenDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -62,6 +63,7 @@
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:overScrollMode="never"
+
         app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,16 +74,19 @@
             android:layout_height="wrap_content"
             >
 
-            <com.google.android.material.card.MaterialCardView
+            <com.bhex.lib.uikit.widget.layout.XUIFrameLayout
                 android:id="@+id/layout_asset_top"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/main_margin_left"
                 android:layout_marginEnd="@dimen/main_margin_right"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="10dp"
-                app:cardForegroundColor="@color/bg_trans"
+                android:layout_marginTop="1dp"
+                app:xui_showBorderOnlyBeforeL="true"
+                android:orientation="vertical"
+                app:xui_radius="10dp"
+                app:xui_shadowElevation="2dp"
+                app:xui_shadowAlpha="0.75"
+                android:background="@color/card_bg"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -243,7 +248,7 @@
                     android:layout_gravity="right|bottom"
                     app:layout_constraintTop_toTopOf="@+id/tv_hold_text"
                     />
-            </com.google.android.material.card.MaterialCardView>
+            </com.bhex.lib.uikit.widget.layout.XUIFrameLayout>
 
             <FrameLayout
                 android:layout_width="0dp"

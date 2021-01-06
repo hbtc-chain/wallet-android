@@ -13,10 +13,7 @@
     <!--辅助说明文字大小-->
     <attr name="config_size_explain_text" format="dimension" />
 
-    <attr name="xui_config_content_spacing_horizontal" format="dimension" /> <!-- margin 和 padding 等使用的内容通用水平间距 -->
-    <attr name="xui_config_content_spacing_vertical" format="dimension" /> <!-- margin 和 padding 等使用的内容通用垂直间距 -->
-    <attr name="xui_config_simple_list_item_height" format="dimension" />
-    <attr name="xui_config_simple_list_icon_size" format="dimension" />
+
 
 
 

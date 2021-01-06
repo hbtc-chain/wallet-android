@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.RecycleViewExtDivider;
+import com.bhex.lib.uikit.widget.layout.XUIFrameLayout;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.utils.ToastUtils;
@@ -151,6 +152,10 @@ public abstract class TokenDetailActivity extends BaseActivity<AssetPresenter> {
     }
 
     private void initTokenView() {
+        XUIFrameLayout layout_asset_top = findViewById(R.id.layout_asset_top);
+        //layout_asset_top.setShadowColor(ColorUtil.getColor(this,R.color.highlight_text_color));
+
+
         if(!TextUtils.isEmpty(symbolToken.logo)){
             iv_coin_ic.setAlpha(0.1f);
             ImageLoaderUtil.loadImageView(this,symbolToken.logo,iv_coin_ic,R.mipmap.ic_default_coin);
