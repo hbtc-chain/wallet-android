@@ -39,10 +39,8 @@ public class MainActivityManager {
             return;
         }
         BalanceViewModel balanceViewModel = ViewModelProviders.of(mainActivity).get(BalanceViewModel.class).build(mainActivity);
-
         balanceViewModel.onCreate();
     }
-
 
     public Class getTargetClass() {
         return targetClass;

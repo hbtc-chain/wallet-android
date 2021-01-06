@@ -9,10 +9,12 @@ import android.util.Log;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.EmptyLayout;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
+import com.bhex.lib.uikit.widget.viewpager.CustomViewPager;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
@@ -56,10 +58,14 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     List<ValidatorInfo> mValidatorInfoList;
 
     ValidatorViewModel mValidatorViewModel;
+    CustomViewPager mVp;
 
     public ValidatorListFragment() {
     }
 
+    public ValidatorListFragment(CustomViewPager viewPager) {
+        mVp = viewPager;
+    }
 
     @Override
     public int getLayoutId() {
@@ -88,7 +94,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
     @Override
     protected void addEvent() {
         empty_layout.showProgess();
-
+        mVp.setObjectForPosition(mValidatorType,mRootView);
         mValidatorViewModel.validatorsLiveData.observe(this, ldm -> {
             //updateRecord(ldm.getData());
             if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
@@ -135,7 +141,6 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         mOriginValidatorInfoList = datas;
         //
         List<ValidatorInfo> result = StreamSupport.stream(datas).filter(validatorInfo -> {
-            LogUtils.d("mValidatorType==>:","mValidatorType=="+mValidatorType);
             if(mValidatorType== BH_BUSI_TYPE.托管节点.getIntValue()){
                 return validatorInfo.is_key_node;
             }else if(mValidatorType== BH_BUSI_TYPE.共识节点.getIntValue()){
@@ -145,25 +150,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
             }
 
         }).collect(Collectors.toList());
-        /*List<ValidatorInfo> result = new ArrayList<>();
-        if(!ToolUtils.checkListIsEmpty(datas)){
-            for (int i=0;i< datas.size();i++){
-                ValidatorInfo validatorInfo = datas.get(i);
-                if(mValidatorType== BH_BUSI_TYPE.托管节点.getIntValue()){
-                    if(validatorInfo.is_key_node){
-                        result.add(validatorInfo);
-                    }
-                }else if(mValidatorType== BH_BUSI_TYPE.共识节点.getIntValue()){
-                    if(validatorInfo.is_elected){
-                        result.add(validatorInfo);
-                    }
-                }else {
-                    if(!validatorInfo.is_elected && !validatorInfo.is_elected){
-                        result.add(validatorInfo);
-                    }
-                }
-            }
-        }*/
+
 
         if (!ToolUtils.checkListIsEmpty(result)) {
             empty_layout.loadSuccess();

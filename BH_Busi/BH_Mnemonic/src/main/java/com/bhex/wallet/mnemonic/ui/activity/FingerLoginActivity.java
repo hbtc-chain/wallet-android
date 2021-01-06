@@ -39,7 +39,7 @@ import butterknife.OnClick;
  * 2020-5-20 00:29:39
  * 指纹或面容登录
  */
-@Route(path = ARouterConfig.Account.Account_Login_Password,name = "指纹登录")
+@Route(path = ARouterConfig.Account.Account_Login_Finger,name = "指纹登录")
 public class FingerLoginActivity extends BaseActivity  implements AddressFragment.AddressChangeListener{
     protected final static String TAG = FingerLoginActivity.class.getSimpleName();
 

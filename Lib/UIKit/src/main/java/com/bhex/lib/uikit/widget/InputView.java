@@ -117,10 +117,8 @@ public class InputView extends LinearLayout implements View.OnClickListener {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     if(mMode==NUMBERPWDMODE){
-                        mInputEd.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        mInputEd.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
                         mInputEd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        //mInputEd.setTypeface(Typeface.SANS_SERIF);
-                        //mInputEd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     }else{
                         mInputEd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     }

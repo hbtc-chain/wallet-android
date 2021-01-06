@@ -1,5 +1,6 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
+import android.text.InputType;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -77,6 +78,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
 
     @Override
     protected void initView() {
+        inp_wallet_pwd.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());

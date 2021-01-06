@@ -12,6 +12,7 @@ import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.crypto.wallet.HWallet;
 import com.bhex.wallet.common.crypto.wallet.HWalletFile;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.GasFee;
@@ -42,8 +43,6 @@ public class BHUserManager {
 
     //当前使用的钱包
     private BHWallet mCurrentBhWallet;
-
-    //private Credentials tmpCredentials;
 
     //资产账户信息
     private AccountInfo mAccountInfo;
@@ -94,7 +93,7 @@ public class BHUserManager {
         }
 
         for (BHWallet bhWallet:allWallet) {
-            if(bhWallet.isDefault==1){
+            if(bhWallet.isDefault==BH_BUSI_TYPE.默认托管单元.getIntValue()){
                 mCurrentBhWallet = bhWallet;
             }
         }
@@ -123,9 +122,9 @@ public class BHUserManager {
         //设置默认
         StreamSupport.stream(allWallet).forEach( item->{
             if(item.id==mCurrentBhWallet.id){
-                item.setIsDefault(1);
+                item.setIsDefault(BH_BUSI_TYPE.默认托管单元.getIntValue());
             }else{
-                item.setIsDefault(0);
+                item.setIsDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
             }
         });
     }
@@ -137,7 +136,7 @@ public class BHUserManager {
     public synchronized void setAccountInfo(AccountInfo accountInfo) {
         this.mAccountInfo = accountInfo;
         //更新状态
-
+        SequenceManager.getInstance().initSequence(accountInfo.sequence);
     }
 
     public List<String> getWordList() {
@@ -182,16 +181,6 @@ public class BHUserManager {
         gasFee = new GasFee("2000000000000000","2000000");
         return  gasFee;
     }
-
-
-
-   /* public void setTmpCredentials(Credentials tmpCredentials) {
-        this.tmpCredentials = tmpCredentials;
-    }*/
-
-    /*public Credentials getTmpCredentials() {
-        return tmpCredentials;
-    }*/
 
     public void clear(){
         //tmpCredentials = null;

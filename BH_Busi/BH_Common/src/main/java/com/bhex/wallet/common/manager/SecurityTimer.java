@@ -37,7 +37,7 @@ public class SecurityTimer {
                 CountDownTimer countDownTimer = new CountDownTimer(VAL_DURATION,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
-                        LogUtils.d("SecurityTimer==>:","==millisUntilFinished=="+millisUntilFinished);
+                        //LogUtils.d("SecurityTimer==>:","==millisUntilFinished=="+millisUntilFinished);
                     }
 
                     @Override

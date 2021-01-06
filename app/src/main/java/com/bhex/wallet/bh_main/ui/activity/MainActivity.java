@@ -25,6 +25,7 @@ import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.event.NightEvent;
 import com.bhex.wallet.common.manager.AppStatusManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
+import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gyf.immersionbar.ImmersionBar;
@@ -107,6 +108,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         });
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
         BottomNavigationViewUtil.hideToast(mBottomNavigationView);
+        SequenceManager.getInstance().timerTranscation(this);
     }
 
     @Override

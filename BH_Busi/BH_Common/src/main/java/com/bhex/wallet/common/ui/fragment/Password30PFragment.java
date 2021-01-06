@@ -85,10 +85,6 @@ public class Password30PFragment extends BaseDialogFragment {
         mPasswordKeyboardView = mRootView.findViewById(R.id.my_keyboard);
         ck_password = mRootView.findViewById(R.id.ck_password);
 
-        /*mRootView.findViewById(R.id.keyboard_tool).setVisibility(View.GONE);
-          btn_finish.setOnClickListener(v -> {
-            dismissAllowingStateLoss();
-        });*/
 
         mPasswordKeyboardView.setAttachToEditText(getActivity(),mPasswordInputView.m_input_content,mPasswordInputView,
                 mRootView.findViewById(R.id.keyboard_root));

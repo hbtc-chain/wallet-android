@@ -1,18 +1,15 @@
 package com.bhex.wallet.common.api;
 
-import com.bhex.wallet.common.model.BHPage;
 import com.bhex.wallet.common.model.BHRates;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.model.GasFee;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -41,10 +38,7 @@ public interface BHttpApiInterface {
 
     //汇率接口
     @POST("api/v1/tokenprices")
-    Observable<List<BHRates>> loadRates(@Query("symbols") String symbols);
-    //Observable<List<BHRates>> loadRates(@Body RequestBody body);
-    //查询所有交易记录
-
+    Observable<List<BHRates>> loadRates(@Body RequestBody body);
     /**
      * 某种类型的交易，传空或0为所有交易。0 - 所有交易，1 - 代币转移，2 - 跨链交易，3 - 委托，4 - 收益分配，5 - 链上治理，6 - 削减
      *

@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             app:hint="@string/hint_please_input_password"
-            app:textType="password" />
+            app:textType="numberPassword" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_confirm"

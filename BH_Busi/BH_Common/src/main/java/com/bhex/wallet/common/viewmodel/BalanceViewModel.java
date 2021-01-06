@@ -1,6 +1,7 @@
 package com.bhex.wallet.common.viewmodel;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -30,8 +31,10 @@ import com.bhex.wallet.common.cache.RatesCache;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.AddressGenaratorManager;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHRates;
+import com.bhex.wallet.common.tx.TransactionOrder;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -48,6 +51,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -58,12 +62,12 @@ import okhttp3.RequestBody;
  */
 public class BalanceViewModel extends CacheAndroidViewModel implements LifecycleObserver {
 
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
     private BaseActivity mContext;
 
-    public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+    //public static MutableLiveData<LoadDataModel<AccountInfo>> accountLiveData  = new MutableLiveData<>();
+    //public MutableLiveData<LoadDataModel<List<TransactionOrder>>> transLiveData  = new MutableLiveData<>();
     public BalanceViewModel(@NonNull Application application) {
         super(application);
     }
@@ -109,12 +113,12 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         Type type = (new TypeToken<List<BHRates>>() {}).getType();
         String balacne_list = BHUserManager.getInstance().getSymbolList();
         balacne_list = balacne_list.replace("_",",").toUpperCase();
-        /*Map<String,String> params = new HashMap<>();
-        params.put("symbols",balacne_list);
-        LogUtils.d("abc===>:","json=="+JsonUtils.toJson(params));
-        RequestBody txBody = HUtils.createFile(JsonUtils.toJson(params));*/
+        
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("symbols",balacne_list).build();
 
-        BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)
+        BHttpApi.getService(BHttpApiInterface.class).loadRates(body)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy(strategy)))
                 .map(new CacheResult.MapFunc<>())
@@ -139,8 +143,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
 
 
     private void beginReloadData() {
-        //BalanceViewModel.this.getRateToken(mContext,null);
-        Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
+        Observable.interval(4000,2000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mContext, Lifecycle.Event.ON_DESTROY)))
                 .subscribe(new SimpleObserver<Long>(){
@@ -158,6 +161,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                         super.onNext(aLong);
                         BalanceViewModel.this.getAccountInfo(mContext, CacheStrategy.onlyRemote());
                         BalanceViewModel.this.getRateToken(mContext,null);
+                        //BalanceViewModel.this.queryTransactionDetailExt(mContext);
                     }
 
                     @Override
@@ -165,6 +169,8 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                         super.onError(e);
                     }
                 });
+
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -179,6 +185,8 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
         }*/
         beginReloadData();
     }
+
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy(){
