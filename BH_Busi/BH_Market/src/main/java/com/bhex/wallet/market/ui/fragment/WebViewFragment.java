@@ -109,6 +109,7 @@ public class WebViewFragment extends JsBowserFragment {
     protected void callbackProgress(WebView view, int newProgress) {
         if(newProgress==100 && objectAnimator!=null){
             objectAnimator.cancel();
+            //mRootView.findViewById(R.id.iv_refresh).animate().rotation(0).setDuration(60).start();
         }
     }
 

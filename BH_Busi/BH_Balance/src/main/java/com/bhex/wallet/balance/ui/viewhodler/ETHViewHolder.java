@@ -23,8 +23,8 @@ import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.helper.BHWalletHelper;
-import com.bhex.wallet.common.manager.AddressGenaratorManager;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 
@@ -84,15 +84,14 @@ public class ETHViewHolder {
         //跨链地址
         BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(symbolToken.chain);
         //
-        Object v_address_status = AddressGenaratorManager.getInstance().map.get(symbolToken.chain);
         if(!TextUtils.isEmpty(chainBalance.external_address)){
             BHWalletHelper.proccessAddress(tv_token_address,chainBalance.external_address);
             tv_token_address.setTextColor(ColorUtil.getColor(mContext,R.color.global_label_text_color));
             layout_token_address.setOnClickListener(this::showAdddressQRFragment);
             tv_token_address.setTag(chainBalance.external_address);
-        }else if(v_address_status!=null && (Integer)v_address_status == AddressGenaratorManager.ADDRESS_ING){
+        }else if(!TextUtils.isEmpty(SequenceManager.getInstance().getAddressStatus())){
             //创建跨链充值地址
-            tv_token_address.setText("跨链地址生成中");
+            tv_token_address.setText(mContext.getString(R.string.cross_address_generatoring));
             ViewUtil.getListenInfo(layout_token_address);
         }else{
             tv_token_address.setText(mContext.getString(R.string.create_crosslink_deposit_address));

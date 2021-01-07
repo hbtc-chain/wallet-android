@@ -171,7 +171,6 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             int status = (bhWalletItem.isDefault==BH_BUSI_TYPE.非默认托管单元.getIntValue())
                     ? BH_BUSI_TYPE.默认托管单元.getIntValue()
                     : BH_BUSI_TYPE.非默认托管单元.getIntValue();
-
             BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
             walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
         }

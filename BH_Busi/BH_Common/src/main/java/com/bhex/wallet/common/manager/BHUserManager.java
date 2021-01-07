@@ -136,26 +136,12 @@ public class BHUserManager {
     public synchronized void setAccountInfo(AccountInfo accountInfo) {
         this.mAccountInfo = accountInfo;
         //更新状态
-        SequenceManager.getInstance().initSequence(accountInfo.sequence);
+        //SequenceManager.getInstance().initSequence(accountInfo.sequence);
     }
 
     public List<String> getWordList() {
         return mWordList;
     }
-
-    /*public synchronized void saveUserBalanceList(List<BHBalance> list){
-        if(list==null || list.size()==0){
-            return;
-        }
-        StringBuffer buffer = new StringBuffer("");
-        for (BHBalance item:list) {
-            buffer.append(item.symbol).append("_");
-        }
-        buffer.delete(buffer.length()-1,buffer.length());
-
-        String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
-        MMKVManager.getInstance().mmkv().encode(key,buffer.toString());
-    }*/
 
     public synchronized String getUserBalanceList(){
         String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
@@ -183,9 +169,8 @@ public class BHUserManager {
     }
 
     public void clear(){
-        //tmpCredentials = null;
-        //targetClass = null;
-        AddressGenaratorManager.getInstance().map.clear();
+        //AddressGenaratorManager.getInstance().map.clear();
+        //SequenceManager.getInstance().clear();
         MainActivityManager._instance.setTargetClass(null);
         tmpBhWallet = new BHWallet();
     }

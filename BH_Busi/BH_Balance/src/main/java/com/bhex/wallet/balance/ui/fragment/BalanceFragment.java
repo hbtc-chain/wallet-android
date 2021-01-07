@@ -132,7 +132,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
             BHChain bhChain =  mChainAdapter.getData().get(position);
             ARouter.getInstance().build(ARouterConfig.Balance.Balance_chain_tokens)
                     .withObject("bhChain",bhChain)
-                    .withString("title","hbc")
+                    .withString("title",BHConstants.BHT_TOKEN)
                     .navigation();
         });
 
@@ -183,9 +183,12 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     public void applyTestToken(){
         //
-        AppCompatTextView btn_coin_apply = mRootView.findViewById(R.id.btn_coin_apply);
-        btn_coin_apply.setText(getString(R.string.claiming));
-        mChainTokenViewModel.send_test_token(getYActivity(),"hbc","kiwi");
+        //AppCompatTextView btn_coin_apply = mRootView.findViewById(R.id.btn_coin_apply);
+        //btn_coin_apply.setText(getString(R.string.claiming));
+        //mChainTokenViewModel.send_test_token(getYActivity(),"hbc","kiwi");
+        String address = BHUserManager.getInstance().getCurrentBhWallet().address;
+        String url = BHConstants.API_BASE_URL.concat("receive");
+        ARouter.getInstance().build(ARouterConfig.Market.market_webview).withString("url",url).navigation();
     }
 
     //更新资产

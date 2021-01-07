@@ -74,7 +74,7 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
     @Override
     protected void addEvent() {
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
-        walletViewModel.mutableLiveData.observe(this,ldm->{
+        walletViewModel.pwdVerifyLiveData.observe(this,ldm->{
             verifyKeyStoreStatus(ldm);
         });
 

@@ -546,6 +546,7 @@
     <string name="password_error_retry">密码错误，请重试</string>
     <string name="retry">Retry</string>
     <string name="clear">Clear</string>
+    <string name="cross_address_generatoring">跨链地址生成中</string>
     <!--<string name="transfer_in2">Receive</string>
     <string name="transfer_out2">Transfer</string>-->
 

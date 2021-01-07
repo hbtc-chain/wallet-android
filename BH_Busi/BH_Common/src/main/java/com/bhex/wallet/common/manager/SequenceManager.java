@@ -12,6 +12,9 @@ import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.base.BaseActivity;
+import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.model.AccountInfo;
+import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransactionOrder;
 import com.google.gson.JsonObject;
 
@@ -29,10 +32,15 @@ import io.reactivex.disposables.Disposable;
  * Sequence 管理
  */
 public class SequenceManager {
-
     private static SequenceManager _instance = new SequenceManager();
 
+    //Sequence
+    private final String SEQUENCE_KEY = "sequence_";
     private AtomicInteger sequence = new AtomicInteger(0);
+
+    //跨链地址生成
+    private String GENARATOR_KEY = "GenaratorChain";
+    private String GENARATOR_KEY_VALUE = "";
 
     private ArrayMap<String,PeddingTx> mPeddingTxMap;
 
@@ -48,29 +56,29 @@ public class SequenceManager {
         return _instance;
     }
 
-    public synchronized void initSequence(String v_sequence){
-        //sequence = new AtomicInteger(Integer.valueOf(v_sequence));
-        if(sequence.get()==0){
-            sequence = new AtomicInteger(Integer.valueOf(v_sequence));
-        }
+    public synchronized void initSequence(){
+        String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
+        int v_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
+        LogUtils.d("SequenceManager==>",key+"==initSequence=="+v_sequence);
+        sequence = new AtomicInteger(v_sequence);
+
+        String v_genarator_key = GENARATOR_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
+        GENARATOR_KEY_VALUE= MMKVManager.getInstance().mmkv().decodeString(v_genarator_key,GENARATOR_KEY_VALUE);
     }
 
-    public synchronized String increaseSequence(){
-        return String.valueOf(sequence.incrementAndGet());
+    public synchronized void deleteSequence(){
+
+    }
+
+    public synchronized void increaseSequence(){
+        int i_sequence = sequence.incrementAndGet();
+        String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
+        MMKVManager.getInstance().mmkv().encode(key,i_sequence);
     }
 
     public synchronized String getSequence(String v_sequence){
-        LogUtils.d("TransactionViewModel===>","peddingTxMap=="+mPeddingTxMap.size());
-        /*if(!ToolUtils.checkMapEmpty(mPeddingTxMap)){
-            return increaseSequence();
-        }else{
-            return v_sequence;
-        }*/
-        if(sequence.get()==0){
-            return v_sequence;
-        }else{
-            return String.valueOf(sequence.get());
-        }
+        int i_sequence = Math.max(Integer.valueOf(v_sequence),sequence.get());
+        return i_sequence+"";
     }
 
     //添加
@@ -82,9 +90,7 @@ public class SequenceManager {
             peddingTx.tx = transcationResponse.txhash;
             peddingTx.time = System.currentTimeMillis();
             mPeddingTxMap.put(transcationResponse.txhash,peddingTx);
-            //sequence = new AtomicInteger(Integer.valueOf(increaseSequence()));
             increaseSequence();
-            LogUtils.d("TransactionViewModel===>","==sequence==after=="+sequence.get());
         }
 
     }
@@ -93,8 +99,6 @@ public class SequenceManager {
     public ArrayMap<String, PeddingTx> getPeddingTxMap() {
         return mPeddingTxMap;
     }
-
-
 
     //更新未打包交易状态
     public void timerTranscation(BaseActivity activity){
@@ -180,12 +184,41 @@ public class SequenceManager {
                 .subscribe(observer);
     }
 
+    public void clear() {
+        sequence = new AtomicInteger(0);
+    }
+
+    public void removeAddressStatus(AccountInfo accountInfo) {
+        if(ToolUtils.checkListIsEmpty(accountInfo.assets)){
+            GENARATOR_KEY_VALUE = "";
+        }
+
+        for(AccountInfo.AssetsBean assetsBean:accountInfo.assets){
+
+            BHToken bhToken = SymbolCache.getInstance().getBHToken(assetsBean.symbol);
+            if(!TextUtils.isEmpty(assetsBean.external_address)
+                    && GENARATOR_KEY_VALUE.endsWith(bhToken.chain)){
+                GENARATOR_KEY_VALUE="";
+                MMKVManager.getInstance().mmkv().encode(GENARATOR_KEY,GENARATOR_KEY_VALUE);
+            }
+        }
+    }
+
+
+    public void updateAddressStatus(String chain) {
+        GENARATOR_KEY_VALUE = chain;
+        MMKVManager.getInstance().mmkv().encode(GENARATOR_KEY,GENARATOR_KEY_VALUE);
+    }
+
+    public String getAddressStatus(){
+        GENARATOR_KEY_VALUE = MMKVManager.getInstance().mmkv().decodeString(GENARATOR_KEY,"");
+        return GENARATOR_KEY_VALUE;
+    }
+
     public class PeddingTx{
         public String tx;
-        public String label;
+        public String type;
         public long time;
-
-
     }
 
     public class TranscationResponse{

@@ -265,7 +265,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
-                LogUtils.d("JsonObject===>:","jsonObject==="+jsonObject.toString());
                 //添加pendding交易
                 SequenceManager.getInstance().putPeddingTranscation(jsonObject);
                 LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,jsonObject.toString());
@@ -289,10 +288,12 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                     if(TextUtils.isEmpty(accountInfo.sequence)){
                         return null;
                     }
-                    
+
+                    String v_sequence = SequenceManager.getInstance().getSequence(accountInfo.sequence);
+                    LogUtils.d("TransactionViewModel==>:","v_sequence=="+v_sequence);
                     BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,
-                            SequenceManager.getInstance().getSequence(accountInfo.sequence),
-                            feeAmount,txMsgList);
+                            v_sequence,feeAmount,txMsgList);
+
                     String body = JsonUtils.toJson(bhSendTranscation);
                     RequestBody txBody = HUtils.createJson(body);
                     return BHttpApi.getService(BHttpApiInterface.class).sendTransaction(txBody);

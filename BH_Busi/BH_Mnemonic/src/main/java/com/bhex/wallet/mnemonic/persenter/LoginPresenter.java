@@ -49,7 +49,7 @@ public class LoginPresenter extends BasePresenter {
      */
     public void verifyPassword(String inputPwd, BHWallet bhWallet){
         if(MD5.verify(inputPwd,bhWallet.getPassword())){
-            //SecuritySettingManager.getInstance().recordPwd(inputPwd);
+
             ARouter.getInstance().build(ARouterConfig.Main.main_mainindex).navigation();
             getActivity().finish();
         }else{
