@@ -169,9 +169,8 @@ public class BHUserManager {
     }
 
     public void clear(){
-        //AddressGenaratorManager.getInstance().map.clear();
-        //SequenceManager.getInstance().clear();
         MainActivityManager._instance.setTargetClass(null);
         tmpBhWallet = new BHWallet();
     }
+
 }

@@ -153,7 +153,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
             ARouter.getInstance().build(ARouterConfig.Main.main_mainindex).navigation();
             finish();
         }else{
-            ToastUtils.showToast(getString(R.string.error_password));
+            //ToastUtils.showToast(getString(R.string.error_password));
 
         }
     }

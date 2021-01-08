@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.RefreshLayoutManager;
 import com.bhex.lib.uikit.util.BottomNavigationViewUtil;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
 import com.bhex.wallet.common.base.BaseActivity;
@@ -76,6 +77,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         }
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
     }
+
+
 
     @Override
     protected void addEvent() {
