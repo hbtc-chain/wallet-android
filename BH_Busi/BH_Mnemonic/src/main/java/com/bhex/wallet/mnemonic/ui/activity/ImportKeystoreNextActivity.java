@@ -10,7 +10,9 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.base.LoadDataModel;
@@ -64,6 +66,13 @@ public class ImportKeystoreNextActivity extends BaseCacheActivity<TrusteeshipPre
 
     WalletViewModel walletViewModel;
 
+    @Autowired (name = "way")
+    int mWay;
+    @Autowired (name = "keyStore")
+    String mKeyStore;
+    @Autowired (name = "password")
+    String mPassword;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_import_keystore_next;
@@ -76,6 +85,7 @@ public class ImportKeystoreNextActivity extends BaseCacheActivity<TrusteeshipPre
 
     @Override
     protected void initView() {
+        ARouter.getInstance().inject(this);
         inp_wallet_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         inp_wallet_name.addTextWatch(new SimpleTextWatcher(){
             @Override
@@ -114,11 +124,11 @@ public class ImportKeystoreNextActivity extends BaseCacheActivity<TrusteeshipPre
             GlobalTipsFragment.showDialog(getSupportFragmentManager(),"",
                     this,ck_agreement.isChecked());
         }else if(view.getId()==R.id.btn_next){
-            String password = BHUserManager.getInstance().getTmpBhWallet().getPassword();
+            //String password = BHUserManager.getInstance().getTmpBhWallet().getPassword();
             String name = inp_wallet_name.getInputString();
-            String keyStore = BHUserManager.getInstance().getTmpBhWallet().getKeystorePath();
+            //String keyStore = BHUserManager.getInstance().getTmpBhWallet().getKeystorePath();
 
-            walletViewModel.importKeyStore(this,keyStore,name,password);
+            walletViewModel.importKeyStore(this,mKeyStore,name,mPassword);
 
             ToolUtils.hintKeyBoard(this);
         }

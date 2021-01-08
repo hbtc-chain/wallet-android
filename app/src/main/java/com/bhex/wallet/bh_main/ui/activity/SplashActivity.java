@@ -82,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
                 .subscribe(aLong -> {
                     //首次启动
                     if (!BHUserManager.getInstance().isHasWallet()) {
-                        NavigateUtil.startActivity(SplashActivity.this, MnemonicIndexActivity.class);
+                        ARouter.getInstance().build(ARouterConfig.MNEMONIC_INDEX_PAGE).navigation();
                     } else {
                         boolean isFinger = MMKVManager.getInstance().mmkv().decodeBool(BHConstants.FINGER_PWD_KEY);
                         if (!isFinger) {

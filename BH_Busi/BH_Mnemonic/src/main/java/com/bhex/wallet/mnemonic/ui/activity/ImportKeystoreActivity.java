@@ -21,6 +21,7 @@ import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.NavigateUtil;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.viewmodel.WalletViewModel;
@@ -122,9 +123,9 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
             return ;
         }
 
-        BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入KS.getWay());
-        BHUserManager.getInstance().getTmpBhWallet().setKeystorePath(keyStoreStr);
-        BHUserManager.getInstance().getTmpBhWallet().setPassword(password);
+        //BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入KS.getWay());
+        //BHUserManager.getInstance().getTmpBhWallet().setKeystorePath(keyStoreStr);
+        //BHUserManager.getInstance().getTmpBhWallet().setPassword(password);
         //验证Keystore和密码是否匹配
         walletViewModel.verifyKeystore(this,keyStoreStr,password);
     }
@@ -135,8 +136,15 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
     private void verifyKeyStoreStatus(LoadDataModel<String> ldm){
         if(ldm.getLoadingStatus()== LoadingStatus.SUCCESS){
             //跳转下一页
-            //NavigateUtil.startActivity(this,ImportKeystoreNextActivity.class);
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY_NEXT).navigation();
+            String keyStoreStr = et_keystore.getText().toString().trim();
+            String password = inp_origin_pwd.getInputString();
+
+            ARouter.getInstance()
+                    .build(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY_NEXT)
+                    .withInt("way", MAKE_WALLET_TYPE.导入KS.getWay())
+                    .withString("keyStore",keyStoreStr)
+                    .withString("password",password)
+                    .navigation();
         }else if(ldm.getLoadingStatus()== LoadingStatus.ERROR){
             ToastUtils.showToast(ldm.msg);
         }

@@ -66,14 +66,12 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     PasswordInputView mPasswordInputView;
     PasswordKeyBoardView mPasswordKeyboardView;
 
-    /*@BindView(R2.id.inp_wallet_confirm_pwd)
-    InputView inp_wallet_confirm_pwd;
-
-    @BindView(R2.id.tv_password_count)
-    AppCompatTextView tv_password_count;*/
-
     @Autowired(name = "password")
     String mOldPwd;
+
+    @Autowired(name = "way")
+    int mWay;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_trusteeship_third;
@@ -83,8 +81,8 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     protected void initView() {
         ARouter.getInstance().inject(this);
 
-        mPresenter.setToolBarTitle();
-        mPresenter.setButtonTitle();
+        mPresenter.setToolBarTitle(mWay);
+        mPresenter.setButtonTitle(mWay);
         SpannableString highlightText = StringUtils.highlight(this,
                 getString(R.string.bh_register_agreement),
                 getString(R.string.bh_register_agreement_sub),
@@ -150,13 +148,13 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
         walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
             if (loadDataModel.loadingStatus== LoadingStatus.SUCCESS) {
-                if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.导入助记词.getWay()){
+                if(mWay==MAKE_WALLET_TYPE.导入助记词.getWay()){
                     NavigateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
                     EventBus.getDefault().post(new AccountEvent());
                     ToastUtils.showToast(getResources().getString(R.string.import_mnemonic_success));
                     BHUserManager.getInstance().clear();
-                }else if(BHUserManager.getInstance().getTmpBhWallet().getWay()==MAKE_WALLET_TYPE.PK.getWay()){
+                }else if(mWay==MAKE_WALLET_TYPE.PK.getWay()){
                     NavigateUtil.startMainActivity(this,new String[]{});
                     ActivityCache.getInstance().finishActivity();
                     EventBus.getDefault().post(new AccountEvent());
@@ -180,21 +178,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
             }
         });
 
-        //获取输入密码
-        /*inp_wallet_confirm_pwd.addTextWatch(new SimpleTextWatcher(){
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                mPresenter.checkConfirmPassword(inp_wallet_confirm_pwd,btn_create,mOldPwd,ck_agreement);
-                //
-                int count = inp_wallet_confirm_pwd.getInputString().length();
-                tv_password_count.setText(String.format(getString(R.string.pwd_index),count));
-            }
-        });
 
-
-
-        */
     }
 
 
@@ -208,13 +192,13 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                 return;
             }
             //设置密码
-            String userName = BHUserManager.getInstance().getTmpBhWallet().getName();
-            int way = BHUserManager.getInstance().getTmpBhWallet().way;
-            if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
+            String userName = BHUserManager.getInstance().getCreateWalletParams().name;
+            //int way = BHUserManager.getInstance().getTmpBhWallet().way;
+            if(mWay== MAKE_WALLET_TYPE.创建助记词.getWay()){
                 generateMnemonic(userName,mOldPwd);
-            }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){
+            }else if(mWay== MAKE_WALLET_TYPE.导入助记词.getWay()){
                 importMnemoic(userName,mOldPwd);
-            }else if(way==MAKE_WALLET_TYPE.PK.getWay()){
+            }else if(mWay==MAKE_WALLET_TYPE.PK.getWay()){
                 importPrivatekey(userName,mOldPwd);
             }
         }else if(view.getId()==R.id.tv_agreement){
@@ -236,7 +220,8 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
      * @param pwd
      */
     private void importMnemoic(String name, String pwd) {
-        List<String> words = BHUserManager.getInstance().getTmpBhWallet().mWords;
+        //List<String> words = BHUserManager.getInstance().getTmpBhWallet().mWords;
+        List<String> words = BHUserManager.getInstance().getCreateWalletParams().mWords;
         walletViewModel.importMnemonic(this,words,name,pwd);
     }
 

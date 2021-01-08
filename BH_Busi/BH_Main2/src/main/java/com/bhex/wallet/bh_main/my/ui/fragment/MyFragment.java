@@ -212,6 +212,7 @@ public class MyFragment extends BaseFragment  {
         if(position==BUSI_MY_TYPE.备份助记词.index){
             ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
                     .withString(BHConstants.INPUT_PASSWORD,password)
+                    .withString("gotoTarget","MyFragment")
                     .navigation();
         }else if(position==BUSI_MY_TYPE.备份私钥.index){
             String title = MyHelper.getTitle(getYActivity(),position);

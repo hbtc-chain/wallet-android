@@ -96,9 +96,9 @@ public class TrusteeshipPresenter extends BasePresenter {
     /**
      * 设置Toolbar标题
      */
-    public void setToolBarTitle(){
+    public void setToolBarTitle(int way){
         AppCompatTextView tv_center_title = getActivity().findViewById(R.id.tv_center_title);
-        int way = BHUserManager.getInstance().getTmpBhWallet().way;
+        //int way = BHUserManager.getInstance().getTmpBhWallet().way;
         if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
             tv_center_title.setText(getActivity().getResources().getString(R.string.wallet_create_trusteeship));
         }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){
@@ -112,9 +112,9 @@ public class TrusteeshipPresenter extends BasePresenter {
     /**
      * 设置按钮title
      */
-    public void setButtonTitle(){
+    public void setButtonTitle(int way){
         AppCompatButton btn = getActivity().findViewById(R.id.btn_create);
-        int way = BHUserManager.getInstance().getTmpBhWallet().way;
+        //int way = BHUserManager.getInstance().getTmpBhWallet().way;
         if(way== MAKE_WALLET_TYPE.创建助记词.getWay()){
             btn.setText(getActivity().getResources().getString(R.string.wallet_create_trusteeship));
         }else if(way== MAKE_WALLET_TYPE.导入助记词.getWay()){

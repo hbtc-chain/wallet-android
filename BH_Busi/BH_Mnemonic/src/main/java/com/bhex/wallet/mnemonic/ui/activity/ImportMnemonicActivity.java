@@ -130,10 +130,11 @@ public class ImportMnemonicActivity extends BaseCacheActivity implements Mnemoni
         }
         String mnemonic_text = et_mnemonic.getText().toString().replaceAll("\\s+"," ");
 
-        BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入助记词.getWay());
-        BHUserManager.getInstance().getTmpBhWallet().setMnemonic(mnemonic_text);
-        BHUserManager.getInstance().getTmpBhWallet().setWords(mnemonicItems);
+        //BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入助记词.getWay());
+        BHUserManager.getInstance().getCreateWalletParams().mnemonic = mnemonic_text;
+        BHUserManager.getInstance().getCreateWalletParams().mWords = mnemonicItems;
         ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST)
+                .withInt("way", MAKE_WALLET_TYPE.导入助记词.getWay())
                 .navigation();
     }
 

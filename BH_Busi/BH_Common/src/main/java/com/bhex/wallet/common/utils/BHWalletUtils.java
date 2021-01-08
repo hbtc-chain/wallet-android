@@ -12,6 +12,7 @@ import com.bhex.wallet.common.crypto.wallet.HWallet;
 import com.bhex.wallet.common.crypto.wallet.HWalletFile;
 import com.bhex.wallet.common.crypto.wallet.SecureRandomUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -231,7 +232,7 @@ public class BHWalletUtils {
      * @return
      */
     private static BHWallet generateWallet(String walletName, String pwd, ECKeyPair keyPair,List<String> mnemonics) {
-        BHWallet bhWallet = null;
+        BHWallet bhWallet = new BHWallet();
         try {
             HWalletFile walletFile = HWallet.create(pwd, keyPair,1024, 1);
             //生成BH-地址
@@ -250,15 +251,16 @@ public class BHWalletUtils {
             String raw_json = JsonUtils.toJson(walletFile);
             //私钥加密
             String encryptPK = CryptoUtil.encryptPK(keyPair.getPrivateKey(),pwd);
-            bhWallet = BHUserManager.getInstance().getTmpBhWallet();
             bhWallet.setName(walletName);
             bhWallet.setAddress(bh_adress);
             bhWallet.setPublicKey(bh_bech_pubkey);
             bhWallet.setPrivateKey(encryptPK);
             bhWallet.setKeystorePath(raw_json);
             bhWallet.setPassword(MD5.generate(pwd));
-            bhWallet.setIsDefault(0);
-            bhWallet.setIsBackup(0);
+            //bhWallet.setIsDefault(0);
+            //bhWallet.setIsBackup(0);
+            bhWallet.setIsDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
+            bhWallet.setIsBackup(BH_BUSI_TYPE.未备份.getIntValue());
             //bhWallet.setMnemonic(walletFile.encMnemonic);
             if(mnemonics!=null && mnemonics.size()==12){
                 String old_mnemonic =  convertMnemonicList(mnemonics);

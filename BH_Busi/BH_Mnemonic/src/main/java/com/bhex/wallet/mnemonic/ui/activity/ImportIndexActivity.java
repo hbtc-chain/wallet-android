@@ -12,6 +12,7 @@ import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
+import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 import com.bhex.wallet.mnemonic.adapter.ImportAdapter;

@@ -15,6 +15,7 @@ import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.model.CreateWalletParams;
 import com.bhex.wallet.common.model.GasFee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -39,7 +40,7 @@ public class BHUserManager {
 
     private static volatile BHUserManager  _INSTANCE;
 
-    private BHWallet tmpBhWallet;
+    //private BHWallet tmpBhWallet;
 
     //当前使用的钱包
     private BHWallet mCurrentBhWallet;
@@ -54,8 +55,11 @@ public class BHUserManager {
     //助记词列表
     private List<String> mWordList;
 
+    private CreateWalletParams createWalletParams;
+
     private BHUserManager(){
-        tmpBhWallet = new BHWallet();
+        //tmpBhWallet = new BHWallet();
+        createWalletParams = new CreateWalletParams();
         mCurrentBhWallet = new BHWallet();
         initWord();
     }
@@ -82,8 +86,15 @@ public class BHUserManager {
         }
     }
 
-    public BHWallet getTmpBhWallet() {
+    /*public BHWallet getTmpBhWallet() {
         return tmpBhWallet;
+    }*/
+
+    public CreateWalletParams getCreateWalletParams() {
+        if(createWalletParams==null){
+            createWalletParams = new CreateWalletParams();
+        }
+        return createWalletParams;
     }
 
     public synchronized void setAllWallet(List<BHWallet> allWallet) {
@@ -169,8 +180,8 @@ public class BHUserManager {
     }
 
     public void clear(){
-        MainActivityManager._instance.setTargetClass(null);
-        tmpBhWallet = new BHWallet();
+        //MainActivityManager._instance.setTargetClass(null);
+
     }
 
 }

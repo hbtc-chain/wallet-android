@@ -374,7 +374,7 @@ public class WalletViewModel extends ViewModel {
 
         Observable.create((emitter)->{
             try{
-                String privateKey = BHUserManager.getInstance().getTmpBhWallet().getPrivateKey();
+                String privateKey = BHUserManager.getInstance().getCreateWalletParams().privateKey;
                 //先判断地址是否存在
                 String bh_address = BHWalletUtils.privatekeyToAddress(privateKey);
                 boolean isWalletExist = BHWalletHelper.isExistBHWallet(bh_address);

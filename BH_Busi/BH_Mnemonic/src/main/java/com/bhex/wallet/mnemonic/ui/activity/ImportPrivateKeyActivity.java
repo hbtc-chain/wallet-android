@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.LogUtils;
@@ -96,9 +97,13 @@ public class ImportPrivateKeyActivity extends BaseCacheActivity {
             return;
         }
 
-        BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.PK.getWay());
-        BHUserManager.getInstance().getTmpBhWallet().setPrivateKey(privateKey.trim());
-        NavigateUtil.startActivity(this,TrusteeshipActivity.class);
+        //BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.PK.getWay());
+        BHUserManager.getInstance().getCreateWalletParams().privateKey = privateKey.trim();
+        //NavigateUtil.startActivity(this,TrusteeshipActivity.class);
+        ARouter.getInstance()
+                .build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST)
+                .withInt("way",MAKE_WALLET_TYPE.PK.getWay())
+                .navigation();
     }
 
 }
