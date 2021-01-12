@@ -44,7 +44,6 @@ public class MnemonicDataHelper {
             HWalletFile old_walletFile = objectMapper.readValue(currentWallet.keystorePath, HWalletFile.class);
             if(!TextUtils.isEmpty(old_walletFile.encMnemonic)){
                 String origin_enemonic = HWallet.解密_M(old_walletFile.encMnemonic,inputPassword,old_walletFile);
-                //LogUtils.d("origin_enemoni===",origin_enemonic);
                 array = origin_enemonic.split(" ");
             }
 

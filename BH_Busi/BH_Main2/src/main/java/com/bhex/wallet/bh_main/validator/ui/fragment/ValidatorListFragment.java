@@ -121,6 +121,8 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
                     .withInt("valid", mValidatorType)
                     .navigation();
         });
+
+        getRecord(mValidatorAdapter==null||mValidatorAdapter.getData()==null||mValidatorAdapter.getData().size()<1);
     }
 
     private void getRecord(boolean showDialog) {
@@ -130,11 +132,10 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         mValidatorViewModel.getValidatorInfos(getYActivity(),BH_BUSI_TYPE.有效节点.getIntValue());
     }
 
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
-        getRecord(mValidatorAdapter==null||mValidatorAdapter.getData()==null||mValidatorAdapter.getData().size()<1);
-    }
+    }*/
 
     public void updateRecord(List<ValidatorInfo> datas) {
         //datas.get(0).is_elected =false;

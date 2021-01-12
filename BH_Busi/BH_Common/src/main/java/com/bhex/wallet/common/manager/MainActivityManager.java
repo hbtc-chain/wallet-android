@@ -15,7 +15,7 @@ public class MainActivityManager {
 
     public  BaseActivity mainActivity;
 
-    private Class targetClass;
+    //private Class targetClass;
 
     private MainActivityManager(){
 
@@ -42,11 +42,4 @@ public class MainActivityManager {
         balanceViewModel.onCreate();
     }
 
-    /*public Class getTargetClass() {
-        return targetClass;
-    }*/
-
-    /*public void setTargetClass(Class targetClass) {
-        this.targetClass = targetClass;
-    }*/
 }

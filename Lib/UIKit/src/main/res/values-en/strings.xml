@@ -482,7 +482,7 @@
     <string name="string_deposit_enter_fee">Cross-chain deposit fee %1$s</string>
     <string name="set_pwd_period">Set password expiration：</string>
     <string name="string_deposit_threshold_2">Tips：minimum deposit amount</string>
-    <string name="string_apply_success">Success</string>
+    <string name="string_apply_success">Claimed</string>
     <string name="claim_test_coin">Claim testnet coin</string>
     <string name="pay_token">Payment Token In</string>
     <string name="payment_amount">Payment amount</string>

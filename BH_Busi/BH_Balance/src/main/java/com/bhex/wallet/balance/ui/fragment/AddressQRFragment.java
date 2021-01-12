@@ -32,7 +32,7 @@ import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ImageLoaderUtil;
-import com.bhex.tools.utils.QREncodUtil;
+import com.bhex.tools.utils.QRCodeEncoder;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.R2;
@@ -75,7 +75,8 @@ public class AddressQRFragment extends BaseDialogFragment {
         ImageLoaderUtil.loadImageView(getContext(),bhToken.logo, iv,R.mipmap.ic_default_coin);
         AppCompatImageView iv_qr_code = view.findViewById(R.id.iv_qr_code);
         AppCompatTextView tv_token_address = view.findViewById(R.id.tv_token_address);
-        Bitmap bitmap = QREncodUtil.createQRCode(address, PixelUtils.dp2px(getContext(), 181), PixelUtils.dp2px(getContext(), 181), null);
+        //Bitmap bitmap = QREncodUtil.createQRCode(address, PixelUtils.dp2px(getContext(), 181), PixelUtils.dp2px(getContext(), 181), null);
+        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(address,PixelUtils.dp2px(getContext(),181), ColorUtil.getColor(getContext(),android.R.color.black));
         iv_qr_code.setImageBitmap(bitmap);
         tv_token_address.setText(address);
 

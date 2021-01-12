@@ -1,9 +1,7 @@
 package com.bhex.wallet.balance.ui.viewhodler;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -23,12 +21,11 @@ import com.bhex.tools.utils.FileUtils;
 import com.bhex.tools.utils.ImageLoaderUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
-import com.bhex.tools.utils.QREncodUtil;
+import com.bhex.tools.utils.QRCodeEncoder;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R;
 import com.bhex.wallet.balance.helper.BHBalanceHelper;
 import com.bhex.wallet.balance.ui.activity.TransferInActivity;
-import com.bhex.wallet.balance.ui.fragment.AddressQRFragment;
 import com.bhex.wallet.balance.ui.fragment.DepositTipsFragment;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.db.entity.BHWallet;
@@ -139,8 +136,11 @@ public class TransferInVH {
         //地址
         tv_token_address.setText(deposit_address);
         //二维码
-        Bitmap bitmap = QREncodUtil.createQRCode(deposit_address,
-                PixelUtils.dp2px(mActivity,160),PixelUtils.dp2px(mActivity,160),null);
+        /*Bitmap bitmap = QREncodUtil.createQRCode(deposit_address,
+                PixelUtils.dp2px(mActivity,160),PixelUtils.dp2px(mActivity,160),null);*/
+
+        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(deposit_address,PixelUtils.dp2px(mActivity,210), ColorUtil.getColor(mActivity,android.R.color.black));
+
         iv_qr_code.setImageBitmap(bitmap);
 
         //复制地址
@@ -206,8 +206,11 @@ public class TransferInVH {
             }
         };
 
-        Bitmap bitmap = QREncodUtil.createQRCode(tv_token_address.getText().toString(),
-                PixelUtils.dp2px(mActivity,160),PixelUtils.dp2px(mActivity,160),null);
+        /*Bitmap bitmap = QREncodUtil.createQRCode(tv_token_address.getText().toString(),
+                PixelUtils.dp2px(mActivity,160),PixelUtils.dp2px(mActivity,160),null);*/
+
+        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(tv_token_address.getText().toString(),PixelUtils.dp2px(mActivity,160),
+                ColorUtil.getColor(mActivity,android.R.color.black));
 
         Observable.create(emitter -> {
             boolean flag = FileUtils.saveImageToGallery(mActivity,bitmap,tv_token_address.getText().toString()+".png");
