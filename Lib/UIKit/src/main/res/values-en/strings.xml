@@ -467,7 +467,7 @@
     <string name="reject">Reject</string>
 
     <string name="choose_token">Choose Token</string>
-    <string name="security_setting_tips">When the page has timed out, you—–´—–re required to re-enter the password.</string>
+    <string name="security_setting_tips">When the page has timed out, you´re required to re-enter the password.</string>
     <string name="security_setting_pwd_tips">Password Valid for the next login</string>
     <string name="balance">Balance</string>
     <string name="cross_link_trusteeship_address">Cross-chain custody address</string>
