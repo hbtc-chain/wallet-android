@@ -501,7 +501,7 @@
     <string name="json_parse_error">Json parsing error</string>
     <string name="password_no_match">Passwords do not match</string>
     <string name="finish">Finished</string>
-    <string name="add_wallet">Add wallete</string>
+    <string name="add_wallet">Add wallet</string>
     <string name="number_password">6-digit password</string>
     <string name="create">Create</string>
     <string name="confirm_number_password">Input 6-digit password again</string>
@@ -543,10 +543,10 @@
     <string name="token_detail">Token</string>
     <string name="latest_version">Latest version</string>
     <string name="claiming">Clamin</string>
-    <string name="password_error_retry">密码错误，请重试</string>
+    <string name="password_error_retry">The passwords do not match. Please try again</string>
     <string name="retry">Retry</string>
     <string name="clear">Clear</string>
-    <string name="cross_address_generatoring">跨链地址生成中</string>
+    <string name="cross_address_generatoring">cross-chain address generating</string>
     <!--<string name="transfer_in2">Receive</string>
     <string name="transfer_out2">Transfer</string>-->
 

@@ -182,6 +182,18 @@ public class ToolUtils {
         //cm.setText(textView.getText().toString().trim());
     }
 
+    public static void clearClipboard(Context context){
+        ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        if (manager != null) {
+            try {
+                manager.setPrimaryClip(manager.getPrimaryClip());
+                manager.setText(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     //生成随机数
     public static int getRandom(int count) {

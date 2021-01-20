@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xqrcode_pay_attention">注意</string>
+    <string name="xqrcode_not_get_permission">照相机打开失败，请检查权限是否未获取！</string>
+    <string name="xqrcode_submit">确定</string>
+    <string name="scan_qr_tip">将二维码放入框内，即可自动扫描</string>
+</resources>
