@@ -2,16 +2,17 @@ package com.bhex.wallet.mnemonic.ui.fragment;
 
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 
-import com.bhex.tools.utils.PixelUtils;
-import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.MD5;
-import com.bhex.tools.utils.QREncodUtil;
+import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.PixelUtils;
+import com.bhex.tools.utils.QRCodeEncoder;
+import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.helper.BHWalletHelper;
@@ -73,9 +74,10 @@ public class ExportQRFragment extends BaseFragment {
             content = BHWalletHelper.getOriginKeyStore(mCurrentWallet.keystorePath);
         }
 
-        Bitmap bitmap = QREncodUtil.createQRCode(content,
+        /*Bitmap bitmap = QREncodUtil.createQRCode(content,
                 PixelUtils.dp2px(getYActivity(),210),PixelUtils.dp2px(getYActivity(),210),
-                null);
+                null);*/
+        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(content,PixelUtils.dp2px(getYActivity(),210), ColorUtil.getColor(getYActivity(),android.R.color.black));
 
         iv_qr.setImageBitmap(bitmap);
         iv_qr.setVisibility(View.VISIBLE);

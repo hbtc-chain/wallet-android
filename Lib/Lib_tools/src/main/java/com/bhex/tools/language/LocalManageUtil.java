@@ -33,6 +33,7 @@ public class LocalManageUtil {
 
     @TargetApi(Build.VERSION_CODES.N)
     private static Context createConfigurationResources(Context context, String language) {
+        LogUtils.d("LocalManager===>:","language=="+language);
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics dm = resources.getDisplayMetrics();

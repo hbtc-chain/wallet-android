@@ -60,14 +60,14 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
     @OnClick({R2.id.btn_at_once_backup, R2.id.btn_later_backup})
     public void onViewClicked(View view) {
         if(view.getId()== R.id.btn_at_once_backup){
-            ScreenShotTipsFragment fragment = ScreenShotTipsFragment.showDialog(getSupportFragmentManager(),"");
+            ScreenShotTipsFragment fragment = ScreenShotTipsFragment.showDialog(getSupportFragmentManager(),ScreenShotTipsFragment.class.getName());
             fragment.setIKnowListener(TrusteeshipSuccessActivity.this);
         }else if(view.getId()== R.id.btn_later_backup){
-
-            if(MainActivityManager.getInstance().getTargetClass()!=null &&
+            /*if(MainActivityManager.getInstance().getTargetClass()!=null &&
                     MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
-                EventBus.getDefault().post(new AccountEvent());
-            }
+            }*/
+            //钱包创建成功，返回首页
+            EventBus.getDefault().post(new AccountEvent());
             NavigateUtil.startMainActivity(this,
                     new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
             ActivityCache.getInstance().finishActivity();
@@ -78,7 +78,9 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
     @Override
     public void clickBtn() {
         //NavigateUtil.startActivity(this, BackupMnemonicActivity.class);
-        ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP).withString(BHConstants.INPUT_PASSWORD,inputPwd).navigation();
+        ARouter.getInstance().build(ARouterConfig.MNEMONIC_BACKUP)
+                .withString(BHConstants.INPUT_PASSWORD,inputPwd)
+                .navigation();
         ActivityCache.getInstance().finishActivity();
     }
 
@@ -86,7 +88,7 @@ public class TrusteeshipSuccessActivity extends BaseCacheActivity implements Scr
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        ScreenShotTipsFragment fragment = ScreenShotTipsFragment.showDialog(getSupportFragmentManager(),"");
+        ScreenShotTipsFragment fragment = ScreenShotTipsFragment.showDialog(getSupportFragmentManager(),ScreenShotTipsFragment.class.getName());
         fragment.setIKnowListener(TrusteeshipSuccessActivity.this);
     }
 }

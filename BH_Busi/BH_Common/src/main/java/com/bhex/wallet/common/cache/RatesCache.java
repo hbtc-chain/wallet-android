@@ -33,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java8.util.stream.StreamSupport;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -80,7 +81,10 @@ public class RatesCache extends BaseCache {
         /*Map<String,String> params = new HashMap<>();
         params.put("symbols",balacne_list);
         RequestBody txBody = HUtils.createFile(JsonUtils.toJson(params));*/
-        BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)
+        RequestBody txBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("symbols",balacne_list).build();
+        BHttpApi.getService(BHttpApiInterface.class).loadRates(txBody)
                 .compose(RxSchedulersHelper.io_main())
                 .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy()))
                 .map(new CacheResult.MapFunc<>())

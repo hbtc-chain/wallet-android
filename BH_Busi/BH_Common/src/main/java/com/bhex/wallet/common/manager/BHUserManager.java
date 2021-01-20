@@ -12,8 +12,10 @@ import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.crypto.wallet.HWallet;
 import com.bhex.wallet.common.crypto.wallet.HWalletFile;
 import com.bhex.wallet.common.db.entity.BHWallet;
+import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHToken;
+import com.bhex.wallet.common.model.CreateWalletParams;
 import com.bhex.wallet.common.model.GasFee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,12 +40,10 @@ public class BHUserManager {
 
     private static volatile BHUserManager  _INSTANCE;
 
-    private BHWallet tmpBhWallet;
+    //private BHWallet tmpBhWallet;
 
     //当前使用的钱包
     private BHWallet mCurrentBhWallet;
-
-    //private Credentials tmpCredentials;
 
     //资产账户信息
     private AccountInfo mAccountInfo;
@@ -55,8 +55,11 @@ public class BHUserManager {
     //助记词列表
     private List<String> mWordList;
 
+    private CreateWalletParams createWalletParams;
+
     private BHUserManager(){
-        tmpBhWallet = new BHWallet();
+        //tmpBhWallet = new BHWallet();
+        createWalletParams = new CreateWalletParams();
         mCurrentBhWallet = new BHWallet();
         initWord();
     }
@@ -83,8 +86,15 @@ public class BHUserManager {
         }
     }
 
-    public BHWallet getTmpBhWallet() {
+    /*public BHWallet getTmpBhWallet() {
         return tmpBhWallet;
+    }*/
+
+    public CreateWalletParams getCreateWalletParams() {
+        if(createWalletParams==null){
+            createWalletParams = new CreateWalletParams();
+        }
+        return createWalletParams;
     }
 
     public synchronized void setAllWallet(List<BHWallet> allWallet) {
@@ -94,7 +104,7 @@ public class BHUserManager {
         }
 
         for (BHWallet bhWallet:allWallet) {
-            if(bhWallet.isDefault==1){
+            if(bhWallet.isDefault==BH_BUSI_TYPE.默认托管单元.getIntValue()){
                 mCurrentBhWallet = bhWallet;
             }
         }
@@ -123,9 +133,9 @@ public class BHUserManager {
         //设置默认
         StreamSupport.stream(allWallet).forEach( item->{
             if(item.id==mCurrentBhWallet.id){
-                item.setIsDefault(1);
+                item.setIsDefault(BH_BUSI_TYPE.默认托管单元.getIntValue());
             }else{
-                item.setIsDefault(0);
+                item.setIsDefault(BH_BUSI_TYPE.非默认托管单元.getIntValue());
             }
         });
     }
@@ -137,26 +147,12 @@ public class BHUserManager {
     public synchronized void setAccountInfo(AccountInfo accountInfo) {
         this.mAccountInfo = accountInfo;
         //更新状态
-
+        //SequenceManager.getInstance().initSequence(accountInfo.sequence);
     }
 
     public List<String> getWordList() {
         return mWordList;
     }
-
-    /*public synchronized void saveUserBalanceList(List<BHBalance> list){
-        if(list==null || list.size()==0){
-            return;
-        }
-        StringBuffer buffer = new StringBuffer("");
-        for (BHBalance item:list) {
-            buffer.append(item.symbol).append("_");
-        }
-        buffer.delete(buffer.length()-1,buffer.length());
-
-        String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
-        MMKVManager.getInstance().mmkv().encode(key,buffer.toString());
-    }*/
 
     public synchronized String getUserBalanceList(){
         String key = BHUserManager.getInstance().mCurrentBhWallet.getAddress()+"_balance";
@@ -183,21 +179,9 @@ public class BHUserManager {
         return  gasFee;
     }
 
-
-
-   /* public void setTmpCredentials(Credentials tmpCredentials) {
-        this.tmpCredentials = tmpCredentials;
-    }*/
-
-    /*public Credentials getTmpCredentials() {
-        return tmpCredentials;
-    }*/
-
     public void clear(){
-        //tmpCredentials = null;
-        //targetClass = null;
-        AddressGenaratorManager.getInstance().map.clear();
-        MainActivityManager._instance.setTargetClass(null);
-        tmpBhWallet = new BHWallet();
+        //MainActivityManager._instance.setTargetClass(null);
+
     }
+
 }

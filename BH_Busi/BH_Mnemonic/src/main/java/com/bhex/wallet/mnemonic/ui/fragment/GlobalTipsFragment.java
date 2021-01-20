@@ -23,6 +23,7 @@ import android.webkit.WebView;
 import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 
+import com.bhex.network.mvx.base.BaseDialogFragment;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.PixelUtils;
@@ -44,7 +45,7 @@ import java.util.Locale;
 /**
  *
  */
-public class GlobalTipsFragment extends BaseBottomSheetDialog {
+public class GlobalTipsFragment extends BaseDialogFragment {
 
     private CheckedTextView check_agreement;
     //private AppCompatTextView tv_agreement;
@@ -108,6 +109,10 @@ public class GlobalTipsFragment extends BaseBottomSheetDialog {
                 .createAgentWeb()//创建AgentWeb。
                 .ready()//设置 WebSettings。
                 .go(BH_BUSI_URL.服务协议.getGotoUrl(getContext()));
+
+        //设置缓存
+        WebSettings webSettings = mAgentWeb.getAgentWebSettings().getWebSettings();
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
     }
 
     @Override

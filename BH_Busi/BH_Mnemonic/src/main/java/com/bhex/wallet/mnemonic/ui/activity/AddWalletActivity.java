@@ -87,25 +87,25 @@ public class AddWalletActivity extends BaseCacheActivity<ImportPresenter> {
             case 导入助记词:
                 ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_MNEMONIC)
                         .navigation();
-                MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
+                //MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
                 break;
 
             case 导入KS:
                 ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_KEYSTORE)
                         .navigation();
-                MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
+                //MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
                 break;
 
             case PK:
                 ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_PRIVATEKEY)
                         .navigation();
-                MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
+                //MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
                 break;
 
             case 创建助记词:
                 ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST)
                         .navigation();
-                MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
+                //MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
                 break;
         }
     }

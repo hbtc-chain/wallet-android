@@ -59,6 +59,8 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
 
     @Autowired(name="inputPwd")
     String inputPwd;
+    @Autowired(name = "gotoTarget")
+    String mGotoTarget;
 
     UnderMnemonicAdapter underMnemonicAdapter;
     AboveMnemonicAdapter aboveMnemonicAdapter;
@@ -80,7 +82,6 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     protected void initView() {
         ARouter.getInstance().inject(this);
 
-        //LogUtils.d("VerifyMnemonicActivity===>","isbackup==="+BHUserManager.getInstance().getCurrentBhWallet().isBackup);
 
         orginMnemonicItemList = MnemonicDataHelper.makeMnemonic(inputPwd);
         underMnemonicItemList = MnemonicDataHelper.makeNewMnemonicList(orginMnemonicItemList);
@@ -171,22 +172,19 @@ public class VerifyMnemonicActivity extends BaseCacheActivity<VerifyPresenter> {
     private void gotoTarget(){
         /*if(MainActivityManager.getInstance().getTargetClass()!=null &&
                 MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
-            NavigateUtil.startMainActivity(this,new String[]{});
-
-        }else{
-            NavigateUtil.startMainActivity(this,
-                    new String[]{BHConstants.BACKUP_TEXT, BHConstants.BACKUP});
-        }
-        ActivityCache.getInstance().finishActivity();
-        BHUserManager.getInstance().clear();*/
-        if(MainActivityManager.getInstance().getTargetClass()!=null &&
-                MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             EventBus.getDefault().post(new AccountEvent());
+        }*/
+        if(!TextUtils.isEmpty(mGotoTarget)){
+            ActivityCache.getInstance().finishActivity();
+            ToastUtils.showToast(getString(R.string.mnemonic_backup_success));
+        }else{
+            //创建用户备份成功
+            EventBus.getDefault().post(new AccountEvent());
+            NavigateUtil.startMainActivity(this,new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
+            ActivityCache.getInstance().finishActivity();
+            BHUserManager.getInstance().clear();
+            ToastUtils.showToast(getString(R.string.mnemonic_backup_success));
         }
-        NavigateUtil.startMainActivity(this,
-                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
-        ActivityCache.getInstance().finishActivity();
-        BHUserManager.getInstance().clear();
-        ToastUtils.showToast(getString(R.string.mnemonic_backup_success));
+
     }
 }

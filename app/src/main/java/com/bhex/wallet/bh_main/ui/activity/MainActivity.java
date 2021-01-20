@@ -2,7 +2,6 @@ package com.bhex.wallet.bh_main.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
@@ -11,13 +10,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.RefreshLayoutManager;
 import com.bhex.lib.uikit.util.BottomNavigationViewUtil;
-import com.bhex.lib.uikit.widget.bar.CookieBar;
-import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
-import com.bhex.tools.constants.BHConstants;
-import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.R;
 import com.bhex.wallet.bh_main.persenter.MainPresenter;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.TRANSCATION_BUSI_TYPE;
 import com.bhex.wallet.common.event.AccountEvent;
@@ -25,6 +22,7 @@ import com.bhex.wallet.common.event.LanguageEvent;
 import com.bhex.wallet.common.event.NightEvent;
 import com.bhex.wallet.common.manager.AppStatusManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
+import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gyf.immersionbar.ImmersionBar;
@@ -62,6 +60,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     protected void initView() {
         ARouter.getInstance().inject(this);
         MainActivityManager._instance.mainActivity = this;
+        SequenceManager.getInstance().initSequence();
+        //AddressGenaratorManager.getInstance().init();
         RefreshLayoutManager.init();
         TRANSCATION_BUSI_TYPE.init(this);
     }
@@ -77,6 +77,8 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         }
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(mCurrentCheckId).getItemId());
     }
+
+
 
     @Override
     protected void addEvent() {
@@ -107,6 +109,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         });
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
         BottomNavigationViewUtil.hideToast(mBottomNavigationView);
+        SequenceManager.getInstance().timerTranscation(this);
     }
 
     @Override

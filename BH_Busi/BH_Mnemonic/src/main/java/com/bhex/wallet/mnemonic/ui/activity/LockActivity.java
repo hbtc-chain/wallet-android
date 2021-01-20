@@ -1,5 +1,6 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
+import android.text.InputType;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -9,7 +10,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.InputView;
+import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -77,6 +80,7 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
 
     @Override
     protected void initView() {
+        inp_wallet_pwd.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
         mCurrentWallet = BHUserManager.getInstance().getCurrentBhWallet();
         tv_bh_address.setText(mCurrentWallet.getAddress());
         iv_username.setText(mCurrentWallet.getName());
@@ -89,19 +93,25 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
         SecuritySettingManager.getInstance().initSecuritySetting();
 
         walletVM = ViewModelProviders.of(this).get(WalletViewModel.class);
-        walletVM.mutableLiveData.observe(this, loadDataModel -> {
-            if (loadDataModel.loadingStatus == LoadingStatus.SUCCESS) {
+        walletVM.mutableLiveData.observe(this, ldm -> {
+            if (ldm.loadingStatus == LoadingStatus.SUCCESS) {
                 //ToastUtils.showToast("==loadingStatus==" + loadDataModel.loadingStatus);
             }
         });
+        walletVM.pwdVerifyLiveData.observe(this, ldm -> {
+            passwordVerify(ldm);
+        });
+
     }
+
 
     @OnClick({R2.id.btn_confirm, R2.id.tv_import_mnemonic, R2.id.tv_forget_pwd, R2.id.tv_bh_address,
             R2.id.btn_wallet_create, R2.id.btn_wallet_impot})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.btn_confirm) {
             ToolUtils.hintKeyBoard(this);
-            getPresenter().verifyPassword(inp_wallet_pwd.getInputString(), mCurrentWallet);
+            walletVM.verifyKeystore(this,BHUserManager.getInstance().getCurrentBhWallet().getKeystorePath(),inp_wallet_pwd.getInputString());
+
         } else if (view.getId() == R.id.tv_import_mnemonic) {
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_IMPORT_INDEX).navigation();
         } else if (view.getId() == R.id.tv_forget_pwd) {
@@ -135,5 +145,16 @@ public class LockActivity extends BaseCacheActivity<LoginPresenter> implements A
     @Override
     protected boolean isShowBacking() {
         return false;
+    }
+
+    //密码校验
+    private void passwordVerify(LoadDataModel ldm) {
+        if(ldm.getLoadingStatus()== LoadingStatus.SUCCESS){
+            ARouter.getInstance().build(ARouterConfig.Main.main_mainindex).navigation();
+            finish();
+        }else{
+            //ToastUtils.showToast(getString(R.string.error_password));
+
+        }
     }
 }

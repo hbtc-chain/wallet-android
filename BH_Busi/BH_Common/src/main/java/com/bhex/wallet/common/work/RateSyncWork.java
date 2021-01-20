@@ -26,6 +26,7 @@ import java.util.Map;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.Function;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -45,11 +46,11 @@ public class RateSyncWork extends RxWorker {
         String balacne_list = BHUserManager.getInstance().getSymbolList();
         balacne_list = balacne_list.replace("_",",").toUpperCase();
 
-        /*Map<String,String> params = new HashMap<>();
-        params.put("symbols",balacne_list);
-        RequestBody txBody = HUtils.createFile(JsonUtils.toJson(params));*/
+        RequestBody txBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("symbols",balacne_list).build();
 
-        return Single.fromObservable(BHttpApi.getService(BHttpApiInterface.class).loadRates(balacne_list)).flatMap(new Function<List<BHRates>, SingleSource<? extends Result>>() {
+        return Single.fromObservable(BHttpApi.getService(BHttpApiInterface.class).loadRates(txBody)).flatMap(new Function<List<BHRates>, SingleSource<? extends Result>>() {
             @Override
             public SingleSource<? extends Result> apply(List<BHRates> bhRates) throws Exception {
                 LogUtils.d("RateSyncWork===>:","==bhRates=");

@@ -12,6 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.balance.R2;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.market.R;
@@ -109,6 +110,7 @@ public class WebViewFragment extends JsBowserFragment {
     protected void callbackProgress(WebView view, int newProgress) {
         if(newProgress==100 && objectAnimator!=null){
             objectAnimator.cancel();
+            //mRootView.findViewById(R.id.iv_refresh).animate().rotation(0).setDuration(60).start();
         }
     }
 
@@ -121,5 +123,11 @@ public class WebViewFragment extends JsBowserFragment {
         view.setPivotX(view.getWidth() / 2);
         view.setPivotY(view.getHeight()/ 2);
         objectAnimator.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ToolUtils.hintKeyBoard(getYActivity());
     }
 }

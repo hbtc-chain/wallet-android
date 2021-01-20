@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.xuexiang.xui.widget.layout.XUILinearLayout
+        <com.bhex.lib.uikit.widget.layout.XUILinearLayout
             android:id="@+id/layout_operator_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,10 +96,10 @@
                 android:textSize="14sp"
                 android:background="?android:selectableItemBackground" />
 
-        </com.xuexiang.xui.widget.layout.XUILinearLayout>
+        </com.bhex.lib.uikit.widget.layout.XUILinearLayout>
 
 
-        <com.xuexiang.xui.widget.layout.XUIFrameLayout
+        <com.bhex.lib.uikit.widget.layout.XUIFrameLayout
             android:id="@+id/layout_index_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                         android:textSize="11sp" />
                 </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.xuexiang.xui.widget.layout.XUIFrameLayout>
+        </com.bhex.lib.uikit.widget.layout.XUIFrameLayout>
 
 
     </RelativeLayout>

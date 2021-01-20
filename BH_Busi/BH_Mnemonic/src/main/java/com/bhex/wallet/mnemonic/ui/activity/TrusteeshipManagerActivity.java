@@ -90,9 +90,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     @Override
     protected void initView() {
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
-
         tv_center_title.setText(getString(R.string.trustship_manager));
-
         //初始化RecycleView
         recycler_trusteeship.setSwipeMenuCreator(swipeMenuCreator);
         recycler_trusteeship.setOnItemMenuClickListener(mMenuItemClickListener);
@@ -155,27 +153,13 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     @OnClick({R2.id.btn_wallet_create, R2.id.btn_wallet_impot})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_wallet_create){
-            ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST,TrusteeshipManagerActivity.class);
+            //ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST,TrusteeshipManagerActivity.class);
+            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST).navigation();
         }else if(view.getId()==R.id.btn_wallet_impot){
             ARouter.getInstance().build(ARouterConfig.Trusteeship.Trusteeship_Add_Index).navigation();
-            MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
+            //MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
         }
     }
-
-    /*@Override
-    public void checkClickListener(final int position, BHWalletItem bhWalletItem) {
-        if(bhWalletItem.isDefault==BH_BUSI_TYPE.默认托管单元.getIntValue()){
-            BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
-            walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,bhWalletItem.isDefault);
-        }else{
-            int status = (bhWalletItem.isDefault==BH_BUSI_TYPE.非默认托管单元.getIntValue())
-                    ? BH_BUSI_TYPE.默认托管单元.getIntValue()
-                    : BH_BUSI_TYPE.非默认托管单元.getIntValue();
-
-            BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
-            walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
-        }
-    }*/
 
     @Override
     public void onMenuClickListener(int position, BHWalletItem bhWalletItem) {
@@ -186,28 +170,12 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         });
     }
 
-    /**
-     * 更新位置
-     */
-    /*private void updatePosition(int position,int status){
-        if(status==1){
-            for (int i = 0; i < mAllWalletList.size(); i++) {
-                BHWalletItem item = mTrustManagerAdapter.getData().get(i);
-                item.isDefault = 0;
-            }
-        }
-        BHWalletItem item = mTrustManagerAdapter.getData().get(position);
-        item.isDefault = status;
-        mTrustManagerAdapter.notifyDataSetChanged();
-    }*/
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        //
         walletViewModel.loadWallet(this);
     }
-
 
     private SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
         @Override

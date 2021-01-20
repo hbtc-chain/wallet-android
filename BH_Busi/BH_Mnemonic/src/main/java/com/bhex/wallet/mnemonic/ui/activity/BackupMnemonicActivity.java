@@ -1,6 +1,7 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
 
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -50,6 +51,9 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
     @Autowired(name="inputPwd")
     String inputPwd;
 
+    @Autowired(name = "gotoTarget")
+    String mGotoTarget;
+
     private List<MnemonicItem> mnemonicItemList;
 
     private MnemonicAdapter mnemonicAdapter;
@@ -81,16 +85,24 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
     public void onViewClicked(View view) {
         if(view.getId()== R.id.btn_start_verify){
             //NavigateUtil.startActivity(this, VerifyMnemonicActivity.class);
-            ARouter.getInstance().build(ARouterConfig.MNEMONIC_VERIFY)
-                    .withString(BHConstants.INPUT_PASSWORD,inputPwd)
-                    .navigation();
+            if(TextUtils.isEmpty(mGotoTarget)){
+                ARouter.getInstance().build(ARouterConfig.MNEMONIC_VERIFY)
+                        .withString(BHConstants.INPUT_PASSWORD,inputPwd)
+                        .navigation();
+            }else{
+                ARouter.getInstance().build(ARouterConfig.MNEMONIC_VERIFY)
+                        .withString(BHConstants.INPUT_PASSWORD,inputPwd)
+                        .withString("gotoTarget",mGotoTarget)
+                        .navigation();
+            }
+
         }
     }
 
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if(MainActivityManager.getInstance().getTargetClass()!=null &&
+        /*if(MainActivityManager.getInstance().getTargetClass()!=null &&
                 MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             EventBus.getDefault().post(new AccountEvent());
             NavigateUtil.startMainActivity(this,new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
@@ -98,21 +110,24 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
             BHUserManager.getInstance().clear();
         }else{
             finish();
-        }
-
-
+        }*/
+        //
+        EventBus.getDefault().post(new AccountEvent());
+        NavigateUtil.startMainActivity(this,new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
+        ActivityCache.getInstance().finishActivity();
+        BHUserManager.getInstance().clear();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(MainActivityManager.getInstance().getTargetClass()!=null &&
+        /*if(MainActivityManager.getInstance().getTargetClass()!=null &&
                 MainActivityManager.getInstance().getTargetClass().equals(TrusteeshipManagerActivity.class)){
             EventBus.getDefault().post(new AccountEvent());
             BHUserManager.getInstance().clear();
             ActivityCache.getInstance().finishActivity();
         }
         NavigateUtil.startMainActivity(this,
-                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});
+                new String[]{BHConstants.BACKUP_TEXT, BHConstants.LATER_BACKUP});*/
 
         return super.onOptionsItemSelected(item);
     }

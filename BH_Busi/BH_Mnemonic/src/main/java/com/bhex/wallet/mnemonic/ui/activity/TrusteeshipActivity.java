@@ -36,8 +36,12 @@ import butterknife.OnClick;
 public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter> {
 
     WalletViewModel walletViewModel;
+
     @Autowired(name="isForgetPwd")
     int isForgetPwd = 0;
+
+    @Autowired(name = "way")
+    int mWay;
 
     @BindView(R2.id.btn_next)
     AppCompatButton btn_next;
@@ -63,7 +67,8 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
 
     @Override
     protected void initView() {
-        mPresenter.setToolBarTitle();
+        ARouter.getInstance().inject(this);
+        mPresenter.setToolBarTitle(mWay);
         inp_wallet_name.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
         //inp_wallet_name.getEditText().setText("Bluehelix Wallet");
     }
@@ -95,33 +100,13 @@ public class TrusteeshipActivity extends BaseCacheActivity<TrusteeshipPresenter>
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_next){
             //设置钱包用户名
-            BHUserManager.getInstance().getTmpBhWallet()
-                    .setName(inp_wallet_name.getInputString());
+            BHUserManager.getInstance().getCreateWalletParams().name = inp_wallet_name.getInputString();
             //NavigateUtil.startActivity(this,TrusteeshipSecActivity.class);
-            ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_SECOND)
+            ARouter.getInstance()
+                    .build(ARouterConfig.TRUSTEESHIP_MNEMONIC_SECOND)
+                    .withInt("way",mWay)
                     .navigation();
         }
     }
-
-    /**
-     * 生成助记词
-     */
-    /*private void generateMnemonic(String name, String pwd) {
-        walletViewModel.generateMnemonic(name, pwd);
-
-        walletViewModel.mutableLiveData.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String status) {
-                if ("1".equals(status)) {
-                    ToastUtils.showToast("创建成功");
-                    NavigateUtil.startActivity(TrusteeshipActivity.this, TrusteeshipSuccessActivity.class);
-                    MMKVManager.getInstance().mmkv().encode(BHConstants.FRIST_BOOT, true);
-                } else {
-                    ToastUtils.showToast("创建失败");
-                }
-            }
-        });
-    }*/
-
 
 }

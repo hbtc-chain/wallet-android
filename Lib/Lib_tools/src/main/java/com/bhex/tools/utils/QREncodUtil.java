@@ -19,9 +19,9 @@ import java.util.Map;
  * Date: 2020/4/8
  * Time: 13:29
  */
-public class QREncodUtil {
+/*public class QREncodUtil {
 
-    /**
+    *//**
      * 创建二维码
      *
      * @param content   content
@@ -29,7 +29,7 @@ public class QREncodUtil {
      * @param heightPix heightPix
      * @param logoBm    logoBm
      * @return 二维码
-     */
+     *//*
     public static Bitmap createQRCode(String content, int widthPix, int heightPix, Bitmap logoBm) {
         try {
             if (content == null || "".equals(content)) {
@@ -44,7 +44,7 @@ public class QREncodUtil {
             // 图像数据转换，使用了矩阵转换
             BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, widthPix,
                     heightPix, hints);
-            bitMatrix = deleteWhite(bitMatrix);
+            //bitMatrix = deleteWhite(bitMatrix);
             widthPix = bitMatrix.getWidth();
             heightPix = bitMatrix.getHeight();
             int[] pixels = new int[widthPix * heightPix];
@@ -89,9 +89,9 @@ public class QREncodUtil {
         return resMatrix;
     }
 
-    /**
+    *//**
      * 在二维码中间添加Logo图案
-     */
+     *//*
     private static Bitmap addLogo(Bitmap src, Bitmap logo) {
         if (src == null) {
             return null;
@@ -127,5 +127,5 @@ public class QREncodUtil {
         }
         return bitmap;
     }
-}
+}*/
 

@@ -3,6 +3,7 @@ package com.bhex.wallet.mnemonic.ui.fragment;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.bhex.network.app.BaseApplication;
 import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
@@ -80,4 +81,9 @@ public class ExportTextFragment extends BaseFragment {
         return result;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ToolUtils.clearClipboard(BaseApplication.getInstance());
+    }
 }

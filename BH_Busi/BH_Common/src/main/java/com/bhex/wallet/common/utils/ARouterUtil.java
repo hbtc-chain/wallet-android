@@ -17,6 +17,6 @@ public class ARouterUtil {
 
     public static void startActivityTarget(String path,Class target){
         ARouter.getInstance().build(path).navigation();
-        MainActivityManager.getInstance().setTargetClass(target);
+        //MainActivityManager.getInstance().setTargetClass(target);
     }
 }

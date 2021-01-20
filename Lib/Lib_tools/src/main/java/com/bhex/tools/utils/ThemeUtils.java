@@ -59,4 +59,22 @@ public class ThemeUtils {
         return typedValue.getFloat();
     }
 
+    public static float resolveFloat(Context context, int attrRes, float defaultValue) {
+        TypedArray a = context.obtainStyledAttributes(new int[]{attrRes});
+        try {
+            return a.getFloat(0, defaultValue);
+        } finally {
+            a.recycle();
+        }
+    }
+
+    public static boolean resolveBoolean(Context context, @AttrRes int attr, boolean fallback) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(new int[]{attr});
+        try {
+            return a.getBoolean(0, fallback);
+        } finally {
+            a.recycle();
+        }
+    }
+
 }

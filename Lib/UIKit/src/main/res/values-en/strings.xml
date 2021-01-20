@@ -467,7 +467,7 @@
     <string name="reject">Reject</string>
 
     <string name="choose_token">Choose Token</string>
-    <string name="security_setting_tips">When the page has timed out, you—–´—–re required to re-enter the password.</string>
+    <string name="security_setting_tips">When the page has timed out, you´re required to re-enter the password.</string>
     <string name="security_setting_pwd_tips">Password Valid for the next login</string>
     <string name="balance">Balance</string>
     <string name="cross_link_trusteeship_address">Cross-chain custody address</string>
@@ -482,7 +482,7 @@
     <string name="string_deposit_enter_fee">Cross-chain deposit fee %1$s</string>
     <string name="set_pwd_period">Set password expiration：</string>
     <string name="string_deposit_threshold_2">Tips：minimum deposit amount</string>
-    <string name="string_apply_success">Success</string>
+    <string name="string_apply_success">Claimed</string>
     <string name="claim_test_coin">Claim testnet coin</string>
     <string name="pay_token">Payment Token In</string>
     <string name="payment_amount">Payment amount</string>
@@ -501,7 +501,7 @@
     <string name="json_parse_error">Json parsing error</string>
     <string name="password_no_match">Passwords do not match</string>
     <string name="finish">Finished</string>
-    <string name="add_wallet">Add wallete</string>
+    <string name="add_wallet">Add wallet</string>
     <string name="number_password">6-digit password</string>
     <string name="create">Create</string>
     <string name="confirm_number_password">Input 6-digit password again</string>
@@ -543,9 +543,10 @@
     <string name="token_detail">Token</string>
     <string name="latest_version">Latest version</string>
     <string name="claiming">Clamin</string>
-    <string name="password_error_retry">密码错误，请重试</string>
+    <string name="password_error_retry">The passwords do not match. Please try again</string>
     <string name="retry">Retry</string>
     <string name="clear">Clear</string>
+    <string name="cross_address_generatoring">cross-chain address generating</string>
     <!--<string name="transfer_in2">Receive</string>
     <string name="transfer_out2">Transfer</string>-->
 

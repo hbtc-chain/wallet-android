@@ -92,7 +92,6 @@ public class CaptureFragment extends Fragment implements ICaptureView, SurfaceHo
 
     /**
      * 构建扫描Fragment
-     *
      * @param layoutId     布局id
      * @param isRepeated   是否重复扫码
      * @param scanInterval 扫码间隙

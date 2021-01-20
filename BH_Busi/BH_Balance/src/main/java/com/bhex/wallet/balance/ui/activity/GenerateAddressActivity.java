@@ -22,8 +22,8 @@ import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
-import com.bhex.wallet.common.manager.AddressGenaratorManager;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.BHRawTransaction;
@@ -41,7 +41,8 @@ import java.util.List;
  */
 
 @Route(path = ARouterConfig.Balance.Balance_cross_address)
-public class GenerateAddressActivity extends BaseActivity implements Password30PFragment.PasswordClickListener{
+public class GenerateAddressActivity extends BaseActivity
+        implements Password30PFragment.PasswordClickListener{
 
     @Autowired(name = "symbol")
     String symbol;
@@ -77,7 +78,8 @@ public class GenerateAddressActivity extends BaseActivity implements Password30P
         //提示内容
         AppCompatTextView tv_tip_content = findViewById(R.id.tv_tip_content);
 
-        String v_tip_content = String.format(getString(R.string.tip_crosslink_generate),symbolToken.name.toUpperCase());
+        String v_tip_content = String.format(getString(R.string.tip_crosslink_generate),
+                symbolToken.name.toUpperCase());
         tv_tip_content.setText(v_tip_content);
 
         //创建费用
@@ -131,7 +133,7 @@ public class GenerateAddressActivity extends BaseActivity implements Password30P
 
         Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30PFragment.class.getName(),
-                this,0,true);
+                this,0,false);
     }
 
     /**
@@ -142,7 +144,8 @@ public class GenerateAddressActivity extends BaseActivity implements Password30P
         if(ldm.loadingStatus== LoadingStatus.SUCCESS){
             ToastUtils.showToast(getResources().getString(R.string.link_outter_generating));
             EventBus.getDefault().post(new TransctionEvent());
-            AddressGenaratorManager.getInstance().map.put(symbolToken.chain,AddressGenaratorManager.ADDRESS_ING);
+            SequenceManager.getInstance().updateAddressStatus(symbolToken.chain);
+            //AddressGenaratorManager.getInstance().putAddressStatus(symbolToken.chain,ldm.getData());
             finish();
         }
     }

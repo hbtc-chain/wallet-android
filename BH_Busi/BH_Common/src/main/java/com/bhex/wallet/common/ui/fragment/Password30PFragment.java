@@ -85,10 +85,6 @@ public class Password30PFragment extends BaseDialogFragment {
         mPasswordKeyboardView = mRootView.findViewById(R.id.my_keyboard);
         ck_password = mRootView.findViewById(R.id.ck_password);
 
-        /*mRootView.findViewById(R.id.keyboard_tool).setVisibility(View.GONE);
-          btn_finish.setOnClickListener(v -> {
-            dismissAllowingStateLoss();
-        });*/
 
         mPasswordKeyboardView.setAttachToEditText(getActivity(),mPasswordInputView.m_input_content,mPasswordInputView,
                 mRootView.findViewById(R.id.keyboard_root));
@@ -131,7 +127,7 @@ public class Password30PFragment extends BaseDialogFragment {
         mRootView.findViewById(R.id.ck_password).setVisibility(isShow30Password?View.VISIBLE:View.GONE);
 
         walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
-        walletViewModel.mutableLiveData.observe(this,ldm->{
+        walletViewModel.pwdVerifyLiveData.observe(this,ldm->{
             verifyKeyStoreStatus(ldm);
         });
     }
@@ -224,9 +220,11 @@ public class Password30PFragment extends BaseDialogFragment {
             passwordClickListener.confirmAction(mInputPassword,position,verifyPwdWay);
             return;
         }
-
+        LogUtils.d("Password30PFragment===>:","==verifyKeyStoreStatus=1="+ldm.getCode());
         if(ldm.getLoadingStatus()== LoadingStatus.SUCCESS){
             //
+            LogUtils.d("Password30PFragment===>:","==verifyKeyStoreStatus=2=");
+
             dismiss();
             passwordClickListener.confirmAction(mInputPassword,position,verifyPwdWay);
             if(ck_password.isChecked()){
@@ -237,6 +235,7 @@ public class Password30PFragment extends BaseDialogFragment {
                 SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
             }
         }else{
+            LogUtils.d("Password30PFragment===>:","==error");
             dismissAllowingStateLoss();
             CommonFragment fragment = CommonFragment
                     .builder(getActivity())

@@ -60,7 +60,7 @@ public abstract  class AppDataBase extends RoomDatabase {
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .addMigrations(MIGRATION_2_3)
-                //.addMigrations(MIGRATION_3_4)
+                .addMigrations(MIGRATION_3_4)
                 .build();
     }
 
@@ -69,7 +69,6 @@ public abstract  class AppDataBase extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE `tab_token` (`p_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `symbol` TEXT, `issuer` TEXT, `chain` TEXT, `type` INTEGER NOT NULL, `is_send_enabled` INTEGER NOT NULL, `is_deposit_enabled` INTEGER NOT NULL, `is_withdrawal_enabled` INTEGER NOT NULL, `decimals` INTEGER NOT NULL, `total_supply` TEXT, `collect_threshold` TEXT, `deposit_threshold` TEXT, `open_fee` TEXT,`collect_fee` TEXT, `sys_open_fee` TEXT, `withdrawal_fee` TEXT, `max_op_cu_number` INTEGER DEFAULT 0, `systransfer_amount` TEXT, `op_cu_systransfer_amount` TEXT, `is_native` INTEGER NOT NULL, `custodian_amount` TEXT, `logo` TEXT);");
             database.execSQL("CREATE UNIQUE INDEX `index_tab_token_symbol` ON `tab_token` (`symbol`);");
-            //database.execSQL("CREATE TABLE IF NOT EXISTS `tab_token` (`p_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `symbol` TEXT, `issuer` TEXT, `chain` TEXT, `type` INTEGER NOT NULL, `is_send_enabled` INTEGER NOT NULL, `is_deposit_enabled` INTEGER NOT NULL, `is_withdrawal_enabled` INTEGER NOT NULL, `decimals` INTEGER NOT NULL, `total_supply` TEXT, `collect_threshold` TEXT, `deposit_threshold` TEXT, `open_fee` TEXT, `sys_open_fee` TEXT, `withdrawal_fee` TEXT, `max_op_cu_number` INT default 0, `systransfer_amount` TEXT, `op_cu_systransfer_amount` TEXT, `is_native` INTEGER NOT NULL, `custodian_amount` TEXT, `logo` TEXT)");
             database.execSQL("CREATE TABLE IF NOT EXISTS `tab_user_token` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `address` TEXT, `symbol` TEXT)");
         }
     };
@@ -77,9 +76,13 @@ public abstract  class AppDataBase extends RoomDatabase {
     static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE `temp` as select `id`,`address`,`name`,`keystorePath`,`mnemonic`,`isBackup`,`isDefault`,`publicKey` from tab_wallet");
+            database.execSQL(" CREATE TABLE `tab_wallet_bak` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `address` TEXT, `name` TEXT, `keystorePath` TEXT, `isBackup` INTEGER NOT NULL, `isDefault` INTEGER NOT NULL, `publicKey` TEXT, `way` INTEGER NOT NULL);");
+            database.execSQL("insert into `tab_wallet_bak` (address,name,keystorePath,isBackup,isDefault,publicKey,way) \n" +
+                    "\n" +
+                    "select address,name,keystorePath,isBackup,isDefault,publicKey,way from `tab_wallet`");
             database.execSQL("drop table tab_wallet ");
-            database.execSQL("alter table `temp` rename to  tab_wallet ");
+            database.execSQL("alter table `tab_wallet_bak` rename to  tab_wallet ");
+
         }
     };
 }

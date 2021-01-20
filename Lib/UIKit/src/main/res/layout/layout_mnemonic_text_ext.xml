@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:src="@mipmap/ic_delete"
+        android:src="@mipmap/ic_mnemonic_delete"
         android:padding="4dp"
         />
 

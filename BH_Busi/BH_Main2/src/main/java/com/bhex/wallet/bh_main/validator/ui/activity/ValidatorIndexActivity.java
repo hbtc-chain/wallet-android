@@ -21,8 +21,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bhex.lib.uikit.util.ShapeUtils;
 import com.bhex.lib.uikit.widget.CustomTextView;
 import com.bhex.lib.uikit.widget.GradientTabLayout;
+import com.bhex.lib.uikit.widget.viewpager.CustomViewPager;
 import com.bhex.network.base.LoadDataModel;
-import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
@@ -36,6 +36,7 @@ import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
 import com.bhex.wallet.bh_main.R;
 import com.bhex.wallet.bh_main.R2;
 import com.bhex.wallet.bh_main.validator.ui.fragment.ValidatorListFragment;
+import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
@@ -67,7 +68,7 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
     @BindView(R2.id.tab)
     GradientTabLayout tab;
     @BindView(R2.id.viewPager)
-    ViewPager viewPager;
+    CustomViewPager viewPager;
     @BindView(R2.id.tv_center_title)
     AppCompatTextView tv_center_title;
 
@@ -173,18 +174,18 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
     private void initTab() {
         List<Pair<String, Fragment>> items = new ArrayList<>();
-        ValidatorListFragment validListFragment = new ValidatorListFragment();
+        ValidatorListFragment validListFragment = new ValidatorListFragment(viewPager);
         Bundle bundle = new Bundle();
         bundle.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BH_BUSI_TYPE.托管节点.getIntValue());
         validListFragment.setArguments(bundle);
 
-        ValidatorListFragment invalidListFragment = new ValidatorListFragment();
+        ValidatorListFragment invalidListFragment = new ValidatorListFragment(viewPager);
         Bundle bundle1 = new Bundle();
         bundle1.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BH_BUSI_TYPE.共识节点.getIntValue());
         invalidListFragment.setArguments(bundle1);
 
 
-        ValidatorListFragment competingListFragment = new ValidatorListFragment();
+        ValidatorListFragment competingListFragment = new ValidatorListFragment(viewPager);
         Bundle bundle2 = new Bundle();
         bundle2.putInt(ValidatorListFragment.KEY_VALIDATOR_TYPE, BH_BUSI_TYPE.竞争节点.getIntValue());
         competingListFragment.setArguments(bundle2);
@@ -210,6 +211,28 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
             public CharSequence getPageTitle(int position) {//添加标题Tab
                 return items.get(position).first;
             }
+
+
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //LogUtils.d("ValidatorIndexActivity==","==position=="+position);
+                viewPager.resetHeight(position+1);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+
         });
 
         tab.setViewPager(viewPager);

@@ -482,7 +482,7 @@
     <string name="string_deposit_enter_fee">跨链充值入账费: %1$s</string>
     <string name="set_pwd_period">设置密码有效期：</string>
     <string name="string_deposit_threshold_2">温馨提示：最小充值数量</string>
-    <string name="string_apply_success">申请成功</string>
+    <string name="string_apply_success">领取成功</string>
     <string name="claim_test_coin">领取测试币</string>
     <string name="pay_token">支付币种</string>
     <string name="payment_amount">支付数量</string>
@@ -548,6 +548,7 @@
     <string name="password_error_retry">密码错误，请重试</string>
     <string name="retry">重试</string>
     <string name="clear">清空</string>
+    <string name="cross_address_generatoring">跨链地址生成中</string>
 
     <!--<string name="transfer_in2">收款</string>
     <string name="transfer_out2">转账</string>-->

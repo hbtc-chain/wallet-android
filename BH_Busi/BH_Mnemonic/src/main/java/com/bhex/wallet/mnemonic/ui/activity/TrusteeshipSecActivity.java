@@ -36,6 +36,9 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
     PasswordInputView mPasswordInputView;
     PasswordKeyBoardView mPasswordKeyboardView;
 
+    @Autowired(name = "way")
+    int mWay;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_trusteeship_sec;
@@ -43,7 +46,8 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
 
     @Override
     protected void initView() {
-        mPresenter.setToolBarTitle();
+        ARouter.getInstance().inject(this);
+        mPresenter.setToolBarTitle(mWay);
         mPasswordInputView = findViewById(R.id.input_password_view);
         mPasswordKeyboardView = findViewById(R.id.my_keyboard);
 
@@ -74,9 +78,10 @@ public class TrusteeshipSecActivity extends BaseCacheActivity<TrusteeshipPresent
             @Override
             public void onComplete(String input) {
                 //跳转密码确认
-                BHUserManager.getInstance().getTmpBhWallet().setPassword(input);
+                //BHUserManager.getInstance().getTmpBhWallet().setPassword(input);
                 ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_THIRD)
                         .withString("password",input)
+                        .withInt("way",mWay)
                         .navigation();
             }
 
