@@ -113,7 +113,10 @@ public class SwapMappingActivity extends BaseActivity
 
         if(mTokenMapping==null){
             mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingFrist();
-            mSymbol = mTokenMapping.coin_symbol;
+            mSymbol = (mTokenMapping!=null) ? mTokenMapping.coin_symbol:"";
+        }
+        if(mTokenMapping==null){
+            return;
         }
         mSymbolViewHolder.setTokenAsset(this,mSymbol);
     }

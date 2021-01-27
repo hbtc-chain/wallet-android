@@ -133,7 +133,7 @@ public class GenerateAddressActivity extends BaseActivity
 
         Password30PFragment.showPasswordDialog(getSupportFragmentManager(),
                 Password30PFragment.class.getName(),
-                this,0,false);
+                this,0,true);
     }
 
     /**

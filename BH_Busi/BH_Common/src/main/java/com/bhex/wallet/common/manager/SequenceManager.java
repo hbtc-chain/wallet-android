@@ -57,7 +57,9 @@ public class SequenceManager {
     }
 
     public synchronized void initSequence(){
-        String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
+        String key = SEQUENCE_KEY.concat(
+                BHUserManager.getInstance().getCurrentBhWallet().address
+        );
         int v_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
         LogUtils.d("SequenceManager==>",key+"==initSequence=="+v_sequence);
         sequence = new AtomicInteger(v_sequence);
@@ -131,7 +133,6 @@ public class SequenceManager {
     }
 
     public void queryTransactionDetailExt(BaseActivity activity){
-        //LogUtils.d("TransactionViewModel===>","queryTransactionDetailExt=="+mPeddingTxMap.size());
         if(ToolUtils.checkMapEmpty(SequenceManager.getInstance().getPeddingTxMap())){
             return;
         }
@@ -162,8 +163,6 @@ public class SequenceManager {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 TransactionOrder transactionOrder = JsonUtils.fromJson(jsonObject.toString(), TransactionOrder.class);
-                //LoadDataModel ldm = new LoadDataModel(transactionOrder);
-                //transLiveData.postValue(ldm);
                 if(transactionOrder!=null && !TextUtils.isEmpty(transactionOrder.hash)){
                     SequenceManager.getInstance().getPeddingTxMap().remove(transactionOrder.hash);
                     //LogUtils.d("TransactionViewModel===>","==remove=="+hash+"==size=="+SequenceManager.getInstance().getPeddingTxMap().size());

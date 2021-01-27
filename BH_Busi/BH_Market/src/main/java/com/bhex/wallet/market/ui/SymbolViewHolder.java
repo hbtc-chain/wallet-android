@@ -143,15 +143,21 @@ public class SymbolViewHolder {
         //默认第一个
         if(mTokenMapping==null){
             mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingFrist();
-            mSymbol = mTokenMapping.coin_symbol;
+            if(mTokenMapping!=null){
+                mSymbol = mTokenMapping.coin_symbol;
+            }
         }
 
+        if(mTokenMapping==null){
+            return;
+        }
         List<BHTokenMapping> mMappingToknList = CacheCenter.getInstance().getTokenMapCache().getTokenMapping(mSymbol.toUpperCase());
         if(ToolUtils.checkListIsEmpty(mMappingToknList) || mMappingToknList.size()<=1){
             m_layout_top.findViewById(R.id.iv_target_arrow).setVisibility(View.INVISIBLE);
         }else{
             m_layout_top.findViewById(R.id.iv_target_arrow).setVisibility(View.VISIBLE);
         }
+
         //BHToken bh_coin_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.coin_symbol);
         //BHToken bh_target_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.target_symbol);
         BHToken bh_coin_token = CacheCenter.getInstance().getTokenMapCache().getBHToken(mTokenMapping.coin_symbol);
@@ -187,6 +193,9 @@ public class SymbolViewHolder {
     public void updateBalance(Context context){
         //BHToken bh_coin_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.coin_symbol);
         //BHToken bh_target_token = CacheCenter.getInstance().getSymbolCache().getBHToken(mTokenMapping.target_symbol);
+        if(mTokenMapping==null){
+            return;
+        }
         BHToken bh_coin_token = CacheCenter.getInstance().getTokenMapCache().getBHToken(mTokenMapping.coin_symbol);
         BHToken bh_target_token = CacheCenter.getInstance().getTokenMapCache().getBHToken(mTokenMapping.target_symbol);
         //设置余额

@@ -153,8 +153,6 @@ public class ChooseTokenFragment extends BaseDialogFragment {
     }
 
     public static ChooseTokenFragment showFragment(String symbol,String origin,OnChooseTokenListener listener){
-        LogUtils.d("TransferInActivity===>:","origin=="+origin);
-
         ChooseTokenFragment fragment = new ChooseTokenFragment();
         fragment.mOnChooseItemListener = listener;
         fragment.mOrigin = origin;
