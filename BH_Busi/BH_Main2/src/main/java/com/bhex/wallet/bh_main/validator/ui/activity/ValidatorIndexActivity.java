@@ -193,7 +193,7 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
         items.add(new Pair<String, Fragment>(getString(R.string.trusteeship_node), validListFragment));
         items.add(new Pair<String, Fragment>(getString(R.string.common_node), invalidListFragment));
-        //items.add(new Pair<String, Fragment>(getString(R.string.competing_node), competingListFragment));
+        items.add(new Pair<String, Fragment>(getString(R.string.competing_node), competingListFragment));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

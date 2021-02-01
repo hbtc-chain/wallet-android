@@ -50,7 +50,7 @@ public class ValidatorViewModel extends ViewModel {
         };
 
         BHttpApi.getService(BHttpApiInterface.class)
-                .queryValidators(valid)
+                .queryValidators(valid,0)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);

@@ -52,7 +52,7 @@ public interface BHttpApiInterface {
 
     //验证人接口
     @GET("api/v1/validators")
-    Observable<JsonArray> queryValidators(@Query("valid") int valid);
+    Observable<JsonArray> queryValidators(@Query("valid") int valid, @Query("last_blocks") int last_blocks);
 
     @GET("api/v1/cus/{addr}/delegations")
     Observable<JsonArray> queryCustDelegations(@Path("addr") String address);
