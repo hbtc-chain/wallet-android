@@ -315,8 +315,8 @@ public class BHWalletUtils {
     }
 
     //更新KeyStroe
-    public static String updateKeyStore(String keyStore,String pwd,String newPassword){
-        try{
+    public static String updateKeyStore(String keyStore,String pwd,String newPassword) throws CipherException,IOException {
+        /*try{
             HWalletFile old_walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
             //解密助记词
             String origin_enemonic = null;
@@ -342,7 +342,27 @@ public class BHWalletUtils {
         }catch (IOException e){
             e.printStackTrace();
         }
-        return null;
+        return null;*/
+        HWalletFile old_walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
+        //解密助记词
+        String origin_enemonic = null;
+        if(!TextUtils.isEmpty(old_walletFile.encMnemonic)){
+            origin_enemonic = HWallet.解密_M(old_walletFile.encMnemonic,pwd,old_walletFile);
+            LogUtils.d("origin_enemoni===",origin_enemonic);
+        }
+        ECKeyPair ecKeyPair = HWallet.decrypt(pwd, old_walletFile);
+        HWalletFile new_walletFile = HWallet.create(newPassword, ecKeyPair, null,1024, 1);
+        //生成BH-地址
+        String bh_adress = BHKey.getBhexUserDpAddress(ecKeyPair.getPublicKey());
+        new_walletFile.setAddress(bh_adress);
+        //生成新的助记词
+        if(!TextUtils.isEmpty(origin_enemonic)){
+            String enc_enemonic = HWallet.加密_M(origin_enemonic,newPassword,new_walletFile);
+            new_walletFile.encMnemonic = enc_enemonic;
+        }
+        String raw_json = JsonUtils.toJson(new_walletFile);
+        LogUtils.d("BHWalletUtils===>:","raw_json=="+raw_json);
+        return raw_json;
     }
 
 

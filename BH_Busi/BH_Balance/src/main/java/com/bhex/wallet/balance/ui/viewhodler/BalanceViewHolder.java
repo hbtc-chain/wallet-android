@@ -69,7 +69,7 @@ public class BalanceViewHolder {
         viewHolder.findViewById(R.id.btn_transfer_out).setOnClickListener(this::btnClickAction);
         viewHolder.findViewById(R.id.btn_entrust).setOnClickListener(this::btnClickAction);
         //设置姓名
-        tv_wallet_name.setText("hello，"+bhWallet.name);
+        tv_wallet_name.setText(bhWallet.name);
         //添加账户
         viewHolder.findViewById(R.id.iv_create_wallet).setOnClickListener(v->{
             ARouter.getInstance().build(ARouterConfig.Trusteeship.Trusteeship_Add_Index).withInt("flag",1).navigation();

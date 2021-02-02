@@ -104,7 +104,7 @@ public class SequenceManager {
 
     //更新未打包交易状态
     public void timerTranscation(BaseActivity activity){
-        Observable.interval(2000,1000L, TimeUnit.MILLISECONDS)
+        Observable.interval(1000,3000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SimpleObserver<Long>(){
 

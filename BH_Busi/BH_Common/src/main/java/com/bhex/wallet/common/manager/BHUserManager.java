@@ -175,8 +175,8 @@ public class BHUserManager {
         if(gasFee!=null){
             return gasFee;
         }
-        gasFee = new GasFee("2000000000000000","2000000");
-        return  gasFee;
+        GasFee t_gasFee = new GasFee("10000000000000000","2000000");
+        return  t_gasFee;
     }
 
     public void clear(){

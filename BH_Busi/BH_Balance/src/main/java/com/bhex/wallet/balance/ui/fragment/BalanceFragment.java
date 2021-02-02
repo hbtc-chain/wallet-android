@@ -32,6 +32,8 @@ import com.bhex.wallet.balance.viewmodel.AnnouncementViewModel;
 import com.bhex.wallet.balance.viewmodel.ChainTokenViewModel;
 import com.bhex.wallet.common.base.BaseFragment;
 import com.bhex.wallet.common.cache.CacheCenter;
+import com.bhex.wallet.common.cache.SymbolCache;
+import com.bhex.wallet.common.cache.TokenMapCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.event.AccountEvent;
@@ -90,7 +92,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         layout_balance_tip = mRootView.findViewById(R.id.layout_balance_tip);
 
 
-        mChainList = CacheCenter.getInstance().getTokenMapCache().loadChains();
+        mChainList = CacheCenter.getInstance().getTokenMapCache().getLoadChains();
         recycler_balance.getLayoutManager().setAutoMeasureEnabled(true);
         recycler_balance.setNestedScrollingEnabled(false);
         RecycleViewExtDivider ItemDecoration = new RecycleViewExtDivider(
@@ -155,6 +157,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
             balanceViewModel.getAccountInfo(getYActivity(),null);
             announcementViewModel.loadAnnouncement(getYActivity());
+            TokenMapCache.getInstance().loadChain();
         });
 
         refreshLayout.autoRefresh();

@@ -60,7 +60,9 @@ public class ETHViewHolder {
         //Token-Logo
         AppCompatImageView iv_token_icon = viewHolder.findViewById(R.id.iv_token_icon);
         BHToken symbolToken = SymbolCache.getInstance().getBHToken(balance.symbol);
-        ImageLoaderUtil.loadImageView(mContext,symbolToken.logo,iv_token_icon,R.mipmap.ic_default_coin);
+        if(symbolToken!=null){
+            ImageLoaderUtil.loadImageView(mContext,symbolToken.logo,iv_token_icon,R.mipmap.ic_default_coin);
+        }
         setTokenAddress(mBalance.symbol);
     }
 
@@ -71,13 +73,18 @@ public class ETHViewHolder {
         //hbc链地址
         AppCompatTextView tv_token_address_label = viewHolder.findViewById(R.id.tv_token_address_label);
         tv_token_address = viewHolder.findViewById(R.id.tv_token_address);
-        if(symbolToken.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+        if(symbolToken==null){
+            return;
+        }
+
+        if( symbolToken.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_token_address_label.setText(mContext.getResources().getString(R.string.hbtc_chain_address));
             BHWalletHelper.proccessAddress(tv_token_address,BHUserManager.getInstance().getCurrentBhWallet().address);
             layout_token_address.setOnClickListener(this::showAdddressQRFragment);
             tv_token_address.setTag(BHUserManager.getInstance().getCurrentBhWallet().address);
             return;
         }
+
 
         //跨链地址
         tv_token_address_label.setText(mContext.getResources().getString(R.string.crosslink_deposit_address));

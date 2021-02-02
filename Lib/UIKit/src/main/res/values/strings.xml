@@ -53,6 +53,7 @@
     <string name="login">登录</string>
     <string name="setting">设置</string>
     <string name="next">下一步</string>
+    <string name="close">关闭</string>
     <string name="set_password">设置密码</string>
     <string name="setup_1_to_3">(第1步，共3步)</string>
     <string name="setup_2_to_3">(第2步，共3步)</string>
@@ -504,6 +505,8 @@
     <string name="finish">完成</string>
     <string name="add_wallet">添加钱包</string>
     <string name="number_password">6位数字密码</string>
+    <string name="please_number_password">请输入6位数字密码</string>
+    <string name="password_input_rule">密码不能为6位连续或者重复的数字</string>
     <string name="create">创建</string>
     <string name="confirm_number_password">再次输入6位数字密码</string>
     <string name="input_security_password">请输入安全密码</string>

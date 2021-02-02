@@ -103,13 +103,20 @@ public class MyPresenter extends BasePresenter {
         boolean flag = true;
         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
-        /*if(!ToolUtils.isVerifyPass(oldPwd,bhWallet.getPassword())){
-            ToastUtils.showToast(getActivity().getResources().getString(R.string.error_oldpassword));
-            return false;
-        }*/
 
         if(TextUtils.isEmpty(newPwd)){
             ToastUtils.showToast(getActivity().getResources().getString(R.string.please_input_newpassword));
+            return false;
+        }
+
+        if(!TextUtils.isDigitsOnly(newPwd) || newPwd.length()!=6){
+            ToastUtils.showToast(getActivity().getResources().getString(R.string.please_number_password));
+            return false;
+        }
+
+        //判断密码是否合法
+        if(RegexUtil.pwdIsLegal(newPwd)){
+            ToastUtils.showToast(getActivity().getString(R.string.password_input_rule));
             return false;
         }
 

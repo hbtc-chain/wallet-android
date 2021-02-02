@@ -51,6 +51,7 @@
     <string name="login">Login</string>
     <string name="setting">Settings</string>
     <string name="next">Next</string>
+    <string name="close">Close</string>
     <string name="set_password">Set Password</string>
     <string name="setup_1_to_3">(Step 1 of 3)</string>
     <string name="setup_2_to_3">(Step 2 of 3)</string>
@@ -503,6 +504,7 @@
     <string name="finish">Finished</string>
     <string name="add_wallet">Add wallet</string>
     <string name="number_password">6-digit password</string>
+    <string name="please_number_password">please input 6-digit password</string>
     <string name="create">Create</string>
     <string name="confirm_number_password">Input 6-digit password again</string>
     <string name="input_security_password">Input password</string>

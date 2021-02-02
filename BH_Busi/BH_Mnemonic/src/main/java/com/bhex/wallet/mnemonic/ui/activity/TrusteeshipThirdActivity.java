@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
@@ -92,6 +93,9 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
 
         mPasswordInputView = findViewById(R.id.input_password_view);
         mPasswordKeyboardView = findViewById(R.id.my_keyboard);;
+
+        TextView btn_finish = findViewById(R.id.keyboard_root).findViewById(R.id.btn_finish);
+        btn_finish.setText(getString(R.string.close));
     }
 
     @Override
