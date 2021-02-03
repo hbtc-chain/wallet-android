@@ -167,7 +167,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
     }
 
     private void beginReloadData() {
-        Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
+        Observable.interval(3000,5000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SimpleObserver<Long>() {
                     @Override
@@ -266,7 +266,8 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
                 //添加pendding交易
-                SequenceManager.getInstance().putPeddingTranscation(jsonObject);
+                SequenceManager.getInstance().increaseSequence();
+                //SequenceManager.getInstance().putPeddingTranscation(jsonObject);
                 LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,jsonObject.toString());
                 lmd.loadingStatus = LoadingStatus.SUCCESS;
                 mutableLiveData.postValue(lmd);
@@ -291,6 +292,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
 
                     String v_sequence = SequenceManager.getInstance().getSequence(accountInfo.sequence);
                     LogUtils.d("TransactionViewModel==>:","v_sequence=="+v_sequence);
+                    //v_sequence = "20";
                     BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,
                             v_sequence,feeAmount,txMsgList);
 
@@ -311,8 +313,8 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
-                LogUtils.d("TransactionViewModel===>",jsonObject.toString());
-                SequenceManager.getInstance().putPeddingTranscation(jsonObject);
+                //SequenceManager.getInstance().putPeddingTranscation(jsonObject);
+                SequenceManager.getInstance().increaseSequence();
                 LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
                 lmd.loadingStatus = LoadingStatus.SUCCESS;
                 lmd.setData(jsonObject.toString());
@@ -337,7 +339,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                         return null;
                     }
                     String v_sequence = SequenceManager.getInstance().getSequence(accountInfo.sequence);
-                    LogUtils.d("TransactionViewModel===>:","==sequence=="+v_sequence);
+                    LogUtils.d("TransactionViewModel==>:",accountInfo.sequence+"==sequence=="+v_sequence);
                     BHSendTranscation bhSendTranscation =
                             BHTransactionManager.create_dex_transcation(type,json,
                                     v_sequence, data);

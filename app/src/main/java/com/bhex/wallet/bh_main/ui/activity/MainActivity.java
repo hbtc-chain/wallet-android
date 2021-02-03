@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         });
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
         BottomNavigationViewUtil.hideToast(mBottomNavigationView);
-        SequenceManager.getInstance().timerTranscation(this);
+        //SequenceManager.getInstance().timerTranscation(this);
     }
 
     @Override

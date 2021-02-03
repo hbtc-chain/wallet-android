@@ -57,13 +57,14 @@ public class SequenceManager {
     }
 
     public synchronized void initSequence(){
+        //初始化Sequence
         String key = SEQUENCE_KEY.concat(
                 BHUserManager.getInstance().getCurrentBhWallet().address
         );
         int v_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
-        LogUtils.d("SequenceManager==>",key+"==initSequence=="+v_sequence);
         sequence = new AtomicInteger(v_sequence);
 
+        //跨链地址生成
         String v_genarator_key = GENARATOR_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         GENARATOR_KEY_VALUE= MMKVManager.getInstance().mmkv().decodeString(v_genarator_key,GENARATOR_KEY_VALUE);
     }
@@ -74,17 +75,19 @@ public class SequenceManager {
 
     public synchronized void increaseSequence(){
         int i_sequence = sequence.incrementAndGet();
+        LogUtils.d("TransactionViewModel==>:","交易后自增=="+sequence.get());
         String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         MMKVManager.getInstance().mmkv().encode(key,i_sequence);
     }
 
     public synchronized String getSequence(String v_sequence){
         int i_sequence = Math.max(Integer.valueOf(v_sequence),sequence.get());
+        sequence.set(i_sequence);
         return i_sequence+"";
     }
 
     //添加
-    public synchronized void putPeddingTranscation(JsonObject jsonObject) {
+    /*public synchronized void putPeddingTranscation(JsonObject jsonObject) {
         //
         TranscationResponse transcationResponse = JsonUtils.fromJson(jsonObject.toString(),TranscationResponse.class);
         if(!ToolUtils.checkListIsEmpty(transcationResponse.logs) && transcationResponse.logs.get(0).success){
@@ -181,7 +184,7 @@ public class SequenceManager {
                 .compose(RxSchedulersHelper.io_main())
                 //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
-    }
+    }*/
 
     public void clear() {
         sequence = new AtomicInteger(0);
