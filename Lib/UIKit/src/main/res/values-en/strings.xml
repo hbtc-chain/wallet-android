@@ -210,6 +210,7 @@
     <string name="tips_trust_success_index_4">·Do remember your 12 words mnemonics phrase</string>
     <string name="tips_trust_success_index_5">Do not send your 12 words mnemonics phrase via email or messaging tools</string>
     <string name="error_mnemonic_form">Invalid mnemonic phrase</string>
+    <string name="error_mnemonic_checksum">Incorrect mnemonic checksum</string>
     <string name="wallet_name">Wallet name</string>
     <string name="hint_confirm_password">Re-enter password</string>
     <string name="create_fail">Failed to create</string>

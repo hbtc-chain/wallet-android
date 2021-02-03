@@ -14,16 +14,22 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.lib.uikit.widget.MnemonicInputView;
 import com.bhex.lib.uikit.widget.editor.SimpleTextWatcher;
 import com.bhex.network.utils.ToastUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.RegexUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
 import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.utils.BHWalletUtils;
 import com.bhex.wallet.mnemonic.R;
 import com.bhex.wallet.mnemonic.R2;
 
+import org.web3j.crypto.MnemonicUtils;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -126,12 +132,22 @@ public class ImportMnemonicActivity extends BaseCacheActivity implements Mnemoni
 
         if(!flag){
             ToastUtils.showToast(getResources().getString(R.string.error_mnemonic_form));
+            ToolUtils.hintKeyBoard(this);
             return;
         }
-        String mnemonic_text = et_mnemonic.getText().toString().replaceAll("\\s+"," ");
+        //String mnemonic_text = et_mnemonic.getText().toString().replaceAll("\\s+"," ");
+        String mnemonic_text = BHWalletUtils.convertMnemonicList(mnemonicItems);
+        LogUtils.d("ImportMnemonicActivity==>:","mnemonic_text=="+mnemonic_text);
+        //助记词校验位验证
+        boolean v_flag = MnemonicUtils.validateMnemonic(mnemonic_text);
+        if(!v_flag){
+            ToastUtils.showToast("助记词校验位错误");
+            ToolUtils.hintKeyBoard(this);
+            return;
+        }
 
         //BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入助记词.getWay());
-        BHUserManager.getInstance().getCreateWalletParams().mnemonic = mnemonic_text;
+        //BHUserManager.getInstance().getCreateWalletParams().mnemonic = mnemonic_text;
         BHUserManager.getInstance().getCreateWalletParams().mWords = mnemonicItems;
         ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST)
                 .withInt("way", MAKE_WALLET_TYPE.导入助记词.getWay())

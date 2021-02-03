@@ -226,6 +226,7 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
     private void importMnemoic(String name, String pwd) {
         //List<String> words = BHUserManager.getInstance().getTmpBhWallet().mWords;
         List<String> words = BHUserManager.getInstance().getCreateWalletParams().mWords;
+
         walletViewModel.importMnemonic(this,words,name,pwd);
     }
 

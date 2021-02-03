@@ -214,6 +214,7 @@
     <string name="tips_trust_success_index_4">·请务必牢记您的助记词</string>
     <string name="tips_trust_success_index_5">请勿通过邮箱、通讯工具分享您的助记词</string>
     <string name="error_mnemonic_form">助记词格式错误</string>
+    <string name="error_mnemonic_checksum">助记词校验位错误</string>
     <string name="wallet_name">钱包名称</string>
     <string name="hint_confirm_password">请输入重复密码</string>
     <string name="create_fail">创建失败</string>

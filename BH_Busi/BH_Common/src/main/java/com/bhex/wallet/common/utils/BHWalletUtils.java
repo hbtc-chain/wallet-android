@@ -305,7 +305,7 @@ public class BHWalletUtils {
      * @param mnemonics
      * @return
      */
-    private static String convertMnemonicList(List<String> mnemonics) {
+    public static String convertMnemonicList(List<String> mnemonics) {
         StringBuilder sb = new StringBuilder();
         for (String mnemonic : mnemonics) {
             sb.append(mnemonic);
