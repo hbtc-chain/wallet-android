@@ -94,6 +94,9 @@ public class TransferOutViewHolder {
     //getWay()==BH_BUSI_TYPE.链内转账.getIntValue()
     //初始化ViewHolder
     public void initViewHolder(){
+        if(tranferBalance==null){
+            return;
+        }
         tranferToken = CacheCenter.getInstance().getSymbolCache().getBHToken(m_symbol);
         withDrawFeeToken = CacheCenter.getInstance().getSymbolCache().getBHToken(tranferToken.chain);
         hbtFeeToken = CacheCenter.getInstance().getSymbolCache().getBHToken(BHConstants.BHT_TOKEN);

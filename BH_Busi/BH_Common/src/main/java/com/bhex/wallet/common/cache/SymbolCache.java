@@ -103,7 +103,8 @@ public class SymbolCache extends BaseCache {
         Type type = (new TypeToken<JsonArray>() {}).getType();
         BHttpApi.getService(BHttpApiInterface.class).loadDefaultToken(null)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(SymbolCache.CACHE_KEY, type, getCacheStrategy()))
+                .compose(RxCache.getDefault().transformObservable(SymbolCache.CACHE_KEY, type,
+                        getCacheStrategy(CacheStrategy.onlyRemote())))
                 .map(new CacheResult.MapFunc<>())
                 .observeOn(Schedulers.computation())
                 .subscribe(new BHBaseObserver<JsonArray>(false) {
@@ -132,7 +133,8 @@ public class SymbolCache extends BaseCache {
         Type type = (new TypeToken<JsonArray>() {}).getType();
         BHttpApi.getService(BHttpApiInterface.class).loadVerifiedToken(null)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(SymbolCache.CACHE_KEY_VERIFIED, type, getCacheStrategy()))
+                .compose(RxCache.getDefault().transformObservable(SymbolCache.CACHE_KEY_VERIFIED, type,
+                        getCacheStrategy(CacheStrategy.onlyRemote())))
                 .map(new CacheResult.MapFunc<>())
                 .observeOn(Schedulers.computation())
                 .subscribe(new BHBaseObserver<JsonArray>(false) {
@@ -214,8 +216,6 @@ public class SymbolCache extends BaseCache {
 
         //
         String remove_symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_REMOVE_KEY);
-        //LogUtils.d("SymbolCache===>:","==remove_symbol=="+remove_symbol);
-
         if(TextUtils.isEmpty(remove_symbol)){
             return localTokenList;
         }

@@ -15,9 +15,17 @@ public class BaseCache implements CacheLisenter {
 
     public IStrategy getCacheStrategy() {
         if(NetWorkStatusChangeReceiver.getNectworkStatus() == NetWorkStatusChangeReceiver.Network_Status_None){
-            return CacheStrategy.firstCache();
-        }else{
             return CacheStrategy.cacheAndRemote();
+        }else{
+            return CacheStrategy.firstRemote();
+        }
+    }
+
+    public IStrategy getCacheStrategy(IStrategy strategy) {
+        if(NetWorkStatusChangeReceiver.getNectworkStatus() == NetWorkStatusChangeReceiver.Network_Status_None){
+            return CacheStrategy.cacheAndRemote();
+        }else{
+            return strategy;
         }
     }
 

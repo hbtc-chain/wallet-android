@@ -125,6 +125,9 @@ public class ValidatorDetailActivity extends BaseActivity {
         if (originAddress == null || TextUtils.isEmpty(originAddress)) {
             return "";
         }
+        if(originAddress.startsWith(BHConstants.BHT_TOKEN)){
+            originAddress = originAddress.replaceFirst(BHConstants.BHT_TOKEN,BHConstants.BHT_TOKEN.toUpperCase());
+        }
         if (originAddress.length()<21) {
             return originAddress;
         }
@@ -163,9 +166,15 @@ public class ValidatorDetailActivity extends BaseActivity {
     @OnClick({R2.id.iv_copy, R2.id.btn_transfer_entrust, R2.id.btn_relieve_entrust, R2.id.btn_do_entrust})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.iv_copy) {
-            if (mValidatorInfo==null)
+            if (mValidatorInfo==null){
                 return;
-            ToolUtils.copyText(mValidatorInfo.getOperator_address(), this);
+            }
+            String copy_text = mValidatorInfo.getOperator_address();
+            if(!TextUtils.isEmpty(copy_text) && copy_text.startsWith(BHConstants.BHT_TOKEN)){
+                copy_text = copy_text.replaceFirst(BHConstants.BHT_TOKEN,BHConstants.BHT_TOKEN.toUpperCase());
+            }
+            ToolUtils.copyText(copy_text, this);
+            //ToolUtils.copyText(mValidatorInfo.getOperator_address(), this);
             ToastUtils.show(getResources().getString(R.string.copyed));
 
         } else if (view.getId() == R.id.btn_transfer_entrust) {

@@ -244,7 +244,6 @@ public class BHWalletUtils {
             //加密助记词
             if(!ToolUtils.checkListIsEmpty(mnemonics)){
                 String encMnemonic = HWallet.加密_M(convertMnemonicList(mnemonics),pwd,walletFile);
-                LogUtils.d("BHWalletUtils===>:","加密后===encMnemonic=="+encMnemonic);
                 walletFile.encMnemonic = encMnemonic;
             }
 

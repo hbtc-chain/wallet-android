@@ -15,6 +15,7 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.exception.ExceptionEngin;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
@@ -27,6 +28,7 @@ import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
@@ -267,7 +269,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 super.onSuccess(jsonObject);
                 //添加pendding交易
                 SequenceManager.getInstance().increaseSequence();
-                //SequenceManager.getInstance().putPeddingTranscation(jsonObject);
                 LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,jsonObject.toString());
                 lmd.loadingStatus = LoadingStatus.SUCCESS;
                 mutableLiveData.postValue(lmd);
@@ -280,7 +281,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 mutableLiveData.postValue(lmd);
             }
         };
-
+        LogUtils.d("TransactionViewModel==>:","==address=="+BHUserManager.getInstance().getCurrentBhWallet().address);
         BHttpApi.getService(BHttpApiInterface.class)
                 .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
                 .observeOn(Schedulers.io())
@@ -291,8 +292,15 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                     }
 
                     String v_sequence = SequenceManager.getInstance().getSequence(accountInfo.sequence);
-                    LogUtils.d("TransactionViewModel==>:","v_sequence=="+v_sequence);
-                    //v_sequence = "20";
+                    /*activity.runOnUiThread(()->{
+                        String key = SequenceManager.getInstance().SEQUENCE_KEY.concat(
+                                BHUserManager.getInstance().getCurrentBhWallet().address
+                        );
+                        int local_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
+                        ToastUtils.showToast("v_sequence=="+v_sequence+"==本地_sequence=="+local_sequence);
+                    });
+                    LogUtils.d("TransactionViewModel==>:","v_sequence=="+v_sequence);*/
+
                     BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,
                             v_sequence,feeAmount,txMsgList);
 

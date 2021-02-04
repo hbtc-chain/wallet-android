@@ -550,6 +550,7 @@
     <string name="retry">Retry</string>
     <string name="clear">Clear</string>
     <string name="cross_address_generatoring">cross-chain address generating</string>
+    <string name="palace_holder">--</string>
     <!--<string name="transfer_in2">Receive</string>
     <string name="transfer_out2">Transfer</string>-->
 

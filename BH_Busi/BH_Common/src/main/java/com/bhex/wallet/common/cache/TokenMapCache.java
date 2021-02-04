@@ -132,7 +132,6 @@ public class TokenMapCache extends BaseCache {
                         }
 
                         //请求token信息
-                        //LogUtils.d("TokenMapCache==>:","=mTokenMappings="+mTokenMappings.size());
                     }
 
 
@@ -152,21 +151,6 @@ public class TokenMapCache extends BaseCache {
                 }
 
                 List<BHChain> chains = JsonUtils.getListFromJson(jsonObject.toString(),BHChain.class);
-                if(ToolUtils.checkListIsEmpty(chains)){
-                    String[] chain_list = BHUserManager.getInstance().getUserBalanceList().split("_");
-                    String[] default_chain_name = BaseApplication.getInstance().getResources().getStringArray(R.array.default_chain_name);
-
-                    IntStreams.range(0,chain_list.length).forEach(value -> {
-                        if(chain_list[value]!=null && chain_list[value].equalsIgnoreCase("btc")){
-                            BHChain bhChain = new BHChain(chain_list[value],default_chain_name[value]);
-                            bhChain.single_coin = true;
-                            mChains.add(bhChain);
-                        }else{
-                            BHChain bhChain = new BHChain(chain_list[value],default_chain_name[value]);
-                            mChains.add(bhChain);
-                        }
-                    });
-                }
                 mChains = chains;
             }
 
@@ -202,7 +186,7 @@ public class TokenMapCache extends BaseCache {
         Type type = (new TypeToken<GasFee>() {}).getType();
         BHttpApi.getService(BHttpApiInterface.class).queryGasfee()
                 .compose(RxSchedulersHelper.io_main())
-                //.compose(RxCache.getDefault().transformObservable(CACHE_GASFEE_KEY, type,getCacheStrategy()))
+                .compose(RxCache.getDefault().transformObservable(CACHE_GASFEE_KEY, type,getCacheStrategy()))
                 .map(new CacheResult.MapFunc())
                 .subscribe(observer);
     }
@@ -221,7 +205,19 @@ public class TokenMapCache extends BaseCache {
         if(!ToolUtils.checkListIsEmpty(mChains)){
             return mChains;
         }
+        String[] chain_list = BHUserManager.getInstance().getUserBalanceList().split("_");
+        String[] default_chain_name = BaseApplication.getInstance().getResources().getStringArray(R.array.default_chain_name);
 
+        IntStreams.range(0,chain_list.length).forEach(value -> {
+            if(chain_list[value]!=null && chain_list[value].equalsIgnoreCase("btc")){
+                BHChain bhChain = new BHChain(chain_list[value],default_chain_name[value]);
+                bhChain.single_coin = true;
+                mChains.add(bhChain);
+            }else{
+                BHChain bhChain = new BHChain(chain_list[value],default_chain_name[value]);
+                mChains.add(bhChain);
+            }
+        });
         return mChains;
     }
 
@@ -256,4 +252,6 @@ public class TokenMapCache extends BaseCache {
     public  synchronized BHToken getBHToken(String symbol){
         return mTokens.get(symbol);
     }
+
+
 }

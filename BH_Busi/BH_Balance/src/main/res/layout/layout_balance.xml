@@ -184,6 +184,7 @@
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold"
+                    android:text="@string/palace_holder"
                     app:layout_constraintStart_toStartOf="@+id/tv_asset_label"
                     app:layout_constraintTop_toBottomOf="@+id/tv_asset_label"
                     tools:text="￥123.45678901" />

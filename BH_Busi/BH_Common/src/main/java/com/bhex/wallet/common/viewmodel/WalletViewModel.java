@@ -355,6 +355,7 @@ public class WalletViewModel extends ViewModel {
         BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
             public void onSuccess(BHWallet bhWallet) {
+                //SequenceManager.getInstance().initSequence();
                 if(bhWallet==null || TextUtils.isEmpty(bhWallet.address)){
                     LoadDataModel loadDataModel = new LoadDataModel(1,"");
                     mutableLiveData.postValue(loadDataModel);
@@ -425,6 +426,7 @@ public class WalletViewModel extends ViewModel {
         BHProgressObserver observer = new BHProgressObserver<String>(activity) {
             @Override
             protected void onSuccess(String status) {
+                //SequenceManager.getInstance().initSequence();
                 LoadDataModel ldm = new LoadDataModel(status);
                 mutableLiveData.postValue(ldm);
             }

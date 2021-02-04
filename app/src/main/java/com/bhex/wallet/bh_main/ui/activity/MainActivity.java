@@ -141,10 +141,11 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     }
 
     @Subscribe(threadMode= ThreadMode.MAIN)
-    public void changeAccount(AccountEvent language){
+    public void changeAccount(AccountEvent accountEvent){
         isReset = true;
         mBottomNavigationView.setSelectedItemId(mBottomNavigationView.getMenu().getItem(0).getItemId());
         getPresenter().showIsBackup();
+        SequenceManager.getInstance().initSequence();
     }
 
     @Subscribe(threadMode= ThreadMode.MAIN)

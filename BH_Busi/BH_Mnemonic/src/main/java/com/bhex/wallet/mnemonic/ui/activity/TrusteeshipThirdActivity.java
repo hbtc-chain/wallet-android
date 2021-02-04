@@ -165,7 +165,6 @@ public class TrusteeshipThirdActivity extends BaseCacheActivity<TrusteeshipPrese
                     ToastUtils.showToast(getResources().getString(R.string.import_privatekey_success));
                     BHUserManager.getInstance().clear();
                 }else{
-                    //NavigateUtil.startActivity(TrusteeshipThirdActivity.this, TrusteeshipSuccessActivity.class);
                     ARouter.getInstance()
                             .build(ARouterConfig.TRUSTEESHIP_CREATE_OK_PAGE)
                             .withString(BHConstants.INPUT_PASSWORD,mPasswordInputView.getInputContent())

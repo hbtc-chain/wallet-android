@@ -7,6 +7,7 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.FileUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.crypto.wallet.HWallet;
@@ -161,13 +162,17 @@ public class BHUserManager {
     }
 
     public synchronized String getSymbolList(){
-        /*String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
-        return symbol;*/
+        //String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
+
         StringBuffer sb = new StringBuffer("");
         ArrayMap<String,BHToken> map_tokens = SymbolCache.getInstance().getLocalToken();
         for(ArrayMap.Entry<String,BHToken> item:map_tokens.entrySet()){
             sb.append(item.getValue().symbol.toUpperCase()).append(",");
         }
+        //LogUtils.d("BHUserManager===>:","sb=="+sb.toString());
+        /*if(!TextUtils.isEmpty(sb.toString())){
+            MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_RATE_KEY, BHConstants.COIN_DEFAULT_LIST);
+        }*/
         return sb.toString();
     }
 

@@ -73,11 +73,8 @@ public class ETHViewHolder {
         //hbc链地址
         AppCompatTextView tv_token_address_label = viewHolder.findViewById(R.id.tv_token_address_label);
         tv_token_address = viewHolder.findViewById(R.id.tv_token_address);
-        if(symbolToken==null){
-            return;
-        }
 
-        if( symbolToken.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+        if(symbolToken!=null && symbolToken.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_token_address_label.setText(mContext.getResources().getString(R.string.hbtc_chain_address));
             BHWalletHelper.proccessAddress(tv_token_address,BHUserManager.getInstance().getCurrentBhWallet().address);
             layout_token_address.setOnClickListener(this::showAdddressQRFragment);
@@ -88,6 +85,9 @@ public class ETHViewHolder {
 
         //跨链地址
         tv_token_address_label.setText(mContext.getResources().getString(R.string.crosslink_deposit_address));
+        if(symbolToken==null){
+            return;
+        }
         //跨链地址
         BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(symbolToken.chain);
         //

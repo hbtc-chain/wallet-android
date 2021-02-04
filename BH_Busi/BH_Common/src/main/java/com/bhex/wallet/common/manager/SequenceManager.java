@@ -4,10 +4,12 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.bhex.network.RxSchedulersHelper;
+import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.RegexUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -16,6 +18,7 @@ import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransactionOrder;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.gson.JsonObject;
 
 import java.util.Iterator;
@@ -35,7 +38,7 @@ public class SequenceManager {
     private static SequenceManager _instance = new SequenceManager();
 
     //Sequence
-    private final String SEQUENCE_KEY = "sequence_";
+    public final String SEQUENCE_KEY = "sequence_";
     private AtomicInteger sequence = new AtomicInteger(0);
 
     //跨链地址生成
@@ -69,13 +72,9 @@ public class SequenceManager {
         GENARATOR_KEY_VALUE= MMKVManager.getInstance().mmkv().decodeString(v_genarator_key,GENARATOR_KEY_VALUE);
     }
 
-    public synchronized void deleteSequence(){
-
-    }
-
+    //Sequence 自增
     public synchronized void increaseSequence(){
         int i_sequence = sequence.incrementAndGet();
-        LogUtils.d("TransactionViewModel==>:","交易后自增=="+sequence.get());
         String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         MMKVManager.getInstance().mmkv().encode(key,i_sequence);
     }
@@ -85,6 +84,19 @@ public class SequenceManager {
         sequence.set(i_sequence);
         return i_sequence+"";
     }
+
+    //sequence
+    public synchronized void resetSequence(String v_sequence){
+        if(TextUtils.isEmpty(v_sequence) || !TextUtils.isDigitsOnly(v_sequence)){
+            return;
+        }
+        LogUtils.d("SequenceManager==>:","==resetSequence==");
+        if("0".equals(v_sequence)){
+            String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
+            MMKVManager.getInstance().mmkv().encode(key,v_sequence);
+        }
+    }
+
 
     //添加
     /*public synchronized void putPeddingTranscation(JsonObject jsonObject) {

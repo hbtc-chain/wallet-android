@@ -19,18 +19,11 @@ public class CacheAndroidViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public IStrategy getCacheStrategy() {
-        return (NetWorkStatusChangeReceiver.getNectworkStatus() == NetWorkStatusChangeReceiver.Network_Status_None)
-                ? CacheStrategy.firstCache() : CacheStrategy.cacheAndRemote();
-    }
-
     public IStrategy getCacheStrategy(IStrategy strategy) {
         if(NetWorkStatusChangeReceiver.getNectworkStatus() == NetWorkStatusChangeReceiver.Network_Status_None){
-            return CacheStrategy.firstCache();
-        }else if(strategy!=null){
-            return strategy;
-        }else {
             return CacheStrategy.cacheAndRemote();
+        }else{
+            return CacheStrategy.onlyRemote();
         }
     }
 }

@@ -4,6 +4,7 @@ import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.crypto.Sha256;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.MD5;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -34,10 +35,13 @@ public class BHTransactionManager {
         bhRawTransactionExt.msgs = msgs;
         //
         String pk = CryptoUtil.decryptPK(BHUserManager.getInstance().getCurrentBhWallet().privateKey, MD5.md5(data));
+        LogUtils.d("BHTransactionManager==>:","pk=="+pk);
         BHCredentials bhCredentials = BHCredentials.createBHCredentials(pk);
 
         String raw_json = JsonUtils.toJson(bhRawTransactionExt);
-        //raw_json = JsonUtils.sortJson(raw_json);
+        raw_json = JsonUtils.sortJson(raw_json);
+
+        LogUtils.d("BHTransactionManager==>:","raw_json=="+raw_json);
 
         String sign = BHTransactionManager.signBHRawTranscation(bhCredentials,raw_json);
         //交易请求数据构建

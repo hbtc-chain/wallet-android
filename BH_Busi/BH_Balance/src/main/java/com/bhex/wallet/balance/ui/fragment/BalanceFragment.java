@@ -17,6 +17,8 @@ import com.bhex.lib.uikit.widget.text.marqueen.MarqueeFactory;
 import com.bhex.lib.uikit.widget.text.marqueen.MarqueeView;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
+import com.bhex.network.cache.stategy.CacheStrategy;
+import com.bhex.network.cache.stategy.IStrategy;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
 import com.bhex.tools.utils.LogUtils;
@@ -141,7 +143,8 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         balanceViewModel = ViewModelProviders.of(MainActivityManager._instance.mainActivity).get(BalanceViewModel.class).build(getYActivity());
         //资产订阅
         LiveDataBus.getInstance().with(BHConstants.Label_Account, LoadDataModel.class).observe(this, ldm->{
-            refreshLayout.finishRefresh();
+            LogUtils.d("BalanceViewModel==>","refresh==account=="+ldm.getLoadingStatus());
+            refreshfinish();
             if(ldm.loadingStatus==LoadingStatus.SUCCESS){
                 updateAssets();
             }
@@ -155,12 +158,14 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         //自动刷新
         refreshLayout.setOnRefreshListener(refreshLayout1 -> {
-            balanceViewModel.getAccountInfo(getYActivity(),null);
+            balanceViewModel.getAccountInfo(getYActivity(), CacheStrategy.firstRemote());
             announcementViewModel.loadAnnouncement(getYActivity());
             TokenMapCache.getInstance().loadChain();
         });
 
         refreshLayout.autoRefresh();
+        //重置Sequece
+        balanceViewModel.resetSequence(getYActivity());
     }
 
     public void updateAssetList(List<BHTokenItem> list){
@@ -201,6 +206,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         }
         allTokenAssets = mPresenter.calculateAllTokenPrice(getYActivity(),BHUserManager.getInstance().getAccountInfo(),mChainList);
         String allTokenAssetsText = CurrencyManager.getInstance().getCurrencyDecription(getYActivity(),allTokenAssets);
+        LogUtils.d("BalanceFragment===>:","allTokenAssetsText=="+allTokenAssetsText);
         //设置第一字符15sp
         String tag = balanceViewHolder.iv_eye.getTag().toString();
         if(balanceViewHolder.iv_eye.getTag().equals("0")){
@@ -213,7 +219,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
     //更新公告
     private void updateAnnouncement(LoadDataModel ldm) {
-
+        refreshfinish();
         if(ldm.loadingStatus != LoadingStatus.SUCCESS){
             return;
         }
@@ -242,6 +248,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         //AssetHelper.proccessAddress(tv_address,bhWallet.getAddress());
         //清空原始用户资产
+        balanceViewHolder.tv_asset.setText("");
         balanceViewHolder.tv_wallet_name.setText(bhWallet.name);
         mChainAdapter.notifyDataSetChanged();
         //更新资产
@@ -267,6 +274,14 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    int refreshCount = 0;
+    public void refreshfinish(){
+        if(++refreshCount==2){
+            refreshLayout.finishRefresh();
+            refreshCount=0;
+        }
     }
 
 }

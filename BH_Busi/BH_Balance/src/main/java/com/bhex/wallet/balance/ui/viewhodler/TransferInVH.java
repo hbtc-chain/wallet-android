@@ -80,7 +80,10 @@ public class TransferInVH {
 
         BHWallet bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
         BHToken token = SymbolCache.getInstance().getBHToken(mSymbol);
-        BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(token.chain);
+        BHBalance chainBalance = null;
+        if(token!=null){
+            chainBalance = BHBalanceHelper.getBHBalanceFromAccount(token.chain);
+        }
         //BHToken chainToken = SymbolCache.getInstance().getBHToken(token.chain);
         BHToken hbcToken = SymbolCache.getInstance().getBHToken(BHConstants.BHT_TOKEN);
         //设置币种logo
@@ -89,9 +92,11 @@ public class TransferInVH {
         String deposit_address = "";
 
         if(mWay == BH_BUSI_TYPE.链内转账.getIntValue()){
+            tv_center_title.setText(mActivity.getResources().getString(R.string.transfer_in));
             deposit_address = bhWallet.address;
         }else{
-            deposit_address = chainBalance.external_address;
+            tv_center_title.setText(mActivity.getResources().getString(R.string.cross_deposit));
+            deposit_address = (chainBalance!=null)?chainBalance.external_address:"";
         }
 
         if(TextUtils.isEmpty(deposit_address)){
@@ -99,46 +104,10 @@ public class TransferInVH {
             initContnetView(mSymbol,BH_BUSI_TYPE.链内转账.getIntValue());
             return;
         }
-        CardView layout_content = mRootView.findViewById(R.id.layout_content);
 
-        if(token.chain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
-            tv_account_label.setText(mActivity.getResources().getString(R.string.hbtc_chain_address));
-            layout_select_token.setVisibility(View.GONE);
-            layout_ring.setVisibility(View.VISIBLE);
-            ImageLoaderUtil.loadImageView(mActivity,token.logo,iv_coin_ic,R.mipmap.ic_default_coin);
-            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)layout_content.getLayoutParams();
-            layoutParams.setMargins(PixelUtils.dp2px(mActivity,24),PixelUtils.dp2px(mActivity,28),PixelUtils.dp2px(mActivity,24),0);
-            tv_friend_tip_1.setText(mActivity.getString(R.string.hbtc_transfer_in_tip));
-            tv_friend_tip_2.setVisibility(View.GONE);
-        }else{
-            tv_account_label.setText(mActivity.getResources().getString(R.string.crosslink_deposit_address));
-            layout_select_token.setVisibility(View.VISIBLE);
-            layout_ring.setVisibility(View.GONE);
-            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)layout_content.getLayoutParams();
-            layoutParams.setMargins(PixelUtils.dp2px(mActivity,24),PixelUtils.dp2px(mActivity,8),PixelUtils.dp2px(mActivity,24),0);
-            ImageLoaderUtil.loadImageView(mActivity,token.logo,iv_token_icon,R.mipmap.ic_default_coin);
-            tv_token_name.setText(token.name.toUpperCase());
-            tv_friend_tip_2.setVisibility(View.VISIBLE);
-            //跨链充值最小费用
-            String v_amount_str =  String.format(mActivity.getString(R.string.string_deposit_threshold),token.name.toUpperCase(),token.deposit_threshold+" "+token.name.toUpperCase());
-            tv_friend_tip_1.setText(v_amount_str);
-            tv_friend_tip_2.setVisibility(View.VISIBLE);
-            //跨链充值入账费用
-            String v_amount_str2 =  String.format(mActivity.getString(R.string.string_deposit_enter_fee),token.collect_fee+" "+token.chain.toUpperCase());
-            tv_friend_tip_2.setText(v_amount_str2);
-        }
-
-        if(mWay==BH_BUSI_TYPE.链内转账.getIntValue()){
-            tv_center_title.setText(mActivity.getResources().getString(R.string.transfer_in));
-        }else{
-            tv_center_title.setText(mActivity.getResources().getString(R.string.cross_deposit));
-        }
         //地址
         tv_token_address.setText(deposit_address);
         //二维码
-        /*Bitmap bitmap = QREncodUtil.createQRCode(deposit_address,
-                PixelUtils.dp2px(mActivity,160),PixelUtils.dp2px(mActivity,160),null);*/
-
         Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(deposit_address,PixelUtils.dp2px(mActivity,210), ColorUtil.getColor(mActivity,android.R.color.black));
 
         iv_qr_code.setImageBitmap(bitmap);
@@ -157,12 +126,7 @@ public class TransferInVH {
             ToastUtils.showToast(mActivity.getString(R.string.copyed));
         });
 
-        //下载二维码
-
         //底部logo
-        /*Drawable drawableStrart = ColorUtil.getDrawable(mActivity,R.mipmap.ic_bluehelix,R.color.white);
-        tv_wallet_name.setCompoundDrawablesWithIntrinsicBounds(drawableStrart,
-                null, null, null);*/
         mRootView.findViewById(R.id.btn_save_qr).setOnClickListener(v->{
             requestPermissions();
         });
@@ -170,9 +134,41 @@ public class TransferInVH {
             //充值提示
             DepositTipsFragment.newInstance().show(mActivity.getSupportFragmentManager(),DepositTipsFragment.class.getName());
         });
+
+        CardView layout_content = mRootView.findViewById(R.id.layout_content);
+        if(token==null){
+            return;
+        }
+        if( token.chain.toLowerCase().equals(BHConstants.BHT_TOKEN)){
+            tv_account_label.setText(mActivity.getResources().getString(R.string.hbtc_chain_address));
+            layout_select_token.setVisibility(View.GONE);
+            layout_ring.setVisibility(View.VISIBLE);
+            ImageLoaderUtil.loadImageView(mActivity,token.logo,iv_coin_ic,R.mipmap.ic_default_coin);
+            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)layout_content.getLayoutParams();
+            layoutParams.setMargins(PixelUtils.dp2px(mActivity,24),PixelUtils.dp2px(mActivity,28),PixelUtils.dp2px(mActivity,24),0);
+            tv_friend_tip_1.setText(mActivity.getString(R.string.hbtc_transfer_in_tip));
+            tv_friend_tip_2.setVisibility(View.GONE);
+        }else {
+            tv_account_label.setText(mActivity.getResources().getString(R.string.crosslink_deposit_address));
+            layout_select_token.setVisibility(View.VISIBLE);
+            layout_ring.setVisibility(View.GONE);
+            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)layout_content.getLayoutParams();
+            layoutParams.setMargins(PixelUtils.dp2px(mActivity,24),PixelUtils.dp2px(mActivity,8),PixelUtils.dp2px(mActivity,24),0);
+            ImageLoaderUtil.loadImageView(mActivity,token.logo,iv_token_icon,R.mipmap.ic_default_coin);
+            tv_token_name.setText(token.name.toUpperCase());
+            tv_friend_tip_2.setVisibility(View.VISIBLE);
+            //跨链充值最小费用
+            String v_amount_str =  String.format(mActivity.getString(R.string.string_deposit_threshold),token.name.toUpperCase(),token.deposit_threshold+" "+token.name.toUpperCase());
+            tv_friend_tip_1.setText(v_amount_str);
+            tv_friend_tip_2.setVisibility(View.VISIBLE);
+            //跨链充值入账费用
+            String v_amount_str2 =  String.format(mActivity.getString(R.string.string_deposit_enter_fee),token.collect_fee+" "+token.chain.toUpperCase());
+            tv_friend_tip_2.setText(v_amount_str2);
+        }
+
+
+
     }
-
-
 
     //保存二维码
     private void requestPermissions() {

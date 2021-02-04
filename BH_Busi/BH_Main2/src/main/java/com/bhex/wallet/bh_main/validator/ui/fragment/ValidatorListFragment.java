@@ -174,6 +174,9 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         @Override
         public void afterTextChanged(Editable s) {
             super.afterTextChanged(s);
+            if(ToolUtils.checkListIsEmpty(mOriginValidatorInfoList)){
+                return;
+            }
             String searchContent = ed_search_content.getText().toString().trim();
             List<ValidatorInfo> result = null;
             if(TextUtils.isEmpty(searchContent)){

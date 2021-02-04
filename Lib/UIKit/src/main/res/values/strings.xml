@@ -553,7 +553,7 @@
     <string name="retry">重试</string>
     <string name="clear">清空</string>
     <string name="cross_address_generatoring">跨链地址生成中</string>
-
+    <string name="palace_holder">--</string>
     <!--<string name="transfer_in2">收款</string>
     <string name="transfer_out2">转账</string>-->
 </resources>

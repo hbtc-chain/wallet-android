@@ -32,6 +32,8 @@ public class BHConstants {
 
     //public static final String SYMBOL_DEFAULT_LIST = "hbc,btc,eth,usdt";
 
+    public static final String SYMBOL_RATE_KEY = "SYMBOL_RATE_KEY";
+
     public static final String SYMBOL_DEFAULT_KEY = "SYMBOL_DEFAULT_KEY";
 
     public static final String SYMBOL_REMOVE_KEY = "SYMBOL_REMOVE_KEY";
