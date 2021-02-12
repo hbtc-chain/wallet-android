@@ -114,9 +114,7 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         tv_center_title = findViewById(R.id.tv_center_title);
 
         BHToken bhToken = SymbolCache.getInstance().getBHToken(bhChain.chain);
-        if(bhToken!=null){
-            mBalance = BHBalanceHelper.getBHBalanceFromAccount(bhToken.symbol);
-        }
+        mBalance = BHBalanceHelper.getBHBalanceFromAccount(bhToken!=null?bhToken.symbol:bhChain.chain);
         //链的名称
         tv_center_title.setText(bhChain.chain.toUpperCase());
         refreshLayout.setEnableLoadMore(false);
@@ -132,8 +130,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         rcv_token_list.setAdapter(mBalanceAdapter);
         rcv_token_list.setNestedScrollingEnabled(false);
 
-        mETHViewHolder = new ETHViewHolder(this,findViewById(R.id.layout_index_1),mBalance);
-        mBottomLayoutVH = new ChainBottomLayoutVH(this,findViewById(R.id.layout_bottom),bhChain.chain,mBalance.symbol);
+        mETHViewHolder = new ETHViewHolder(this,findViewById(R.id.layout_index_1),bhChain);
+        mBottomLayoutVH = new ChainBottomLayoutVH(this,findViewById(R.id.layout_bottom),bhChain.chain,mBalance!=null?mBalance.symbol:null);
         mBottomLayoutVH.initContentView();
         setTokenAddress();
         //
@@ -145,7 +143,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     //设置地址
     private void setTokenAddress() {
-        mETHViewHolder.initViewContent(mBalance);
+        //mETHViewHolder.initViewContent(mBalance);
+        mETHViewHolder.initViewContent(bhChain);
     }
 
     @Override

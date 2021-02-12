@@ -123,11 +123,8 @@ public class ImportKeystoreActivity extends BaseCacheActivity {
             return ;
         }
 
-        //BHUserManager.getInstance().getTmpBhWallet().setWay(MAKE_WALLET_TYPE.导入KS.getWay());
-        //BHUserManager.getInstance().getTmpBhWallet().setKeystorePath(keyStoreStr);
-        //BHUserManager.getInstance().getTmpBhWallet().setPassword(password);
         //验证Keystore和密码是否匹配
-        walletViewModel.verifyKeystore(this,keyStoreStr,password);
+        walletViewModel.verifyKeystore(this,keyStoreStr,password,true,true);
     }
 
     /**

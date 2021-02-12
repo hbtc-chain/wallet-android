@@ -1,6 +1,8 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
 
+import android.view.WindowManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -53,6 +55,7 @@ public class ExportPrivateKeyActivity extends ExportBaseActivity {
         ARouter.getInstance().inject(this);
         super.initView();
         tv_center_title.setText(title);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     @Override

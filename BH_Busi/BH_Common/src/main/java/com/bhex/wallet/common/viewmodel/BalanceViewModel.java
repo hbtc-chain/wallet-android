@@ -166,7 +166,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
     }
 
     //获取资产
-    public void resetSequence(BaseActivity activity){
+    /*public void resetSequence(BaseActivity activity){
 
         //Type type = (new TypeToken<JsonObject>() {}).getType();
         //String cache_key = BHUserManager.getInstance().getCurrentBhWallet().address+"_"+BH_BUSI_TYPE.账户资产缓存.value;
@@ -178,7 +178,6 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 if(accountInfo==null){
                    return;
                 }
-                SequenceManager.getInstance().resetSequence(accountInfo.sequence);
             }
 
             @Override
@@ -194,7 +193,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
                 .compose(RxSchedulersHelper.io_main())
                 //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity,Lifecycle.Event.ON_DESTROY)))
                 .subscribe(observer);
-    }
+    }*/
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate(){

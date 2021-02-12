@@ -61,12 +61,9 @@ public class SequenceManager {
 
     public synchronized void initSequence(){
         //初始化Sequence
-        String key = SEQUENCE_KEY.concat(
-                BHUserManager.getInstance().getCurrentBhWallet().address
-        );
+        String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         int v_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
         sequence = new AtomicInteger(v_sequence);
-
         //跨链地址生成
         String v_genarator_key = GENARATOR_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         GENARATOR_KEY_VALUE= MMKVManager.getInstance().mmkv().decodeString(v_genarator_key,GENARATOR_KEY_VALUE);
@@ -75,18 +72,26 @@ public class SequenceManager {
     //Sequence 自增
     public synchronized void increaseSequence(){
         int i_sequence = sequence.incrementAndGet();
+        LogUtils.d("SequenceManager===>:","increaseSequence=="+i_sequence);
         String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         MMKVManager.getInstance().mmkv().encode(key,i_sequence);
     }
 
     public synchronized String getSequence(String v_sequence){
+        String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
+        int vv_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
+        LogUtils.d("SequenceManager===>:","vv_sequence=="+vv_sequence);
         int i_sequence = Math.max(Integer.valueOf(v_sequence),sequence.get());
         sequence.set(i_sequence);
-        return i_sequence+"";
+        return sequence.get()+"";
+    }
+
+    public synchronized String getSequence(){
+        return sequence.get()+"";
     }
 
     //sequence
-    public synchronized void resetSequence(String v_sequence){
+    /*public synchronized void resetSequence(String v_sequence){
         if(TextUtils.isEmpty(v_sequence) || !TextUtils.isDigitsOnly(v_sequence)){
             return;
         }
@@ -95,7 +100,7 @@ public class SequenceManager {
             String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
             MMKVManager.getInstance().mmkv().encode(key,v_sequence);
         }
-    }
+    }*/
 
 
     //添加
@@ -198,9 +203,9 @@ public class SequenceManager {
                 .subscribe(observer);
     }*/
 
-    public void clear() {
+    /*public void clear() {
         sequence = new AtomicInteger(0);
-    }
+    }*/
 
     public void removeAddressStatus(AccountInfo accountInfo) {
         if(ToolUtils.checkListIsEmpty(accountInfo.assets)){

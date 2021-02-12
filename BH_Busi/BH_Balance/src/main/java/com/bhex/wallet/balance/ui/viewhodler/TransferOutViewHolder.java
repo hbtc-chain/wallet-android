@@ -94,16 +94,17 @@ public class TransferOutViewHolder {
     //getWay()==BH_BUSI_TYPE.链内转账.getIntValue()
     //初始化ViewHolder
     public void initViewHolder(){
-        if(tranferBalance==null){
+        /*if(tranferBalance==null){
             return;
-        }
+        }*/
         tranferToken = CacheCenter.getInstance().getSymbolCache().getBHToken(m_symbol);
-        withDrawFeeToken = CacheCenter.getInstance().getSymbolCache().getBHToken(tranferToken.chain);
-        hbtFeeToken = CacheCenter.getInstance().getSymbolCache().getBHToken(BHConstants.BHT_TOKEN);
-
-        tranferBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.symbol);
-        withDrawFeeBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.chain);
-        hbtFeeBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+        if(tranferToken!=null) {
+            withDrawFeeToken = CacheCenter.getInstance().getSymbolCache().getBHToken(tranferToken.chain);
+            hbtFeeToken = CacheCenter.getInstance().getSymbolCache().getBHToken(BHConstants.BHT_TOKEN);
+            tranferBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.symbol);
+            withDrawFeeBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.chain);
+            hbtFeeBalance = BHBalanceHelper.getBHBalanceFromAccount(BHConstants.BHT_TOKEN);
+        }
         BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
 
         //提币按钮
@@ -121,7 +122,7 @@ public class TransferOutViewHolder {
         layout_transfer_out_address = mRootView.findViewById(R.id.layout_transfer_out_address);
         //转出币种
         AppCompatTextView tv_transfer_out_token = mRootView.findViewById(R.id.tv_transfer_out_token);
-        tv_transfer_out_token.setText(tranferToken.name.toUpperCase());
+        tv_transfer_out_token.setText(tranferToken!=null?tranferToken.name.toUpperCase():"");
 
         layout_transfer_amount = mRootView.findViewById(R.id.layout_transfer_amount);
         input_to_address  = mRootView.findViewById(R.id.input_to_address);
@@ -140,7 +141,7 @@ public class TransferOutViewHolder {
         AppCompatTextView btn_tranfer_all = layout_transfer_amount.findViewById(R.id.btn_tranfer_all);
         AppCompatTextView tv_token_unit = layout_transfer_amount.findViewById(R.id.tv_token_unit);
         //转账单位
-        tv_token_unit.setText(tranferToken.name.toUpperCase());
+        tv_token_unit.setText(tranferToken!=null?tranferToken.name.toUpperCase():"");
 
         input_transfer_amount.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input_transfer_amount.setText("");
@@ -163,7 +164,7 @@ public class TransferOutViewHolder {
         input_tx_fee.setInputString(BHUserManager.getInstance().getDefaultGasFee().displayFee);
 
 
-        if(BHConstants.BHT_TOKEN.equalsIgnoreCase(tranferToken.chain)){
+        if(tranferToken!=null && BHConstants.BHT_TOKEN.equalsIgnoreCase(tranferToken.chain)){
             btn_drawwith_coin.setText(m_activity.getResources().getString(R.string.confrim_transfer));
             tv_center_title.setText(m_activity.getResources().getString(R.string.transfer));
             //选择转账币种
@@ -224,7 +225,7 @@ public class TransferOutViewHolder {
         }
 
         //默认最小提币手续费
-        input_withdraw_fee.setInputString(tranferToken.withdrawal_fee);
+        input_withdraw_fee.setInputString(tranferToken!=null?tranferToken.withdrawal_fee:"");
         //更新余额
         updateBalance();
 
@@ -247,7 +248,9 @@ public class TransferOutViewHolder {
     //更新余额
     public void updateBalance() {
         tranferToken = CacheCenter.getInstance().getSymbolCache().getBHToken(m_symbol);
-
+        if(tranferBalance==null){
+            return;
+        }
         tranferBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.symbol);
         //tranferBalance.amount = "3.4";
         withDrawFeeBalance = BHBalanceHelper.getBHBalanceFromAccount(tranferToken.chain);
@@ -281,6 +284,9 @@ public class TransferOutViewHolder {
 
     //全部提币或者转账事件
     private void allWithDrawListener(View view) {
+        if(tranferToken==null){
+            return;
+        }
         if(m_transferout_way==BH_BUSI_TYPE.跨链转账.getIntValue()){
             if(tranferToken.symbol.equalsIgnoreCase(tranferToken.chain) &&  RegexUtil.checkNumeric(input_withdraw_fee.getInputString()) ){
                 //减去提币手续费

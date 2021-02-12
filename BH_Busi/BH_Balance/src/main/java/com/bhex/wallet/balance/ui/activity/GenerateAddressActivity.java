@@ -47,6 +47,9 @@ public class GenerateAddressActivity extends BaseActivity
     @Autowired(name = "symbol")
     String symbol;
 
+    @Autowired(name = "chain")
+    String mChain;
+
     BHBalance bhtBalance;
     BHToken symbolToken;
 
@@ -78,13 +81,14 @@ public class GenerateAddressActivity extends BaseActivity
         //提示内容
         AppCompatTextView tv_tip_content = findViewById(R.id.tv_tip_content);
 
-        String v_tip_content = String.format(getString(R.string.tip_crosslink_generate),
-                symbolToken.name.toUpperCase());
+        String v_tip_content = String.format(getString(R.string.tip_crosslink_generate),mChain.toUpperCase());
+
         tv_tip_content.setText(v_tip_content);
 
         //创建费用
         AppCompatTextView tv_create_fee = findViewById(R.id.tv_create_fee);
-        tv_create_fee.setText(symbolToken.open_fee+" "+BHConstants.BHT_TOKEN.toUpperCase());
+        String open_fee = (symbolToken!=null)?symbolToken.open_fee :"0";
+        tv_create_fee.setText(open_fee+" "+BHConstants.BHT_TOKEN.toUpperCase());
 
         //手续费
         gas_fee = BHUserManager.getInstance().getDefaultGasFee().displayFee;
@@ -115,8 +119,9 @@ public class GenerateAddressActivity extends BaseActivity
      */
     private void generateCrossLinkAddress() {
 
-        if(TextUtils.isEmpty(bhtBalance.amount)||Double.valueOf(bhtBalance.amount)<=0){
-            ToastUtils.showToast(getResources().getString(R.string.not_have_amount)+BHConstants.BHT_TOKEN.toUpperCase());
+        if(bhtBalance==null || TextUtils.isEmpty(bhtBalance.amount)||Double.valueOf(bhtBalance.amount)<=0){
+            //ToastUtils.showToast(getResources().getString(R.string.not_have_amount)+BHConstants.BHT_TOKEN.toUpperCase());
+            ToastUtils.showToast(getResources().getString(R.string.fee_notenough));
             return;
         }
 

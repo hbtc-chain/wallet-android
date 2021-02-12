@@ -71,10 +71,7 @@ public class RatesCache extends BaseCache {
     @Override
     public synchronized void beginLoadCache() {
         super.beginLoadCache();
-        BaseApplication.getMainHandler().postDelayed(()->{
-            getRateToken();
-        },1000);
-
+        getRateToken();
     }
 
     public synchronized void getRateToken(){
@@ -87,7 +84,7 @@ public class RatesCache extends BaseCache {
                 .addFormDataPart("symbols",balacne_list).build();
         BHttpApi.getService(BHttpApiInterface.class).loadRates(txBody)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy(CacheStrategy.onlyRemote())))
+                .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy(CacheStrategy.cacheAndRemoteSync())))
                 .map(new CacheResult.MapFunc<>())
                 .subscribe(new BHBaseObserver<List<BHRates>>(false) {
                     @Override

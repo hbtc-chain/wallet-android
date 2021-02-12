@@ -61,7 +61,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
         ARouter.getInstance().inject(this);
         MainActivityManager._instance.mainActivity = this;
         SequenceManager.getInstance().initSequence();
-        //AddressGenaratorManager.getInstance().init();
         RefreshLayoutManager.init();
         TRANSCATION_BUSI_TYPE.init(this);
     }
@@ -125,7 +124,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
             this.mExitTime = System.currentTimeMillis();
             return;
         }
+        MainActivityManager.getInstance().mainActivity = null;
         finish();
+        System.exit(0);
     }
 
     @Override

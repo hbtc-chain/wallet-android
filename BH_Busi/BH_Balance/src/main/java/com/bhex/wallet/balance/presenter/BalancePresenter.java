@@ -50,7 +50,7 @@ public class BalancePresenter extends BasePresenter {
         super(activity);
     }
 
-    public List<BHBalance> makeBalanceList(){
+    /*public List<BHBalance> makeBalanceList(){
         List<BHBalance> list = new ArrayList<>();
         BHWallet wallet = BHUserManager.getInstance().getCurrentBhWallet();
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
@@ -68,7 +68,7 @@ public class BalancePresenter extends BasePresenter {
             list.add(bhBalance);
         }
         return list;
-    }
+    }*/
 
 
     //获取balance位置

@@ -33,8 +33,6 @@ public final class LogUtils {
         }
     }
 
-
-
     private static void print(StackTraceElement element, Object message, Throwable error) {
         String className = element.getClassName();
         className = className.substring(className.lastIndexOf('.') + 1);

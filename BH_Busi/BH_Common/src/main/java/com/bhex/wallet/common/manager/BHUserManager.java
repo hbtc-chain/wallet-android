@@ -162,17 +162,15 @@ public class BHUserManager {
     }
 
     public synchronized String getSymbolList(){
-        //String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
-
         StringBuffer sb = new StringBuffer("");
         ArrayMap<String,BHToken> map_tokens = SymbolCache.getInstance().getLocalToken();
         for(ArrayMap.Entry<String,BHToken> item:map_tokens.entrySet()){
             sb.append(item.getValue().symbol.toUpperCase()).append(",");
         }
-        //LogUtils.d("BHUserManager===>:","sb=="+sb.toString());
-        /*if(!TextUtils.isEmpty(sb.toString())){
-            MMKVManager.getInstance().mmkv().encode(BHConstants.SYMBOL_RATE_KEY, BHConstants.COIN_DEFAULT_LIST);
-        }*/
+
+        if(TextUtils.isEmpty(sb.toString())){
+            sb.append(MMKVManager.getInstance().mmkv().decodeString(BHConstants.TOKEN_DEFAULT_LIST,sb.toString()));
+        }
         return sb.toString();
     }
 
@@ -186,7 +184,6 @@ public class BHUserManager {
 
     public void clear(){
         //MainActivityManager._instance.setTargetClass(null);
-
     }
 
 }

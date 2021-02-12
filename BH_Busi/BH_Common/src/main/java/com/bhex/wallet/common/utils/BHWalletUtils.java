@@ -13,6 +13,7 @@ import com.bhex.wallet.common.crypto.wallet.HWalletFile;
 import com.bhex.wallet.common.crypto.wallet.SecureRandomUtils;
 import com.bhex.wallet.common.db.entity.BHWallet;
 import com.bhex.wallet.common.enums.BH_BUSI_TYPE;
+import com.bhex.wallet.common.enums.MAKE_WALLET_TYPE;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -91,7 +92,7 @@ public class BHWalletUtils {
         //生成密钥对
         ECKeyPair keyPair = makeECKeyPair(seedBytes);
         BHWallet bhWallet = generateWallet(walletName, pwd, keyPair,mnemonic);
-
+        bhWallet.setWay(MAKE_WALLET_TYPE.导入助记词.getWay());
         if (bhWallet != null) {
             String old_mnemonic =  convertMnemonicList(mnemonic);
             String encrypt_mnemonic = CryptoUtil.encryptMnemonic(old_mnemonic,pwd);
@@ -108,6 +109,7 @@ public class BHWalletUtils {
     public static BHWallet importPrivateKey(String privateKey,String walletName,String pwd){
         ECKeyPair keyPair = ECKeyPair.create(Numeric.toBigInt(privateKey));
         BHWallet bhWallet = generateWallet(walletName, pwd, keyPair,null);
+        bhWallet.setWay(MAKE_WALLET_TYPE.PK.getWay());
         return bhWallet;
     }
 
@@ -143,6 +145,7 @@ public class BHWalletUtils {
             //走导入私钥的补助
             if(credentials!=null){
                 bhWallet = generateWallet(name, pwd, credentials.getEcKeyPair(),null);
+                bhWallet.setWay(MAKE_WALLET_TYPE.导入KS.getWay());
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -315,39 +318,11 @@ public class BHWalletUtils {
 
     //更新KeyStroe
     public static String updateKeyStore(String keyStore,String pwd,String newPassword) throws CipherException,IOException {
-        /*try{
-            HWalletFile old_walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
-            //解密助记词
-            String origin_enemonic = null;
-            if(!TextUtils.isEmpty(old_walletFile.encMnemonic)){
-                origin_enemonic = HWallet.解密_M(old_walletFile.encMnemonic,pwd,old_walletFile);
-                LogUtils.d("origin_enemoni===",origin_enemonic);
-            }
-            ECKeyPair ecKeyPair = HWallet.decrypt(pwd, old_walletFile);
-            HWalletFile new_walletFile = HWallet.create(newPassword, ecKeyPair, null,1024, 1);
-            //生成BH-地址
-            String bh_adress = BHKey.getBhexUserDpAddress(ecKeyPair.getPublicKey());
-            new_walletFile.setAddress(bh_adress);
-            //生成新的助记词
-            if(!TextUtils.isEmpty(origin_enemonic)){
-                String enc_enemonic = HWallet.加密_M(origin_enemonic,newPassword,new_walletFile);
-                new_walletFile.encMnemonic = enc_enemonic;
-            }
-            String raw_json = JsonUtils.toJson(new_walletFile);
-            LogUtils.d("BHWalletUtils===>:","raw_json=="+raw_json);
-            return raw_json;
-        }catch (CipherException cipherEx){
-            cipherEx.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return null;*/
         HWalletFile old_walletFile = objectMapper.readValue(keyStore, HWalletFile.class);
         //解密助记词
         String origin_enemonic = null;
         if(!TextUtils.isEmpty(old_walletFile.encMnemonic)){
             origin_enemonic = HWallet.解密_M(old_walletFile.encMnemonic,pwd,old_walletFile);
-            LogUtils.d("origin_enemoni===",origin_enemonic);
         }
         ECKeyPair ecKeyPair = HWallet.decrypt(pwd, old_walletFile);
         HWalletFile new_walletFile = HWallet.create(newPassword, ecKeyPair, null,1024, 1);

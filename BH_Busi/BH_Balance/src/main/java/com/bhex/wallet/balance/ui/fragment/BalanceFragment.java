@@ -43,6 +43,7 @@ import com.bhex.wallet.common.event.CurrencyEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.CurrencyManager;
 import com.bhex.wallet.common.manager.MainActivityManager;
+import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
@@ -165,7 +166,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
 
         refreshLayout.autoRefresh();
         //重置Sequece
-        balanceViewModel.resetSequence(getYActivity());
+        //balanceViewModel.resetSequence(getYActivity());
     }
 
     public void updateAssetList(List<BHTokenItem> list){
@@ -250,6 +251,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         //清空原始用户资产
         balanceViewHolder.tv_asset.setText("");
         balanceViewHolder.tv_wallet_name.setText(bhWallet.name);
+        //balanceViewHolder.tv_wallet_name.setText(bhWallet.name+"-" +SequenceManager.getInstance().getSequence());
         mChainAdapter.notifyDataSetChanged();
         //更新资产
         balanceViewModel.getAccountInfo(getYActivity(),null);
@@ -267,6 +269,7 @@ public class BalanceFragment extends BaseFragment<BalancePresenter> {
         if(!hidden){
             bhWallet = BHUserManager.getInstance().getCurrentBhWallet();
             balanceViewHolder.tv_wallet_name.setText(bhWallet.name);
+            //balanceViewHolder.tv_wallet_name.setText(bhWallet.name+"-" +SequenceManager.getInstance().getSequence());
         }
     }
 

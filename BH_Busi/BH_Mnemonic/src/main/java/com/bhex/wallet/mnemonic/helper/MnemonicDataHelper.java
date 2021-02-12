@@ -39,6 +39,8 @@ public class MnemonicDataHelper {
             String mnemonic = CryptoUtil.decryptMnemonic(encryptMnemonic, MD5.md5(inputPassword));*/
             ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
             BHWallet currentWallet = BHUserManager.getInstance().getCurrentBhWallet();
+            LogUtils.d("MnemonicDataHelper===>","currentWallet=="+currentWallet.address);
+
             //解密助记词
             String []array = null;
             HWalletFile old_walletFile = objectMapper.readValue(currentWallet.keystorePath, HWalletFile.class);
@@ -51,6 +53,8 @@ public class MnemonicDataHelper {
                 MnemonicItem item = new MnemonicItem(array[i],(i+1),false);
                 list.add(item);
             }
+
+            LogUtils.d("MnemonicDataHelper===>","list.size=="+list.size());
         }catch (Exception e){
             e.printStackTrace();
         }

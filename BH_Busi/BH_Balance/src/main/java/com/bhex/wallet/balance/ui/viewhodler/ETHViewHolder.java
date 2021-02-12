@@ -26,22 +26,24 @@ import com.bhex.wallet.common.helper.BHWalletHelper;
 import com.bhex.wallet.common.manager.BHUserManager;
 import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.model.BHBalance;
+import com.bhex.wallet.common.model.BHChain;
 import com.bhex.wallet.common.model.BHToken;
 
 public class ETHViewHolder {
 
     public ChainTokenActivity mContext;
     public BHBalance mBalance;
+    public BHChain mBhChain;
     public LinearLayout viewHolder;
 
     public AppCompatTextView tv_token_address;
     public AppCompatTextView tv_token_name;
     public AppCompatImageView iv_token_icon;
     public LinearLayout btn_genernate_address;
-    public ETHViewHolder(ChainTokenActivity activity, LinearLayout view, BHBalance balance){
+    public ETHViewHolder(ChainTokenActivity activity, LinearLayout view, BHChain bhChain){
         viewHolder = view;
         mContext = activity;
-        this.mBalance = balance;
+        this.mBhChain = bhChain;
 
         /*tv_token_address = view.findViewById(R.id.tv_token_address);
         tv_token_name = view.findViewById(R.id.tv_token_name);
@@ -49,8 +51,9 @@ public class ETHViewHolder {
         btn_genernate_address = view.findViewById(R.id.btn_genernate_address);*/
     }
 
-    public void initViewContent( BHBalance balance){
-        this.mBalance = balance;
+    public void initViewContent( BHChain bhChain){
+        this.mBhChain = bhChain;
+        //BHBalance balance = BHBalanceHelper.getBHBalanceFromAccount(bhChain.chain);
         FrameLayout layout_token_address = viewHolder.findViewById(R.id.layout_token_address);
 
         GradientDrawable drawable = ShapeUtils.getRoundRectDrawable(PixelUtils.dp2px(mContext,20),
@@ -59,11 +62,9 @@ public class ETHViewHolder {
 
         //Token-Logo
         AppCompatImageView iv_token_icon = viewHolder.findViewById(R.id.iv_token_icon);
-        BHToken symbolToken = SymbolCache.getInstance().getBHToken(balance.symbol);
-        if(symbolToken!=null){
-            ImageLoaderUtil.loadImageView(mContext,symbolToken.logo,iv_token_icon,R.mipmap.ic_default_coin);
-        }
-        setTokenAddress(mBalance.symbol);
+        BHToken symbolToken = SymbolCache.getInstance().getBHToken(bhChain.chain);
+        ImageLoaderUtil.loadImageView(mContext,symbolToken!=null?symbolToken.logo:"",iv_token_icon,R.mipmap.ic_default_coin);
+        setTokenAddress(bhChain.chain);
     }
 
     //
@@ -74,7 +75,7 @@ public class ETHViewHolder {
         AppCompatTextView tv_token_address_label = viewHolder.findViewById(R.id.tv_token_address_label);
         tv_token_address = viewHolder.findViewById(R.id.tv_token_address);
 
-        if(symbolToken!=null && symbolToken.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
+        if(mBhChain.chain.equalsIgnoreCase(BHConstants.BHT_TOKEN)){
             tv_token_address_label.setText(mContext.getResources().getString(R.string.hbtc_chain_address));
             BHWalletHelper.proccessAddress(tv_token_address,BHUserManager.getInstance().getCurrentBhWallet().address);
             layout_token_address.setOnClickListener(this::showAdddressQRFragment);
@@ -82,14 +83,11 @@ public class ETHViewHolder {
             return;
         }
 
-
         //跨链地址
         tv_token_address_label.setText(mContext.getResources().getString(R.string.crosslink_deposit_address));
-        if(symbolToken==null){
-            return;
-        }
+
         //跨链地址
-        BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(symbolToken.chain);
+        BHBalance chainBalance = BHBalanceHelper.getBHBalanceFromAccount(mBhChain.chain);
         //
         if(!TextUtils.isEmpty(chainBalance.external_address)){
             BHWalletHelper.proccessAddress(tv_token_address,chainBalance.external_address);
@@ -106,6 +104,7 @@ public class ETHViewHolder {
             layout_token_address.setOnClickListener(v->{
                 ARouter.getInstance()
                         .build(ARouterConfig.Balance.Balance_cross_address)
+                        .withString("chain",mBhChain.chain)
                         .withString("symbol",symbol).navigation();
             });
         }

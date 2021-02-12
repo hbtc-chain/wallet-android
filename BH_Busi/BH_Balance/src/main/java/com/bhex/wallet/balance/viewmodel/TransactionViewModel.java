@@ -277,6 +277,8 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
+                LogUtils.d("TransactionViewModel===>:","===code=="+code);
+
                 LoadDataModel lmd = new LoadDataModel(code,errorMsg);
                 mutableLiveData.postValue(lmd);
             }
@@ -311,8 +313,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
-
-
     }
 
     //H5交易
@@ -321,6 +321,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
+                //ToastUtils.showToast("==create_dex_transcation==");
                 //SequenceManager.getInstance().putPeddingTranscation(jsonObject);
                 SequenceManager.getInstance().increaseSequence();
                 LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");

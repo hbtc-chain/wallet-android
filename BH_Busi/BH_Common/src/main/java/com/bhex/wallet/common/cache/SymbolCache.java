@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.SparseArray;
 
+import com.bhex.network.RetryWithDelay;
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.cache.RxCache;
@@ -35,7 +36,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
@@ -44,6 +47,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import java8.util.stream.IntStreams;
+import java8.util.stream.StreamSupport;
 
 /**
  * Created by BHEX.
@@ -106,6 +110,7 @@ public class SymbolCache extends BaseCache {
                 .compose(RxCache.getDefault().transformObservable(SymbolCache.CACHE_KEY, type,
                         getCacheStrategy(CacheStrategy.onlyRemote())))
                 .map(new CacheResult.MapFunc<>())
+                .retryWhen(new RetryWithDelay())
                 .observeOn(Schedulers.computation())
                 .subscribe(new BHBaseObserver<JsonArray>(false) {
                     @Override
@@ -118,7 +123,7 @@ public class SymbolCache extends BaseCache {
                             return;
                         }
                         //缓存所有的token
-                        putSymbolToMap(coinList,1);
+                        putSymbolToMap(coinList,BH_BUSI_TYPE.默认币种.getIntValue());
                     }
 
                     @Override
@@ -136,6 +141,7 @@ public class SymbolCache extends BaseCache {
                 .compose(RxCache.getDefault().transformObservable(SymbolCache.CACHE_KEY_VERIFIED, type,
                         getCacheStrategy(CacheStrategy.onlyRemote())))
                 .map(new CacheResult.MapFunc<>())
+                .retryWhen(new RetryWithDelay())
                 .observeOn(Schedulers.computation())
                 .subscribe(new BHBaseObserver<JsonArray>(false) {
                     @Override
@@ -149,13 +155,12 @@ public class SymbolCache extends BaseCache {
                         }
 
                         //缓存所有的token
-                        putSymbolToMap(coinList,2);
+                        putSymbolToMap(coinList,BH_BUSI_TYPE.官方认证.getIntValue());
                     }
 
                     @Override
                     protected void onFailure(int code, String errorMsg) {
                         super.onFailure(code, errorMsg);
-                        //LogUtils.d("SymbolCache===>:","symbolMap==onFailure");
                     }
                 });
     }
@@ -164,11 +169,11 @@ public class SymbolCache extends BaseCache {
     public synchronized void putSymbolToMap(List<BHToken> coinList,int way){
         for(BHToken item:coinList){
             symbolMap.put(item.symbol,item);
-            if(way==1){
+            if(way==BH_BUSI_TYPE.默认币种.getIntValue()){
                 defaultTokenList.put(item.symbol,item);
             }
 
-            if(way==2){
+            if(way==BH_BUSI_TYPE.官方认证.getIntValue()){
                 verifiedTokenList.put(item.symbol,item);
             }
         }
@@ -194,6 +199,7 @@ public class SymbolCache extends BaseCache {
     }
 
     public synchronized ArrayMap<String,BHToken> getLocalToken(){
+        //LogUtils.d("SymbolCache==>:","defaultTokenList=="+defaultTokenList.size());
         localTokenList.putAll(defaultTokenList);
 
         String default_symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY);
@@ -225,19 +231,18 @@ public class SymbolCache extends BaseCache {
         if(a_remove_symbol==null || a_remove_symbol.length==0){
             return localTokenList;
         }
-        /*for(int i= 0;i<a_remove_symbol.length;i++){
-            BHToken bhToken = localTokenList.get(a_remove_symbol[i]);
-            if(bhToken==null){
-                continue;
-            }
-            localTokenList.remove(bhToken.symbol);
-        }*/
+
         IntStreams.range(0,a_remove_symbol.length).forEach(value -> {
             BHToken bhToken = localTokenList.get(a_remove_symbol[value]);
             if(bhToken!=null){
                 localTokenList.remove(bhToken.symbol);
             }
         });
+        /*StringBuffer sb = new StringBuffer();
+        for (Map.Entry<String,BHToken> entry : localTokenList.entrySet()) {
+            sb.append(entry.getValue()).append(",");
+        }*/
+
         return localTokenList;
     }
 

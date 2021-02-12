@@ -96,6 +96,7 @@ public class ChainBottomLayoutVH {
                 if(TextUtils.isEmpty(balance.external_address)){
                     ARouter.getInstance()
                             .build(ARouterConfig.Balance.Balance_cross_address)
+                            .withString("chain",mChain)
                             .withString("symbol",mSymbol).navigation();
                 }else{
                     ARouter.getInstance().build(ARouterConfig.Balance.Balance_transfer_in)

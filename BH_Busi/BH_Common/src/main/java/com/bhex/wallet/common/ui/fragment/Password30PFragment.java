@@ -135,12 +135,22 @@ public class Password30PFragment extends BaseDialogFragment {
     //验证密码
     private void verifyKeystore(String inputPwd) {
         mInputPassword = inputPwd;
-        BHWallet wallet = BHUserManager.getInstance().getCurrentBhWallet();
-        if(TextUtils.isEmpty(wallet.password)){
-            walletViewModel.verifyKeystore(this,wallet.keystorePath,inputPwd);
+        if(verifyPwdWay==BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
+            BHWallet wallet = BHUserManager.getInstance().getCurrentBhWallet();
+            if(TextUtils.isEmpty(wallet.password)){
+                walletViewModel.verifyKeystore(this,wallet.keystorePath,inputPwd);
+            }else{
+                //当前密码不为空
+                checkPassword(inputPwd);
+            }
         }else{
-            checkPassword(inputPwd);
+            if(passwordClickListener!=null){
+                passwordClickListener.confirmAction(inputPwd,position,verifyPwdWay);
+            }
+            /*BHWallet wallet = BHUserManager.getInstance().getAllWallet().get(position);
+            walletViewModel.verifyKeystore((BaseActivity) getActivity(),wallet.keystorePath,inputPwd,false,false);*/
         }
+
     }
 
 
@@ -185,46 +195,34 @@ public class Password30PFragment extends BaseDialogFragment {
             return;
         }
 
-        //
-        if(verifyPwdWay== BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
-            if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
-                CommonFragment fragment = CommonFragment
-                        .builder(getActivity())
-                        .setMessage(getActivity().getString(R.string.password_error_retry))
-                        .setLeftText(getActivity().getString(R.string.cancel))
-                        .setRightText(getActivity().getString(R.string.retry))
-                        .setAction(this::commonViewClick)
-                        .create();
-                fragment.show(getActivity().getSupportFragmentManager(),CommonFragment.class.getName());
-                dismissAllowingStateLoss();
+        if(!ToolUtils.isVerifyPass(inputPassword,currentWallet.password)){
+            CommonFragment fragment = CommonFragment
+                    .builder(getActivity())
+                    .setMessage(getActivity().getString(R.string.password_error_retry))
+                    .setLeftText(getActivity().getString(R.string.cancel))
+                    .setRightText(getActivity().getString(R.string.retry))
+                    .setAction(this::commonViewClick)
+                    .create();
+            fragment.show(getActivity().getSupportFragmentManager(),CommonFragment.class.getName());
+            dismissAllowingStateLoss();
 
-                return;
-            }else{
-                dismiss();
-                passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
-                if(ck_password.isChecked()){
-                    //开启30分钟计时
-                    SecuritySettingManager.getInstance().request_thirty_in_time(true,inputPassword);
-                }else{
-                    //关闭30分钟计时
-                    SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
-                }
-            }
+            return;
         }else{
+            dismiss();
             passwordClickListener.confirmAction(inputPassword,position,verifyPwdWay);
+            if(ck_password.isChecked()){
+                //开启30分钟计时
+                SecuritySettingManager.getInstance().request_thirty_in_time(true,inputPassword);
+            }else{
+                //关闭30分钟计时
+                SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
+            }
         }
     }
 
     private void verifyKeyStoreStatus(LoadDataModel ldm) {
-        if(verifyPwdWay!= BH_BUSI_TYPE.校验当前账户密码.getIntValue()){
-            passwordClickListener.confirmAction(mInputPassword,position,verifyPwdWay);
-            return;
-        }
-        LogUtils.d("Password30PFragment===>:","==verifyKeyStoreStatus=1="+ldm.getCode());
         if(ldm.getLoadingStatus()== LoadingStatus.SUCCESS){
             //
-            LogUtils.d("Password30PFragment===>:","==verifyKeyStoreStatus=2=");
-
             dismiss();
             passwordClickListener.confirmAction(mInputPassword,position,verifyPwdWay);
             if(ck_password.isChecked()){
@@ -235,7 +233,6 @@ public class Password30PFragment extends BaseDialogFragment {
                 SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
             }
         }else{
-            LogUtils.d("Password30PFragment===>:","==error");
             dismissAllowingStateLoss();
             CommonFragment fragment = CommonFragment
                     .builder(getActivity())
@@ -246,6 +243,7 @@ public class Password30PFragment extends BaseDialogFragment {
                     .create();
             fragment.show(getActivity().getSupportFragmentManager(),CommonFragment.class.getName());
         }
+
     }
 
 

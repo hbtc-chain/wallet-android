@@ -36,6 +36,12 @@ public abstract class BHProgressObserver<T> extends BHBaseObserver<T> {
         this.isShowDialog = isShowDialog;
     }
 
+    public BHProgressObserver(Context context,boolean isShowDialog,boolean isNeedToast) {
+        this(context, context.getString(R.string.http_loading));
+        this.isShowDialog = isShowDialog;
+        this.isNeedShowtoast = isNeedToast;
+    }
+
     public BHProgressObserver(Context context, String hint) {
         this.context = context;
         this.loadingText = hint;
