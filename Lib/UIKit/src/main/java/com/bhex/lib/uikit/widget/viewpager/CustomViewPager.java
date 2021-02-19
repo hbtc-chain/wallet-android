@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -80,10 +81,15 @@ public class CustomViewPager extends ViewPager {
         //LogUtils.d("CustomViewPager===>","layoutParams=="+getLayoutParams().getClass().getName());
         this.current = current;
         LogUtils.d("CustomViewPager===>","resetHeight=="+current);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) getLayoutParams();
-        layoutParams.height = PixelUtils.dp2px(getContext(),750*2*current);
-        setLayoutParams(layoutParams);
 
+        LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) getLayoutParams();
+
+        if (mChildrenViews.size() > current) {
+            layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
+        }else{
+            layoutParams.height = height;
+        }
+        setLayoutParams(layoutParams);
     }
 
     public void setObjectForPosition(int position,View view) {

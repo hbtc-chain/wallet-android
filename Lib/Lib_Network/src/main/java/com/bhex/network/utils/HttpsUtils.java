@@ -1,7 +1,5 @@
 package com.bhex.network.utils;
 
-import com.bhex.network.app.BaseApplication;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
