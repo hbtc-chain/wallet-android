@@ -80,6 +80,7 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
     protected void initView() {
         ARouter.getInstance().inject(this);
         mRefreshLayout = findViewById(R.id.refreshLayout);
+        mRefreshLayout.setEnableLoadMore(false);
         mTransferOutViewHolder = new TransferOutViewHolder(this,findViewById(R.id.root_view),m_symbol,m_transferout_way);
         getPresenter().mTransferViewHolder = mTransferOutViewHolder;
         //
@@ -112,6 +113,9 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
             refreshFinish();
         });
 
+        if(mTransferOutViewHolder.tranferToken==null){
+            return;
+        }
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             def_dailog_count = 0;
             mBalanceViewModel.getAccountInfo(this, CacheStrategy.onlyRemote());
@@ -161,6 +165,9 @@ public class TransferOutActivity extends BaseActivity<TransferOutPresenter> {
 
     //提交
     private void onSubmitAction(View view) {
+        if(mTransferOutViewHolder.tranferToken==null){
+            return;
+        }
         if(BHConstants.BHT_TOKEN.equalsIgnoreCase(mTransferOutViewHolder.tranferToken.chain)){
             linkInnerTransfer();
         }else if(m_transferout_way== BH_BUSI_TYPE.跨链转账.getIntValue()){

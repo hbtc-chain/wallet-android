@@ -30,7 +30,12 @@ public class BHConstants {
 
     public static final String COIN_DEFAULT_LIST = "hbc_btc_eth_trx";
 
+    public static final String TOKEN_DEFAULT_LIST = "token_default_list";
+
+
     //public static final String SYMBOL_DEFAULT_LIST = "hbc,btc,eth,usdt";
+
+    public static final String SYMBOL_RATE_KEY = "SYMBOL_RATE_KEY";
 
     public static final String SYMBOL_DEFAULT_KEY = "SYMBOL_DEFAULT_KEY";
 

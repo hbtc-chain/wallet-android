@@ -39,6 +39,8 @@ public class DexTokenDetailActivity extends TokenDetailActivity {
 
     @Autowired(name = "symbol")
     String symbol;
+    @Autowired(name = "chain")
+    String chain;
 
     @OnClick({R2.id.btn_item1, R2.id.btn_item2,R2.id.btn_item3, R2.id.btn_item4})
     public void onViewClicked(View view) {

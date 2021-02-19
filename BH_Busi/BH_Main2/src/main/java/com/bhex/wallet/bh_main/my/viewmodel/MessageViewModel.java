@@ -82,7 +82,7 @@ public class MessageViewModel extends CacheAndroidViewModel {
     }
 
     public void updateMessageStatus(BaseFragment activity,String id){
-        String address = BHUserManager.getInstance().getCurrentBhWallet().address;
+       /* String address = BHUserManager.getInstance().getCurrentBhWallet().address;
 
         BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>() {
             @Override
@@ -102,6 +102,6 @@ public class MessageViewModel extends CacheAndroidViewModel {
                 .updateNotificationStatus(address, id)
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity, Lifecycle.Event.ON_DESTROY)))
-                .subscribe(observer);
+                .subscribe(observer);*/
     }
 }

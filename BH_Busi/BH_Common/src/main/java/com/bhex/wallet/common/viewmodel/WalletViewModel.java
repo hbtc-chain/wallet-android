@@ -214,12 +214,6 @@ public class WalletViewModel extends ViewModel {
                 LoadDataModel loadDataModel = new LoadDataModel();
                 mutableLiveData.postValue(loadDataModel);
             }
-
-            @Override
-            public void onComplete() {
-                super.onComplete();
-                LogUtils.d("WalletViewModel===>","==onComplete==");
-            }
         };
 
 
@@ -233,6 +227,7 @@ public class WalletViewModel extends ViewModel {
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(fragment)))
                 .subscribe(pbo);
     }
+
 
     /**
      *
@@ -355,6 +350,7 @@ public class WalletViewModel extends ViewModel {
         BHProgressObserver pbo = new BHProgressObserver<BHWallet>(activity) {
             @Override
             public void onSuccess(BHWallet bhWallet) {
+                //SequenceManager.getInstance().initSequence();
                 if(bhWallet==null || TextUtils.isEmpty(bhWallet.address)){
                     LoadDataModel loadDataModel = new LoadDataModel(1,"");
                     mutableLiveData.postValue(loadDataModel);
@@ -425,6 +421,7 @@ public class WalletViewModel extends ViewModel {
         BHProgressObserver observer = new BHProgressObserver<String>(activity) {
             @Override
             protected void onSuccess(String status) {
+                //SequenceManager.getInstance().initSequence();
                 LoadDataModel ldm = new LoadDataModel(status);
                 mutableLiveData.postValue(ldm);
             }
@@ -474,9 +471,14 @@ public class WalletViewModel extends ViewModel {
                 .subscribe(observer);
     }
 
+    //删除钱包验证
+    /*public void deleteWalletVerify(BaseActivity activity,String keyStore,String pwd){
+
+    }*/
+
     //验证Keystore
-    public void verifyKeystore(BaseActivity activity,String keyStore,String pwd){
-        BHProgressObserver observer = new BHProgressObserver<String>(activity) {
+    public void verifyKeystore(BaseActivity activity,String keyStore,String pwd,boolean isShowDialog, boolean isNeedToast){
+        BHProgressObserver observer = new BHProgressObserver<String>(activity,isShowDialog,isNeedToast) {
             @Override
             protected void onSuccess(String result) {
                 LoadDataModel ldm = new LoadDataModel(result);
@@ -543,7 +545,6 @@ public class WalletViewModel extends ViewModel {
                 HWalletFile walletFile = objectMapper.readValue(bhWallet.keystorePath, HWalletFile.class);
                 if(!TextUtils.isEmpty(walletFile.encMnemonic)){
                     String orgin_mnemonic = HWallet.解密_M(walletFile.encMnemonic,pwd,walletFile);
-                    LogUtils.d("orgin_mnemonic==",orgin_mnemonic);
                     //加密助记词
                     String encrypt_mnemonic = CryptoUtil.encryptMnemonic(orgin_mnemonic,pwd);
                     bhWallet.setMnemonic(encrypt_mnemonic);
@@ -573,7 +574,6 @@ public class WalletViewModel extends ViewModel {
                 super.onError(e);
                 LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
                 walletLiveData.postValue(loadDataModel);
-
             }
         };
 
@@ -584,7 +584,6 @@ public class WalletViewModel extends ViewModel {
                 bhWallet.setMnemonic("");
                 bhWallet.password="";
                 bhWallet.setKeystorePath(newKeyStore);
-                LogUtils.d("newKeyStore=="+newKeyStore);
                 int res = bhWalletDao.update(bhWallet);
                 if(res>0){
                     //更新钱包列表

@@ -51,6 +51,7 @@
     <string name="login">Login</string>
     <string name="setting">Settings</string>
     <string name="next">Next</string>
+    <string name="close">Close</string>
     <string name="set_password">Set Password</string>
     <string name="setup_1_to_3">(Step 1 of 3)</string>
     <string name="setup_2_to_3">(Step 2 of 3)</string>
@@ -209,6 +210,7 @@
     <string name="tips_trust_success_index_4">·Do remember your 12 words mnemonics phrase</string>
     <string name="tips_trust_success_index_5">Do not send your 12 words mnemonics phrase via email or messaging tools</string>
     <string name="error_mnemonic_form">Invalid mnemonic phrase</string>
+    <string name="error_mnemonic_checksum">Incorrect mnemonic checksum</string>
     <string name="wallet_name">Wallet name</string>
     <string name="hint_confirm_password">Re-enter password</string>
     <string name="create_fail">Failed to create</string>
@@ -503,6 +505,7 @@
     <string name="finish">Finished</string>
     <string name="add_wallet">Add wallet</string>
     <string name="number_password">6-digit password</string>
+    <string name="please_number_password">please input 6-digit password</string>
     <string name="create">Create</string>
     <string name="confirm_number_password">Input 6-digit password again</string>
     <string name="input_security_password">Input password</string>
@@ -547,6 +550,7 @@
     <string name="retry">Retry</string>
     <string name="clear">Clear</string>
     <string name="cross_address_generatoring">cross-chain address generating</string>
+    <string name="palace_holder">--</string>
     <!--<string name="transfer_in2">Receive</string>
     <string name="transfer_out2">Transfer</string>-->
 

@@ -118,16 +118,15 @@ public class InputView extends LinearLayout implements View.OnClickListener {
                 if (b) {
                     if(mMode==NUMBERPWDMODE){
                         mInputEd.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-                        mInputEd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        mInputEd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     }else{
                         mInputEd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     }
                 } else {
                     if(mMode==NUMBERPWDMODE){
-                        mInputEd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        mInputEd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     }else{
-                        mInputEd.setInputType(InputType.TYPE_CLASS_TEXT
-                                | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        mInputEd.setInputType(InputType.TYPE_CLASS_TEXT| InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     }
                 }
 

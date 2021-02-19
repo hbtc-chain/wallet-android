@@ -233,20 +233,11 @@
    public <init> (org.json.JSONObject);
  }
 
- -keep public class com.ccx.credit.R$*{
-   public static final int *;
- }
-
- -keep public class com.ccx.common.R$*{
-    public static final int *;
- }
 
  -keepclassmembers enum * {
    public static **[] values(); public static ** valueOf(java.lang.String);
  }
 
- -keepnames class com.ccx.credit.cache.glide.UnsafeOkHttpGlideModule
- -keepnames class com.ccx.credit.cache.glide.GlideConfiguration
 
 
 -dontwarn com.taobao.**

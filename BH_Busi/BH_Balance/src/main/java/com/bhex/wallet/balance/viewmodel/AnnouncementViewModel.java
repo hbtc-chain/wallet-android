@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHProgressObserver;
 import com.bhex.network.observer.BaseObserver;
@@ -73,7 +74,6 @@ public class AnnouncementViewModel extends AndroidViewModel {
         BHttpApi.getService(BHttpApiInterface.class).loadAnnouncement()
                 .observeOn(Schedulers.io())
                 .compose(RxSchedulersHelper.io_main())
-                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(context)))
                 .subscribe(observer);
     }
 }

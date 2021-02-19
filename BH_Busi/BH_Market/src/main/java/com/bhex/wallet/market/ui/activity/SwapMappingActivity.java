@@ -113,7 +113,10 @@ public class SwapMappingActivity extends BaseActivity
 
         if(mTokenMapping==null){
             mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingFrist();
-            mSymbol = mTokenMapping.coin_symbol;
+            mSymbol = (mTokenMapping!=null) ? mTokenMapping.coin_symbol:"";
+        }
+        if(mTokenMapping==null){
+            return;
         }
         mSymbolViewHolder.setTokenAsset(this,mSymbol);
     }
@@ -176,7 +179,10 @@ public class SwapMappingActivity extends BaseActivity
         }
 
         BHToken symbolToken = CacheCenter.getInstance().getTokenMapCache().getBHToken(mSymbol);
-
+        if(symbolToken==null){
+            ToastUtils.showToast(getResources().getString(R.string.choose_token));
+            return;
+        }
         if (mTokenBalance == null || Double.valueOf(mTokenBalance.amount) <= 0) {
             ToastUtils.showToast(getResources().getString(R.string.not_have_amount) + symbolToken.name.toUpperCase());
             return;
@@ -201,6 +207,7 @@ public class SwapMappingActivity extends BaseActivity
         if(mTokenMapping==null){
             return;
         }
+
         mSymbol = mTokenMapping.target_symbol;
         mTokenMapping = CacheCenter.getInstance().getTokenMapCache().getTokenMappingOne(mSymbol.toUpperCase());
         mTokenBalance = BHBalanceHelper.getBHBalanceFromAccount(mSymbol);

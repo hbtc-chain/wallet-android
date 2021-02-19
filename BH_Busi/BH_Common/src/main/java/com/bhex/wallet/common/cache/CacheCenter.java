@@ -1,5 +1,7 @@
 package com.bhex.wallet.common.cache;
 
+import com.bhex.tools.utils.LogUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +30,8 @@ public class CacheCenter {
 
     private  CacheCenter(){
         cacheLisenterMap.put(SymbolCache.CACHE_KEY, SymbolCache.getInstance());
-        cacheLisenterMap.put(RatesCache.CACHE_KEY, RatesCache.getInstance());
         cacheLisenterMap.put(TokenMapCache.CACHE_CHAIN_KEY,TokenMapCache.getInstance());
+        cacheLisenterMap.put(RatesCache.CACHE_KEY, RatesCache.getInstance());
     }
 
     /**

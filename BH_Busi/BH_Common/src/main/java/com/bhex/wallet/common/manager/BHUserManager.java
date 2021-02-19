@@ -7,6 +7,7 @@ import com.bhex.network.app.BaseApplication;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.crypto.CryptoUtil;
 import com.bhex.tools.utils.FileUtils;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.crypto.wallet.HWallet;
@@ -161,12 +162,14 @@ public class BHUserManager {
     }
 
     public synchronized String getSymbolList(){
-        /*String symbol = MMKVManager.getInstance().mmkv().decodeString(BHConstants.SYMBOL_DEFAULT_KEY, BHConstants.COIN_DEFAULT_LIST);
-        return symbol;*/
         StringBuffer sb = new StringBuffer("");
         ArrayMap<String,BHToken> map_tokens = SymbolCache.getInstance().getLocalToken();
         for(ArrayMap.Entry<String,BHToken> item:map_tokens.entrySet()){
             sb.append(item.getValue().symbol.toUpperCase()).append(",");
+        }
+
+        if(TextUtils.isEmpty(sb.toString())){
+            sb.append(MMKVManager.getInstance().mmkv().decodeString(BHConstants.TOKEN_DEFAULT_LIST,sb.toString()));
         }
         return sb.toString();
     }
@@ -175,13 +178,12 @@ public class BHUserManager {
         if(gasFee!=null){
             return gasFee;
         }
-        gasFee = new GasFee("2000000000000000","2000000");
-        return  gasFee;
+        GasFee t_gasFee = new GasFee("10000000000000000","2000000");
+        return  t_gasFee;
     }
 
     public void clear(){
         //MainActivityManager._instance.setTargetClass(null);
-
     }
 
 }

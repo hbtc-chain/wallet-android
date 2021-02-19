@@ -74,7 +74,6 @@
             android:inputType="text"
             android:layout_marginBottom="30dp"
             android:textCursorDrawable="@null"
-            android:text="burst clean range coral dumb produce spatial rare boat pottery virtual reveal"
             tools:text="sniff float  talent walk search mad boat away fossil sleep dune">
 
         </androidx.appcompat.widget.AppCompatEditText>

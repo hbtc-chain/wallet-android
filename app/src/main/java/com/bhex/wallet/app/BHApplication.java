@@ -64,7 +64,7 @@ public class BHApplication extends BaseApplication {
         public void onActivityStarted(@NonNull Activity activity) {
             if(refCount==0){
                 MainActivityManager._instance.startAssetRequest();
-                SequenceManager.getInstance().timerTranscation(MainActivityManager.getInstance().mainActivity);
+                //SequenceManager.getInstance().timerTranscation(MainActivityManager.getInstance().mainActivity);
             }
             refCount++;
         }
@@ -84,7 +84,7 @@ public class BHApplication extends BaseApplication {
             refCount--;
             if(refCount == 0){
                 MainActivityManager._instance.stopAssetRequest();
-                SequenceManager.getInstance().stopTranscation(MainActivityManager.getInstance().mainActivity);
+                //SequenceManager.getInstance().stopTranscation(MainActivityManager.getInstance().mainActivity);
             }
         }
 

@@ -134,6 +134,17 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
                 walletViewModel.updateWallet(this,bhWallet,bhWalletItem.id,status);
             }
         });
+
+        walletViewModel.mutableLiveData.observe(this,lmd -> {
+            if (lmd.getLoadingStatus()== LoadingStatus.SUCCESS){
+            }
+        });
+
+        walletViewModel.pwdVerifyLiveData.observe(this,lmd->{
+            if(lmd.getLoadingStatus()== LoadingStatus.SUCCESS) {
+                walletViewModel.deleteWallet(TrusteeshipManagerActivity.this, deletBHWallet.id);
+            }
+        });
     }
 
     /**
@@ -153,21 +164,15 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     @OnClick({R2.id.btn_wallet_create, R2.id.btn_wallet_impot})
     public void onViewClicked(View view) {
         if(view.getId()==R.id.btn_wallet_create){
-            //ARouterUtil.startActivityTarget(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST,TrusteeshipManagerActivity.class);
             ARouter.getInstance().build(ARouterConfig.TRUSTEESHIP_MNEMONIC_FRIST).navigation();
         }else if(view.getId()==R.id.btn_wallet_impot){
             ARouter.getInstance().build(ARouterConfig.Trusteeship.Trusteeship_Add_Index).navigation();
-            //MainActivityManager.getInstance().setTargetClass(TrusteeshipManagerActivity.class);
         }
     }
 
     @Override
     public void onMenuClickListener(int position, BHWalletItem bhWalletItem) {
         walletViewModel.deleteWallet(this,bhWalletItem.id);
-        walletViewModel.mutableLiveData.observe(this,loadDataModel -> {
-            if (loadDataModel.getLoadingStatus()== LoadingStatus.SUCCESS){
-            }
-        });
     }
 
 
@@ -198,6 +203,7 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
     };
 
 
+    //滑动菜单事件
     private OnItemMenuClickListener mMenuItemClickListener = new OnItemMenuClickListener() {
         @Override
         public void onItemClick(SwipeMenuBridge menuBridge, int position) {
@@ -222,13 +228,11 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
         //弹框确认
         DeleteTipFragment fragment = DeleteTipFragment.showFragment(position,this::deleteAction);
         fragment.show(getSupportFragmentManager(),DeleteTipFragment.class.getName());
-        /*passwordFrag = PasswordFragment.showPasswordDialog(getSupportFragmentManager(),PasswordFragment.class.getSimpleName(),
-                passwordClickListener,position);
-        passwordFrag.setVerifyPwdWay(BH_BUSI_TYPE.校验选择账户密码.getIntValue());*/
     }
 
     //删除确认
     private void deleteAction(int i,int position) {
+        //i==1 删除按钮
         if(i==1){
             passwordFrag = Password30PFragment.showPasswordDialog(getSupportFragmentManager(),Password30PFragment.class.getName(),
                     passwordClickListener,position,false);
@@ -241,16 +245,13 @@ public class TrusteeshipManagerActivity extends BaseActivity<TrustManagerPresent
             return;
         }
         if(way == BH_BUSI_TYPE.校验选择账户密码.getIntValue()){
-            BHWalletItem bhWalletItem = mTrustManagerAdapter.getData().get(position);
-            if(!ToolUtils.isVerifyPass(password,bhWalletItem.password)){
-                ToastUtils.showToast(getResources().getString(com.bhex.wallet.common.R.string.error_password));
-                return;
+            if(passwordFrag!=null){
+                passwordFrag.dismissAllowingStateLoss();
             }
-            if(passwordFrag.getShowsDialog()){
-                passwordFrag.dismiss();
-            }
+            BHWallet bhWallet = BHUserManager.getInstance().getAllWallet().get(position);
+            walletViewModel.verifyKeystore(TrusteeshipManagerActivity.this,bhWallet.keystorePath,password,true,true);
         }
-        walletViewModel.deleteWallet(TrusteeshipManagerActivity.this,deletBHWallet.id);
+
     };
 
 }

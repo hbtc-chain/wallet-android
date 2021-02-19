@@ -6,6 +6,7 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.app.BaseApplication;
 import com.bhex.network.cache.RxCache;
 import com.bhex.network.cache.data.CacheResult;
+import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.SimpleObserver;
@@ -78,15 +79,12 @@ public class RatesCache extends BaseCache {
         String balacne_list = BHUserManager.getInstance().getSymbolList();
         balacne_list = balacne_list.replace("_",",").toUpperCase();
 
-        /*Map<String,String> params = new HashMap<>();
-        params.put("symbols",balacne_list);
-        RequestBody txBody = HUtils.createFile(JsonUtils.toJson(params));*/
         RequestBody txBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("symbols",balacne_list).build();
         BHttpApi.getService(BHttpApiInterface.class).loadRates(txBody)
                 .compose(RxSchedulersHelper.io_main())
-                .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy()))
+                .compose(RxCache.getDefault().transformObservable(RatesCache.CACHE_KEY, type, getCacheStrategy(CacheStrategy.cacheAndRemoteSync())))
                 .map(new CacheResult.MapFunc<>())
                 .subscribe(new BHBaseObserver<List<BHRates>>(false) {
                     @Override
@@ -95,9 +93,6 @@ public class RatesCache extends BaseCache {
                             return;
                         }
                         RatesCache.getInstance().getRatesMap().clear();
-                        /*for (BHRates rate:ratelist){
-                            RatesCache.getInstance().getRatesMap().put(rate.getToken().toLowerCase(),rate.getRates());
-                        }*/
                         StreamSupport.stream(ratelist).forEach(rate->{
                             RatesCache.getInstance().getRatesMap().put(rate.getToken().toLowerCase(),rate.getRates());
                         });

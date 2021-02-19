@@ -122,7 +122,8 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
                     .navigation();
         });
 
-        getRecord(mValidatorAdapter==null||mValidatorAdapter.getData()==null||mValidatorAdapter.getData().size()<1);
+        getRecord(mValidatorAdapter==null || mValidatorAdapter.getData()==null || mValidatorAdapter.getData().size()<1);
+
     }
 
     private void getRecord(boolean showDialog) {
@@ -145,8 +146,10 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
             if(mValidatorType== BH_BUSI_TYPE.托管节点.getIntValue()){
                 return validatorInfo.is_key_node;
             }else if(mValidatorType== BH_BUSI_TYPE.共识节点.getIntValue()){
-                return validatorInfo.is_elected;
-            }else {
+                return validatorInfo.is_elected && !validatorInfo.is_key_node;
+            }else if(mValidatorType== BH_BUSI_TYPE.竞争节点.getIntValue()){
+                return !validatorInfo.is_elected && !validatorInfo.is_key_node;
+            }else{
                 return false;
             }
 
@@ -171,10 +174,24 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
         @Override
         public void afterTextChanged(Editable s) {
             super.afterTextChanged(s);
+            if(ToolUtils.checkListIsEmpty(mOriginValidatorInfoList)){
+                return;
+            }
             String searchContent = ed_search_content.getText().toString().trim();
             List<ValidatorInfo> result = null;
             if(TextUtils.isEmpty(searchContent)){
-                result = mOriginValidatorInfoList;
+                result = StreamSupport.stream(mOriginValidatorInfoList).filter(validatorInfo -> {
+                    if(mValidatorType== BH_BUSI_TYPE.托管节点.getIntValue()){
+                        return validatorInfo.is_key_node;
+                    }else if(mValidatorType== BH_BUSI_TYPE.共识节点.getIntValue()){
+                        return validatorInfo.is_elected && !validatorInfo.is_key_node;
+                    }else if(mValidatorType== BH_BUSI_TYPE.竞争节点.getIntValue()) {
+                        return !validatorInfo.is_elected && !validatorInfo.is_key_node;
+                    }else {
+                        return false;
+                    }
+
+                }).collect(Collectors.toList());
             }else{
                 result = StreamSupport.stream(mOriginValidatorInfoList).filter(item -> {
                     return item.getDescription() != null && item.getDescription().getMoniker().toLowerCase().contains(searchContent.toLowerCase());
@@ -186,6 +203,7 @@ public class ValidatorListFragment extends BaseFragment<ValidatorListFragmentPre
             } else {
                 empty_layout.showNoData();
             }
+
             mValidatorAdapter.getData().clear();
             mValidatorAdapter.addData(result);
         }

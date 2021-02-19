@@ -50,7 +50,7 @@ public class BalancePresenter extends BasePresenter {
         super(activity);
     }
 
-    public List<BHBalance> makeBalanceList(){
+    /*public List<BHBalance> makeBalanceList(){
         List<BHBalance> list = new ArrayList<>();
         BHWallet wallet = BHUserManager.getInstance().getCurrentBhWallet();
         SymbolCache symbolCache = CacheCenter.getInstance().getSymbolCache();
@@ -68,7 +68,7 @@ public class BalancePresenter extends BasePresenter {
             list.add(bhBalance);
         }
         return list;
-    }
+    }*/
 
 
     //获取balance位置
@@ -158,10 +158,14 @@ public class BalancePresenter extends BasePresenter {
             eyeIv.setTag(BH_BUSI_TYPE.隐藏.value);
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_close_white));
         }else{
-            String unhiddenText = tv_asset.getTag(R.id.tag_first).toString();
-            SpannableString spanStr = new SpannableString(unhiddenText);
-            spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            tv_asset.setText(spanStr);
+            if(tv_asset.getTag(R.id.tag_first)!=null){
+                String unhiddenText = tv_asset.getTag(R.id.tag_first).toString();
+                SpannableString spanStr = new SpannableString(unhiddenText);
+                spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                tv_asset.setText(spanStr);
+            }else{
+                tv_asset.setText("");
+            }
             eyeIv.setTag(BH_BUSI_TYPE.显示.value);
             eyeIv.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_eye_white));
         }
@@ -210,6 +214,7 @@ public class BalancePresenter extends BasePresenter {
 
 
     public void setTextFristSamll(AppCompatTextView tv_asset, String allTokenAssetsText) {
+        LogUtils.d("BalanceP");
         SpannableString spanStr = new SpannableString(allTokenAssetsText);
         spanStr.setSpan(new AbsoluteSizeSpan(PixelUtils.dp2px(getActivity(),15)), 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tv_asset.setText(spanStr);

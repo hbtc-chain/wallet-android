@@ -42,6 +42,7 @@ import com.bhex.wallet.balance.ui.viewhodler.ETHViewHolder;
 import com.bhex.wallet.balance.ui.viewhodler.HBCViewHolder;
 import com.bhex.wallet.balance.viewmodel.ChainTokenViewModel;
 import com.bhex.wallet.balance.viewmodel.TransactionViewModel;
+import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.config.ARouterConfig;
 import com.bhex.wallet.common.event.AccountEvent;
 import com.bhex.wallet.common.manager.BHUserManager;
@@ -49,6 +50,7 @@ import com.bhex.wallet.common.manager.MainActivityManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHBalance;
 import com.bhex.wallet.common.model.BHChain;
+import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.utils.LiveDataBus;
 import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -110,8 +112,11 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
     protected void initView() {
         ARouter.getInstance().inject(this);
         tv_center_title = findViewById(R.id.tv_center_title);
-        mBalance = BHBalanceHelper.getBHBalanceFromAccount(bhChain.chain);
-        tv_center_title.setText(mBalance.symbol.toUpperCase());
+
+        BHToken bhToken = SymbolCache.getInstance().getBHToken(bhChain.chain);
+        mBalance = BHBalanceHelper.getBHBalanceFromAccount(bhToken!=null?bhToken.symbol:bhChain.chain);
+        //链的名称
+        tv_center_title.setText(bhChain.chain.toUpperCase());
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(this);
 
@@ -125,8 +130,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
         rcv_token_list.setAdapter(mBalanceAdapter);
         rcv_token_list.setNestedScrollingEnabled(false);
 
-        mETHViewHolder = new ETHViewHolder(this,findViewById(R.id.layout_index_1),mBalance);
-        mBottomLayoutVH = new ChainBottomLayoutVH(this,findViewById(R.id.layout_bottom),bhChain.chain,mBalance.symbol);
+        mETHViewHolder = new ETHViewHolder(this,findViewById(R.id.layout_index_1),bhChain);
+        mBottomLayoutVH = new ChainBottomLayoutVH(this,findViewById(R.id.layout_bottom),bhChain.chain,mBalance!=null?mBalance.symbol:null);
         mBottomLayoutVH.initContentView();
         setTokenAddress();
         //
@@ -138,7 +143,8 @@ public class ChainTokenActivity extends BaseActivity<BalancePresenter> implement
 
     //设置地址
     private void setTokenAddress() {
-        mETHViewHolder.initViewContent(mBalance);
+        //mETHViewHolder.initViewContent(mBalance);
+        mETHViewHolder.initViewContent(bhChain);
     }
 
     @Override

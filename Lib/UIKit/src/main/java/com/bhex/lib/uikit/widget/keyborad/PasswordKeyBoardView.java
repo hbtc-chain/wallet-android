@@ -161,7 +161,7 @@ public class PasswordKeyBoardView extends KeyboardView  {
     }
 
     /**隐藏键盘*/
-    private void hideKeyBoard() {
+    public void hideKeyBoard() {
         if (getVisibility() == VISIBLE) {
             mKeyBoardRoot.setVisibility(GONE);
             setVisibility(GONE);

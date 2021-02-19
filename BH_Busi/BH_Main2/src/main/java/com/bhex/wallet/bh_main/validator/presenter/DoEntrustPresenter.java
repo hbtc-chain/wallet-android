@@ -61,6 +61,11 @@ public class DoEntrustPresenter extends BasePresenter {
                 return false;
             }
 
+            if(TextUtils.isEmpty(relive_amount)){
+                ToastUtils.showToast(getActivity().getString(R.string.not_avilable_relieve)+BHConstants.BHT_TOKEN.toUpperCase());
+                return false;
+            }
+
             if(Double.valueOf(transfer_amount) >Double.valueOf(relive_amount)){
                 ToastUtils.showToast(getActivity().getString(R.string.check_relive_entrust_amount_max));
                 return false;
@@ -71,10 +76,7 @@ public class DoEntrustPresenter extends BasePresenter {
                 return false;
             }
 
-            if(TextUtils.isEmpty(relive_amount)){
-                ToastUtils.showToast(getActivity().getString(R.string.not_avilable_relieve)+BHConstants.BHT_TOKEN.toUpperCase());
-                return false;
-            }
+
             if(available_amount==null || !RegexUtil.checkNumeric(available_amount)){
                 ToastUtils.showToast(getActivity().getString(R.string.fee_notenough));
                 return false;

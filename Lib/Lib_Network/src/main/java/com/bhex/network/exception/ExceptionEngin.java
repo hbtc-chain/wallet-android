@@ -126,7 +126,7 @@ public class ExceptionEngin {
         if(throwable instanceof CipherException){
             ApiException apiException = new ApiException(throwable, 1005);
             StringBuilder sb = new StringBuilder();
-            sb.append(BaseApplication.getInstance().getString(R.string.error_password));
+            sb.append(BaseApplication.getInstance().getString(R.string.error_oldpassword));
             apiException.setDisplayMessage(sb.toString());
             return apiException;
         }

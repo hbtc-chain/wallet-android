@@ -1,5 +1,7 @@
 package com.bhex.wallet.mnemonic.ui.activity;
 
+import android.view.WindowManager;
+
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -57,7 +59,6 @@ public class ExportIndexActivity extends BaseActivity {
     protected void initView() {
         ARouter.getInstance().inject(this);
         tv_center_title.setText(title);
-
         if(flag.endsWith(BH_BUSI_TYPE.备份KS.value)){
             backup_tip_1.setText(getString(R.string.backup_ks_tip_1));
             backup_tip_2.setText(getString(R.string.backup_ks_tip_2));

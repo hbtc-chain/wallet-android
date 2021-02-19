@@ -242,6 +242,8 @@ public class MyFragment extends BaseFragment  {
     @Override
     public void onResume() {
         super.onResume();
+        //mItems = MyHelper.getAllItems(getYActivity());
+        //mMyAdapter.notifyDataSetChanged();
         msgViewModel.loadMessageByAddress(this,1,null);
     }
 
@@ -290,8 +292,8 @@ public class MyFragment extends BaseFragment  {
         BHWalletHelper.proccessAddress(tv_address,mBhWallet.getAddress());
 
         mItems = MyHelper.getAllItems(getYActivity());
-        mMyAdapter.getData().clear();
-        mMyAdapter.addData(mItems);
+        //mMyAdapter.getData().clear();
+        mMyAdapter.setNewData(mItems);
         //mMyAdapter.notifyDataSetChanged();
     }
 

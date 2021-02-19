@@ -26,6 +26,7 @@ import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.ColorUtil;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.NumberUtil;
 import com.bhex.tools.utils.PixelUtils;
 import com.bhex.wallet.balance.model.DelegateValidator;
@@ -155,7 +156,10 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
     private void updateAssest(LoadDataModel ldm) {
         //可用数量
-        String available_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().available);
+        if(BHUserManager.getInstance().getAccountInfo()==null){
+            return;
+        }
+        String available_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo() .available );
         tv_available_amount.setText(available_value);
         //委托中
         String bonded_value = NumberUtil.dispalyForUsertokenAmount4Level(BHUserManager.getInstance().getAccountInfo().bonded);
@@ -193,7 +197,7 @@ public class ValidatorIndexActivity extends BaseActivity<AssetPresenter> {
 
         items.add(new Pair<String, Fragment>(getString(R.string.trusteeship_node), validListFragment));
         items.add(new Pair<String, Fragment>(getString(R.string.common_node), invalidListFragment));
-        //items.add(new Pair<String, Fragment>(getString(R.string.competing_node), competingListFragment));
+        items.add(new Pair<String, Fragment>(getString(R.string.competing_node), competingListFragment));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

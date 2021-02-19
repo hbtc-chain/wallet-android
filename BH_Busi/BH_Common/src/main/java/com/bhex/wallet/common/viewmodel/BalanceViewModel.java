@@ -19,6 +19,7 @@ import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.constants.BHConstants;
+import com.bhex.tools.utils.LogUtils;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -71,6 +72,7 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 //super.onSuccess(jsonObject);
+                LogUtils.d("BalanceViewModel==>","==onSuccess==");
                 AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
                 LoadDataModel loadDataModel = new LoadDataModel(accountInfo);
                 if(accountInfo!=null){
@@ -162,6 +164,36 @@ public class BalanceViewModel extends CacheAndroidViewModel implements Lifecycle
 
 
     }
+
+    //获取资产
+    /*public void resetSequence(BaseActivity activity){
+
+        //Type type = (new TypeToken<JsonObject>() {}).getType();
+        //String cache_key = BHUserManager.getInstance().getCurrentBhWallet().address+"_"+BH_BUSI_TYPE.账户资产缓存.value;
+        BHBaseObserver<JsonObject> observer = new BHBaseObserver<JsonObject>(false) {
+            @Override
+            protected void onSuccess(JsonObject jsonObject) {
+                //super.onSuccess(jsonObject);
+                AccountInfo accountInfo = JsonUtils.fromJson(jsonObject.toString(),AccountInfo.class);
+                if(accountInfo==null){
+                   return;
+                }
+            }
+
+            @Override
+            protected void onFailure(int code, String errorMsg) {
+                super.onFailure(code, errorMsg);
+                LoadDataModel loadDataModel = new LoadDataModel(LoadingStatus.ERROR,"");
+                LiveDataBus.getInstance().with(BHConstants.Label_Account,LoadDataModel.class).postValue(loadDataModel);
+            }
+        };
+
+        BHttpApi.getService(BHttpApiInterface.class)
+                .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
+                .compose(RxSchedulersHelper.io_main())
+                //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity,Lifecycle.Event.ON_DESTROY)))
+                .subscribe(observer);
+    }*/
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate(){

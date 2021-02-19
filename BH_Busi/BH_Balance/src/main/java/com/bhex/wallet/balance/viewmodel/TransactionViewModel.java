@@ -15,6 +15,7 @@ import com.bhex.network.RxSchedulersHelper;
 import com.bhex.network.base.LoadDataModel;
 import com.bhex.network.base.LoadingStatus;
 import com.bhex.network.exception.ExceptionEngin;
+import com.bhex.network.utils.ToastUtils;
 import com.bhex.wallet.common.base.BaseActivity;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.BHProgressObserver;
@@ -27,6 +28,7 @@ import com.bhex.wallet.balance.model.DelegateValidator;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
 import com.bhex.wallet.common.manager.BHUserManager;
+import com.bhex.wallet.common.manager.MMKVManager;
 import com.bhex.wallet.common.manager.SequenceManager;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.tx.BHSendTranscation;
@@ -167,7 +169,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
     }
 
     private void beginReloadData() {
-        Observable.interval(4000,5000L, TimeUnit.MILLISECONDS)
+        Observable.interval(3000,5000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SimpleObserver<Long>() {
                     @Override
@@ -266,7 +268,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
                 //添加pendding交易
-                SequenceManager.getInstance().putPeddingTranscation(jsonObject);
+                SequenceManager.getInstance().increaseSequence();
                 LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,jsonObject.toString());
                 lmd.loadingStatus = LoadingStatus.SUCCESS;
                 mutableLiveData.postValue(lmd);
@@ -275,11 +277,13 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
+                LogUtils.d("TransactionViewModel===>:","===code=="+code);
+
                 LoadDataModel lmd = new LoadDataModel(code,errorMsg);
                 mutableLiveData.postValue(lmd);
             }
         };
-
+        LogUtils.d("TransactionViewModel==>:","==address=="+BHUserManager.getInstance().getCurrentBhWallet().address);
         BHttpApi.getService(BHttpApiInterface.class)
                 .loadAccount(BHUserManager.getInstance().getCurrentBhWallet().address)
                 .observeOn(Schedulers.io())
@@ -290,7 +294,15 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                     }
 
                     String v_sequence = SequenceManager.getInstance().getSequence(accountInfo.sequence);
-                    LogUtils.d("TransactionViewModel==>:","v_sequence=="+v_sequence);
+                    /*activity.runOnUiThread(()->{
+                        String key = SequenceManager.getInstance().SEQUENCE_KEY.concat(
+                                BHUserManager.getInstance().getCurrentBhWallet().address
+                        );
+                        int local_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
+                        ToastUtils.showToast("v_sequence=="+v_sequence+"==本地_sequence=="+local_sequence);
+                    });
+                    LogUtils.d("TransactionViewModel==>:","v_sequence=="+v_sequence);*/
+
                     BHSendTranscation bhSendTranscation = BHTransactionManager.createSendTranscation(password,
                             v_sequence,feeAmount,txMsgList);
 
@@ -301,8 +313,6 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                 .compose(RxSchedulersHelper.io_main())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
-
-
     }
 
     //H5交易
@@ -311,8 +321,9 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 super.onSuccess(jsonObject);
-                LogUtils.d("TransactionViewModel===>",jsonObject.toString());
-                SequenceManager.getInstance().putPeddingTranscation(jsonObject);
+                //ToastUtils.showToast("==create_dex_transcation==");
+                //SequenceManager.getInstance().putPeddingTranscation(jsonObject);
+                SequenceManager.getInstance().increaseSequence();
                 LoadDataModel lmd = new LoadDataModel(ExceptionEngin.OK,"");
                 lmd.loadingStatus = LoadingStatus.SUCCESS;
                 lmd.setData(jsonObject.toString());
@@ -337,7 +348,7 @@ public class TransactionViewModel extends AndroidViewModel implements LifecycleO
                         return null;
                     }
                     String v_sequence = SequenceManager.getInstance().getSequence(accountInfo.sequence);
-                    LogUtils.d("TransactionViewModel===>:","==sequence=="+v_sequence);
+                    LogUtils.d("TransactionViewModel==>:",accountInfo.sequence+"==sequence=="+v_sequence);
                     BHSendTranscation bhSendTranscation =
                             BHTransactionManager.create_dex_transcation(type,json,
                                     v_sequence, data);

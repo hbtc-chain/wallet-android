@@ -132,7 +132,6 @@ public class TokenMapCache extends BaseCache {
                         }
 
                         //请求token信息
-                        //LogUtils.d("TokenMapCache==>:","=mTokenMappings="+mTokenMappings.size());
                     }
 
 
@@ -143,7 +142,7 @@ public class TokenMapCache extends BaseCache {
                 });
     }
 
-    private synchronized void loadChain() {
+    public synchronized void loadChain() {
         BHBaseObserver observer = new BHBaseObserver<JsonArray>() {
             @Override
             protected void onSuccess(JsonArray jsonObject) {
@@ -152,16 +151,12 @@ public class TokenMapCache extends BaseCache {
                 }
 
                 List<BHChain> chains = JsonUtils.getListFromJson(jsonObject.toString(),BHChain.class);
-                if(ToolUtils.checkListIsEmpty(chains)){
-                    return;
-                }
                 mChains = chains;
             }
 
             @Override
             protected void onFailure(int code, String errorMsg) {
                 super.onFailure(code, errorMsg);
-
             }
 
         };
@@ -206,19 +201,22 @@ public class TokenMapCache extends BaseCache {
         return res;
     }
 
-    public synchronized List<BHChain> loadChains(){
+    public synchronized List<BHChain> getLoadChains(){
         if(!ToolUtils.checkListIsEmpty(mChains)){
             return mChains;
         }
         String[] chain_list = BHUserManager.getInstance().getUserBalanceList().split("_");
         String[] default_chain_name = BaseApplication.getInstance().getResources().getStringArray(R.array.default_chain_name);
-        /*for (int i = 0; i < chain_list.length; i++) {
-            BHChain bhChain = new BHChain(chain_list[i],default_chain_name[i]);
-            mChains.add(bhChain);
-        }*/
+
         IntStreams.range(0,chain_list.length).forEach(value -> {
-            BHChain bhChain = new BHChain(chain_list[value],default_chain_name[value]);
-            mChains.add(bhChain);
+            if(chain_list[value]!=null && chain_list[value].equalsIgnoreCase("btc")){
+                BHChain bhChain = new BHChain(chain_list[value],default_chain_name[value]);
+                bhChain.single_coin = true;
+                mChains.add(bhChain);
+            }else{
+                BHChain bhChain = new BHChain(chain_list[value],default_chain_name[value]);
+                mChains.add(bhChain);
+            }
         });
         return mChains;
     }
@@ -254,4 +252,6 @@ public class TokenMapCache extends BaseCache {
     public  synchronized BHToken getBHToken(String symbol){
         return mTokens.get(symbol);
     }
+
+
 }

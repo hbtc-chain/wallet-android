@@ -236,7 +236,12 @@ public class FingerLoginActivity extends BaseActivity  implements AddressFragmen
     }
 
     private void showError(CharSequence error) {
-        //fingerIcon.setImageResource(R.drawable.ic_fingerprint_error);
         ToastUtils.showToast(error+"");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);
     }
 }

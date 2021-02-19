@@ -4,6 +4,7 @@ package com.bhex.wallet.mnemonic.ui.activity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,6 +17,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bhex.network.utils.ToastUtils;
 import com.bhex.tools.constants.BHConstants;
 import com.bhex.tools.utils.NavigateUtil;
+import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.ActivityCache;
 import com.bhex.wallet.common.base.BaseCacheActivity;
 import com.bhex.wallet.common.config.ARouterConfig;
@@ -66,6 +68,7 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     @Override
@@ -79,6 +82,10 @@ public class BackupMnemonicActivity extends BaseCacheActivity {
 
         recycler_mnemonic.setLayoutManager(layoutManager);
         recycler_mnemonic.setAdapter(mnemonicAdapter);
+
+        if(ToolUtils.checkListIsEmpty(mnemonicItemList)){
+            btn_start_verify.setEnabled(false);
+        }
     }
 
     @OnClick({R2.id.btn_start_verify})

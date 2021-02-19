@@ -2,6 +2,7 @@ package com.bhex.wallet.mnemonic.ui.activity;
 
 
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.viewpager.widget.ViewPager;
@@ -42,6 +43,8 @@ public class ExportKeyStoreActivity extends ExportBaseActivity {
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
         super.initView();
         tv_center_title.setText(title);
     }

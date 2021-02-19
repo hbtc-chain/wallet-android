@@ -4,10 +4,12 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.bhex.network.RxSchedulersHelper;
+import com.bhex.network.cache.stategy.CacheStrategy;
 import com.bhex.network.observer.BHBaseObserver;
 import com.bhex.network.observer.SimpleObserver;
 import com.bhex.network.utils.JsonUtils;
 import com.bhex.tools.utils.LogUtils;
+import com.bhex.tools.utils.RegexUtil;
 import com.bhex.tools.utils.ToolUtils;
 import com.bhex.wallet.common.api.BHttpApi;
 import com.bhex.wallet.common.api.BHttpApiInterface;
@@ -16,6 +18,7 @@ import com.bhex.wallet.common.cache.SymbolCache;
 import com.bhex.wallet.common.model.AccountInfo;
 import com.bhex.wallet.common.model.BHToken;
 import com.bhex.wallet.common.tx.TransactionOrder;
+import com.bhex.wallet.common.viewmodel.BalanceViewModel;
 import com.google.gson.JsonObject;
 
 import java.util.Iterator;
@@ -35,7 +38,7 @@ public class SequenceManager {
     private static SequenceManager _instance = new SequenceManager();
 
     //Sequence
-    private final String SEQUENCE_KEY = "sequence_";
+    public final String SEQUENCE_KEY = "sequence_";
     private AtomicInteger sequence = new AtomicInteger(0);
 
     //跨链地址生成
@@ -57,32 +60,51 @@ public class SequenceManager {
     }
 
     public synchronized void initSequence(){
+        //初始化Sequence
         String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         int v_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
-        LogUtils.d("SequenceManager==>",key+"==initSequence=="+v_sequence);
         sequence = new AtomicInteger(v_sequence);
-
+        //跨链地址生成
         String v_genarator_key = GENARATOR_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         GENARATOR_KEY_VALUE= MMKVManager.getInstance().mmkv().decodeString(v_genarator_key,GENARATOR_KEY_VALUE);
     }
 
-    public synchronized void deleteSequence(){
-
-    }
-
+    //Sequence 自增
     public synchronized void increaseSequence(){
         int i_sequence = sequence.incrementAndGet();
+        LogUtils.d("SequenceManager===>:","increaseSequence=="+i_sequence);
         String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
         MMKVManager.getInstance().mmkv().encode(key,i_sequence);
     }
 
     public synchronized String getSequence(String v_sequence){
+        String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
+        int vv_sequence =  MMKVManager.getInstance().mmkv().decodeInt(key,0);
+        LogUtils.d("SequenceManager===>:","vv_sequence=="+vv_sequence);
         int i_sequence = Math.max(Integer.valueOf(v_sequence),sequence.get());
-        return i_sequence+"";
+        sequence.set(i_sequence);
+        return sequence.get()+"";
     }
 
+    public synchronized String getSequence(){
+        return sequence.get()+"";
+    }
+
+    //sequence
+    /*public synchronized void resetSequence(String v_sequence){
+        if(TextUtils.isEmpty(v_sequence) || !TextUtils.isDigitsOnly(v_sequence)){
+            return;
+        }
+        LogUtils.d("SequenceManager==>:","==resetSequence==");
+        if("0".equals(v_sequence)){
+            String key = SEQUENCE_KEY.concat(BHUserManager.getInstance().getCurrentBhWallet().address);
+            MMKVManager.getInstance().mmkv().encode(key,v_sequence);
+        }
+    }*/
+
+
     //添加
-    public synchronized void putPeddingTranscation(JsonObject jsonObject) {
+    /*public synchronized void putPeddingTranscation(JsonObject jsonObject) {
         //
         TranscationResponse transcationResponse = JsonUtils.fromJson(jsonObject.toString(),TranscationResponse.class);
         if(!ToolUtils.checkListIsEmpty(transcationResponse.logs) && transcationResponse.logs.get(0).success){
@@ -102,7 +124,7 @@ public class SequenceManager {
 
     //更新未打包交易状态
     public void timerTranscation(BaseActivity activity){
-        Observable.interval(2000,1000L, TimeUnit.MILLISECONDS)
+        Observable.interval(1000,3000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SimpleObserver<Long>(){
 
@@ -131,7 +153,6 @@ public class SequenceManager {
     }
 
     public void queryTransactionDetailExt(BaseActivity activity){
-        //LogUtils.d("TransactionViewModel===>","queryTransactionDetailExt=="+mPeddingTxMap.size());
         if(ToolUtils.checkMapEmpty(SequenceManager.getInstance().getPeddingTxMap())){
             return;
         }
@@ -162,8 +183,6 @@ public class SequenceManager {
             @Override
             protected void onSuccess(JsonObject jsonObject) {
                 TransactionOrder transactionOrder = JsonUtils.fromJson(jsonObject.toString(), TransactionOrder.class);
-                //LoadDataModel ldm = new LoadDataModel(transactionOrder);
-                //transLiveData.postValue(ldm);
                 if(transactionOrder!=null && !TextUtils.isEmpty(transactionOrder.hash)){
                     SequenceManager.getInstance().getPeddingTxMap().remove(transactionOrder.hash);
                     //LogUtils.d("TransactionViewModel===>","==remove=="+hash+"==size=="+SequenceManager.getInstance().getPeddingTxMap().size());
@@ -182,11 +201,11 @@ public class SequenceManager {
                 .compose(RxSchedulersHelper.io_main())
                 //.as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(activity)))
                 .subscribe(observer);
-    }
+    }*/
 
-    public void clear() {
+    /*public void clear() {
         sequence = new AtomicInteger(0);
-    }
+    }*/
 
     public void removeAddressStatus(AccountInfo accountInfo) {
         if(ToolUtils.checkListIsEmpty(accountInfo.assets)){

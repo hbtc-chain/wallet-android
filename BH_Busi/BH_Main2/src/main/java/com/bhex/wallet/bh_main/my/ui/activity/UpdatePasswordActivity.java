@@ -3,6 +3,7 @@ package com.bhex.wallet.bh_main.my.ui.activity;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -88,6 +89,8 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
         });
         inp_old_pwd.setPaddingRight(0);
         mPasswordKeyboardView = findViewById(R.id.my_keyboard);
+        TextView btn_finish = findViewById(R.id.keyboard_root).findViewById(R.id.btn_finish);
+        btn_finish.setText(getString(R.string.close));
     }
 
     @Override
@@ -106,7 +109,7 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
                 //取消定时
                 SecuritySettingManager.getInstance().request_thirty_in_time(false,"");
             }else{
-                ToastUtils.showToast(getResources().getString(R.string.password_update_fail));
+                //ToastUtils.showToast(getResources().getString(R.string.password_update_fail));
             }
         });
 
@@ -148,6 +151,7 @@ public class UpdatePasswordActivity extends BaseActivity<MyPresenter>{
                     inp_old_pwd.getInputString(),
                     inp_new_pwd.getInputString(),
                     inp_confrim_pwd.getInputString());
+
             if(flag){
                 BHWallet item = getPresenter().makeBhWallet(mCurrentWallet);
                 walletViewModel.updatePassword(this,inp_old_pwd.getInputString(),inp_new_pwd.getInputString(),item);
